@@ -57,7 +57,7 @@
     <string name="list_sorting">Sorting</string>
     <string name="list_reverse_order">Reverse order</string>
     <string name="list_sort_by_label">By app name</string>
-    <string name="list_sort_by_package_name">By package name</string>
+    <string name="list_sort_by_package_name">Pelo nome do pacote</string>
     <string name="list_sort_by_install_time">By install time</string>
     <string name="list_sort_by_update_time">By update time</string>
     <string name="list_empty_no_enabled">Experimente ativar a ocultação para aplicações com o modo de funcionamento deste modelo, e as aplicações aparecerão aqui</string>
@@ -100,7 +100,7 @@
     <string name="app_invert_activity_launch_protection">Invert Activity launch protection</string>
     <string name="app_invert_activity_launch_protection_desc">This option will invert \"Disable Activity launch protection\" selection in Settings.</string>
     <!-- Presets -->
-    <string name="title_preset_manage">Show presets</string>
+    <string name="title_preset_manage">Mostrar predefinições</string>
     <string name="preset_xposed">LSPosed/Xposed modules</string>
     <string name="preset_root_apps">Root managers/Rooted apps</string>
     <string name="preset_custom_rom">Custom ROM apps</string>
@@ -190,5 +190,5 @@
     <!-- Dark theme modes -->
     <string name="dark_theme">Dark theme</string>
     <string name="dark_theme_off">Always off</string>
-    <string name="dark_theme_on">Always on</string>
+    <string name="dark_theme_on">Sempre ligado</string>
 </resources>

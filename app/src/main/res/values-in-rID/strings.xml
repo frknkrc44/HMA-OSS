@@ -97,8 +97,8 @@
     <string name="app_exclude_target_installation_source">Kecualikan aplikasi target</string>
     <string name="app_exclude_target_installation_source_desc">Anda dapat mengaktifkannya jika aplikasi ini tidak tersedia di Play Store</string>
     <string name="app_force_stop_warning">Jangan lupa untuk menghentikan paksa aplikasi target setelah menyimpan konfigurasi</string>
-    <string name="app_invert_activity_launch_protection">Invert Activity launch protection</string>
-    <string name="app_invert_activity_launch_protection_desc">This option will invert \"Disable Activity launch protection\" selection in Settings.</string>
+    <string name="app_invert_activity_launch_protection">Ubah proteksi peluncuran Activity</string>
+    <string name="app_invert_activity_launch_protection_desc">Opsi ini akan mengubah pilihan \"Nonaktifkan proteksi peluncuran Activity\" di Pengaturan.</string>
     <!-- Presets -->
     <string name="title_preset_manage">Tampilkan preset</string>
     <string name="preset_xposed">Modul LSPosed/Xposed</string>
@@ -132,8 +132,8 @@
     <string name="settings_hide_icon_summary">Anda masih dapat membuka aplikasi di manajer Xposed</string>
     <string name="settings_bypass_risky_package_warning">Abaikan paket berisiko</string>
     <string name="settings_bypass_risky_package_warning_summary">Perlu diketahui bahwa pengembang tidak bertanggung jawab atas masalah terkait paket berisiko sebelum atau setelah anda mengaktifkan fitur ini</string>
-    <string name="settings_disable_activity_launch_protection">Disable Activity launch protection</string>
-    <string name="settings_disable_activity_launch_protection_summary">This toggle will lift all startActivity protections. If you\'re unsure, don\'t enable it.</string>
+    <string name="settings_disable_activity_launch_protection">Nonaktifkan proteksi peluncuran Activity</string>
+    <string name="settings_disable_activity_launch_protection_summary">Tombol ini akan menonaktifkan semua proteksi startActivity. Jika anda tidak yakin, jangan aktifkan.</string>
     <string name="settings_language">Bahasa</string>
     <string name="settings_translate">Berpartisipasi dalam penerjemahan</string>
     <string name="settings_translate_summary">Bantu kami menerjemahkan %s ke bahasa anda</string>

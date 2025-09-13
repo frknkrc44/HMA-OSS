@@ -117,8 +117,8 @@
     <string name="settings_data_isolation">Aislamiento de datos</string>
     <string name="settings_data_isolation_summary">Datos de aplicación: %s\nDatos de la aplicación Vold: %s\nForzar montaje: %s</string>
     <string name="settings_data_isolation_unsupported">Esta opción solo está disponible en Android 11 y superior</string>
-    <string name="settings_app_data_isolation">Aislamiento de datos de la aplicacion</string>
-    <string name="settings_vold_app_data_isolation">Aislamiento de datos de la aplicación Vold</string>
+    <string name="settings_app_data_isolation">Aislamiento App data</string>
+    <string name="settings_vold_app_data_isolation">Aislamiento app data Vold</string>
     <string name="settings_warning">Advertencia</string>
     <string name="settings_vold_warning">Esto habilitará una función AOSP que hará que el directorio de almacenamiento privado externo de la aplicación esté aislado. Esto puede ayudar a mejorar la ocultación de aplicaciones pero puede causar problemas de estabilidad. Esta característica puede dejar de funcionar en cualquier momento ya que hay sido abandonada en AOSP.</string>
     <string name="settings_change_require_root">Cambiar requiere permiso root</string>
