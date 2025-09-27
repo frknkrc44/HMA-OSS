@@ -171,6 +171,7 @@
     </string>
     <string name="about_how_to_use_description_2">        Yapılandırma değişiklikleri gerçek zamanlı olarak etkilidir.
     </string>
+    <string name="about_translator">Çevirmen</string>
     <string name="about_developer">Geliştirici</string>
     <string name="about_support">Destek ve geri bildirim</string>
     <string name="about_open_source">Açık kaynak lisansları</string>

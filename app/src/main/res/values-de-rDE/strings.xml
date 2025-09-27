@@ -3,7 +3,7 @@
     <string name="title_home">Hauptseite</string>
     <string name="title_logs">Protokolle</string>
     <string name="title_settings">Einstellungen</string>
-    <string name="title_template_manage">Zulassen und Verweigerung</string>
+    <string name="title_template_manage">Sperr- und Freigabelisten</string>
     <string name="title_template_settings">Vorlage Einstellungen</string>
     <string name="title_app_manage">Anwendungen verwalten</string>
     <string name="title_app_select">Apps auswählen</string>
@@ -35,7 +35,7 @@
     <string name="home_xposed_service_on">System Service läuft [%d]</string>
     <string name="home_xposed_service_off">System Service läuft nicht</string>
     <string name="home_xposed_service_old">Module aktualisiert, Neustart benötigt</string>
-    <string name="home_xposed_filter_count">Verstecke meine Appliste hat insgesamt %d anfragen gefiltert</string>
+    <string name="home_xposed_filter_count">HMA-OSS hat insgesamt %d Anfragen gefiltert</string>
     <string name="home_manage">Verwalten</string>
     <string name="home_detection_test">Erkennungstest</string>
     <string name="home_download_test_app_title">Test App herunterladen</string>
@@ -62,11 +62,11 @@
     <string name="list_sort_by_update_time">Nach Aktualisierungszeitpunkt</string>
     <string name="list_empty_no_enabled">Versuchen Sie das Verstecken von Apps mit dem Arbeitsmodus dieser Vorlage zu aktivieren und Apps werden hier angezeigt</string>
     <string name="list_empty_no_apps">Keine Anwendungen gefunden, möglicherweise haben Sie dieser App nicht erlaubt, alle Pakete abzufragen</string>
-    <string name="list_empty_preset">Keine Anwendungen hinzugefügt</string>
+    <string name="list_empty_preset">Keine Anwendungen in dieser Vorlage hinzugefügt</string>
     <!-- Manage templates -->
     <string name="template_usage_hint">Erstellen Sie Vorlagen für \"ruhelose\" Apps und kontrollieren Sie den App, den Sie erhalten können.\n\nBlacklist (empfohlen): Die im Template ausgewählten Apps werden für die Apps, die die Vorlage anwenden, unsichtbar sein.\nWhitelist: Die im Template nicht ausgewählten Apps sind für die Apps, die die Vorlage anwenden, unsichtbar.</string>
-    <string name="template_new_blacklist">Eine Blacklist-Vorlage erstellen</string>
-    <string name="template_new_whitelist">Erstellen einer Whitelisten-Vorlage</string>
+    <string name="template_new_blacklist">Blacklist erstellen</string>
+    <string name="template_new_whitelist">Eine Whitelist erstellen</string>
     <string name="template_delete">Sind Sie sicher, dass Sie die Vorlage löschen wollen?</string>
     <string name="template_name">Name der Vorlage</string>
     <string name="template_name_invalid">Ungültiger Name</string>
@@ -86,22 +86,22 @@
     <string name="app_preset_using">Verwendung von %d Vorlagen des Entwicklers</string>
     <string name="app_settings_preset_using">Entwickleroptionen/Bedienungshilfen werden %d genutzt</string>
     <string name="app_extra_apps_visible_count">%d weitere Apps sichtbar</string>
-    <string name="app_extra_apps_invisible_count">%d weitere Apps unsichtbar</string>
+    <string name="app_extra_apps_invisible_count">%d weitere Anwendungen unsichtbar</string>
     <string name="app_warning_risky_package_title">Gefährliches Paket</string>
-    <string name="app_warning_risky_package_desc">This package is marked as risky and you can cause issues on hidden apps. Do you want to continue?</string>
+    <string name="app_warning_risky_package_desc">Dieses Paket ist als riskant markiert und kann Probleme in versteckten Anwendungen verursachen. Möchten Sie fortfahren?</string>
     <string name="app_spoof">Täuschen</string>
-    <string name="app_hide_installation_source">Spoof installation sources</string>
-    <string name="app_hide_installation_source_desc">All of user apps will be spoofed as installed over Play Store for this application</string>
-    <string name="app_hide_installation_source_system">Spoof system apps too</string>
-    <string name="app_hide_installation_source_system_desc">All of system apps will be spoofed as installed over nothing for this application</string>
+    <string name="app_hide_installation_source">Installationsquellen vortäuschen</string>
+    <string name="app_hide_installation_source_desc">Alle Benutzeranwendungen werden als im Play Store für diese Anwendung installiert angesehen</string>
+    <string name="app_hide_installation_source_system">Täusche System-Anwendungen ebenfalls</string>
+    <string name="app_hide_installation_source_system_desc">Alle System-Anwendungen werden als über nichts für diese Anwendung installiert angesehen</string>
     <string name="app_exclude_target_installation_source">Ziel-App ausschließen</string>
     <string name="app_exclude_target_installation_source_desc">Sie können es aktivieren, wenn diese App im Play Store nicht verfügbar ist</string>
     <string name="app_force_stop_warning">Vergessen Sie nicht, die Ziel-App nach dem Speichern der Konfiguration zu beenden</string>
-    <string name="app_invert_activity_launch_protection">Invert Activity launch protection</string>
-    <string name="app_invert_activity_launch_protection_desc">This option will invert \"Disable Activity launch protection\" selection in Settings.</string>
+    <string name="app_invert_activity_launch_protection">Aktivitätsstartschutz umkehren</string>
+    <string name="app_invert_activity_launch_protection_desc">Diese Option wird die Auswahl \"Aktivitätsstartschutz deaktivieren\" in den Einstellungen umkehren.</string>
     <string name="app_global_activity_launch_protection_state">Der Schutz ist %s global</string>
     <!-- Presets -->
-    <string name="title_preset_manage">Datenbanken</string>
+    <string name="title_preset_manage">Zeige Voreinstellungen</string>
     <string name="preset_xposed">LSPosed/Xposed-Module</string>
     <string name="preset_root_apps">Root-Manager/Root-Apps</string>
     <string name="preset_custom_rom">Benutzerdefinierte ROM-Apps</string>
@@ -148,14 +148,14 @@
     <string name="settings_theme_color">Themenfarbe</string>
     <string name="settings_dark_theme">Dunkles Farbschema</string>
     <string name="settings_pure_black_dark_theme">Pure black dark theme</string>
-    <string name="settings_pure_black_dark_theme_summary">Use the pure black theme if dark theme is enabled</string>
+    <string name="settings_pure_black_dark_theme_summary">Schwarzes Thema verwenden, wenn dunkles Thema aktiviert ist</string>
     <string name="settings_service">Service</string>
     <string name="settings_stop_system_service">Stoppe Systemdienste</string>
     <string name="settings_stop_system_service_summary">Neustart erforderlich</string>
-    <string name="settings_is_clean_env">Clean runtime environment at the same time?</string>
+    <string name="settings_is_clean_env">Laufzeitumgebung gleichzeitig reinigen?</string>
     <string name="settings_is_clean_env_summary">System Service Cache in /data/misc/hide_my_applist_* entfernen. Das heißt, dass du die Modul-App nach dem nächsten Neustart selbst starten musst, um das Abfangen zu aktivieren und die Abfangzahlen werden auch bereinigt.</string>
     <string name="settings_force_clean_env">Reinigung der Laufzeitumgebung erzwingen (Root)</string>
-    <string name="settings_force_clean_env_summary">Only if system service fails to start, otherwise you should click the above option.</string>
+    <string name="settings_force_clean_env_summary">Nur wenn der Systemdienst nicht startet, ansonsten sollten Sie auf die obige Option klicken.</string>
     <string name="settings_force_clean_env_toast_successful">Laufzeitumgebung gelöscht</string>
     <string name="settings_update">Aktualisierung</string>
     <string name="settings_disable_update">Updatebenachrichtigung deaktivieren</string>
@@ -171,31 +171,32 @@
     </string>
     <string name="about_how_to_use_description_2">        Config modification effective in real time.
     </string>
+    <string name="about_translator">Übersetzer</string>
     <string name="about_developer">Entwickler</string>
     <string name="about_support">Hilfe und Rückmeldung</string>
     <string name="about_open_source">Open-Source-Lizenzen</string>
     <!-- Colors -->
     <string name="color_sakura">Sakura</string>
     <string name="color_red">Rot</string>
-    <string name="color_pink">Pink</string>
-    <string name="color_purple">Purple</string>
-    <string name="color_deep_purple">Deep purple</string>
+    <string name="color_pink">Rosa</string>
+    <string name="color_purple">Lila</string>
+    <string name="color_deep_purple">Dunkellila</string>
     <string name="color_indigo">Indigo</string>
     <string name="color_blue">Blau</string>
-    <string name="color_light_blue">Light blue</string>
+    <string name="color_light_blue">Hellblau</string>
     <string name="color_cyan">Türkis</string>
-    <string name="color_teal">Teal</string>
+    <string name="color_teal">Türkis</string>
     <string name="color_green">Grün</string>
-    <string name="color_light_green">Light green</string>
-    <string name="color_lime">Lime</string>
+    <string name="color_light_green">Helles Grün</string>
+    <string name="color_lime">Hellgrün</string>
     <string name="color_yellow">Gelb</string>
-    <string name="color_amber">Amber</string>
+    <string name="color_amber">Bernsteingelb</string>
     <string name="color_orange">Orange</string>
-    <string name="color_deep_orange">Deep orange</string>
+    <string name="color_deep_orange">Dunkles Orange</string>
     <string name="color_brown">Braun</string>
-    <string name="color_blue_grey">Blue grey</string>
+    <string name="color_blue_grey">Blaugrau</string>
     <!-- Dark theme modes -->
-    <string name="dark_theme">Dark theme</string>
+    <string name="dark_theme">Dunkles Thema</string>
     <string name="dark_theme_off">Immer aus</string>
     <string name="dark_theme_on">Immer aktiviert</string>
 </resources>

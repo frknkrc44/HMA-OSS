@@ -167,6 +167,7 @@
     <string name="about_how_to_use_title">如何使用此模块</string>
     <string name="about_how_to_use_description_1">您可以在“模板管理”中创建模板。然后在“应用管理”中将模板应用于应用程序。（您还可以为目标选择额外的应用程序。）您应该并且只应该在Xposed模块范围/白名单中选中“系统框架”。Xposed模块用于隐藏某些应用程序或拒绝应用程序列表请求，以保护您的隐私。</string>
     <string name="about_how_to_use_description_2">配置修改实时有效</string>
+    <string name="about_translator">译者</string>
     <string name="about_developer">开发者</string>
     <string name="about_support">支持与反馈</string>
     <string name="about_open_source">开放源代码许可</string>

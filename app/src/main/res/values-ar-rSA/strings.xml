@@ -168,6 +168,7 @@
     <string name="about_how_to_use_title">كيفية استخدام هذه الوحدة</string>
     <string name="about_how_to_use_description_1">يمكنك إنشاء قوالب من \"مدير القوالب\". ثم تطبيق هذه القوالب علي التطبيقات من \"مدير التطبيقات\".(يمكنك أيضا اختيار تطبيقات إضافية للتطبيقات المستهدفة.) يجب عليك ويجب عليك فقط اختيار \"إطار النظام\" من نطاق وحدة إكسبوسد/القائمة البيضاء.    </string>
     <string name="about_how_to_use_description_2">تعديل التكوين فعال في الوقت الحقيقي.    </string>
+    <string name="about_translator">Translator</string>
     <string name="about_developer">المطور</string>
     <string name="about_support">الدعم والمراجعات</string>
     <string name="about_open_source">رخصة مفتوحة المصدر</string>

@@ -169,6 +169,7 @@
     <string name="about_how_to_use_description_1">        Puede crear plantillas en \"Administrar plantillas\".\n Luego aplique las plantillas a las aplicaciones en \"Administrar aplicaciones\". (También puede seleccionar aplicaciones adicionales para los objetivos).\n Debería y SÓLO debería marcar \"Framework del sistema\" en la lista blanca del módulo Xposed.    </string>
     <string name="about_how_to_use_description_2">        La modificación de configuración es efectiva en tiempo real.
     </string>
+    <string name="about_translator">Traductor</string>
     <string name="about_developer">Desarrollador</string>
     <string name="about_support">Soporte y comentarios</string>
     <string name="about_open_source">Licencias de código abierto</string>

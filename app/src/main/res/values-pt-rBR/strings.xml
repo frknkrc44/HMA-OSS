@@ -168,6 +168,7 @@
     <string name="about_how_to_use_title">Como usar esse modulo</string>
     <string name="about_how_to_use_description_1">Voce pode criar modelos em \"Gerenciar modelos\".\nEntão aplique os modelos nos apps em \"Gerenciar apps\". (Voce tamber pode selecionar apps adicionais para os esconder de tais.)\nVoce só deve habilitar o \"Sistema Android\" na lista de ativação do Xposed.\n    </string>
     <string name="about_how_to_use_description_2">       A modificação de configurações tem efeito imediato.\n    </string>
+    <string name="about_translator">Translator</string>
     <string name="about_developer">Desenvolvedor</string>
     <string name="about_support">Suporte e ajuda</string>
     <string name="about_open_source">Licenças de código aberto</string>

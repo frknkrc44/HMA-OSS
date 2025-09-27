@@ -171,6 +171,7 @@
     </string>
     <string name="about_how_to_use_description_2">        設定変更はリアルタイムで行われます。
     </string>
+    <string name="about_translator">翻訳者</string>
     <string name="about_developer">開発者</string>
     <string name="about_support">サポートとフィードバック</string>
     <string name="about_open_source">オープンソースライセンス</string>

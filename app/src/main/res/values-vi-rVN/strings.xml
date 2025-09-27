@@ -168,6 +168,7 @@
     <string name="about_how_to_use_title">Làm sao để dùng mô đun này</string>
     <string name="about_how_to_use_description_1">Bạn có thể tạo danh mục trong \"Quản lý danh mục\". \nSau đó, áp dụng cho các ứng dụng trong \"Quản lý ứng dụng\". (Bạn cũng có thể chọn các ứng dụng bổ sung cho các mục tiêu.) \nBạn nên và CHỈ nên kiểm tra \"Khung hệ thống\" trong phạm vi mô-đun Xposed / danh sách trắng.</string>
     <string name="about_how_to_use_description_2">Sửa đổi cấu hình hiệu quả trong thời gian thực.</string>
+    <string name="about_translator">Translator</string>
     <string name="about_developer">Nhà phát triển</string>
     <string name="about_support">Giúp và phản hồi</string>
     <string name="about_open_source">Giấy phép nguồn mở</string>
