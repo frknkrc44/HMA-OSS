@@ -17,7 +17,10 @@ class Utils4Xposed {
         }
 
         fun getCallingApps(service: HMAService): Array<String> {
-            val callingUid = Binder.getCallingUid()
+            return getCallingApps(service, Binder.getCallingUid())
+        }
+
+        fun getCallingApps(service: HMAService, callingUid: Int): Array<String> {
             if (callingUid == Constants.UID_SYSTEM) return arrayOf()
             return Utils.binderLocalScope {
                 service.pms.getPackagesForUid(callingUid)

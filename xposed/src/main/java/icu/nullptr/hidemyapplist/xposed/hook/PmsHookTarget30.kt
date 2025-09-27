@@ -1,9 +1,11 @@
 package icu.nullptr.hidemyapplist.xposed.hook
 
+import android.os.Binder
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.github.kyuubiran.ezxhelper.utils.findConstructor
 import com.github.kyuubiran.ezxhelper.utils.findMethod
+import com.github.kyuubiran.ezxhelper.utils.findMethodOrNull
 import com.github.kyuubiran.ezxhelper.utils.hookBefore
 import com.github.kyuubiran.ezxhelper.utils.paramCount
 import icu.nullptr.hidemyapplist.common.Constants
@@ -50,6 +52,63 @@ class PmsHookTarget30(service: HMAService) : PmsHookTargetBase(service) {
 
     override fun load() {
         logI(TAG, "Load hook")
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            findMethodOrNull("com.android.server.pm.PackageManagerService\$ComputerTracker") {
+                name == "getPackageSetting"
+            }?.hookBefore { param ->
+                val targetApp = param.args[0] as String
+                val callingUid = Binder.getCallingUid()
+                val callingApps = Utils4Xposed.getCallingApps(service, callingUid)
+                for (caller in callingApps) {
+                    if (service.shouldHide(caller, targetApp)) {
+                        logD(TAG, "@getPackageSetting - Computer: insecure query from $caller to $targetApp")
+                        param.result = null
+                        service.filterCount++
+                        return@hookBefore
+                    }
+                }
+            }?.let {
+                hooks += it
+            }
+
+            findMethodOrNull("com.android.server.pm.PackageManagerService\$ComputerTracker") {
+                name == "getPackageSettingInternal"
+            }?.hookBefore { param ->
+                val targetApp = param.args[0] as String
+                val callingUid = param.args[1] as Int
+                val callingApps = Utils4Xposed.getCallingApps(service, callingUid)
+                for (caller in callingApps) {
+                    if (service.shouldHide(caller, targetApp)) {
+                        logD(TAG, "@getPackageSettingInternal - Computer: insecure query from $caller to $targetApp")
+                        param.result = null
+                        service.filterCount++
+                        return@hookBefore
+                    }
+                }
+            }?.let {
+                hooks += it
+            }
+        } else {
+            findMethodOrNull("com.android.server.pm.PackageManagerService", findSuper = true) {
+                name == "getPackageSetting"
+            }?.hookBefore { param ->
+                val targetApp = param.args[0] as String
+                val callingUid = Binder.getCallingUid()
+                val callingApps = Utils4Xposed.getCallingApps(service, callingUid)
+                for (caller in callingApps) {
+                    if (service.shouldHide(caller, targetApp)) {
+                        logD(TAG, "@getPackageSetting - PMS: insecure query from $caller to $targetApp")
+                        param.result = null
+                        service.filterCount++
+                        return@hookBefore
+                    }
+                }
+            }?.let {
+                hooks += it
+            }
+        }
+
         hooks += findMethod("com.android.server.pm.AppsFilter") {
             name == "shouldFilterApplication"
         }.hookBefore { param ->
