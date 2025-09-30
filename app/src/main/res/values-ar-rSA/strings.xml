@@ -6,12 +6,12 @@
     <string name="title_template_manage">إدارة القوالب</string>
     <string name="title_template_settings">إعدادات القالب</string>
     <string name="title_app_manage">إدارة التطبيقات</string>
-    <string name="title_app_select">تحديد التطبيقات</string>
+    <string name="title_app_select">اختر التطبيقات</string>
     <string name="title_app_settings">إعـدادات التطبيـق</string>
     <string name="title_about">عـن</string>
     <string name="title_about_fork">حول هذه النسخة</string>
     <string name="do_not_dual">لا تقم بتثبيت HMA للمستخدم الثانوي</string>
-    <string name="show_crash_log">عـرض سجـل التعطيل</string>
+    <string name="show_crash_log">اظهار سجل التعطيل</string>
     <string name="config_damaged">مِلف التكوين تالف. رجاءًا قـم بحذف بيانات التطبيق</string>
     <string name="edit_list">تعديـل القائـمة</string>
     <string name="delete">حـذف</string>
@@ -61,7 +61,7 @@
     <string name="list_sort_by_install_time">وقت التثبيت</string>
     <string name="list_sort_by_update_time">وقت التحديث</string>
     <string name="list_empty_no_enabled">حاول تفعيل اخفاء التطبيقات بطريقة عمل القالب هذه وستظهر التطبيقات هنا</string>
-    <string name="list_empty_no_apps">لا توجد تطبيقات، ربما لم تسمح لهذا التطبيق لللبحث عن جميع الحزم</string>
+    <string name="list_empty_no_apps">لا توجد تطبيقات، ربما لم تسمح لهذا التطبيق للبحث عن جميع الحزم</string>
     <string name="list_empty_preset">لم يتم أضافه تطبيقات في هذا الضبط المسبق</string>
     <!-- Manage templates -->
     <string name="template_usage_hint">إنشاء قوالب للتطبيقات \"التي لا تهدأ\" ، والتحكم في قائمة التطبيقات التي يمكنهم الحصول عليها. \n\n القائمة السوداء (موصى بها): التطبيقات المحددة في القالب ستكون غير مرئية للتطبيقات التي تطبق عليها القالب.\n القائمة البيضاء: التطبيقات التي لم يتم تحديدها في القالب ستكون غير مرئية للتطبيقات التي تطبق عليها القالب.</string>
@@ -123,11 +123,11 @@
     <string name="settings_data_isolation">عزل البيانات</string>
     <string name="settings_data_isolation_summary">بيانات التطبيق: %s/nبيانات قبة التطبيق: %s/n
 نصب اجباري: %s/n</string>
-    <string name="settings_data_isolation_unsupported">هذا الخِيار متاح فقط في إصدارات Android 11 فأعلي</string>
+    <string name="settings_data_isolation_unsupported">هذا الخِيار متاح فقط لاصدارات اندرويد 11 فاعلى</string>
     <string name="settings_app_data_isolation">عزل بيانات التطبيق</string>
-    <string name="settings_vold_app_data_isolation">فرض عزل بيانات التطبيق</string>
+    <string name="settings_vold_app_data_isolation">عزل بيانات قبة التطبيق</string>
     <string name="settings_warning">تحذير</string>
-    <string name="settings_vold_warning">This will enable an AOSP feature which make app\'s external private storage directory isolated. This can help improve hiding apps while may cause stability issues. This feature may stop working at any time since it is abandoned in AOSP.</string>
+    <string name="settings_vold_warning">هذا الخيار سيفعل لك ميزة AOSP والذي يجعل مسار التخزين الخارجي الخاص بالتطبيق مفصولا.ويمكن ان يساعد على تحسين اخفاء التطبيقات اثناء احتمالية حدوث مشاكل في الاستقرار. وهذه الميزة قد تتوقف عمله عند اي وقت لكونه مليء ب AOSP</string>
     <string name="settings_change_require_root">يتطلب التغيير إذن الروت</string>
     <string name="settings_need_reboot">التغيير يتطلب إعادة التشغيل</string>
     <string name="settings_permission_denied">تم رفض الإذن</string>
@@ -139,8 +139,8 @@
     <string name="settings_hide_icon_summary">لا يزال بإمكانك فتح الوحدة من مدير إكسبوسد</string>
     <string name="settings_bypass_risky_package_warning">تجاوز تحذيرات الحزم الخطيرة</string>
     <string name="settings_bypass_risky_package_warning_summary">Note that the devs are not responsible for risky package related issues before or after you enabled this feature</string>
-    <string name="settings_disable_activity_launch_protection">Disable Activity launch protection</string>
-    <string name="settings_disable_activity_launch_protection_summary">This toggle will lift all startActivity protections. If you\'re unsure, don\'t enable it.</string>
+    <string name="settings_disable_activity_launch_protection">تعطيل حماية تشغيل الفعالية</string>
+    <string name="settings_disable_activity_launch_protection_summary">هذه الوصلة سترفع جميع حمايات بدء الفعالية.اذا كنت في شك، فلا تفعلها</string>
     <string name="settings_language">اللغة</string>
     <string name="settings_translate">المشاركة في التَّرْجَمَة</string>
     <string name="settings_translate_summary">ساعدنا في تَرجمة %s إلي لغتك</string>
@@ -164,12 +164,11 @@
     <string name="settings_receive_beta_update_summary">إصدارات الـبِيتا من الممكن أن تكون غير مستقرة</string>
     <!-- About -->
     <string name="about_description">على الرغم من أنه من غير الصحيح اكتشاف تثبيت تطبيق معين ، إلا أنه لا يوفر كل تطبيق يستخدم الجذر دعمًا عشوائيًا لاسم الحزمة. في هذه الحالة ، فإن التطبيقات المكتشفة التي تستخدم الجذر (مثل Fake Location and Storage Isolation) تساوي الجذر المكتشف نفسه.\n\n في نفس الوقت ، تستخدم بعض التطبيقات الذكية ثغرات مختلفة للحصول على قائمة التطبيقات الخاصة بك ، بحيث يمكنها رسم شخصية لك.\n\n توفر هذه الوحدة بعض الطرق لاختبار ما إذا كنت قد أخفيت التطبيق الخاص بك بشكل جيد. أيضًا ، يمكن أن يعمل كوحدة إكسبوسد لإخفاء بعض التطبيقات أو رفض طلبات قائمة التطبيقات لحماية خصوصيتك.    </string>
-    <string name="about_fork_description">        The original HMA project has become closed-source and their latest code didn\'t contain some of the latest changes, so I created this fork to continue it as open-source again.
-    </string>
+    <string name="about_fork_description">مشروع تطبيق HMA الاصلي اصبح مغلق المصدر والشفرات الاخيرة الخاصة بها لا تحتوي على بعض التغيرات الاخيرة،لذا قمت بصنع هذه النسخة من جديد للاستمرار بها على انها مفتوحة المصدر</string>
     <string name="about_how_to_use_title">كيفية استخدام هذه الوحدة</string>
     <string name="about_how_to_use_description_1">يمكنك إنشاء قوالب من \"مدير القوالب\". ثم تطبيق هذه القوالب علي التطبيقات من \"مدير التطبيقات\".(يمكنك أيضا اختيار تطبيقات إضافية للتطبيقات المستهدفة.) يجب عليك ويجب عليك فقط اختيار \"إطار النظام\" من نطاق وحدة إكسبوسد/القائمة البيضاء.    </string>
     <string name="about_how_to_use_description_2">تعديل التكوين فعال في الوقت الحقيقي.    </string>
-    <string name="about_translator">Translator</string>
+    <string name="about_translator">المترجم</string>
     <string name="about_developer">المطور</string>
     <string name="about_support">الدعم والمراجعات</string>
     <string name="about_open_source">رخصة مفتوحة المصدر</string>
@@ -194,7 +193,7 @@
     <string name="color_brown">بني</string>
     <string name="color_blue_grey">رمادي أزرق</string>
     <!-- Dark theme modes -->
-    <string name="dark_theme">Dark theme</string>
-    <string name="dark_theme_off">Always off</string>
-    <string name="dark_theme_on">Always on</string>
+    <string name="dark_theme">سمة مظلمة</string>
+    <string name="dark_theme_off">غلق دائما</string>
+    <string name="dark_theme_on">تفعيل دائما</string>
 </resources>
