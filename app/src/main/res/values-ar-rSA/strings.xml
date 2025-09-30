@@ -83,11 +83,11 @@
     <string name="app_exclude_system_apps">استبعاد تطبيقات النظام</string>
     <string name="app_exclude_system_apps_summary">قم بإيقاف تشغيل هذا الخِيار فقط عندما يكون ذلك ضروريًا حقًا. من المحتمل أن يتسبب في تعطيلات مع إيقافه</string>
     <string name="app_template_using">يتم استخدام %d قوالب</string>
-    <string name="app_preset_using">Using %d presets</string>
-    <string name="app_settings_preset_using">Using %d settings presets</string>
+    <string name="app_preset_using">يتم استخدام%d من الضبط المسبق</string>
+    <string name="app_settings_preset_using">يتم استخدام%d من اعدادات ضبط المسبق</string>
     <string name="app_extra_apps_visible_count">%d تطبيقات إضافية مرئية</string>
     <string name="app_extra_apps_invisible_count">%d تطبيقات إضافية غير مرئية</string>
-    <string name="app_warning_risky_package_title">Risky package</string>
+    <string name="app_warning_risky_package_title">حزمة خطيرة</string>
     <string name="app_warning_risky_package_desc">This package is marked as risky and you can cause issues on hidden apps. Do you want to continue?</string>
     <string name="app_spoof">Spoofing</string>
     <string name="app_hide_installation_source">Spoof installation sources</string>
