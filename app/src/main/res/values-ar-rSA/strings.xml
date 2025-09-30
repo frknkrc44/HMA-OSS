@@ -88,27 +88,27 @@
     <string name="app_extra_apps_visible_count">%d تطبيقات إضافية مرئية</string>
     <string name="app_extra_apps_invisible_count">%d تطبيقات إضافية غير مرئية</string>
     <string name="app_warning_risky_package_title">حزمة خطيرة</string>
-    <string name="app_warning_risky_package_desc">This package is marked as risky and you can cause issues on hidden apps. Do you want to continue?</string>
-    <string name="app_spoof">Spoofing</string>
-    <string name="app_hide_installation_source">Spoof installation sources</string>
-    <string name="app_hide_installation_source_desc">All of user apps will be spoofed as installed over Play Store for this application</string>
-    <string name="app_hide_installation_source_system">Spoof system apps too</string>
-    <string name="app_hide_installation_source_system_desc">All of system apps will be spoofed as installed over nothing for this application</string>
-    <string name="app_exclude_target_installation_source">Exclude the target app</string>
-    <string name="app_exclude_target_installation_source_desc">You can enable it if this app is not available at Play Store</string>
-    <string name="app_force_stop_warning">Don\'t forget to force stop the target app after saving the configuration</string>
-    <string name="app_invert_activity_launch_protection">Invert Activity launch protection</string>
-    <string name="app_invert_activity_launch_protection_desc">This option will invert \"Disable Activity launch protection\" selection in Settings.</string>
-    <string name="app_global_activity_launch_protection_state">Protection is %s globally</string>
+    <string name="app_warning_risky_package_desc">تم تصنيف هذه الحزمة على انها خطرة ويمكنك التسبب بمشاكل على التطبيقات المخفية. هل ترغب بالاستمرار؟</string>
+    <string name="app_spoof">خداع</string>
+    <string name="app_hide_installation_source">خداع مصادر التثبيت</string>
+    <string name="app_hide_installation_source_desc">سيتم خداع جميع تطبيقات المستخدم كما لو انه مثبتة من متجر التطبيقات</string>
+    <string name="app_hide_installation_source_system">خداع تطبيقات النظام ايضا</string>
+    <string name="app_hide_installation_source_system_desc">سيتم خداع جميع تطبيقات النظام كما لو انه تم تثبيته من لا شيء</string>
+    <string name="app_exclude_target_installation_source">عدم شمول التطبيقات المستهدفة</string>
+    <string name="app_exclude_target_installation_source_desc">يمكنك تفعيلها اذا لم يكن هذا التطبيق متوفرا في متجر التطبيقات</string>
+    <string name="app_force_stop_warning">لا تنسى عمل ايقاف اجباري للتطبيق المستهدف بعد حفظ الاعدادات</string>
+    <string name="app_invert_activity_launch_protection">عكس حماية تشغيل الفعالية</string>
+    <string name="app_invert_activity_launch_protection_desc">هذا الخيار سيعكس خيار\'\'تعطيل حماية تشغيل الفعالية\'\' في الاعدادات.</string>
+    <string name="app_global_activity_launch_protection_state">الحماية هو%s عالميا</string>
     <!-- Presets -->
-    <string name="title_preset_manage">Show presets</string>
-    <string name="preset_xposed">LSPosed/Xposed modules</string>
-    <string name="preset_root_apps">Root managers/Rooted apps</string>
-    <string name="preset_custom_rom">Custom ROM apps</string>
-    <string name="preset_sus_apps">Suspicious apps</string>
+    <string name="title_preset_manage">اظهار الضبط المسبق</string>
+    <string name="preset_xposed">موديولات Xposed او LSPosed</string>
+    <string name="preset_root_apps">تطبيقات الروت/تطبيقات ادارة الروت</string>
+    <string name="preset_custom_rom">تطبيقات الروم الاعتيادي</string>
+    <string name="preset_sus_apps">تطبيقات مشبوهة</string>
     <!-- Settings preset names -->
-    <string name="settings_preset_accessibility">Accessibility</string>
-    <string name="settings_preset_dev_options">Developer options</string>
+    <string name="settings_preset_accessibility">الوصولية</string>
+    <string name="settings_preset_dev_options">خيارات المطور</string>
     <!-- Logs -->
     <string name="logs_save">حفظ السجلات</string>
     <string name="logs_clear">مسح السجلات</string>
@@ -116,16 +116,17 @@
     <string name="logs_saved">تم حفظ السجلات</string>
     <!-- Settings -->
     <string name="settings_module">الوحدة</string>
-    <string name="settings_overwrite">Overwrite</string>
-    <string name="settings_overwritten">Overwritten</string>
-    <string name="settings_overwrite_summary">This category items will be forced as enabled if the switches are checked</string>
-    <string name="settings_default_value">Default value: %s</string>
+    <string name="settings_overwrite">الكتابة عليه</string>
+    <string name="settings_overwritten">مكتوب عليه</string>
+    <string name="settings_overwrite_summary">هذا الصنف من الفقرات سيتم اجبارها على انها مفعلة اذا فحصت المفاتيح</string>
+    <string name="settings_default_value">القيمة الافتراضية: %s</string>
     <string name="settings_data_isolation">عزل البيانات</string>
-    <string name="settings_data_isolation_summary">App data: %s\nVold app data: %s\nForce mount: %s</string>
+    <string name="settings_data_isolation_summary">بيانات التطبيق: %s/nبيانات قبة التطبيق: %s/n
+نصب اجباري: %s/n</string>
     <string name="settings_data_isolation_unsupported">هذا الخِيار متاح فقط في إصدارات Android 11 فأعلي</string>
     <string name="settings_app_data_isolation">عزل بيانات التطبيق</string>
     <string name="settings_vold_app_data_isolation">فرض عزل بيانات التطبيق</string>
-    <string name="settings_warning">Warning</string>
+    <string name="settings_warning">تحذير</string>
     <string name="settings_vold_warning">This will enable an AOSP feature which make app\'s external private storage directory isolated. This can help improve hiding apps while may cause stability issues. This feature may stop working at any time since it is abandoned in AOSP.</string>
     <string name="settings_change_require_root">يتطلب التغيير إذن الروت</string>
     <string name="settings_need_reboot">التغيير يتطلب إعادة التشغيل</string>
@@ -136,7 +137,7 @@
     <string name="settings_max_log_size">أحجام التخزين المؤقت للمسجل</string>
     <string name="settings_hide_icon">إخفاء أيقونة الوحدة من قائمة التطبيقات</string>
     <string name="settings_hide_icon_summary">لا يزال بإمكانك فتح الوحدة من مدير إكسبوسد</string>
-    <string name="settings_bypass_risky_package_warning">Bypass risky package warning</string>
+    <string name="settings_bypass_risky_package_warning">تجاوز تحذيرات الحزم الخطيرة</string>
     <string name="settings_bypass_risky_package_warning_summary">Note that the devs are not responsible for risky package related issues before or after you enabled this feature</string>
     <string name="settings_disable_activity_launch_protection">Disable Activity launch protection</string>
     <string name="settings_disable_activity_launch_protection_summary">This toggle will lift all startActivity protections. If you\'re unsure, don\'t enable it.</string>
