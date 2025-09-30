@@ -9,7 +9,7 @@
     <string name="title_app_select">تحديد التطبيقات</string>
     <string name="title_app_settings">إعـدادات التطبيـق</string>
     <string name="title_about">عـن</string>
-    <string name="title_about_fork">About this fork</string>
+    <string name="title_about_fork">حول هذه النسخة</string>
     <string name="do_not_dual">لا تقم بتثبيت HMA للمستخدم الثانوي</string>
     <string name="show_crash_log">عـرض سجـل التعطيل</string>
     <string name="config_damaged">مِلف التكوين تالف. رجاءًا قـم بحذف بيانات التطبيق</string>
@@ -28,7 +28,7 @@
     <string name="no">لا</string>
     <string name="search">بحث</string>
     <string name="system">النظام</string>
-    <string name="follow_system">Follow system</string>
+    <string name="follow_system">يتبع النظام</string>
     <!-- Home -->
     <string name="home_xposed_activated">الوحـدة مفعـلة [%s]</string>
     <string name="home_xposed_not_activated">الوحـدة غير مفعـلة</string>
@@ -60,7 +60,7 @@
     <string name="list_sort_by_package_name">اسم الحزمة</string>
     <string name="list_sort_by_install_time">وقت التثبيت</string>
     <string name="list_sort_by_update_time">وقت التحديث</string>
-    <string name="list_empty_no_enabled">Try enabling hiding for apps with this template\'s work mode and apps will appear here</string>
+    <string name="list_empty_no_enabled">حاول تفعيل اخفاء التطبيقات بطريقة عمل القالب هذه وستظهر التطبيقات هنا</string>
     <string name="list_empty_no_apps">No applications found, maybe you didn\'t allow this app to query all packages</string>
     <string name="list_empty_preset">No applications added in this preset</string>
     <!-- Manage templates -->
