@@ -11,8 +11,8 @@
     <string name="title_about">عـن</string>
     <string name="title_about_fork">حول هذه النسخة</string>
     <string name="do_not_dual">لا تقم بتثبيت HMA للمستخدم الثانوي</string>
-    <string name="show_crash_log">اظهار سجل التعطيل</string>
-    <string name="config_damaged">مِلف التكوين تالف. رجاءًا قـم بحذف بيانات التطبيق</string>
+    <string name="show_crash_log">أظهار سجل التعطيل</string>
+    <string name="config_damaged">مِلف التكوين تآلف. رجاءًا قـم بحذف بيانات التطبيق</string>
     <string name="edit_list">تعديـل القائـمة</string>
     <string name="delete">حـذف</string>
     <string name="enabled">مفعّـل</string>
