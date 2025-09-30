@@ -138,7 +138,7 @@
     <string name="settings_hide_icon">إخفاء أيقونة الوحدة من قائمة التطبيقات</string>
     <string name="settings_hide_icon_summary">لا يزال بإمكانك فتح الوحدة من مدير xposed</string>
     <string name="settings_bypass_risky_package_warning">تجاوز تحذيرات الحزم الخطرة</string>
-    <string name="settings_bypass_risky_package_warning_summary">Note that the devs are not responsible for risky package related issues before or after you enabled this feature</string>
+    <string name="settings_bypass_risky_package_warning_summary">اعلم ان خيارات المطور ليست مسؤولة عن مشاكل متعلقة بالحزمة الخطيرة قبل او بعد تفعيلك هذه الميزة</string>
     <string name="settings_disable_activity_launch_protection">تعطيل حماية تشغيل الفعالية</string>
     <string name="settings_disable_activity_launch_protection_summary">هذه الوصلة سترفع جميع حمايات بدء الفعالية.اذا كنت في شك، فلا تفعلها</string>
     <string name="settings_language">اللغة</string>
