@@ -61,8 +61,8 @@
     <string name="list_sort_by_install_time">وقت التثبيت</string>
     <string name="list_sort_by_update_time">وقت التحديث</string>
     <string name="list_empty_no_enabled">حاول تفعيل اخفاء التطبيقات بطريقة عمل القالب هذه وستظهر التطبيقات هنا</string>
-    <string name="list_empty_no_apps">No applications found, maybe you didn\'t allow this app to query all packages</string>
-    <string name="list_empty_preset">No applications added in this preset</string>
+    <string name="list_empty_no_apps">لا توجد تطبيقات، ربما لم تسمح لهذا التطبيق لللبحث عن جميع الحزم</string>
+    <string name="list_empty_preset">لم يتم أضافه تطبيقات في هذا الضبط المسبق</string>
     <!-- Manage templates -->
     <string name="template_usage_hint">إنشاء قوالب للتطبيقات \"التي لا تهدأ\" ، والتحكم في قائمة التطبيقات التي يمكنهم الحصول عليها. \n\n القائمة السوداء (موصى بها): التطبيقات المحددة في القالب ستكون غير مرئية للتطبيقات التي تطبق عليها القالب.\n القائمة البيضاء: التطبيقات التي لم يتم تحديدها في القالب ستكون غير مرئية للتطبيقات التي تطبق عليها القالب.</string>
     <string name="template_new_blacklist">إنشاء قالب قائمة سوداء</string>
@@ -79,7 +79,7 @@
     <string name="app_enable_hide">تفعيل الإخفاء</string>
     <string name="app_template_config">ملف تكوين القالب</string>
     <string name="app_choose_template">اختيار قالب</string>
-    <string name="app_choose_preset">Choose preset</string>
+    <string name="app_choose_preset">اختر الضبط المسبق</string>
     <string name="app_exclude_system_apps">استبعاد تطبيقات النظام</string>
     <string name="app_exclude_system_apps_summary">قم بإيقاف تشغيل هذا الخِيار فقط عندما يكون ذلك ضروريًا حقًا. من المحتمل أن يتسبب في تعطيلات مع إيقافه</string>
     <string name="app_template_using">يتم استخدام %d قوالب</string>
