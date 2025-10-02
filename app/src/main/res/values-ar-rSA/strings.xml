@@ -8,7 +8,7 @@
     <string name="title_app_manage">إدارة التطبيقات</string>
     <string name="title_app_select">اختر التطبيقات</string>
     <string name="title_app_settings">إعـدادات التطبيـق</string>
-    <string name="title_about">عـن</string>
+    <string name="title_about">حول</string>
     <string name="title_about_fork">حول هذه النسخة</string>
     <string name="do_not_dual">لا تقم بتثبيت HMA للمستخدم الثانوي</string>
     <string name="show_crash_log">أظهار سجل التعطيل</string>
