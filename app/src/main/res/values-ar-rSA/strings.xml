@@ -41,8 +41,8 @@
     <string name="home_download_test_app_title">تنزيل تطبيق الاختبار</string>
     <string name="home_download_test_app_message">طورنـا تطبيق اكتشاف أولي ودمجنا به اختبار الاكتشاف. هل تريد تحميله الآن؟</string>
     <string name="home_backup_and_restore">حفظ نسخة &amp; استعادة نسخة</string>
-    <string name="home_backup_config">حفظ نسخة من إعداداتي</string>
-    <string name="home_restore_config">استعادة نسخة من إعداداتي</string>
+    <string name="home_backup_config">استنساخ إعداداتي</string>
+    <string name="home_restore_config">استعادة إعداداتي</string>
     <string name="home_import_successful">تـم التحميل بنجاح</string>
     <string name="home_import_failed">فَشِل التحميل</string>
     <string name="home_import_app_version_too_old">إصدار الوحدة أقل من النسخة</string>
