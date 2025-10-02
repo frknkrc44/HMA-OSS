@@ -40,16 +40,16 @@
     <string name="home_detection_test">اختبار الاكتشاف</string>
     <string name="home_download_test_app_title">تنزيل تطبيق الاختبار</string>
     <string name="home_download_test_app_message">طورنـا تطبيق اكتشاف أولي ودمجنا به اختبار الاكتشاف. هل تريد تحميله الآن؟</string>
-    <string name="home_backup_and_restore">حفظ نسخة القالب &amp; استعادة نسخة القالب</string>
-    <string name="home_backup_config">حفظ نسخة من القالب</string>
-    <string name="home_restore_config">استعادة نسخة القالب</string>
+    <string name="home_backup_and_restore">حفظ نسخة &amp; استعادة نسخة</string>
+    <string name="home_backup_config">حفظ نسخة من إعداداتي</string>
+    <string name="home_restore_config">استعادة نسخة من إعداداتي</string>
     <string name="home_import_successful">تـم التحميل بنجاح</string>
     <string name="home_import_failed">فَشِل التحميل</string>
     <string name="home_import_app_version_too_old">إصدار الوحدة أقل من النسخة</string>
     <string name="home_import_backup_version_too_old">النسخة الاحتياطية قديمة للغاية</string>
     <string name="home_import_file_damaged">مِلف النسخة الاحتياطية متضرر</string>
     <string name="home_export_failed">فشـل التصدير</string>
-    <string name="home_exported">نسخ احتياطي لمِلف التكوين</string>
+    <string name="home_exported">نسخ احتياطي لمِلف إعداداتي</string>
     <string name="home_new_update">متوفر تحديث جديد: %s</string>
     <string name="home_update">تحديث: %s</string>
     <!-- App select -->
