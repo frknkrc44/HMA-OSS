@@ -102,7 +102,7 @@
     <string name="app_global_activity_launch_protection_state">الحماية هو%s عالميا</string>
     <!-- Presets -->
     <string name="title_preset_manage">أظهار الضبط المسبق</string>
-    <string name="preset_xposed">وحدات xposed/lspoesd</string>
+    <string name="preset_xposed">وحدات Xposed/LSPosed</string>
     <string name="preset_root_apps">تطبيقات روت/تطبيقات إدارة روت</string>
     <string name="preset_custom_rom">تطبيقات الروم الاعتيادي</string>
     <string name="preset_sus_apps">تطبيقات مشبوهة</string>
