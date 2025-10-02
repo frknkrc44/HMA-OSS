@@ -167,13 +167,13 @@
     <string name="about_fork_description">مشروع تطبيق HMA الأصلي اصبح مغلق المصدر والشفرات الأخيرة الخاصة بها لا تحتوي على بعض التغيرات الأخيرة،لذا قمتُ بصناعة هذه النسخة من جديد للاستمرار بها على أنها مفتوحة المصدر    </string>
     <string name="about_how_to_use_title">كيفية استخدام هذه الوحدة</string>
     <string name="about_how_to_use_description_1">يمكنك إنشاء قوالب من \"إدارة القوالب\".\nثم تطبيق هذه القوالب على التطبيقات من \"إدارة التطبيقات\".(يمكنك أيضا اختيار تطبيقات إضافية للتطبيقات المستهدفة.)\n ينبغي فقط فحص \"إطار النظام\" من نطاق وحدة إكسبوسد/القائمة البيضاء.    </string>
-    <string name="about_how_to_use_description_2">تعديل التكوين فعال في الوقت الحقيقي.    </string>
+    <string name="about_how_to_use_description_2">تعديل ألتكوين فعال في الوقت الحقيقي.    </string>
     <string name="about_translator">المترجم</string>
     <string name="about_developer">المطور</string>
     <string name="about_support">الدعم والمراجعات</string>
-    <string name="about_open_source">رخصة مفتوحة المصدر</string>
+    <string name="about_open_source">رخص مفتوحة المصدر</string>
     <!-- Colors -->
-    <string name="color_sakura">ساكورا</string>
+    <string name="color_sakura">سكورا</string>
     <string name="color_red">أحمر</string>
     <string name="color_pink">وردي</string>
     <string name="color_purple">بنفسجي</string>
@@ -187,7 +187,7 @@
     <string name="color_light_green">أخضر فاتح</string>
     <string name="color_lime">جيري</string>
     <string name="color_yellow">أصفر</string>
-    <string name="color_amber">كهرماني</string>
+    <string name="color_amber">عنبري</string>
     <string name="color_orange">برتقالي</string>
     <string name="color_deep_orange">برتقالي غامق</string>
     <string name="color_brown">بني</string>
