@@ -3,9 +3,9 @@
     <string name="title_home">Hauptseite</string>
     <string name="title_logs">Protokolle</string>
     <string name="title_settings">Einstellungen</string>
-    <string name="title_template_manage">Sperr- und Freigabelisten</string>
+    <string name="title_template_manage">Listen verwalten</string>
     <string name="title_template_settings">Vorlage verwalten</string>
-    <string name="title_app_manage">Anwendungen verwalten</string>
+    <string name="title_app_manage">Anwendungen</string>
     <string name="title_app_select">Apps auswählen</string>
     <string name="title_app_settings">App Einstellungen</string>
     <string name="title_about">Über</string>
@@ -41,8 +41,8 @@
     <string name="home_download_test_app_title">Test App herunterladen</string>
     <string name="home_download_test_app_message">Wir haben eine individuelle Erkennungstest-App entwickelt und unseren Erkennungstest zu dieser Migriert. Möchtest du sie jetzt herunterladen?</string>
     <string name="home_backup_and_restore">Sichern &amp; Wiederherstellen</string>
-    <string name="home_backup_config">Sicherungskonfiguration</string>
-    <string name="home_restore_config">Wiederherstellungskonfiguration</string>
+    <string name="home_backup_config">Sichern</string>
+    <string name="home_restore_config">Wiederherstellen</string>
     <string name="home_import_successful">Import erfolgreich</string>
     <string name="home_import_failed">Import fehlgeschlagen</string>
     <string name="home_import_app_version_too_old">Module Version tiefer als die Sicherung</string>
@@ -65,7 +65,7 @@
     <string name="list_empty_preset">Keine Anwendungen in dieser Vorlage hinzugefügt</string>
     <!-- Manage templates -->
     <string name="template_usage_hint">Erstellen Sie Vorlagen für \"ruhelose\" Apps und kontrollieren Sie den App, den Sie erhalten können.\n\nBlacklist (empfohlen): Die im Template ausgewählten Apps werden für die Apps, die die Vorlage anwenden, unsichtbar sein.\nWhitelist: Die im Template nicht ausgewählten Apps sind für die Apps, die die Vorlage anwenden, unsichtbar.</string>
-    <string name="template_new_blacklist">Blacklist erstellen</string>
+    <string name="template_new_blacklist">Blacklist</string>
     <string name="template_new_whitelist">Whitelist</string>
     <string name="template_delete">Sind Sie sicher, dass Sie die Vorlage löschen wollen?</string>
     <string name="template_name">Name der Vorlage</string>
@@ -101,7 +101,7 @@
     <string name="app_invert_activity_launch_protection_desc">Diese Option wird die Auswahl \"Aktivitätsstartschutz deaktivieren\" in den Einstellungen umkehren.</string>
     <string name="app_global_activity_launch_protection_state">Der Schutz ist %s global</string>
     <!-- Presets -->
-    <string name="title_preset_manage">Zeige Voreinstellungen</string>
+    <string name="title_preset_manage">Vorlagen des Entwicklers</string>
     <string name="preset_xposed">LSPosed/Xposed-Module</string>
     <string name="preset_root_apps">Root-Manager/Root-Apps</string>
     <string name="preset_custom_rom">Benutzerdefinierte ROM-Apps</string>
@@ -118,7 +118,7 @@
     <string name="settings_module">Module</string>
     <string name="settings_overwrite">Überschreiben</string>
     <string name="settings_overwritten">Überschrieben</string>
-    <string name="settings_overwrite_summary">This category items will be forced as enabled if the switches are checked</string>
+    <string name="settings_overwrite_summary">Diese Kategorieelemente werden als aktiviert erzwungen, wenn die Schalter aktiviert sind</string>
     <string name="settings_default_value">Standardwert: %s</string>
     <string name="settings_data_isolation">Daten-Isolation</string>
     <string name="settings_data_isolation_summary">App-Daten: %s\nVold App-Daten: %s\nErzwinge Einhängen: %s</string>

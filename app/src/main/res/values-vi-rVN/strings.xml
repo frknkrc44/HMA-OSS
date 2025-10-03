@@ -4,7 +4,7 @@
     <string name="title_logs">Nhật ký</string>
     <string name="title_settings">Cài đặt</string>
     <string name="title_template_manage">Quản lý biểu mẫu</string>
-    <string name="title_template_settings">Cài đặt danh mục</string>
+    <string name="title_template_settings">Cài đặt biểu mẫu</string>
     <string name="title_app_manage">Quản lý ứng dụng</string>
     <string name="title_app_select">Chọn ứng dụng</string>
     <string name="title_app_settings">Cài đặt ứng dụng</string>
@@ -64,29 +64,29 @@
     <string name="list_empty_no_apps">Không tìm thấy ứng dụng nào, có thể bạn đã không cho phép ứng dụng này truy vấn những gói đã cài đặt</string>
     <string name="list_empty_preset">Không có ứng dụng nào được thêm vào cài đặt trước này</string>
     <!-- Manage templates -->
-    <string name="template_usage_hint">Thiết lập mẫu cho các ứng dụng \"không dừng\", kiểm soát danh sách ứng dụng chúng có thể truy vấn.\n\nDanh sách đen (khuyến nghị): các ứng dụng được chọn trong mẫu sẽ ẩn đối với các ứng dụng áp dụng mẫu.\nDanh sách trắng: các ứng dụng không được chọn trong mẫu sẽ không hiển thị đối với các ứng dụng áp dụng mẫu.</string>
-    <string name="template_new_blacklist">Tạo một mẫu danh sách đen</string>
-    <string name="template_new_whitelist">Tạo một mẫu danh sách trắng</string>
-    <string name="template_delete">Bạn có chắc chắn xóa mẫu không?</string>
-    <string name="template_name">Tên mẫu</string>
+    <string name="template_usage_hint">Thiết lập biểu mẫu cho các ứng dụng \"không dừng\", kiểm soát danh sách ứng dụng chúng có thể truy vấn.\n\nDanh sách đen (khuyến nghị): các ứng dụng được chọn trong biểu mẫu sẽ ẩn đối với các ứng dụng áp dụng biểu mẫu.\nDanh sách trắng: các ứng dụng không được chọn trong biểu mẫu sẽ không hiển thị đối với các ứng dụng áp dụng biểu mẫu.</string>
+    <string name="template_new_blacklist">Tạo một biểu mẫu danh sách đen</string>
+    <string name="template_new_whitelist">Tạo một biểu mẫu danh sách trắng</string>
+    <string name="template_delete">Bạn có chắc chắn xóa biểu mẫu này không?</string>
+    <string name="template_name">Tên biểu mẫu</string>
     <string name="template_name_invalid">Tên không hợp lệ</string>
     <string name="template_delete_title">Xóa biểu mẫu</string>
-    <string name="template_name_already_exist">Tên mẫu đã tồn tại</string>
+    <string name="template_name_already_exist">Tên biểu mẫu đã tồn tại</string>
     <string name="template_applied_count">Đã áp dụng cho các ứng dụng: %d</string>
-    <string name="template_apps_visible_count">%d ứng dụng hiện hình</string>
-    <string name="template_apps_invisible_count">%d Ứng dụng vô hình</string>
+    <string name="template_apps_visible_count">%d ứng dụng không ẩn</string>
+    <string name="template_apps_invisible_count">%d Ứng dụng bị ẩn</string>
     <!-- App settings -->
-    <string name="app_enable_hide">Bật vô hình</string>
+    <string name="app_enable_hide">Bật ẩn</string>
     <string name="app_template_config">Mục tùy chỉnh</string>
     <string name="app_choose_template">Chọn mục</string>
     <string name="app_choose_preset">Chọn thiết lập trước</string>
     <string name="app_exclude_system_apps">Trừ ứng dụng hệ thống</string>
     <string name="app_exclude_system_apps_summary">Chỉ tắt tùy chọn này khi cần thiết vì nó có thể gây sự cố nếu tắt</string>
-    <string name="app_template_using">Đang dùng %d mục</string>
+    <string name="app_template_using">Đang dùng %d biểu mẫu</string>
     <string name="app_preset_using">Đang sử dụng %d thiết lập trước</string>
     <string name="app_settings_preset_using">Đang sử dụng %d cài đặt thiết lập trước</string>
     <string name="app_extra_apps_visible_count">Ứng dụng bổ sung hiện hình %d</string>
-    <string name="app_extra_apps_invisible_count">Ứng dụng bổ sung vô hình %d</string>
+    <string name="app_extra_apps_invisible_count">%d Ứng dụng bổ sung được ẩn</string>
     <string name="app_warning_risky_package_title">Gói rủi ro</string>
     <string name="app_warning_risky_package_desc">Gói này được đánh dấu là rủi ro và bạn có thể gây ra lỗi cho các ứng dụng được ẩn. Bạn có muốn tiếp tục không?</string>
     <string name="app_spoof">Giả lập</string>
@@ -105,7 +105,7 @@
     <string name="preset_xposed">Các mô-đun LSPosed/Xposed</string>
     <string name="preset_root_apps">Ứng dụng quản lý Root/Ứng dụng được cấp Root</string>
     <string name="preset_custom_rom">Ứng dụng ROM tùy biến</string>
-    <string name="preset_sus_apps">Suspicious apps</string>
+    <string name="preset_sus_apps">Ứng dụng đáng ngờ</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Trợ năng</string>
     <string name="settings_preset_dev_options">Tùy chọn nhà phát triển</string>
@@ -154,9 +154,9 @@
     <string name="settings_stop_system_service_summary">Cần chạy lại dịch vụ</string>
     <string name="settings_is_clean_env">Làm sạch môi trường thời gian chạy cùng lúc?</string>
     <string name="settings_is_clean_env_summary">Xóa bộ nhớ cache của dịch vụ hệ thống trong /data/misc/hide_my_applist_*. Điều này có nghĩa là bạn cần phải khởi chạy ứng dụng mô-đun một lần theo cách thủ công sau lần khởi động lại tiếp theo để cho phép đánh chặn và số lần đánh chặn cũng sẽ được xóa sạch.</string>
-    <string name="settings_force_clean_env">Buộc môi trường thời gian chạy sạch (root)</string>
-    <string name="settings_force_clean_env_summary">Chỉ khi dịch vụ hệ thống không khởi động được, nếu không bạn nên nhấp vào tùy chọn trên.</string>
-    <string name="settings_force_clean_env_toast_successful">Môi trường Runtime đã sạch</string>
+    <string name="settings_force_clean_env">Buộc dọn dẹp môi trường thực thi (root)</string>
+    <string name="settings_force_clean_env_summary">Chỉ chọn khi dịch vụ hệ thống không khởi động được, nếu không bạn nên nhấp vào tùy chọn ở trên.</string>
+    <string name="settings_force_clean_env_toast_successful">Môi trường thực thi đã được dọn dẹp</string>
     <string name="settings_update">Cập nhật</string>
     <string name="settings_disable_update">Tắt thông báo</string>
     <string name="settings_receive_beta_update">Nhận bản beta</string>
@@ -166,9 +166,9 @@
  </string>
     <string name="about_fork_description">Dự án HMA ban đầu đã trở thành mã nguồn đóng và mã mới nhất của họ không chứa một số thay đổi mới nhất, vì vậy tôi đã tạo nhánh này để tiếp tục nó dưới dạng mã nguồn mở một lần nữa.</string>
     <string name="about_how_to_use_title">Làm sao để dùng mô đun này</string>
-    <string name="about_how_to_use_description_1">Bạn có thể tạo danh mục trong \"Quản lý danh mục\". \nSau đó, áp dụng cho các ứng dụng trong \"Quản lý ứng dụng\". (Bạn cũng có thể chọn các ứng dụng bổ sung cho các mục tiêu.) \nBạn nên và CHỈ nên kiểm tra \"Khung hệ thống\" trong phạm vi mô-đun Xposed / danh sách trắng.</string>
+    <string name="about_how_to_use_description_1">Bạn có thể tạo biểu mẫu trong \"Quản lý biểu mẫu\". \nSau đó, áp dụng cho các ứng dụng trong \"Quản lý ứng dụng\". (Bạn cũng có thể chọn các ứng dụng bổ sung cho nó.) \nBạn nên và CHỈ nên chọn \"Khung hệ thống(System Framework)\" trong scope của mô-đun Xposed / danh sách trắng.    </string>
     <string name="about_how_to_use_description_2">Sửa đổi cấu hình hiệu quả trong thời gian thực.</string>
-    <string name="about_translator">Translator</string>
+    <string name="about_translator">Dịch giả</string>
     <string name="about_developer">Nhà phát triển</string>
     <string name="about_support">Giúp và phản hồi</string>
     <string name="about_open_source">Giấy phép nguồn mở</string>
