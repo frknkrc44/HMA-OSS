@@ -106,6 +106,7 @@
     <string name="preset_root_apps">Ứng dụng quản lý Root/Ứng dụng được cấp Root</string>
     <string name="preset_custom_rom">Ứng dụng ROM tùy biến</string>
     <string name="preset_sus_apps">Ứng dụng đáng ngờ</string>
+    <string name="preset_detector_apps">Detector/Checker apps</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Trợ năng</string>
     <string name="settings_preset_dev_options">Tùy chọn nhà phát triển</string>

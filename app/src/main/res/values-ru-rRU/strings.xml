@@ -106,6 +106,7 @@
     <string name="preset_root_apps">Root менеджеры/Root-приложения</string>
     <string name="preset_custom_rom">Приложения кастомных прошивок</string>
     <string name="preset_sus_apps">Suspicious apps</string>
+    <string name="preset_detector_apps">Detector/Checker apps</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Доступность</string>
     <string name="settings_preset_dev_options">Параметры разработчика</string>
