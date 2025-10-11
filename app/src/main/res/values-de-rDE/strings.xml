@@ -106,6 +106,7 @@
     <string name="preset_root_apps">Root-Manager/Root-Apps</string>
     <string name="preset_custom_rom">Benutzerdefinierte ROM-Apps</string>
     <string name="preset_sus_apps">Verdächtige Anwendungen</string>
+    <string name="preset_detector_apps">Detector/Checker apps</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Bedienungshilfen</string>
     <string name="settings_preset_dev_options">Entwickleroptionen</string>
