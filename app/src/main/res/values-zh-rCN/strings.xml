@@ -106,7 +106,7 @@
     <string name="preset_root_apps">Root 管理器/Root 应用程序</string>
     <string name="preset_custom_rom">自定义 ROM 应用程序</string>
     <string name="preset_sus_apps">可疑应用程序</string>
-    <string name="preset_detector_apps">Detector/Checker apps</string>
+    <string name="preset_detector_apps">检测器/检查器应用程序</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">无障碍功能</string>
     <string name="settings_preset_dev_options">开发者选项</string>
