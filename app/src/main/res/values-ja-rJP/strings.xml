@@ -106,7 +106,7 @@
     <string name="preset_root_apps">Root マネージャー/Rooted アプリ</string>
     <string name="preset_custom_rom">カスタム ROM アプリ</string>
     <string name="preset_sus_apps">不審なアプリ</string>
-    <string name="preset_detector_apps">Detector/Checker apps</string>
+    <string name="preset_detector_apps">検出器/チェッカーアプリ</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">アクセシビリティ</string>
     <string name="settings_preset_dev_options">開発者向けオプション</string>
