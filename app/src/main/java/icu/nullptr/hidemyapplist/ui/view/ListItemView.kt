@@ -1,11 +1,15 @@
 package icu.nullptr.hidemyapplist.ui.view
 
 import android.content.Context
+import android.graphics.Typeface
 import android.util.AttributeSet
 import android.widget.LinearLayout
 import androidx.annotation.DrawableRes
+import androidx.core.view.isVisible
+import androidx.core.view.marginTop
 import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
+import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.themeColor
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.ListItemViewBinding
 
@@ -42,8 +46,24 @@ class ListItemView @JvmOverloads constructor(
         binding.icon.setImageResource(icon)
     }
 
+    fun showAsHeader() {
+        binding.icon.isVisible = false
+
+        with(binding.text) {
+            typeface = Typeface.DEFAULT_BOLD
+
+            val textColor = context.themeColor(
+                androidx.appcompat.R.attr.colorPrimary,
+            )
+            setTextColor(textColor)
+
+            val padding = (resources.displayMetrics.density * 8f).toInt()
+            setPaddingRelative(paddingStart, padding, paddingEnd, padding)
+        }
+    }
+
     override fun setOnClickListener(l: OnClickListener?) {
-        if (binding.button.visibility == VISIBLE) {
+        if (binding.button.isVisible) {
             binding.button.setOnClickListener(l)
         } else {
             super.setOnClickListener(l)

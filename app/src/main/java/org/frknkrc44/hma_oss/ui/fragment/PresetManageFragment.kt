@@ -60,7 +60,12 @@ class PresetManageFragment : Fragment(R.layout.fragment_preset_manage) {
     }
 
     private fun navigateToPreset(presetInfo: ConfigManager.PresetInfo) {
-        val args = AppPresetFragmentArgs(presetInfo.name, presetInfo.translation)
-        navigate(R.id.nav_preset_inner_manage, args.toBundle())
+        when (presetInfo.type!!) {
+            ConfigManager.PresetType.APP -> {
+                val args = AppPresetFragmentArgs(presetInfo.name, presetInfo.translation)
+                navigate(R.id.nav_preset_inner_manage, args.toBundle())
+            }
+            ConfigManager.PresetType.SETTINGS -> {}
+        }
     }
 }

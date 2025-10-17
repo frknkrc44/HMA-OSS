@@ -21,8 +21,8 @@ val Fragment.navController get() = NavHostFragment.findNavController(this)
 private val navOptions by lazy {
     NavOptions.Builder().apply {
         setEnterAnim(R.anim.activity_open_enter)
-        setExitAnim(R.anim.fade_out)
-        setPopEnterAnim(R.anim.fade_in)
+        setExitAnim(R.anim.activity_open_exit)
+        setPopEnterAnim(R.anim.activity_close_enter)
         setPopExitAnim(R.anim.activity_close_exit)
     }.build()
 }

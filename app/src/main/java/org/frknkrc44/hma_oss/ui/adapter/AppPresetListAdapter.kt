@@ -5,6 +5,7 @@ import android.content.Context
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import icu.nullptr.hidemyapplist.common.AppPresets
+import icu.nullptr.hidemyapplist.common.SettingsPresets
 import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.ui.view.ListItemView
 import org.frknkrc44.hma_oss.BuildConfig
@@ -15,23 +16,31 @@ class AppPresetListAdapter(
     private val onClickListener: ((ConfigManager.PresetInfo) -> Unit)?
 ) : RecyclerView.Adapter<AppPresetListAdapter.ViewHolder>() {
 
-    private lateinit var list: List<ConfigManager.PresetInfo>
+    private var list = mutableListOf<ConfigManager.PresetInfo>()
 
     init {
         updateList(context)
     }
 
     inner class ViewHolder(view: ListItemView) : RecyclerView.ViewHolder(view) {
-        init {
-            view.setOnClickListener {
-                onClickListener?.invoke(list[absoluteAdapterPosition])
-            }
-        }
-
-        fun bind(presetName: String) {
+        fun bind(item: ConfigManager.PresetInfo) {
             with(itemView as ListItemView) {
-                setIcon(R.drawable.baseline_assignment_24)
-                text = presetName
+                if (item.type == null) {
+                    showAsHeader()
+                } else {
+                    setIcon(
+                        when (item.type) {
+                            ConfigManager.PresetType.APP -> R.drawable.baseline_assignment_24
+                            ConfigManager.PresetType.SETTINGS -> R.drawable.baseline_settings_24
+                        }
+                    )
+
+                    itemView.setOnClickListener {
+                        onClickListener?.invoke(item)
+                    }
+                }
+
+                text = item.translation
             }
         }
     }
@@ -49,12 +58,14 @@ class AppPresetListAdapter(
 
     override fun getItemId(position: Int) = list[position].name.hashCode().toLong()
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(list[position].translation)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(list[position])
 
     @SuppressLint("NotifyDataSetChanged", "DiscouragedApi")
     private fun updateList(context: Context) {
-        val presetNames = AppPresets.instance.getAllPresetNames()
-        val presetTranslations = presetNames.map { name ->
+        list.clear()
+
+        val appPresetNames = AppPresets.instance.getAllPresetNames()
+        val appPresetTranslations = appPresetNames.map { name ->
             try {
                 val id = context.resources.getIdentifier(
                     "preset_${name}",
@@ -68,9 +79,49 @@ class AppPresetListAdapter(
             name
         }
 
-        list = presetNames
-            .map { ConfigManager.PresetInfo(it, presetTranslations[presetNames.indexOf(it)]) }
+        list += ConfigManager.PresetInfo(
+            "preset",
+            null,
+            context.getString(R.string.title_preset),
+        )
+
+        list += appPresetNames
+            .map { ConfigManager.PresetInfo(
+                it,
+                ConfigManager.PresetType.APP,
+                appPresetTranslations[appPresetNames.indexOf(it)]
+            ) }
             .sortedWith { a, b -> a.translation.lowercase().compareTo(b.translation.lowercase()) }
+
+        list += ConfigManager.PresetInfo(
+            "settings_preset",
+            null,
+            context.getString(R.string.title_settings_preset),
+        )
+
+        val settingsPresetNames = SettingsPresets.instance.getAllPresetNames()
+        val settingsPresetTranslations = settingsPresetNames.map { name ->
+            try {
+                val id = context.resources.getIdentifier(
+                    "settings_preset_${name}",
+                    "string",
+                    BuildConfig.APPLICATION_ID
+                )
+
+                return@map if (id != 0) { context.resources.getString(id) } else { name }
+            } catch (_: Throwable) {}
+
+            name
+        }
+
+        list += settingsPresetNames
+            .map { ConfigManager.PresetInfo(
+                it,
+                ConfigManager.PresetType.SETTINGS,
+                settingsPresetTranslations[settingsPresetNames.indexOf(it)]
+            ) }
+            .sortedWith { a, b -> a.translation.lowercase().compareTo(b.translation.lowercase()) }
+
         notifyDataSetChanged()
     }
 }

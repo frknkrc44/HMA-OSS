@@ -38,5 +38,5 @@
         android:fillBefore="true"
         android:fillAfter="true"
         android:interpolator="@android:interpolator/fast_out_extra_slow_in"
-        android:duration="400"/>
+        android:duration="@android:integer/config_mediumAnimTime"/>
 </set>

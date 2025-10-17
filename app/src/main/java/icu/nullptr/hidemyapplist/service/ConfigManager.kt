@@ -10,9 +10,13 @@ import org.frknkrc44.hma_oss.common.BuildConfig
 import java.io.File
 
 object ConfigManager {
+    enum class PresetType {
+        APP,
+        SETTINGS,
+    }
 
     data class TemplateInfo(val name: String?, val isWhiteList: Boolean)
-    data class PresetInfo(val name: String, val translation: String)
+    data class PresetInfo(val name: String, val type: PresetType?, val translation: String)
 
     private const val TAG = "ConfigManager"
     private lateinit var config: JsonConfig

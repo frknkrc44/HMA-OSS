@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-selector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:enterFadeDuration="200"
+    android:exitFadeDuration="200">
+    <item android:state_checked="true">
+        <shape android:shape="oval">
+            <solid android:color="@color/switch_neutral" />
+            <size android:width="32dp" android:height="32dp" />
+            <stroke android:color="@android:color/transparent" android:width="8dp" />
+        </shape>
+    </item>
+
+    <item android:state_checked="false">
+        <shape android:shape="oval">
+            <solid android:color="@color/switch_accent" />
+            <size android:width="32dp" android:height="32dp" />
+			<stroke android:color="@android:color/transparent" android:width="16dp" />
+        </shape>
+    </item>
+</animated-selector>

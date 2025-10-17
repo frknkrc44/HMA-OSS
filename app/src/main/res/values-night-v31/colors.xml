@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="switch_accent">@android:color/system_accent1_300</color>
+    <color name="switch_neutral">@android:color/system_neutral1_800</color>
+</resources>

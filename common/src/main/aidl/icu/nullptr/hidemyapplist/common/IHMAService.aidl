@@ -19,4 +19,8 @@ interface IHMAService {
     String[] getPackagesForPreset(String presetName) = 7;
 
     String readConfig() = 8;
+
+    void forceStop(String packageName, int userId) = 9;
+
+    void log(int level, String tag, String message) = 10;
 }

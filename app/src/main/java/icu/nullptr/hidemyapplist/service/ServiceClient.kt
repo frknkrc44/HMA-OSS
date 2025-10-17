@@ -36,37 +36,6 @@ object ServiceClient : IHMAService, IBinder.DeathRecipient {
         binder.linkToDeath(this, 0)
     }
 
-    private fun getServiceLegacy(): IHMAService? {
-        if (service != null) return service
-        val pm = ServiceManager.getService("package")
-        val data = Parcel.obtain()
-        val reply = Parcel.obtain()
-        val remote = try {
-            data.writeInterfaceToken(Constants.DESCRIPTOR)
-            data.writeInt(Constants.ACTION_GET_BINDER)
-            pm.transact(Constants.TRANSACTION, data, reply, 0)
-            reply.readException()
-            val binder = reply.readStrongBinder()
-            IHMAService.Stub.asInterface(binder)
-        } catch (e: RemoteException) {
-            Log.d(TAG, "Failed to get binder")
-            null
-        } finally {
-            data.recycle()
-            reply.recycle()
-        }
-        if (remote != null) {
-            Log.i(TAG, "Binder acquired")
-            remote.asBinder().linkToDeath(this, 0)
-            service = Proxy.newProxyInstance(
-                javaClass.classLoader,
-                arrayOf(IHMAService::class.java),
-                ServiceProxy(remote)
-            ) as IHMAService
-        }
-        return service
-    }
-
     override fun binderDied() {
         service = null
         Log.e(TAG, "Binder died")
@@ -74,30 +43,38 @@ object ServiceClient : IHMAService, IBinder.DeathRecipient {
 
     override fun asBinder() = service?.asBinder()
 
-    override fun getServiceVersion() = getServiceLegacy()?.serviceVersion ?: 0
+    override fun getServiceVersion() = service?.serviceVersion ?: 0
 
-    override fun getFilterCount() = getServiceLegacy()?.filterCount ?: 0
+    override fun getFilterCount() = service?.filterCount ?: 0
 
-    override fun getLogs() = getServiceLegacy()?.logs
+    override fun getLogs() = service?.logs
 
     override fun clearLogs() {
-        getServiceLegacy()?.clearLogs()
+        service?.clearLogs()
     }
 
     override fun handlePackageEvent(eventType: String?, packageName: String?) {
-        getServiceLegacy()?.handlePackageEvent(eventType, packageName)
+        service?.handlePackageEvent(eventType, packageName)
     }
 
     override fun getPackagesForPreset(presetName: String) =
-        getServiceLegacy()?.getPackagesForPreset(presetName)
+        service?.getPackagesForPreset(presetName)
 
-    override fun readConfig() = getServiceLegacy()?.readConfig()
+    override fun readConfig() = service?.readConfig()
 
     override fun writeConfig(json: String) {
-        getServiceLegacy()?.writeConfig(json)
+        service?.writeConfig(json)
     }
 
     override fun stopService(cleanEnv: Boolean) {
-        getServiceLegacy()?.stopService(cleanEnv)
+        service?.stopService(cleanEnv)
+    }
+
+    override fun forceStop(packageName: String, userId: Int) {
+        service?.forceStop(packageName, userId)
+    }
+
+    override fun log(level: Int, tag: String, message: String) {
+        service?.log(level, tag, message)
     }
 }

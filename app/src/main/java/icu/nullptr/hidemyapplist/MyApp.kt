@@ -2,10 +2,12 @@ package icu.nullptr.hidemyapplist
 
 import android.annotation.SuppressLint
 import android.app.Application
+import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 import icu.nullptr.hidemyapplist.receiver.AppChangeReceiver
 import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.service.PrefManager
+import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.util.showToast
 import icu.nullptr.hidemyapplist.util.ConfigUtils.Companion.getLocale
 import kotlinx.coroutines.CoroutineScope
@@ -39,5 +41,11 @@ class MyApp : Application() {
         val config = resources.configuration
         config.setLocale(getLocale())
         resources.updateConfiguration(config, resources.displayMetrics)
+
+        val handler = Thread.getDefaultUncaughtExceptionHandler()
+        Thread.setDefaultUncaughtExceptionHandler { t, e ->
+            ServiceClient.log(Log.ERROR, t.name, e.stackTraceToString())
+            handler?.uncaughtException(t, e)
+        }
     }
 }

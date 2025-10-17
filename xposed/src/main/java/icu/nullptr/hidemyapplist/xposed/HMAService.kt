@@ -25,6 +25,7 @@ import icu.nullptr.hidemyapplist.xposed.hook.PmsHookTarget33
 import icu.nullptr.hidemyapplist.xposed.hook.PmsHookTarget34
 import icu.nullptr.hidemyapplist.xposed.hook.PmsPackageEventsHook
 import org.frknkrc44.hma_oss.common.BuildConfig
+import rikka.hidden.compat.ActivityManagerApis
 import java.io.File
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -316,4 +317,11 @@ class HMAService(val pms: IPackageManager) : IHMAService.Stub() {
         AppPresets.instance.getPresetByName(presetName)?.packages?.toTypedArray()
 
     override fun readConfig() = config.toString()
+    override fun forceStop(packageName: String?, userId: Int) {
+        ActivityManagerApis.forceStopPackage(packageName, userId)
+    }
+
+    override fun log(level: Int, tag: String, message: String) {
+        logWithLevel(level, tag, message)
+    }
 }

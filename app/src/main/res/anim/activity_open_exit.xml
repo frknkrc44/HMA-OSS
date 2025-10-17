@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 /*
 ** Copyright 2009, The Android Open Source Project
 **
@@ -18,22 +17,20 @@
 -->
 
 <set xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shareInterpolator="false"
-    android:zAdjustment="top">
+    android:shareInterpolator="true">
+
+    <!-- Fade out, over a black surface, which simulates a black scrim -->
     <alpha
+        android:duration="@android:integer/config_shortAnimTime"
+        android:interpolator="@android:anim/decelerate_interpolator"
         android:fromAlpha="1"
-        android:toAlpha="0.0"
-        android:fillEnabled="true"
-        android:fillBefore="true"
-        android:fillAfter="true"
-        android:interpolator="@android:interpolator/linear"
-        android:startOffset="33"
-        android:duration="50"/>
+        android:toAlpha="0" />
+
     <scale
         android:fromXScale="1"
-        android:toXScale="0.9"
+        android:toXScale="1.05"
         android:fromYScale="1"
-        android:toYScale="0.9"
+        android:toYScale="1.05"
         android:pivotX="50%"
         android:pivotY="50%"
         android:fillEnabled="true"
