@@ -46,8 +46,12 @@ class ListItemView @JvmOverloads constructor(
         binding.icon.setImageResource(icon)
     }
 
+    fun showIcon(show: Boolean) {
+        binding.icon.isVisible = show
+    }
+
     fun showAsHeader() {
-        binding.icon.isVisible = false
+        showIcon(false)
 
         with(binding.text) {
             typeface = Typeface.DEFAULT_BOLD

@@ -7,6 +7,7 @@ import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
 import icu.nullptr.hidemyapplist.util.PackageHelper
 import org.frknkrc44.hma_oss.databinding.AppItemViewBinding
+import androidx.core.view.isVisible
 
 class AppItemView @JvmOverloads constructor(
     context: Context,
@@ -18,7 +19,7 @@ class AppItemView @JvmOverloads constructor(
     val binding by viewBinding<AppItemViewBinding>(createMethod = CreateMethod.INFLATE)
 
     var showEnabled: Boolean
-        get() = binding.enabled.visibility == VISIBLE
+        get() = binding.enabled.isVisible
         set(value) {
             binding.enabled.visibility = if (value) VISIBLE else GONE
         }

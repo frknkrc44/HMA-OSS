@@ -65,7 +65,10 @@ class PresetManageFragment : Fragment(R.layout.fragment_preset_manage) {
                 val args = AppPresetFragmentArgs(presetInfo.name, presetInfo.translation)
                 navigate(R.id.nav_preset_inner_manage, args.toBundle())
             }
-            ConfigManager.PresetType.SETTINGS -> {}
+            ConfigManager.PresetType.SETTINGS -> {
+                val args = SettingsPresetFragmentArgs(presetInfo.name, presetInfo.translation)
+                navigate(R.id.nav_settings_preset_inner_manage, args.toBundle())
+            }
         }
     }
 }
