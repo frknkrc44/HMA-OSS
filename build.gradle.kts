@@ -31,12 +31,19 @@ val crowdinApiKey: String by extra(localProperties.getProperty("crowdinApiKey", 
 fun getUncommittedSuffix(): String {
     if (officialBuild) return ""
 
-    val result = "git status -s".execute()
-    if (result.isEmpty()) {
-        return ""
+    var returnedVal = ""
+
+    val branch = "git symbolic-ref HEAD".execute().split("/").last()
+    if (branch != "master") {
+        returnedVal += "-$branch"
     }
 
-    return "-dirty+${result.count { it == '\n' } + 1}"
+    val result = "git status -s".execute()
+    if (result.isEmpty()) {
+        return returnedVal
+    }
+
+    return "$returnedVal-dirty+${result.count { it == '\n' } + 1}"
 }
 
 val gitHasUncommittedSuffix = getUncommittedSuffix()
