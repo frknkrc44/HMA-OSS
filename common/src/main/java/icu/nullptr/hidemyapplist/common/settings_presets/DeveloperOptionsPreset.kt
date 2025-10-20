@@ -5,16 +5,112 @@ import android.provider.Settings
 class DeveloperOptionsPreset : BasePreset("dev_options") {
     override val settingsKVPairs = listOf(
         ReplacementItem(
-            name = Settings.Global.ADB_ENABLED,
-            value = "0",
+            Settings.Global.ADB_ENABLED,
+            "0",
         ),
         ReplacementItem(
-            name = "adb_wifi_enabled",
-            value = "0",
+            "adb_wifi_enabled",
+            "0",
         ),
         ReplacementItem(
-            name = Settings.Global.DEVELOPMENT_SETTINGS_ENABLED,
-            value = "0",
+            Settings.Global.DEVELOPMENT_SETTINGS_ENABLED,
+            "0",
+        ),
+        ReplacementItem(
+            "debug.force_rtl",
+            "0"
+        ),
+        ReplacementItem(
+            "show_touches",
+            "0",
+        ),
+        ReplacementItem(
+            "force_resizable_activities",
+            "0",
+        ),
+        ReplacementItem(
+            "enable_freeform_support",
+            "0",
+        ),
+        ReplacementItem(
+            "override_desktop_mode_features",
+            "0",
+        ),
+        ReplacementItem(
+            "force_desktop_mode_on_external_displays",
+            "0",
+        ),
+        ReplacementItem(
+            "enable_non_resizable_multi_window",
+            "0",
+        ),
+        ReplacementItem(
+            "stay_on_while_plugged_in",
+            "0",
+        ),
+        ReplacementItem(
+            "emulate_display_cutout",
+            "0",
+        ),
+        ReplacementItem(
+            "anr_show_background",
+            "0",
+        ),
+        ReplacementItem(
+            "usb_audio_automatic_routing_disabled",
+            "0",
+        ),
+        ReplacementItem(
+            "enable_16k_pages",
+            "0",
+        ),
+        ReplacementItem(
+            "pointer_location",
+            "0",
+        ),
+        ReplacementItem(
+            "bugreport_in_power_menu",
+            "0",
+        ),
+        ReplacementItem(
+            "force_allow_on_external",
+            "0",
+        ),
+        ReplacementItem(
+            "tether_offload_disabled",
+            "0",
+        ),
+        ReplacementItem(
+            "ota_disable_automatic_update",
+            "0",
+        ),
+        ReplacementItem(
+            "enable_gpu_debug_layers",
+            "0",
+        ),
+        ReplacementItem(
+            "mobile_data_always_on",
+            "0",
+        ),
+        ReplacementItem(
+            "wifi_non_persistent_mac_randomization",
+            "0",
+        ),
+        ReplacementItem(
+            "non_persistent_mac_randomization_force_enabled",
+            "0",
+        ),
+        ReplacementItem(
+            Settings.Global.WINDOW_ANIMATION_SCALE,
+            "1.0",
+        ),
+        ReplacementItem(
+            Settings.Global.ANIMATOR_DURATION_SCALE,
+            "1.0",
+        ),
+        ReplacementItem(
+            Settings.Global.TRANSITION_ANIMATION_SCALE,
+            "1.0",
         ),
     )
 }

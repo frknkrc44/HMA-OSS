@@ -6,11 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import icu.nullptr.hidemyapplist.common.SettingsPresets
 import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
 import icu.nullptr.hidemyapplist.ui.view.AppItemView
-import org.frknkrc44.hma_oss.R
 
 class SettingsPresetListAdapter(presetName: String) : RecyclerView.Adapter<SettingsPresetListAdapter.ViewHolder>() {
     private val presetItems by lazy {
-        SettingsPresets.instance.getPresetByName(presetName)!!.settingsKVPairs
+        SettingsPresets.instance.getPresetByName(presetName)!!.settingsKVPairs.sortedBy { it.name }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
