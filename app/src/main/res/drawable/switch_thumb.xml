@@ -5,16 +5,16 @@
     <item android:state_checked="true">
         <shape android:shape="oval">
             <solid android:color="@color/switch_neutral" />
-            <size android:width="32dp" android:height="32dp" />
-            <stroke android:color="@android:color/transparent" android:width="8dp" />
+            <size android:width="28dp" android:height="28dp" />
+            <stroke android:color="@android:color/transparent" android:width="6dp" />
         </shape>
     </item>
 
     <item android:state_checked="false">
         <shape android:shape="oval">
             <solid android:color="@color/switch_accent" />
-            <size android:width="32dp" android:height="32dp" />
-			<stroke android:color="@android:color/transparent" android:width="16dp" />
+            <size android:width="28dp" android:height="28dp" />
+			<stroke android:color="@android:color/transparent" android:width="12dp" />
         </shape>
     </item>
 </animated-selector>
