@@ -33,10 +33,12 @@ fun getUncommittedSuffix(): String {
 
     var returnedVal = ""
 
-    val branch = "git symbolic-ref HEAD".execute().split("/").last()
-    if (branch != "master") {
-        returnedVal += "-$branch"
-    }
+    try {
+        val branch = "git symbolic-ref HEAD".execute().split("/").last()
+        if (branch != "master") {
+            returnedVal += "-$branch"
+        }
+    } catch (_: Throwable) {}
 
     val result = "git status -s".execute()
     if (result.isEmpty()) {
