@@ -146,6 +146,7 @@
     <string name="settings_bypass_risky_package_warning_summary">Beachten Sie, dass die Devs nicht für riskante Paketprobleme verantwortlich sind, bevor oder nachdem Sie diese Funktion aktiviert haben</string>
     <string name="settings_disable_activity_launch_protection">Aktivitätsstartschutz deaktivieren</string>
     <string name="settings_disable_activity_launch_protection_summary">Dieser Schalter hebt alle Startaktivitäts-Schutzvorkehrungen auf. Wenn Sie sich nicht sicher sind, aktivieren Sie dies nicht.</string>
+    <string name="settings_system_wallpaper">Use system wallpaper</string>
     <string name="settings_language">Sprache</string>
     <string name="settings_translate">Beim Übersetzen mitmachen</string>
     <string name="settings_translate_summary">Helfe uns, %s in deine Sprache zu übersetzen</string>
