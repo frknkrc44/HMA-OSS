@@ -7,6 +7,6 @@
     <color name="warn">#375634</color>
     <color name="error">#8F3232</color>
 
-    <color name="switch_accent">?android:attr/colorAccent</color>
-    <color name="switch_neutral">#d1cecc</color>
+    <color name="switch_accent">?colorPrimary</color>
+    <color name="switch_neutral">?colorSurfaceContainer</color>
 </resources>
