@@ -146,6 +146,7 @@
     <string name="settings_bypass_risky_package_warning_summary">Lưu ý rằng nhà phát triển không chịu trách nhiệm về các vấn đề liên quan đến gói rủi ro trước hoặc sau khi bạn bật tính năng này</string>
     <string name="settings_disable_activity_launch_protection">Tắt tính năng bảo vệ khởi chạy hoạt động</string>
     <string name="settings_disable_activity_launch_protection_summary">Nút chuyển đổi này sẽ gỡ bỏ mọi chế độ bảo vệ startActivity. Nếu bạn không chắc chắn, đừng bật nó.</string>
+    <string name="settings_system_wallpaper">Use system wallpaper</string>
     <string name="settings_language">Ngôn ngữ</string>
     <string name="settings_translate">Giúp chúng tôi dịch</string>
     <string name="settings_translate_summary">Giúp chúng tôi dịch %s sang ngôn ngữ của bạn</string>
