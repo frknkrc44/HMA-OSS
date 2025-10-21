@@ -58,7 +58,11 @@ val officialBuild: Boolean by rootProject.extra
 
 @Suppress("deprecation")
 afterEvaluate {
-    val gitTranslators = mapOf(
+    val srcDir = android.sourceSets["main"].assets.srcDirs.first()
+    logger.lifecycle("Asset dir: $srcDir")
+    if (!srcDir.exists()) srcDir.mkdirs()
+
+    val translatorsMap = mutableMapOf(
         // I used GitHub to get translations before moving to Crowdin.
         // Since nearly all of GitHub translators are listed in Crowdin
         // too, I wanted to add one profile here.
@@ -78,8 +82,6 @@ afterEvaluate {
 
         val json = JsonParser.parseString(str).asJsonObject
         val translators = json.getAsJsonArray("data")
-        val translatorsMap = mutableMapOf<String, String>()
-        translatorsMap.putAll(gitTranslators)
 
         for (item in translators) {
             val translator = item.asJsonObject.getAsJsonObject("data")
@@ -97,19 +99,10 @@ afterEvaluate {
                 translatorsMap[username] = avatarUrl
             }
         }
-
-        val translatorJson = JSONObject(translatorsMap).toJSONString()
-        val srcDir = android.sourceSets["main"].assets.srcDirs.first()
-        logger.lifecycle("Asset dir: $srcDir")
-        if (!srcDir.exists()) srcDir.mkdirs()
-        File(srcDir, "translators.json").writeText(translatorJson)
-    } else {
-        val srcDir = android.sourceSets["main"].assets.srcDirs.first()
-        logger.lifecycle("Asset dir: $srcDir")
-        if (!srcDir.exists()) srcDir.mkdirs()
-        val translatorJson = JSONObject(gitTranslators).toJSONString()
-        File(srcDir, "translators.json").writeText(translatorJson)
     }
+
+    val translatorJson = JSONObject(translatorsMap).toJSONString()
+    File(srcDir, "translators.json").writeText(translatorJson)
 }
 
 android {
