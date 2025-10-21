@@ -100,18 +100,18 @@
     <string name="app_invert_activity_launch_protection">反轉 Activity 啟動保護</string>
     <string name="app_invert_activity_launch_protection_desc">此選項將反轉設定中”停用 Activity 啟動保護“的選取狀態。</string>
     <string name="app_global_activity_launch_protection_state">保護範圍為 %s 全域</string>
-    <string name="app_force_stop_launch">Force stop and launch</string>
-    <string name="app_launch">Launch</string>
-    <string name="app_launch_failed">App launch failed, check logs for more details</string>
+    <string name="app_force_stop_launch">強制停止并啟動</string>
+    <string name="app_launch">啟動</string>
+    <string name="app_launch_failed">應用程式啟動失敗，請檢查日誌以取得詳細資訊</string>
     <!-- Presets -->
-    <string name="title_preset">Presets</string>
-    <string name="title_settings_preset">Settings presets</string>
+    <string name="title_preset">預設值</string>
+    <string name="title_settings_preset">設定預設值</string>
     <string name="title_preset_manage">顯示預設</string>
     <string name="preset_xposed">LSPosed/Xposed 模組</string>
     <string name="preset_root_apps">Root 管理器 / 已 Root 的應用程式</string>
     <string name="preset_custom_rom">自訂 ROM 應用程式</string>
     <string name="preset_sus_apps">可疑應用程式</string>
-    <string name="preset_detector_apps">Detector/Checker apps</string>
+    <string name="preset_detector_apps">偵測/檢查應用程式</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">輔助功能</string>
     <string name="settings_preset_dev_options">開發人員選項</string>
@@ -146,7 +146,7 @@
     <string name="settings_bypass_risky_package_warning_summary">請注意，開發者對於與高風險軟體包相關的問題，在您啟用此功能前後皆不承擔責任</string>
     <string name="settings_disable_activity_launch_protection">停用 Activity 啟動保護</string>
     <string name="settings_disable_activity_launch_protection_summary">此切換將會移除所有 startActivity 保護。如果不確定用途，請勿啟用。</string>
-    <string name="settings_system_wallpaper">Use system wallpaper</string>
+    <string name="settings_system_wallpaper">使用系統桌布</string>
     <string name="settings_language">語言</string>
     <string name="settings_translate">參與翻譯</string>
     <string name="settings_translate_summary">幫助我們翻譯 %s 到您的語言</string>
