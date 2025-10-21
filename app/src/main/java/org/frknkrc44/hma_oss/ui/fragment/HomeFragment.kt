@@ -17,6 +17,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import icu.nullptr.hidemyapplist.hmaApp
 import icu.nullptr.hidemyapplist.service.ConfigManager
+import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.attrDrawable
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.getColor
@@ -115,10 +116,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onStart()
 
         val serviceVersion = ServiceClient.serviceVersion
-        val color = when {
+        var color = when {
             serviceVersion == 0 -> getColor(R.color.invalid)
             else -> themeColor(android.R.attr.colorPrimary)
         }
+
+        if (PrefManager.systemWallpaper) color -= 0x55000000
 
         with(binding.statusCard) {
             root.setCardBackgroundColor(color)
@@ -294,12 +297,20 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
         }
 
-        binding.backupConfig.setOnClickListener {
-            backupSAFLauncher.launch("HMA_Config_${System.currentTimeMillis()}.json")
+        with(binding.backupConfig) {
+            if (PrefManager.systemWallpaper) background.alpha = 0xAA
+
+            setOnClickListener {
+                backupSAFLauncher.launch("HMA_Config_${System.currentTimeMillis()}.json")
+            }
         }
 
-        binding.restoreConfig.setOnClickListener {
-            restoreSAFLauncher.launch("application/json")
+        with(binding.restoreConfig) {
+            if (PrefManager.systemWallpaper) background.alpha = 0xAA
+
+            setOnClickListener {
+                restoreSAFLauncher.launch("application/json")
+            }
         }
     }
 

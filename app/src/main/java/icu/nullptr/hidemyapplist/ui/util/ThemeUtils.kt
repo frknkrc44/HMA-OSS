@@ -67,15 +67,12 @@ object ThemeUtils {
 
     fun isUsingBlackTheme(context: Context) = PrefManager.blackDarkTheme && isNightMode(context)
 
-    fun getNightTheme(context: Context): String {
-        return if (isUsingBlackTheme(context))
-            THEME_BLACK else THEME_DEFAULT
-    }
-
     @StyleRes
-    fun getNightThemeStyleRes(context: Context): Int {
-        return if (isUsingBlackTheme(context))
-            R.style.ThemeOverlay_Black else R.style.ThemeOverlay
+    fun getOverlayThemeStyleRes(context: Context): Int {
+        if (isUsingBlackTheme(context)) return R.style.ThemeOverlay_Black
+        if (PrefManager.systemWallpaper) return R.style.ThemeOverlay_Wallpaper
+
+        return R.style.ThemeOverlay
     }
 
     val colorTheme get() = if (isSystemAccent) "SYSTEM" else PrefManager.themeColor
@@ -125,10 +122,13 @@ object ThemeUtils {
         @ColorRes colorId: Int
     ) = requireContext().getColor(colorId)
 
-    fun Context.homeItemBackgroundColor() = if (isNightMode(this)) {
+    fun Context.homeItemBackgroundColor() = (if (isNightMode(this)) {
         themeColor(com.google.android.material.R.attr.colorSurfaceContainerHighest)
     } else {
         themeColor(com.google.android.material.R.attr.colorSurfaceContainer)
+    }).let {
+        if (PrefManager.systemWallpaper) return@let it - 0x55000000
+        return@let it
     }
 
     fun Fragment.homeItemBackgroundColor() = requireContext().homeItemBackgroundColor()

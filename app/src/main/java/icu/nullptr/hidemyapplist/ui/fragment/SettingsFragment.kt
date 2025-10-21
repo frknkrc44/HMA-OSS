@@ -92,6 +92,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
         override fun getBoolean(key: String, defValue: Boolean): Boolean {
             return when (key) {
                 "followSystemAccent" -> PrefManager.followSystemAccent
+                "systemWallpaper" -> PrefManager.systemWallpaper
                 "blackDarkTheme" -> PrefManager.blackDarkTheme
                 "detailLog" -> ConfigManager.detailLog
                 "hideIcon" -> PrefManager.hideIcon
@@ -118,6 +119,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
         override fun putBoolean(key: String, value: Boolean) {
             when (key) {
                 "followSystemAccent" -> PrefManager.followSystemAccent = value
+                "systemWallpaper" -> PrefManager.systemWallpaper = value
                 "blackDarkTheme" -> PrefManager.blackDarkTheme = value
                 "detailLog" -> ConfigManager.detailLog = value
                 "forceMountData" -> ConfigManager.forceMountData = value
@@ -270,9 +272,20 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                 true
             }
 
-            findPreference<SwitchPreferenceCompat>("blackDarkTheme")?.setOnPreferenceChangeListener { _, _ ->
-                activity?.recreate()
-                true
+            findPreference<SwitchPreferenceCompat>("systemWallpaper")?.apply {
+                isEnabled = findPreference<SwitchPreferenceCompat>("blackDarkTheme")?.isChecked != true
+                setOnPreferenceChangeListener { _, _ ->
+                    activity?.recreate()
+                    true
+                }
+            }
+
+            findPreference<SwitchPreferenceCompat>("blackDarkTheme")?.apply {
+                isEnabled = findPreference<SwitchPreferenceCompat>("systemWallpaper")?.isChecked != true
+                setOnPreferenceChangeListener { _, _ ->
+                    activity?.recreate()
+                    true
+                }
             }
 
             configureDataIsolation()

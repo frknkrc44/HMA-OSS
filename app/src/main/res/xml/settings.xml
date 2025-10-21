@@ -39,6 +39,10 @@
             android:summary="%s"
             android:title="@string/dark_theme" />
         <SwitchPreferenceCompat
+            android:icon="@drawable/baseline_wallpaper_24"
+            android:key="systemWallpaper"
+            android:title="@string/settings_system_wallpaper" />
+        <SwitchPreferenceCompat
             android:icon="@drawable/outline_invert_colors_24"
             android:key="blackDarkTheme"
             android:summary="@string/settings_pure_black_dark_theme_summary"

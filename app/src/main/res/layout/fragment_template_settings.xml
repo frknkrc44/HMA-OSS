@@ -7,6 +7,7 @@
     tools:context="icu.nullptr.hidemyapplist.ui.fragment.TemplateSettingsFragment">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:background="@android:color/transparent"
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
