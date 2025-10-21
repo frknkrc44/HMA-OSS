@@ -3,8 +3,10 @@ package icu.nullptr.hidemyapplist.xposed
 import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.content.pm.IPackageManager
+import android.os.Binder
 import android.os.Build
 import android.os.UserHandle
+import android.util.Log
 import icu.nullptr.hidemyapplist.common.AppPresets
 import icu.nullptr.hidemyapplist.common.CommonUtils
 import icu.nullptr.hidemyapplist.common.Constants
@@ -318,7 +320,13 @@ class HMAService(val pms: IPackageManager) : IHMAService.Stub() {
 
     override fun readConfig() = config.toString()
     override fun forceStop(packageName: String?, userId: Int) {
-        ActivityManagerApis.forceStopPackage(packageName, userId)
+        Utils.binderLocalScope {
+            runCatching {
+                ActivityManagerApis.forceStopPackage(packageName, userId)
+            }.onFailure { error ->
+                this.log(Log.ERROR, TAG, error.stackTraceToString())
+            }
+        }
     }
 
     override fun log(level: Int, tag: String, message: String) {

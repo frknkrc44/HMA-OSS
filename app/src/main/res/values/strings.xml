@@ -227,6 +227,4 @@
     <string name="dark_theme">Dark theme</string>
     <string name="dark_theme_off">Always off</string>
     <string name="dark_theme_on">Always on</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
