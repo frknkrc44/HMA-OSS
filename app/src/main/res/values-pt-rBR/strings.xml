@@ -146,6 +146,7 @@
     <string name="settings_bypass_risky_package_warning_summary">Nota que o desenvolvedor não é responsável por problemas causados por apps de risco antes ou depois de você ativar esse recurso</string>
     <string name="settings_disable_activity_launch_protection">Desativar proteção de inicialização de atividade</string>
     <string name="settings_disable_activity_launch_protection_summary">Essa opção ira levantar as restrições startActivity. Se não tiver certeza não ative.</string>
+    <string name="settings_system_wallpaper">Use system wallpaper</string>
     <string name="settings_language">Idioma</string>
     <string name="settings_translate">Participe na tradução</string>
     <string name="settings_translate_summary">Nos ajude a traduzir %s na sua língua </string>
