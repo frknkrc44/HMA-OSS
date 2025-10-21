@@ -100,7 +100,12 @@
     <string name="app_invert_activity_launch_protection">Ubah proteksi peluncuran Activity</string>
     <string name="app_invert_activity_launch_protection_desc">Opsi ini akan mengubah pilihan \"Nonaktifkan proteksi peluncuran Activity\" di Pengaturan.</string>
     <string name="app_global_activity_launch_protection_state">Proteksi %s secara universal</string>
+    <string name="app_force_stop_launch">Force stop and launch</string>
+    <string name="app_launch">Launch</string>
+    <string name="app_launch_failed">App launch failed, check logs for more details</string>
     <!-- Presets -->
+    <string name="title_preset">Presets</string>
+    <string name="title_settings_preset">Settings presets</string>
     <string name="title_preset_manage">Tampilkan preset</string>
     <string name="preset_xposed">Modul LSPosed/Xposed</string>
     <string name="preset_root_apps">Manajer root/Apl root</string>
