@@ -100,7 +100,12 @@
     <string name="app_invert_activity_launch_protection">アクティビティ起動保護を反転する</string>
     <string name="app_invert_activity_launch_protection_desc">このオプションは、設定の「アクティビティ起動保護を無効にする」の選択を反転します。</string>
     <string name="app_global_activity_launch_protection_state">保護はグローバルで %s です</string>
+    <string name="app_force_stop_launch">Force stop and launch</string>
+    <string name="app_launch">Launch</string>
+    <string name="app_launch_failed">App launch failed, check logs for more details</string>
     <!-- Presets -->
+    <string name="title_preset">Presets</string>
+    <string name="title_settings_preset">Settings presets</string>
     <string name="title_preset_manage">プリセットを表示</string>
     <string name="preset_xposed">LSPosed/Xposed モジュール</string>
     <string name="preset_root_apps">Root マネージャー/Rooted アプリ</string>
