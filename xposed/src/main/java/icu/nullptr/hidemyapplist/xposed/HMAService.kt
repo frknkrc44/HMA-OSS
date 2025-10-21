@@ -319,6 +319,7 @@ class HMAService(val pms: IPackageManager) : IHMAService.Stub() {
         AppPresets.instance.getPresetByName(presetName)?.packages?.toTypedArray()
 
     override fun readConfig() = config.toString()
+
     override fun forceStop(packageName: String?, userId: Int) {
         Utils.binderLocalScope {
             runCatching {

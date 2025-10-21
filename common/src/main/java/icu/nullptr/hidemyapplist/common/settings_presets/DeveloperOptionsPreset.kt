@@ -100,17 +100,5 @@ class DeveloperOptionsPreset : BasePreset("dev_options") {
             "non_persistent_mac_randomization_force_enabled",
             "0",
         ),
-        ReplacementItem(
-            Settings.Global.WINDOW_ANIMATION_SCALE,
-            "1.0",
-        ),
-        ReplacementItem(
-            Settings.Global.ANIMATOR_DURATION_SCALE,
-            "1.0",
-        ),
-        ReplacementItem(
-            Settings.Global.TRANSITION_ANIMATION_SCALE,
-            "1.0",
-        ),
     )
 }
