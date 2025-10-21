@@ -274,8 +274,15 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
 
             findPreference<SwitchPreferenceCompat>("systemWallpaper")?.apply {
                 isEnabled = findPreference<SwitchPreferenceCompat>("blackDarkTheme")?.isChecked != true
-                setOnPreferenceChangeListener { _, _ ->
-                    activity?.recreate()
+                setOnPreferenceChangeListener { _, value ->
+                    val activity = requireActivity()
+                    if (value as Boolean) {
+                        activity.finish()
+                        startActivity(Intent(activity, activity.javaClass))
+                    } else {
+                        activity.recreate()
+                    }
+
                     true
                 }
             }
