@@ -100,7 +100,12 @@
     <string name="app_invert_activity_launch_protection">Invertir protección de Activity launch</string>
     <string name="app_invert_activity_launch_protection_desc">Esta opción invertirá la selección de \"Desactivar la protección de Activity launch\" en Ajustes.</string>
     <string name="app_global_activity_launch_protection_state">La protección es %s globalmente</string>
+    <string name="app_force_stop_launch">Force stop and launch</string>
+    <string name="app_launch">Launch</string>
+    <string name="app_launch_failed">App launch failed, check logs for more details</string>
     <!-- Presets -->
+    <string name="title_preset">Presets</string>
+    <string name="title_settings_preset">Settings presets</string>
     <string name="title_preset_manage">Mostrar presets</string>
     <string name="preset_xposed">Módulos LSPosed/Xposed</string>
     <string name="preset_root_apps">Gestores root/Aplicaciones Root</string>
