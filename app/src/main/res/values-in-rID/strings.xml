@@ -146,6 +146,7 @@
     <string name="settings_bypass_risky_package_warning_summary">Perlu diketahui bahwa pengembang tidak bertanggung jawab atas masalah terkait paket berisiko sebelum atau setelah anda mengaktifkan fitur ini</string>
     <string name="settings_disable_activity_launch_protection">Nonaktifkan peluncuran proteksi Activity</string>
     <string name="settings_disable_activity_launch_protection_summary">Tombol ini akan menonaktifkan semua proteksi startActivity. Jika anda tidak yakin, jangan aktifkan.</string>
+    <string name="settings_system_wallpaper">Use system wallpaper</string>
     <string name="settings_language">Bahasa</string>
     <string name="settings_translate">Berpartisipasi dalam penerjemahan</string>
     <string name="settings_translate_summary">Bantu kami menerjemahkan %s ke bahasa anda</string>
