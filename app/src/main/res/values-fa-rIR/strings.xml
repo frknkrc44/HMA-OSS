@@ -30,7 +30,7 @@
     <string name="system">System</string>
     <string name="follow_system">Follow system</string>
     <!-- Home -->
-    <string name="home_xposed_activated">Module Activated [%s]</string>
+    <string name="home_xposed_activated">ماژول فعال شده [%s]</string>
     <string name="home_xposed_not_activated">Module Not Activated</string>
     <string name="home_xposed_service_on">System service running [%d]</string>
     <string name="home_xposed_service_off">System service not running</string>
@@ -50,7 +50,7 @@
     <string name="home_import_file_damaged">Backup file was damaged</string>
     <string name="home_export_failed">Export failed</string>
     <string name="home_exported">Backed up config</string>
-    <string name="home_new_update">New update available: %s</string>
+    <string name="home_new_update">بروزرسانی جدید در دسترس است: %s</string>
     <string name="home_update">Update: %s</string>
     <!-- App select -->
     <string name="list_show_system">Show system apps</string>
@@ -106,7 +106,7 @@
     <!-- Presets -->
     <string name="title_preset">Presets</string>
     <string name="title_settings_preset">Settings presets</string>
-    <string name="title_preset_manage">Show presets</string>
+    <string name="title_preset_manage">نمایش پیش‌تنظیمات</string>
     <string name="preset_xposed">LSPosed/Xposed modules</string>
     <string name="preset_root_apps">Root managers/Rooted apps</string>
     <string name="preset_custom_rom">Custom ROM apps</string>
