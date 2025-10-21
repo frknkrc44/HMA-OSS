@@ -146,6 +146,7 @@
     <string name="settings_bypass_risky_package_warning_summary">Note que os programadores não são responsáveis por problemas relacionados com pacotes de risco antes ou depois de ativar esta funcionalidade.</string>
     <string name="settings_disable_activity_launch_protection">Desativar proteção de início de Atividade</string>
     <string name="settings_disable_activity_launch_protection_summary">Este interruptor irá remover todas as proteções startActivity. Se não tiver a certeza, não o ative.</string>
+    <string name="settings_system_wallpaper">Use system wallpaper</string>
     <string name="settings_language">Idioma</string>
     <string name="settings_translate">Participar na tradução</string>
     <string name="settings_translate_summary">Ajude-nos a traduzir o %s para o seu idioma</string>
