@@ -146,6 +146,7 @@
     <string name="settings_bypass_risky_package_warning_summary">Bu özelliği etkinleştirmeden önce veya sonra riskli paketle ilgili sorunlardan geliştiriciler sorumlu değildir</string>
     <string name="settings_disable_activity_launch_protection">Etkinlik başlatma korumasını devre dışı bırak</string>
     <string name="settings_disable_activity_launch_protection_summary">Bu ayar bütün startActivity korumalarını kaldırır. Emin değilseniz bunu etkinleştirmeyin.</string>
+    <string name="settings_system_wallpaper">Sistem duvar kağıdını kullan</string>
     <string name="settings_language">Dil</string>
     <string name="settings_translate">Çeviriye katkıda bulun</string>
     <string name="settings_translate_summary">%s’i kendi dilinize çevirmemize yardımcı olun</string>
