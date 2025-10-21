@@ -183,6 +183,7 @@ class HMAService(val pms: IPackageManager) : IHMAService.Stub() {
 
     fun shouldHide(caller: String?, query: String?): Boolean {
         if (caller == null || query == null) return false
+        if (caller == BuildConfig.APP_PACKAGE_NAME) return false
         if (caller in Constants.packagesShouldNotHide || query in Constants.packagesShouldNotHide) return false
         if (caller == query) return false
         val appConfig = config.scope[caller] ?: return false
@@ -226,6 +227,7 @@ class HMAService(val pms: IPackageManager) : IHMAService.Stub() {
 
     fun shouldHideInstallationSource(caller: String?, query: String?, user: UserHandle): Int {
         if (caller == null || query == null) return 0
+        if (caller == BuildConfig.APP_PACKAGE_NAME) return 0
         val appConfig = config.scope[caller] ?: return 0
         if (!appConfig.hideInstallationSource) return 0
         logD(TAG, "@shouldHideInstallationSource $caller: $query")
