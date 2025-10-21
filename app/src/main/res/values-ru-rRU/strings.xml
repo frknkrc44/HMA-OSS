@@ -146,6 +146,7 @@
     <string name="settings_bypass_risky_package_warning_summary">Обратите внимание, что разработчики не несут ответственности за связанные с опасными пакетами проблемы до или после включения этой функции</string>
     <string name="settings_disable_activity_launch_protection">Отключить защиту от запуска Activity</string>
     <string name="settings_disable_activity_launch_protection_summary">Этот переключатель отключит всю защиту startActivity. Если вы не уверены, не включайте.</string>
+    <string name="settings_system_wallpaper">Use system wallpaper</string>
     <string name="settings_language">Язык</string>
     <string name="settings_translate">Принять участие в переводе</string>
     <string name="settings_translate_summary">Помогите нам перевести %s на ваш язык</string>
