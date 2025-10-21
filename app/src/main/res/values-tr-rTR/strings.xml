@@ -100,7 +100,12 @@
     <string name="app_invert_activity_launch_protection">Etkinlik başlatma korumasını tersine çevir</string>
     <string name="app_invert_activity_launch_protection_desc">Bu özellik Ayarlar\'daki \"Etkinlik başlatma korumasını devre dışı bırak\" seçeneğinin işlevini tersine çevirir.</string>
     <string name="app_global_activity_launch_protection_state">Koruma genel olarak %s</string>
+    <string name="app_force_stop_launch">Durmaya zorla ve başlat</string>
+    <string name="app_launch">Başlat</string>
+    <string name="app_launch_failed">Uygulama başlatılamadı, daha fazla detay için günlüklere gözatın</string>
     <!-- Presets -->
+    <string name="title_preset">Ön ayarlar</string>
+    <string name="title_settings_preset">Ayarlar ön ayarları</string>
     <string name="title_preset_manage">Ön ayarları göster</string>
     <string name="preset_xposed">LSPosed/Xposed modülleri</string>
     <string name="preset_root_apps">Root yöneticileri/Rootlu uygulamalar</string>
