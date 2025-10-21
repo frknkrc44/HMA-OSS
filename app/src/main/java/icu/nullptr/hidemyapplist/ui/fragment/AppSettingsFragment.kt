@@ -1,10 +1,6 @@
 package icu.nullptr.hidemyapplist.ui.fragment
 
 import android.annotation.SuppressLint
-import android.content.ComponentName
-import android.content.DialogInterface
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -12,7 +8,6 @@ import android.view.View
 import android.view.WindowInsets
 import android.widget.Toast
 import androidx.activity.addCallback
-import androidx.appcompat.widget.PopupMenu
 import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.clearFragmentResultListener

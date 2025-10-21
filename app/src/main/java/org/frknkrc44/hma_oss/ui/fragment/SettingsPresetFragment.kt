@@ -8,13 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
-import icu.nullptr.hidemyapplist.ui.fragment.AppSettingsFragmentArgs
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentSettingsPresetBinding
 import org.frknkrc44.hma_oss.ui.adapter.SettingsPresetListAdapter
-import kotlin.getValue
 
 /**
  * Use the [SettingsPresetFragment.newInstance] factory method to

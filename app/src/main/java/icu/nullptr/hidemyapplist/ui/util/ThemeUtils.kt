@@ -119,14 +119,14 @@ object ThemeUtils {
         @ColorRes colorId: Int
     ) = requireContext().getColor(colorId)
 
-    fun Context.homeItemBackgroundColor() = (if (isNightMode(this)) {
+    fun Context.homeItemBackgroundColor(forceNoTrans: Boolean = false) = (if (isNightMode(this)) {
         themeColor(com.google.android.material.R.attr.colorSurfaceContainerHighest)
     } else {
         themeColor(com.google.android.material.R.attr.colorSurfaceContainer)
     }).let {
-        if (PrefManager.systemWallpaper) return@let it - 0x55000000
+        if (!forceNoTrans && PrefManager.systemWallpaper) return@let it - 0x55000000
         return@let it
     }
 
-    fun Fragment.homeItemBackgroundColor() = requireContext().homeItemBackgroundColor()
+    fun Fragment.homeItemBackgroundColor(forceNoTrans: Boolean = false) = requireContext().homeItemBackgroundColor(forceNoTrans)
 }

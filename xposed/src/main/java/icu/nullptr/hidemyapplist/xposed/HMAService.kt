@@ -3,7 +3,6 @@ package icu.nullptr.hidemyapplist.xposed
 import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.content.pm.IPackageManager
-import android.os.Binder
 import android.os.Build
 import android.os.UserHandle
 import android.util.Log

@@ -3,11 +3,11 @@ package icu.nullptr.hidemyapplist.ui.view
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.LinearLayout
+import androidx.core.view.isVisible
 import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
 import icu.nullptr.hidemyapplist.util.PackageHelper
 import org.frknkrc44.hma_oss.databinding.AppItemViewBinding
-import androidx.core.view.isVisible
 
 class AppItemView @JvmOverloads constructor(
     context: Context,
