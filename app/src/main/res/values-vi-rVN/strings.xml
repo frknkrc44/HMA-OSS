@@ -100,7 +100,12 @@
     <string name="app_invert_activity_launch_protection"></string>
     <string name="app_invert_activity_launch_protection_desc">Tùy chọn này sẽ đảo ngược lựa chọn \"Tắt bảo vệ khởi chạy hoạt động\" trong Cài đặt.</string>
     <string name="app_global_activity_launch_protection_state">Bảo vệ đang được %s toàn hệ thống</string>
+    <string name="app_force_stop_launch">Force stop and launch</string>
+    <string name="app_launch">Launch</string>
+    <string name="app_launch_failed">App launch failed, check logs for more details</string>
     <!-- Presets -->
+    <string name="title_preset">Presets</string>
+    <string name="title_settings_preset">Settings presets</string>
     <string name="title_preset_manage">Hiển thị các cài đặt trước</string>
     <string name="preset_xposed">Các mô-đun LSPosed/Xposed</string>
     <string name="preset_root_apps">Ứng dụng quản lý Root/Ứng dụng được cấp Root</string>
