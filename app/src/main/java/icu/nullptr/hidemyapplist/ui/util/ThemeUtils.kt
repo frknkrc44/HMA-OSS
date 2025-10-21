@@ -58,9 +58,6 @@ object ThemeUtils {
         "MATERIAL_BLUE_GREY" to R.style.ThemeOverlay_Dark_MaterialBlueGrey
     )
 
-    private const val THEME_DEFAULT = "DEFAULT"
-    private const val THEME_BLACK = "BLACK"
-
     val isSystemAccent get() = DynamicColors.isDynamicColorAvailable() && PrefManager.followSystemAccent
 
     fun isNightMode(context: Context) = (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
