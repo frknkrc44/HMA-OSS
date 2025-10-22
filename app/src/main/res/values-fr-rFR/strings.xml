@@ -9,7 +9,7 @@
     <string name="title_app_select">Sélectionner les applications</string>
     <string name="title_app_settings">Réglages pour l\'application</string>
     <string name="title_about">A propos</string>
-    <string name="title_about_fork">About this fork</string>
+    <string name="title_about_fork">À propos de ce fork</string>
     <string name="do_not_dual">Ne pas installer HMA dans l\'utilisateur secondaire</string>
     <string name="show_crash_log">Afficher le journal de plantage</string>
     <string name="config_damaged">Fichier de configuration endommagé. Merci de nettoyer les données de l\'application</string>
@@ -28,7 +28,7 @@
     <string name="no">Non</string>
     <string name="search">Rechercher</string>
     <string name="system">Système</string>
-    <string name="follow_system">Follow system</string>
+    <string name="follow_system">Suivre le système</string>
     <!-- Home -->
     <string name="home_xposed_activated">Module Actif [%s]</string>
     <string name="home_xposed_not_activated">Module Inactivé</string>
@@ -60,9 +60,9 @@
     <string name="list_sort_by_package_name">Par nom de paquet</string>
     <string name="list_sort_by_install_time">Par date d\'installation</string>
     <string name="list_sort_by_update_time">Par date de mise à jour</string>
-    <string name="list_empty_no_enabled">Try enabling hiding for apps with this template\'s work mode and apps will appear here</string>
-    <string name="list_empty_no_apps">No applications found, maybe you didn\'t allow this app to query all packages</string>
-    <string name="list_empty_preset">No applications added in this preset</string>
+    <string name="list_empty_no_enabled">Essayez d\'activer le masquage pour les applications avec le mode de fonctionnement de ce modèle et les applications apparaîtront ici</string>
+    <string name="list_empty_no_apps">Aucunes applications trouvées, peut être que vous n\'avez pas autorisé cette application à interroger tous les paquets</string>
+    <string name="list_empty_preset">Aucunes applications ajoutées dans ce préréglage</string>
     <!-- Manage templates -->
     <string name="template_usage_hint">Établir des modèles pour les applications \"agitées\", controller la liste d\'appli qu\'elles peuvent obtenir.\n\nListe noir (recommandée): les applis sélectionnées dans le modèle seront invisibles aux autres aplis qui appliquent le modèle.\nListe blanche: les applis non sélectionnées dans le modèle seront invisibles aux applis l\'appliquant.</string>
     <string name="template_new_blacklist">Créer un modèle de liste noir</string>
@@ -79,7 +79,7 @@
     <string name="app_enable_hide">Activer le masquage</string>
     <string name="app_template_config">Configuration du modèle</string>
     <string name="app_choose_template">Choisir le modèle</string>
-    <string name="app_choose_preset">Choose preset</string>
+    <string name="app_choose_preset">Choisissez un préréglage</string>
     <string name="app_exclude_system_apps">Exclure les applications du système</string>
     <string name="app_exclude_system_apps_summary">Désactiver cette option uniquement lors ce que c\'est vraiment nécessaire. Il est susceptible de provoquer un crash s\'il est désactivé</string>
     <string name="app_template_using">Utilisation de %d modèle(s)</string>
@@ -87,10 +87,10 @@
     <string name="app_settings_preset_using">Using %d settings presets</string>
     <string name="app_extra_apps_visible_count">%d applis additionelles visibles</string>
     <string name="app_extra_apps_invisible_count">%d applis additionelles invisibles</string>
-    <string name="app_warning_risky_package_title">Risky package</string>
-    <string name="app_warning_risky_package_desc">This package is marked as risky and you can cause issues on hidden apps. Do you want to continue?</string>
-    <string name="app_spoof">Spoofing</string>
-    <string name="app_hide_installation_source">Spoof installation sources</string>
+    <string name="app_warning_risky_package_title">Paquet risqué</string>
+    <string name="app_warning_risky_package_desc">Ce paquet est indiqué comme étant risqué et peut causer des problèmes sur les applications masquées. Voulez-vous tout de même poursuivre ?</string>
+    <string name="app_spoof">Usurpation</string>
+    <string name="app_hide_installation_source">Usurper les sources de l\'installation</string>
     <string name="app_hide_installation_source_desc">All of user apps will be spoofed as installed over Play Store for this application</string>
     <string name="app_hide_installation_source_system">Spoof system apps too</string>
     <string name="app_hide_installation_source_system_desc">All of system apps will be spoofed as installed over nothing for this application</string>
