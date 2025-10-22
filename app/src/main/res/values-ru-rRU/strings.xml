@@ -11,12 +11,12 @@
     <string name="title_about">О модуле</string>
     <string name="title_about_fork">Об этом форке</string>
     <string name="do_not_dual">Не устанавливать HMA для второго пользователя</string>
-    <string name="show_crash_log">Показывать логи вылета</string>
-    <string name="config_damaged">Файл настроек повреждён. Пожалуйста, очистите данные приложения</string>
+    <string name="show_crash_log">Показывать краш-лог</string>
+    <string name="config_damaged">Файл конфигурации поврежден. Пожалуйста, очистите данные приложения</string>
     <string name="edit_list">Редактировать список</string>
     <string name="delete">Удалить</string>
-    <string name="enabled">Включено</string>
-    <string name="disabled">Отключено</string>
+    <string name="enabled">Включена</string>
+    <string name="disabled">Отключена</string>
     <string name="work_mode">Режим работы</string>
     <string name="blacklist">Чёрный список</string>
     <string name="whitelist">Белый список</string>
@@ -28,13 +28,13 @@
     <string name="no">Нет</string>
     <string name="search">Поиск</string>
     <string name="system">Система</string>
-    <string name="follow_system">Следовать за системой</string>
+    <string name="follow_system">Следовать системе</string>
     <!-- Home -->
     <string name="home_xposed_activated">Модуль активирован [%s]</string>
     <string name="home_xposed_not_activated">Модуль не активирован</string>
     <string name="home_xposed_service_on">Системная служба работает [%d]</string>
     <string name="home_xposed_service_off">Системная служба не работает</string>
-    <string name="home_xposed_service_old">Модуль был обновлён, требуется перезагрузка</string>
+    <string name="home_xposed_service_old">Модуль обновлён, требуется перезагрузка</string>
     <string name="home_xposed_filter_count">Всего HMA-OSS отфильтровал %d запросов</string>
     <string name="home_manage">Управление</string>
     <string name="home_detection_test">Проверка на обнаружение</string>
@@ -62,9 +62,9 @@
     <string name="list_sort_by_update_time">По времени обновления</string>
     <string name="list_empty_no_enabled">Попробуйте скрыть приложения с помощью этого шаблона и приложения появятся здесь</string>
     <string name="list_empty_no_apps">Не найдено приложений. Возможно, вы не разрешили этому приложению запрашивать все пакеты</string>
-    <string name="list_empty_preset">Не добавлено приложений для этого пресета</string>
+    <string name="list_empty_preset">Нет добавленных приложений для этого пресета</string>
     <!-- Manage templates -->
-    <string name="template_usage_hint">Установите шаблоны для «беспокойных» приложений, контролируя список приложений, который они могут получить.\n\nЧёрный список (рекомендуется): приложения, выбранные в шаблоне, будут невидимыми для приложений, применяющих шаблон.\nБелый список: приложения, не выбранные в шаблоне, будут невидимыми для приложений, применяющих шаблон.</string>
+    <string name="template_usage_hint">Установите шаблоны для «не спящих» приложений, контролируя список приложений, который они могут получить.\n\nЧёрный список (рекомендуется): приложения, выбранные в шаблоне, будут невидимыми для приложений, применяющих шаблон.\nБелый список: приложения, не выбранные в шаблоне, будут невидимыми для приложений, применяющих шаблон.</string>
     <string name="template_new_blacklist">Создать шаблон с чёрным списком</string>
     <string name="template_new_whitelist">Создать шаблон с белым списком</string>
     <string name="template_delete">Вы уверены, что хотите удалить шаблон?</string>
@@ -81,12 +81,12 @@
     <string name="app_choose_template">Выберите шаблон</string>
     <string name="app_choose_preset">Выберите пресет</string>
     <string name="app_exclude_system_apps">Исключить системные приложения</string>
-    <string name="app_exclude_system_apps_summary">Выключайте эту опцию, только если действительно нужно. Вполне вероятно, что она вызовет сбой при своём выключении</string>
+    <string name="app_exclude_system_apps_summary">Выключайте эту опцию, только если действительно нужно. Вероятно, что она вызовет краш при своём выключении</string>
     <string name="app_template_using">Использует %d шаблонов</string>
-    <string name="app_preset_using">Использование %d пресетов</string>
-    <string name="app_settings_preset_using">Использование пресетов настроек %d</string>
-    <string name="app_extra_apps_visible_count">Видимы %d дополнительных приложений</string>
-    <string name="app_extra_apps_invisible_count">Невидимы %d дополнительных приложений</string>
+    <string name="app_preset_using">Использует %d пресетов</string>
+    <string name="app_settings_preset_using">Использование пресетов %d настроек</string>
+    <string name="app_extra_apps_visible_count">%d дополнительных приложений видимы</string>
+    <string name="app_extra_apps_invisible_count">%d дополнительных приложений невидимы</string>
     <string name="app_warning_risky_package_title">Рискованный пакет</string>
     <string name="app_warning_risky_package_desc">Данный пакет помечен как опасный и может вызвать проблемы со скрытыми приложениями. Хотите продолжить?</string>
     <string name="app_spoof">Подмена</string>
@@ -99,7 +99,7 @@
     <string name="app_force_stop_warning">Не забудьте принудительно остановить целевое приложение после сохранения конфигурации</string>
     <string name="app_invert_activity_launch_protection">Инвертировать защиту запуска Activity</string>
     <string name="app_invert_activity_launch_protection_desc">Этот параметр обратит выбор настройки «Отключить защиту запуска Activity» в настройках.</string>
-    <string name="app_global_activity_launch_protection_state">Глобальная защита на %s</string>
+    <string name="app_global_activity_launch_protection_state">Защита %s глобально</string>
     <string name="app_force_stop_launch">Принудительно остановить и запустить</string>
     <string name="app_launch">Запустить</string>
     <string name="app_launch_failed">Ошибка запуска приложения, проверьте логи для больших деталей</string>
@@ -124,8 +124,8 @@
     <string name="settings_module">Модуль</string>
     <string name="settings_overwrite">Перезаписать</string>
     <string name="settings_overwritten">Перезаписано</string>
-    <string name="settings_overwrite_summary">This category items will be forced as enabled if the switches are checked</string>
-    <string name="settings_default_value">Default value: %s</string>
+    <string name="settings_overwrite_summary">Элементы этой категории будут принудительно включены, если переключатели проверены</string>
+    <string name="settings_default_value">Значение по умолчанию: %s</string>
     <string name="settings_data_isolation">Изоляция данных</string>
     <string name="settings_data_isolation_summary">Данных приложения: %s\nПринудительная данных приложения: %s\nПринудительное монтирование: %s</string>
     <string name="settings_data_isolation_unsupported">Это опция доступна только на Android 11 и выше</string>
@@ -140,13 +140,13 @@
     <string name="settings_force_mount_data_summary">Изоляция данных для приложений с targetAPI ниже 30 отключена по умолчанию</string>
     <string name="settings_detail_log">Подробные логи для отладки</string>
     <string name="settings_max_log_size">Размер буфера логов</string>
-    <string name="settings_hide_icon">Скрыть иконку модуля на главном экране</string>
-    <string name="settings_hide_icon_summary">Вы всё ещё сможете открывать приложение в Xposed менеджере</string>
+    <string name="settings_hide_icon">Скрыть иконку в лаунчере</string>
+    <string name="settings_hide_icon_summary">Вы всё ещё сможете открывать приложение в менеджере Xposed</string>
     <string name="settings_bypass_risky_package_warning">Обойти предупреждение об опасном пакете</string>
     <string name="settings_bypass_risky_package_warning_summary">Обратите внимание, что разработчики не несут ответственности за связанные с опасными пакетами проблемы до или после включения этой функции</string>
     <string name="settings_disable_activity_launch_protection">Отключить защиту от запуска Activity</string>
     <string name="settings_disable_activity_launch_protection_summary">Этот переключатель отключит всю защиту startActivity. Если вы не уверены, не включайте.</string>
-    <string name="settings_system_wallpaper">Use system wallpaper</string>
+    <string name="settings_system_wallpaper">Использовать системные обои</string>
     <string name="settings_language">Язык</string>
     <string name="settings_translate">Принять участие в переводе</string>
     <string name="settings_translate_summary">Помогите нам перевести %s на ваш язык</string>
@@ -178,7 +178,7 @@
     </string>
     <string name="about_how_to_use_description_2">        Изменения настроек действуют в реальном времени.
     </string>
-    <string name="about_translator">Translator</string>
+    <string name="about_translator">Переводчик</string>
     <string name="about_developer">Разработчик</string>
     <string name="about_support">Поддержка и обратная связь</string>
     <string name="about_open_source">Открытые лицензии</string>
