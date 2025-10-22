@@ -39,7 +39,7 @@
     <string name="home_manage">Gérer</string>
     <string name="home_detection_test">Test de détection</string>
     <string name="home_download_test_app_title">Télécharger l\'appli de test</string>
-    <string name="home_download_test_app_message">Nous avons développé une appli de test de détection séparée and le test de détection dans celle-ci. Voulez-vous la télécharger maintenant?</string>
+    <string name="home_download_test_app_message">Nous avons développé une appli de test de détection séparée avec les tests de détection dans celle-ci. Voulez-vous la télécharger ?</string>
     <string name="home_backup_and_restore">Sauvegarder &amp; Restaurer</string>
     <string name="home_backup_config">Configurer la sauvegarde</string>
     <string name="home_restore_config">Restaurer la configuration</string>
@@ -83,8 +83,8 @@
     <string name="app_exclude_system_apps">Exclure les applications du système</string>
     <string name="app_exclude_system_apps_summary">Désactiver cette option uniquement lors ce que c\'est vraiment nécessaire. Il est susceptible de provoquer un crash s\'il est désactivé</string>
     <string name="app_template_using">Utilisation de %d modèle(s)</string>
-    <string name="app_preset_using">Using %d presets</string>
-    <string name="app_settings_preset_using">Using %d settings presets</string>
+    <string name="app_preset_using">Utilisation de %d préréglages</string>
+    <string name="app_settings_preset_using">Utilisation des préréglages %d</string>
     <string name="app_extra_apps_visible_count">%d applis additionelles visibles</string>
     <string name="app_extra_apps_invisible_count">%d applis additionelles invisibles</string>
     <string name="app_warning_risky_package_title">Paquet risqué</string>
@@ -97,9 +97,9 @@
     <string name="app_exclude_target_installation_source">Exclure l\'application cible</string>
     <string name="app_exclude_target_installation_source_desc">Vous pouvez l\'activer si cette application n\'est pas disponible sur le Play Store</string>
     <string name="app_force_stop_warning">N\'oubliez pas de forcer l\'arrêt de l\'application cible après avoir sauvegardé la configuration</string>
-    <string name="app_invert_activity_launch_protection">Invert Activity launch protection</string>
+    <string name="app_invert_activity_launch_protection">Protection contre le lancement d\'activité inversée</string>
     <string name="app_invert_activity_launch_protection_desc">Cette option inversera la sélection « Désactiver la protection contre le lancement d\'activités » dans les paramètres.</string>
-    <string name="app_global_activity_launch_protection_state">Protection is %s globally</string>
+    <string name="app_global_activity_launch_protection_state">La protection est de %s globalement.</string>
     <string name="app_force_stop_launch">Forcer l\'arrêt et démarrer</string>
     <string name="app_launch">Démarrer</string>
     <string name="app_launch_failed">Le démarrage de l\'application a échoué, vérifiez les journaux d\'activités pour plus d\'informations</string>
@@ -127,7 +127,7 @@
     <string name="settings_overwrite_summary">Les éléments de cette catégorie seront activés de force si les cases sont cochées</string>
     <string name="settings_default_value">Valeur par défaut : %s</string>
     <string name="settings_data_isolation">Isolation des données</string>
-    <string name="settings_data_isolation_summary">App data: %s\nVold app data: %s\nForce mount: %s</string>
+    <string name="settings_data_isolation_summary">Données de l\'application : %s\nDonnées Vold de l\'application : %s\nForcer le montage : %s</string>
     <string name="settings_data_isolation_unsupported">Cette option est uniquement disponible sur Android 11 et supérieur</string>
     <string name="settings_app_data_isolation">Isolation des données d\'application</string>
     <string name="settings_vold_app_data_isolation">Forcer l\'isolement des données d\'application</string>
