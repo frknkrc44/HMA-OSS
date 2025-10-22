@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="title_home">Hauptseite</string>
-    <string name="title_logs">Protokolle</string>
+    <string name="title_home">Startseite</string>
+    <string name="title_logs">Logs</string>
     <string name="title_settings">Einstellungen</string>
     <string name="title_template_manage">Listen verwalten</string>
-    <string name="title_template_settings">Vorlage verwalten</string>
-    <string name="title_app_manage">Anwendungen</string>
+    <string name="title_template_settings">Vorlagen Einstellungen</string>
+    <string name="title_app_manage">App verwalten</string>
     <string name="title_app_select">Apps auswählen</string>
     <string name="title_app_settings">App Einstellungen</string>
     <string name="title_about">Über</string>
     <string name="title_about_fork">Über diesen Fork</string>
-    <string name="do_not_dual">HMA nicht zum zweiten Benutzer installieren</string>
+    <string name="do_not_dual">Installiere HMA NICHT als zweit Nutzer</string>
     <string name="show_crash_log">Absturzprotokoll anzeigen</string>
     <string name="config_damaged">Konfigurationsdatei beschädigt. Bitte Appdaten löschen</string>
-    <string name="edit_list">Liste ändern</string>
+    <string name="edit_list">Liste bearbeiten</string>
     <string name="delete">Löschen</string>
     <string name="enabled">Aktiviert</string>
     <string name="disabled">Deaktiviert</string>
     <string name="work_mode">Arbeitsmodus</string>
-    <string name="blacklist">Verweigerungsliste</string>
-    <string name="whitelist">Zulassungsliste</string>
+    <string name="blacklist">Blacklist</string>
+    <string name="whitelist">Whitelist</string>
     <string name="application">Anwendung</string>
     <string name="preferences">Präferenzen</string>
     <string name="refresh">Aktualisieren</string>
@@ -34,7 +34,7 @@
     <string name="home_xposed_not_activated">Modul nicht aktiviert</string>
     <string name="home_xposed_service_on">System Service läuft [%d]</string>
     <string name="home_xposed_service_off">System Service läuft nicht</string>
-    <string name="home_xposed_service_old">Module aktualisiert, Neustart benötigt</string>
+    <string name="home_xposed_service_old">Modul aktualisiert, Neustart benötigt</string>
     <string name="home_xposed_filter_count">HMA-OSS hat insgesamt %d Anfragen gefiltert</string>
     <string name="home_manage">Verwalten</string>
     <string name="home_detection_test">Erkennungstest</string>
@@ -174,8 +174,7 @@
     <string name="about_fork_description">        Das ursprüngliche HMA-Projekt wurde geschlossen und der neueste Code enthielt keine der neuesten Änderungen so habe ich diesen Fork erstellt, um ihn wieder als Open-Source fortzusetzen.
     </string>
     <string name="about_how_to_use_title">Wie verwendet man dieses Modul</string>
-    <string name="about_how_to_use_description_1">        You can create templates in \"Template manage\".\nThen apply the templates to apps in \"App manage\". (You can also select extra apps for targets.)\nYou should and ONLY should check \"System Framework\" in Xposed module scope / whitelist.
-    </string>
+    <string name="about_how_to_use_description_1">        Du kannst Vorlagen unter \"Vorlagen verwalten\" erstellen.\nWende diese dann unter \"Apps verwalten\" an. (Du kannst außerdem extra Apps für Ziele einstellen.)\nWähle nur und wirklich NUR \"System Framework\" in Xposed aus.</string>
     <string name="about_how_to_use_description_2">        Config modification effective in real time.
     </string>
     <string name="about_translator">Übersetzer</string>
