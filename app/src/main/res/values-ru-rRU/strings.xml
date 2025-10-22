@@ -99,19 +99,19 @@
     <string name="app_force_stop_warning">Не забудьте принудительно остановить целевое приложение после сохранения конфигурации</string>
     <string name="app_invert_activity_launch_protection">Инвертировать защиту запуска Activity</string>
     <string name="app_invert_activity_launch_protection_desc">Этот параметр обратит выбор настройки «Отключить защиту запуска Activity» в настройках.</string>
-    <string name="app_global_activity_launch_protection_state">Protection is %s globally</string>
-    <string name="app_force_stop_launch">Force stop and launch</string>
-    <string name="app_launch">Launch</string>
-    <string name="app_launch_failed">App launch failed, check logs for more details</string>
+    <string name="app_global_activity_launch_protection_state">Глобальная защита на %s</string>
+    <string name="app_force_stop_launch">Принудительно остановить и запустить</string>
+    <string name="app_launch">Запустить</string>
+    <string name="app_launch_failed">Ошибка запуска приложения, проверьте логи для больших деталей</string>
     <!-- Presets -->
-    <string name="title_preset">Presets</string>
-    <string name="title_settings_preset">Settings presets</string>
+    <string name="title_preset">Пресеты</string>
+    <string name="title_settings_preset">Настройка пресетов</string>
     <string name="title_preset_manage">Показать пресеты</string>
     <string name="preset_xposed">Модули LSPosed/Xposed</string>
     <string name="preset_root_apps">Root менеджеры/Root-приложения</string>
     <string name="preset_custom_rom">Приложения кастомных прошивок</string>
-    <string name="preset_sus_apps">Suspicious apps</string>
-    <string name="preset_detector_apps">Detector/Checker apps</string>
+    <string name="preset_sus_apps">Подозрительные приложения</string>
+    <string name="preset_detector_apps">Детекторы/Чекеры приложений</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Доступность</string>
     <string name="settings_preset_dev_options">Параметры разработчика</string>
@@ -122,8 +122,8 @@
     <string name="logs_saved">Логи сохранены</string>
     <!-- Settings -->
     <string name="settings_module">Модуль</string>
-    <string name="settings_overwrite">Overwrite</string>
-    <string name="settings_overwritten">Overwritten</string>
+    <string name="settings_overwrite">Перезаписать</string>
+    <string name="settings_overwritten">Перезаписано</string>
     <string name="settings_overwrite_summary">This category items will be forced as enabled if the switches are checked</string>
     <string name="settings_default_value">Default value: %s</string>
     <string name="settings_data_isolation">Изоляция данных</string>
