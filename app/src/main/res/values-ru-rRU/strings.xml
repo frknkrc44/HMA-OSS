@@ -11,7 +11,7 @@
     <string name="title_about">О модуле</string>
     <string name="title_about_fork">Об этом форке</string>
     <string name="do_not_dual">Не устанавливать HMA для второго пользователя</string>
-    <string name="show_crash_log">Показывать краш-лог</string>
+    <string name="show_crash_log">Показывать журнал сбоев</string>
     <string name="config_damaged">Файл конфигурации поврежден. Пожалуйста, очистите данные приложения</string>
     <string name="edit_list">Редактировать список</string>
     <string name="delete">Удалить</string>
