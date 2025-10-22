@@ -9,7 +9,7 @@
     <string name="title_app_select">Виберіть додатки</string>
     <string name="title_app_settings">Налаштування додатка</string>
     <string name="title_about">Про додаток</string>
-    <string name="title_about_fork">About this fork</string>
+    <string name="title_about_fork">Про цей клон</string>
     <string name="do_not_dual">Не встановлюйте HMA для додаткового користувача</string>
     <string name="show_crash_log">Показати журнал збоїв</string>
     <string name="config_damaged">Файл конфігурації пошкоджено. Очистіть дані додатку</string>
@@ -28,7 +28,7 @@
     <string name="no">Ні</string>
     <string name="search">Пошук</string>
     <string name="system">Система</string>
-    <string name="follow_system">Follow system</string>
+    <string name="follow_system">Як у системі</string>
     <!-- Home -->
     <string name="home_xposed_activated">Модуль активовано [%s]</string>
     <string name="home_xposed_not_activated">Модуль не активовано</string>
@@ -205,5 +205,5 @@
     <!-- Dark theme modes -->
     <string name="dark_theme">Dark theme</string>
     <string name="dark_theme_off">Always off</string>
-    <string name="dark_theme_on">Always on</string>
+    <string name="dark_theme_on">Завжди ввімкнено</string>
 </resources>
