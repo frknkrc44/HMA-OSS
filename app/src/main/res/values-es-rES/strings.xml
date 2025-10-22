@@ -100,9 +100,9 @@
     <string name="app_invert_activity_launch_protection">Invertir protección de Activity launch</string>
     <string name="app_invert_activity_launch_protection_desc">Esta opción invertirá la selección de \"Desactivar la protección de Activity launch\" en Ajustes.</string>
     <string name="app_global_activity_launch_protection_state">La protección es %s globalmente</string>
-    <string name="app_force_stop_launch">Force stop and launch</string>
-    <string name="app_launch">Launch</string>
-    <string name="app_launch_failed">App launch failed, check logs for more details</string>
+    <string name="app_force_stop_launch">Forzar detención y abrir</string>
+    <string name="app_launch">Abrir</string>
+    <string name="app_launch_failed">Error al iniciar la aplicación, compruebe los logs para más detalles</string>
     <!-- Presets -->
     <string name="title_preset">Presets</string>
     <string name="title_settings_preset">Settings presets</string>
@@ -146,7 +146,7 @@
     <string name="settings_bypass_risky_package_warning_summary">Tenga en cuenta que los desarrolladores no son responsables de problemas relacionados con paquetes riesgosos antes o después de activar esta característica</string>
     <string name="settings_disable_activity_launch_protection">Desactivar la protección de Activity launch</string>
     <string name="settings_disable_activity_launch_protection_summary">Este interruptor activará todas las protecciones de startActivity. Si no estás seguro, no lo actives.</string>
-    <string name="settings_system_wallpaper">Use system wallpaper</string>
+    <string name="settings_system_wallpaper">Usar fondo de pantalla del sistema</string>
     <string name="settings_language">Idioma</string>
     <string name="settings_translate">Participa en la traducción</string>
     <string name="settings_translate_summary">Ayúdanos a traducir %s a tu idioma</string>
