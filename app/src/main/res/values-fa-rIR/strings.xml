@@ -53,7 +53,7 @@
     <string name="home_new_update">بروزرسانی جدید در دسترس است: %s</string>
     <string name="home_update">Update: %s</string>
     <!-- App select -->
-    <string name="list_show_system">Show system apps</string>
+    <string name="list_show_system">نمایش برنامه های سیستمی</string>
     <string name="list_sorting">مرتب‌سازی</string>
     <string name="list_reverse_order">ترتیب معکوس </string>
     <string name="list_sort_by_label">بر اساس اسم برنامه</string>
@@ -107,7 +107,7 @@
     <string name="title_preset">پیش‌تنظیمات</string>
     <string name="title_settings_preset">تنظیمات پیش‌تنظیمات</string>
     <string name="title_preset_manage">نمایش پیش‌تنظیمات</string>
-    <string name="preset_xposed">LSPosed/Xposed modules</string>
+    <string name="preset_xposed">ماژول های لسپوسد/اکسپوسد</string>
     <string name="preset_root_apps">روت مدیریت‌ها/برنامه‌های روت</string>
     <string name="preset_custom_rom">برنامه‌های کاستوم رام</string>
     <string name="preset_sus_apps">برنامه‌های مشکوک</string>
@@ -156,9 +156,9 @@
     <string name="settings_dark_theme">Dark theme</string>
     <string name="settings_pure_black_dark_theme">Pure black dark theme</string>
     <string name="settings_pure_black_dark_theme_summary">Use the pure black theme if dark theme is enabled</string>
-    <string name="settings_service">Service</string>
-    <string name="settings_stop_system_service">Stop system service</string>
-    <string name="settings_stop_system_service_summary">Need reboot to restart service</string>
+    <string name="settings_service">خدمات</string>
+    <string name="settings_stop_system_service">توقف سرویس سیستم</string>
+    <string name="settings_stop_system_service_summary">برای راه‌اندازی مجددی خدمات ریبوت کنید</string>
     <string name="settings_is_clean_env">Clean runtime environment at the same time?</string>
     <string name="settings_is_clean_env_summary">Remove system service cache in /data/misc/hide_my_applist_*. This means you need to launch the module app once manually after next reboot in order to enable interceptions, and interception counts will also be cleaned.</string>
     <string name="settings_force_clean_env">Force clean runtime environment (root)</string>
@@ -184,26 +184,26 @@
     <string name="about_open_source">Open source licenses</string>
     <!-- Colors -->
     <string name="color_sakura">Sakura</string>
-    <string name="color_red">Red</string>
+    <string name="color_red">قرمز</string>
     <string name="color_pink">Pink</string>
     <string name="color_purple">Purple</string>
     <string name="color_deep_purple">Deep purple</string>
     <string name="color_indigo">Indigo</string>
     <string name="color_blue">Blue</string>
     <string name="color_light_blue">Light blue</string>
-    <string name="color_cyan">Cyan</string>
-    <string name="color_teal">Teal</string>
-    <string name="color_green">Green</string>
-    <string name="color_light_green">Light green</string>
-    <string name="color_lime">Lime</string>
-    <string name="color_yellow">Yellow</string>
-    <string name="color_amber">Amber</string>
-    <string name="color_orange">Orange</string>
-    <string name="color_deep_orange">Deep orange</string>
-    <string name="color_brown">Brown</string>
-    <string name="color_blue_grey">Blue grey</string>
+    <string name="color_cyan">فیروزه‌ای</string>
+    <string name="color_teal">آبی ارغوانی</string>
+    <string name="color_green">سبز</string>
+    <string name="color_light_green">سبز روشن</string>
+    <string name="color_lime">لیمویی</string>
+    <string name="color_yellow">زرد</string>
+    <string name="color_amber">کهربایی</string>
+    <string name="color_orange">نارنجی</string>
+    <string name="color_deep_orange">نارنجی غلیظ</string>
+    <string name="color_brown">قهوه ای</string>
+    <string name="color_blue_grey">آبی خاکستری</string>
     <!-- Dark theme modes -->
-    <string name="dark_theme">Dark theme</string>
-    <string name="dark_theme_off">Always off</string>
-    <string name="dark_theme_on">Always on</string>
+    <string name="dark_theme">تم تاریک</string>
+    <string name="dark_theme_off">همیشه خاموش</string>
+    <string name="dark_theme_on">همیشه روشن</string>
 </resources>
