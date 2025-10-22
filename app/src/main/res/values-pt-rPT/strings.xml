@@ -100,18 +100,18 @@
     <string name="app_invert_activity_launch_protection">Inverter proteção de início de Atividade</string>
     <string name="app_invert_activity_launch_protection_desc">Esta opção irá inverter a seleção \"Desativar proteção de início de Atividade\" nas Definições.</string>
     <string name="app_global_activity_launch_protection_state">A proteção é %s globalmente</string>
-    <string name="app_force_stop_launch">Force stop and launch</string>
-    <string name="app_launch">Launch</string>
-    <string name="app_launch_failed">App launch failed, check logs for more details</string>
+    <string name="app_force_stop_launch">Forçar parada e abrir</string>
+    <string name="app_launch">Abrir</string>
+    <string name="app_launch_failed">Falha ao abrir app, verifique os registros para mais detalhes</string>
     <!-- Presets -->
-    <string name="title_preset">Presets</string>
-    <string name="title_settings_preset">Settings presets</string>
+    <string name="title_preset">Modelos</string>
+    <string name="title_settings_preset">Configurações de modelos</string>
     <string name="title_preset_manage">Mostrar predefinições</string>
     <string name="preset_xposed">Módulos LSPosed/Xposed</string>
     <string name="preset_root_apps">Gestores de root/Aplicações com root</string>
     <string name="preset_custom_rom">Aplicações de ROM personalizada</string>
-    <string name="preset_sus_apps">Suspicious apps</string>
-    <string name="preset_detector_apps">Detector/Checker apps</string>
+    <string name="preset_sus_apps">Apps suspeitos</string>
+    <string name="preset_detector_apps">Apps detectores de root</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Acessibilidade</string>
     <string name="settings_preset_dev_options">Opções de programador</string>
@@ -146,7 +146,7 @@
     <string name="settings_bypass_risky_package_warning_summary">Note que os programadores não são responsáveis por problemas relacionados com pacotes de risco antes ou depois de ativar esta funcionalidade.</string>
     <string name="settings_disable_activity_launch_protection">Desativar proteção de início de Atividade</string>
     <string name="settings_disable_activity_launch_protection_summary">Este interruptor irá remover todas as proteções startActivity. Se não tiver a certeza, não o ative.</string>
-    <string name="settings_system_wallpaper">Use system wallpaper</string>
+    <string name="settings_system_wallpaper">Usar papel de parede do sistema</string>
     <string name="settings_language">Idioma</string>
     <string name="settings_translate">Participar na tradução</string>
     <string name="settings_translate_summary">Ajude-nos a traduzir o %s para o seu idioma</string>
@@ -177,7 +177,7 @@
     </string>
     <string name="about_how_to_use_description_2">As alterações à configuração são aplicadas em tempo real.
     </string>
-    <string name="about_translator">Translator</string>
+    <string name="about_translator">Tradutor</string>
     <string name="about_developer">Desenvolvedor</string>
     <string name="about_support">Suporte e feedback</string>
     <string name="about_open_source">Licenças de código aberto</string>
