@@ -106,14 +106,14 @@
     <!-- Presets -->
     <string name="title_preset">الإعدادات المسبقة</string>
     <string name="title_settings_preset">الضبط المسبق</string>
-    <string name="title_preset_manage">أظهار الضبط المسبق</string>
-    <string name="preset_xposed">وحدات Xposed/LSPosed</string>
+    <string name="title_preset_manage">إظهار الضبط المسبق</string>
+    <string name="preset_xposed">إضافات Xposed/LSPosed</string>
     <string name="preset_root_apps">تطبيقات روت/تطبيقات إدارة روت</string>
-    <string name="preset_custom_rom">تطبيقات الروم الاعتيادي</string>
+    <string name="preset_custom_rom">تطبيقات الروم المخصص</string>
     <string name="preset_sus_apps">تطبيقات مشبوهة</string>
     <string name="preset_detector_apps">تطبيقات الكشف/التحقق</string>
     <!-- Settings preset names -->
-    <string name="settings_preset_accessibility">الوصولية</string>
+    <string name="settings_preset_accessibility">إمكانية الوصول</string>
     <string name="settings_preset_dev_options">خيارات المطور</string>
     <!-- Logs -->
     <string name="logs_save">حفظ السجلات</string>
@@ -121,10 +121,10 @@
     <string name="logs_empty">لا يوجد سجلات لحفظها</string>
     <string name="logs_saved">تم حفظ السجلات</string>
     <!-- Settings -->
-    <string name="settings_module">الوحدة</string>
+    <string name="settings_module">الإضافة</string>
     <string name="settings_overwrite">الكتابة عليه</string>
     <string name="settings_overwritten">مكتوب عليه</string>
-    <string name="settings_overwrite_summary">هذا الصنف من الفقرات سيتم أجبارها على إنها مفعلة إذا فحصت المفاتيح</string>
+    <string name="settings_overwrite_summary">هذا الصنف من الفقرات سيتم إجبارها على كونها مفعلة إذا تم تفعيل الخيارات</string>
     <string name="settings_default_value">القيمة الافتراضية: %s</string>
     <string name="settings_data_isolation">عزل البيانات</string>
     <string name="settings_data_isolation_summary">بيانات التطبيق:%s\n بيانات قبة التطبيق:%s\n
@@ -133,7 +133,7 @@
     <string name="settings_app_data_isolation">عزل بيانات التطبيق</string>
     <string name="settings_vold_app_data_isolation">عزل بيانات قبة التطبيق</string>
     <string name="settings_warning">تحذير</string>
-    <string name="settings_vold_warning">هذا الخِيار سيفعل لك مِيزة AOSP الذي يجعل مسار التخزين الخارجي الخاص بالتطبيق مفصولا. ويمكن أن يساعد على تحسين إخفاء التطبيقات خلال احتمالية حدوث مشكلات في الاستقرار. وهذه المِيزة قد تتوقف عمله عند أي وقت لكونه مُمتلِئ ب AOSP.</string>
+    <string name="settings_vold_warning">هذا الخِيار سيفعل لك مِيزة AOSP الذي يجعل مسار التخزين الخارجي الخاص بالتطبيق مفصولا. ويمكن أن يساعد على تحسين إخفاء التطبيقات خلال احتمالية حدوث مشكلات في الاستقرار. وهذه المِيزة قد تتوقف عمله عند أي وقت لكونه بلا تحديثات او تغييرات في AOSP.</string>
     <string name="settings_change_require_root">يتطلب التغيير إذن روت</string>
     <string name="settings_need_reboot">التغيير يتطلب إعادة التشغيل</string>
     <string name="settings_permission_denied">تم رفض الإذن</string>
@@ -144,41 +144,41 @@
     <string name="settings_hide_icon">إخفاء أيقونة الوحدة من قائمة التطبيقات</string>
     <string name="settings_hide_icon_summary">لا يزال بإمكانك فتح التطبيق في مدير Xposed</string>
     <string name="settings_bypass_risky_package_warning">تجاوز تحذيرات الحزم الخطرة</string>
-    <string name="settings_bypass_risky_package_warning_summary">أعلم أن خيارات المطور ليست مسؤولة عن مشكلات متعلقة بالحزمة ألخطيرة قبل او بعد تفعيلك هذه المِيزة</string>
+    <string name="settings_bypass_risky_package_warning_summary">أعلم أن خيارات المطور ليست مسؤولة عن مشكلات متعلقة بالحزمة ألخطيرة قبل او بعد تفعيلك لهذه المِيزة</string>
     <string name="settings_disable_activity_launch_protection">تعطيل حماية تشغيل الفعالية</string>
     <string name="settings_disable_activity_launch_protection_summary">هذه الوصلة سترفع جميع حمايات بَدْء الفعالية. إذا كنت في شك، فلا تفعلها.</string>
     <string name="settings_system_wallpaper">استخدام خلفية النظام</string>
     <string name="settings_language">اللغة</string>
     <string name="settings_translate">المشاركة في التَّرْجَمَة</string>
     <string name="settings_translate_summary">ساعدنا في التَرجمة %s إلي لغتك</string>
-    <string name="settings_theme">ألسمة</string>
-    <string name="settings_system_theme_color">لون سمة النظام</string>
-    <string name="settings_theme_color">لون السمة</string>
+    <string name="settings_theme">الثيم</string>
+    <string name="settings_system_theme_color">لون ثيم النظام</string>
+    <string name="settings_theme_color">لون الثيم</string>
     <string name="settings_dark_theme">المظهر الداكن</string>
-    <string name="settings_pure_black_dark_theme">السمة السوداء الخالصة</string>
+    <string name="settings_pure_black_dark_theme">الثيم الأسود الخالص</string>
     <string name="settings_pure_black_dark_theme_summary">استخدم السمة السوداء الخالصة إذا كان المظهر الداكن مُفعل</string>
     <string name="settings_service">الخدمة</string>
     <string name="settings_stop_system_service">إيقاف خدمة النظام</string>
-    <string name="settings_stop_system_service_summary">تحتاج إلى إعادة التشغيل لإعادة تشغيل الخدمة</string>
+    <string name="settings_stop_system_service_summary">تحتاج إلى إعادة تشغيل الجهاز لإعادة تشغيل الخدمة</string>
     <string name="settings_is_clean_env">تنظيف بيئة التشغيل في نفس الوقت؟</string>
-    <string name="settings_is_clean_env_summary">إزالة التخزين المؤقت لخدمة النظام في /data/misc/hide_my_applist_*. هذا يعني أنك ستحتاج إلى تشغيل الوحدة مرة واحدة يدويا بعد إعادة التشغيل التالي حتي تعمل الاعتراضات، وسيتم أيضا تنظيف عمليات الاعتراض.</string>
-    <string name="settings_force_clean_env">إجبار تنظيف بيئة العمل (جذر)</string>
+    <string name="settings_is_clean_env_summary">إزالة التخزين المؤقت لخدمة النظام في /data/misc/hide_my_applist_*. هذا يعني أنك ستحتاج إلى تشغيل الإضافة مرة واحدة يدويا بعد إعادة التشغيل التالي حتي تعمل الاعتراضات، وسيتم أيضا تنظيف عمليات الاعتراض.</string>
+    <string name="settings_force_clean_env">إجبار تنظيف بيئة العمل (روت)</string>
     <string name="settings_force_clean_env_summary">فقط إذا فشلت خدمة النظام في البَدْء، وإلا يجب عليك أن تضغط علي الخِيار أعلاه.</string>
-    <string name="settings_force_clean_env_toast_successful">تـم تنظيف بيئة التشغيل</string>
+    <string name="settings_force_clean_env_toast_successful">تم تنظيف بيئة التشغيل</string>
     <string name="settings_update">تحديث</string>
     <string name="settings_disable_update">إيقاف إشعارات التحديث</string>
-    <string name="settings_receive_beta_update">استقبال تحديثات ألبيتا</string>
-    <string name="settings_receive_beta_update_summary">إصدارات ألبيتا من الممكن أن تكون غير مستقرة</string>
+    <string name="settings_receive_beta_update">استقبال التحديثات المسبقة</string>
+    <string name="settings_receive_beta_update_summary">الإصدارات المسبقة من الممكن أن تكون غير مستقرة</string>
     <!-- About -->
-    <string name="about_description">على الرغم من أنه من غير الصحيح اكتشاف تثبيت تطبيق معين ، إلا أنه لا يوفر كل تطبيق يستخدم الجذر دعمًا عشوائيًا لاسم الحزمة. في هذه الحالة ، فإن التطبيقات المكتشفة التي تستخدم الجذر (مثل الموقع المزيف وعزل التخزين) تساوي الجذر المكتشف نفسه.\n\n في نفس الوقت ، تستخدم بعض التطبيقات الذكية ثغرات مختلفة للحصول على قائمة التطبيقات الخاصة بك ، بحيث يمكنها رسم شخصية لك.\n\n توفر هذه الوحدة بعض الطرق لاختبار ما إذا كنت قد أخفيت التطبيق الخاص بك بشكل جيد. أيضًا ، يمكن أن يعمل كوحدة Xposed لإخفاء بعض التطبيقات أو رفض طلبات قائمة التطبيقات لحماية خصوصيتك.    </string>
-    <string name="about_fork_description">مشروع تطبيق HMA الأصلي اصبح مغلق المصدر والشفرات الأخيرة الخاصة بها لا تحتوي على بعض التغيرات الأخيرة،لذا قمتُ بصناعة هذه النسخة من جديد للاستمرار بها على أنها مفتوحة المصدر    </string>
-    <string name="about_how_to_use_title">كيفية استخدام هذه الوحدة</string>
+    <string name="about_description">على الرغم من أنه من غير الصحيح اكتشاف تثبيت تطبيق معين ، إلا أنه لا يوفر كل تطبيق يستخدم الجذر دعمًا عشوائيًا لاسم الحزمة. في هذه الحالة ، فإن التطبيقات المكتشفة التي تستخدم الجذر (مثل الموقع المزيف وعزل التخزين) تساوي الجذر المكتشف نفسه.\n\n في نفس الوقت ، تستخدم بعض التطبيقات الذكية ثغرات مختلفة للحصول على قائمة التطبيقات الخاصة بك ، بحيث يمكنها رسم شخصية لك.\n\n توفر هذه الإضافة بعض الطرق لاختبار ما إذا كنت قد أخفيت التطبيق الخاص بك بشكل جيد. أيضًا ، يمكن أن يعمل كإضافة Xposed لإخفاء بعض التطبيقات أو رفض طلبات قائمة التطبيقات لحماية خصوصيتك.    </string>
+    <string name="about_fork_description">مشروع تطبيق HMA الأصلي اصبح مغلق المصدر والشفرات الأخيرة الخاصة بها لا تحتوي على بعض التغييرات الأخيرة،لذا قمتُ بصناعة هذه النسخة من جديد للاستمرار بها على أنها مفتوحة المصدر    </string>
+    <string name="about_how_to_use_title">كيفية استخدام هذه الإضافة</string>
     <string name="about_how_to_use_description_1">يمكنك إنشاء قوالب من \"إدارة القوالب\".\nثم تطبيق هذه القوالب على التطبيقات من \"إدارة التطبيقات\".(يمكنك أيضا اختيار تطبيقات إضافية للتطبيقات المستهدفة.)\n ينبغي فقط فحص \"إطار النظام\" من نطاق وحدة إكسبوسد/القائمة البيضاء.    </string>
-    <string name="about_how_to_use_description_2">تعديل ألتكوين فعال في الوقت الحقيقي.    </string>
+    <string name="about_how_to_use_description_2">تعديل التكوين يطبق في الوقت الفعلى.    </string>
     <string name="about_translator">المترجم</string>
     <string name="about_developer">المطور</string>
     <string name="about_support">الدعم والمراجعات</string>
-    <string name="about_open_source">رخص مفتوحة المصدر</string>
+    <string name="about_open_source">ترخيصات مفتوحة المصدر</string>
     <!-- Colors -->
     <string name="color_sakura">سكورا</string>
     <string name="color_red">أحمر</string>
