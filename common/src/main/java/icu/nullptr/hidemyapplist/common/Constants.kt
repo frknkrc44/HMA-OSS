@@ -4,15 +4,15 @@ import org.frknkrc44.hma_oss.common.BuildConfig
 
 object Constants {
     const val PROVIDER_AUTHORITY = "${BuildConfig.APP_PACKAGE_NAME}.ServiceProvider"
-    const val GMS_PACKAGE_NAME = "com.google.android.gms"
-    const val GSF_PACKAGE_NAME = "com.google.android.gsf"
+    private const val GMS_PACKAGE_NAME = "com.google.android.gms"
+    private const val GSF_PACKAGE_NAME = "com.google.android.gsf"
     const val VENDING_PACKAGE_NAME = "com.android.vending"
     const val TRANSLATE_URL = "https://crowdin.com/project/frknkrc44-hma-oss"
 
-    const val ANDROID_APP_DATA_ISOLATION_ENABLED_PROPERTY = "persist.zygote.app_data_isolation"
-    const val ANDROID_VOLD_APP_DATA_ISOLATION_ENABLED_PROPERTY = "persist.sys.vold_app_data_isolation_enabled"
-
     const val UID_SYSTEM = 1000
+
+    val gmsPackages = arrayOf(GMS_PACKAGE_NAME, GSF_PACKAGE_NAME)
+    val riskyPackages = arrayOf(VENDING_PACKAGE_NAME) + gmsPackages
 
     val packagesShouldNotHide = setOf(
         "android",

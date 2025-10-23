@@ -6,7 +6,7 @@ import androidx.annotation.RequiresApi
 import com.github.kyuubiran.ezxhelper.utils.findMethod
 import com.github.kyuubiran.ezxhelper.utils.hookBefore
 import de.robv.android.xposed.XC_MethodHook
-import icu.nullptr.hidemyapplist.common.CommonUtils
+import icu.nullptr.hidemyapplist.common.PropertyUtils
 import icu.nullptr.hidemyapplist.xposed.HMAService
 import icu.nullptr.hidemyapplist.xposed.logD
 import icu.nullptr.hidemyapplist.xposed.logE
@@ -21,7 +21,7 @@ class PlatformCompatHook(private val service: HMAService) : IFrameworkHook {
     }
 
     private val sAppDataIsolationEnabled by lazy {
-        CommonUtils.isAppDataIsolationEnabled || service.config.altAppDataIsolation
+        PropertyUtils.isAppDataIsolationEnabled || service.config.altAppDataIsolation
     }
 
     private var hook: XC_MethodHook.Unhook? = null

@@ -7,7 +7,6 @@ import android.os.Build
 import android.os.UserHandle
 import android.util.Log
 import icu.nullptr.hidemyapplist.common.AppPresets
-import icu.nullptr.hidemyapplist.common.CommonUtils
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.IHMAService
 import icu.nullptr.hidemyapplist.common.JsonConfig
@@ -179,7 +178,7 @@ class HMAService(val pms: IPackageManager) : IHMAService.Stub() {
     }
 
     fun isAppInGMSIgnoredPackages(caller: String, query: String) =
-        (caller in CommonUtils.gmsPackages) && appHasGMSConnection(query)
+        (caller in Constants.gmsPackages) && appHasGMSConnection(query)
 
     fun shouldHide(caller: String?, query: String?): Boolean {
         if (caller == null || query == null) return false
