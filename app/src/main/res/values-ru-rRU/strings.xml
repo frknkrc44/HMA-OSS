@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="title_home">Главная</string>
+    <string name="title_home">Домой</string>
     <string name="title_logs">Логи</string>
     <string name="title_settings">Настройки</string>
     <string name="title_template_manage">Управление шаблонами</string>
@@ -28,16 +28,16 @@
     <string name="no">Нет</string>
     <string name="search">Поиск</string>
     <string name="system">Система</string>
-    <string name="follow_system">Следовать системе</string>
+    <string name="follow_system">Как в системе</string>
     <!-- Home -->
     <string name="home_xposed_activated">Модуль активирован [%s]</string>
     <string name="home_xposed_not_activated">Модуль не активирован</string>
     <string name="home_xposed_service_on">Системная служба работает [%d]</string>
     <string name="home_xposed_service_off">Системная служба не работает</string>
     <string name="home_xposed_service_old">Модуль обновлён, требуется перезагрузка</string>
-    <string name="home_xposed_filter_count">Всего HMA-OSS отфильтровал %d запросов</string>
+    <string name="home_xposed_filter_count">HMA-OSS отфильтровал всего %d запросов</string>
     <string name="home_manage">Управление</string>
-    <string name="home_detection_test">Проверка на обнаружение</string>
+    <string name="home_detection_test">Проверка обнаружения</string>
     <string name="home_download_test_app_title">Скачать приложение для проверки</string>
     <string name="home_download_test_app_message">Мы разработали индивидуальное приложение для проверки на обнаружение и перенесли тест в него. Хотите скачать его прямо сейчас?</string>
     <string name="home_backup_and_restore">Экспорт &amp; Импорт</string>
