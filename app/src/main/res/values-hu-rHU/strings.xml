@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="title_home">Home</string>
+    <string name="title_home">Kezdőlap</string>
     <string name="title_logs">Logs</string>
     <string name="title_settings">Settings</string>
     <string name="title_template_manage">Template manage</string>
@@ -53,8 +53,8 @@
     <string name="home_new_update">New update available: %s</string>
     <string name="home_update">Update: %s</string>
     <!-- App select -->
-    <string name="list_show_system">Show system apps</string>
-    <string name="list_sorting">Sorting</string>
+    <string name="list_show_system">Rendszeralkalmazások mutatása</string>
+    <string name="list_sorting">Listázási mód</string>
     <string name="list_reverse_order">Reverse order</string>
     <string name="list_sort_by_label">By app name</string>
     <string name="list_sort_by_package_name">By package name</string>
