@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-selector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:enterFadeDuration="200"
+    android:exitFadeDuration="200">
+    <item android:state_checked="true" android:state_enabled="true">
+        <shape android:shape="oval">
+            <solid android:color="@color/switch_neutral" />
+            <size android:width="28dp" android:height="28dp" />
+            <stroke android:color="@android:color/transparent" android:width="6dp" />
+        </shape>
+    </item>
+
+    <item android:state_checked="false" android:state_enabled="true">
+        <shape android:shape="oval">
+            <solid android:color="@color/switch_accent_enabled" />
+            <size android:width="28dp" android:height="28dp" />
+			<stroke android:color="@android:color/transparent" android:width="12dp" />
+        </shape>
+    </item>
+
+    <item android:state_checked="true" android:state_enabled="false">
+        <shape android:shape="oval">
+            <solid android:color="@color/switch_neutral" />
+            <size android:width="28dp" android:height="28dp" />
+            <stroke android:color="@android:color/transparent" android:width="6dp" />
+        </shape>
+    </item>
+
+    <item android:state_checked="false" android:state_enabled="false">
+        <shape android:shape="oval">
+            <solid android:color="@color/switch_accent_disabled" />
+            <size android:width="28dp" android:height="28dp" />
+            <stroke android:color="@android:color/transparent" android:width="12dp" />
+        </shape>
+    </item>
+</animated-selector>

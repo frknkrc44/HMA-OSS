@@ -17,7 +17,7 @@ import androidx.preference.SwitchPreferenceCompat
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import icu.nullptr.hidemyapplist.common.CommonUtils
+import icu.nullptr.hidemyapplist.common.PropertyUtils
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.hmaApp
 import icu.nullptr.hidemyapplist.service.ConfigManager
@@ -92,6 +92,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
         override fun getBoolean(key: String, defValue: Boolean): Boolean {
             return when (key) {
                 "followSystemAccent" -> PrefManager.followSystemAccent
+                "systemWallpaper" -> PrefManager.systemWallpaper
                 "blackDarkTheme" -> PrefManager.blackDarkTheme
                 "detailLog" -> ConfigManager.detailLog
                 "hideIcon" -> PrefManager.hideIcon
@@ -118,6 +119,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
         override fun putBoolean(key: String, value: Boolean) {
             when (key) {
                 "followSystemAccent" -> PrefManager.followSystemAccent = value
+                "systemWallpaper" -> PrefManager.systemWallpaper = value
                 "blackDarkTheme" -> PrefManager.blackDarkTheme = value
                 "detailLog" -> ConfigManager.detailLog = value
                 "forceMountData" -> ConfigManager.forceMountData = value
@@ -151,7 +153,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                 it.summary = getString(R.string.settings_need_reboot) + "\n\n" +
                         getString(
                             R.string.settings_default_value,
-                            CommonUtils.isAppDataIsolationEnabled.enabledString(resources)
+                            PropertyUtils.isAppDataIsolationEnabled.enabledString(resources)
                         )
             }
 
@@ -159,7 +161,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                 it.summary = getString(R.string.settings_need_reboot) + "\n\n" +
                         getString(
                             R.string.settings_default_value,
-                            CommonUtils.isVoldAppDataIsolationEnabled.enabledString(resources)
+                            PropertyUtils.isVoldAppDataIsolationEnabled.enabledString(resources)
                         )
 
                 it.setOnPreferenceChangeListener { _, newValue ->
@@ -191,9 +193,9 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                     it.isEnabled -> getString(
                         R.string.settings_data_isolation_summary,
                         if (ConfigManager.altAppDataIsolation) getString(R.string.settings_overwritten)
-                        else CommonUtils.isAppDataIsolationEnabled.enabledString(resources),
+                        else PropertyUtils.isAppDataIsolationEnabled.enabledString(resources),
                         if (ConfigManager.altVoldAppDataIsolation) getString(R.string.settings_overwritten)
-                        else CommonUtils.isVoldAppDataIsolationEnabled.enabledString(resources),
+                        else PropertyUtils.isVoldAppDataIsolationEnabled.enabledString(resources),
                         ConfigManager.forceMountData.enabledString(resources)
                     )
                     else -> getString(R.string.settings_data_isolation_unsupported)
@@ -270,9 +272,27 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                 true
             }
 
-            findPreference<SwitchPreferenceCompat>("blackDarkTheme")?.setOnPreferenceChangeListener { _, _ ->
-                activity?.recreate()
-                true
+            findPreference<SwitchPreferenceCompat>("systemWallpaper")?.apply {
+                isEnabled = findPreference<SwitchPreferenceCompat>("blackDarkTheme")?.isChecked != true
+                setOnPreferenceChangeListener { _, value ->
+                    val activity = requireActivity()
+                    if (value as Boolean) {
+                        activity.finish()
+                        startActivity(Intent(activity, activity.javaClass))
+                    } else {
+                        activity.recreate()
+                    }
+
+                    true
+                }
+            }
+
+            findPreference<SwitchPreferenceCompat>("blackDarkTheme")?.apply {
+                isEnabled = findPreference<SwitchPreferenceCompat>("systemWallpaper")?.isChecked != true
+                setOnPreferenceChangeListener { _, _ ->
+                    activity?.recreate()
+                    true
+                }
             }
 
             configureDataIsolation()

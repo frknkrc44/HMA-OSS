@@ -12,6 +12,7 @@ import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
+import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.homeItemBackgroundColor
 import icu.nullptr.hidemyapplist.ui.util.navController
 import org.frknkrc44.hma_oss.R
@@ -72,6 +73,11 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
 
             appName.setText(R.string.app_name)
             appVersion.text = BuildConfig.APP_VERSION_NAME
+
+            if (PrefManager.systemWallpaper) {
+                linkGithub.background.alpha = 0xAA
+                linkTelegram.background.alpha = 0xAA
+            }
 
             setOnClickUrl(linkGithub, "https://github.com/frknkrc44/HMA-OSS")
             setOnClickUrl(linkTelegram, "https://t.me/aerathfuns")

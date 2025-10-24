@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-selector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:enterFadeDuration="200"
+    android:exitFadeDuration="200">
+    <item android:state_checked="true" android:state_enabled="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/switch_accent_enabled" />
+            <corners android:radius="28dp" />
+            <size android:width="28dp" android:height="26dp" />
+            <stroke android:color="@color/switch_accent_enabled" android:width="1dp" />
+        </shape>
+    </item>
+
+    <item android:state_checked="false" android:state_enabled="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/switch_neutral" />
+            <corners android:radius="28dp" />
+            <size android:width="28dp" android:height="26dp" />
+            <stroke android:color="@color/switch_accent_enabled" android:width="1dp" />
+        </shape>
+    </item>
+
+    <item android:state_checked="true" android:state_enabled="false">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/switch_accent_disabled" />
+            <corners android:radius="28dp" />
+            <size android:width="28dp" android:height="26dp" />
+            <stroke android:color="@color/switch_accent_disabled" android:width="1dp" />
+        </shape>
+    </item>
+
+    <item android:state_checked="false" android:state_enabled="false">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/switch_neutral" />
+            <corners android:radius="28dp" />
+            <size android:width="28dp" android:height="26dp" />
+            <stroke android:color="@color/switch_accent_disabled" android:width="1dp" />
+        </shape>
+    </item>
+</animated-selector>

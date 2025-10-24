@@ -3,6 +3,7 @@ package icu.nullptr.hidemyapplist.ui.fragment
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.widget.Toast
@@ -23,10 +24,12 @@ import icu.nullptr.hidemyapplist.common.AppPresets
 import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.common.SettingsPresets
 import icu.nullptr.hidemyapplist.service.ConfigManager
+import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.util.enabledString
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.navigate
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
+import icu.nullptr.hidemyapplist.ui.util.showToast
 import icu.nullptr.hidemyapplist.ui.viewmodel.AppSettingsViewModel
 import icu.nullptr.hidemyapplist.util.PackageHelper
 import org.frknkrc44.hma_oss.BuildConfig
@@ -34,6 +37,9 @@ import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentSettingsBinding
 
 class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
+    companion object {
+        private const val TAG = "AppSettingsFragment"
+    }
 
     private val binding by viewBinding<FragmentSettingsBinding>()
     private val viewModel by viewModels<AppSettingsViewModel>() {
@@ -157,6 +163,24 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
                 else getString(R.string.app_extra_apps_invisible_count, pack.config.extraAppList.size)
         }
 
+        private fun launchMainActivity(packageName: String) {
+            try {
+                val pkgMgr = requireContext().packageManager
+                val pkgInfo = pkgMgr.getPackageInfo(packageName, 0)
+                if (pkgInfo.applicationInfo?.enabled == true) {
+                    val resolvedIntent = pkgMgr.getLaunchIntentForPackage(packageName)
+                    if (resolvedIntent != null) {
+                        startActivity(resolvedIntent)
+                    }
+                } else {
+                    throw RuntimeException("Package is disabled")
+                }
+            } catch (e: Throwable) {
+                showToast(R.string.app_launch_failed)
+                ServiceClient.log(Log.ERROR, TAG, e.stackTraceToString())
+            }
+        }
+
         @SuppressLint("DiscouragedApi")
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             preferenceManager.preferenceDataStore = AppPreferenceDataStore(pack)
@@ -164,7 +188,27 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
             findPreference<Preference>("appInfo")?.let {
                 it.icon = PackageHelper.loadAppIcon(pack.app).toDrawable(resources)
                 it.title = PackageHelper.loadAppLabel(pack.app)
-                it.summary = PackageHelper.loadPackageInfo(pack.app).packageName
+                it.summary = pack.app
+                it.setOnPreferenceClickListener { pref ->
+                    MaterialAlertDialogBuilder(pref.context).apply {
+                        setTitle(it.title)
+                        setItems(
+                            R.array.app_action_texts,
+                        ) { dialog, which ->
+                            when (which) {
+                                0 -> {
+                                    ServiceClient.forceStop(pack.app, 0)
+                                    launchMainActivity(pack.app)
+                                }
+                                1 -> {
+                                    launchMainActivity(pack.app)
+                                }
+                            }
+                        }
+                    }.show()
+
+                    true
+                }
             }
             findPreference<SwitchPreferenceCompat>("hideInstallationSource")?.setOnPreferenceChangeListener { _, newValue ->
                 Toast.makeText(requireContext(),

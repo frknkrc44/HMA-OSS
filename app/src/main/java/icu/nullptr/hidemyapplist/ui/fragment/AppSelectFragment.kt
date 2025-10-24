@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.ui.adapter.AppSelectAdapter
+import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.homeItemBackgroundColor
+import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.themeColor
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import icu.nullptr.hidemyapplist.util.PackageHelper
@@ -118,8 +120,18 @@ abstract class AppSelectFragment : Fragment(R.layout.fragment_app_select) {
         }
         binding.list.layoutManager = LinearLayoutManager(context)
         binding.list.adapter = adapter
-        binding.swipeRefresh.setOnRefreshListener {
-            invalidateCache()
+
+        with(binding.swipeRefresh) {
+            setProgressBackgroundColorSchemeColor(homeItemBackgroundColor(true))
+            setColorSchemeColors(
+                themeColor(androidx.appcompat.R.attr.colorPrimary),
+                themeColor(com.google.android.material.R.attr.colorSecondary),
+                themeColor(com.google.android.material.R.attr.colorTertiary),
+            )
+
+            setOnRefreshListener {
+                invalidateCache()
+            }
         }
 
         adapter.registerAdapterDataObserver(

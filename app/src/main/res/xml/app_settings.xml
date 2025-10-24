@@ -2,7 +2,9 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
     <PreferenceCategory android:title="@string/application">
-        <Preference android:key="appInfo" />
+        <Preference
+            android:key="appInfo"
+            android:dependency="enableHide" />
         <SwitchPreferenceCompat
             android:icon="@drawable/outline_shield_24"
             android:key="enableHide"

@@ -19,7 +19,6 @@ fun String.execute(currentWorkingDir: File = file("./")): String {
 
 val localProperties = Properties()
 localProperties.load(file("local.properties").inputStream())
-val localBuild by extra(localProperties.getProperty("localBuild", "false") == "true")
 val officialBuild by extra(localProperties.getProperty("officialBuild", "false") == "true")
 
 @Suppress("unused")
@@ -31,12 +30,21 @@ val crowdinApiKey: String by extra(localProperties.getProperty("crowdinApiKey", 
 fun getUncommittedSuffix(): String {
     if (officialBuild) return ""
 
+    var returnedVal = ""
+
+    try {
+        val branch = "git symbolic-ref HEAD".execute().split("/").last()
+        if (branch != "master") {
+            returnedVal += "-$branch"
+        }
+    } catch (_: Throwable) {}
+
     val result = "git status -s".execute()
     if (result.isEmpty()) {
-        return ""
+        return returnedVal
     }
 
-    return "-dirty+${result.count { it == '\n' } + 1}"
+    return "$returnedVal-dirty+${result.count { it == '\n' } + 1}"
 }
 
 val gitHasUncommittedSuffix = getUncommittedSuffix()
@@ -68,6 +76,9 @@ val minBackupVerCode by extra(65)
 
 @Suppress("unused")
 val appPackageName by extra("org.frknkrc44.hma_oss")
+
+@Suppress("unused")
+val localBuild by extra(localProperties.getProperty("localBuild", "false") == "true")
 
 val androidSourceCompatibility = JavaVersion.VERSION_21
 val androidTargetCompatibility = JavaVersion.VERSION_21

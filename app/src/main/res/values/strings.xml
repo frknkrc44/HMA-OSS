@@ -107,8 +107,13 @@
     <string name="app_invert_activity_launch_protection">Invert Activity launch protection</string>
     <string name="app_invert_activity_launch_protection_desc">This option will invert \"Disable Activity launch protection\" selection in Settings.</string>
     <string name="app_global_activity_launch_protection_state">Protection is %s globally</string>
+    <string name="app_force_stop_launch">Force stop and launch</string>
+    <string name="app_launch">Launch</string>
+    <string name="app_launch_failed">App launch failed, check logs for more details</string>
 
     <!-- Presets -->
+    <string name="title_preset">Presets</string>
+    <string name="title_settings_preset">Settings presets</string>
     <string name="title_preset_manage">Show presets</string>
     <string name="preset_xposed">LSPosed/Xposed modules</string>
     <string name="preset_root_apps">Root managers/Rooted apps</string>
@@ -152,6 +157,7 @@
     <string name="settings_bypass_risky_package_warning_summary">Note that the devs are not responsible for risky package related issues before or after you enabled this feature</string>
     <string name="settings_disable_activity_launch_protection">Disable Activity launch protection</string>
     <string name="settings_disable_activity_launch_protection_summary">This toggle will lift all startActivity protections. If you\'re unsure, don\'t enable it.</string>
+    <string name="settings_system_wallpaper">Use system wallpaper</string>
 
     <string name="settings_language">Language</string>
     <string name="settings_translate">Participate in translation</string>

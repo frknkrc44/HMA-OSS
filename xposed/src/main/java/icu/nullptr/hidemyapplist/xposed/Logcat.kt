@@ -21,7 +21,7 @@ private fun parseLog(level: Int, tag: String, msg: String, cause: Throwable? = n
     if (!endsWith('\n')) append('\n')
 }
 
-private fun log(level: Int, tag: String, msg: String, cause: Throwable? = null) {
+fun logWithLevel(level: Int, tag: String, msg: String, cause: Throwable? = null) {
     if (level <= Log.DEBUG && HMAService.instance?.config?.detailLog == false) return
     val parsedLog = parseLog(level, tag, msg, cause)
     val executor = HMAService.instance?.executor
@@ -36,7 +36,7 @@ private fun log(level: Int, tag: String, msg: String, cause: Throwable? = null) 
     }
 }
 
-fun logD(tag: String, msg: String, cause: Throwable? = null) = log(Log.DEBUG, tag, msg, cause)
-fun logI(tag: String, msg: String, cause: Throwable? = null) = log(Log.INFO, tag, msg, cause)
-fun logW(tag: String, msg: String, cause: Throwable? = null) = log(Log.WARN, tag, msg, cause)
-fun logE(tag: String, msg: String, cause: Throwable? = null) = log(Log.ERROR, tag, msg, cause)
+fun logD(tag: String, msg: String, cause: Throwable? = null) = logWithLevel(Log.DEBUG, tag, msg, cause)
+fun logI(tag: String, msg: String, cause: Throwable? = null) = logWithLevel(Log.INFO, tag, msg, cause)
+fun logW(tag: String, msg: String, cause: Throwable? = null) = logWithLevel(Log.WARN, tag, msg, cause)
+fun logE(tag: String, msg: String, cause: Throwable? = null) = logWithLevel(Log.ERROR, tag, msg, cause)

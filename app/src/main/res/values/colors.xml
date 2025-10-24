@@ -6,4 +6,8 @@
     <color name="info">#154A74</color>
     <color name="warn">#375634</color>
     <color name="error">#8F3232</color>
+
+    <color name="switch_accent_enabled">?colorPrimary</color>
+    <color name="switch_accent_disabled">?colorOnSurfaceInverse</color>
+    <color name="switch_neutral">?colorSurfaceContainer</color>
 </resources>

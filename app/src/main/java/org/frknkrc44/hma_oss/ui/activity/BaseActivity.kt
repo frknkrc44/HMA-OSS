@@ -32,7 +32,7 @@ open class BaseActivity : AppCompatActivity() {
             theme.applyStyle(ThemeUtils.getColorThemeStyleRes(this), true)
         }
 
-        theme.applyStyle(ThemeUtils.getNightThemeStyleRes(this), true)
+        theme.applyStyle(ThemeUtils.getOverlayThemeStyleRes(this), true)
     }
 
     override fun attachBaseContext(newBase: Context?) {

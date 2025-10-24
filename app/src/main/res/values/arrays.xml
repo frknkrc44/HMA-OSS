@@ -70,4 +70,9 @@
         <item>@string/color_brown</item>
         <item>@string/color_blue_grey</item>
     </string-array>
+
+    <string-array name="app_action_texts" translatable="false">
+        <item>@string/app_force_stop_launch</item>
+        <item>@string/app_launch</item>
+    </string-array>
 </resources>

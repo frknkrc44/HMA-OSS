@@ -13,6 +13,7 @@ object PrefManager {
 
     private const val PREF_LOCALE = "language"
 
+    private const val PREF_SYSTEM_WALLPAPER = "system_wallpaper"
     private const val PREF_DARK_THEME = "dark_theme"
     private const val PREF_BLACK_DARK_THEME = "black_dark_theme"
     private const val PREF_FOLLOW_SYSTEM_ACCENT = "follow_system_accent"
@@ -44,6 +45,10 @@ object PrefManager {
     var darkTheme: Int
         get() = pref.getInt(PREF_DARK_THEME, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
         set(value) = pref.edit().putInt(PREF_DARK_THEME, value).apply()
+
+    var systemWallpaper: Boolean
+        get() = pref.getBoolean(PREF_SYSTEM_WALLPAPER, false)
+        set(value) = pref.edit().putBoolean(PREF_SYSTEM_WALLPAPER, value).apply()
 
     var blackDarkTheme: Boolean
         get() = pref.getBoolean(PREF_BLACK_DARK_THEME, false)

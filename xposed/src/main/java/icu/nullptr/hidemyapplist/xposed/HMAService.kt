@@ -5,8 +5,8 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.IPackageManager
 import android.os.Build
 import android.os.UserHandle
+import android.util.Log
 import icu.nullptr.hidemyapplist.common.AppPresets
-import icu.nullptr.hidemyapplist.common.CommonUtils
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.IHMAService
 import icu.nullptr.hidemyapplist.common.JsonConfig
@@ -25,6 +25,7 @@ import icu.nullptr.hidemyapplist.xposed.hook.PmsHookTarget33
 import icu.nullptr.hidemyapplist.xposed.hook.PmsHookTarget34
 import icu.nullptr.hidemyapplist.xposed.hook.PmsPackageEventsHook
 import org.frknkrc44.hma_oss.common.BuildConfig
+import rikka.hidden.compat.ActivityManagerApis
 import java.io.File
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -177,10 +178,11 @@ class HMAService(val pms: IPackageManager) : IHMAService.Stub() {
     }
 
     fun isAppInGMSIgnoredPackages(caller: String, query: String) =
-        (caller in CommonUtils.gmsPackages) && appHasGMSConnection(query)
+        (caller in Constants.gmsPackages) && appHasGMSConnection(query)
 
     fun shouldHide(caller: String?, query: String?): Boolean {
         if (caller == null || query == null) return false
+        if (caller == BuildConfig.APP_PACKAGE_NAME) return false
         if (caller in Constants.packagesShouldNotHide || query in Constants.packagesShouldNotHide) return false
         if (caller == query) return false
         val appConfig = config.scope[caller] ?: return false
@@ -224,6 +226,7 @@ class HMAService(val pms: IPackageManager) : IHMAService.Stub() {
 
     fun shouldHideInstallationSource(caller: String?, query: String?, user: UserHandle): Int {
         if (caller == null || query == null) return 0
+        if (caller == BuildConfig.APP_PACKAGE_NAME) return 0
         val appConfig = config.scope[caller] ?: return 0
         if (!appConfig.hideInstallationSource) return 0
         logD(TAG, "@shouldHideInstallationSource $caller: $query")
@@ -316,4 +319,18 @@ class HMAService(val pms: IPackageManager) : IHMAService.Stub() {
         AppPresets.instance.getPresetByName(presetName)?.packages?.toTypedArray()
 
     override fun readConfig() = config.toString()
+
+    override fun forceStop(packageName: String?, userId: Int) {
+        Utils.binderLocalScope {
+            runCatching {
+                ActivityManagerApis.forceStopPackage(packageName, userId)
+            }.onFailure { error ->
+                this.log(Log.ERROR, TAG, error.stackTraceToString())
+            }
+        }
+    }
+
+    override fun log(level: Int, tag: String, message: String) {
+        logWithLevel(level, tag, message)
+    }
 }

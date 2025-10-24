@@ -6,12 +6,12 @@ import androidx.annotation.RequiresApi
 import com.github.kyuubiran.ezxhelper.utils.findMethod
 import com.github.kyuubiran.ezxhelper.utils.hookBefore
 import de.robv.android.xposed.XC_MethodHook
-import icu.nullptr.hidemyapplist.common.CommonUtils
-import icu.nullptr.hidemyapplist.common.Utils
+import icu.nullptr.hidemyapplist.common.PropertyUtils
 import icu.nullptr.hidemyapplist.xposed.HMAService
 import icu.nullptr.hidemyapplist.xposed.logD
 import icu.nullptr.hidemyapplist.xposed.logE
 import icu.nullptr.hidemyapplist.xposed.logI
+import org.frknkrc44.hma_oss.common.BuildConfig
 
 @RequiresApi(Build.VERSION_CODES.R)
 class PlatformCompatHook(private val service: HMAService) : IFrameworkHook {
@@ -21,7 +21,7 @@ class PlatformCompatHook(private val service: HMAService) : IFrameworkHook {
     }
 
     private val sAppDataIsolationEnabled by lazy {
-        CommonUtils.isAppDataIsolationEnabled || service.config.altAppDataIsolation
+        PropertyUtils.isAppDataIsolationEnabled || service.config.altAppDataIsolation
     }
 
     private var hook: XC_MethodHook.Unhook? = null
@@ -34,23 +34,18 @@ class PlatformCompatHook(private val service: HMAService) : IFrameworkHook {
             name == "isChangeEnabled"
         }.hookBefore { param ->
             runCatching {
-                val changeId = param.args[0] as Long
-                val appInfo = param.args[1] as ApplicationInfo
-                if (changeId.toInt() != 143937733) return@hookBefore
-                if (appInfo.packageName in service.systemApps) return@hookBefore
-                val apps = Utils.binderLocalScope {
-                    service.pms.getPackagesForUid(appInfo.uid)
-                } ?: return@hookBefore
-                for (app in apps) {
-                    if (service.isHookEnabled(app)) {
-                        if (sAppDataIsolationEnabled) {
-                            param.result = true
-                            service.filterCount++
-                            logD(TAG, "force mount data: ${appInfo.uid} $app")
-                        }
+                if (!sAppDataIsolationEnabled) return@hookBefore
 
-                        return@hookBefore
-                    }
+                val changeId = param.args[0] as Long
+                if (changeId != 143937733L) return@hookBefore
+
+                val appInfo = param.args[1] as ApplicationInfo
+                val app = appInfo.packageName
+                if (app == BuildConfig.APP_PACKAGE_NAME || app in service.systemApps) return@hookBefore
+                if (service.isHookEnabled(app)) {
+                    param.result = true
+                    service.filterCount++
+                    logD(TAG, "force mount data: ${appInfo.uid} $app")
                 }
             }.onFailure {
                 logE(TAG, "Fatal error occurred, disable hooks", it)

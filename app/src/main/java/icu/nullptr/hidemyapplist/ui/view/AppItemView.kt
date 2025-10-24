@@ -3,6 +3,7 @@ package icu.nullptr.hidemyapplist.ui.view
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.LinearLayout
+import androidx.core.view.isVisible
 import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
 import icu.nullptr.hidemyapplist.util.PackageHelper
@@ -18,7 +19,7 @@ class AppItemView @JvmOverloads constructor(
     val binding by viewBinding<AppItemViewBinding>(createMethod = CreateMethod.INFLATE)
 
     var showEnabled: Boolean
-        get() = binding.enabled.visibility == VISIBLE
+        get() = binding.enabled.isVisible
         set(value) {
             binding.enabled.visibility = if (value) VISIBLE else GONE
         }
