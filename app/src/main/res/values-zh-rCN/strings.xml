@@ -100,7 +100,12 @@
     <string name="app_invert_activity_launch_protection">反向活动启动保护</string>
     <string name="app_invert_activity_launch_protection_desc">此选项将反转 “设置 ”中的 “禁用活动启动保护”选项。</string>
     <string name="app_global_activity_launch_protection_state">保护范围为 %s 全局</string>
+    <string name="app_force_stop_launch">强制停止并启动</string>
+    <string name="app_launch">启动</string>
+    <string name="app_launch_failed">应用启动失败，请检查日志获取更多详细信息</string>
     <!-- Presets -->
+    <string name="title_preset">预设</string>
+    <string name="title_settings_preset">设置预设</string>
     <string name="title_preset_manage">显示预设</string>
     <string name="preset_xposed">LSPosed/Xposed 模块</string>
     <string name="preset_root_apps">Root 管理器/Root 应用程序</string>
@@ -141,6 +146,7 @@
     <string name="settings_bypass_risky_package_warning_summary">请注意，对于启用此功能之前或之后出现的与风险软件包相关的问题，开发人员概不负责</string>
     <string name="settings_disable_activity_launch_protection">关闭活动启动保护</string>
     <string name="settings_disable_activity_launch_protection_summary">此切换将解除所有startActivity保护，如果你不确定，不要启用它。</string>
+    <string name="settings_system_wallpaper">使用系统壁纸</string>
     <string name="settings_language">语言</string>
     <string name="settings_translate">参与翻译</string>
     <string name="settings_translate_summary">帮助我们把 %s 翻译到你的语言</string>

@@ -2,15 +2,15 @@
 <resources>
     <string name="title_home">Beranda</string>
     <string name="title_logs">Log</string>
-    <string name="title_settings">Pengaturan</string>
+    <string name="title_settings">Setelan</string>
     <string name="title_template_manage">Kelola templat</string>
-    <string name="title_template_settings">Pengaturan templat</string>
+    <string name="title_template_settings">Setelan templat</string>
     <string name="title_app_manage">Kelola aplikasi</string>
     <string name="title_app_select">Pilih aplikasi</string>
-    <string name="title_app_settings">Pengaturan aplikasi</string>
+    <string name="title_app_settings">Setelan aplikasi</string>
     <string name="title_about">Tentang</string>
     <string name="title_about_fork">Tentang cabang ini</string>
-    <string name="do_not_dual">Jangan instal HMA pada pengguna sekunder</string>
+    <string name="do_not_dual">Jangan pasang HMA pada pengguna kedua</string>
     <string name="show_crash_log">Tampilkan log kerusakan</string>
     <string name="config_damaged">File konfigurasi rusak. Harap bersihkan data aplikasi</string>
     <string name="edit_list">Edit daftar</string>
@@ -84,7 +84,7 @@
     <string name="app_exclude_system_apps_summary">Matikan opsi ini hanya jika benar-benar diperlukan. Kemungkinan menyebabkan crash jika dinonaktifkan</string>
     <string name="app_template_using">Menggunakan %d templat</string>
     <string name="app_preset_using">Menggunakan %d preset</string>
-    <string name="app_settings_preset_using">Menggunakan %d preset pengaturan</string>
+    <string name="app_settings_preset_using">Menggunakan %d setelan preset</string>
     <string name="app_extra_apps_visible_count">%d apl tambahan terlihat</string>
     <string name="app_extra_apps_invisible_count">%d apl tambahan tidak terlihat</string>
     <string name="app_warning_risky_package_title">Paket berisiko</string>
@@ -100,13 +100,18 @@
     <string name="app_invert_activity_launch_protection">Ubah proteksi peluncuran Activity</string>
     <string name="app_invert_activity_launch_protection_desc">Opsi ini akan mengubah pilihan \"Nonaktifkan proteksi peluncuran Activity\" di Pengaturan.</string>
     <string name="app_global_activity_launch_protection_state">Proteksi %s secara universal</string>
+    <string name="app_force_stop_launch">Paksa berhenti dan jalankan</string>
+    <string name="app_launch">Luncurkan</string>
+    <string name="app_launch_failed">Peluncuran apl gagal, periksa log untuk detail lebih lanjut</string>
     <!-- Presets -->
+    <string name="title_preset">Preset</string>
+    <string name="title_settings_preset">Setelan preset</string>
     <string name="title_preset_manage">Tampilkan preset</string>
     <string name="preset_xposed">Modul LSPosed/Xposed</string>
     <string name="preset_root_apps">Manajer root/Apl root</string>
     <string name="preset_custom_rom">Apl ROM kustom</string>
     <string name="preset_sus_apps">Apl mencurigakan</string>
-    <string name="preset_detector_apps">Detector/Checker apps</string>
+    <string name="preset_detector_apps">Apl Detektor/Checker</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Aksesibilitas</string>
     <string name="settings_preset_dev_options">Opsi pengembang</string>
@@ -141,6 +146,7 @@
     <string name="settings_bypass_risky_package_warning_summary">Perlu diketahui bahwa pengembang tidak bertanggung jawab atas masalah terkait paket berisiko sebelum atau setelah anda mengaktifkan fitur ini</string>
     <string name="settings_disable_activity_launch_protection">Nonaktifkan peluncuran proteksi Activity</string>
     <string name="settings_disable_activity_launch_protection_summary">Tombol ini akan menonaktifkan semua proteksi startActivity. Jika anda tidak yakin, jangan aktifkan.</string>
+    <string name="settings_system_wallpaper">Gunakan wallpaper sistem</string>
     <string name="settings_language">Bahasa</string>
     <string name="settings_translate">Berpartisipasi dalam penerjemahan</string>
     <string name="settings_translate_summary">Bantu kami menerjemahkan %s ke bahasa anda</string>
@@ -181,8 +187,8 @@
     <string name="color_red">Merah</string>
     <string name="color_pink">Merah muda</string>
     <string name="color_purple">Ungu</string>
-    <string name="color_deep_purple">Ungu tua</string>
-    <string name="color_indigo">Biru nila</string>
+    <string name="color_deep_purple">Ungu gelap</string>
+    <string name="color_indigo">Biru gelap</string>
     <string name="color_blue">Biru</string>
     <string name="color_light_blue">Biru muda</string>
     <string name="color_cyan">Sian</string>
@@ -191,11 +197,11 @@
     <string name="color_light_green">Hijau muda</string>
     <string name="color_lime">Hijau limau</string>
     <string name="color_yellow">Kuning</string>
-    <string name="color_amber">Kuning amber</string>
-    <string name="color_orange">Oranye</string>
-    <string name="color_deep_orange">Oranye tua</string>
-    <string name="color_brown">Cokelat</string>
-    <string name="color_blue_grey">Biru abu</string>
+    <string name="color_amber">Kuning madu</string>
+    <string name="color_orange">Jingga</string>
+    <string name="color_deep_orange">Jingga gelap</string>
+    <string name="color_brown">Coklat</string>
+    <string name="color_blue_grey">Abu-abu kebiruan</string>
     <!-- Dark theme modes -->
     <string name="dark_theme">Tema gelap</string>
     <string name="dark_theme_off">Selalu mati</string>

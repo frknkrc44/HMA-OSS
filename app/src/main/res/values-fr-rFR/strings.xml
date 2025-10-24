@@ -9,7 +9,7 @@
     <string name="title_app_select">Sélectionner les applications</string>
     <string name="title_app_settings">Réglages pour l\'application</string>
     <string name="title_about">A propos</string>
-    <string name="title_about_fork">About this fork</string>
+    <string name="title_about_fork">À propos de ce fork</string>
     <string name="do_not_dual">Ne pas installer HMA dans l\'utilisateur secondaire</string>
     <string name="show_crash_log">Afficher le journal de plantage</string>
     <string name="config_damaged">Fichier de configuration endommagé. Merci de nettoyer les données de l\'application</string>
@@ -18,7 +18,7 @@
     <string name="enabled">Activer</string>
     <string name="disabled">Désactivé</string>
     <string name="work_mode">Mode travail</string>
-    <string name="blacklist">Liste noir</string>
+    <string name="blacklist">Liste noire</string>
     <string name="whitelist">Liste blanche</string>
     <string name="application">Application</string>
     <string name="preferences">Réglages</string>
@@ -28,7 +28,7 @@
     <string name="no">Non</string>
     <string name="search">Rechercher</string>
     <string name="system">Système</string>
-    <string name="follow_system">Follow system</string>
+    <string name="follow_system">Suivre le système</string>
     <!-- Home -->
     <string name="home_xposed_activated">Module Actif [%s]</string>
     <string name="home_xposed_not_activated">Module Inactivé</string>
@@ -39,7 +39,7 @@
     <string name="home_manage">Gérer</string>
     <string name="home_detection_test">Test de détection</string>
     <string name="home_download_test_app_title">Télécharger l\'appli de test</string>
-    <string name="home_download_test_app_message">Nous avons développé une appli de test de détection séparée and le test de détection dans celle-ci. Voulez-vous la télécharger maintenant?</string>
+    <string name="home_download_test_app_message">Nous avons développé une appli de test de détection séparée avec les tests de détection dans celle-ci. Voulez-vous la télécharger ?</string>
     <string name="home_backup_and_restore">Sauvegarder &amp; Restaurer</string>
     <string name="home_backup_config">Configurer la sauvegarde</string>
     <string name="home_restore_config">Restaurer la configuration</string>
@@ -60,9 +60,9 @@
     <string name="list_sort_by_package_name">Par nom de paquet</string>
     <string name="list_sort_by_install_time">Par date d\'installation</string>
     <string name="list_sort_by_update_time">Par date de mise à jour</string>
-    <string name="list_empty_no_enabled">Try enabling hiding for apps with this template\'s work mode and apps will appear here</string>
-    <string name="list_empty_no_apps">No applications found, maybe you didn\'t allow this app to query all packages</string>
-    <string name="list_empty_preset">No applications added in this preset</string>
+    <string name="list_empty_no_enabled">Essayez d\'activer le masquage pour les applications avec le mode de fonctionnement de ce modèle et les applications apparaîtront ici</string>
+    <string name="list_empty_no_apps">Aucunes applications trouvées, peut être que vous n\'avez pas autorisé cette application à interroger tous les paquets</string>
+    <string name="list_empty_preset">Aucunes applications ajoutées dans ce préréglage</string>
     <!-- Manage templates -->
     <string name="template_usage_hint">Établir des modèles pour les applications \"agitées\", controller la liste d\'appli qu\'elles peuvent obtenir.\n\nListe noir (recommandée): les applis sélectionnées dans le modèle seront invisibles aux autres aplis qui appliquent le modèle.\nListe blanche: les applis non sélectionnées dans le modèle seront invisibles aux applis l\'appliquant.</string>
     <string name="template_new_blacklist">Créer un modèle de liste noir</string>
@@ -79,55 +79,60 @@
     <string name="app_enable_hide">Activer le masquage</string>
     <string name="app_template_config">Configuration du modèle</string>
     <string name="app_choose_template">Choisir le modèle</string>
-    <string name="app_choose_preset">Choose preset</string>
+    <string name="app_choose_preset">Choisissez un préréglage</string>
     <string name="app_exclude_system_apps">Exclure les applications du système</string>
     <string name="app_exclude_system_apps_summary">Désactiver cette option uniquement lors ce que c\'est vraiment nécessaire. Il est susceptible de provoquer un crash s\'il est désactivé</string>
     <string name="app_template_using">Utilisation de %d modèle(s)</string>
-    <string name="app_preset_using">Using %d presets</string>
-    <string name="app_settings_preset_using">Using %d settings presets</string>
+    <string name="app_preset_using">Utilisation de %d préréglages</string>
+    <string name="app_settings_preset_using">Utilisation des préréglages %d</string>
     <string name="app_extra_apps_visible_count">%d applis additionelles visibles</string>
     <string name="app_extra_apps_invisible_count">%d applis additionelles invisibles</string>
-    <string name="app_warning_risky_package_title">Risky package</string>
-    <string name="app_warning_risky_package_desc">This package is marked as risky and you can cause issues on hidden apps. Do you want to continue?</string>
-    <string name="app_spoof">Spoofing</string>
-    <string name="app_hide_installation_source">Spoof installation sources</string>
-    <string name="app_hide_installation_source_desc">All of user apps will be spoofed as installed over Play Store for this application</string>
-    <string name="app_hide_installation_source_system">Spoof system apps too</string>
-    <string name="app_hide_installation_source_system_desc">All of system apps will be spoofed as installed over nothing for this application</string>
-    <string name="app_exclude_target_installation_source">Exclude the target app</string>
-    <string name="app_exclude_target_installation_source_desc">You can enable it if this app is not available at Play Store</string>
-    <string name="app_force_stop_warning">Don\'t forget to force stop the target app after saving the configuration</string>
-    <string name="app_invert_activity_launch_protection">Invert Activity launch protection</string>
-    <string name="app_invert_activity_launch_protection_desc">This option will invert \"Disable Activity launch protection\" selection in Settings.</string>
-    <string name="app_global_activity_launch_protection_state">Protection is %s globally</string>
+    <string name="app_warning_risky_package_title">Paquet risqué</string>
+    <string name="app_warning_risky_package_desc">Ce paquet est indiqué comme étant risqué et peut causer des problèmes sur les applications masquées. Voulez-vous tout de même poursuivre ?</string>
+    <string name="app_spoof">Usurpation</string>
+    <string name="app_hide_installation_source">Usurper les sources de l\'installation</string>
+    <string name="app_hide_installation_source_desc">Toutes les applications utilisateur seront présentées comme ayant été installées depuis le Play Store pour cette application</string>
+    <string name="app_hide_installation_source_system">Usurper les applications systèmes également</string>
+    <string name="app_hide_installation_source_system_desc">Toutes les applications système seront présentées comme ayant été installées depuis rien pour cette application</string>
+    <string name="app_exclude_target_installation_source">Exclure l\'application cible</string>
+    <string name="app_exclude_target_installation_source_desc">Vous pouvez l\'activer si cette application n\'est pas disponible sur le Play Store</string>
+    <string name="app_force_stop_warning">N\'oubliez pas de forcer l\'arrêt de l\'application cible après avoir sauvegardé la configuration</string>
+    <string name="app_invert_activity_launch_protection">Protection contre le lancement d\'activité inversée</string>
+    <string name="app_invert_activity_launch_protection_desc">Cette option inversera la sélection « Désactiver la protection contre le lancement d\'activités » dans les paramètres.</string>
+    <string name="app_global_activity_launch_protection_state">La protection est de %s globalement.</string>
+    <string name="app_force_stop_launch">Forcer l\'arrêt et démarrer</string>
+    <string name="app_launch">Démarrer</string>
+    <string name="app_launch_failed">Le démarrage de l\'application a échoué, vérifiez les journaux d\'activités pour plus d\'informations</string>
     <!-- Presets -->
-    <string name="title_preset_manage">Show presets</string>
-    <string name="preset_xposed">LSPosed/Xposed modules</string>
-    <string name="preset_root_apps">Root managers/Rooted apps</string>
-    <string name="preset_custom_rom">Custom ROM apps</string>
-    <string name="preset_sus_apps">Suspicious apps</string>
-    <string name="preset_detector_apps">Detector/Checker apps</string>
+    <string name="title_preset">Préréglages</string>
+    <string name="title_settings_preset">Options de préréglages</string>
+    <string name="title_preset_manage">Afficher les préréglages</string>
+    <string name="preset_xposed">Modules LSPosed/Xposed</string>
+    <string name="preset_root_apps">Gestionnaires de root/Applications rootées</string>
+    <string name="preset_custom_rom">Applications de la ROM personnalisées</string>
+    <string name="preset_sus_apps">Applications suspectes</string>
+    <string name="preset_detector_apps">Applications de détection/vérification</string>
     <!-- Settings preset names -->
-    <string name="settings_preset_accessibility">Accessibility</string>
-    <string name="settings_preset_dev_options">Developer options</string>
+    <string name="settings_preset_accessibility">Accessibilité</string>
+    <string name="settings_preset_dev_options">Options de développeur</string>
     <!-- Logs -->
     <string name="logs_save">Enregistrer le journal</string>
     <string name="logs_clear">Effacer le journal</string>
     <string name="logs_empty">Aucun journal à enregistrer</string>
     <string name="logs_saved">Journeaux sauvegardés</string>
     <!-- Settings -->
-    <string name="settings_module">Module</string>
-    <string name="settings_overwrite">Overwrite</string>
-    <string name="settings_overwritten">Overwritten</string>
-    <string name="settings_overwrite_summary">This category items will be forced as enabled if the switches are checked</string>
-    <string name="settings_default_value">Default value: %s</string>
+    <string name="settings_module">Modules</string>
+    <string name="settings_overwrite">Remplacer</string>
+    <string name="settings_overwritten">Remplacé</string>
+    <string name="settings_overwrite_summary">Les éléments de cette catégorie seront activés de force si les cases sont cochées</string>
+    <string name="settings_default_value">Valeur par défaut : %s</string>
     <string name="settings_data_isolation">Isolation des données</string>
-    <string name="settings_data_isolation_summary">App data: %s\nVold app data: %s\nForce mount: %s</string>
+    <string name="settings_data_isolation_summary">Données de l\'application : %s\nDonnées Vold de l\'application : %s\nForcer le montage : %s</string>
     <string name="settings_data_isolation_unsupported">Cette option est uniquement disponible sur Android 11 et supérieur</string>
     <string name="settings_app_data_isolation">Isolation des données d\'application</string>
     <string name="settings_vold_app_data_isolation">Forcer l\'isolement des données d\'application</string>
-    <string name="settings_warning">Warning</string>
-    <string name="settings_vold_warning">This will enable an AOSP feature which make app\'s external private storage directory isolated. This can help improve hiding apps while may cause stability issues. This feature may stop working at any time since it is abandoned in AOSP.</string>
+    <string name="settings_warning">Avertissement</string>
+    <string name="settings_vold_warning">Cela activera une fonctionnalité AOSP qui isole le répertoire de stockage privé externe de l\'application. Cela peut aider à mieux masquer les applications, mais peut entraîner des problèmes de stabilité. Cette fonctionnalité peut cesser de fonctionner à tout moment, car elle a été abandonnée dans la version AOSP.</string>
     <string name="settings_change_require_root">Changer les permissions d\'accès à la racine requises</string>
     <string name="settings_need_reboot">La modification nécessite un redémarrage</string>
     <string name="settings_permission_denied">Permission refusée</string>
@@ -137,10 +142,11 @@
     <string name="settings_max_log_size">Tailles du tampon d\'enregistrement</string>
     <string name="settings_hide_icon">Masquer l\'icône du module dans le lanceur</string>
     <string name="settings_hide_icon_summary">Vous pouvez toujours ouvrir l\'application depuis le gestionnaire Xposed</string>
-    <string name="settings_bypass_risky_package_warning">Bypass risky package warning</string>
-    <string name="settings_bypass_risky_package_warning_summary">Note that the devs are not responsible for risky package related issues before or after you enabled this feature</string>
-    <string name="settings_disable_activity_launch_protection">Disable Activity launch protection</string>
-    <string name="settings_disable_activity_launch_protection_summary">This toggle will lift all startActivity protections. If you\'re unsure, don\'t enable it.</string>
+    <string name="settings_bypass_risky_package_warning">Ignorer l\'avertissement concernant les paquets à risque</string>
+    <string name="settings_bypass_risky_package_warning_summary">Veuillez noter que les développeurs ne sont pas responsables des problèmes liés aux paquets à risque avant ou après l\'activation de cette fonctionnalité</string>
+    <string name="settings_disable_activity_launch_protection">Désactiver la protection contre le lancement d\'activités</string>
+    <string name="settings_disable_activity_launch_protection_summary">Cette option désactive toutes les protections startActivity. Si vous n\'êtes pas sûr, ne l\'activez pas.</string>
+    <string name="settings_system_wallpaper">Utiliser le fond d\'écran du système</string>
     <string name="settings_language">Langue</string>
     <string name="settings_translate">Participer à la traduction</string>
     <string name="settings_translate_summary">Aidez nous à traduire %s dans votre language</string>
@@ -165,14 +171,14 @@
     <!-- About -->
     <string name="about_description">        Bien qu\'il soit incorrect de détecter l\'installation d\'une application spécifique, toutes les applications utilisant la racine ne prennent pas en charge les noms de paquets aléatoires. Dans ce cas, les applications détectées qui utilisent la racine (telles que Fake Location et Storage Isolation) sont égales à la racine détectée elle-même.\n\nDans le même temps, certaines applications intelligentes utilisent diverses failles pour acquérir votre liste d\'applications, afin de vous dessiner un personnage.\n\nCe module fournit quelques méthodes pour tester si vous avez déjà bien caché votre liste d\'applications. De plus, il peut fonctionner comme un module Xposed pour cacher certaines applications ou rejeter les demandes de liste d\'applications afin de protéger votre vie privée.
     </string>
-    <string name="about_fork_description">        The original HMA project has become closed-source and their latest code didn\'t contain some of the latest changes, so I created this fork to continue it as open-source again.
+    <string name="about_fork_description">        Le projet HMA original est devenu closed-source et leur dernier code ne contenait pas certaines des dernières modifications, j\'ai donc créé ce fork pour le poursuivre à nouveau en open-source.
     </string>
     <string name="about_how_to_use_title">Comment utiliser ce module</string>
     <string name="about_how_to_use_description_1">        Vous pouvez créer des modèles dans \"Gestion des modèles\"\nAppliquer ensuite les modèles aux application dans \"Gestionnaire d\'applications\". (Vous pouvez également sélectionner des applications supplémentaires pour les cibler.)\nVous devez et ne devez QUE vérifier le \"Système d\'injection\" dans la portée du module Xposed / de la liste blanche.
     </string>
     <string name="about_how_to_use_description_2">        Modification de la configuration effective en temps réel.
     </string>
-    <string name="about_translator">Translator</string>
+    <string name="about_translator">Traducteurs</string>
     <string name="about_developer">Développeur</string>
     <string name="about_support">Support et retour d\'expérience</string>
     <string name="about_open_source">Licences open source</string>
@@ -197,7 +203,7 @@
     <string name="color_brown">Marron</string>
     <string name="color_blue_grey">Gris bleuté</string>
     <!-- Dark theme modes -->
-    <string name="dark_theme">Dark theme</string>
-    <string name="dark_theme_off">Always off</string>
-    <string name="dark_theme_on">Always on</string>
+    <string name="dark_theme">Thème sombre</string>
+    <string name="dark_theme_off">Tout le temps désactivé</string>
+    <string name="dark_theme_on">Tout le temps activé</string>
 </resources>

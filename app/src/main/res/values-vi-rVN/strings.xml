@@ -15,7 +15,7 @@
     <string name="config_damaged">Tệp cấu hình bị hỏng. Hãy xóa dữ liệu của ứng dụng</string>
     <string name="edit_list">Sửa danh sách</string>
     <string name="delete">Xóa</string>
-    <string name="enabled">Bật</string>
+    <string name="enabled">Đã bật</string>
     <string name="disabled">Tắt</string>
     <string name="work_mode">Chế độ hoạt động</string>
     <string name="blacklist">Danh sách đen</string>
@@ -39,7 +39,7 @@
     <string name="home_manage">Quản lý</string>
     <string name="home_detection_test">Thử phát hiện</string>
     <string name="home_download_test_app_title">Tải ứng dụng kiểm tra</string>
-    <string name="home_download_test_app_message">Chúng tôi đã phát triển một ứng dụng kiểm tra phát hiện riêng lẻ và chuyển kiểm tra phát hiện sang ứng dụng đó. Bạn có muốn tải xuống bây giờ không?</string>
+    <string name="home_download_test_app_message">Chúng tôi đã phát triển một ứng dụng kiểm tra phát hiện riêng và đã chuyển kiểm tra phát hiện sang ứng dụng đó. Bạn có muốn tải xuống bây giờ không?</string>
     <string name="home_backup_and_restore">Sao lưu &amp; Khôi phục</string>
     <string name="home_backup_config">Sao lưu cấu hình</string>
     <string name="home_restore_config">Khôi phục cấu hình</string>
@@ -53,7 +53,7 @@
     <string name="home_new_update">Bản cập nhật mới: %s</string>
     <string name="home_update">Cập nhật: %s</string>
     <!-- App select -->
-    <string name="list_show_system">Hiện ƯD hệ thống</string>
+    <string name="list_show_system">Hiện Ứng dụng hệ thống</string>
     <string name="list_sorting">Sắp xếp</string>
     <string name="list_reverse_order">Đảo ngược thứ tự</string>
     <string name="list_sort_by_label">Bởi tên ứng dụng</string>
@@ -97,16 +97,21 @@
     <string name="app_exclude_target_installation_source">Loại trừ ứng dụng mục tiêu(đang thiết lập)</string>
     <string name="app_exclude_target_installation_source_desc">Bạn có thể bật nó nếu ứng dụng này không có sẵn trên Play Store</string>
     <string name="app_force_stop_warning">Đừng quên buộc dừng ứng dụng mục tiêu sau khi lưu cấu hình</string>
-    <string name="app_invert_activity_launch_protection"></string>
+    <string name="app_invert_activity_launch_protection">Đảo ngược lựa chọn Tắt bảo vệ khởi chạy hoạt động</string>
     <string name="app_invert_activity_launch_protection_desc">Tùy chọn này sẽ đảo ngược lựa chọn \"Tắt bảo vệ khởi chạy hoạt động\" trong Cài đặt.</string>
     <string name="app_global_activity_launch_protection_state">Bảo vệ đang được %s toàn hệ thống</string>
+    <string name="app_force_stop_launch">Buộc dừng và khởi chạy</string>
+    <string name="app_launch">Khởi chạy</string>
+    <string name="app_launch_failed">Ứng dụng khởi chạy thất bại, kiểm tra Logs để biết chi tiết</string>
     <!-- Presets -->
+    <string name="title_preset">Mẫu có sẵn</string>
+    <string name="title_settings_preset">Cài đặt mẫu</string>
     <string name="title_preset_manage">Hiển thị các cài đặt trước</string>
     <string name="preset_xposed">Các mô-đun LSPosed/Xposed</string>
     <string name="preset_root_apps">Ứng dụng quản lý Root/Ứng dụng được cấp Root</string>
     <string name="preset_custom_rom">Ứng dụng ROM tùy biến</string>
     <string name="preset_sus_apps">Ứng dụng đáng ngờ</string>
-    <string name="preset_detector_apps">Detector/Checker apps</string>
+    <string name="preset_detector_apps">ỨD phát hiện/KT Root</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Trợ năng</string>
     <string name="settings_preset_dev_options">Tùy chọn nhà phát triển</string>
@@ -140,7 +145,8 @@
     <string name="settings_bypass_risky_package_warning">Bỏ qua cảnh báo gói rủi ro</string>
     <string name="settings_bypass_risky_package_warning_summary">Lưu ý rằng nhà phát triển không chịu trách nhiệm về các vấn đề liên quan đến gói rủi ro trước hoặc sau khi bạn bật tính năng này</string>
     <string name="settings_disable_activity_launch_protection">Tắt tính năng bảo vệ khởi chạy hoạt động</string>
-    <string name="settings_disable_activity_launch_protection_summary">Nút chuyển đổi này sẽ gỡ bỏ mọi chế độ bảo vệ startActivity. Nếu bạn không chắc chắn, đừng bật nó.</string>
+    <string name="settings_disable_activity_launch_protection_summary">Nút chuyển đổi này sẽ gỡ bỏ mọi chế độ bảo vệ khởi động. Nếu bạn không chắc chắn, đừng bật nó.</string>
+    <string name="settings_system_wallpaper">Sử dụng hình nền của hệ thống</string>
     <string name="settings_language">Ngôn ngữ</string>
     <string name="settings_translate">Giúp chúng tôi dịch</string>
     <string name="settings_translate_summary">Giúp chúng tôi dịch %s sang ngôn ngữ của bạn</string>
@@ -154,7 +160,7 @@
     <string name="settings_stop_system_service">Dừng dịch vụ</string>
     <string name="settings_stop_system_service_summary">Cần chạy lại dịch vụ</string>
     <string name="settings_is_clean_env">Làm sạch môi trường thời gian chạy cùng lúc?</string>
-    <string name="settings_is_clean_env_summary">Xóa bộ nhớ cache của dịch vụ hệ thống trong /data/misc/hide_my_applist_*. Điều này có nghĩa là bạn cần phải khởi chạy ứng dụng mô-đun một lần theo cách thủ công sau lần khởi động lại tiếp theo để cho phép đánh chặn và số lần đánh chặn cũng sẽ được xóa sạch.</string>
+    <string name="settings_is_clean_env_summary">Xóa bộ nhớ tạm của dịch vụ hệ thống trong /data/misc/hide_my_applist_*. Điều này có nghĩa là bạn cần phải khởi chạy ứng dụng mô-đun một lần theo cách thủ công sau lần khởi động lại tiếp theo để cho phép đánh chặn và số lần đánh chặn cũng sẽ được xóa sạch.</string>
     <string name="settings_force_clean_env">Buộc dọn dẹp môi trường thực thi (root)</string>
     <string name="settings_force_clean_env_summary">Chỉ chọn khi dịch vụ hệ thống không khởi động được, nếu không bạn nên nhấp vào tùy chọn ở trên.</string>
     <string name="settings_force_clean_env_toast_successful">Môi trường thực thi đã được dọn dẹp</string>
