@@ -15,7 +15,7 @@
     <string name="config_damaged">Tệp cấu hình bị hỏng. Hãy xóa dữ liệu của ứng dụng</string>
     <string name="edit_list">Sửa danh sách</string>
     <string name="delete">Xóa</string>
-    <string name="enabled">Bật</string>
+    <string name="enabled">Đã bật</string>
     <string name="disabled">Tắt</string>
     <string name="work_mode">Chế độ hoạt động</string>
     <string name="blacklist">Danh sách đen</string>
@@ -39,7 +39,7 @@
     <string name="home_manage">Quản lý</string>
     <string name="home_detection_test">Thử phát hiện</string>
     <string name="home_download_test_app_title">Tải ứng dụng kiểm tra</string>
-    <string name="home_download_test_app_message">Chúng tôi đã phát triển một ứng dụng kiểm tra phát hiện riêng lẻ và chuyển kiểm tra phát hiện sang ứng dụng đó. Bạn có muốn tải xuống bây giờ không?</string>
+    <string name="home_download_test_app_message">Chúng tôi đã phát triển một ứng dụng kiểm tra phát hiện riêng và đã chuyển kiểm tra phát hiện sang ứng dụng đó. Bạn có muốn tải xuống bây giờ không?</string>
     <string name="home_backup_and_restore">Sao lưu &amp; Khôi phục</string>
     <string name="home_backup_config">Sao lưu cấu hình</string>
     <string name="home_restore_config">Khôi phục cấu hình</string>
