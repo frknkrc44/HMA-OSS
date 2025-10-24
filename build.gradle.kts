@@ -19,7 +19,6 @@ fun String.execute(currentWorkingDir: File = file("./")): String {
 
 val localProperties = Properties()
 localProperties.load(file("local.properties").inputStream())
-val localBuild by extra(localProperties.getProperty("localBuild", "false") == "true")
 val officialBuild by extra(localProperties.getProperty("officialBuild", "false") == "true")
 
 @Suppress("unused")
@@ -77,6 +76,9 @@ val minBackupVerCode by extra(65)
 
 @Suppress("unused")
 val appPackageName by extra("org.frknkrc44.hma_oss")
+
+@Suppress("unused")
+val localBuild by extra(localProperties.getProperty("localBuild", "false") == "true")
 
 val androidSourceCompatibility = JavaVersion.VERSION_21
 val androidTargetCompatibility = JavaVersion.VERSION_21
