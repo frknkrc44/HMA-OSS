@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="title_home">Acasă</string>
-    <string name="title_logs">Logs</string>
+    <string name="title_logs">Log-uri</string>
     <string name="title_settings">Setări</string>
     <string name="title_template_manage">Gestionarea șablonului</string>
     <string name="title_template_settings">Setările șablonului</string>
@@ -9,7 +9,7 @@
     <string name="title_app_select">Selectează aplicații</string>
     <string name="title_app_settings">Setările aplicației</string>
     <string name="title_about">Despre</string>
-    <string name="title_about_fork">About this fork</string>
+    <string name="title_about_fork">Despre acest fork</string>
     <string name="do_not_dual">Nu instalați HMA pe utilizatorul secundar</string>
     <string name="show_crash_log">Arată jurnalul de erori</string>
     <string name="config_damaged">Fișier de configurare deteriorat. Vă rugăm să curățați datele aplicației</string>
@@ -28,7 +28,7 @@
     <string name="no">Nu</string>
     <string name="search">Căutare</string>
     <string name="system">Sistem</string>
-    <string name="follow_system">Follow system</string>
+    <string name="follow_system">Urmează setările de sistem</string>
     <!-- Home -->
     <string name="home_xposed_activated">Modul Activat [%s]</string>
     <string name="home_xposed_not_activated">Modul Dezactivat</string>
@@ -53,10 +53,10 @@
     <string name="home_new_update">Un nou update disponibil: %s</string>
     <string name="home_update">Actualizare: %s</string>
     <!-- App select -->
-    <string name="list_show_system">Show system apps</string>
-    <string name="list_sorting">Sorting</string>
-    <string name="list_reverse_order">Reverse order</string>
-    <string name="list_sort_by_label">By app name</string>
+    <string name="list_show_system">Afișare aplicații de sistem</string>
+    <string name="list_sorting">Sortare</string>
+    <string name="list_reverse_order">Sortare în ordine inversă</string>
+    <string name="list_sort_by_label">După denumire</string>
     <string name="list_sort_by_package_name">By package name</string>
     <string name="list_sort_by_install_time">By install time</string>
     <string name="list_sort_by_update_time">By update time</string>
