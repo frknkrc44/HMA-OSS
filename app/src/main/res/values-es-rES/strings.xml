@@ -129,12 +129,12 @@
     <string name="settings_data_isolation">Aislar datos de apps en almacenamiento</string>
     <string name="settings_data_isolation_summary">Aislar almacenamiento interno: %s\nAislar almacenamiento externo: %s\nReforzar Aislamiento: %s</string>
     <string name="settings_data_isolation_unsupported">Esta opción solo está disponible en Android 11 y superior</string>
-    <string name="settings_app_data_isolation">Aislamiento App data</string>
-    <string name="settings_vold_app_data_isolation">Aislamiento app data Vold</string>
+    <string name="settings_app_data_isolation">Aislamiento de datos de apps</string>
+    <string name="settings_vold_app_data_isolation">Aislamiento de datos en almacenamiento externo</string>
     <string name="settings_warning">Advertencia</string>
     <string name="settings_vold_warning">Esto habilitará una función AOSP que hará que el directorio de almacenamiento privado externo de la aplicación esté aislado. Esto puede ayudar a mejorar la ocultación de aplicaciones pero puede causar problemas de estabilidad. Esta característica puede dejar de funcionar en cualquier momento ya que hay sido abandonada en AOSP.</string>
-    <string name="settings_change_require_root">Cambiar requiere permiso root</string>
-    <string name="settings_need_reboot">El cambio requiere reiniciar</string>
+    <string name="settings_change_require_root">Cambiarlo requiere permisos root</string>
+    <string name="settings_need_reboot">Cambiarlo requiere reiniciar</string>
     <string name="settings_permission_denied">Permiso denegado</string>
     <string name="settings_force_mount_data">Aplicar el aislamiento de datos para todas las aplicaciones</string>
     <string name="settings_force_mount_data_summary">El aislamiento de datos está deshabilitado para aplicaciones con API de destino inferior a 30 por defecto</string>
