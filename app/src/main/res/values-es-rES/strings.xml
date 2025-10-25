@@ -60,7 +60,7 @@
     <string name="list_sort_by_package_name">Por nombre del paquete</string>
     <string name="list_sort_by_install_time">Por fecha de instalación</string>
     <string name="list_sort_by_update_time">Por fecha de actualización</string>
-    <string name="list_empty_no_enabled">Trate de habilitar la ocultación para aplicaciones con el modo de trabajo de esta plantilla y las aplicaciones aparecerán aquí</string>
+    <string name="list_empty_no_enabled">Prueba permitir la ocultación en aplicaciones con el mismo modo de trabajo que tiene esta plantilla y así dichas aplicaciones aparecerán aquí</string>
     <string name="list_empty_no_apps">No se han encontrado aplicaciones, tal vez no hayas permitido que esta aplicación consulte todos los paquetes</string>
     <string name="list_empty_preset">No hay aplicaciones añadidas en este preset</string>
     <!-- Manage templates -->
@@ -84,23 +84,23 @@
     <string name="app_exclude_system_apps_summary">Desactive esta opción solo cuando sea realmente necesario. Es probable que cause un crasheo si está desactivado</string>
     <string name="app_template_using">Usando %d plantillas</string>
     <string name="app_preset_using">Usando %d presets</string>
-    <string name="app_settings_preset_using">Usando %d ajustes predefinidos</string>
+    <string name="app_settings_preset_using">Usando %d presets de ajustes</string>
     <string name="app_extra_apps_visible_count">%d apps adicionales visibles</string>
     <string name="app_extra_apps_invisible_count">%d apps adicionales invisibles</string>
     <string name="app_warning_risky_package_title">Paquete riesgoso</string>
     <string name="app_warning_risky_package_desc">Este paquete está marcado como riesgoso y puede causar problemas en aplicaciones ocultas. ¿Desea continuar?</string>
-    <string name="app_spoof">Spoofing</string>
-    <string name="app_hide_installation_source">Spoof fuentes de instalación</string>
+    <string name="app_spoof">Falsificación (Spoofing)</string>
+    <string name="app_hide_installation_source">Falsificar fuentes de instalación</string>
     <string name="app_hide_installation_source_desc">Todas las aplicaciones del usuario serán falsificadas como instaladas desde Play Store para esta aplicación</string>
-    <string name="app_hide_installation_source_system">Spoof apps del sistema también</string>
-    <string name="app_hide_installation_source_system_desc">Todas las aplicaciones del sistema serán falsificadas como instaladas sobre nada para esta aplicación</string>
-    <string name="app_exclude_target_installation_source">Excluir la aplicación objetivo</string>
+    <string name="app_hide_installation_source_system">Falsificar apps del sistema también</string>
+    <string name="app_hide_installation_source_system_desc">Todas las aplicaciones del sistema serán falsificadas como instaladas desde nada para esta aplicación</string>
+    <string name="app_exclude_target_installation_source">Excluirse así misma</string>
     <string name="app_exclude_target_installation_source_desc">Puedes activarlo si esta aplicación no está disponible en Play Store</string>
-    <string name="app_force_stop_warning">No olvide forzar detención a la aplicación objetivo después de guardar la configuración</string>
-    <string name="app_invert_activity_launch_protection">Invertir protección de Activity launch</string>
-    <string name="app_invert_activity_launch_protection_desc">Esta opción invertirá la selección de \"Desactivar la protección de Activity launch\" en Ajustes.</string>
-    <string name="app_global_activity_launch_protection_state">La protección es %s globalmente</string>
-    <string name="app_force_stop_launch">Forzar detención y abrir</string>
+    <string name="app_force_stop_warning">No olvides forzar detención de esta aplicación después de guardar la configuración</string>
+    <string name="app_invert_activity_launch_protection">Invertir configuración actual de \"Activity Launch\"</string>
+    <string name="app_invert_activity_launch_protection_desc">Esta opción invertirá la selección actual de \"Desactivar la protección de Activity Launch\" en Ajustes.</string>
+    <string name="app_global_activity_launch_protection_state">La protección actualmente esta: %s globalmente</string>
+    <string name="app_force_stop_launch">Forzar la detención y abrir</string>
     <string name="app_launch">Abrir</string>
     <string name="app_launch_failed">Error al iniciar la aplicación, compruebe los logs para más detalles</string>
     <!-- Presets -->
@@ -108,10 +108,10 @@
     <string name="title_settings_preset">Settings presets</string>
     <string name="title_preset_manage">Mostrar presets</string>
     <string name="preset_xposed">Módulos LSPosed/Xposed</string>
-    <string name="preset_root_apps">Gestores root/Aplicaciones Root</string>
+    <string name="preset_root_apps">Apps de gestión root/Aplicaciones Root</string>
     <string name="preset_custom_rom">Aplicaciones de ROM personalizadas</string>
     <string name="preset_sus_apps">Apps sospechosas</string>
-    <string name="preset_detector_apps">Aplicaciones de detector/Checker</string>
+    <string name="preset_detector_apps">Aplicaciones de detección/Apps de Chequeos</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Accesibilidad</string>
     <string name="settings_preset_dev_options">Opciones de desarrollador</string>
@@ -126,8 +126,8 @@
     <string name="settings_overwritten">Sobreescrito</string>
     <string name="settings_overwrite_summary">Los elementos de esta categoría serán forzados como habilitados si los interruptores son marcados</string>
     <string name="settings_default_value">Valor por defecto: %s</string>
-    <string name="settings_data_isolation">Aislamiento de datos</string>
-    <string name="settings_data_isolation_summary">Datos de aplicación: %s\nDatos de la aplicación Vold: %s\nForzar montaje: %s</string>
+    <string name="settings_data_isolation">Aislar datos de apps en almacenamiento</string>
+    <string name="settings_data_isolation_summary">Aislar almacenamiento interno: %s\nAislar almacenamiento externo: %s\nReforzar Aislamiento: %s</string>
     <string name="settings_data_isolation_unsupported">Esta opción solo está disponible en Android 11 y superior</string>
     <string name="settings_app_data_isolation">Aislamiento App data</string>
     <string name="settings_vold_app_data_isolation">Aislamiento app data Vold</string>
