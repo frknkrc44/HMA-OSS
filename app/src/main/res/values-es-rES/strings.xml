@@ -31,8 +31,8 @@
     <string name="follow_system">Igual que el sistema</string>
     <!-- Home -->
     <string name="home_xposed_activated">Módulo Activado [%s]</string>
-    <string name="home_xposed_not_activated">Módulo no activado</string>
-    <string name="home_xposed_service_on">Servicio del sistema ejecutandose [%d]</string>
+    <string name="home_xposed_not_activated">Módulo No Activado</string>
+    <string name="home_xposed_service_on">Servicio del sistema ejecutándose [%d]</string>
     <string name="home_xposed_service_off">El servicio del sistema no se está ejecutando</string>
     <string name="home_xposed_service_old">Módulo actualizado, requiere reiniciar</string>
     <string name="home_xposed_filter_count">HMA-OSS ha filtrado un total de %d solicitudes</string>
@@ -41,15 +41,15 @@
     <string name="home_download_test_app_title">Descargar aplicación de prueba</string>
     <string name="home_download_test_app_message">Hemos desarrollado una aplicación de prueba de detección individual y hemos migrado el test de detección a ella ¿Quieres descargarla ahora?</string>
     <string name="home_backup_and_restore">Copia de seguridad&amp; Restaurar</string>
-    <string name="home_backup_config">Exportar config</string>
+    <string name="home_backup_config">Exportar configuración</string>
     <string name="home_restore_config">Restaurar config</string>
-    <string name="home_import_successful">Importación con éxito</string>
+    <string name="home_import_successful">Importado con éxito</string>
     <string name="home_import_failed">Importación fallida</string>
     <string name="home_import_app_version_too_old">Versión del módulo inferior a la de la copia</string>
     <string name="home_import_backup_version_too_old">Copia de seguridad demasiado antigua</string>
     <string name="home_import_file_damaged">Archivo de copia de seguridad dañado</string>
     <string name="home_export_failed">Fallo al exportar</string>
-    <string name="home_exported">Configuración guardada</string>
+    <string name="home_exported">Configuración exportada</string>
     <string name="home_new_update">Nueva actualización disponible: %s</string>
     <string name="home_update">Actualización: %s</string>
     <!-- App select -->
