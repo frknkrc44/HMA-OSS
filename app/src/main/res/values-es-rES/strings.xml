@@ -169,11 +169,13 @@
     <string name="settings_receive_beta_update">Recibir actualizaciones beta</string>
     <string name="settings_receive_beta_update_summary">La versión beta puede ser inestable</string>
     <!-- About -->
-    <string name="about_description">Aunque es incorrecto detectar la instalación de una aplicación específica, no todas las aplicaciones que usan root brindan soporte para nombres de paquetes aleatorios. En este caso, aplicaciones detectadas que usan root(como ubicación falsa y aislamiento de almacenamiento) es igual a la raíz detectada.\n\n Al mismo tiempo, algunas aplicaciones inteligentes utilizan varias lagunas para adquirir su lista de aplicaciones, de modo que pueda dibujar una personalidad para usted.\n\n Este módulo proporciona algunos métodos para probar si ya ha ocultado correctamente su lista de aplicaciones. Además, puede funcionar como un módulo Xposed para ocultar algunas aplicaciones o rechazar solicitudes de listas de aplicaciones para proteger su privacidad.    </string>
+    <string name="about_description">        Aunque es incorrecto detectar la instalación de una aplicación específica, no todas las aplicaciones que usan root brindan soporte para nombre de paquete aleatorio. En este caso, aplicaciones detectadas que usan root (como los modulos \'Fake Location\' y \'Storage Isolation\') es equivalente a detectar el root en si mismo.\n\nAl mismo tiempo, algunas aplicaciones inteligentes utilizan varias lagunas para adquirir su lista de aplicaciones, de modo que pueden hacerse una idea de \"quien es usted\".\n\nEste módulo proporciona algunos métodos para probar si ya ha ocultado correctamente su lista de aplicaciones. Además, puede funcionar como un módulo Xposed para ocultar algunas aplicaciones o rechazar solicitudes de listas de aplicaciones para proteger su privacidad.
+    </string>
     <string name="about_fork_description">        El proyecto HMA original se ha vuelto de código cerrado y su último código no contiene algunos de los últimos cambios, así que creé este fork para continuar como código abierto de nuevo.
     </string>
     <string name="about_how_to_use_title">Cómo utilizar este módulo</string>
-    <string name="about_how_to_use_description_1">        Puede crear plantillas en \"Administrar plantillas\".\n Luego aplique las plantillas a las aplicaciones en \"Administrar aplicaciones\". (También puede seleccionar aplicaciones adicionales para los objetivos).\n Debería y SÓLO debería marcar \"Framework del sistema\" en la lista blanca del módulo Xposed.    </string>
+    <string name="about_how_to_use_description_1">        Puede crear plantillas en \"Administrar plantillas\".\n Luego aplique las plantillas a las aplicaciones en \"Administrar aplicaciones\". (También puede seleccionar aplicaciones adicionales para las app objetivo).\n Debería y SÓLO debería marcar \"Framework del sistema\" en la lista blanca del módulo Xposed.
+    </string>
     <string name="about_how_to_use_description_2">        La modificación de configuración es efectiva en tiempo real.
     </string>
     <string name="about_translator">Traductor</string>
