@@ -1,16 +1,14 @@
 package icu.nullptr.hidemyapplist.util
 
 import android.content.pm.ApplicationInfo
-import android.content.pm.IPackageManager
 import android.content.pm.PackageInfo
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.hmaApp
 import icu.nullptr.hidemyapplist.service.PrefManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -19,7 +17,6 @@ import java.text.Collator
 import java.util.Locale
 
 object PackageHelper {
-
     class PackageCache(
         val info: PackageInfo,
         val label: String,
@@ -61,26 +58,20 @@ object PackageHelper {
         }
     }
 
-    private lateinit var ipm: IPackageManager
-    private lateinit var pm: PackageManager
-
     private val packageCache = MutableSharedFlow<Map<String, PackageCache>>(replay = 1)
-    private val mAppList = MutableSharedFlow<List<String>>(replay = 1)
-    val appList: SharedFlow<List<String>> = mAppList
+    val appList = MutableSharedFlow<List<String>>(replay = 1)
 
-    private val mRefreshing = MutableSharedFlow<Boolean>(replay = 1)
-    val isRefreshing: SharedFlow<Boolean> = mRefreshing
+    val isRefreshing = MutableSharedFlow<Boolean>(replay = 1)
 
     init {
-        // TODO: PackageManagerDelegate
-        pm = hmaApp.packageManager
         invalidateCache()
     }
 
     fun invalidateCache() {
         hmaApp.globalScope.launch {
-            mRefreshing.emit(true)
+            isRefreshing.emit(true)
             val cache = withContext(Dispatchers.IO) {
+                val pm = hmaApp.packageManager
                 val packages = pm.getInstalledPackages(0)
                 mutableMapOf<String, PackageCache>().also {
                     for (packageInfo in packages) {
@@ -94,8 +85,8 @@ object PackageHelper {
                 }
             }
             packageCache.emit(cache)
-            mAppList.emit(cache.keys.toList())
-            mRefreshing.emit(false)
+            appList.emit(cache.keys.toList())
+            isRefreshing.emit(false)
         }
     }
 
@@ -107,27 +98,37 @@ object PackageHelper {
             PrefManager.SortMethod.BY_UPDATE_TIME -> Comparators.byUpdateTime
         }
         if (PrefManager.appFilter_reverseOrder) comparator = comparator.reversed()
-        val list = mAppList.first().sortedWith(firstComparator.then(comparator))
-        mAppList.emit(list)
+        val list = appList.first().sortedWith(firstComparator.then(comparator))
+        appList.emit(list)
+    }
+
+    private suspend fun getCacheNoThrow() = try {
+        packageCache.first()
+    } catch (_: Throwable) {
+        mapOf()
     }
 
     fun exists(packageName: String) = runBlocking {
-        packageCache.first().contains(packageName)
+        getCacheNoThrow().contains(packageName)
     }
 
     fun loadPackageInfo(packageName: String): PackageInfo = runBlocking {
-        packageCache.first()[packageName]!!.info
+        getCacheNoThrow()[packageName]!!.info
     }
 
     fun loadAppLabel(packageName: String): String = runBlocking {
-        packageCache.first()[packageName]!!.label
+        getCacheNoThrow()[packageName]?.label ?: packageName
     }
 
     fun loadAppIcon(packageName: String): Bitmap = runBlocking {
-        packageCache.first()[packageName]!!.icon
+        getCacheNoThrow()[packageName]?.icon ?:
+            BitmapFactory.decodeResource(
+                hmaApp.resources,
+                android.R.drawable.sym_def_app_icon
+            )
     }
 
     fun isSystem(packageName: String): Boolean = runBlocking {
-        packageCache.first()[packageName]?.info?.applicationInfo?.flags?.and(ApplicationInfo.FLAG_SYSTEM) != 0
+        getCacheNoThrow()[packageName]?.info?.applicationInfo?.flags?.and(ApplicationInfo.FLAG_SYSTEM) != 0
     }
 }
