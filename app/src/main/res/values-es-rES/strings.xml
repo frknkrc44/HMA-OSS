@@ -105,7 +105,7 @@
     <string name="app_launch_failed">Error al iniciar la aplicación, compruebe los logs para más detalles</string>
     <!-- Presets -->
     <string name="title_preset">Presets</string>
-    <string name="title_settings_preset">Settings presets</string>
+    <string name="title_settings_preset">Ajustes presets</string>
     <string name="title_preset_manage">Mostrar presets</string>
     <string name="preset_xposed">Módulos LSPosed/Xposed</string>
     <string name="preset_root_apps">Apps de gestión root/Aplicaciones Root</string>
