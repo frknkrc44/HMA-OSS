@@ -90,7 +90,7 @@
     <string name="app_warning_risky_package_title">Paket berisiko</string>
     <string name="app_warning_risky_package_desc">Paket ini ditandai sebagai berisiko dan dapat menyebabkan masalah pada aplikasi tersembunyi. Apakah anda ingin melanjutkan?</string>
     <string name="app_spoof">Spoofing</string>
-    <string name="app_hide_installation_source">Sumber instalasi spoof</string>
+    <string name="app_hide_installation_source">Spoof sumber instalasi</string>
     <string name="app_hide_installation_source_desc">Semua apl pengguna akan di-spoof seolah-olah terpasang di Play Store untuk apl ini</string>
     <string name="app_hide_installation_source_system">Spoof apl sistem juga</string>
     <string name="app_hide_installation_source_system_desc">Semua apl sistem akan di-spoof seolah-olah terpasang tanpa alasan apa pun untuk apl ini</string>
@@ -100,7 +100,7 @@
     <string name="app_invert_activity_launch_protection">Ubah proteksi peluncuran Activity</string>
     <string name="app_invert_activity_launch_protection_desc">Opsi ini akan mengubah pilihan \"Nonaktifkan proteksi peluncuran Activity\" di Pengaturan.</string>
     <string name="app_global_activity_launch_protection_state">Proteksi %s secara universal</string>
-    <string name="app_force_stop_launch">Paksa berhenti dan jalankan</string>
+    <string name="app_force_stop_launch">Paksa berhenti dan luncurkan</string>
     <string name="app_launch">Luncurkan</string>
     <string name="app_launch_failed">Peluncuran apl gagal, periksa log untuk detail lebih lanjut</string>
     <!-- Presets -->
