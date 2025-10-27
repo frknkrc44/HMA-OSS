@@ -67,7 +67,9 @@ object PackageHelper {
         invalidateCache()
     }
 
-    fun invalidateCache() {
+    fun invalidateCache(
+        onFinished: ((Throwable?) -> Unit)? = null
+    ) {
         hmaApp.globalScope.launch {
             isRefreshing.emit(true)
             val cache = withContext(Dispatchers.IO) {
@@ -87,6 +89,10 @@ object PackageHelper {
             packageCache.emit(cache)
             appList.emit(cache.keys.toList())
             isRefreshing.emit(false)
+        }.apply {
+            if (onFinished != null) {
+                invokeOnCompletion(onFinished)
+            }
         }
     }
 

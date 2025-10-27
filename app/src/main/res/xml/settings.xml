@@ -82,6 +82,11 @@
             android:key="hideIcon"
             android:summary="@string/settings_hide_icon_summary"
             android:title="@string/settings_hide_icon" />
+        <Preference
+            android:icon="@drawable/outline_delete_24"
+            android:key="clearUninstalledPackageConfigs"
+            android:summary="@string/settings_clear_uninstalled_app_configs_summary"
+            android:title="@string/settings_clear_uninstalled_app_configs" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/settings_service">
