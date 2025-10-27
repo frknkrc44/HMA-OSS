@@ -147,6 +147,9 @@
     <string name="settings_disable_activity_launch_protection">Desactivar la protección de Activity launch</string>
     <string name="settings_disable_activity_launch_protection_summary">Este interruptor activará todas las protecciones de startActivity. Si no estás seguro, no lo actives.</string>
     <string name="settings_system_wallpaper">Usar fondo de pantalla del sistema</string>
+    <string name="settings_clear_uninstalled_app_configs">Clear uninstalled app configs</string>
+    <string name="settings_clear_uninstalled_app_configs_summary">This option allows you to create a config without remnants but you\'ll have to reconfigure apps when you installed them again.</string>
+    <string name="settings_no_undone_warning">This action cannot be undone.</string>
     <string name="settings_language">Idioma</string>
     <string name="settings_translate">Participa en la traducción</string>
     <string name="settings_translate_summary">Ayúdanos a traducir %s a tu idioma</string>
