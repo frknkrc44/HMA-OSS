@@ -127,7 +127,7 @@
     <string name="settings_overwrite_summary">Opcje tej kategorii zostaną wymuszone jakby były włączone, jeżeli te przełączniki zostaną zaznaczone</string>
     <string name="settings_default_value">Wartość domyślna: %s</string>
     <string name="settings_data_isolation">Izolacja danych</string>
-    <string name="settings_data_isolation_summary">Dane aplikacji: %s\nDane aplikacji Vold: %s\n Wymuszone montowanie: %s</string>
+    <string name="settings_data_isolation_summary">Dane aplikacji: %s\nDane aplikacji Vold: %s\nWymuszone montowanie: %s</string>
     <string name="settings_data_isolation_unsupported">Ta opcja jest tylko dostępna na Androidzie 11 i wyżej</string>
     <string name="settings_app_data_isolation">Izolacja danych aplikacji</string>
     <string name="settings_vold_app_data_isolation">Izolacja danych aplikacji usługi Vold</string>
@@ -147,9 +147,9 @@
     <string name="settings_disable_activity_launch_protection">Wyłącz logikę ochrony startu aktywności</string>
     <string name="settings_disable_activity_launch_protection_summary">Ten przełącznik spowoduje, że wszystkie ochrony startActivity zostaną wyłączone. Jeżeli nie jesteś pewny co to robi to nie włączaj tego.</string>
     <string name="settings_system_wallpaper">Użyj systemowej tapety</string>
-    <string name="settings_clear_uninstalled_app_configs">Clear uninstalled app configs</string>
-    <string name="settings_clear_uninstalled_app_configs_summary">This option allows you to create a config without remnants but you\'ll have to reconfigure apps when you installed them again.</string>
-    <string name="settings_no_undone_warning">This action cannot be undone.</string>
+    <string name="settings_clear_uninstalled_app_configs">Wyczyść configi odinstalowanym aplikacją</string>
+    <string name="settings_clear_uninstalled_app_configs_summary">Ta opcja pozwala na utworzenie konfiguracji bez pozostałości, ale będziesz musiał ponownie skonfigurować aplikacje po ich ponownym zainstalowaniu.</string>
+    <string name="settings_no_undone_warning">Tej akcji nie da się cofnąć.</string>
     <string name="settings_language">Język</string>
     <string name="settings_translate">Weź udział w tłumaczeniu</string>
     <string name="settings_translate_summary">Pomóż nam przetłumaczyć %s na Twój język</string>
@@ -172,8 +172,7 @@
     <string name="settings_receive_beta_update">Otrzymuj aktualizacje beta</string>
     <string name="settings_receive_beta_update_summary">Wersje beta mogą być niestabilne</string>
     <!-- About -->
-    <string name="about_description">        Although It is incorrect to detect specific app installation, yet not every app using root provides random package name support. In this case, detected apps that use root (such as Fake Location and Storage Isolation) is equal to detected root itself.\n\nAt the same time, some smart apps use various loopholes to acquire your app list, so that it can draw a persona for you.\n\nThis module provides some methods to test whether you have already hidden your applist nicely. Also, it can work as an Xposed module to hide some apps or reject app list requests to protect your privacy.
-    </string>
+    <string name="about_description">        Chociaż wykrywanie konkretnej instalacji aplikacji jest niepoprawne, to nie każda aplikacja korzystająca z roota obsługuje losowe nazwy pakietów. W takim przypadku wykrycie aplikacji używających roota (takich jak Fake Location i Storage Isolation) jest równoznaczne z wykryciem samego roota.\n\nW tym samym czasie niektóre sprytne aplikacje wykorzystują różne luki, aby uzyskać dostęp do twojej listy aplikacji, dzięki czemu mogą stworzyć twój profil użytkownika.\n\nTen moduł udostępnia kilka metod pozwalających sprawdzić, czy udało ci się skutecznie ukryć swoją listę aplikacji. Może też działać jako moduł Xposed, aby ukrywać wybrane aplikacje lub odrzucać żądania dostępu do listy aplikacji w celu ochrony twojej prywatności    </string>
     <string name="about_fork_description">Oryginalny projekt HMA stał się projektem o zamkniętym źródle i ostatnie zmiany kodu nie zawierają paru nowych zmian dlatego stworzyłem tego forka aby kontynuuować prace i ponownie zrobić HMA open source</string>
     <string name="about_how_to_use_title">Jak używać tego modułu</string>
     <string name="about_how_to_use_description_1">        You can create templates in \"Template manage\".\nThen apply the templates to apps in \"App manage\". (You can also select extra apps for targets.)\nYou should and ONLY should check \"System Framework\" in Xposed module scope / whitelist.
@@ -201,7 +200,7 @@
     <string name="color_yellow">Zółty</string>
     <string name="color_amber">Bursztynowy</string>
     <string name="color_orange">Pomarańczowy</string>
-    <string name="color_deep_orange">Głęboki pomarańczowy</string>
+    <string name="color_deep_orange">Grejpfrutowy</string>
     <string name="color_brown">Brązowy</string>
     <string name="color_blue_grey">Niebieskoszary</string>
     <!-- Dark theme modes -->
