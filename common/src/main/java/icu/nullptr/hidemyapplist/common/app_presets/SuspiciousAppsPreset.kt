@@ -29,9 +29,16 @@ class SuspiciousAppsPreset : BasePreset("sus_apps") {
         "com.amaze.filemanager",
     )
 
-    val libNames = arrayOf(
-        "liblsplant.so",
+    /*
+    val libNames = arrayOf<String>(
+        // Note that LSPlant is used in some of games too
+        // I will not add it as suspicious app indicator anymore
+        //
+        // "liblsplant.so",
+
+        // TODO: Add more suspicious apps by checking for libs
     )
+     */
 
     val assetNames = arrayOf(
         // ~All possible APK editors
@@ -101,7 +108,7 @@ class SuspiciousAppsPreset : BasePreset("sus_apps") {
         }
 
         ZipFile(appInfo.sourceDir).use { zipFile ->
-            if (findAppsFromLibs(zipFile, libNames) || findAppsFromAssets(zipFile, assetNames)) {
+            if (/*findAppsFromLibs(zipFile, libNames) ||*/ findAppsFromAssets(zipFile, assetNames)) {
                 return true
             }
         }
