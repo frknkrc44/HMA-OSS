@@ -147,9 +147,9 @@
     <string name="settings_disable_activity_launch_protection">Désactiver la protection contre le lancement d\'activités</string>
     <string name="settings_disable_activity_launch_protection_summary">Cette option désactive toutes les protections startActivity. Si vous n\'êtes pas sûr, ne l\'activez pas.</string>
     <string name="settings_system_wallpaper">Utiliser le fond d\'écran du système</string>
-    <string name="settings_clear_uninstalled_app_configs">Clear uninstalled app configs</string>
-    <string name="settings_clear_uninstalled_app_configs_summary">This option allows you to create a config without remnants but you\'ll have to reconfigure apps when you installed them again.</string>
-    <string name="settings_no_undone_warning">This action cannot be undone.</string>
+    <string name="settings_clear_uninstalled_app_configs">Effacer les configurations des applications désinstallées</string>
+    <string name="settings_clear_uninstalled_app_configs_summary">Cette option vous permet de créer une configuration sans persistance post-désinstallation, vous devrez reconfigurer les applications lorsque vous les réinstallerez.</string>
+    <string name="settings_no_undone_warning">Cette action ne peut pas être annulée.</string>
     <string name="settings_language">Langue</string>
     <string name="settings_translate">Participer à la traduction</string>
     <string name="settings_translate_summary">Aidez nous à traduire %s dans votre language</string>
