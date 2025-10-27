@@ -59,5 +59,12 @@ jobs:
       - name: Build debug
         id: buildDebug
         run: |
-          ./gradlew :app:assembleDebug
+          ./gradlew assembleDebug
           echo "debugName=$(ls app/build/outputs/apk/debug/*.apk | awk -F '(/|.apk)' '{print $6}')" >> $GITHUB_OUTPUT
+
+      - name: Upload debug
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.buildDebug.outputs.debugName }}
+          path: "app/build/outputs/apk/debug/*.apk"

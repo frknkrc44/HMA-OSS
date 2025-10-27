@@ -19,6 +19,7 @@ fun String.execute(currentWorkingDir: File = file("./")): String {
 
 val localProperties = Properties()
 localProperties.load(file("local.properties").inputStream())
+val ciBuild = providers.environmentVariable("CI").isPresent
 val officialBuild by extra(localProperties.getProperty("officialBuild", "false") == "true")
 
 @Suppress("unused")
@@ -30,10 +31,15 @@ val crowdinApiKey: String by extra(localProperties.getProperty("crowdinApiKey", 
 fun getUncommittedSuffix(): String {
     if (officialBuild) return ""
 
+    if (ciBuild) {
+        val headRefVal = providers.environmentVariable("GITHUB_HEAD_REF").orElse("HEAD").get()
+        return "-$headRefVal"
+    }
+
     var returnedVal = ""
 
     try {
-        val branch = "git symbolic-ref HEAD".execute().split("/").last()
+        val branch = "git rev-parse --abbrev-ref HEAD".execute().split("/").last()
         if (branch != "master") {
             returnedVal += "-$branch"
         }
@@ -48,7 +54,7 @@ fun getUncommittedSuffix(): String {
 }
 
 val gitHasUncommittedSuffix = getUncommittedSuffix()
-val gitCommitCount = "git rev-list HEAD --count".execute().toInt()
+val gitCommitCount = "git rev-list refs/remotes/origin/master --count".execute().toInt()
 
 // 432 is the count of commits before license changed
 val gitCommitCountAfterOss = gitCommitCount - 432
