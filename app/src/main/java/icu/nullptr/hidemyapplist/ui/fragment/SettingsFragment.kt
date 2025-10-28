@@ -9,6 +9,7 @@ import android.view.WindowInsets
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceDataStore
@@ -17,8 +18,8 @@ import androidx.preference.SwitchPreferenceCompat
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import icu.nullptr.hidemyapplist.common.PropertyUtils
 import icu.nullptr.hidemyapplist.common.Constants
+import icu.nullptr.hidemyapplist.common.PropertyUtils
 import icu.nullptr.hidemyapplist.hmaApp
 import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.service.PrefManager
@@ -30,6 +31,7 @@ import icu.nullptr.hidemyapplist.ui.util.showToast
 import icu.nullptr.hidemyapplist.util.ConfigUtils.Companion.getLocale
 import icu.nullptr.hidemyapplist.util.LangList
 import icu.nullptr.hidemyapplist.util.SuUtils
+import kotlinx.coroutines.launch
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentSettingsBinding
 import java.util.Locale
@@ -282,6 +284,40 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                     } else {
                         activity.recreate()
                     }
+
+                    true
+                }
+            }
+
+            findPreference<Preference>("clearUninstalledPackageConfigs")?.apply {
+                setOnPreferenceClickListener {
+                    MaterialAlertDialogBuilder(requireContext())
+                        .setTitle(R.string.settings_clear_uninstalled_app_configs)
+                        .setMessage(R.string.settings_no_undone_warning)
+                        .setPositiveButton(android.R.string.ok) { _, _ ->
+                            val progressDialog = MaterialAlertDialogBuilder(requireContext())
+                                .setTitle(R.string.settings_clear_uninstalled_app_configs)
+                                .setView(R.layout.dialog_loading)
+                                .setCancelable(false)
+                                .create()
+
+                            progressDialog.show()
+
+                            ConfigManager.clearUninstalledAppConfigs { isSuccess ->
+                                lifecycleScope.launch {
+                                    progressDialog.dismiss()
+
+                                    if (isSuccess) {
+                                        showToast(android.R.string.ok)
+                                    }
+                                }
+                            }
+                        }
+                        .setNegativeButton(android.R.string.cancel) { _, _ ->
+                            // do nothing
+                        }
+                        .setCancelable(false)
+                        .show()
 
                     true
                 }

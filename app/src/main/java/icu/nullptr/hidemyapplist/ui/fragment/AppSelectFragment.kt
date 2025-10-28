@@ -50,7 +50,7 @@ abstract class AppSelectFragment : Fragment(R.layout.fragment_app_select) {
         }
     }
 
-    open fun invalidateCache() {
+    protected open fun invalidateCache() {
         PackageHelper.invalidateCache()
     }
 
@@ -81,6 +81,7 @@ abstract class AppSelectFragment : Fragment(R.layout.fragment_app_select) {
                 PrefManager.appFilter_reverseOrder = item.isChecked
             }
         }
+
         sortList()
     }
 
@@ -144,8 +145,12 @@ abstract class AppSelectFragment : Fragment(R.layout.fragment_app_select) {
         lifecycleScope.launch {
             PackageHelper.isRefreshing
                 .flowWithLifecycle(lifecycle)
-                .collect {
-                    binding.swipeRefresh.isRefreshing = it
+                .collect { isRefreshing ->
+                    binding.swipeRefresh.isRefreshing = isRefreshing
+
+                    if (!isRefreshing) {
+                        sortList()
+                    }
                 }
         }
 

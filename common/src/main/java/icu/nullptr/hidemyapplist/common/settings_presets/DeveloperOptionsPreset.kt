@@ -16,6 +16,7 @@ class DeveloperOptionsPreset : BasePreset("dev_options") {
             Settings.Global.DEVELOPMENT_SETTINGS_ENABLED,
             "0",
         ),
+        /*
         ReplacementItem(
             "debug.force_rtl",
             "0"
@@ -100,5 +101,6 @@ class DeveloperOptionsPreset : BasePreset("dev_options") {
             "non_persistent_mac_randomization_force_enabled",
             "0",
         ),
+         */
     )
 }

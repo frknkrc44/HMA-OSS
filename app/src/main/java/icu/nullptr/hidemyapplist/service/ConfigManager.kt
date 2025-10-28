@@ -5,6 +5,7 @@ import android.util.Log
 import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.hmaApp
 import icu.nullptr.hidemyapplist.ui.util.showToast
+import icu.nullptr.hidemyapplist.util.PackageHelper
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.common.BuildConfig
 import java.io.File
@@ -178,5 +179,29 @@ object ConfigManager {
         if (appConfig == null) config.scope.remove(packageName)
         else config.scope[packageName] = appConfig
         saveConfig()
+    }
+
+    fun clearUninstalledAppConfigs(onFinish: (success: Boolean) -> Unit) {
+        PackageHelper.invalidateCache { throwable ->
+            if (throwable == null) {
+                val markedToRemove = mutableListOf<String>()
+                config.scope.keys.forEach { packageName ->
+                    if (!PackageHelper.exists(packageName)) {
+                        markedToRemove.add(packageName)
+                    }
+                }
+
+                if (markedToRemove.isNotEmpty()) {
+                    markedToRemove.forEach { config.scope.remove(it) }
+                    saveConfig()
+                }
+
+                ServiceClient.log(Log.INFO, TAG, "Pruned ${markedToRemove.size} app config(s)")
+
+                onFinish(true)
+            } else {
+                onFinish(false)
+            }
+        }
     }
 }
