@@ -90,7 +90,7 @@
     <string name="app_warning_risky_package_title">Paket berisiko</string>
     <string name="app_warning_risky_package_desc">Paket ini ditandai sebagai berisiko dan dapat menyebabkan masalah pada aplikasi tersembunyi. Apakah anda ingin melanjutkan?</string>
     <string name="app_spoof">Spoofing</string>
-    <string name="app_hide_installation_source">Sumber instalasi spoof</string>
+    <string name="app_hide_installation_source">Spoof sumber instalasi</string>
     <string name="app_hide_installation_source_desc">Semua apl pengguna akan di-spoof seolah-olah terpasang di Play Store untuk apl ini</string>
     <string name="app_hide_installation_source_system">Spoof apl sistem juga</string>
     <string name="app_hide_installation_source_system_desc">Semua apl sistem akan di-spoof seolah-olah terpasang tanpa alasan apa pun untuk apl ini</string>
@@ -100,7 +100,7 @@
     <string name="app_invert_activity_launch_protection">Ubah proteksi peluncuran Activity</string>
     <string name="app_invert_activity_launch_protection_desc">Opsi ini akan mengubah pilihan \"Nonaktifkan proteksi peluncuran Activity\" di Pengaturan.</string>
     <string name="app_global_activity_launch_protection_state">Proteksi %s secara universal</string>
-    <string name="app_force_stop_launch">Paksa berhenti dan jalankan</string>
+    <string name="app_force_stop_launch">Paksa berhenti dan luncurkan</string>
     <string name="app_launch">Luncurkan</string>
     <string name="app_launch_failed">Peluncuran apl gagal, periksa log untuk detail lebih lanjut</string>
     <!-- Presets -->
@@ -147,6 +147,9 @@
     <string name="settings_disable_activity_launch_protection">Nonaktifkan peluncuran proteksi Activity</string>
     <string name="settings_disable_activity_launch_protection_summary">Tombol ini akan menonaktifkan semua proteksi startActivity. Jika anda tidak yakin, jangan aktifkan.</string>
     <string name="settings_system_wallpaper">Gunakan wallpaper sistem</string>
+    <string name="settings_clear_uninstalled_app_configs">Bersihkan konfig apl terhapus</string>
+    <string name="settings_clear_uninstalled_app_configs_summary">Opsi ini memungkinkan anda membuat konfigurasi tanpa sisa tetapi anda harus mengonfigurasi ulang aplikasi saat anda menginstalnya lagi.</string>
+    <string name="settings_no_undone_warning">Tindakan ini tidak dapat dibatalkan.</string>
     <string name="settings_language">Bahasa</string>
     <string name="settings_translate">Berpartisipasi dalam penerjemahan</string>
     <string name="settings_translate_summary">Bantu kami menerjemahkan %s ke bahasa anda</string>

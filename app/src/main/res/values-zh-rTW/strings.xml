@@ -147,6 +147,9 @@
     <string name="settings_disable_activity_launch_protection">停用 Activity 啟動保護</string>
     <string name="settings_disable_activity_launch_protection_summary">此切換將會移除所有 startActivity 保護。如果不確定用途，請勿啟用。</string>
     <string name="settings_system_wallpaper">使用系統桌布</string>
+    <string name="settings_clear_uninstalled_app_configs">Clear uninstalled app configs</string>
+    <string name="settings_clear_uninstalled_app_configs_summary">This option allows you to create a config without remnants but you\'ll have to reconfigure apps when you installed them again.</string>
+    <string name="settings_no_undone_warning">This action cannot be undone.</string>
     <string name="settings_language">語言</string>
     <string name="settings_translate">參與翻譯</string>
     <string name="settings_translate_summary">幫助我們翻譯 %s 到您的語言</string>

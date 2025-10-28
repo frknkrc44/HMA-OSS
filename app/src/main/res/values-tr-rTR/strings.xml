@@ -147,6 +147,9 @@
     <string name="settings_disable_activity_launch_protection">Etkinlik başlatma korumasını devre dışı bırak</string>
     <string name="settings_disable_activity_launch_protection_summary">Bu ayar bütün startActivity korumalarını kaldırır. Emin değilseniz bunu etkinleştirmeyin.</string>
     <string name="settings_system_wallpaper">Sistem duvar kağıdını kullan</string>
+    <string name="settings_clear_uninstalled_app_configs">Kaldırılmış uygulama yapılandırmalarını temizle</string>
+    <string name="settings_clear_uninstalled_app_configs_summary">Bu seçenek kalıntılar olmadan bir yapılandırma oluşturmanıza izin verir ancak uygulamaları tekrar kurduğunuzda bir daha yapılandırmalısınız.</string>
+    <string name="settings_no_undone_warning">Bu işlem geri alınamaz.</string>
     <string name="settings_language">Dil</string>
     <string name="settings_translate">Çeviriye katkıda bulun</string>
     <string name="settings_translate_summary">%s’i kendi dilinize çevirmemize yardımcı olun</string>

@@ -147,6 +147,9 @@
     <string name="settings_disable_activity_launch_protection">关闭活动启动保护</string>
     <string name="settings_disable_activity_launch_protection_summary">此切换将解除所有startActivity保护，如果你不确定，不要启用它。</string>
     <string name="settings_system_wallpaper">使用系统壁纸</string>
+    <string name="settings_clear_uninstalled_app_configs">清除已卸载的应用程序配置</string>
+    <string name="settings_clear_uninstalled_app_configs_summary">此选项允许您创建没有残留的配置，但当您再次安装应用程序时，您必须重新配置它们。</string>
+    <string name="settings_no_undone_warning">此操作无法撤销</string>
     <string name="settings_language">语言</string>
     <string name="settings_translate">参与翻译</string>
     <string name="settings_translate_summary">帮助我们把 %s 翻译到你的语言</string>

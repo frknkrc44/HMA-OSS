@@ -147,6 +147,9 @@
     <string name="settings_disable_activity_launch_protection">アクティビティ起動保護を無効にする</string>
     <string name="settings_disable_activity_launch_protection_summary">このトグルをオンにすると、すべての startActivity 保護が解除されます。不明な場合は有効にしないでください。</string>
     <string name="settings_system_wallpaper">システムの壁紙を使用する</string>
+    <string name="settings_clear_uninstalled_app_configs">アンインストール済みのアプリの設定を消去する</string>
+    <string name="settings_clear_uninstalled_app_configs_summary">このオプションを使用すると、残骸を残さずに設定ファイルを作成できますが、アプリを再インストールした際には再設定が必要になります。</string>
+    <string name="settings_no_undone_warning">この操作は取り消せません。</string>
     <string name="settings_language">言語</string>
     <string name="settings_translate">翻訳に参加する</string>
     <string name="settings_translate_summary">%s をあなたの言語に翻訳するのにご協力ください</string>

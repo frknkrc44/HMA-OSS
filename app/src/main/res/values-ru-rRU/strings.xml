@@ -147,6 +147,9 @@
     <string name="settings_disable_activity_launch_protection">Откл. защиту от запуска Activity</string>
     <string name="settings_disable_activity_launch_protection_summary">Этот переключатель отключит всю защиту startActivity. Если вы не уверены, не включайте.</string>
     <string name="settings_system_wallpaper">Использовать системные обои</string>
+    <string name="settings_clear_uninstalled_app_configs">Clear uninstalled app configs</string>
+    <string name="settings_clear_uninstalled_app_configs_summary">This option allows you to create a config without remnants but you\'ll have to reconfigure apps when you installed them again.</string>
+    <string name="settings_no_undone_warning">This action cannot be undone.</string>
     <string name="settings_language">Язык</string>
     <string name="settings_translate">Принять участие в переводе</string>
     <string name="settings_translate_summary">Помогите нам перевести %s на ваш язык</string>
