@@ -147,9 +147,9 @@
     <string name="settings_disable_activity_launch_protection">Aktivitätsstartschutz deaktivieren</string>
     <string name="settings_disable_activity_launch_protection_summary">Dieser Schalter hebt alle Startaktivitäts-Schutzvorkehrungen auf. Wenn Sie sich nicht sicher sind, aktivieren Sie dies nicht.</string>
     <string name="settings_system_wallpaper">Systemhintergrund verwenden</string>
-    <string name="settings_clear_uninstalled_app_configs">Clear uninstalled app configs</string>
-    <string name="settings_clear_uninstalled_app_configs_summary">This option allows you to create a config without remnants but you\'ll have to reconfigure apps when you installed them again.</string>
-    <string name="settings_no_undone_warning">This action cannot be undone.</string>
+    <string name="settings_clear_uninstalled_app_configs">Konfiguration von deinstallierten Apps löschen</string>
+    <string name="settings_clear_uninstalled_app_configs_summary">Mit dieser Option können Sie eine Konfiguration ohne Reste erstellen, aber Sie müssen Apps neu konfigurieren, wenn Sie sie erneut installiert haben.</string>
+    <string name="settings_no_undone_warning">Diese Aktion kann nicht rückgängig gemacht werden.</string>
     <string name="settings_language">Sprache</string>
     <string name="settings_translate">Beim Übersetzen mitmachen</string>
     <string name="settings_translate_summary">Helfe uns, %s in deine Sprache zu übersetzen</string>
