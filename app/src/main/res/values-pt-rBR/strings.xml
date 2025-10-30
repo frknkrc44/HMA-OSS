@@ -123,7 +123,7 @@
     <!-- Settings -->
     <string name="settings_module">Modulo</string>
     <string name="settings_overwrite">Habilitar</string>
-    <string name="settings_overwritten">Habilitada</string>
+    <string name="settings_overwritten">Forçada</string>
     <string name="settings_overwrite_summary">Tais items serão habilitados a força se ativados</string>
     <string name="settings_default_value">Valor padrão %s</string>
     <string name="settings_data_isolation">Isolamento de dados</string>
@@ -174,7 +174,7 @@
     <!-- About -->
     <string name="about_description">        Although It is incorrect to detect specific app installation, yet not every app using root provides random package name support. In this case, detected apps that use root (such as Fake Location and Storage Isolation) is equal to detected root itself.\n\nAt the same time, some smart apps use various loopholes to acquire your app list, so that it can draw a persona for you.\n\nThis module provides some methods to test whether you have already hidden your applist nicely. Also, it can work as an Xposed module to hide some apps or reject app list requests to protect your privacy.
     </string>
-    <string name="about_fork_description">        O projeto original do HMA se tornou de código fechado e o código disponível nãoas últimas ultimas mudanças, então eu criei essa versão para continua-la como código aberto novamente. </string>
+    <string name="about_fork_description">O projeto original do HMA se tornou de código fechado e o código disponível não disponibilizou as últimas ultimas mudanças, então eu criei essa versão para continua-la como código aberto novamente.    </string>
     <string name="about_how_to_use_title">Como usar esse modulo</string>
     <string name="about_how_to_use_description_1">Voce pode criar modelos em \"Gerenciar modelos\".\nEntão aplique os modelos nos apps em \"Gerenciar apps\". (Voce tamber pode selecionar apps adicionais para os esconder de tais.)\nVoce só deve habilitar o \"Sistema Android\" na lista de ativação do Xposed.\n    </string>
     <string name="about_how_to_use_description_2">       A modificação de configurações tem efeito imediato.\n    </string>
