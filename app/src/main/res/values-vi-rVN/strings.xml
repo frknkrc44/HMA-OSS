@@ -147,9 +147,9 @@
     <string name="settings_disable_activity_launch_protection">Tắt tính năng bảo vệ khởi chạy hoạt động</string>
     <string name="settings_disable_activity_launch_protection_summary">Nút chuyển đổi này sẽ gỡ bỏ mọi chế độ bảo vệ khởi động. Nếu bạn không chắc chắn, đừng bật nó.</string>
     <string name="settings_system_wallpaper">Sử dụng hình nền của hệ thống</string>
-    <string name="settings_clear_uninstalled_app_configs">Clear uninstalled app configs</string>
-    <string name="settings_clear_uninstalled_app_configs_summary">This option allows you to create a config without remnants but you\'ll have to reconfigure apps when you installed them again.</string>
-    <string name="settings_no_undone_warning">This action cannot be undone.</string>
+    <string name="settings_clear_uninstalled_app_configs">Xóa những thiết lập của những Ứ.D đã xóa</string>
+    <string name="settings_clear_uninstalled_app_configs_summary">Lựa chọn này cho phép bạn tạo cấu hình đã loại bỏ những cấu hình Ứ.D đã xóa, bạn phải thiết lập lại khi cài lại những Ư.D đó</string>
+    <string name="settings_no_undone_warning">Thao tác không thể hoàn tác.</string>
     <string name="settings_language">Ngôn ngữ</string>
     <string name="settings_translate">Giúp chúng tôi dịch</string>
     <string name="settings_translate_summary">Giúp chúng tôi dịch %s sang ngôn ngữ của bạn</string>
