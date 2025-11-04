@@ -112,7 +112,7 @@
     <string name="preset_custom_rom">Applications de la ROM personnalisées</string>
     <string name="preset_sus_apps">Applications suspectes</string>
     <string name="preset_detector_apps">Applications de détection/vérification</string>
-    <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku apps</string>
+    <string name="preset_shizuku_dhizuku">Applications Shizuku/Dhizuku</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Accessibilité</string>
     <string name="settings_preset_dev_options">Options de développeur</string>
@@ -151,8 +151,8 @@
     <string name="settings_clear_uninstalled_app_configs">Effacer les configurations des applications désinstallées</string>
     <string name="settings_clear_uninstalled_app_configs_summary">Cette option vous permet de créer une configuration sans persistance post-désinstallation, vous devrez reconfigurer les applications lorsque vous les réinstallerez.</string>
     <string name="settings_no_undone_warning">Cette action ne peut pas être annulée.</string>
-    <string name="settings_package_query_workaround">Alternative package query</string>
-    <string name="settings_package_query_workaround_summary">Don\'t enable this option if you see the package list in this app correctly.</string>
+    <string name="settings_package_query_workaround">Requête de paquet alternatif</string>
+    <string name="settings_package_query_workaround_summary">N\'activez pas cette option si la liste des paquets s\'affiche correctement dans cette application.</string>
     <string name="settings_language">Langue</string>
     <string name="settings_translate">Participer à la traduction</string>
     <string name="settings_translate_summary">Aidez nous à traduire %s dans votre language</string>
