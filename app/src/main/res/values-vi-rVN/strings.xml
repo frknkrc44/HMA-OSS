@@ -112,6 +112,7 @@
     <string name="preset_custom_rom">Ứng dụng ROM tùy biến</string>
     <string name="preset_sus_apps">Ứng dụng đáng ngờ</string>
     <string name="preset_detector_apps">ỨD phát hiện/KT Root</string>
+    <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku apps</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Trợ năng</string>
     <string name="settings_preset_dev_options">Tùy chọn nhà phát triển</string>
@@ -150,6 +151,8 @@
     <string name="settings_clear_uninstalled_app_configs">Xóa những thiết lập của những Ứ.D đã xóa</string>
     <string name="settings_clear_uninstalled_app_configs_summary">Lựa chọn này cho phép bạn tạo cấu hình đã loại bỏ những cấu hình Ứ.D đã xóa, bạn phải thiết lập lại khi cài lại những Ư.D đó</string>
     <string name="settings_no_undone_warning">Thao tác không thể hoàn tác.</string>
+    <string name="settings_package_query_workaround">Alternative package query</string>
+    <string name="settings_package_query_workaround_summary">Don\'t enable this option if you see the package list in this app correctly.</string>
     <string name="settings_language">Ngôn ngữ</string>
     <string name="settings_translate">Giúp chúng tôi dịch</string>
     <string name="settings_translate_summary">Giúp chúng tôi dịch %s sang ngôn ngữ của bạn</string>
