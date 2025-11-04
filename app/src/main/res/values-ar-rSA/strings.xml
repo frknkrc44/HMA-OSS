@@ -112,6 +112,7 @@
     <string name="preset_custom_rom">تطبيقات الروم المخصص</string>
     <string name="preset_sus_apps">تطبيقات مشبوهة</string>
     <string name="preset_detector_apps">تطبيقات الكشف/التحقق</string>
+    <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku apps</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">إمكانية الوصول</string>
     <string name="settings_preset_dev_options">خيارات المطور</string>
@@ -151,6 +152,8 @@
     <string name="settings_clear_uninstalled_app_configs">حذف إعدادات التطبيقات المحذوفة</string>
     <string name="settings_clear_uninstalled_app_configs_summary">هذا الخِيار يسمح لك بإنشاء ملف اعداد بدون تلك الإعدادات لكن سيتعين عليك إعادة ضبطهم حينما تقوم بتثبيت تلك التطبيقات مرة أخرى.</string>
     <string name="settings_no_undone_warning">هذا الخيار لا يمكن التراجع فيه.</string>
+    <string name="settings_package_query_workaround">Alternative package query</string>
+    <string name="settings_package_query_workaround_summary">Don\'t enable this option if you see the package list in this app correctly.</string>
     <string name="settings_language">اللغة</string>
     <string name="settings_translate">المشاركة في التَّرْجَمَة</string>
     <string name="settings_translate_summary">ساعدنا في التَرجمة %s إلي لغتك</string>
