@@ -112,6 +112,7 @@
     <string name="preset_custom_rom">Aplicaciones de ROM personalizadas</string>
     <string name="preset_sus_apps">Apps sospechosas</string>
     <string name="preset_detector_apps">Aplicaciones de detección/Apps de Chequeos</string>
+    <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku apps</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Accesibilidad</string>
     <string name="settings_preset_dev_options">Opciones de desarrollador</string>
@@ -150,6 +151,8 @@
     <string name="settings_clear_uninstalled_app_configs">Borrar configuraciones de aplicaciones desinstaladas</string>
     <string name="settings_clear_uninstalled_app_configs_summary">Esta opción le permite crear una configuración sin restos pero tendrá que reconfigurar las aplicaciones cuando las haya instalado de nuevo.</string>
     <string name="settings_no_undone_warning">Esta acción no se puede deshacer.</string>
+    <string name="settings_package_query_workaround">Alternative package query</string>
+    <string name="settings_package_query_workaround_summary">Don\'t enable this option if you see the package list in this app correctly.</string>
     <string name="settings_language">Idioma</string>
     <string name="settings_translate">Participa en la traducción</string>
     <string name="settings_translate_summary">Ayúdanos a traducir %s a tu idioma</string>
