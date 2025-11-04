@@ -3,6 +3,7 @@ package icu.nullptr.hidemyapplist.common
 import android.content.pm.ApplicationInfo
 import android.content.pm.IPackageManager
 import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import android.os.Binder
 import android.os.Build
 import java.util.Random
@@ -26,6 +27,14 @@ object Utils {
         val result = block()
         Binder.restoreCallingIdentity(identity)
         return result
+    }
+
+    fun getInstalledPackagesCompat(pms: IPackageManager, flags: Long, userId: Int): List<PackageInfo> {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            pms.getInstalledPackages(flags, userId)
+        } else {
+            pms.getInstalledPackages(flags.toInt(), userId)
+        }.list
     }
 
     fun getInstalledApplicationsCompat(pms: IPackageManager, flags: Long, userId: Int): List<ApplicationInfo> {

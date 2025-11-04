@@ -4,11 +4,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import org.frknkrc44.hma_oss.common.BuildConfig
 
-private val encoder = Json {
-    encodeDefaults = true
-    ignoreUnknownKeys = true
-}
-
 @Serializable
 data class JsonConfig(
     var configVersion: Int = BuildConfig.CONFIG_VERSION,
@@ -19,6 +14,7 @@ data class JsonConfig(
     var altAppDataIsolation: Boolean = false,
     var altVoldAppDataIsolation: Boolean = false,
     var skipSystemAppDataIsolation: Boolean = true,
+    var packageQueryWorkaround: Boolean = false,
     val templates: MutableMap<String, Template> = mutableMapOf(),
     val scope: MutableMap<String, AppConfig> = mutableMapOf()
 ) {
@@ -48,6 +44,11 @@ data class JsonConfig(
 
     companion object {
         fun parse(json: String) = encoder.decodeFromString<JsonConfig>(json)
+
+        private val encoder = Json {
+            encodeDefaults = true
+            ignoreUnknownKeys = true
+        }
     }
 
     override fun toString() = encoder.encodeToString(this)

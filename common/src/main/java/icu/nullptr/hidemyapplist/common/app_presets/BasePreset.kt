@@ -13,6 +13,8 @@ abstract class BasePreset(val name: String) {
 
     val packages get() = packageNames + exactPackageNames
 
+    fun clearPackageList() = packageNames.clear()
+
     fun addPackageInfoPreset(appInfo: ApplicationInfo): Boolean {
         val packageName = appInfo.packageName
         if (!containsPackage(packageName) && canBeAddedIntoPreset(appInfo)) {

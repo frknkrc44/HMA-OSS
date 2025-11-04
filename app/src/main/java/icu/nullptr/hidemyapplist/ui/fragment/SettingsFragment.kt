@@ -104,6 +104,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                 "skipSystemAppDataIsolation" -> ConfigManager.skipSystemAppDataIsolation
                 "disableActivityLaunchProtection" -> ConfigManager.disableActivityLaunchProtection
                 "forceMountData" -> ConfigManager.forceMountData
+                "packageQueryWorkaround" -> ConfigManager.packageQueryWorkaround
                 else -> throw IllegalArgumentException("Invalid key: $key")
             }
         }
@@ -131,6 +132,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                 "appDataIsolation" -> ConfigManager.altAppDataIsolation = value
                 "voldAppDataIsolation" -> ConfigManager.altVoldAppDataIsolation = value
                 "skipSystemAppDataIsolation" -> ConfigManager.skipSystemAppDataIsolation = value
+                "packageQueryWorkaround" -> ConfigManager.packageQueryWorkaround = value
                 else -> throw IllegalArgumentException("Invalid key: $key")
             }
         }
@@ -313,9 +315,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                                 }
                             }
                         }
-                        .setNegativeButton(android.R.string.cancel) { _, _ ->
-                            // do nothing
-                        }
+                        .setNegativeButton(android.R.string.cancel, null)
                         .setCancelable(false)
                         .show()
 

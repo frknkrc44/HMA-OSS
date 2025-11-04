@@ -13,7 +13,7 @@ class CustomROMPreset : BasePreset("custom_rom") {
         val packageName = appInfo.packageName
 
         // LineageOS overlays
-        if (appInfo.sourceDir.contains("_lineage_")) {
+        if (Utils.containsMultiple(appInfo.sourceDir, "_lineage", "lineage_")) {
             return true
         }
 
@@ -75,6 +75,11 @@ class CustomROMPreset : BasePreset("custom_rom") {
                 packageName,
                 ".overlay.fog",
         )) {
+            return true
+        }
+
+        // Xiaomi.EU apps
+        if (packageName.startsWith("eu.xiaomi.")) {
             return true
         }
 

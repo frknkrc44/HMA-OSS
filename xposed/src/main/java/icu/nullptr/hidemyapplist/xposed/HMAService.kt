@@ -70,8 +70,8 @@ class HMAService(val pms: IPackageManager) : IHMAService.Stub() {
         instance = this
         loadConfig()
         installHooks()
-        AppPresets.instance.loggerFunction = { logD(TAG, it) }
-        AppPresets.instance.reloadPresetsIfEmpty(pms)
+        AppPresets.instance.loggerFunction = { level, msg -> logWithLevel(level, TAG, msg) }
+        AppPresets.instance.reloadPresets(pms)
         logI(TAG, "HMA service initialized")
     }
 
@@ -332,5 +332,16 @@ class HMAService(val pms: IPackageManager) : IHMAService.Stub() {
 
     override fun log(level: Int, tag: String, message: String) {
         logWithLevel(level, tag, message)
+    }
+
+    override fun getPackageNames(userId: Int) = Utils.binderLocalScope {
+        Utils.getInstalledPackagesCompat(pms, 0L, userId).map { it.packageName }.toTypedArray()
+    }
+
+    override fun getPackageInfo(
+        packageName: String,
+        userId: Int
+    ) = Utils.binderLocalScope {
+        Utils.getPackageInfoCompat(pms, packageName, 0L, userId)
     }
 }

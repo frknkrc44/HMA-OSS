@@ -1,6 +1,8 @@
 package icu.nullptr.hidemyapplist.common.app_presets
 
 import android.content.pm.ApplicationInfo
+import icu.nullptr.hidemyapplist.common.AppPresets
+import icu.nullptr.hidemyapplist.common.Utils
 import java.util.zip.ZipFile
 
 class SuspiciousAppsPreset : BasePreset("sus_apps") {
@@ -9,7 +11,6 @@ class SuspiciousAppsPreset : BasePreset("sus_apps") {
         "berserker.android.apps.sshdroid",
         "com.iamaner.oneclickfreeze",
         "com.shamanland.privatescreenshots",
-        "com.aistra.hail",
 
         // Remote desktop apps
         "com.devolutions.remotedesktopmanager",
@@ -54,11 +55,6 @@ class SuspiciousAppsPreset : BasePreset("sus_apps") {
 
         // Termux, all of its plugins and some of Termux forks
         if (packageName.startsWith("com.termux")) {
-            return true
-        }
-
-        // All Shizuku apps
-        if (packageName.startsWith("moe.shizuku.")) {
             return true
         }
 

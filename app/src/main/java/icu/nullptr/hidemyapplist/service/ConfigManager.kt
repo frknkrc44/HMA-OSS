@@ -107,6 +107,14 @@ object ConfigManager {
             saveConfig()
         }
 
+    var packageQueryWorkaround: Boolean
+        get() = config.packageQueryWorkaround
+        set(value) {
+            config.packageQueryWorkaround = value
+            saveConfig()
+            PackageHelper.invalidateCache()
+        }
+
     fun importConfig(json: String) {
         config = JsonConfig.parse(json)
         config.configVersion = BuildConfig.CONFIG_VERSION
