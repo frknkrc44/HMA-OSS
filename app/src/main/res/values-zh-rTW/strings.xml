@@ -112,6 +112,7 @@
     <string name="preset_custom_rom">自訂 ROM 應用程式</string>
     <string name="preset_sus_apps">可疑應用程式</string>
     <string name="preset_detector_apps">偵測/檢查應用程式</string>
+    <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku apps</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">輔助功能</string>
     <string name="settings_preset_dev_options">開發人員選項</string>
@@ -150,6 +151,8 @@
     <string name="settings_clear_uninstalled_app_configs">清除未安裝應用程式的配置檔</string>
     <string name="settings_clear_uninstalled_app_configs_summary">此選項可以清理您的配置檔，但重新安裝應用程式時需要重新配置它們。</string>
     <string name="settings_no_undone_warning">此操作無法撤銷。</string>
+    <string name="settings_package_query_workaround">Alternative package query</string>
+    <string name="settings_package_query_workaround_summary">Don\'t enable this option if you see the package list in this app correctly.</string>
     <string name="settings_language">語言</string>
     <string name="settings_translate">參與翻譯</string>
     <string name="settings_translate_summary">幫助我們翻譯 %s 到您的語言</string>
