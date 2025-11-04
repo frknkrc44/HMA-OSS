@@ -112,6 +112,7 @@
     <string name="preset_custom_rom">برنامه‌های کاستوم رام</string>
     <string name="preset_sus_apps">برنامه‌های مشکوک</string>
     <string name="preset_detector_apps">تشخیص/برنامه‌های بررسی</string>
+    <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku apps</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">دسترسی‌پذیری</string>
     <string name="settings_preset_dev_options">گزینه‌های برنامه‌نویس</string>
@@ -150,6 +151,8 @@
     <string name="settings_clear_uninstalled_app_configs">Clear uninstalled app configs</string>
     <string name="settings_clear_uninstalled_app_configs_summary">This option allows you to create a config without remnants but you\'ll have to reconfigure apps when you installed them again.</string>
     <string name="settings_no_undone_warning">This action cannot be undone.</string>
+    <string name="settings_package_query_workaround">Alternative package query</string>
+    <string name="settings_package_query_workaround_summary">Don\'t enable this option if you see the package list in this app correctly.</string>
     <string name="settings_language">Language</string>
     <string name="settings_translate">Participate in translation</string>
     <string name="settings_translate_summary">Help us translate %s into your language</string>
