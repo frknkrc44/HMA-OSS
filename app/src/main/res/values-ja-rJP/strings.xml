@@ -112,6 +112,7 @@
     <string name="preset_custom_rom">カスタム ROM アプリ</string>
     <string name="preset_sus_apps">不審なアプリ</string>
     <string name="preset_detector_apps">検出器/チェッカーアプリ</string>
+    <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku apps</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">アクセシビリティ</string>
     <string name="settings_preset_dev_options">開発者向けオプション</string>
@@ -150,6 +151,8 @@
     <string name="settings_clear_uninstalled_app_configs">アンインストール済みのアプリの設定を消去する</string>
     <string name="settings_clear_uninstalled_app_configs_summary">このオプションを使用すると、残骸を残さずに設定ファイルを作成できますが、アプリを再インストールした際には再設定が必要になります。</string>
     <string name="settings_no_undone_warning">この操作は取り消せません。</string>
+    <string name="settings_package_query_workaround">Alternative package query</string>
+    <string name="settings_package_query_workaround_summary">Don\'t enable this option if you see the package list in this app correctly.</string>
     <string name="settings_language">言語</string>
     <string name="settings_translate">翻訳に参加する</string>
     <string name="settings_translate_summary">%s をあなたの言語に翻訳するのにご協力ください</string>
