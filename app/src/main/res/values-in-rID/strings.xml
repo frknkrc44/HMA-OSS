@@ -112,7 +112,7 @@
     <string name="preset_custom_rom">Apl ROM kustom</string>
     <string name="preset_sus_apps">Apl mencurigakan</string>
     <string name="preset_detector_apps">Apl Detektor/Checker</string>
-    <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku apps</string>
+    <string name="preset_shizuku_dhizuku">Shizuku</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Aksesibilitas</string>
     <string name="settings_preset_dev_options">Opsi pengembang</string>
@@ -151,8 +151,8 @@
     <string name="settings_clear_uninstalled_app_configs">Bersihkan konfig apl terhapus</string>
     <string name="settings_clear_uninstalled_app_configs_summary">Opsi ini memungkinkan anda membuat konfigurasi tanpa sisa tetapi anda harus mengonfigurasi ulang apl saat anda menginstalnya lagi.</string>
     <string name="settings_no_undone_warning">Tindakan ini tidak dapat dibatalkan.</string>
-    <string name="settings_package_query_workaround">Alternative package query</string>
-    <string name="settings_package_query_workaround_summary">Don\'t enable this option if you see the package list in this app correctly.</string>
+    <string name="settings_package_query_workaround">Pencarian paket alternatif</string>
+    <string name="settings_package_query_workaround_summary">Jangan nyalakan opsi ini jika melihat daftar paket sudah benar pada apl ini.</string>
     <string name="settings_language">Bahasa</string>
     <string name="settings_translate">Berpartisipasi dalam penerjemahan</string>
     <string name="settings_translate_summary">Bantu kami menerjemahkan %s ke bahasa anda</string>
