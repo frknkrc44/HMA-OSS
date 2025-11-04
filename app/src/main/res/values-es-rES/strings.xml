@@ -151,8 +151,8 @@
     <string name="settings_clear_uninstalled_app_configs">Borrar configuraciones de aplicaciones desinstaladas</string>
     <string name="settings_clear_uninstalled_app_configs_summary">Esta opción le permite crear una configuración sin restos pero tendrá que reconfigurar las aplicaciones cuando las haya instalado de nuevo.</string>
     <string name="settings_no_undone_warning">Esta acción no se puede deshacer.</string>
-    <string name="settings_package_query_workaround">Alternative package query</string>
-    <string name="settings_package_query_workaround_summary">Don\'t enable this option if you see the package list in this app correctly.</string>
+    <string name="settings_package_query_workaround">Consulta alternativa de paquete</string>
+    <string name="settings_package_query_workaround_summary">No active esta opción si ve la lista de paquetes en esta aplicación correctamente.</string>
     <string name="settings_language">Idioma</string>
     <string name="settings_translate">Participa en la traducción</string>
     <string name="settings_translate_summary">Ayúdanos a traducir %s a tu idioma</string>
