@@ -23,7 +23,6 @@
     <style name="ThemeOverlay.Black" />
 
     <style name="ThemeOverlay.Wallpaper">
-        <item name="android:colorBackground">#AAFFFFFF</item>
         <item name="android:windowShowWallpaper">true</item>
     </style>
 </resources>

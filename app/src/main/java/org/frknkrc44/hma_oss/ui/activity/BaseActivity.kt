@@ -5,9 +5,11 @@ import android.content.res.Resources
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.drawable.toDrawable
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.color.DynamicColorsOptions
 import icu.nullptr.hidemyapplist.hmaApp
+import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils
 import icu.nullptr.hidemyapplist.util.ConfigUtils.Companion.getLocale
 
@@ -33,6 +35,20 @@ open class BaseActivity : AppCompatActivity() {
         }
 
         theme.applyStyle(ThemeUtils.getOverlayThemeStyleRes(this), true)
+
+        applyWallpaperBackgroundColor()
+    }
+
+    fun applyWallpaperBackgroundColor(value: Int = PrefManager.systemWallpaperAlpha) {
+        if (PrefManager.systemWallpaper) {
+            val color = (value shl 24) + if (ThemeUtils.isNightMode(this)) {
+                0x00000000
+            } else {
+                0x00FFFFFF
+            }
+
+            window.setBackgroundDrawable(color.toDrawable())
+        }
     }
 
     override fun attachBaseContext(newBase: Context?) {

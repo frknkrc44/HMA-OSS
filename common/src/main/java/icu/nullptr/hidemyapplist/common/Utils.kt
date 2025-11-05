@@ -3,7 +3,6 @@ package icu.nullptr.hidemyapplist.common
 import android.content.pm.ApplicationInfo
 import android.content.pm.IPackageManager
 import android.content.pm.PackageInfo
-import android.content.pm.PackageManager
 import android.os.Binder
 import android.os.Build
 import java.util.Random

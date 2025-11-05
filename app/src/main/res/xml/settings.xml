@@ -42,6 +42,13 @@
             android:icon="@drawable/baseline_wallpaper_24"
             android:key="systemWallpaper"
             android:title="@string/settings_system_wallpaper" />
+        <SeekBarPreference
+            android:key="systemWallpaperAlpha"
+            android:dependency="systemWallpaper"
+            app:updatesContinuously="true"
+            app:min="0x11"
+            android:max="0xCC"
+            android:defaultValue="0xAA" />
         <SwitchPreferenceCompat
             android:icon="@drawable/outline_invert_colors_24"
             android:key="blackDarkTheme"

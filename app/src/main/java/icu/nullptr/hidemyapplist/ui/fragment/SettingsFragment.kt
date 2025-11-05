@@ -14,6 +14,7 @@ import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceDataStore
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreferenceCompat
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.color.DynamicColors
@@ -34,6 +35,7 @@ import icu.nullptr.hidemyapplist.util.SuUtils
 import kotlinx.coroutines.launch
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentSettingsBinding
+import org.frknkrc44.hma_oss.ui.activity.BaseActivity
 import java.util.Locale
 
 class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
@@ -119,6 +121,13 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
             }
         }
 
+        override fun getInt(key: String, defValue: Int): Int {
+            return when (key) {
+                "systemWallpaperAlpha" -> PrefManager.systemWallpaperAlpha
+                else -> throw IllegalArgumentException("Invalid key: $key")
+            }
+        }
+
         override fun putBoolean(key: String, value: Boolean) {
             when (key) {
                 "followSystemAccent" -> PrefManager.followSystemAccent = value
@@ -143,6 +152,13 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                 "themeColor" -> PrefManager.themeColor = value!!
                 "darkTheme" -> PrefManager.darkTheme = value!!.toInt()
                 "maxLogSize" -> ConfigManager.maxLogSize = value!!.toInt()
+                else -> throw IllegalArgumentException("Invalid key: $key")
+            }
+        }
+
+        override fun putInt(key: String, value: Int) {
+            when (key) {
+                "systemWallpaperAlpha" -> PrefManager.systemWallpaperAlpha = value
                 else -> throw IllegalArgumentException("Invalid key: $key")
             }
         }
@@ -286,6 +302,14 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                     } else {
                         activity.recreate()
                     }
+
+                    true
+                }
+            }
+
+            findPreference<SeekBarPreference>("systemWallpaperAlpha")?.apply {
+                setOnPreferenceChangeListener { _, value ->
+                    (requireActivity() as BaseActivity).applyWallpaperBackgroundColor(value as Int)
 
                     true
                 }
