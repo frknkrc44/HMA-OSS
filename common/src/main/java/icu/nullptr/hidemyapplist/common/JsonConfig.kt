@@ -1,5 +1,6 @@
 package icu.nullptr.hidemyapplist.common
 
+import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import org.frknkrc44.hma_oss.common.BuildConfig
@@ -16,12 +17,20 @@ data class JsonConfig(
     var skipSystemAppDataIsolation: Boolean = true,
     var packageQueryWorkaround: Boolean = false,
     val templates: MutableMap<String, Template> = mutableMapOf(),
+    val settingTemplates: MutableMap<String, SettingTemplate> = mutableMapOf(),
     val scope: MutableMap<String, AppConfig> = mutableMapOf()
 ) {
     @Serializable
     data class Template(
         val isWhitelist: Boolean,
         val appList: Set<String>
+    ) {
+        override fun toString() = encoder.encodeToString(this)
+    }
+
+    @Serializable
+    data class SettingTemplate(
+        val settingList: Set<ReplacementItem>
     ) {
         override fun toString() = encoder.encodeToString(this)
     }
