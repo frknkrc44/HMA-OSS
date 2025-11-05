@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -33,21 +34,53 @@
                 android:id="@+id/about_description"
                 layout="@layout/fragment_about_text_section" />
 
-            <TextView
-                android:layout_marginVertical="16dp"
-                android:text="@string/about_developer"
-                android:textStyle="bold"
-                android:textColor="?colorPrimary"
+            <LinearLayout
+                android:id="@+id/dev_header"
+                android:layout_marginVertical="@dimen/item_padding_mini"
+                android:paddingVertical="@dimen/info_card_margin_horizontal"
                 android:paddingHorizontal="@dimen/item_padding_vertical"
+                android:background="?selectableItemBackground"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="@string/about_developer"
+                    android:textStyle="bold"
+                    android:textColor="?colorPrimary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:src="@drawable/keyboard_arrow_down_24px"
+                    app:tint="?colorPrimary"
+                    android:id="@+id/expand_devs"
+                    android:importantForAccessibility="no"
+                    android:layout_width="@dimen/profile_badge_size"
+                    android:layout_height="@dimen/profile_badge_size" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/list_developer"
                 android:orientation="vertical"
                 android:background="@drawable/about_content_bg"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/list_hma_oss"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:id="@+id/list_hma"
+                    android:visibility="gone"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
 
             <TextView
                 android:layout_marginVertical="16dp"
