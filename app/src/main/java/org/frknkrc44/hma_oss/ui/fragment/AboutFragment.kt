@@ -53,10 +53,6 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
 
             insets
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
 
         val tint = ColorStateList.valueOf(homeItemBackgroundColor())
 
@@ -67,7 +63,7 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
             }
 
             Glide.with(this@AboutFragment)
-                .load(R.mipmap.ic_launcher_round)
+                .load(R.mipmap.ic_launcher)
                 .circleCrop()
                 .into(appIcon)
 
