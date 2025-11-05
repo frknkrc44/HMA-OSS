@@ -14,7 +14,7 @@
         <shape android:shape="oval">
             <solid android:color="@color/switch_accent_enabled" />
             <size android:width="28dp" android:height="28dp" />
-			<stroke android:color="@android:color/transparent" android:width="12dp" />
+			<stroke android:color="@android:color/transparent" android:width="16dp" />
         </shape>
     </item>
 
@@ -30,7 +30,7 @@
         <shape android:shape="oval">
             <solid android:color="@color/switch_accent_disabled" />
             <size android:width="28dp" android:height="28dp" />
-            <stroke android:color="@android:color/transparent" android:width="12dp" />
+            <stroke android:color="@android:color/transparent" android:width="16dp" />
         </shape>
     </item>
 </animated-selector>
