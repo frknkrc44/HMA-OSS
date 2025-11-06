@@ -8,6 +8,7 @@ import de.robv.android.xposed.XC_MethodHook
 import icu.nullptr.hidemyapplist.common.settings_presets.AccessibilityPreset
 import icu.nullptr.hidemyapplist.xposed.HMAService
 import icu.nullptr.hidemyapplist.xposed.Utils4Xposed
+import icu.nullptr.hidemyapplist.xposed.logD
 import icu.nullptr.hidemyapplist.xposed.logE
 import icu.nullptr.hidemyapplist.xposed.logI
 
@@ -56,10 +57,12 @@ class AccessibilityHook(private val service: HMAService) : IFrameworkHook {
                 if (service.getEnabledSettingsPresets(caller).contains(AccessibilityPreset.NAME)) {
                     val returnedList = java.util.ArrayList<AccessibilityServiceInfo>()
 
-                    if (returnParcel) {
-                        param.result = ParceledListSlice(returnedList)
+                    logD(TAG, "@${param.method.name} returned empty list for $caller")
+
+                    param.result = if (returnParcel) {
+                         ParceledListSlice(returnedList)
                     } else {
-                        param.result = returnedList
+                        returnedList
                     }
 
                     service.filterCount++

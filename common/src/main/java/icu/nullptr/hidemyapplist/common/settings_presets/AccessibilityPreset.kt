@@ -11,10 +11,12 @@ class AccessibilityPreset : BasePreset(NAME) {
         ReplacementItem(
             name = Settings.Secure.ACCESSIBILITY_ENABLED,
             value = "0",
+            SETTINGS_SECURE,
         ),
         ReplacementItem(
             name = Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES,
             value = "",
+            SETTINGS_SECURE,
         ),
     )
 }
