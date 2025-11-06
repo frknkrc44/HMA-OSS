@@ -170,7 +170,7 @@ class HMAService(val pms: IPackageManager) : IHMAService.Stub() {
         logI(TAG, "Hooks installed")
     }
 
-    fun isHookEnabled(packageName: String) = config.scope.containsKey(packageName)
+    fun isHookEnabled(packageName: String?) = config.scope.containsKey(packageName)
 
     fun getEnabledSettingsPresets(caller: String?): Set<String> {
         if (caller == null) return setOf()
@@ -210,14 +210,12 @@ class HMAService(val pms: IPackageManager) : IHMAService.Stub() {
     }
 
     fun shouldHideActivityLaunch(caller: String?, query: String?): Boolean {
-        if (shouldHide(caller, query)) {
-            val appConfig = config.scope[caller]
-            if (appConfig != null) {
-                return if (appConfig.invertActivityLaunchProtection) {
-                    config.disableActivityLaunchProtection
-                } else {
-                    !config.disableActivityLaunchProtection
-                }
+        val appConfig = config.scope[caller]
+        if (appConfig != null && shouldHide(caller, query)) {
+            return if (appConfig.invertActivityLaunchProtection) {
+                config.disableActivityLaunchProtection
+            } else {
+                !config.disableActivityLaunchProtection
             }
         }
 
