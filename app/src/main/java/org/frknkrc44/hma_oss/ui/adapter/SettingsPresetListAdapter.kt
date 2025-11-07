@@ -30,6 +30,8 @@ class SettingsPresetListAdapter(presetName: String) : RecyclerView.Adapter<Setti
             (itemView as AppItemView).apply {
                 binding.icon.isVisible = false
                 binding.label.text = item.name
+                binding.enabled.isVisible = true
+                binding.enabled.text = item.database
                 binding.packageName.text = item.value ?: "null"
             }
         }

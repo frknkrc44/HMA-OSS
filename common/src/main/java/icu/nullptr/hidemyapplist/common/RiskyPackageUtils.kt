@@ -23,8 +23,6 @@ object RiskyPackageUtils {
                     if (ignoredForRiskyPackagesList.add(packageName)) {
                         loggerFunction?.invoke("@appHasGMSConnection $packageName added in ignored packages list")
                     }
-
-                    return@use
                 }
             }
         } catch (_: Throwable) { }
