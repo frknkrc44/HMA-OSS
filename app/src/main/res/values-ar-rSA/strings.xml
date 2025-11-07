@@ -116,6 +116,7 @@
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">إمكانية الوصول</string>
     <string name="settings_preset_dev_options">خيارات المطور</string>
+    <string name="settings_preset_input_method">Input method</string>
     <!-- Logs -->
     <string name="logs_save">حفظ السجلات</string>
     <string name="logs_clear">مسح السجلات</string>
