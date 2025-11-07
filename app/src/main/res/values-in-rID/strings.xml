@@ -116,7 +116,7 @@
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Aksesibilitas</string>
     <string name="settings_preset_dev_options">Opsi pengembang</string>
-    <string name="settings_preset_input_method">Input method</string>
+    <string name="settings_preset_input_method">Metode input</string>
     <!-- Logs -->
     <string name="logs_save">Simpan log</string>
     <string name="logs_clear">Hapus log</string>
@@ -153,7 +153,7 @@
     <string name="settings_clear_uninstalled_app_configs_summary">Opsi ini memungkinkan anda membuat konfigurasi tanpa sisa tetapi anda harus mengonfigurasi ulang apl saat anda menginstalnya lagi.</string>
     <string name="settings_no_undone_warning">Tindakan ini tidak dapat dibatalkan.</string>
     <string name="settings_package_query_workaround">Pencarian paket alternatif</string>
-    <string name="settings_package_query_workaround_summary">Jangan nyalakan opsi ini jika melihat daftar paket sudah benar pada apl ini.</string>
+    <string name="settings_package_query_workaround_summary">Jangan aktifkan opsi ini jika daftar paket sudah tampil dengan benar.</string>
     <string name="settings_language">Bahasa</string>
     <string name="settings_translate">Berpartisipasi dalam penerjemahan</string>
     <string name="settings_translate_summary">Bantu kami menerjemahkan %s ke bahasa anda</string>
