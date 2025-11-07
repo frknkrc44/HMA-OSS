@@ -116,6 +116,7 @@
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Accessibility</string>
     <string name="settings_preset_dev_options">Developer options</string>
+    <string name="settings_preset_input_method">Input method</string>
     <!-- Logs -->
     <string name="logs_save">Salva log</string>
     <string name="logs_clear">Cancella log</string>
