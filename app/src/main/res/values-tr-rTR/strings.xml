@@ -116,6 +116,7 @@
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Erişilebilirlik</string>
     <string name="settings_preset_dev_options">Geliştirici seçenekleri</string>
+    <string name="settings_preset_input_method">Giriş yöntemi</string>
     <!-- Logs -->
     <string name="logs_save">Kayıtları kaydet</string>
     <string name="logs_clear">Kayıtları temizle</string>
