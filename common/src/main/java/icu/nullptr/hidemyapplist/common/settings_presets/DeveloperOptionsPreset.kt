@@ -1,6 +1,7 @@
 package icu.nullptr.hidemyapplist.common.settings_presets
 
 import android.provider.Settings
+import icu.nullptr.hidemyapplist.common.Constants
 
 class DeveloperOptionsPreset : BasePreset("dev_options") {
     @Suppress("DEPRECATION")
@@ -24,7 +25,7 @@ class DeveloperOptionsPreset : BasePreset("dev_options") {
         ReplacementItem(
             Settings.Secure.ALLOW_MOCK_LOCATION,
             "0",
-            SETTINGS_SECURE,
+            Constants.SETTINGS_SECURE,
         ),
         /*
         ReplacementItem(

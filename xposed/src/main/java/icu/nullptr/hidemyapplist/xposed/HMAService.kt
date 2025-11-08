@@ -4,8 +4,10 @@ import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.content.pm.IPackageManager
 import android.os.Build
+import android.os.ServiceManager
 import android.os.UserHandle
 import android.util.Log
+import de.robv.android.xposed.XposedHelpers
 import icu.nullptr.hidemyapplist.common.AppPresets
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.IHMAService
@@ -25,6 +27,7 @@ import icu.nullptr.hidemyapplist.xposed.hook.PmsHookTarget33
 import icu.nullptr.hidemyapplist.xposed.hook.PmsHookTarget34
 import icu.nullptr.hidemyapplist.xposed.hook.PmsPackageEventsHook
 import org.frknkrc44.hma_oss.common.BuildConfig
+import org.json.JSONArray
 import rikka.hidden.compat.ActivityManagerApis
 import java.io.File
 import java.util.concurrent.ExecutorService
@@ -341,5 +344,32 @@ class HMAService(val pms: IPackageManager) : IHMAService.Stub() {
         userId: Int
     ) = Utils.binderLocalScope {
         Utils.getPackageInfoCompat(pms, packageName, 0L, userId)
+    }
+
+    override fun listAllSettings(databaseName: String): Array<String> {
+        val settingType = when (databaseName) {
+            Constants.SETTINGS_GLOBAL -> Constants.SETTINGS_TYPE_GLOBAL
+            Constants.SETTINGS_SECURE -> Constants.SETTINGS_TYPE_SECURE
+            Constants.SETTINGS_SYSTEM -> Constants.SETTINGS_TYPE_SYSTEM
+            else -> throw IllegalArgumentException("Invalid database name $databaseName")
+        }
+
+        val service = ServiceManager.getService("settings") ?: return arrayOf()
+        val provider = XposedHelpers.getObjectField(service, "mProvider") ?: return arrayOf()
+        val registry = XposedHelpers.getObjectField(provider, "mSettingsRegistry") ?: return arrayOf()
+
+        val systemUserHandle = XposedHelpers.getStaticObjectField(
+            UserHandle::class.java,
+            "USER_SYSTEM",
+        )
+
+        val names = XposedHelpers.callMethod(
+            registry,
+            "getSettingsNamesLocked",
+            settingType,
+            systemUserHandle,
+        ) as java.util.List<*>
+
+        return names.map { it as String }.toTypedArray()
     }
 }

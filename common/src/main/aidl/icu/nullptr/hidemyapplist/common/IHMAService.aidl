@@ -27,4 +27,6 @@ interface IHMAService {
     String[] getPackageNames(int userId) = 11;
 
     PackageInfo getPackageInfo(String packageName, int userId) = 12;
+
+    String[] listAllSettings(String databaseName) = 13;
 }

@@ -1,8 +1,10 @@
 package org.frknkrc44.hma_oss.ui.fragment
 
+import android.util.Log
 import android.view.MenuItem
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import icu.nullptr.hidemyapplist.service.ServiceClient
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.ui.adapter.SettingsTemplateListAdapter
 
@@ -35,6 +37,11 @@ class SettingsTemplateInnerFragment : BaseSettingsPTFragment() {
         when (item.itemId) {
             R.id.menu_add -> {
                 // TODO: Implement add/edit setting screen
+                ServiceClient.log(
+                    Log.INFO,
+                    javaClass.simpleName,
+                    ServiceClient.listAllSettings("global")?.sortedWith { o1, o2 -> o1.compareTo(o2, true) }.toString()
+                )
             }
         }
     }

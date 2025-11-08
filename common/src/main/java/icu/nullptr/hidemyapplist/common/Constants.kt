@@ -14,6 +14,16 @@ object Constants {
     val gmsPackages = arrayOf(GMS_PACKAGE_NAME, GSF_PACKAGE_NAME)
     val riskyPackages = arrayOf(VENDING_PACKAGE_NAME) + gmsPackages
 
+    const val SETTINGS_GLOBAL = "global"
+    const val SETTINGS_SYSTEM = "system"
+    const val SETTINGS_SECURE = "secure"
+
+    const val SETTINGS_TYPE_GLOBAL: Int = 0
+    const val SETTINGS_TYPE_SYSTEM: Int = 1
+    const val SETTINGS_TYPE_SECURE: Int = 2
+    // const val SETTINGS_TYPE_SSAID: Int = 3
+    // const val SETTINGS_TYPE_CONFIG: Int = 4
+
     val packagesShouldNotHide = setOf(
         "android",
         "android.media",

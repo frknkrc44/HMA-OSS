@@ -1,6 +1,7 @@
 package icu.nullptr.hidemyapplist.common.settings_presets
 
 import android.provider.Settings
+import icu.nullptr.hidemyapplist.common.Constants
 
 class InputMethodPreset : BasePreset(NAME) {
     companion object {
@@ -11,12 +12,12 @@ class InputMethodPreset : BasePreset(NAME) {
         ReplacementItem(
             Settings.Secure.DEFAULT_INPUT_METHOD,
             "com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME",
-            SETTINGS_SECURE,
+            Constants.SETTINGS_SECURE,
         ),
         ReplacementItem(
             Settings.Secure.TTS_DEFAULT_SYNTH,
             "com.google.android.tts",
-            SETTINGS_SECURE,
+            Constants.SETTINGS_SECURE,
         ),
     )
 }

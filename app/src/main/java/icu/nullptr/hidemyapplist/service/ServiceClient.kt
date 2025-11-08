@@ -80,4 +80,6 @@ object ServiceClient : IHMAService, IBinder.DeathRecipient {
         packageName: String?,
         userId: Int
     ) = service?.getPackageInfo(packageName, userId)
+
+    override fun listAllSettings(databaseName: String) = service?.listAllSettings(databaseName)
 }
