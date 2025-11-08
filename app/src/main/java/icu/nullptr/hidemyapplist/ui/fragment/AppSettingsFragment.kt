@@ -36,6 +36,7 @@ import org.frknkrc44.hma_oss.BuildConfig
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentSettingsBinding
 
+// TODO: Add setting templates and its translations
 class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
     companion object {
         private const val TAG = "AppSettingsFragment"
