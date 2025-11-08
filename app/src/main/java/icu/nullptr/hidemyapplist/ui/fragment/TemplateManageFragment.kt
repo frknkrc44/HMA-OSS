@@ -37,7 +37,7 @@ class TemplateManageFragment : Fragment(R.layout.fragment_template_manage) {
                 when (it.itemId) {
                     R.id.menu_info -> {
                         MaterialAlertDialogBuilder(requireContext())
-                            .setTitle(R.string.info)
+                            .setTitle(R.string.title_template_manage)
                             .setMessage(R.string.template_usage_hint)
                             .setNegativeButton(android.R.string.ok, null)
                             .show()

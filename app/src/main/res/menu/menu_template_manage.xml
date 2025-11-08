@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/menu_info"
-        android:title="@string/info"
+        android:title="@string/title_template_manage"
         android:icon="@drawable/baseline_help_outline_24"
         app:showAsAction="ifRoom" />
 </menu>
