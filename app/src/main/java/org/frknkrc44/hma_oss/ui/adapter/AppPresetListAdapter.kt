@@ -30,8 +30,8 @@ class AppPresetListAdapter(
                 } else {
                     setIcon(
                         when (item.type) {
-                            ConfigManager.PresetType.APP -> R.drawable.baseline_assignment_24
-                            ConfigManager.PresetType.SETTINGS -> R.drawable.baseline_settings_24
+                            ConfigManager.PTType.APP -> R.drawable.baseline_assignment_24
+                            ConfigManager.PTType.SETTINGS -> R.drawable.baseline_settings_24
                         }
                     )
 
@@ -88,7 +88,7 @@ class AppPresetListAdapter(
         list += appPresetNames
             .map { ConfigManager.PresetInfo(
                 it,
-                ConfigManager.PresetType.APP,
+                ConfigManager.PTType.APP,
                 appPresetTranslations[appPresetNames.indexOf(it)]
             ) }
             .sortedWith { a, b -> a.translation.lowercase().compareTo(b.translation.lowercase()) }
@@ -117,7 +117,7 @@ class AppPresetListAdapter(
         list += settingsPresetNames
             .map { ConfigManager.PresetInfo(
                 it,
-                ConfigManager.PresetType.SETTINGS,
+                ConfigManager.PTType.SETTINGS,
                 settingsPresetTranslations[settingsPresetNames.indexOf(it)]
             ) }
             .sortedWith { a, b -> a.translation.lowercase().compareTo(b.translation.lowercase()) }

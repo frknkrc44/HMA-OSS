@@ -31,10 +31,6 @@ fun Fragment.navigate(@IdRes resId: Int, args: Bundle? = null) {
     navController.navigate(resId, args, navOptions)
 }
 
-fun Fragment.navigate(@IdRes resId: Int, args: Bundle? = null, navExtras: Navigator.Extras?) {
-    navController.navigate(resId, args, navOptions, navExtras)
-}
-
 fun Fragment.setupToolbar(
     toolbar: Toolbar,
     title: String,

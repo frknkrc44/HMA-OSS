@@ -1,10 +1,11 @@
-package icu.nullptr.hidemyapplist.ui.fragment
+package org.frknkrc44.hma_oss.ui.fragment
 
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
 import androidx.activity.addCallback
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.clearFragmentResultListener
@@ -15,21 +16,24 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
 import icu.nullptr.hidemyapplist.service.ConfigManager
+import icu.nullptr.hidemyapplist.ui.fragment.ScopeFragmentArgs
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.navigate
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
-import icu.nullptr.hidemyapplist.ui.viewmodel.TemplateSettingsViewModel
 import kotlinx.coroutines.launch
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentTemplateSettingsBinding
+import org.frknkrc44.hma_oss.ui.viewmodel.SettingTemplateSettingsViewModel
+import org.frknkrc44.hma_oss.ui.viewmodel.bundleToTargetSettingList
 
-class TemplateSettingsFragment : Fragment(R.layout.fragment_template_settings) {
+class SettingTemplateSettingsFragment : Fragment(R.layout.fragment_template_settings) {
 
     private val binding by viewBinding<FragmentTemplateSettingsBinding>()
-    private val viewModel by viewModels<TemplateSettingsViewModel> {
-        val args by navArgs<TemplateSettingsFragmentArgs>()
-        TemplateSettingsViewModel.Factory(args)
+    private val viewModel by viewModels<SettingTemplateSettingsViewModel> {
+        val args by navArgs<SettingTemplateSettingsFragmentArgs>()
+        SettingTemplateSettingsViewModel.Factory(args)
     }
 
     private fun onBack(delete: Boolean) {
@@ -49,10 +53,10 @@ class TemplateSettingsFragment : Fragment(R.layout.fragment_template_settings) {
     }
 
     private fun saveResult(delete: Boolean) {
-        setFragmentResult("template_settings", Bundle().apply {
+        setFragmentResult("setting_template_settings", Bundle().apply {
             putString("name",if (delete) null else viewModel.name)
             putStringArrayList("appliedList", viewModel.appliedAppList.value)
-            putStringArrayList("targetList", viewModel.targetAppList.value)
+            putBundle("settingList", viewModel.targetSettingListToBundle())
         })
         navController.navigateUp()
     }
@@ -61,7 +65,7 @@ class TemplateSettingsFragment : Fragment(R.layout.fragment_template_settings) {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) { onBack(false) }
         setupToolbar(
             toolbar = binding.toolbar,
-            title = getString(R.string.title_template_settings),
+            title = getString(R.string.title_setting_template_settings),
             navigationIcon = R.drawable.baseline_arrow_back_24,
             navigationOnClick = { onBack(false) },
             menuRes = R.menu.menu_delete,
@@ -71,18 +75,17 @@ class TemplateSettingsFragment : Fragment(R.layout.fragment_template_settings) {
         )
 
         binding.templateName.setText(viewModel.name)
-        binding.workMode.setText(if (viewModel.isWhiteList) R.string.whitelist else R.string.blacklist)
+        (binding.workMode.parent as View).isVisible = false
         binding.templateName.addTextChangedListener { viewModel.name = it.toString() }
+        binding.targetApps.binding.icon.setImageResource(R.drawable.baseline_settings_24)
         binding.targetApps.setOnClickListener {
-            setFragmentResultListener("app_select") { _, bundle ->
-                viewModel.targetAppList.value = bundle.getStringArrayList("checked")!!
-                clearFragmentResultListener("app_select")
+            setFragmentResultListener("setting_select") { _, bundle ->
+                val settingsBundle = bundle.getBundle("settings") ?: Bundle()
+                viewModel.targetSettingList.value = settingsBundle.bundleToTargetSettingList() as ArrayList<ReplacementItem>
+                clearFragmentResultListener("setting_select")
             }
-            val args = ScopeFragmentArgs(
-                filterOnlyEnabled = false,
-                checked = viewModel.targetAppList.value.toTypedArray()
-            )
-            navigate(R.id.nav_scope, args.toBundle())
+            val args = SettingsTemplateInnerFragmentArgs(viewModel.name)
+            navigate(R.id.nav_settings_template_inner_manage, args.toBundle())
         }
         binding.appliedApps.setOnClickListener {
             setFragmentResultListener("app_select") { _, bundle ->
@@ -91,17 +94,15 @@ class TemplateSettingsFragment : Fragment(R.layout.fragment_template_settings) {
             }
             val args = ScopeFragmentArgs(
                 filterOnlyEnabled = true,
-                isWhiteList = viewModel.isWhiteList,
+                isWhiteList = false,
                 checked = viewModel.appliedAppList.value.toTypedArray()
             )
             navigate(R.id.nav_scope, args.toBundle())
         }
 
         lifecycleScope.launch {
-            viewModel.targetAppList.collect {
-                val fmt =
-                    if (viewModel.isWhiteList) R.string.template_apps_visible_count
-                    else R.string.template_apps_invisible_count
+            viewModel.targetSettingList.collect {
+                val fmt = R.string.template_setting_count
                 binding.targetApps.text = String.format(getString(fmt), it.size)
             }
         }

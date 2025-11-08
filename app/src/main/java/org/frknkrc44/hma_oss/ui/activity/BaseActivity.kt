@@ -2,7 +2,9 @@ package org.frknkrc44.hma_oss.ui.activity
 
 import android.content.Context
 import android.content.res.Resources
+import android.graphics.Color
 import android.os.Bundle
+import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.drawable.toDrawable
@@ -18,6 +20,11 @@ open class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         enableEdgeToEdge()
+
+        // I add this manually because the E2E code is not working like I want
+        // They should give us a separate method to choice it for enableEdgeToEdge
+        // Source: https://github.com/androidx/androidx/blob/c0f9aabcf6f32029249ac7647711744b68e2a003/activity/activity/src/main/java/androidx/activity/EdgeToEdge.kt#L299
+        window.isNavigationBarContrastEnforced = !PrefManager.systemWallpaper
 
         DynamicColors.applyToActivityIfAvailable(
             this,

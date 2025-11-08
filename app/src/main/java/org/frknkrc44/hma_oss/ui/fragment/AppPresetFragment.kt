@@ -16,15 +16,11 @@ class AppPresetFragment() : AppSelectFragment() {
 
     override val firstComparator: Comparator<String> = Comparator.comparing(PackageHelper::exists).reversed()
 
-    override val adapter by lazy {
-        val args by navArgs<AppPresetFragmentArgs>()
-        AppPresetAdapter(args.presetName)
-    }
+    private val args by lazy { navArgs<AppPresetFragmentArgs>() }
 
-    override fun getFragmentTitle(): String {
-        val args by navArgs<AppPresetFragmentArgs>()
-        return args.presetTitle
-    }
+    override val adapter by lazy { AppPresetAdapter(args.value.name) }
+
+    override fun getFragmentTitle() = args.value.title
 
     override fun sortList() {
         hmaApp.globalScope.launch {

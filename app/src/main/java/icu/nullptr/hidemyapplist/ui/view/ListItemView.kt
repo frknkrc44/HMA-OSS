@@ -19,7 +19,7 @@ class ListItemView @JvmOverloads constructor(
     defStyleRes: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr, defStyleRes) {
 
-    private val binding by viewBinding<ListItemViewBinding>(createMethod = CreateMethod.INFLATE)
+    val binding by viewBinding<ListItemViewBinding>(createMethod = CreateMethod.INFLATE)
 
     init {
         val typedArray = context.theme.obtainStyledAttributes(attrs, R.styleable.ListItemView, defStyleAttr, defStyleRes)

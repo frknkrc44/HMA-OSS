@@ -3,6 +3,7 @@ package icu.nullptr.hidemyapplist.service
 import android.os.Build
 import android.util.Log
 import icu.nullptr.hidemyapplist.common.JsonConfig
+import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
 import icu.nullptr.hidemyapplist.hmaApp
 import icu.nullptr.hidemyapplist.ui.util.showToast
 import icu.nullptr.hidemyapplist.util.PackageHelper
@@ -11,13 +12,26 @@ import org.frknkrc44.hma_oss.common.BuildConfig
 import java.io.File
 
 object ConfigManager {
-    enum class PresetType {
+    /**
+     * Indicates the type of preset/template.
+     *
+     * @see APP
+     * @see SETTINGS
+     */
+    enum class PTType {
+        /**
+         * This preset/template type is used for app filtering.
+         */
         APP,
+
+        /**
+         * This preset/template type is used for settings filtering.
+         */
         SETTINGS,
     }
 
-    data class TemplateInfo(val name: String?, val isWhiteList: Boolean)
-    data class PresetInfo(val name: String, val type: PresetType?, val translation: String)
+    data class TemplateInfo(val name: String?, val type: PTType, val isWhiteList: Boolean)
+    data class PresetInfo(val name: String, val type: PTType?, val translation: String)
 
     private const val TAG = "ConfigManager"
     private lateinit var config: JsonConfig
@@ -126,7 +140,7 @@ object ConfigManager {
     }
 
     fun getTemplateList(): MutableList<TemplateInfo> {
-        return config.templates.mapTo(mutableListOf()) { TemplateInfo(it.key, it.value.isWhitelist) }
+        return config.templates.mapTo(mutableListOf()) { TemplateInfo(it.key, PTType.APP, it.value.isWhitelist) }
     }
 
     fun getTemplateAppliedAppList(name: String): ArrayList<String> {
@@ -171,6 +185,56 @@ object ConfigManager {
         config.scope.forEach { (app, appInfo) ->
             if (appliedList.contains(app)) appInfo.applyTemplates.add(name)
             else appInfo.applyTemplates.remove(name)
+        }
+        saveConfig()
+    }
+
+    fun getSettingTemplateList(): MutableList<TemplateInfo> {
+        return config.settingTemplates.mapTo(mutableListOf()) { TemplateInfo(it.key, PTType.SETTINGS, false) }
+    }
+
+    fun getSettingTemplateAppliedAppList(name: String): ArrayList<String> {
+        return config.scope.mapNotNullTo(ArrayList()) {
+            if (it.value.applySettingTemplates.contains(name)) it.key else null
+        }
+    }
+
+    fun getSettingTemplateTargetSettingList(name: String): ArrayList<ReplacementItem> {
+        return ArrayList(config.settingTemplates[name]?.settingList ?: emptyList())
+    }
+
+    fun deleteSettingTemplate(name: String) {
+        config.scope.forEach { (_, appInfo) ->
+            appInfo.applySettingTemplates.remove(name)
+        }
+        config.settingTemplates.remove(name)
+        saveConfig()
+    }
+
+    fun renameSettingTemplate(oldName: String, newName: String) {
+        if (oldName == newName) return
+        config.scope.forEach { (_, appInfo) ->
+            if (appInfo.applySettingTemplates.contains(oldName)) {
+                appInfo.applySettingTemplates.remove(oldName)
+                appInfo.applySettingTemplates.add(newName)
+            }
+        }
+        config.settingTemplates[newName] = config.settingTemplates[oldName]!!
+        config.settingTemplates.remove(oldName)
+        saveConfig()
+    }
+
+    fun updateSettingTemplate(name: String, template: JsonConfig.SettingTemplate) {
+        Log.d(TAG, "updateSettingTemplate: $name list = ${template.settingList}")
+        config.settingTemplates[name] = template
+        saveConfig()
+    }
+
+    fun updateSettingTemplateAppliedApps(name: String, appliedList: List<String>) {
+        Log.d(TAG, "updateSettingTemplateAppliedApps: $name list = $appliedList")
+        config.scope.forEach { (app, appInfo) ->
+            if (appliedList.contains(app)) appInfo.applySettingTemplates.add(name)
+            else appInfo.applySettingTemplates.remove(name)
         }
         saveConfig()
     }

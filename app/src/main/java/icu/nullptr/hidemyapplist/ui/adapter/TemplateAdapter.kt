@@ -29,8 +29,13 @@ class TemplateAdapter(
         fun bind(info: ConfigManager.TemplateInfo) {
             with(itemView as ListItemView) {
                 setIcon(
-                    if (info.isWhiteList) R.drawable.outline_assignment_24
-                    else R.drawable.baseline_assignment_24
+                    when (info.type) {
+                        ConfigManager.PTType.APP -> {
+                            if (info.isWhiteList) R.drawable.outline_assignment_24
+                            else R.drawable.baseline_assignment_24
+                        }
+                        ConfigManager.PTType.SETTINGS -> R.drawable.baseline_settings_24
+                    }
                 )
                 text = info.name
             }
@@ -54,9 +59,13 @@ class TemplateAdapter(
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateList() {
-        list = ConfigManager.getTemplateList().apply {
+        val allItems = (ConfigManager.getTemplateList() + ConfigManager.getSettingTemplateList()).toMutableList()
+
+        list = allItems.apply {
             sortWith { o1, o2 ->
-                if (o1.isWhiteList != o2.isWhiteList) {
+                if (o1.type != o2.type) {
+                    o1.type.compareTo(o2.type)
+                } else if (o1.isWhiteList != o2.isWhiteList) {
                     o1.isWhiteList.compareTo(o2.isWhiteList)
                 } else {
                     Collator.getInstance(Locale.getDefault()).compare(o1.name, o2.name)

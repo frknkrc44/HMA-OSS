@@ -24,6 +24,8 @@
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+        <!-- TODO: Add info button and dialog -->
+        <!--
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/hint_card"
             style="@style/AppTheme.OutlinedCard"
@@ -31,6 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/info_card_margin_horizontal"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:transitionName="transition_manage">
 
             <LinearLayout
@@ -54,12 +57,12 @@
                     android:textAppearance="?textAppearanceBodyMedium" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
+        -->
 
         <icu.nullptr.hidemyapplist.ui.view.ListItemView
             android:id="@+id/new_blacklist_template"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             app:icon="@drawable/baseline_add_24"
             app:text="@string/template_new_blacklist" />
 
@@ -69,6 +72,13 @@
             android:layout_height="wrap_content"
             app:icon="@drawable/baseline_add_24"
             app:text="@string/template_new_whitelist" />
+
+        <icu.nullptr.hidemyapplist.ui.view.ListItemView
+            android:id="@+id/new_setting_template"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/baseline_add_24"
+            app:text="@string/template_new_setting" />
 
         <include layout="@layout/line" />
 
