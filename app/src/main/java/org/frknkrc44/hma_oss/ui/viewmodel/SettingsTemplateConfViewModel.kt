@@ -31,10 +31,12 @@ class SettingsTemplateConfViewModel(
     val appliedAppList = MutableStateFlow<ArrayList<String>>(ArrayList())
     val targetSettingList = MutableStateFlow<ArrayList<ReplacementItem>>(ArrayList())
 
-    fun targetSettingListToBundle() = Bundle().apply {
-        for (item in targetSettingList.value) {
-            putStringArrayList(item.name, arrayListOf(item.value, item.database))
-        }
+    fun targetSettingListToBundle() = targetSettingList.value.targetSettingListToBundle()
+}
+
+fun List<ReplacementItem>.targetSettingListToBundle() = Bundle().apply {
+    forEach { item ->
+        putStringArrayList(item.name, arrayListOf(item.value, item.database))
     }
 }
 

@@ -80,8 +80,7 @@ class SettingsTemplateConfFragment : Fragment(R.layout.fragment_template_setting
         binding.targetApps.binding.icon.setImageResource(R.drawable.baseline_settings_24)
         binding.targetApps.setOnClickListener {
             setFragmentResultListener("setting_select") { _, bundle ->
-                val settingsBundle = bundle.getBundle("settings") ?: Bundle()
-                viewModel.targetSettingList.value = settingsBundle.bundleToTargetSettingList() as ArrayList<ReplacementItem>
+                viewModel.targetSettingList.value = bundle.bundleToTargetSettingList() as ArrayList<ReplacementItem>
                 clearFragmentResultListener("setting_select")
             }
             val args = SettingsTemplateInnerFragmentArgs(viewModel.name)

@@ -7,7 +7,7 @@ import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
 import icu.nullptr.hidemyapplist.ui.view.AppItemView
 
 abstract class BaseSettingsPTAdapter(protected val name: String?) : RecyclerView.Adapter<BaseSettingsPTAdapter.ViewHolder>() {
-    protected abstract val items: List<ReplacementItem>
+    abstract val items: List<ReplacementItem>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = AppItemView(parent.context, false).apply {
