@@ -25,15 +25,15 @@ import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import kotlinx.coroutines.launch
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentTemplateSettingsBinding
-import org.frknkrc44.hma_oss.ui.viewmodel.SettingTemplateSettingsViewModel
+import org.frknkrc44.hma_oss.ui.viewmodel.SettingsTemplateConfViewModel
 import org.frknkrc44.hma_oss.ui.viewmodel.bundleToTargetSettingList
 
-class SettingTemplateSettingsFragment : Fragment(R.layout.fragment_template_settings) {
+class SettingsTemplateConfFragment : Fragment(R.layout.fragment_template_settings) {
 
     private val binding by viewBinding<FragmentTemplateSettingsBinding>()
-    private val viewModel by viewModels<SettingTemplateSettingsViewModel> {
-        val args by navArgs<SettingTemplateSettingsFragmentArgs>()
-        SettingTemplateSettingsViewModel.Factory(args)
+    private val viewModel by viewModels<SettingsTemplateConfViewModel> {
+        val args by navArgs<SettingsTemplateConfFragmentArgs>()
+        SettingsTemplateConfViewModel.Factory(args)
     }
 
     private fun onBack(delete: Boolean) {
@@ -53,7 +53,7 @@ class SettingTemplateSettingsFragment : Fragment(R.layout.fragment_template_sett
     }
 
     private fun saveResult(delete: Boolean) {
-        setFragmentResult("setting_template_settings", Bundle().apply {
+        setFragmentResult("settings_template_conf", Bundle().apply {
             putString("name",if (delete) null else viewModel.name)
             putStringArrayList("appliedList", viewModel.appliedAppList.value)
             putBundle("settingList", viewModel.targetSettingListToBundle())
@@ -65,7 +65,7 @@ class SettingTemplateSettingsFragment : Fragment(R.layout.fragment_template_sett
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) { onBack(false) }
         setupToolbar(
             toolbar = binding.toolbar,
-            title = getString(R.string.title_setting_template_settings),
+            title = getString(R.string.title_settings_template_conf),
             navigationIcon = R.drawable.baseline_arrow_back_24,
             navigationOnClick = { onBack(false) },
             menuRes = R.menu.menu_delete,

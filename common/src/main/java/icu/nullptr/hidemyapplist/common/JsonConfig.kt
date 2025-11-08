@@ -19,7 +19,7 @@ data class JsonConfig(
     var skipSystemAppDataIsolation: Boolean = true,
     var packageQueryWorkaround: Boolean = false,
     val templates: MutableMap<String, Template> = mutableMapOf(),
-    val settingTemplates: MutableMap<String, SettingTemplate> = mutableMapOf(),
+    val settingsTemplates: MutableMap<String, SettingsTemplate> = mutableMapOf(),
     val scope: MutableMap<String, AppConfig> = mutableMapOf()
 ) {
     @Serializable
@@ -31,8 +31,8 @@ data class JsonConfig(
     }
 
     @Serializable
-    data class SettingTemplate(
-        val settingList: Set<ReplacementItem>
+    data class SettingsTemplate(
+        val settingsList: Set<ReplacementItem>
     ) {
         override fun toString() = encoder.encodeToString(this)
     }

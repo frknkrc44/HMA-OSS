@@ -51,9 +51,9 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_setting_template_settings"
-        android:name="org.frknkrc44.hma_oss.ui.fragment.SettingTemplateSettingsFragment"
-        android:label="@string/title_setting_template_settings">
+        android:id="@+id/nav_setting_template_conf"
+        android:name="org.frknkrc44.hma_oss.ui.fragment.SettingsTemplateConfFragment"
+        android:label="@string/title_settings_template_conf">
 
         <argument
             android:name="name"

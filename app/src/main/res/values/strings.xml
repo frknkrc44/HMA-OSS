@@ -7,7 +7,7 @@
     <string name="title_settings">Settings</string>
     <string name="title_template_manage">Manage templates</string>
     <string name="title_template_settings">Template settings</string>
-    <string name="title_setting_template_settings">Setting template settings</string>
+    <string name="title_settings_template_conf">Settings template configuration</string>
     <string name="title_app_manage">Manage apps</string>
     <string name="title_app_select">Select apps</string>
     <string name="title_app_settings">App settings</string>

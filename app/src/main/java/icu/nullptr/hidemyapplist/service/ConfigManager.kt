@@ -190,7 +190,7 @@ object ConfigManager {
     }
 
     fun getSettingTemplateList(): MutableList<TemplateInfo> {
-        return config.settingTemplates.mapTo(mutableListOf()) { TemplateInfo(it.key, PTType.SETTINGS, false) }
+        return config.settingsTemplates.mapTo(mutableListOf()) { TemplateInfo(it.key, PTType.SETTINGS, false) }
     }
 
     fun getSettingTemplateAppliedAppList(name: String): ArrayList<String> {
@@ -200,14 +200,14 @@ object ConfigManager {
     }
 
     fun getSettingTemplateTargetSettingList(name: String): ArrayList<ReplacementItem> {
-        return ArrayList(config.settingTemplates[name]?.settingList ?: emptyList())
+        return ArrayList(config.settingsTemplates[name]?.settingsList ?: emptyList())
     }
 
     fun deleteSettingTemplate(name: String) {
         config.scope.forEach { (_, appInfo) ->
             appInfo.applySettingTemplates.remove(name)
         }
-        config.settingTemplates.remove(name)
+        config.settingsTemplates.remove(name)
         saveConfig()
     }
 
@@ -219,14 +219,14 @@ object ConfigManager {
                 appInfo.applySettingTemplates.add(newName)
             }
         }
-        config.settingTemplates[newName] = config.settingTemplates[oldName]!!
-        config.settingTemplates.remove(oldName)
+        config.settingsTemplates[newName] = config.settingsTemplates[oldName]!!
+        config.settingsTemplates.remove(oldName)
         saveConfig()
     }
 
-    fun updateSettingTemplate(name: String, template: JsonConfig.SettingTemplate) {
-        Log.d(TAG, "updateSettingTemplate: $name list = ${template.settingList}")
-        config.settingTemplates[name] = template
+    fun updateSettingTemplate(name: String, template: JsonConfig.SettingsTemplate) {
+        Log.d(TAG, "updateSettingTemplate: $name list = ${template.settingsList}")
+        config.settingsTemplates[name] = template
         saveConfig()
     }
 

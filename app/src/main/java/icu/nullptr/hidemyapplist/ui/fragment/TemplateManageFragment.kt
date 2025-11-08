@@ -18,7 +18,7 @@ import icu.nullptr.hidemyapplist.ui.util.navigate
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentTemplateManageBinding
-import org.frknkrc44.hma_oss.ui.fragment.SettingTemplateSettingsFragmentArgs
+import org.frknkrc44.hma_oss.ui.fragment.SettingsTemplateConfFragmentArgs
 import org.frknkrc44.hma_oss.ui.viewmodel.bundleToTargetSettingList
 
 class TemplateManageFragment : Fragment(R.layout.fragment_template_manage) {
@@ -119,7 +119,7 @@ class TemplateManageFragment : Fragment(R.layout.fragment_template_manage) {
     }
 
     private fun navigateToSettingTemplateSettings(info: ConfigManager.TemplateInfo) {
-        setFragmentResultListener("setting_template_settings") { _, bundle ->
+        setFragmentResultListener("settings_template_conf") { _, bundle ->
             fun deal() {
                 var name = bundle.getString("name")
                 val appliedList = bundle.getStringArrayList("appliedList")!!
@@ -128,7 +128,7 @@ class TemplateManageFragment : Fragment(R.layout.fragment_template_manage) {
                     if (name.isNullOrEmpty()) return
                     ConfigManager.updateSettingTemplate(
                         name,
-                        JsonConfig.SettingTemplate(targetList.toSet())
+                        JsonConfig.SettingsTemplate(targetList.toSet())
                     )
                     ConfigManager.updateSettingTemplateAppliedApps(name, appliedList)
                 } else {                 // Existing template
@@ -139,7 +139,7 @@ class TemplateManageFragment : Fragment(R.layout.fragment_template_manage) {
                         if (name != info.name) ConfigManager.renameSettingTemplate(info.name, name)
                         ConfigManager.updateSettingTemplate(
                             name,
-                            JsonConfig.SettingTemplate(targetList.toSet())
+                            JsonConfig.SettingsTemplate(targetList.toSet())
                         )
                         ConfigManager.updateSettingTemplateAppliedApps(name, appliedList)
                     }
@@ -147,10 +147,10 @@ class TemplateManageFragment : Fragment(R.layout.fragment_template_manage) {
             }
             deal()
             adapter.updateList()
-            clearFragmentResultListener("setting_template_settings")
+            clearFragmentResultListener("settings_template_conf")
         }
 
-        val args = SettingTemplateSettingsFragmentArgs(info.name)
-        navigate(R.id.nav_setting_template_settings, args.toBundle())
+        val args = SettingsTemplateConfFragmentArgs(info.name)
+        navigate(R.id.nav_setting_template_conf, args.toBundle())
     }
 }
