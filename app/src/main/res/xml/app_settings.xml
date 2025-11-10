@@ -68,6 +68,10 @@
             tools:title="@string/app_preset_using" />
         <Preference
             android:icon="@drawable/outline_settings_24"
+            android:key="applySettingsTemplates"
+            tools:title="@string/app_settings_template_using" />
+        <Preference
+            android:icon="@drawable/outline_settings_24"
             android:key="applySettingsPresets"
             tools:title="@string/app_settings_preset_using" />
         <Preference

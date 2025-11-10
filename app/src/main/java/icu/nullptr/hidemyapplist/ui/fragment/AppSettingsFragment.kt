@@ -149,13 +149,20 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
         }
 
         private fun updateApplyPresets() {
-            findPreference<Preference>("applyPresets")?.title =
-                getString(R.string.app_preset_using, pack.config.applyPresets.size)
+            findPreference<Preference>("applyPresets")?.apply {
+                isVisible = !pack.config.useWhitelist
+                title = getString(R.string.app_preset_using, pack.config.applyPresets.size)
+            }
         }
 
         private fun updateApplySettingsPresets() {
             findPreference<Preference>("applySettingsPresets")?.title =
                 getString(R.string.app_settings_preset_using, pack.config.applySettingsPresets.size)
+        }
+
+        private fun updateApplySettingsTemplates() {
+            findPreference<Preference>("applySettingsTemplates")?.title =
+                getString(R.string.app_settings_template_using, pack.config.applySettingTemplates.size)
         }
 
         private fun updateExtraAppList(useWhiteList: Boolean) {
@@ -235,6 +242,7 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
             findPreference<SwitchPreferenceCompat>("useWhiteList")?.setOnPreferenceChangeListener { _, newValue ->
                 pack.config.applyTemplates.clear()
                 pack.config.extraAppList.clear()
+                pack.config.applyPresets.clear()
                 updateApplyTemplates()
                 updateApplyPresets()
                 updateExtraAppList(newValue as Boolean)
@@ -294,6 +302,27 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
                     .show()
                 true
             }
+            findPreference<Preference>("applySettingsTemplates")?.apply {
+                setOnPreferenceClickListener {
+                    val templateNames = ConfigManager.getSettingTemplateList().mapNotNull { it.name }.toTypedArray()
+                    val checked = templateNames.map {
+                        pack.config.applySettingTemplates.contains(it)
+                    }.toBooleanArray()
+
+                    MaterialAlertDialogBuilder(requireContext())
+                        .setTitle(R.string.app_choose_template)
+                        .setMultiChoiceItems(templateNames, checked) { _, i, value -> checked[i] = value }
+                        .setNegativeButton(android.R.string.cancel, null)
+                        .setPositiveButton(android.R.string.ok) { _, _ ->
+                            pack.config.applySettingTemplates = templateNames.mapIndexedNotNullTo(mutableSetOf()) { i, name ->
+                                if (checked[i]) name else null
+                            }
+                            updateApplySettingsTemplates()
+                        }
+                        .show()
+                    true
+                }
+            }
             findPreference<Preference>("applySettingsPresets")?.setOnPreferenceClickListener {
                 val presetNames = SettingsPresets.instance.getAllPresetNames()
                 val presetTranslations = presetNames.map { name ->
@@ -344,6 +373,7 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
             }
             updateApplyTemplates()
             updateApplyPresets()
+            updateApplySettingsTemplates()
             updateApplySettingsPresets()
             updateExtraAppList(pack.config.useWhitelist)
         }

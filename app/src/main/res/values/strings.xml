@@ -97,6 +97,7 @@
     <string name="app_template_using">Using %d templates</string>
     <string name="app_preset_using">Using %d presets</string>
     <string name="app_settings_preset_using">Using %d settings presets</string>
+    <string name="app_settings_template_using">Using %d settings templates</string>
     <string name="app_extra_apps_visible_count">%d additional apps visible</string>
     <string name="app_extra_apps_invisible_count">%d additional apps invisible</string>
     <string name="app_warning_risky_package_title">Risky package</string>
