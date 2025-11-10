@@ -22,7 +22,7 @@ class EditSettingFragment : Fragment(R.layout.fragment_edit_setting) {
 
     private val args by navArgs<EditSettingFragmentArgs>()
 
-    fun onBack() {
+    fun saveResult() {
         val databaseName = getEditTextValue(binding.databaseSelector)
         val settingName = getEditTextValue(binding.settingName)
 
@@ -40,8 +40,18 @@ class EditSettingFragment : Fragment(R.layout.fragment_edit_setting) {
                 )
             })
         }
+    }
+
+    fun onBack() {
+        saveResult()
 
         navController.navigateUp()
+    }
+
+    override fun onDestroy() {
+        saveResult()
+
+        super.onDestroy()
     }
 
     fun getEditTextValue(textInputLayout: TextInputLayout, blankCheck: Boolean = true): String? {
@@ -68,15 +78,12 @@ class EditSettingFragment : Fragment(R.layout.fragment_edit_setting) {
             setSimpleItems(values)
             setText(args.database)
 
-            binding.settingName.isEnabled = args.database != null
+            if (args.database != null) {
+                fillSettingNames(args.database.toString())
+            }
 
             setOnItemClickListener { _, _, _, _ ->
-                with(binding.settingName) {
-                    isEnabled = true
-                    (editText as MaterialAutoCompleteTextView).setSimpleItems(
-                        ServiceClient.listAllSettings(text.toString())
-                    )
-                }
+                fillSettingNames(text.toString())
             }
         }
 
@@ -117,6 +124,15 @@ class EditSettingFragment : Fragment(R.layout.fragment_edit_setting) {
             }
 
             insets
+        }
+    }
+
+    fun fillSettingNames(databaseName: String) {
+        with(binding.settingName) {
+            isEnabled = true
+            (editText as MaterialAutoCompleteTextView).setSimpleItems(
+                ServiceClient.listAllSettings(databaseName)
+            )
         }
     }
 }

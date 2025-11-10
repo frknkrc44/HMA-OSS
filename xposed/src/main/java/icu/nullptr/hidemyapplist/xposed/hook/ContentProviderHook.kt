@@ -58,6 +58,17 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
     fun getSpoofedSetting(caller: String?, name: String?, database: String): ReplacementItem? {
         if (caller == null || name == null) return null
 
+        val templates = service.getEnabledSettingsTemplates(caller)
+        val templateValues = service.config.settingsTemplates.mapNotNull { (key, value) ->
+            if (key in templates) value else null
+        }
+        for (template in templateValues) {
+            val replacement = template.settingsList.firstOrNull {
+                it.database == database && it.name == name
+            }
+            if (replacement != null) return replacement
+        }
+
         val presets = service.getEnabledSettingsPresets(caller)
         if (presets.isNotEmpty()) {
             for (presetName in presets) {

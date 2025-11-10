@@ -19,7 +19,6 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
 import icu.nullptr.hidemyapplist.service.ConfigManager
-import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.fragment.ScopeFragmentArgs
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.navigate
@@ -31,36 +30,46 @@ import org.frknkrc44.hma_oss.ui.util.toTargetSettingList
 import org.frknkrc44.hma_oss.ui.viewmodel.SettingsTemplateConfViewModel
 
 class SettingsTemplateConfFragment : Fragment(R.layout.fragment_template_settings) {
-
+    private var goingBack = false
     private val binding by viewBinding<FragmentTemplateSettingsBinding>()
     private val viewModel by viewModels<SettingsTemplateConfViewModel> {
         val args by navArgs<SettingsTemplateConfFragmentArgs>()
         SettingsTemplateConfViewModel.Factory(args)
     }
 
-    private fun onBack(delete: Boolean) {
+    private fun onBack(delete: Boolean, goBack: Boolean = true) {
         viewModel.name = viewModel.name?.trim()
         if (viewModel.name != viewModel.originalName && (ConfigManager.hasTemplate(viewModel.name) || viewModel.name == null) || delete) {
             val builder = MaterialAlertDialogBuilder(requireContext())
                 .setTitle(if (delete) R.string.template_delete_title else R.string.template_name_invalid)
                 .setMessage(if (delete) R.string.template_delete else R.string.template_name_already_exist)
                 .setPositiveButton(android.R.string.ok) { _, _ ->
-                    saveResult(delete)
+                    saveResult(delete, goBack)
                 }
             if (delete) builder.setNegativeButton(android.R.string.cancel, null)
             builder.show()
         } else {
-            saveResult(false)
+            saveResult(false, goBack)
         }
     }
 
-    private fun saveResult(delete: Boolean) {
+    private fun saveResult(delete: Boolean, goBack: Boolean) {
+        if (goingBack) return
+        if (goBack) goingBack = true
+
         setFragmentResult("settings_template_conf", Bundle().apply {
             putString("name",if (delete) null else viewModel.name)
             putStringArrayList("appliedList", viewModel.appliedAppList.value)
             putBundle("settingList", viewModel.targetSettingListToBundle())
         })
-        navController.navigateUp()
+
+        if (goBack) navController.navigateUp()
+    }
+
+    override fun onDestroy() {
+        saveResult(delete = false, goBack = false)
+
+        super.onDestroy()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -86,7 +95,7 @@ class SettingsTemplateConfFragment : Fragment(R.layout.fragment_template_setting
                 viewModel.targetSettingList.value = targetSettings as ArrayList<ReplacementItem>
                 clearFragmentResultListener("setting_select")
             }
-            val args = SettingsTemplateInnerFragmentArgs(viewModel.name)
+            val args = SettingsTemplateInnerFragmentArgs(viewModel.targetSettingListToBundle())
             navigate(R.id.nav_settings_template_inner_manage, args.toBundle())
         }
         binding.appliedApps.setOnClickListener {

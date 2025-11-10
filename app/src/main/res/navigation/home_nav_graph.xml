@@ -120,9 +120,8 @@
         android:name="org.frknkrc44.hma_oss.ui.fragment.SettingsTemplateInnerFragment">
 
         <argument
-            android:name="name"
-            app:argType="string"
-            app:nullable="true" />
+            android:name="items"
+            app:argType="android.os.Bundle" />
 
     </fragment>
 

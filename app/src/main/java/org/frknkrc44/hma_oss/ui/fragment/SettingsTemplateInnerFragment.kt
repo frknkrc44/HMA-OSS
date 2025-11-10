@@ -1,5 +1,7 @@
 package org.frknkrc44.hma_oss.ui.fragment
 
+import android.annotation.SuppressLint
+import android.os.Bundle
 import android.view.MenuItem
 import androidx.fragment.app.clearFragmentResultListener
 import androidx.fragment.app.setFragmentResult
@@ -18,7 +20,7 @@ class SettingsTemplateInnerFragment : BaseSettingsPTFragment() {
     override val title by lazy { getString(R.string.edit_list) }
 
     override val adapter by lazy {
-        SettingsTemplateListAdapter(args.value.name) { adapter, item ->
+        SettingsTemplateListAdapter(args.value.items) { adapter, item ->
             MaterialAlertDialogBuilder(requireContext()).apply {
                 setTitle(item.name)
                 setItems(
@@ -50,6 +52,15 @@ class SettingsTemplateInnerFragment : BaseSettingsPTFragment() {
         super.onBack()
     }
 
+    override fun onDestroy() {
+        setFragmentResult(
+            "setting_select",
+            adapter.targetSettingListToBundle()
+        )
+
+        super.onDestroy()
+    }
+
     fun onMenuOptionSelected(item: MenuItem) {
         when (item.itemId) {
             R.id.menu_add -> {
@@ -65,9 +76,17 @@ class SettingsTemplateInnerFragment : BaseSettingsPTFragment() {
                 val item = bundle.toTargetSettingList().firstOrNull()
 
                 if (item != null) {
-                    adapter.items.removeIf { it.name == item.name }
-                    adapter.items.add(item)
-                    adapter.notifyItemInserted(adapter.items.size - 1)
+                    if (item.name == args.name) {
+                        val index = adapter.items.indexOfFirst { it.name == item.name }
+                        if (index >= 0) {
+                            adapter.items[index] = item
+                            adapter.notifyItemChanged(index)
+                        }
+                    } else {
+                        adapter.items.removeIf { it.name == args.name }
+                        adapter.items.add(item)
+                        adapter.notifyItemInserted(adapter.items.size - 1)
+                    }
                 }
             }
             deal()

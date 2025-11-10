@@ -178,6 +178,11 @@ class HMAService(val pms: IPackageManager) : IHMAService.Stub() {
 
     fun isHookEnabled(packageName: String?) = config.scope.containsKey(packageName)
 
+    fun getEnabledSettingsTemplates(caller: String?): Set<String> {
+        if (caller == null) return setOf()
+        return config.scope[caller]?.applySettingTemplates ?: return setOf()
+    }
+
     fun getEnabledSettingsPresets(caller: String?): Set<String> {
         if (caller == null) return setOf()
         return config.scope[caller]?.applySettingsPresets ?: return setOf()
