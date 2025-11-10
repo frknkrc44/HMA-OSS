@@ -4,13 +4,10 @@ import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.content.pm.IPackageManager
 import android.os.Build
-import android.os.ServiceManager
 import android.os.UserHandle
 import android.provider.Settings
 import android.util.Log
-import com.github.kyuubiran.ezxhelper.utils.getObject
 import com.github.kyuubiran.ezxhelper.utils.isStatic
-import de.robv.android.xposed.XposedHelpers
 import icu.nullptr.hidemyapplist.common.AppPresets
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.IHMAService
@@ -30,7 +27,6 @@ import icu.nullptr.hidemyapplist.xposed.hook.PmsHookTarget33
 import icu.nullptr.hidemyapplist.xposed.hook.PmsHookTarget34
 import icu.nullptr.hidemyapplist.xposed.hook.PmsPackageEventsHook
 import org.frknkrc44.hma_oss.common.BuildConfig
-import org.json.JSONArray
 import rikka.hidden.compat.ActivityManagerApis
 import java.io.File
 import java.util.concurrent.ExecutorService

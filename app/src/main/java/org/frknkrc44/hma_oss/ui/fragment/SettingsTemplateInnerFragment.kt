@@ -1,7 +1,5 @@
 package org.frknkrc44.hma_oss.ui.fragment
 
-import android.annotation.SuppressLint
-import android.os.Bundle
 import android.view.MenuItem
 import androidx.fragment.app.clearFragmentResultListener
 import androidx.fragment.app.setFragmentResult
@@ -50,15 +48,6 @@ class SettingsTemplateInnerFragment : BaseSettingsPTFragment() {
         )
 
         super.onBack()
-    }
-
-    override fun onDestroy() {
-        setFragmentResult(
-            "setting_select",
-            adapter.targetSettingListToBundle()
-        )
-
-        super.onDestroy()
     }
 
     fun onMenuOptionSelected(item: MenuItem) {

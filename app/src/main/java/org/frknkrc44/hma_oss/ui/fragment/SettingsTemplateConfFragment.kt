@@ -2,7 +2,6 @@ package org.frknkrc44.hma_oss.ui.fragment
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import androidx.activity.addCallback
@@ -30,46 +29,36 @@ import org.frknkrc44.hma_oss.ui.util.toTargetSettingList
 import org.frknkrc44.hma_oss.ui.viewmodel.SettingsTemplateConfViewModel
 
 class SettingsTemplateConfFragment : Fragment(R.layout.fragment_template_settings) {
-    private var goingBack = false
     private val binding by viewBinding<FragmentTemplateSettingsBinding>()
     private val viewModel by viewModels<SettingsTemplateConfViewModel> {
         val args by navArgs<SettingsTemplateConfFragmentArgs>()
         SettingsTemplateConfViewModel.Factory(args)
     }
 
-    private fun onBack(delete: Boolean, goBack: Boolean = true) {
+    private fun onBack(delete: Boolean) {
         viewModel.name = viewModel.name?.trim()
         if (viewModel.name != viewModel.originalName && (ConfigManager.hasTemplate(viewModel.name) || viewModel.name == null) || delete) {
             val builder = MaterialAlertDialogBuilder(requireContext())
                 .setTitle(if (delete) R.string.template_delete_title else R.string.template_name_invalid)
                 .setMessage(if (delete) R.string.template_delete else R.string.template_name_already_exist)
                 .setPositiveButton(android.R.string.ok) { _, _ ->
-                    saveResult(delete, goBack)
+                    saveResult(delete)
                 }
             if (delete) builder.setNegativeButton(android.R.string.cancel, null)
             builder.show()
         } else {
-            saveResult(false, goBack)
+            saveResult(false)
         }
     }
 
-    private fun saveResult(delete: Boolean, goBack: Boolean) {
-        if (goingBack) return
-        if (goBack) goingBack = true
-
+    private fun saveResult(delete: Boolean) {
         setFragmentResult("settings_template_conf", Bundle().apply {
             putString("name",if (delete) null else viewModel.name)
             putStringArrayList("appliedList", viewModel.appliedAppList.value)
             putBundle("settingList", viewModel.targetSettingListToBundle())
         })
 
-        if (goBack) navController.navigateUp()
-    }
-
-    override fun onDestroy() {
-        saveResult(delete = false, goBack = false)
-
-        super.onDestroy()
+        navController.navigateUp()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

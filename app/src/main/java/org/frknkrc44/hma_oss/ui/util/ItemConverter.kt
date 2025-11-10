@@ -1,9 +1,7 @@
 package org.frknkrc44.hma_oss.ui.util
 
 import android.os.Bundle
-import android.util.Log
 import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
-import icu.nullptr.hidemyapplist.service.ServiceClient
 import org.frknkrc44.hma_oss.ui.fragment.EditSettingFragmentArgs
 
 fun ReplacementItem.toEditSettingFragmentArgs() = EditSettingFragmentArgs(
