@@ -2,6 +2,7 @@ package org.frknkrc44.hma_oss.ui.fragment
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import androidx.activity.addCallback
@@ -18,6 +19,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
 import icu.nullptr.hidemyapplist.service.ConfigManager
+import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.fragment.ScopeFragmentArgs
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.navigate
@@ -25,8 +27,8 @@ import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import kotlinx.coroutines.launch
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentTemplateSettingsBinding
+import org.frknkrc44.hma_oss.ui.util.toTargetSettingList
 import org.frknkrc44.hma_oss.ui.viewmodel.SettingsTemplateConfViewModel
-import org.frknkrc44.hma_oss.ui.viewmodel.bundleToTargetSettingList
 
 class SettingsTemplateConfFragment : Fragment(R.layout.fragment_template_settings) {
 
@@ -80,7 +82,8 @@ class SettingsTemplateConfFragment : Fragment(R.layout.fragment_template_setting
         binding.targetApps.binding.icon.setImageResource(R.drawable.baseline_settings_24)
         binding.targetApps.setOnClickListener {
             setFragmentResultListener("setting_select") { _, bundle ->
-                viewModel.targetSettingList.value = bundle.bundleToTargetSettingList() as ArrayList<ReplacementItem>
+                val targetSettings = bundle.toTargetSettingList()
+                viewModel.targetSettingList.value = targetSettings as ArrayList<ReplacementItem>
                 clearFragmentResultListener("setting_select")
             }
             val args = SettingsTemplateInnerFragmentArgs(viewModel.name)
@@ -101,8 +104,7 @@ class SettingsTemplateConfFragment : Fragment(R.layout.fragment_template_setting
 
         lifecycleScope.launch {
             viewModel.targetSettingList.collect {
-                val fmt = R.string.template_setting_count
-                binding.targetApps.text = String.format(getString(fmt), it.size)
+                binding.targetApps.text = String.format(getString(R.string.template_setting_count), it.size)
             }
         }
         lifecycleScope.launch {

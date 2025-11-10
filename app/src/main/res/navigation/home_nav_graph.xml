@@ -82,6 +82,26 @@
     </fragment>
 
     <fragment
+        android:id="@+id/nav_settings_templates_edit_setting"
+        android:name="org.frknkrc44.hma_oss.ui.fragment.EditSettingFragment">
+
+        <argument
+            android:name="database"
+            app:argType="string"
+            app:nullable="true" />
+
+        <argument
+            android:name="name"
+            app:argType="string" />
+
+        <argument
+            android:name="value"
+            app:argType="string"
+            app:nullable="true" />
+
+    </fragment>
+
+    <fragment
         android:id="@+id/nav_settings_preset_inner_manage"
         android:name="org.frknkrc44.hma_oss.ui.fragment.SettingsPresetFragment">
 

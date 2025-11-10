@@ -19,7 +19,7 @@ import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentTemplateManageBinding
 import org.frknkrc44.hma_oss.ui.fragment.SettingsTemplateConfFragmentArgs
-import org.frknkrc44.hma_oss.ui.viewmodel.bundleToTargetSettingList
+import org.frknkrc44.hma_oss.ui.util.toTargetSettingList
 
 class TemplateManageFragment : Fragment(R.layout.fragment_template_manage) {
 
@@ -123,7 +123,7 @@ class TemplateManageFragment : Fragment(R.layout.fragment_template_manage) {
             fun deal() {
                 var name = bundle.getString("name")
                 val appliedList = bundle.getStringArrayList("appliedList")!!
-                val targetList = bundle.getBundle("settingList")!!.bundleToTargetSettingList()
+                val targetList = bundle.getBundle("settingList")!!.toTargetSettingList()
                 if (info.name == null) { // New template
                     if (name.isNullOrEmpty()) return
                     ConfigManager.updateSettingTemplate(

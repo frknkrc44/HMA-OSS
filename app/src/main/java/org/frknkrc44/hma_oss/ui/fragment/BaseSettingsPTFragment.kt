@@ -5,10 +5,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowInsets
-import androidx.annotation.MenuRes
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResult
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import icu.nullptr.hidemyapplist.ui.util.navController
@@ -16,8 +13,6 @@ import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentSettingsPtBaseBinding
 import org.frknkrc44.hma_oss.ui.adapter.BaseSettingsPTAdapter
-import org.frknkrc44.hma_oss.ui.adapter.SettingsPresetListAdapter
-import org.frknkrc44.hma_oss.ui.adapter.SettingsTemplateListAdapter
 
 abstract class BaseSettingsPTFragment : Fragment(R.layout.fragment_settings_pt_base) {
     val binding by viewBinding<FragmentSettingsPtBaseBinding>()
@@ -26,14 +21,7 @@ abstract class BaseSettingsPTFragment : Fragment(R.layout.fragment_settings_pt_b
 
     abstract val title: String?
 
-    fun onBack() {
-        if (adapter is SettingsTemplateListAdapter) {
-            setFragmentResult(
-                "setting_select",
-                (adapter as SettingsTemplateListAdapter).targetSettingListToBundle()
-            )
-        }
-
+    internal open fun onBack() {
         navController.navigateUp()
     }
 

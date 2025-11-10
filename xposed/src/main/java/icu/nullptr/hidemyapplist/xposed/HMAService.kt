@@ -6,7 +6,10 @@ import android.content.pm.IPackageManager
 import android.os.Build
 import android.os.ServiceManager
 import android.os.UserHandle
+import android.provider.Settings
 import android.util.Log
+import com.github.kyuubiran.ezxhelper.utils.getObject
+import com.github.kyuubiran.ezxhelper.utils.isStatic
 import de.robv.android.xposed.XposedHelpers
 import icu.nullptr.hidemyapplist.common.AppPresets
 import icu.nullptr.hidemyapplist.common.Constants
@@ -347,29 +350,17 @@ class HMAService(val pms: IPackageManager) : IHMAService.Stub() {
     }
 
     override fun listAllSettings(databaseName: String): Array<String> {
-        val settingType = when (databaseName) {
-            Constants.SETTINGS_GLOBAL -> Constants.SETTINGS_TYPE_GLOBAL
-            Constants.SETTINGS_SECURE -> Constants.SETTINGS_TYPE_SECURE
-            Constants.SETTINGS_SYSTEM -> Constants.SETTINGS_TYPE_SYSTEM
+        val settingClass = when (databaseName) {
+            Constants.SETTINGS_GLOBAL -> Settings.Global::class.java
+            Constants.SETTINGS_SECURE -> Settings.Secure::class.java
+            Constants.SETTINGS_SYSTEM -> Settings.System::class.java
             else -> throw IllegalArgumentException("Invalid database name $databaseName")
         }
 
-        val service = ServiceManager.getService("settings") ?: return arrayOf()
-        val provider = XposedHelpers.getObjectField(service, "mProvider") ?: return arrayOf()
-        val registry = XposedHelpers.getObjectField(provider, "mSettingsRegistry") ?: return arrayOf()
+        val readableVariables = settingClass.declaredFields.mapNotNull { field ->
+            if (field.isStatic && field.type.simpleName == "String") field.get(null) as String else null
+        }
 
-        val systemUserHandle = XposedHelpers.getStaticObjectField(
-            UserHandle::class.java,
-            "USER_SYSTEM",
-        )
-
-        val names = XposedHelpers.callMethod(
-            registry,
-            "getSettingsNamesLocked",
-            settingType,
-            systemUserHandle,
-        ) as java.util.List<*>
-
-        return names.map { it as String }.toTypedArray()
+        return readableVariables.toTypedArray()
     }
 }

@@ -1,12 +1,12 @@
 package org.frknkrc44.hma_oss.ui.viewmodel
 
-import android.os.Bundle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
 import icu.nullptr.hidemyapplist.service.ConfigManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.frknkrc44.hma_oss.ui.fragment.SettingsTemplateConfFragmentArgs
+import org.frknkrc44.hma_oss.ui.util.targetSettingListToBundle
 
 class SettingsTemplateConfViewModel(
     @Suppress("unused")
@@ -34,13 +34,3 @@ class SettingsTemplateConfViewModel(
     fun targetSettingListToBundle() = targetSettingList.value.targetSettingListToBundle()
 }
 
-fun List<ReplacementItem>.targetSettingListToBundle() = Bundle().apply {
-    forEach { item ->
-        putStringArrayList(item.name, arrayListOf(item.value, item.database))
-    }
-}
-
-fun Bundle.bundleToTargetSettingList() = keySet().map {
-    val item = getStringArray(it)!!
-    ReplacementItem(it, item[0], item[1])
-}
