@@ -14,7 +14,7 @@ class SettingsPresetFragment : BaseSettingsPTFragment() {
 
     override val adapter by lazy { SettingsPresetListAdapter(args.value.name) }
 
-    override val title = args.value.title
+    override val title by lazy { args.value.title }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
