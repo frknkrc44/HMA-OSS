@@ -77,7 +77,7 @@
     <string name="template_delete_title">Apagar modelo</string>
     <string name="template_name_already_exist">Nome de modelo já existe</string>
     <string name="template_applied_count">Aplicado a %d aplicativos </string>
-    <string name="template_setting_count">%d Configurações adicionadas</string>
+    <string name="template_setting_count">%d configurações adicionadas</string>
     <string name="template_apps_visible_count">%d aplicativos visíveis</string>
     <string name="template_apps_invisible_count">%d aplicativos invisíveis</string>
     <!-- App settings -->
@@ -162,8 +162,8 @@
     <string name="settings_clear_uninstalled_app_configs">Limpar configurações de apps desinstalados</string>
     <string name="settings_clear_uninstalled_app_configs_summary">Esta opção permite criar uma configuração sem remanescentes, mas terá que reconfigurar os apps quando os instalar novamente.</string>
     <string name="settings_no_undone_warning">Esta ação não pode ser desfeita.</string>
-    <string name="settings_package_query_workaround">Consulta alternativa de pacote</string>
-    <string name="settings_package_query_workaround_summary">Não ative essa opção se você consegue ver a lista de pacotes corretamente neste app.</string>
+    <string name="settings_package_query_workaround">Método de listagem alternativa</string>
+    <string name="settings_package_query_workaround_summary">Não ative essa opção se você consegue ver a lista de aplicativos corretamente neste app.</string>
     <string name="settings_language">Idioma</string>
     <string name="settings_translate">Participe na tradução</string>
     <string name="settings_translate_summary">Nos ajude a traduzir %s na sua língua </string>
