@@ -49,10 +49,9 @@ class EditSettingFragment : Fragment(R.layout.fragment_edit_setting) {
         navController.navigateUp()
     }
 
-    fun getEditTextValue(textInputLayout: TextInputLayout, blankCheck: Boolean = true): String? {
-        if ((blankCheck && textInputLayout.editText?.text.isNullOrBlank()) ||
-            (!blankCheck && textInputLayout.editText?.text.isNullOrEmpty())) {
-            return null
+    fun getEditTextValue(textInputLayout: TextInputLayout, returnNullOnBlank: Boolean = true): String? {
+        if (textInputLayout.editText?.text.isNullOrBlank()) {
+            return if (returnNullOnBlank) null else ""
         }
 
         return textInputLayout.editText!!.text.toString()
