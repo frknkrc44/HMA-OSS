@@ -5,7 +5,7 @@
     <string name="title_settings">Einstellungen</string>
     <string name="title_template_manage">Listen verwalten</string>
     <string name="title_template_settings">Vorlagen Einstellungen</string>
-    <string name="title_settings_template_conf">Settings template configuration</string>
+    <string name="title_settings_template_conf">Konfiguration der Einstellungsvorlage</string>
     <string name="title_app_manage">App verwalten</string>
     <string name="title_app_select">Apps auswählen</string>
     <string name="title_app_settings">App Einstellungen</string>
@@ -29,8 +29,8 @@
     <string name="no">Nein</string>
     <string name="search">Suchen</string>
     <string name="system">System</string>
-    <string name="add">Add</string>
-    <string name="edit">Edit</string>
+    <string name="add">Hinzufügen</string>
+    <string name="edit">Bearbeiten</string>
     <string name="follow_system">Systemeinstellung folgen</string>
     <!-- Home -->
     <string name="home_xposed_activated">Modul aktiviert [%s]</string>
@@ -77,7 +77,7 @@
     <string name="template_delete_title">Vorlage löschen</string>
     <string name="template_name_already_exist">Es existiert bereits eine Vorlage mit diesem Namen</string>
     <string name="template_applied_count">Auf %d Apps angewendet</string>
-    <string name="template_setting_count">%d settings added</string>
+    <string name="template_setting_count">%d Einstellungen hinzugefügt</string>
     <string name="template_apps_visible_count">%d Anwendungen sichtbar</string>
     <string name="template_apps_invisible_count">%d Anwendungen unsichtbar</string>
     <!-- App settings -->
@@ -90,7 +90,7 @@
     <string name="app_template_using">Verwendung von %d Vorlagen</string>
     <string name="app_preset_using">Verwendung von %d Vorlagen des Entwicklers</string>
     <string name="app_settings_preset_using">Entwickleroptionen/Bedienungshilfen werden %d genutzt</string>
-    <string name="app_settings_template_using">Using %d settings templates</string>
+    <string name="app_settings_template_using">Entwickleroptionen/Bedienungshilfen werden %d genutzt</string>
     <string name="app_extra_apps_visible_count">%d weitere Apps sichtbar</string>
     <string name="app_extra_apps_invisible_count">%d weitere Anwendungen unsichtbar</string>
     <string name="app_warning_risky_package_title">Gefährliches Paket</string>
@@ -122,11 +122,11 @@
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Bedienungshilfen</string>
     <string name="settings_preset_dev_options">Entwickleroptionen</string>
-    <string name="settings_preset_input_method">Input method</string>
+    <string name="settings_preset_input_method">Eingabemethode</string>
     <!-- Settings templates -->
     <string name="settings_templates_database">Settings database</string>
-    <string name="settings_templates_name">Setting name</string>
-    <string name="settings_templates_value">Setting value</string>
+    <string name="settings_templates_name">Einstellungsname</string>
+    <string name="settings_templates_value">Einstellungswert</string>
     <!-- Logs -->
     <string name="logs_save">Protokolle speichern</string>
     <string name="logs_clear">Protokolle löschen</string>
