@@ -5,6 +5,7 @@
     <string name="title_settings">Impostazioni</string>
     <string name="title_template_manage">Gestione template</string>
     <string name="title_template_settings">Impostazioni template</string>
+    <string name="title_settings_template_conf">Settings template configuration</string>
     <string name="title_app_manage">Gestione app</string>
     <string name="title_app_select">Seleziona applicazioni</string>
     <string name="title_app_settings">Impostazioni app</string>
@@ -28,6 +29,8 @@
     <string name="no">No</string>
     <string name="search">Cerca</string>
     <string name="system">Sistema</string>
+    <string name="add">Add</string>
+    <string name="edit">Edit</string>
     <string name="follow_system">Follow system</string>
     <!-- Home -->
     <string name="home_xposed_activated">Modulo attivato [%s]</string>
@@ -67,12 +70,14 @@
     <string name="template_usage_hint">Stabilisci template per app \"nervose\", controllando la lista di app che possono ottenere.\n\nBlacklist (consigliata): le app selezionate nel template saranno invisibili alle app che applicano il template.\nWhitelist: le app non selezionate nel template saranno invisibili alle app che applicano il template.</string>
     <string name="template_new_blacklist">Crea un template blacklist</string>
     <string name="template_new_whitelist">Crea un template whitelist</string>
+    <string name="template_new_setting">Create a settings template</string>
     <string name="template_delete">Sei sicuro di voler eliminare il template?</string>
     <string name="template_name">Nome template</string>
     <string name="template_name_invalid">Nome non valido</string>
     <string name="template_delete_title">Cancella Template</string>
     <string name="template_name_already_exist">Nome template già esistente</string>
     <string name="template_applied_count">Applicato a %d app</string>
+    <string name="template_setting_count">%d settings added</string>
     <string name="template_apps_visible_count">%d app visibili</string>
     <string name="template_apps_invisible_count">%d app invisibili</string>
     <!-- App settings -->
@@ -85,6 +90,7 @@
     <string name="app_template_using">%d template in uso</string>
     <string name="app_preset_using">Using %d presets</string>
     <string name="app_settings_preset_using">Using %d settings presets</string>
+    <string name="app_settings_template_using">Using %d settings templates</string>
     <string name="app_extra_apps_visible_count">%d ulteriori app visibili</string>
     <string name="app_extra_apps_invisible_count">%d ulteriori app invisibili</string>
     <string name="app_warning_risky_package_title">Risky package</string>
@@ -117,6 +123,10 @@
     <string name="settings_preset_accessibility">Accessibility</string>
     <string name="settings_preset_dev_options">Developer options</string>
     <string name="settings_preset_input_method">Input method</string>
+    <!-- Settings templates -->
+    <string name="settings_templates_database">Settings database</string>
+    <string name="settings_templates_name">Setting name</string>
+    <string name="settings_templates_value">Setting value</string>
     <!-- Logs -->
     <string name="logs_save">Salva log</string>
     <string name="logs_clear">Cancella log</string>
