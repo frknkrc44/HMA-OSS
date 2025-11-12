@@ -5,6 +5,7 @@
     <string name="title_settings">الإعدادات</string>
     <string name="title_template_manage">إدارة القوالب</string>
     <string name="title_template_settings">إعدادات القالب</string>
+    <string name="title_settings_template_conf">Settings template configuration</string>
     <string name="title_app_manage">إدارة التطبيقات</string>
     <string name="title_app_select">اختر التطبيقات</string>
     <string name="title_app_settings">إعـدادات التطبيـق</string>
@@ -28,6 +29,8 @@
     <string name="no">لا</string>
     <string name="search">بحث</string>
     <string name="system">النظام</string>
+    <string name="add">Add</string>
+    <string name="edit">Edit</string>
     <string name="follow_system">يتبع النظام</string>
     <!-- Home -->
     <string name="home_xposed_activated">الإضافة مفعلة [%s]</string>
@@ -67,12 +70,14 @@
     <string name="template_usage_hint">إنشاء قوالب للتطبيقات \"المزعجة\" ، والتحكم في قائمة التطبيقات التي يمكنهم الحصول عليها. \n\n القائمة السوداء (موصى بها): التطبيقات المحددة في القالب ستكون غير مرئية للتطبيقات التي تطبق عليها القالب.\n القائمة البيضاء: التطبيقات التي لم يتم تحديدها في القالب ستكون غير مرئية للتطبيقات التي تطبق عليها القالب.</string>
     <string name="template_new_blacklist">إنشاء قالب قائمة سوداء</string>
     <string name="template_new_whitelist">إنشاء قالب قائمة بيضاء</string>
+    <string name="template_new_setting">Create a settings template</string>
     <string name="template_delete">هل أنت متيقِّن من حذف هذا القالب؟</string>
     <string name="template_name">اسم القالب</string>
     <string name="template_name_invalid">الاسم غير صالح</string>
     <string name="template_delete_title">حذف القالب</string>
     <string name="template_name_already_exist">اسم القالب موجود فعلًا</string>
     <string name="template_applied_count">مطبق على %d تطبيقات</string>
+    <string name="template_setting_count">%d settings added</string>
     <string name="template_apps_visible_count">%d تطبيقات مرئية</string>
     <string name="template_apps_invisible_count">%d تطبيقات غير مرئية</string>
     <!-- App settings -->
@@ -85,6 +90,7 @@
     <string name="app_template_using">يتم استخدام %d قوالب</string>
     <string name="app_preset_using">يتم استخدام%d من الضبط المسبق</string>
     <string name="app_settings_preset_using">يتم استخدام%d من إعدادات ضبط المسبق</string>
+    <string name="app_settings_template_using">Using %d settings templates</string>
     <string name="app_extra_apps_visible_count">%d تطبيقات إضافية مرئية</string>
     <string name="app_extra_apps_invisible_count">%d تطبيقات إضافية غير مرئية</string>
     <string name="app_warning_risky_package_title">حُزْمَة قد تكون خطرة</string>
@@ -117,6 +123,10 @@
     <string name="settings_preset_accessibility">إمكانية الوصول</string>
     <string name="settings_preset_dev_options">خيارات المطور</string>
     <string name="settings_preset_input_method">طريقة الإدخال</string>
+    <!-- Settings templates -->
+    <string name="settings_templates_database">Settings database</string>
+    <string name="settings_templates_name">Setting name</string>
+    <string name="settings_templates_value">Setting value</string>
     <!-- Logs -->
     <string name="logs_save">حفظ السجلات</string>
     <string name="logs_clear">مسح السجلات</string>
