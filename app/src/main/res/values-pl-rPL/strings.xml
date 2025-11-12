@@ -5,6 +5,7 @@
     <string name="title_settings">Ustawienia</string>
     <string name="title_template_manage">Menedżer szablonów</string>
     <string name="title_template_settings">Ustawienia szablonu</string>
+    <string name="title_settings_template_conf">Settings template configuration</string>
     <string name="title_app_manage">Zarządzaj aplikacjami</string>
     <string name="title_app_select">Wybierz aplikacje</string>
     <string name="title_app_settings">Ustawienia aplikacji</string>
@@ -28,6 +29,8 @@
     <string name="no">Nie</string>
     <string name="search">Wyszukaj</string>
     <string name="system">System</string>
+    <string name="add">Add</string>
+    <string name="edit">Edit</string>
     <string name="follow_system">Zgodne z systemem</string>
     <!-- Home -->
     <string name="home_xposed_activated">Moduł aktywowany [%s]</string>
@@ -67,12 +70,14 @@
     <string name="template_usage_hint">Ustal szablony dla „niespokojnych” aplikacji, kontrolując listę aplikacji, do których mogą uzyskać dostęp.\n\nCzarna lista (zalecane): aplikacje wybrane w szablonie będą niewidoczne dla aplikacji, które ten szablon stosują.\nBiała lista: aplikacje niewybrane w szablonie będą niewidoczne dla aplikacji, które ten szablon stosują.</string>
     <string name="template_new_blacklist">Stwórz szablon blacklisty</string>
     <string name="template_new_whitelist">Stwórz szablon whitelisty</string>
+    <string name="template_new_setting">Create a settings template</string>
     <string name="template_delete">Czy jesteś pewny, że chcesz usunąć ten szablon?</string>
     <string name="template_name">Nazwa szablonu</string>
     <string name="template_name_invalid">Nazwa nieprawidłowa</string>
     <string name="template_delete_title">Usuń szablon</string>
     <string name="template_name_already_exist">Nazwa szablonu już istnieje</string>
     <string name="template_applied_count">Zastosowano dla %d aplikacji</string>
+    <string name="template_setting_count">%d settings added</string>
     <string name="template_apps_visible_count">%d widocznych aplikacji</string>
     <string name="template_apps_invisible_count">%d niewidzialnych aplikacji</string>
     <!-- App settings -->
@@ -85,6 +90,7 @@
     <string name="app_template_using">Używanie %d szablonów</string>
     <string name="app_preset_using">Używanie %d presetów</string>
     <string name="app_settings_preset_using">Używanie %d presetów ustawień</string>
+    <string name="app_settings_template_using">Using %d settings templates</string>
     <string name="app_extra_apps_visible_count">%d dodatkowo widzialnych aplikacji</string>
     <string name="app_extra_apps_invisible_count">%d dodatkowo niewidzialnych aplikacji</string>
     <string name="app_warning_risky_package_title">Ryzykowne pakiety</string>
@@ -117,6 +123,10 @@
     <string name="settings_preset_accessibility">Ułatwienia dostępu</string>
     <string name="settings_preset_dev_options">Opcje deweloperskie</string>
     <string name="settings_preset_input_method">Metoda wprowadzania</string>
+    <!-- Settings templates -->
+    <string name="settings_templates_database">Settings database</string>
+    <string name="settings_templates_name">Setting name</string>
+    <string name="settings_templates_value">Setting value</string>
     <!-- Logs -->
     <string name="logs_save">Zapisz logi</string>
     <string name="logs_clear">Wyczyść logi</string>
