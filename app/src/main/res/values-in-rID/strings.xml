@@ -5,7 +5,7 @@
     <string name="title_settings">Setelan</string>
     <string name="title_template_manage">Kelola templat</string>
     <string name="title_template_settings">Setelan templat</string>
-    <string name="title_settings_template_conf">Settings template configuration</string>
+    <string name="title_settings_template_conf">Konfigurasi setelan templat</string>
     <string name="title_app_manage">Kelola aplikasi</string>
     <string name="title_app_select">Pilih aplikasi</string>
     <string name="title_app_settings">Setelan aplikasi</string>
@@ -29,8 +29,8 @@
     <string name="no">Tidak</string>
     <string name="search">Cari</string>
     <string name="system">Sistem</string>
-    <string name="add">Add</string>
-    <string name="edit">Edit</string>
+    <string name="add">Tambahkan</string>
+    <string name="edit">Ubah</string>
     <string name="follow_system">Ikut sistem</string>
     <!-- Home -->
     <string name="home_xposed_activated">Modul Diaktifkan [%s]</string>
@@ -70,14 +70,14 @@
     <string name="template_usage_hint">Buat templat untuk apl \"bermasalah\", guna mengontrol akses daftar apl.\n\nDaftar hitam (disarankan): apl yang dipilih dalam templat akan tak terlihat dari apl yang menerapkan templat tersebut.\nDaftar putih: apl yang tidak dipilih dalam templat akan tak terlihat oleh apl yang menerapkan templat tersebut.</string>
     <string name="template_new_blacklist">Buat templat daftar hitam</string>
     <string name="template_new_whitelist">Buat templat daftar putih</string>
-    <string name="template_new_setting">Create a settings template</string>
+    <string name="template_new_setting">Buat templat setelan</string>
     <string name="template_delete">Apakah anda yakin ingin menghapus templat tersebut?</string>
     <string name="template_name">Nama templat</string>
     <string name="template_name_invalid">Nama tidak valid</string>
     <string name="template_delete_title">Hapus Templat</string>
     <string name="template_name_already_exist">Nama templat sudah ada</string>
     <string name="template_applied_count">Diterapkan ke %d apl</string>
-    <string name="template_setting_count">%d settings added</string>
+    <string name="template_setting_count">%d setelan ditambahkan</string>
     <string name="template_apps_visible_count">%d apl terlihat</string>
     <string name="template_apps_invisible_count">%d apl tidak terlihat</string>
     <!-- App settings -->
@@ -90,7 +90,7 @@
     <string name="app_template_using">Menggunakan %d templat</string>
     <string name="app_preset_using">Menggunakan %d preset</string>
     <string name="app_settings_preset_using">Menggunakan %d setelan preset</string>
-    <string name="app_settings_template_using">Using %d settings templates</string>
+    <string name="app_settings_template_using">Menggunakan templat setelan %d</string>
     <string name="app_extra_apps_visible_count">%d apl tambahan terlihat</string>
     <string name="app_extra_apps_invisible_count">%d apl tambahan tidak terlihat</string>
     <string name="app_warning_risky_package_title">Paket berisiko</string>
@@ -124,9 +124,9 @@
     <string name="settings_preset_dev_options">Opsi pengembang</string>
     <string name="settings_preset_input_method">Metode input</string>
     <!-- Settings templates -->
-    <string name="settings_templates_database">Settings database</string>
-    <string name="settings_templates_name">Setting name</string>
-    <string name="settings_templates_value">Setting value</string>
+    <string name="settings_templates_database">Setelan database</string>
+    <string name="settings_templates_name">Nama setelan</string>
+    <string name="settings_templates_value">Nilai setelan</string>
     <!-- Logs -->
     <string name="logs_save">Simpan log</string>
     <string name="logs_clear">Hapus log</string>
