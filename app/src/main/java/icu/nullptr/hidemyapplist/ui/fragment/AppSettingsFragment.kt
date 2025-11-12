@@ -66,11 +66,6 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
         saveConfig()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        saveConfig()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) { onBack() }
         setupToolbar(
