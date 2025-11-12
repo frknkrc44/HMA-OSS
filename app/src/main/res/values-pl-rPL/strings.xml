@@ -5,12 +5,12 @@
     <string name="title_settings">Ustawienia</string>
     <string name="title_template_manage">Menedżer szablonów</string>
     <string name="title_template_settings">Ustawienia szablonu</string>
-    <string name="title_settings_template_conf">Settings template configuration</string>
+    <string name="title_settings_template_conf">Konfiguracja szablonu ustawień</string>
     <string name="title_app_manage">Zarządzaj aplikacjami</string>
     <string name="title_app_select">Wybierz aplikacje</string>
     <string name="title_app_settings">Ustawienia aplikacji</string>
     <string name="title_about">O</string>
-    <string name="title_about_fork">O tym forku</string>
+    <string name="title_about_fork">O tym rozwidleniu</string>
     <string name="do_not_dual">Nie instaluj HMA na drugim użytkowniku</string>
     <string name="show_crash_log">Pokaż dziennik awarii</string>
     <string name="config_damaged">Plik konfiguracyjny uszkodzony. Proszę wyczyścić dane aplikacji</string>
@@ -38,7 +38,7 @@
     <string name="home_xposed_service_on">Uruchomiono usługę systemową [%d]</string>
     <string name="home_xposed_service_off">Usługa systemowa nie jest uruchomiona</string>
     <string name="home_xposed_service_old">Moduł zaktualizowany, wymaga reboota</string>
-    <string name="home_xposed_filter_count">HMA-OSS przefiltrowało %d zapytań</string>
+    <string name="home_xposed_filter_count">HMA-OSS przefiltrował łącznie %d żądań</string>
     <string name="home_manage">Zarządzaj</string>
     <string name="home_detection_test">Test wykrywalności</string>
     <string name="home_download_test_app_title">Pobierz aplikację testową</string>
