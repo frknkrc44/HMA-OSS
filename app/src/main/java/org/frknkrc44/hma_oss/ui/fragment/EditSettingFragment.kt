@@ -4,6 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.navArgs
@@ -48,12 +49,6 @@ class EditSettingFragment : Fragment(R.layout.fragment_edit_setting) {
         navController.navigateUp()
     }
 
-    override fun onDestroy() {
-        saveResult()
-
-        super.onDestroy()
-    }
-
     fun getEditTextValue(textInputLayout: TextInputLayout, blankCheck: Boolean = true): String? {
         if ((blankCheck && textInputLayout.editText?.text.isNullOrBlank()) ||
             (!blankCheck && textInputLayout.editText?.text.isNullOrEmpty())) {
@@ -65,6 +60,8 @@ class EditSettingFragment : Fragment(R.layout.fragment_edit_setting) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) { onBack() }
 
         setupToolbar(
             toolbar = binding.toolbar,

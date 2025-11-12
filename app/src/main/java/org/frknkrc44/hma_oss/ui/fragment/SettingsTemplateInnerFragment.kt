@@ -1,5 +1,6 @@
 package org.frknkrc44.hma_oss.ui.fragment
 
+import android.annotation.SuppressLint
 import android.view.MenuItem
 import androidx.fragment.app.clearFragmentResultListener
 import androidx.fragment.app.setFragmentResult
@@ -65,14 +66,12 @@ class SettingsTemplateInnerFragment : BaseSettingsPTFragment() {
                 val item = bundle.toTargetSettingList().firstOrNull()
 
                 if (item != null) {
-                    if (item.name == args.name) {
-                        val index = adapter.items.indexOfFirst { it.name == item.name }
-                        if (index >= 0) {
-                            adapter.items[index] = item
-                            adapter.notifyItemChanged(index)
-                        }
+                    val index = adapter.items.indexOfFirst { it.name == item.name && it.database == item.database }
+
+                    if (index >= 0) {
+                        adapter.items[index] = item
+                        adapter.notifyItemChanged(index)
                     } else {
-                        adapter.items.removeIf { it.name == args.name }
                         adapter.items.add(item)
                         adapter.notifyItemInserted(adapter.items.size - 1)
                     }
