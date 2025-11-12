@@ -5,6 +5,7 @@
     <string name="title_settings">設定</string>
     <string name="title_template_manage">模板管理</string>
     <string name="title_template_settings">模板設定</string>
+    <string name="title_settings_template_conf">Settings template configuration</string>
     <string name="title_app_manage">管理應用程式</string>
     <string name="title_app_select">選擇應用程式</string>
     <string name="title_app_settings">應用程式設定</string>
@@ -28,6 +29,8 @@
     <string name="no">否</string>
     <string name="search">搜索</string>
     <string name="system">系統</string>
+    <string name="add">Add</string>
+    <string name="edit">Edit</string>
     <string name="follow_system">依據系統設定</string>
     <!-- Home -->
     <string name="home_xposed_activated">模組已啟用 [%s]</string>
@@ -67,12 +70,14 @@
     <string name="template_usage_hint">為不安分的「應用程式」建立模板，控制他們可讀取的應用程式列表。\n\n黑名單 (推薦使用)：開啟此模板的應用程式將看不到黑名單內勾選的應用程式。\n白名單：開啟此模板的應用程式將只能看到白名單模板勾選內的應用程式。</string>
     <string name="template_new_blacklist">建立黑名單模板</string>
     <string name="template_new_whitelist">建立白名單模板</string>
+    <string name="template_new_setting">Create a settings template</string>
     <string name="template_delete">你確定要刪除該模板嗎？</string>
     <string name="template_name">模板名稱</string>
     <string name="template_name_invalid">名稱無效</string>
     <string name="template_delete_title">删除模板</string>
     <string name="template_name_already_exist">模板名稱已經存在</string>
     <string name="template_applied_count">已對 %d 個應用程式啟用</string>
+    <string name="template_setting_count">%d settings added</string>
     <string name="template_apps_visible_count">對 %d 個應用程式顯示</string>
     <string name="template_apps_invisible_count">對 %d 個應用程式執行攔截</string>
     <!-- App settings -->
@@ -85,6 +90,7 @@
     <string name="app_template_using">已使用 %d 個模板</string>
     <string name="app_preset_using">已使用 %d 個預設</string>
     <string name="app_settings_preset_using">已使用 %d 個設定預設</string>
+    <string name="app_settings_template_using">Using %d settings templates</string>
     <string name="app_extra_apps_visible_count">額外新增 %d 個可見的應用程式</string>
     <string name="app_extra_apps_invisible_count">額外新增 %d 個攔截的應用程式</string>
     <string name="app_warning_risky_package_title">風險軟體包</string>
@@ -117,6 +123,10 @@
     <string name="settings_preset_accessibility">輔助功能</string>
     <string name="settings_preset_dev_options">開發人員選項</string>
     <string name="settings_preset_input_method">Input method</string>
+    <!-- Settings templates -->
+    <string name="settings_templates_database">Settings database</string>
+    <string name="settings_templates_name">Setting name</string>
+    <string name="settings_templates_value">Setting value</string>
     <!-- Logs -->
     <string name="logs_save">保存日誌</string>
     <string name="logs_clear">清除日誌</string>
