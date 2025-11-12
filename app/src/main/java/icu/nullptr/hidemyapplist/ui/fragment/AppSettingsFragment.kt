@@ -148,9 +148,9 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
                 getString(R.string.app_template_using, pack.config.applyTemplates.size)
         }
 
-        private fun updateApplyPresets() {
+        private fun updateApplyPresets(useWhitelist: Boolean = pack.config.useWhitelist) {
             findPreference<Preference>("applyPresets")?.apply {
-                isVisible = !pack.config.useWhitelist
+                isVisible = !useWhitelist
                 title = getString(R.string.app_preset_using, pack.config.applyPresets.size)
             }
         }
@@ -240,12 +240,14 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
                         )
             }
             findPreference<SwitchPreferenceCompat>("useWhiteList")?.setOnPreferenceChangeListener { _, newValue ->
+                val useWhitelist = newValue as Boolean
+
                 pack.config.applyTemplates.clear()
                 pack.config.extraAppList.clear()
                 pack.config.applyPresets.clear()
                 updateApplyTemplates()
-                updateApplyPresets()
-                updateExtraAppList(newValue as Boolean)
+                updateApplyPresets(useWhitelist)
+                updateExtraAppList(useWhitelist)
                 true
             }
             findPreference<Preference>("applyTemplates")?.setOnPreferenceClickListener {
