@@ -14,6 +14,7 @@ import icu.nullptr.hidemyapplist.common.IHMAService
 import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.common.RiskyPackageUtils.appHasGMSConnection
 import icu.nullptr.hidemyapplist.common.Utils
+import icu.nullptr.hidemyapplist.common.app_presets.DetectorAppsPreset
 import icu.nullptr.hidemyapplist.xposed.hook.AccessibilityHook
 import icu.nullptr.hidemyapplist.xposed.hook.ActivityHook
 import icu.nullptr.hidemyapplist.xposed.hook.AppDataIsolationHook
@@ -208,8 +209,17 @@ class HMAService(val pms: IPackageManager) : IHMAService.Stub() {
         if (!appConfig.useWhitelist) {
             for (presetName in appConfig.applyPresets) {
                 val preset = AppPresets.instance.getPresetByName(presetName) ?: continue
-                if (preset.containsPackage(query))
-                    return !isAppInGMSIgnoredPackages(caller, query)
+
+                if (preset.containsPackage(query)) {
+                    // Do not hide detector apps from Play Store if they are connected to GMS
+                    val overriddenCaller = if (presetName == DetectorAppsPreset.NAME && caller == Constants.VENDING_PACKAGE_NAME) {
+                        Constants.GMS_PACKAGE_NAME
+                    } else {
+                        caller
+                    }
+
+                    return !isAppInGMSIgnoredPackages(overriddenCaller, query)
+                }
             }
         }
 

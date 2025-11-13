@@ -3,7 +3,11 @@ package icu.nullptr.hidemyapplist.common.app_presets
 import android.content.pm.ApplicationInfo
 import icu.nullptr.hidemyapplist.common.Utils
 
-class CustomROMPreset : BasePreset("custom_rom") {
+class CustomROMPreset : BasePreset(NAME) {
+    companion object {
+        const val NAME = "custom_rom"
+    }
+
     override val exactPackageNames = setOf(
         "io.chaldeaprjkt.gamespace",
         "powersaver.pro",

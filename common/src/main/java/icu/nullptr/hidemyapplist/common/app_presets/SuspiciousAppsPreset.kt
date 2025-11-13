@@ -3,7 +3,11 @@ package icu.nullptr.hidemyapplist.common.app_presets
 import android.content.pm.ApplicationInfo
 import java.util.zip.ZipFile
 
-class SuspiciousAppsPreset : BasePreset("sus_apps") {
+class SuspiciousAppsPreset : BasePreset(NAME) {
+    companion object {
+        const val NAME = "sus_apps"
+    }
+
     override val exactPackageNames = setOf(
         "com.reveny.vbmetafix.service",
         "berserker.android.apps.sshdroid",

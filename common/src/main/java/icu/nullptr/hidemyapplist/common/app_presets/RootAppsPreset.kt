@@ -4,7 +4,11 @@ import android.content.pm.ApplicationInfo
 import icu.nullptr.hidemyapplist.common.Utils
 import java.util.zip.ZipFile
 
-class RootAppsPreset : BasePreset("root_apps") {
+class RootAppsPreset : BasePreset(NAME) {
+    companion object {
+        const val NAME = "root_apps"
+    }
+
     override val exactPackageNames = setOf(
         // rooted apps
         "io.github.a13e300.ksuwebui",

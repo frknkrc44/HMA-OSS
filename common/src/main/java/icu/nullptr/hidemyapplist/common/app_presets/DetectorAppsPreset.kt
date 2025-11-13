@@ -2,7 +2,11 @@ package icu.nullptr.hidemyapplist.common.app_presets
 
 import android.content.pm.ApplicationInfo
 
-class DetectorAppsPreset  : BasePreset("detector_apps") {
+class DetectorAppsPreset  : BasePreset(NAME) {
+    companion object {
+        const val NAME = "detector_apps"
+    }
+
     override val exactPackageNames = setOf(
         // Detector apps
         "com.reveny.nativecheck",

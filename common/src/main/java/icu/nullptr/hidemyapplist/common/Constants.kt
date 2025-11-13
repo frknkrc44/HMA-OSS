@@ -4,8 +4,8 @@ import org.frknkrc44.hma_oss.common.BuildConfig
 
 object Constants {
     const val PROVIDER_AUTHORITY = "${BuildConfig.APP_PACKAGE_NAME}.ServiceProvider"
-    private const val GMS_PACKAGE_NAME = "com.google.android.gms"
-    private const val GSF_PACKAGE_NAME = "com.google.android.gsf"
+    const val GMS_PACKAGE_NAME = "com.google.android.gms"
+    const val GSF_PACKAGE_NAME = "com.google.android.gsf"
     const val VENDING_PACKAGE_NAME = "com.android.vending"
     const val TRANSLATE_URL = "https://crowdin.com/project/frknkrc44-hma-oss"
 
