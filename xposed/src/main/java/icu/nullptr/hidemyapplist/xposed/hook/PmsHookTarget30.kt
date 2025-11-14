@@ -24,7 +24,24 @@ class PmsHookTarget30(service: HMAService) : PmsHookTargetBase(service) {
         private const val TAG = "PmsHookTarget30"
     }
 
-    override val fakeSystemPackageInstallInfo: Any by lazy {
+    /*
+    override val fakeUserPackageInstallSource: Any by lazy {
+        findConstructor(
+            "com.android.server.pm.InstallSource"
+        ) {
+            true
+        }.newInstance(
+            VENDING_PACKAGE_NAME,
+            VENDING_PACKAGE_NAME,
+            VENDING_PACKAGE_NAME,
+            false,
+            false,
+            psSigningDetails,
+        )
+    }
+     */
+
+    override val fakeSystemPackageInstallSourceInfo: Any by lazy {
         findConstructor(
             "android.content.pm.InstallSourceInfo"
         ) {
@@ -37,7 +54,7 @@ class PmsHookTarget30(service: HMAService) : PmsHookTargetBase(service) {
         )
     }
 
-    override val fakeUserPackageInstallInfo: Any by lazy {
+    override val fakeUserPackageInstallSourceInfo: Any by lazy {
         findConstructor(
             "android.content.pm.InstallSourceInfo"
         ) {

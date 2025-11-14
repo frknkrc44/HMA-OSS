@@ -33,7 +33,7 @@ import java.io.File
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-class HMAService(val pms: IPackageManager) : IHMAService.Stub() {
+class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
     companion object {
         private const val TAG = "HMA-Service"
@@ -240,25 +240,31 @@ class HMAService(val pms: IPackageManager) : IHMAService.Stub() {
     }
 
     fun shouldHideInstallationSource(caller: String?, query: String?, user: UserHandle): Int {
-        if (caller == null || query == null) return 0
-        if (caller == BuildConfig.APP_PACKAGE_NAME) return 0
-        val appConfig = config.scope[caller] ?: return 0
-        if (!appConfig.hideInstallationSource) return 0
+        if (caller == null || query == null) return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
+        if (caller == BuildConfig.APP_PACKAGE_NAME) return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
+        val appConfig = config.scope[caller] ?: return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
+        if (!appConfig.hideInstallationSource) return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
         logD(TAG, "@shouldHideInstallationSource $caller: $query")
-        if (caller == query && appConfig.excludeTargetInstallationSource) return 0
+        if (caller == query && appConfig.excludeTargetInstallationSource) return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
 
         try {
             val uid = Utils.getPackageUidCompat(pms, query, 0L, user.hashCode())
             logD(TAG, "@shouldHideInstallationSource UID for $caller, ${user.hashCode()}: $query, $uid")
-            if (uid < 0) return 0 // invalid package installation source request
+            if (uid < 0) return Constants.FAKE_INSTALLATION_SOURCE_DISABLED // invalid package installation source request
         } catch (e: Throwable) {
             logD(TAG, "@shouldHideInstallationSource UID error for $caller, ${user.hashCode()}", e)
-            return 0
+            return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
         }
 
         return if (query in systemApps) {
-            if (appConfig.hideSystemInstallationSource) { 2 } else { 0 }
-        } else { 1 }
+            if (appConfig.hideSystemInstallationSource) {
+                Constants.FAKE_INSTALLATION_SOURCE_SYSTEM
+            } else {
+                Constants.FAKE_INSTALLATION_SOURCE_DISABLED
+            }
+        } else {
+            Constants.FAKE_INSTALLATION_SOURCE_USER
+        }
     }
 
     override fun stopService(cleanEnv: Boolean) {

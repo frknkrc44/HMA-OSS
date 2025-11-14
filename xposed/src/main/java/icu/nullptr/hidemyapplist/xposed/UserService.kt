@@ -52,9 +52,9 @@ object UserService {
         }
     }
 
-    fun register(pms: IPackageManager) {
+    fun register(pms: IPackageManager, pmn: Any?) {
         logI(TAG, "Initialize HMAService - Version ${BuildConfig.APP_VERSION_NAME}")
-        val service = HMAService(pms)
+        val service = HMAService(pms, pmn)
 
         try {
             appUid = Utils.getPackageUidCompat(service.pms, BuildConfig.APP_PACKAGE_NAME, 0, 0)

@@ -24,6 +24,10 @@ object Constants {
     // const val SETTINGS_TYPE_SSAID: Int = 3
     // const val SETTINGS_TYPE_CONFIG: Int = 4
 
+    const val FAKE_INSTALLATION_SOURCE_DISABLED = 0
+    const val FAKE_INSTALLATION_SOURCE_USER = 1
+    const val FAKE_INSTALLATION_SOURCE_SYSTEM = 2
+
     val packagesShouldNotHide = setOf(
         "android",
         "android.media",

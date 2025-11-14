@@ -29,7 +29,11 @@ class PmsHookTarget33(service: HMAService) : PmsHookTargetBase(service) {
         }
     }
 
-    override val fakeSystemPackageInstallInfo: Any by lazy {
+    /*
+    override val fakeUserPackageInstallSource = null
+    */
+
+    override val fakeSystemPackageInstallSourceInfo: Any by lazy {
         findConstructor(
             "android.content.pm.InstallSourceInfo"
         ) {
@@ -43,7 +47,7 @@ class PmsHookTarget33(service: HMAService) : PmsHookTargetBase(service) {
         )
     }
 
-    override val fakeUserPackageInstallInfo: Any by lazy {
+    override val fakeUserPackageInstallSourceInfo: Any by lazy {
         findConstructor(
             "android.content.pm.InstallSourceInfo"
         ) {

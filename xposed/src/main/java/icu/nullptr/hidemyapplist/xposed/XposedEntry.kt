@@ -14,6 +14,8 @@ private const val TAG = "HMA-XposedEntry"
 
 @Suppress("unused")
 class XposedEntry : IXposedHookZygoteInit, IXposedHookLoadPackage {
+    var targetsLeft = mutableListOf("package", "package_native")
+    var targetStorage = mutableMapOf<String, Any?>()
 
     override fun initZygote(startupParam: IXposedHookZygoteInit.StartupParam) {
         EzXHelperInit.initZygote(startupParam)
@@ -28,13 +30,31 @@ class XposedEntry : IXposedHookZygoteInit, IXposedHookLoadPackage {
             serviceManagerHook = findMethod("android.os.ServiceManager") {
                 name == "addService"
             }.hookBefore { param ->
-                if (param.args[0] == "package") {
+                val name = param.args[0] as String
+                if (targetsLeft.contains(name)) {
+                    when (name) {
+                        "package", "package_native" -> {
+                            targetStorage[name] = param.args[1]
+                            targetsLeft.remove(name)
+                        }
+                        else -> {
+                            // skip if there is no package_native available
+                            if (targetStorage.containsKey("package")) {
+                                targetsLeft.remove("package_native")
+                            }
+                        }
+                    }
+                }
+
+                if (targetsLeft.isEmpty()) {
                     serviceManagerHook?.unhook()
-                    val pms = param.args[1] as IPackageManager
-                    logD(TAG, "Got pms: $pms")
+                    val pms = targetStorage["package"] as IPackageManager
+                    val pmn = targetStorage["package_native"]
+                    logD(TAG, "Got pms: $pms, $pmn")
                     thread {
                         runCatching {
-                            UserService.register(pms)
+                            UserService.register(pms, pmn)
+                            targetStorage.clear()
                             logI(TAG, "User service started")
                         }.onFailure {
                             logE(TAG, "System service crashed", it)

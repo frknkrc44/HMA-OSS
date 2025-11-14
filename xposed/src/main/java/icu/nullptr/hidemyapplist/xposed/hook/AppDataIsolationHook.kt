@@ -87,19 +87,26 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
         ) {
             name == "needsStorageDataIsolation"
         }?.hookAfter { param ->
-            if (service.config.altVoldAppDataIsolation && service.config.skipSystemAppDataIsolation) {
+            if (service.config.altVoldAppDataIsolation) {
                 val app = param.args.find { it.javaClass.simpleName == "ProcessRecord" }
                 val uid = XposedHelpers.getIntField(app, "uid")
                 val apps = Utils.binderLocalScope {
                     service.pms.getPackagesForUid(uid)
                 } ?: return@hookAfter
 
-                val isSystemApp = service.systemApps.any { apps.contains(it) }
-                logD(
-                    TAG,
-                    "@needsStorageDataIsolation $uid - ${apps.contentToString()} isSystemApp: $isSystemApp"
-                )
-                if (isSystemApp) param.result = false
+                if (service.config.skipSystemAppDataIsolation) {
+                    val isSystemApp = service.systemApps.any { apps.contains(it) }
+                    logD(
+                        TAG,
+                        "@needsStorageDataIsolation $uid - ${apps.contentToString()} isSystemApp: $isSystemApp"
+                    )
+                    if (isSystemApp) {
+                        param.result = false
+                        return@hookAfter
+                    }
+                }
+
+                param.result = true
             }
         }?.let {
             hooks += it

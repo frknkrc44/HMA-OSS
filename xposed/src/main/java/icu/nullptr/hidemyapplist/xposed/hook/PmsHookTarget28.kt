@@ -19,8 +19,11 @@ class PmsHookTarget28(service: HMAService) : PmsHookTargetBase(service) {
     }
 
     // not required until SDK 30
-    override val fakeSystemPackageInstallInfo = null
-    override val fakeUserPackageInstallInfo = null
+    /*
+    override val fakeUserPackageInstallSource = null
+    */
+    override val fakeSystemPackageInstallSourceInfo = null
+    override val fakeUserPackageInstallSourceInfo = null
 
     @Suppress("UNCHECKED_CAST")
     override fun load() {
