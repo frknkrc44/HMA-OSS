@@ -11,6 +11,7 @@
 - [中文（简体）](README_zh_CN.md)
 - [Türkçe](README_tr.md)
 - [日本語](README_ja.md)
+- [Bahasa Indonesia](README_id.md)
 
 ## About this module
 
