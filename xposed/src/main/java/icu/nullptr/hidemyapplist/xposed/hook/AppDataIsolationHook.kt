@@ -2,7 +2,6 @@ package icu.nullptr.hidemyapplist.xposed.hook
 
 import android.os.Build
 import android.os.SystemProperties
-import android.os.UserHandle
 import androidx.annotation.RequiresApi
 import com.github.kyuubiran.ezxhelper.utils.findMethodOrNull
 import com.github.kyuubiran.ezxhelper.utils.hookAfter
@@ -38,7 +37,7 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
             "com.android.server.am.ProcessList"
         ) {
             name == "startProcess"
-        }?.hookAfter { param ->
+        }?.hookBefore { param ->
             if (service.config.altAppDataIsolation) {
                 val isEnabled = XposedHelpers.getBooleanField(
                     param.thisObject,
