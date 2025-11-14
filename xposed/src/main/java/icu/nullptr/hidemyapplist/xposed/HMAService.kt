@@ -175,6 +175,12 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
     fun isHookEnabled(packageName: String?) = config.scope.containsKey(packageName)
 
+    fun isAppDataIsolationExcluded(packageName: String?): Boolean {
+        if (packageName.isNullOrBlank()) return false
+
+        return config.scope[packageName]?.excludeVoldIsolation ?: false
+    }
+
     fun getEnabledSettingsTemplates(caller: String?): Set<String> {
         if (caller == null) return setOf()
         return config.scope[caller]?.applySettingTemplates ?: return setOf()

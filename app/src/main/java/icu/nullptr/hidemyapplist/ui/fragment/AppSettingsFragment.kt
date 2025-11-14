@@ -115,6 +115,7 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
                 "hideSystemInstallationSource" -> pack.config.hideSystemInstallationSource
                 "excludeTargetInstallationSource" -> pack.config.excludeTargetInstallationSource
                 "invertActivityLaunchProtection" -> pack.config.invertActivityLaunchProtection
+                "excludeVoldIsolation" -> pack.config.excludeVoldIsolation
                 else -> throw IllegalArgumentException("Invalid key: $key")
             }
         }
@@ -128,6 +129,7 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
                 "hideSystemInstallationSource" -> pack.config.hideSystemInstallationSource = value
                 "excludeTargetInstallationSource" -> pack.config.excludeTargetInstallationSource = value
                 "invertActivityLaunchProtection" -> pack.config.invertActivityLaunchProtection = value
+                "excludeVoldIsolation" -> pack.config.excludeVoldIsolation = value
                 else -> throw IllegalArgumentException("Invalid key: $key")
             }
         }
@@ -227,6 +229,9 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
                 Toast.makeText(requireContext(),
                     R.string.app_force_stop_warning, Toast.LENGTH_LONG).show()
                 true
+            }
+            findPreference<SwitchPreferenceCompat>("excludeVoldIsolation")?.let {
+                it.isEnabled = ConfigManager.altVoldAppDataIsolation
             }
             findPreference<SwitchPreferenceCompat>("invertActivityLaunchProtection")?.let {
                 it.summary = getString(R.string.app_invert_activity_launch_protection_desc) + "\n\n" +
