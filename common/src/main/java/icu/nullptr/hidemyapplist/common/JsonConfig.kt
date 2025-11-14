@@ -5,8 +5,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import org.frknkrc44.hma_oss.common.BuildConfig
 
-// TODO: Add setting templates
-
 @Serializable
 data class JsonConfig(
     var configVersion: Int = BuildConfig.CONFIG_VERSION,
