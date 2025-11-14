@@ -9,6 +9,7 @@ import android.view.WindowInsets
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.graphics.drawable.toDrawable
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.clearFragmentResultListener
 import androidx.fragment.app.setFragmentResultListener
@@ -35,6 +36,7 @@ import icu.nullptr.hidemyapplist.util.PackageHelper
 import org.frknkrc44.hma_oss.BuildConfig
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentSettingsBinding
+import org.frknkrc44.hma_oss.databinding.LayoutListEmptyBinding
 
 class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
     companion object {
@@ -256,9 +258,9 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
                 val checked = templates.map {
                     pack.config.applyTemplates.contains(it)
                 }.toBooleanArray()
-                MaterialAlertDialogBuilder(requireContext())
+
+                val dialog = MaterialAlertDialogBuilder(requireContext())
                     .setTitle(R.string.app_choose_template)
-                    .setMultiChoiceItems(templates, checked) { _, i, value -> checked[i] = value }
                     .setNegativeButton(android.R.string.cancel, null)
                     .setPositiveButton(android.R.string.ok) { _, _ ->
                         pack.config.applyTemplates = templates.mapIndexedNotNullTo(mutableSetOf()) { i, name ->
@@ -266,7 +268,21 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
                         }
                         updateApplyTemplates()
                     }
-                    .show()
+
+                if (templates.isNotEmpty()) {
+                    dialog.setMultiChoiceItems(templates, checked) { _, i, value ->
+                        checked[i] = value
+                    }
+                } else {
+                    val emptyView = LayoutListEmptyBinding.inflate(layoutInflater)
+                    emptyView.root.isVisible = true
+                    emptyView.listEmptyIcon.setImageResource(R.drawable.sentiment_very_dissatisfied_24px)
+                    emptyView.listEmptyText.text = getString(R.string.title_template_manage)
+                    dialog.setView(emptyView.root)
+                }
+
+                dialog.show()
+
                 true
             }
             findPreference<Preference>("applyPresets")?.setOnPreferenceClickListener {
@@ -305,22 +321,32 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
             }
             findPreference<Preference>("applySettingsTemplates")?.apply {
                 setOnPreferenceClickListener {
-                    val templateNames = ConfigManager.getSettingTemplateList().mapNotNull { it.name }.toTypedArray()
-                    val checked = templateNames.map {
+                    val templates = ConfigManager.getSettingTemplateList().mapNotNull { it.name }.toTypedArray()
+                    val checked = templates.map {
                         pack.config.applySettingTemplates.contains(it)
                     }.toBooleanArray()
 
-                    MaterialAlertDialogBuilder(requireContext())
+                    val dialog = MaterialAlertDialogBuilder(requireContext())
                         .setTitle(R.string.app_choose_template)
-                        .setMultiChoiceItems(templateNames, checked) { _, i, value -> checked[i] = value }
                         .setNegativeButton(android.R.string.cancel, null)
                         .setPositiveButton(android.R.string.ok) { _, _ ->
-                            pack.config.applySettingTemplates = templateNames.mapIndexedNotNullTo(mutableSetOf()) { i, name ->
+                            pack.config.applySettingTemplates = templates.mapIndexedNotNullTo(mutableSetOf()) { i, name ->
                                 if (checked[i]) name else null
                             }
                             updateApplySettingsTemplates()
                         }
-                        .show()
+
+                    if (templates.isNotEmpty()) {
+                        dialog.setMultiChoiceItems(templates, checked) { _, i, value -> checked[i] = value }
+                    } else {
+                        val emptyView = LayoutListEmptyBinding.inflate(layoutInflater)
+                        emptyView.root.isVisible = true
+                        emptyView.listEmptyIcon.setImageResource(R.drawable.sentiment_very_dissatisfied_24px)
+                        emptyView.listEmptyText.text = getString(R.string.title_template_manage)
+                        dialog.setView(emptyView.root)
+                    }
+
+                    dialog.show()
                     true
                 }
             }

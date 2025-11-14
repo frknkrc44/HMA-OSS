@@ -138,7 +138,7 @@ abstract class AppSelectFragment : Fragment(R.layout.fragment_app_select) {
         adapter.registerAdapterDataObserver(
             EmptyDataObserver(
                 binding.list,
-                binding.listEmptyContainer
+                binding.listEmptyContainer.root
             )
         )
 
