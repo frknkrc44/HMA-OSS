@@ -70,7 +70,7 @@
     <string name="template_usage_hint">Erstellen Sie Vorlagen für \"ruhelose\" Apps und kontrollieren Sie den App, den Sie erhalten können.\n\nBlacklist (empfohlen): Die im Template ausgewählten Apps werden für die Apps, die die Vorlage anwenden, unsichtbar sein.\nWhitelist: Die im Template nicht ausgewählten Apps sind für die Apps, die die Vorlage anwenden, unsichtbar.</string>
     <string name="template_new_blacklist">Blacklist</string>
     <string name="template_new_whitelist">Whitelist</string>
-    <string name="template_new_setting">Create a settings template</string>
+    <string name="template_new_setting">Einstellungsvorlage erstellen</string>
     <string name="template_delete">Sind Sie sicher, dass Sie die Vorlage löschen wollen?</string>
     <string name="template_name">Name der Vorlage</string>
     <string name="template_name_invalid">Ungültiger Name</string>
@@ -124,7 +124,7 @@
     <string name="settings_preset_dev_options">Entwickleroptionen</string>
     <string name="settings_preset_input_method">Eingabemethode</string>
     <!-- Settings templates -->
-    <string name="settings_templates_database">Settings database</string>
+    <string name="settings_templates_database">Einstellungen Datenbank</string>
     <string name="settings_templates_name">Einstellungsname</string>
     <string name="settings_templates_value">Einstellungswert</string>
     <!-- Logs -->
