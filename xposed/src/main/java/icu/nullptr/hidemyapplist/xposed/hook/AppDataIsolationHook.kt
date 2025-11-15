@@ -15,7 +15,6 @@ import icu.nullptr.hidemyapplist.xposed.logE
 import icu.nullptr.hidemyapplist.xposed.logI
 import org.frknkrc44.hma_oss.common.BuildConfig
 
-
 @RequiresApi(Build.VERSION_CODES.R)
 class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
 
@@ -118,6 +117,10 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
                     return@hookAfter
                 }
 
+                if (apps.any { service.isAppDataIsolationExcluded(it) }) {
+                    param.result = false
+                }
+
                 if (service.config.skipSystemAppDataIsolation) {
                     val isSystemApp = service.systemApps.any { apps.contains(it) }
                     logD(
@@ -129,10 +132,6 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
                         param.result = false
                         return@hookAfter
                     }
-                }
-
-                if (apps.any { service.isAppDataIsolationExcluded(it) }) {
-                    param.result = false
                 }
             }
         }?.let {

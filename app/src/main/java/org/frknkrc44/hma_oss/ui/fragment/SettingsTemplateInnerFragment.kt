@@ -1,6 +1,5 @@
 package org.frknkrc44.hma_oss.ui.fragment
 
-import android.annotation.SuppressLint
 import android.view.MenuItem
 import androidx.fragment.app.clearFragmentResultListener
 import androidx.fragment.app.setFragmentResult
