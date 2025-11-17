@@ -5,6 +5,7 @@
     <string name="title_settings">Instellingen</string>
     <string name="title_template_manage">Template manage</string>
     <string name="title_template_settings">Sjablooninstellingen</string>
+    <string name="title_settings_template_conf">Settings template configuration</string>
     <string name="title_app_manage">App manage</string>
     <string name="title_app_select">Selecteer Apps</string>
     <string name="title_app_settings">App instellingen</string>
@@ -28,6 +29,8 @@
     <string name="no">Nee</string>
     <string name="search">Zoeken</string>
     <string name="system">Systeem</string>
+    <string name="add">Add</string>
+    <string name="edit">Edit</string>
     <string name="follow_system">Volg systeem</string>
     <!-- Home -->
     <string name="home_xposed_activated">Module Geactiveerd</string>
@@ -67,12 +70,14 @@
     <string name="template_usage_hint">Stel sjablonen op voor \'rusteloze\' apps en beheer de applist die ze kunnen verkrijgen.\n\nBlacklist (aanbevolen): de apps die in de template zijn geselecteerd, zijn onzichtbaar voor de apps die de template toepassen.\nWhitelist: de apps die niet in de template zijn geselecteerd, zijn onzichtbaar voor de apps die de template toepassen.</string>
     <string name="template_new_blacklist">Maak een Blacklist sjabloon</string>
     <string name="template_new_whitelist">Maak een whitelist-sjabloon</string>
+    <string name="template_new_setting">Create a settings template</string>
     <string name="template_delete">Ben je zeker dat je deze sjabloon wilt verwijderen?</string>
     <string name="template_name">Sjabloonnaam</string>
     <string name="template_name_invalid">Naam ongelidig</string>
     <string name="template_delete_title">Verwijder sjabloon</string>
     <string name="template_name_already_exist">Sjabloon naam bestaat al</string>
     <string name="template_applied_count">Toegepast op %d apps</string>
+    <string name="template_setting_count">%d settings added</string>
     <string name="template_apps_visible_count">%d apps zichtbaar</string>
     <string name="template_apps_invisible_count">%d apps onzichtbaar</string>
     <!-- App settings -->
@@ -85,6 +90,7 @@
     <string name="app_template_using">Gebruikt %d sjabloon</string>
     <string name="app_preset_using">Gebruik %d presets</string>
     <string name="app_settings_preset_using">Geruikt huidige %d instellingen</string>
+    <string name="app_settings_template_using">Using %d settings templates</string>
     <string name="app_extra_apps_visible_count">%d extra apps zichtbaar</string>
     <string name="app_extra_apps_invisible_count">%d extra apps onzichtbaar</string>
     <string name="app_warning_risky_package_title">Risicovol pakket</string>
@@ -112,9 +118,15 @@
     <string name="preset_custom_rom">Custom ROM apps</string>
     <string name="preset_sus_apps">Suspicious apps</string>
     <string name="preset_detector_apps">Detector/Checker apps</string>
+    <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku apps</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Accessibility</string>
     <string name="settings_preset_dev_options">Developer options</string>
+    <string name="settings_preset_input_method">Input method</string>
+    <!-- Settings templates -->
+    <string name="settings_templates_database">Settings database</string>
+    <string name="settings_templates_name">Setting name</string>
+    <string name="settings_templates_value">Setting value</string>
     <!-- Logs -->
     <string name="logs_save">Save logs</string>
     <string name="logs_clear">Clear logs</string>
@@ -150,6 +162,8 @@
     <string name="settings_clear_uninstalled_app_configs">Clear uninstalled app configs</string>
     <string name="settings_clear_uninstalled_app_configs_summary">This option allows you to create a config without remnants but you\'ll have to reconfigure apps when you installed them again.</string>
     <string name="settings_no_undone_warning">This action cannot be undone.</string>
+    <string name="settings_package_query_workaround">Alternative package query</string>
+    <string name="settings_package_query_workaround_summary">Don\'t enable this option if you see the package list in this app correctly.</string>
     <string name="settings_language">Language</string>
     <string name="settings_translate">Participate in translation</string>
     <string name="settings_translate_summary">Help us translate %s into your language</string>

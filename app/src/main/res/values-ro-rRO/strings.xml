@@ -5,6 +5,7 @@
     <string name="title_settings">Setări</string>
     <string name="title_template_manage">Gestionarea șablonului</string>
     <string name="title_template_settings">Setările șablonului</string>
+    <string name="title_settings_template_conf">Settings template configuration</string>
     <string name="title_app_manage">Gestionare aplicație</string>
     <string name="title_app_select">Selectează aplicații</string>
     <string name="title_app_settings">Setările aplicației</string>
@@ -28,6 +29,8 @@
     <string name="no">Nu</string>
     <string name="search">Căutare</string>
     <string name="system">Sistem</string>
+    <string name="add">Add</string>
+    <string name="edit">Edit</string>
     <string name="follow_system">Urmează setările de sistem</string>
     <!-- Home -->
     <string name="home_xposed_activated">Modul Activat [%s]</string>
@@ -67,12 +70,14 @@
     <string name="template_usage_hint">Stabilirea șabloanelor pentru aplicații \"neliniștite\", ce vor controla lista aplicațiilor vizibile pentru ele. \n\nLista neagră (se recomandă): aplicațiile selectate în șablon vor fi invizibile pentru aplicațiile la care se aplică șablonul.\nLista albă: aplicațiile neselectate în șablon vor fi invizibile pentru aplicațiile la care se aplică șablonul.</string>
     <string name="template_new_blacklist">Crearea unui șablon de Listă Neagră</string>
     <string name="template_new_whitelist">Crearea unui șablon de Listă Albă</string>
+    <string name="template_new_setting">Create a settings template</string>
     <string name="template_delete">Sunteți sigur că doriți să eliminați acest șablon?</string>
     <string name="template_name">Numele șablonului</string>
     <string name="template_name_invalid">Numele nu este valid</string>
     <string name="template_delete_title">Eliminare șablon</string>
     <string name="template_name_already_exist">Șablon cu același nume deja există</string>
     <string name="template_applied_count">Aplicat la %d aplicații</string>
+    <string name="template_setting_count">%d settings added</string>
     <string name="template_apps_visible_count">%d aplicații vizibile</string>
     <string name="template_apps_invisible_count">%d aplicații invizibile</string>
     <!-- App settings -->
@@ -85,6 +90,7 @@
     <string name="app_template_using">Se folosesc %d șabloane</string>
     <string name="app_preset_using">Se folosesc %d preseturi</string>
     <string name="app_settings_preset_using">Se folosesc %d preseturi pentru setări</string>
+    <string name="app_settings_template_using">Using %d settings templates</string>
     <string name="app_extra_apps_visible_count">%d aplicații extra vizibile</string>
     <string name="app_extra_apps_invisible_count">%d aplicații extra invizibile</string>
     <string name="app_warning_risky_package_title">Pachet riscant</string>
@@ -112,9 +118,15 @@
     <string name="preset_custom_rom">Custom ROM apps</string>
     <string name="preset_sus_apps">Suspicious apps</string>
     <string name="preset_detector_apps">Detector/Checker apps</string>
+    <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku apps</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Accessibility</string>
     <string name="settings_preset_dev_options">Developer options</string>
+    <string name="settings_preset_input_method">Input method</string>
+    <!-- Settings templates -->
+    <string name="settings_templates_database">Settings database</string>
+    <string name="settings_templates_name">Setting name</string>
+    <string name="settings_templates_value">Setting value</string>
     <!-- Logs -->
     <string name="logs_save">Save logs</string>
     <string name="logs_clear">Clear logs</string>
@@ -150,6 +162,8 @@
     <string name="settings_clear_uninstalled_app_configs">Clear uninstalled app configs</string>
     <string name="settings_clear_uninstalled_app_configs_summary">This option allows you to create a config without remnants but you\'ll have to reconfigure apps when you installed them again.</string>
     <string name="settings_no_undone_warning">This action cannot be undone.</string>
+    <string name="settings_package_query_workaround">Alternative package query</string>
+    <string name="settings_package_query_workaround_summary">Don\'t enable this option if you see the package list in this app correctly.</string>
     <string name="settings_language">Language</string>
     <string name="settings_translate">Participate in translation</string>
     <string name="settings_translate_summary">Help us translate %s into your language</string>

@@ -5,6 +5,7 @@
     <string name="title_settings">Settings</string>
     <string name="title_template_manage">Template manage</string>
     <string name="title_template_settings">Template settings</string>
+    <string name="title_settings_template_conf">Settings template configuration</string>
     <string name="title_app_manage">App manage</string>
     <string name="title_app_select">Select apps</string>
     <string name="title_app_settings">App settings</string>
@@ -28,6 +29,8 @@
     <string name="no">No</string>
     <string name="search">Search</string>
     <string name="system">System</string>
+    <string name="add">Add</string>
+    <string name="edit">Edit</string>
     <string name="follow_system">Follow system</string>
     <!-- Home -->
     <string name="home_xposed_activated">Module Activated [%s]</string>
@@ -67,12 +70,14 @@
     <string name="template_usage_hint">Establish templates for \"restless\" apps, controlling applist they can obtain.\n\nBlacklist (recommended): the apps selected in the template will be invisible to the apps applying the template.\nWhitelist: the apps not selected in the template will be invisible to the apps applying the template.</string>
     <string name="template_new_blacklist">Create a blacklist template</string>
     <string name="template_new_whitelist">Create a whitelist template</string>
+    <string name="template_new_setting">Create a settings template</string>
     <string name="template_delete">Are you sure to delete the template?</string>
     <string name="template_name">Template name</string>
     <string name="template_name_invalid">Name invalid</string>
     <string name="template_delete_title">Delete Template</string>
     <string name="template_name_already_exist">Template name already exist</string>
     <string name="template_applied_count">Applied to %d apps</string>
+    <string name="template_setting_count">%d settings added</string>
     <string name="template_apps_visible_count">%d apps visible</string>
     <string name="template_apps_invisible_count">%d apps invisible</string>
     <!-- App settings -->
@@ -85,6 +90,7 @@
     <string name="app_template_using">Using %d templates</string>
     <string name="app_preset_using">Using %d presets</string>
     <string name="app_settings_preset_using">Using %d settings presets</string>
+    <string name="app_settings_template_using">Using %d settings templates</string>
     <string name="app_extra_apps_visible_count">%d additional apps visible</string>
     <string name="app_extra_apps_invisible_count">%d additional apps invisible</string>
     <string name="app_warning_risky_package_title">Risky package</string>
@@ -112,9 +118,15 @@
     <string name="preset_custom_rom">Custom ROM apps</string>
     <string name="preset_sus_apps">Suspicious apps</string>
     <string name="preset_detector_apps">Detector/Checker apps</string>
+    <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku apps</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Accessibility</string>
     <string name="settings_preset_dev_options">Developer options</string>
+    <string name="settings_preset_input_method">Input method</string>
+    <!-- Settings templates -->
+    <string name="settings_templates_database">Settings database</string>
+    <string name="settings_templates_name">Setting name</string>
+    <string name="settings_templates_value">Setting value</string>
     <!-- Logs -->
     <string name="logs_save">Save logs</string>
     <string name="logs_clear">Clear logs</string>
@@ -150,6 +162,8 @@
     <string name="settings_clear_uninstalled_app_configs">Clear uninstalled app configs</string>
     <string name="settings_clear_uninstalled_app_configs_summary">This option allows you to create a config without remnants but you\'ll have to reconfigure apps when you installed them again.</string>
     <string name="settings_no_undone_warning">This action cannot be undone.</string>
+    <string name="settings_package_query_workaround">Alternative package query</string>
+    <string name="settings_package_query_workaround_summary">Don\'t enable this option if you see the package list in this app correctly.</string>
     <string name="settings_language">Language</string>
     <string name="settings_translate">Participate in translation</string>
     <string name="settings_translate_summary">Help us translate %s into your language</string>

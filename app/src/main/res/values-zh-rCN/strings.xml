@@ -5,6 +5,7 @@
     <string name="title_settings">设置</string>
     <string name="title_template_manage">模板管理</string>
     <string name="title_template_settings">模板设置</string>
+    <string name="title_settings_template_conf">设置模板配置</string>
     <string name="title_app_manage">应用管理</string>
     <string name="title_app_select">选择应用</string>
     <string name="title_app_settings">应用配置</string>
@@ -28,6 +29,8 @@
     <string name="no">否</string>
     <string name="search">搜索</string>
     <string name="system">系统</string>
+    <string name="add">添加</string>
+    <string name="edit">编辑</string>
     <string name="follow_system">根据系统</string>
     <!-- Home -->
     <string name="home_xposed_activated">模块已激活 [%s]</string>
@@ -67,12 +70,14 @@
     <string name="template_usage_hint">为“不安分”的应用程序建立模板，控制他们可以获得的应用程序。黑名单（推荐）：在模板中选择的应用程序将对应用模板的应用程序不可见。白名单：未在模板中选择的应用程序将对应用模板的应用程序不可见。</string>
     <string name="template_new_blacklist">创建黑名单模板</string>
     <string name="template_new_whitelist">创建白名单模板</string>
+    <string name="template_new_setting">创建设置模板</string>
     <string name="template_delete">你确定要删除此模板吗？</string>
     <string name="template_name">模板名称</string>
     <string name="template_name_invalid">名称无效</string>
     <string name="template_delete_title">删除模板</string>
     <string name="template_name_already_exist">模板名称已存在</string>
     <string name="template_applied_count">已应用于 %d 个应用</string>
+    <string name="template_setting_count">已添加 %d 个设置</string>
     <string name="template_apps_visible_count">%d 个应用可见</string>
     <string name="template_apps_invisible_count">%d 个应用不可见</string>
     <!-- App settings -->
@@ -85,6 +90,7 @@
     <string name="app_template_using">已启用 %d 个模板</string>
     <string name="app_preset_using">已启用 %d 个预设</string>
     <string name="app_settings_preset_using">已启用 %d 个设置预设</string>
+    <string name="app_settings_template_using">使用 %d 个设置模板</string>
     <string name="app_extra_apps_visible_count">%d 个额外可见的应用</string>
     <string name="app_extra_apps_invisible_count">%d 个额外不可见的应用</string>
     <string name="app_warning_risky_package_title">危险软件包</string>
@@ -112,9 +118,15 @@
     <string name="preset_custom_rom">自定义 ROM 应用程序</string>
     <string name="preset_sus_apps">可疑应用程序</string>
     <string name="preset_detector_apps">检测器/检查器应用程序</string>
+    <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku应用程序</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">无障碍功能</string>
     <string name="settings_preset_dev_options">开发者选项</string>
+    <string name="settings_preset_input_method">输入法</string>
+    <!-- Settings templates -->
+    <string name="settings_templates_database">设置数据库</string>
+    <string name="settings_templates_name">设置名称</string>
+    <string name="settings_templates_value">设置值</string>
     <!-- Logs -->
     <string name="logs_save">保存日志</string>
     <string name="logs_clear">清除日志</string>
@@ -150,6 +162,8 @@
     <string name="settings_clear_uninstalled_app_configs">清除已卸载的应用程序配置</string>
     <string name="settings_clear_uninstalled_app_configs_summary">此选项允许您创建没有残留的配置，但当您再次安装应用程序时，您必须重新配置它们。</string>
     <string name="settings_no_undone_warning">此操作无法撤销</string>
+    <string name="settings_package_query_workaround">备选包查询</string>
+    <string name="settings_package_query_workaround_summary">如果在此应用中能够正确显示软件包列表，请勿启用此选项。</string>
     <string name="settings_language">语言</string>
     <string name="settings_translate">参与翻译</string>
     <string name="settings_translate_summary">帮助我们把 %s 翻译到你的语言</string>

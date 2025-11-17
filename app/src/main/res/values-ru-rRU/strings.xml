@@ -5,13 +5,14 @@
     <string name="title_settings">Настройки</string>
     <string name="title_template_manage">Управление шаблонами</string>
     <string name="title_template_settings">Настройки шаблона</string>
+    <string name="title_settings_template_conf">Settings template configuration</string>
     <string name="title_app_manage">Управление приложениями</string>
     <string name="title_app_select">Выберите приложения</string>
     <string name="title_app_settings">Настройки приложения</string>
     <string name="title_about">О модуле</string>
     <string name="title_about_fork">Об этом форке</string>
     <string name="do_not_dual">Не устанавливать HMA для второго пользователя</string>
-    <string name="show_crash_log">Показывать журнал сбоев</string>
+    <string name="show_crash_log">Показывать краш-лог</string>
     <string name="config_damaged">Файл конфигурации поврежден. Пожалуйста, очистите данные приложения</string>
     <string name="edit_list">Редактировать список</string>
     <string name="delete">Удалить</string>
@@ -28,6 +29,8 @@
     <string name="no">Нет</string>
     <string name="search">Поиск</string>
     <string name="system">Система</string>
+    <string name="add">Add</string>
+    <string name="edit">Edit</string>
     <string name="follow_system">Как в системе</string>
     <!-- Home -->
     <string name="home_xposed_activated">Модуль активирован [%s]</string>
@@ -67,12 +70,14 @@
     <string name="template_usage_hint">Установите шаблоны для «не спящих» приложений, контролируя список приложений, который они могут получить.\n\nЧёрный список (рекомендуется): приложения, выбранные в шаблоне, будут невидимыми для приложений, применяющих шаблон.\nБелый список: приложения, не выбранные в шаблоне, будут невидимыми для приложений, применяющих шаблон.</string>
     <string name="template_new_blacklist">Создать шаблон с чёрным списком</string>
     <string name="template_new_whitelist">Создать шаблон с белым списком</string>
+    <string name="template_new_setting">Create a settings template</string>
     <string name="template_delete">Вы уверены, что хотите удалить шаблон?</string>
     <string name="template_name">Название шаблона</string>
     <string name="template_name_invalid">Неверное название</string>
     <string name="template_delete_title">Удалить шаблон</string>
     <string name="template_name_already_exist">Шаблон с таким названием уже существует</string>
     <string name="template_applied_count">Применено к %d приложениям</string>
+    <string name="template_setting_count">%d settings added</string>
     <string name="template_apps_visible_count">Видимы %d приложений</string>
     <string name="template_apps_invisible_count">Невидимы %d приложений</string>
     <!-- App settings -->
@@ -85,6 +90,7 @@
     <string name="app_template_using">Использует %d шаблонов</string>
     <string name="app_preset_using">Использует %d пресетов</string>
     <string name="app_settings_preset_using">Использует %d настроек пресетов</string>
+    <string name="app_settings_template_using">Using %d settings templates</string>
     <string name="app_extra_apps_visible_count">%d дополнительных приложений видимы</string>
     <string name="app_extra_apps_invisible_count">%d дополнительных приложений невидимы</string>
     <string name="app_warning_risky_package_title">Рискованный пакет</string>
@@ -112,9 +118,15 @@
     <string name="preset_custom_rom">Приложения кастомных прошивок</string>
     <string name="preset_sus_apps">Подозрительные приложения</string>
     <string name="preset_detector_apps">Детекторы/Чекеры приложений</string>
+    <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku apps</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Доступность</string>
     <string name="settings_preset_dev_options">Параметры разработчика</string>
+    <string name="settings_preset_input_method">Input method</string>
+    <!-- Settings templates -->
+    <string name="settings_templates_database">Settings database</string>
+    <string name="settings_templates_name">Setting name</string>
+    <string name="settings_templates_value">Setting value</string>
     <!-- Logs -->
     <string name="logs_save">Сохранить логи</string>
     <string name="logs_clear">Очистить логи</string>
@@ -147,9 +159,11 @@
     <string name="settings_disable_activity_launch_protection">Откл. защиту от запуска Activity</string>
     <string name="settings_disable_activity_launch_protection_summary">Этот переключатель отключит всю защиту startActivity. Если вы не уверены, не включайте.</string>
     <string name="settings_system_wallpaper">Использовать системные обои</string>
-    <string name="settings_clear_uninstalled_app_configs">Clear uninstalled app configs</string>
-    <string name="settings_clear_uninstalled_app_configs_summary">This option allows you to create a config without remnants but you\'ll have to reconfigure apps when you installed them again.</string>
-    <string name="settings_no_undone_warning">This action cannot be undone.</string>
+    <string name="settings_clear_uninstalled_app_configs">Очистить конфиг удаленных прил.</string>
+    <string name="settings_clear_uninstalled_app_configs_summary">Эта опция позволяет создавать конфиг без остатков, но вам придется перенастроить приложения при их повторной установке.</string>
+    <string name="settings_no_undone_warning">Это действие не может быть отменено.</string>
+    <string name="settings_package_query_workaround">Alternative package query</string>
+    <string name="settings_package_query_workaround_summary">Don\'t enable this option if you see the package list in this app correctly.</string>
     <string name="settings_language">Язык</string>
     <string name="settings_translate">Принять участие в переводе</string>
     <string name="settings_translate_summary">Помогите нам перевести %s на ваш язык</string>

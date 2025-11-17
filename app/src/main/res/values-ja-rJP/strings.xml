@@ -5,6 +5,7 @@
     <string name="title_settings">設定</string>
     <string name="title_template_manage">テンプレートの管理</string>
     <string name="title_template_settings">テンプレートの設定</string>
+    <string name="title_settings_template_conf">設定テンプレートの構成</string>
     <string name="title_app_manage">アプリの管理</string>
     <string name="title_app_select">アプリの選択</string>
     <string name="title_app_settings">アプリの設定</string>
@@ -28,6 +29,8 @@
     <string name="no">いいえ</string>
     <string name="search">検索</string>
     <string name="system">システム</string>
+    <string name="add">追加</string>
+    <string name="edit">編集</string>
     <string name="follow_system">システムに従う</string>
     <!-- Home -->
     <string name="home_xposed_activated">モジュールは有効です [%s]</string>
@@ -67,12 +70,14 @@
     <string name="template_usage_hint">「落ち着きのない」アプリのテンプレートを確立し、取得できるアプリリストを制御します。\n\nブラックリスト (推奨): テンプレートで選択されたアプリは、テンプレートを適用するアプリから見えなくなります。\nホワイトリスト: テンプレートで選択されていないアプリは、テンプレートを適用するアプリには表示されません。</string>
     <string name="template_new_blacklist">ブラックリストのテンプレートを作成</string>
     <string name="template_new_whitelist">ホワイトリストのテンプレートを作成</string>
+    <string name="template_new_setting">設定テンプレートを作成</string>
     <string name="template_delete">テンプレートを削除してもよろしいですか？</string>
     <string name="template_name">テンプレート名</string>
     <string name="template_name_invalid">無効な名前</string>
     <string name="template_delete_title">テンプレートを削除</string>
     <string name="template_name_already_exist">このテンプレート名は既に存在します</string>
     <string name="template_applied_count">%d 個のアプリに適用</string>
+    <string name="template_setting_count">%d 個の設定が追加されました</string>
     <string name="template_apps_visible_count">%d 個のアプリが表示されます</string>
     <string name="template_apps_invisible_count">%d 個のアプリが表示されません</string>
     <!-- App settings -->
@@ -85,6 +90,7 @@
     <string name="app_template_using">%d 個のテンプレートを使用中</string>
     <string name="app_preset_using">%d 個のプリセットを使用中</string>
     <string name="app_settings_preset_using">%d 個のプリセット設定を使用中</string>
+    <string name="app_settings_template_using">%d 個の設定テンプレートを使用中</string>
     <string name="app_extra_apps_visible_count">%d 個の追加アプリが表示されます</string>
     <string name="app_extra_apps_invisible_count">%d 個の追加アプリが表示されません</string>
     <string name="app_warning_risky_package_title">危険なパッケージ</string>
@@ -112,9 +118,15 @@
     <string name="preset_custom_rom">カスタム ROM アプリ</string>
     <string name="preset_sus_apps">不審なアプリ</string>
     <string name="preset_detector_apps">検出器/チェッカーアプリ</string>
+    <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku アプリ</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">アクセシビリティ</string>
     <string name="settings_preset_dev_options">開発者向けオプション</string>
+    <string name="settings_preset_input_method">入力方式</string>
+    <!-- Settings templates -->
+    <string name="settings_templates_database">設定データベース</string>
+    <string name="settings_templates_name">設定名</string>
+    <string name="settings_templates_value">設定値</string>
     <!-- Logs -->
     <string name="logs_save">ログの保存</string>
     <string name="logs_clear">ログのクリア</string>
@@ -150,6 +162,8 @@
     <string name="settings_clear_uninstalled_app_configs">アンインストール済みのアプリの設定を消去する</string>
     <string name="settings_clear_uninstalled_app_configs_summary">このオプションを使用すると、残骸を残さずに設定ファイルを作成できますが、アプリを再インストールした際には再設定が必要になります。</string>
     <string name="settings_no_undone_warning">この操作は取り消せません。</string>
+    <string name="settings_package_query_workaround">代替パッケージクエリ</string>
+    <string name="settings_package_query_workaround_summary">このアプリでパッケージリストが正しく表示されている場合は、このオプションを有効にしないでください。</string>
     <string name="settings_language">言語</string>
     <string name="settings_translate">翻訳に参加する</string>
     <string name="settings_translate_summary">%s をあなたの言語に翻訳するのにご協力ください</string>

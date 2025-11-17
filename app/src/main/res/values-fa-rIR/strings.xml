@@ -5,6 +5,7 @@
     <string name="title_settings">تنظیمات </string>
     <string name="title_template_manage">مدیریت قالب ها</string>
     <string name="title_template_settings">تنظیمات قالب ها</string>
+    <string name="title_settings_template_conf">Settings template configuration</string>
     <string name="title_app_manage">مدیریت برنامه ها</string>
     <string name="title_app_select">انتخاب برنامه ها</string>
     <string name="title_app_settings">تنظیمات برنامه</string>
@@ -28,6 +29,8 @@
     <string name="no">خیر</string>
     <string name="search">جستجو </string>
     <string name="system">سیستم</string>
+    <string name="add">Add</string>
+    <string name="edit">Edit</string>
     <string name="follow_system">دنبال کردن سیستم</string>
     <!-- Home -->
     <string name="home_xposed_activated">ماژول فعال شده [%s]</string>
@@ -67,12 +70,14 @@
     <string name="template_usage_hint">برای برنامه‌های که در «پیش‌تنظیم» نیستن قالب هایی بسازید و فهرست برنامه ها را اضافه کنید.\n\nلیست سیاه (پیشنهاد شده): برنامه‌های انتخاب شده در قالب، برای برنامه‌هایی که از آن قالب استفاده می‌کنند، نامرئی خواهند بود.\nلیست سفید: برنامه‌هایی که در قالب انتخاب نشده‌اند، برای برنامه‌هایی که از این قالب استفاده می‌کنند، نامرئی خواهند بود.</string>
     <string name="template_new_blacklist">ساخت قالب لیست سیاه</string>
     <string name="template_new_whitelist">ساخت قالب سفید</string>
+    <string name="template_new_setting">Create a settings template</string>
     <string name="template_delete">شما مطمئن هستید که میخواهید این قالب را حذف کنید؟</string>
     <string name="template_name">نام قالب</string>
     <string name="template_name_invalid">نام نامعتبر </string>
     <string name="template_delete_title">حذف قالب</string>
     <string name="template_name_already_exist">نام قالب از قبل وجود دارد</string>
     <string name="template_applied_count">روی %d برنامه اعمال شد</string>
+    <string name="template_setting_count">%d settings added</string>
     <string name="template_apps_visible_count">%d برنامه قابل مشاهده است </string>
     <string name="template_apps_invisible_count">%d برنامه نامرئی </string>
     <!-- App settings -->
@@ -85,6 +90,7 @@
     <string name="app_template_using">با استفاده از %d قالب</string>
     <string name="app_preset_using">با استفاده از %d پیش‌تنظیمات </string>
     <string name="app_settings_preset_using">با استفاده از %d تنظیمات پیش‌تنظیمات </string>
+    <string name="app_settings_template_using">Using %d settings templates</string>
     <string name="app_extra_apps_visible_count">%d برنامه اضافی قابل مشاهده است </string>
     <string name="app_extra_apps_invisible_count">%d برنامه اضافی نامرئی</string>
     <string name="app_warning_risky_package_title">بسته‌ی پرخطر</string>
@@ -112,9 +118,15 @@
     <string name="preset_custom_rom">برنامه‌های کاستوم رام</string>
     <string name="preset_sus_apps">برنامه‌های مشکوک</string>
     <string name="preset_detector_apps">تشخیص/برنامه‌های بررسی</string>
+    <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku apps</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">دسترسی‌پذیری</string>
     <string name="settings_preset_dev_options">گزینه‌های برنامه‌نویس</string>
+    <string name="settings_preset_input_method">Input method</string>
+    <!-- Settings templates -->
+    <string name="settings_templates_database">Settings database</string>
+    <string name="settings_templates_name">Setting name</string>
+    <string name="settings_templates_value">Setting value</string>
     <!-- Logs -->
     <string name="logs_save">ذخیره لاگ‌ها</string>
     <string name="logs_clear">پاک کردن لاگ‌ها</string>
@@ -150,6 +162,8 @@
     <string name="settings_clear_uninstalled_app_configs">Clear uninstalled app configs</string>
     <string name="settings_clear_uninstalled_app_configs_summary">This option allows you to create a config without remnants but you\'ll have to reconfigure apps when you installed them again.</string>
     <string name="settings_no_undone_warning">This action cannot be undone.</string>
+    <string name="settings_package_query_workaround">Alternative package query</string>
+    <string name="settings_package_query_workaround_summary">Don\'t enable this option if you see the package list in this app correctly.</string>
     <string name="settings_language">Language</string>
     <string name="settings_translate">Participate in translation</string>
     <string name="settings_translate_summary">Help us translate %s into your language</string>

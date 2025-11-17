@@ -5,6 +5,7 @@
     <string name="title_settings">Cài đặt</string>
     <string name="title_template_manage">Quản lý biểu mẫu</string>
     <string name="title_template_settings">Cài đặt biểu mẫu</string>
+    <string name="title_settings_template_conf">Settings template configuration</string>
     <string name="title_app_manage">Quản lý ứng dụng</string>
     <string name="title_app_select">Chọn ứng dụng</string>
     <string name="title_app_settings">Cài đặt ứng dụng</string>
@@ -28,6 +29,8 @@
     <string name="no">Không</string>
     <string name="search">Tìm</string>
     <string name="system">Hệ thống</string>
+    <string name="add">Add</string>
+    <string name="edit">Edit</string>
     <string name="follow_system">Theo cài đặt hệ thống</string>
     <!-- Home -->
     <string name="home_xposed_activated">Mô đun đã kích hoạt [%s]</string>
@@ -67,12 +70,14 @@
     <string name="template_usage_hint">Thiết lập biểu mẫu cho các ứng dụng \"không dừng\", kiểm soát danh sách ứng dụng chúng có thể truy vấn.\n\nDanh sách đen (khuyến nghị): các ứng dụng được chọn trong biểu mẫu sẽ ẩn đối với các ứng dụng áp dụng biểu mẫu.\nDanh sách trắng: các ứng dụng không được chọn trong biểu mẫu sẽ không hiển thị đối với các ứng dụng áp dụng biểu mẫu.</string>
     <string name="template_new_blacklist">Tạo một biểu mẫu danh sách đen</string>
     <string name="template_new_whitelist">Tạo một biểu mẫu danh sách trắng</string>
+    <string name="template_new_setting">Create a settings template</string>
     <string name="template_delete">Bạn có chắc chắn xóa biểu mẫu này không?</string>
     <string name="template_name">Tên biểu mẫu</string>
     <string name="template_name_invalid">Tên không hợp lệ</string>
     <string name="template_delete_title">Xóa biểu mẫu</string>
     <string name="template_name_already_exist">Tên biểu mẫu đã tồn tại</string>
     <string name="template_applied_count">Đã áp dụng cho các ứng dụng: %d</string>
+    <string name="template_setting_count">%d settings added</string>
     <string name="template_apps_visible_count">%d ứng dụng không ẩn</string>
     <string name="template_apps_invisible_count">%d Ứng dụng bị ẩn</string>
     <!-- App settings -->
@@ -85,6 +90,7 @@
     <string name="app_template_using">Đang dùng %d biểu mẫu</string>
     <string name="app_preset_using">Đang sử dụng %d thiết lập trước</string>
     <string name="app_settings_preset_using">Đang sử dụng %d cài đặt thiết lập trước</string>
+    <string name="app_settings_template_using">Using %d settings templates</string>
     <string name="app_extra_apps_visible_count">Ứng dụng bổ sung hiện hình %d</string>
     <string name="app_extra_apps_invisible_count">%d Ứng dụng bổ sung được ẩn</string>
     <string name="app_warning_risky_package_title">Gói rủi ro</string>
@@ -112,9 +118,15 @@
     <string name="preset_custom_rom">Ứng dụng ROM tùy biến</string>
     <string name="preset_sus_apps">Ứng dụng đáng ngờ</string>
     <string name="preset_detector_apps">ỨD phát hiện/KT Root</string>
+    <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku apps</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Trợ năng</string>
     <string name="settings_preset_dev_options">Tùy chọn nhà phát triển</string>
+    <string name="settings_preset_input_method">Input method</string>
+    <!-- Settings templates -->
+    <string name="settings_templates_database">Settings database</string>
+    <string name="settings_templates_name">Setting name</string>
+    <string name="settings_templates_value">Setting value</string>
     <!-- Logs -->
     <string name="logs_save">Lưu nhật ký</string>
     <string name="logs_clear">Xóa nhật ký</string>
@@ -147,9 +159,11 @@
     <string name="settings_disable_activity_launch_protection">Tắt tính năng bảo vệ khởi chạy hoạt động</string>
     <string name="settings_disable_activity_launch_protection_summary">Nút chuyển đổi này sẽ gỡ bỏ mọi chế độ bảo vệ khởi động. Nếu bạn không chắc chắn, đừng bật nó.</string>
     <string name="settings_system_wallpaper">Sử dụng hình nền của hệ thống</string>
-    <string name="settings_clear_uninstalled_app_configs">Clear uninstalled app configs</string>
-    <string name="settings_clear_uninstalled_app_configs_summary">This option allows you to create a config without remnants but you\'ll have to reconfigure apps when you installed them again.</string>
-    <string name="settings_no_undone_warning">This action cannot be undone.</string>
+    <string name="settings_clear_uninstalled_app_configs">Xóa những thiết lập của những Ứ.D đã xóa</string>
+    <string name="settings_clear_uninstalled_app_configs_summary">Lựa chọn này cho phép bạn tạo cấu hình đã loại bỏ những cấu hình Ứ.D đã xóa, bạn phải thiết lập lại khi cài lại những Ư.D đó</string>
+    <string name="settings_no_undone_warning">Thao tác không thể hoàn tác.</string>
+    <string name="settings_package_query_workaround">Alternative package query</string>
+    <string name="settings_package_query_workaround_summary">Don\'t enable this option if you see the package list in this app correctly.</string>
     <string name="settings_language">Ngôn ngữ</string>
     <string name="settings_translate">Giúp chúng tôi dịch</string>
     <string name="settings_translate_summary">Giúp chúng tôi dịch %s sang ngôn ngữ của bạn</string>

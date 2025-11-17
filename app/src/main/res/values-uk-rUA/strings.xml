@@ -5,6 +5,7 @@
     <string name="title_settings">Налаштування</string>
     <string name="title_template_manage">Керування шаблоном</string>
     <string name="title_template_settings">Налаштування шаблону</string>
+    <string name="title_settings_template_conf">Settings template configuration</string>
     <string name="title_app_manage">Керування додатком</string>
     <string name="title_app_select">Виберіть додатки</string>
     <string name="title_app_settings">Налаштування додатка</string>
@@ -28,6 +29,8 @@
     <string name="no">Ні</string>
     <string name="search">Пошук</string>
     <string name="system">Система</string>
+    <string name="add">Add</string>
+    <string name="edit">Edit</string>
     <string name="follow_system">Як у системі</string>
     <!-- Home -->
     <string name="home_xposed_activated">Модуль активовано [%s]</string>
@@ -67,12 +70,14 @@
     <string name="template_usage_hint">Створіть шаблони для «неспокійних» додатків, контролюючи список додатків, які вони можуть отримати.\n\nЧорний список (рекомендовано): додатки, вибрані в шаблоні, будуть невидимі для додатків, які застосовують шаблон.\nБілий список: додатки, не вибрані в шаблоні, будуть невидимий для додатків, які застосовують шаблон.</string>
     <string name="template_new_blacklist">Створити шаблон чорного списку</string>
     <string name="template_new_whitelist">Створити шаблон білого списку</string>
+    <string name="template_new_setting">Create a settings template</string>
     <string name="template_delete">Ви впевнені, що хочете видалити шаблон?</string>
     <string name="template_name">Назва шаблону</string>
     <string name="template_name_invalid">Назва недійсна</string>
     <string name="template_delete_title">Видалити шаблон</string>
     <string name="template_name_already_exist">Назва шаблону вже існує</string>
     <string name="template_applied_count">Застосовується до %d додатків</string>
+    <string name="template_setting_count">%d settings added</string>
     <string name="template_apps_visible_count">Видно %d додатків</string>
     <string name="template_apps_invisible_count">Невидимі %d додатків</string>
     <!-- App settings -->
@@ -85,6 +90,7 @@
     <string name="app_template_using">Використання %d шаблонів</string>
     <string name="app_preset_using"></string>
     <string name="app_settings_preset_using">Using %d settings presets</string>
+    <string name="app_settings_template_using">Using %d settings templates</string>
     <string name="app_extra_apps_visible_count">%d видимі додаткові додатки</string>
     <string name="app_extra_apps_invisible_count">%d невидимі додаткові додатки</string>
     <string name="app_warning_risky_package_title">Risky package</string>
@@ -112,9 +118,15 @@
     <string name="preset_custom_rom">Custom ROM apps</string>
     <string name="preset_sus_apps">Suspicious apps</string>
     <string name="preset_detector_apps">Detector/Checker apps</string>
+    <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku apps</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Accessibility</string>
     <string name="settings_preset_dev_options">Developer options</string>
+    <string name="settings_preset_input_method">Input method</string>
+    <!-- Settings templates -->
+    <string name="settings_templates_database">Settings database</string>
+    <string name="settings_templates_name">Setting name</string>
+    <string name="settings_templates_value">Setting value</string>
     <!-- Logs -->
     <string name="logs_save">Зберегти журнали</string>
     <string name="logs_clear">Очистити журнали</string>
@@ -150,6 +162,8 @@
     <string name="settings_clear_uninstalled_app_configs">Clear uninstalled app configs</string>
     <string name="settings_clear_uninstalled_app_configs_summary">This option allows you to create a config without remnants but you\'ll have to reconfigure apps when you installed them again.</string>
     <string name="settings_no_undone_warning">This action cannot be undone.</string>
+    <string name="settings_package_query_workaround">Alternative package query</string>
+    <string name="settings_package_query_workaround_summary">Don\'t enable this option if you see the package list in this app correctly.</string>
     <string name="settings_language">Мова</string>
     <string name="settings_translate">Участь у перекладі</string>
     <string name="settings_translate_summary">Допоможіть нам перекласти %s вашою мовою</string>

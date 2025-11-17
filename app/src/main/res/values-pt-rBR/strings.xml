@@ -5,6 +5,7 @@
     <string name="title_settings">Configurações</string>
     <string name="title_template_manage">Gerenciar modelos</string>
     <string name="title_template_settings">Configurações do modelo</string>
+    <string name="title_settings_template_conf">Configuração do perfil de configurações</string>
     <string name="title_app_manage">Gerenciar apps</string>
     <string name="title_app_select">Selecionar aplicativo</string>
     <string name="title_app_settings">Configurações do aplicativo</string>
@@ -28,6 +29,8 @@
     <string name="no">Não</string>
     <string name="search">Pesquisar</string>
     <string name="system">Sistema</string>
+    <string name="add">Adicionar</string>
+    <string name="edit">Editar</string>
     <string name="follow_system">Seguir o sistema</string>
     <!-- Home -->
     <string name="home_xposed_activated">Módulo ativado [%s]</string>
@@ -67,12 +70,14 @@
     <string name="template_usage_hint">Crie modelos para apps \"inquietos\", controlando a lista de aplicativos que eles podem obter.\n\nLista Negra (recomendado): Os apps selecionados no modelo serão invisiveis para os apps no qual esse modelo for aplicado.\nLista Branca: Os apps não selecionados nesse modelo serão invisiveis aos apps no qual esse modelo for aplicado.</string>
     <string name="template_new_blacklist">Criar modelo de lista negra</string>
     <string name="template_new_whitelist">Criar modelo de lista branca</string>
+    <string name="template_new_setting">Criar perfil de configurações</string>
     <string name="template_delete">Tem certeza que quer apagar a configuração</string>
     <string name="template_name">Nome do modelo</string>
     <string name="template_name_invalid">Nome inválido</string>
     <string name="template_delete_title">Apagar modelo</string>
     <string name="template_name_already_exist">Nome de modelo já existe</string>
     <string name="template_applied_count">Aplicado a %d aplicativos </string>
+    <string name="template_setting_count">%d configurações adicionadas</string>
     <string name="template_apps_visible_count">%d aplicativos visíveis</string>
     <string name="template_apps_invisible_count">%d aplicativos invisíveis</string>
     <!-- App settings -->
@@ -85,6 +90,7 @@
     <string name="app_template_using">Usando %d modelos</string>
     <string name="app_preset_using">Usando %d perfis</string>
     <string name="app_settings_preset_using">Usando %d perfis de configuração</string>
+    <string name="app_settings_template_using">Usando %d perfis de configuração</string>
     <string name="app_extra_apps_visible_count">%d apps adicionais expostos</string>
     <string name="app_extra_apps_invisible_count">%d apps adicionais escondidos</string>
     <string name="app_warning_risky_package_title">Aplicativo de risco</string>
@@ -112,9 +118,15 @@
     <string name="preset_custom_rom">Apps de ROM modificado</string>
     <string name="preset_sus_apps">Apps suspeitos</string>
     <string name="preset_detector_apps">Apps detectores de root</string>
+    <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku apps</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Acessibilidade </string>
     <string name="settings_preset_dev_options">Opções de desenvolvedor</string>
+    <string name="settings_preset_input_method">Teclado</string>
+    <!-- Settings templates -->
+    <string name="settings_templates_database">Banco de dados de configurações</string>
+    <string name="settings_templates_name">Nome da configuração</string>
+    <string name="settings_templates_value">Valor da configuração</string>
     <!-- Logs -->
     <string name="logs_save">Salvar registros</string>
     <string name="logs_clear">Limpar registros</string>
@@ -123,7 +135,7 @@
     <!-- Settings -->
     <string name="settings_module">Modulo</string>
     <string name="settings_overwrite">Habilitar</string>
-    <string name="settings_overwritten">Habilitada</string>
+    <string name="settings_overwritten">Forçada</string>
     <string name="settings_overwrite_summary">Tais items serão habilitados a força se ativados</string>
     <string name="settings_default_value">Valor padrão %s</string>
     <string name="settings_data_isolation">Isolamento de dados</string>
@@ -150,6 +162,8 @@
     <string name="settings_clear_uninstalled_app_configs">Limpar configurações de apps desinstalados</string>
     <string name="settings_clear_uninstalled_app_configs_summary">Esta opção permite criar uma configuração sem remanescentes, mas terá que reconfigurar os apps quando os instalar novamente.</string>
     <string name="settings_no_undone_warning">Esta ação não pode ser desfeita.</string>
+    <string name="settings_package_query_workaround">Método de listagem alternativa</string>
+    <string name="settings_package_query_workaround_summary">Não ative essa opção se você consegue ver a lista de aplicativos corretamente neste app.</string>
     <string name="settings_language">Idioma</string>
     <string name="settings_translate">Participe na tradução</string>
     <string name="settings_translate_summary">Nos ajude a traduzir %s na sua língua </string>
@@ -174,7 +188,7 @@
     <!-- About -->
     <string name="about_description">        Although It is incorrect to detect specific app installation, yet not every app using root provides random package name support. In this case, detected apps that use root (such as Fake Location and Storage Isolation) is equal to detected root itself.\n\nAt the same time, some smart apps use various loopholes to acquire your app list, so that it can draw a persona for you.\n\nThis module provides some methods to test whether you have already hidden your applist nicely. Also, it can work as an Xposed module to hide some apps or reject app list requests to protect your privacy.
     </string>
-    <string name="about_fork_description">        O projeto original do HMA se tornou de código fechado e o código disponível nãoas últimas ultimas mudanças, então eu criei essa versão para continua-la como código aberto novamente. </string>
+    <string name="about_fork_description">O projeto original do HMA se tornou de código fechado e o código disponível não disponibilizou as últimas ultimas mudanças, então eu criei essa versão para continua-la como código aberto novamente.    </string>
     <string name="about_how_to_use_title">Como usar esse modulo</string>
     <string name="about_how_to_use_description_1">Voce pode criar modelos em \"Gerenciar modelos\".\nEntão aplique os modelos nos apps em \"Gerenciar apps\". (Voce tamber pode selecionar apps adicionais para os esconder de tais.)\nVoce só deve habilitar o \"Sistema Android\" na lista de ativação do Xposed.\n    </string>
     <string name="about_how_to_use_description_2">       A modificação de configurações tem efeito imediato.\n    </string>

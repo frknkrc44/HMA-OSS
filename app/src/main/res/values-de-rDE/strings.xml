@@ -5,6 +5,7 @@
     <string name="title_settings">Einstellungen</string>
     <string name="title_template_manage">Listen verwalten</string>
     <string name="title_template_settings">Vorlagen Einstellungen</string>
+    <string name="title_settings_template_conf">Konfiguration der Einstellungsvorlage</string>
     <string name="title_app_manage">App verwalten</string>
     <string name="title_app_select">Apps auswählen</string>
     <string name="title_app_settings">App Einstellungen</string>
@@ -28,6 +29,8 @@
     <string name="no">Nein</string>
     <string name="search">Suchen</string>
     <string name="system">System</string>
+    <string name="add">Hinzufügen</string>
+    <string name="edit">Bearbeiten</string>
     <string name="follow_system">Systemeinstellung folgen</string>
     <!-- Home -->
     <string name="home_xposed_activated">Modul aktiviert [%s]</string>
@@ -67,12 +70,14 @@
     <string name="template_usage_hint">Erstellen Sie Vorlagen für \"ruhelose\" Apps und kontrollieren Sie den App, den Sie erhalten können.\n\nBlacklist (empfohlen): Die im Template ausgewählten Apps werden für die Apps, die die Vorlage anwenden, unsichtbar sein.\nWhitelist: Die im Template nicht ausgewählten Apps sind für die Apps, die die Vorlage anwenden, unsichtbar.</string>
     <string name="template_new_blacklist">Blacklist</string>
     <string name="template_new_whitelist">Whitelist</string>
+    <string name="template_new_setting">Einstellungsvorlage erstellen</string>
     <string name="template_delete">Sind Sie sicher, dass Sie die Vorlage löschen wollen?</string>
     <string name="template_name">Name der Vorlage</string>
     <string name="template_name_invalid">Ungültiger Name</string>
     <string name="template_delete_title">Vorlage löschen</string>
     <string name="template_name_already_exist">Es existiert bereits eine Vorlage mit diesem Namen</string>
     <string name="template_applied_count">Auf %d Apps angewendet</string>
+    <string name="template_setting_count">%d Einstellungen hinzugefügt</string>
     <string name="template_apps_visible_count">%d Anwendungen sichtbar</string>
     <string name="template_apps_invisible_count">%d Anwendungen unsichtbar</string>
     <!-- App settings -->
@@ -85,6 +90,7 @@
     <string name="app_template_using">Verwendung von %d Vorlagen</string>
     <string name="app_preset_using">Verwendung von %d Vorlagen des Entwicklers</string>
     <string name="app_settings_preset_using">Entwickleroptionen/Bedienungshilfen werden %d genutzt</string>
+    <string name="app_settings_template_using">Entwickleroptionen/Bedienungshilfen werden %d genutzt</string>
     <string name="app_extra_apps_visible_count">%d weitere Apps sichtbar</string>
     <string name="app_extra_apps_invisible_count">%d weitere Anwendungen unsichtbar</string>
     <string name="app_warning_risky_package_title">Gefährliches Paket</string>
@@ -112,9 +118,15 @@
     <string name="preset_custom_rom">Benutzerdefinierte ROM-Apps</string>
     <string name="preset_sus_apps">Verdächtige Anwendungen</string>
     <string name="preset_detector_apps">Detektor/Prüf-Apps</string>
+    <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku Apps</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Bedienungshilfen</string>
     <string name="settings_preset_dev_options">Entwickleroptionen</string>
+    <string name="settings_preset_input_method">Eingabemethode</string>
+    <!-- Settings templates -->
+    <string name="settings_templates_database">Einstellungen Datenbank</string>
+    <string name="settings_templates_name">Einstellungsname</string>
+    <string name="settings_templates_value">Einstellungswert</string>
     <!-- Logs -->
     <string name="logs_save">Protokolle speichern</string>
     <string name="logs_clear">Protokolle löschen</string>
@@ -147,9 +159,11 @@
     <string name="settings_disable_activity_launch_protection">Aktivitätsstartschutz deaktivieren</string>
     <string name="settings_disable_activity_launch_protection_summary">Dieser Schalter hebt alle Startaktivitäts-Schutzvorkehrungen auf. Wenn Sie sich nicht sicher sind, aktivieren Sie dies nicht.</string>
     <string name="settings_system_wallpaper">Systemhintergrund verwenden</string>
-    <string name="settings_clear_uninstalled_app_configs">Clear uninstalled app configs</string>
-    <string name="settings_clear_uninstalled_app_configs_summary">This option allows you to create a config without remnants but you\'ll have to reconfigure apps when you installed them again.</string>
-    <string name="settings_no_undone_warning">This action cannot be undone.</string>
+    <string name="settings_clear_uninstalled_app_configs">Konfiguration von deinstallierten Apps löschen</string>
+    <string name="settings_clear_uninstalled_app_configs_summary">Mit dieser Option können Sie eine Konfiguration ohne Reste erstellen, aber Sie müssen Apps neu konfigurieren, wenn Sie sie erneut installiert haben.</string>
+    <string name="settings_no_undone_warning">Diese Aktion kann nicht rückgängig gemacht werden.</string>
+    <string name="settings_package_query_workaround">Alternative Paketabfrage</string>
+    <string name="settings_package_query_workaround_summary">Aktivieren Sie diese Option nicht, wenn Sie die Paketliste in dieser App korrekt sehen.</string>
     <string name="settings_language">Sprache</string>
     <string name="settings_translate">Beim Übersetzen mitmachen</string>
     <string name="settings_translate_summary">Helfe uns, %s in deine Sprache zu übersetzen</string>

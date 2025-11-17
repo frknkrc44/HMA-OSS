@@ -5,6 +5,7 @@
     <string name="title_settings">Réglages</string>
     <string name="title_template_manage">Gestion des modèles</string>
     <string name="title_template_settings">Réglages du modèle</string>
+    <string name="title_settings_template_conf">Configuration du modèle de paramètres</string>
     <string name="title_app_manage">Gestionnaire d\'applications</string>
     <string name="title_app_select">Sélectionner les applications</string>
     <string name="title_app_settings">Réglages pour l\'application</string>
@@ -28,6 +29,8 @@
     <string name="no">Non</string>
     <string name="search">Rechercher</string>
     <string name="system">Système</string>
+    <string name="add">Ajouter</string>
+    <string name="edit">Modifier</string>
     <string name="follow_system">Suivre le système</string>
     <!-- Home -->
     <string name="home_xposed_activated">Module Actif [%s]</string>
@@ -67,12 +70,14 @@
     <string name="template_usage_hint">Établir des modèles pour les applications \"agitées\", controller la liste d\'appli qu\'elles peuvent obtenir.\n\nListe noir (recommandée): les applis sélectionnées dans le modèle seront invisibles aux autres aplis qui appliquent le modèle.\nListe blanche: les applis non sélectionnées dans le modèle seront invisibles aux applis l\'appliquant.</string>
     <string name="template_new_blacklist">Créer un modèle de liste noir</string>
     <string name="template_new_whitelist">Créer un modèle de liste blanche</string>
+    <string name="template_new_setting">Créer un modèle de paramètres</string>
     <string name="template_delete">Êtes vous sûr de supprimer ce modèle?</string>
     <string name="template_name">Nom du modèle</string>
     <string name="template_name_invalid">Nom invalide</string>
     <string name="template_delete_title">Supprimer Modèle</string>
     <string name="template_name_already_exist">Le nom du modèle éxiste déjà</string>
     <string name="template_applied_count">Appliqué à %d applications</string>
+    <string name="template_setting_count">%d paramètres ajoutés</string>
     <string name="template_apps_visible_count">%d applis visibles</string>
     <string name="template_apps_invisible_count">%d applications invisibilisées</string>
     <!-- App settings -->
@@ -85,6 +90,7 @@
     <string name="app_template_using">Utilisation de %d modèle(s)</string>
     <string name="app_preset_using">Utilisation de %d préréglages</string>
     <string name="app_settings_preset_using">Utilisation des préréglages %d</string>
+    <string name="app_settings_template_using">Utilisation de %d modèles de paramètres</string>
     <string name="app_extra_apps_visible_count">%d applis additionelles visibles</string>
     <string name="app_extra_apps_invisible_count">%d applis additionelles invisibles</string>
     <string name="app_warning_risky_package_title">Paquet risqué</string>
@@ -112,9 +118,15 @@
     <string name="preset_custom_rom">Applications de la ROM personnalisées</string>
     <string name="preset_sus_apps">Applications suspectes</string>
     <string name="preset_detector_apps">Applications de détection/vérification</string>
+    <string name="preset_shizuku_dhizuku">Applications Shizuku/Dhizuku</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Accessibilité</string>
     <string name="settings_preset_dev_options">Options de développeur</string>
+    <string name="settings_preset_input_method">Méthode de saisie</string>
+    <!-- Settings templates -->
+    <string name="settings_templates_database">Base de données des paramètres</string>
+    <string name="settings_templates_name">Nom du paramètre</string>
+    <string name="settings_templates_value">Valeur de réglage</string>
     <!-- Logs -->
     <string name="logs_save">Enregistrer le journal</string>
     <string name="logs_clear">Effacer le journal</string>
@@ -150,6 +162,8 @@
     <string name="settings_clear_uninstalled_app_configs">Effacer les configurations des applications désinstallées</string>
     <string name="settings_clear_uninstalled_app_configs_summary">Cette option vous permet de créer une configuration sans persistance post-désinstallation, vous devrez reconfigurer les applications lorsque vous les réinstallerez.</string>
     <string name="settings_no_undone_warning">Cette action ne peut pas être annulée.</string>
+    <string name="settings_package_query_workaround">Requête de paquet alternatif</string>
+    <string name="settings_package_query_workaround_summary">N\'activez pas cette option si la liste des paquets s\'affiche correctement dans cette application.</string>
     <string name="settings_language">Langue</string>
     <string name="settings_translate">Participer à la traduction</string>
     <string name="settings_translate_summary">Aidez nous à traduire %s dans votre language</string>

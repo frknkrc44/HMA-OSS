@@ -5,6 +5,7 @@
     <string name="title_settings">Nastavení</string>
     <string name="title_template_manage">Správa šablony</string>
     <string name="title_template_settings">Nastavení šablony</string>
+    <string name="title_settings_template_conf">Settings template configuration</string>
     <string name="title_app_manage">Správa aplikací</string>
     <string name="title_app_select">Vybrat aplikace</string>
     <string name="title_app_settings">Nastavení aplikace</string>
@@ -28,6 +29,8 @@
     <string name="no">Ne</string>
     <string name="search">Hledat</string>
     <string name="system">System</string>
+    <string name="add">Add</string>
+    <string name="edit">Edit</string>
     <string name="follow_system">Follow system</string>
     <!-- Home -->
     <string name="home_xposed_activated">Modul aktivní [%s]</string>
@@ -67,12 +70,14 @@
     <string name="template_usage_hint">Vytvořte šablony pro „neklidné“ aplikace a ovládejte seznam aplikací, které mohou vidět.\n\nČerná listina (doporučeno): aplikace vybrané v šabloně budou pro aplikace používající šablonu neviditelné.\nWhitellist: aplikace, které nejsou vybrány v šabloně, budou neviditelné pro aplikace používající šablonu.</string>
     <string name="template_new_blacklist">Vytvořte šablonu černé listiny</string>
     <string name="template_new_whitelist">Vytvořte šablonu seznamu povolených</string>
+    <string name="template_new_setting">Create a settings template</string>
     <string name="template_delete">Opravdu chcete šablonu smazat?</string>
     <string name="template_name">Správa šablony</string>
     <string name="template_name_invalid">Jméno je neplatné</string>
     <string name="template_delete_title">Delete Template</string>
     <string name="template_name_already_exist">Název šablony již existuje</string>
     <string name="template_applied_count">Použito na %d aplikací</string>
+    <string name="template_setting_count">%d settings added</string>
     <string name="template_apps_visible_count">Viditelné aplikace: %d</string>
     <string name="template_apps_invisible_count">%d aplikací je neviditelných</string>
     <!-- App settings -->
@@ -85,6 +90,7 @@
     <string name="app_template_using">Používá %d šablon</string>
     <string name="app_preset_using">Using %d presets</string>
     <string name="app_settings_preset_using">Using %d settings presets</string>
+    <string name="app_settings_template_using">Using %d settings templates</string>
     <string name="app_extra_apps_visible_count">%d dalších aplikací je viditelných</string>
     <string name="app_extra_apps_invisible_count">%d dalších aplikaci je skryto</string>
     <string name="app_warning_risky_package_title">Risky package</string>
@@ -112,9 +118,15 @@
     <string name="preset_custom_rom">Custom ROM apps</string>
     <string name="preset_sus_apps">Suspicious apps</string>
     <string name="preset_detector_apps">Detector/Checker apps</string>
+    <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku apps</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Accessibility</string>
     <string name="settings_preset_dev_options">Developer options</string>
+    <string name="settings_preset_input_method">Input method</string>
+    <!-- Settings templates -->
+    <string name="settings_templates_database">Settings database</string>
+    <string name="settings_templates_name">Setting name</string>
+    <string name="settings_templates_value">Setting value</string>
     <!-- Logs -->
     <string name="logs_save">Uložit protokoly</string>
     <string name="logs_clear">Vymazat protokoly</string>
@@ -150,6 +162,8 @@
     <string name="settings_clear_uninstalled_app_configs">Clear uninstalled app configs</string>
     <string name="settings_clear_uninstalled_app_configs_summary">This option allows you to create a config without remnants but you\'ll have to reconfigure apps when you installed them again.</string>
     <string name="settings_no_undone_warning">This action cannot be undone.</string>
+    <string name="settings_package_query_workaround">Alternative package query</string>
+    <string name="settings_package_query_workaround_summary">Don\'t enable this option if you see the package list in this app correctly.</string>
     <string name="settings_language">Jazyk</string>
     <string name="settings_translate">Podílet se na překladu</string>
     <string name="settings_translate_summary">Pomozte nám přeložit %s do vašeho jazyka</string>

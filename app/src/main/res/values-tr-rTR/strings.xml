@@ -5,6 +5,7 @@
     <string name="title_settings">Ayarlar</string>
     <string name="title_template_manage">Şablonları yönet</string>
     <string name="title_template_settings">Şablon ayarları</string>
+    <string name="title_settings_template_conf">Ayarlar şablonu yapılandırması</string>
     <string name="title_app_manage">Uygulamaları yönet</string>
     <string name="title_app_select">Uygulama seç</string>
     <string name="title_app_settings">Uygulama ayarları</string>
@@ -28,6 +29,8 @@
     <string name="no">Hayır</string>
     <string name="search">Ara</string>
     <string name="system">Sistem</string>
+    <string name="add">Ekle</string>
+    <string name="edit">Düzenle</string>
     <string name="follow_system">Sistemi takip et</string>
     <!-- Home -->
     <string name="home_xposed_activated">Modül Etkin [%s]</string>
@@ -67,12 +70,14 @@
     <string name="template_usage_hint">\"Huzursuz\" uygulamalar için şablonlar oluşturun ve bu uygulamaların hangi uygulama listesini görebileceğini kontrol edin.\n\nKara liste (önerilen): Şablonda seçilen uygulamalar, şablonu uygulayan uygulamalar için görünmez olacaktır.\nBeyaz liste: Şablonda seçilmeyen uygulamalar, şablonu uygulayan uygulamalar için görünmez olacaktır.</string>
     <string name="template_new_blacklist">Kara liste şablonu oluştur</string>
     <string name="template_new_whitelist">Beyaz liste şablonu oluştur</string>
+    <string name="template_new_setting">Ayarlar şablonu oluştur</string>
     <string name="template_delete">Şablonu silmek istediğinizden emin misiniz?</string>
     <string name="template_name">Şablon adı</string>
     <string name="template_name_invalid">Geçersiz ad</string>
     <string name="template_delete_title">Şablonu Sil</string>
     <string name="template_name_already_exist">Şablon adı zaten var</string>
     <string name="template_applied_count">%d uygulamaya uygulandı</string>
+    <string name="template_setting_count">%d ayar eklendi</string>
     <string name="template_apps_visible_count">%d uygulama görünür</string>
     <string name="template_apps_invisible_count">%d uygulama görünmez</string>
     <!-- App settings -->
@@ -85,6 +90,7 @@
     <string name="app_template_using">%d şablon kullanılıyor</string>
     <string name="app_preset_using">%d ön ayar kullanılıyor</string>
     <string name="app_settings_preset_using">%d ayar ön ayarı kullanılıyor</string>
+    <string name="app_settings_template_using">%d ayarlar şablonu kullanılıyor</string>
     <string name="app_extra_apps_visible_count">%d ek uygulama görünür</string>
     <string name="app_extra_apps_invisible_count">%d ek uygulama görünmez</string>
     <string name="app_warning_risky_package_title">Riskli paket</string>
@@ -112,9 +118,15 @@
     <string name="preset_custom_rom">Özel ROM uygulamaları</string>
     <string name="preset_sus_apps">Şüpheli uygulamalar</string>
     <string name="preset_detector_apps">Denetleyici uygulamalar</string>
+    <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku uygulamaları</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Erişilebilirlik</string>
     <string name="settings_preset_dev_options">Geliştirici seçenekleri</string>
+    <string name="settings_preset_input_method">Giriş yöntemi</string>
+    <!-- Settings templates -->
+    <string name="settings_templates_database">Ayarlar veritabanı</string>
+    <string name="settings_templates_name">Ayar adı</string>
+    <string name="settings_templates_value">Ayar değeri</string>
     <!-- Logs -->
     <string name="logs_save">Kayıtları kaydet</string>
     <string name="logs_clear">Kayıtları temizle</string>
@@ -150,6 +162,8 @@
     <string name="settings_clear_uninstalled_app_configs">Kaldırılmış uygulama yapılandırmalarını temizle</string>
     <string name="settings_clear_uninstalled_app_configs_summary">Bu seçenek kalıntılar olmadan bir yapılandırma oluşturmanıza izin verir ancak uygulamaları tekrar kurduğunuzda bir daha yapılandırmalısınız.</string>
     <string name="settings_no_undone_warning">Bu işlem geri alınamaz.</string>
+    <string name="settings_package_query_workaround">Alternatif paket sorgusu</string>
+    <string name="settings_package_query_workaround_summary">Uygulama içindeki paket listesi doğru şekilde görünüyorsa bu özelliği etkinleştirmeyin.</string>
     <string name="settings_language">Dil</string>
     <string name="settings_translate">Çeviriye katkıda bulun</string>
     <string name="settings_translate_summary">%s’i kendi dilinize çevirmemize yardımcı olun</string>

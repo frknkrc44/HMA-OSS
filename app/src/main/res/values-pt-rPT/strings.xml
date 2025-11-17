@@ -5,6 +5,7 @@
     <string name="title_settings">Definições</string>
     <string name="title_template_manage">Gerir modelos</string>
     <string name="title_template_settings">Definições do modelo</string>
+    <string name="title_settings_template_conf">Settings template configuration</string>
     <string name="title_app_manage">Gerir aplicações</string>
     <string name="title_app_select">Selecionar aplicações</string>
     <string name="title_app_settings">Definições da aplicação</string>
@@ -28,6 +29,8 @@
     <string name="no">Não</string>
     <string name="search">Pesquisar</string>
     <string name="system">Sistema</string>
+    <string name="add">Add</string>
+    <string name="edit">Edit</string>
     <string name="follow_system">Seguir o sistema</string>
     <!-- Home -->
     <string name="home_xposed_activated">Módulo ativado [%s]</string>
@@ -67,12 +70,14 @@
     <string name="template_usage_hint">Crie modelos para aplicações \"inquietas\", controlando a lista de aplicações que estas podem obter.\n\nLista Negra (recomendado): as aplicações selecionadas no modelo ficarão invisíveis para as aplicações que o aplicam.\nLista Branca: as aplicações não selecionadas no modelo ficarão invisíveis para as aplicações que o aplicam.</string>
     <string name="template_new_blacklist">Criar um modelo de lista negra</string>
     <string name="template_new_whitelist">Criar um modelo de lista branca</string>
+    <string name="template_new_setting">Create a settings template</string>
     <string name="template_delete">Tem a certeza de que deseja eliminar o modelo?</string>
     <string name="template_name">Nome do modelo</string>
     <string name="template_name_invalid">Nome inválido</string>
     <string name="template_delete_title">Eliminar modelo</string>
     <string name="template_name_already_exist">O nome do modelo já existe</string>
     <string name="template_applied_count">Aplicado a %d aplicações</string>
+    <string name="template_setting_count">%d settings added</string>
     <string name="template_apps_visible_count">%d aplicações visíveis</string>
     <string name="template_apps_invisible_count">%d aplicações invisíveis</string>
     <!-- App settings -->
@@ -85,6 +90,7 @@
     <string name="app_template_using">Usando %d modelos</string>
     <string name="app_preset_using">Usando %d predefinições</string>
     <string name="app_settings_preset_using">A utilizar %d predefinições de definições</string>
+    <string name="app_settings_template_using">Using %d settings templates</string>
     <string name="app_extra_apps_visible_count">%d aplicativos adicionais visíveis</string>
     <string name="app_extra_apps_invisible_count">%d aplicativos adicionais invisíveis</string>
     <string name="app_warning_risky_package_title">Pacote de risco</string>
@@ -112,9 +118,15 @@
     <string name="preset_custom_rom">Aplicações de ROM personalizada</string>
     <string name="preset_sus_apps">Apps suspeitos</string>
     <string name="preset_detector_apps">Apps detectores de root</string>
+    <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku apps</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Acessibilidade</string>
     <string name="settings_preset_dev_options">Opções de programador</string>
+    <string name="settings_preset_input_method">Input method</string>
+    <!-- Settings templates -->
+    <string name="settings_templates_database">Settings database</string>
+    <string name="settings_templates_name">Setting name</string>
+    <string name="settings_templates_value">Setting value</string>
     <!-- Logs -->
     <string name="logs_save">Guardar registos</string>
     <string name="logs_clear">Limpar registos</string>
@@ -150,6 +162,8 @@
     <string name="settings_clear_uninstalled_app_configs">Limpar configurações de apps desinstalados</string>
     <string name="settings_clear_uninstalled_app_configs_summary">Esta opção permite criar uma configuração sem remanescentes, mas terá que reconfigurar os apps quando os instalar novamente.</string>
     <string name="settings_no_undone_warning">Esta ação não pode ser desfeita.</string>
+    <string name="settings_package_query_workaround">Consulta alternativa de pacote</string>
+    <string name="settings_package_query_workaround_summary">Não ative essa opção se você consegue ver a lista de pacotes corretamente neste app.</string>
     <string name="settings_language">Idioma</string>
     <string name="settings_translate">Participar na tradução</string>
     <string name="settings_translate_summary">Ajude-nos a traduzir o %s para o seu idioma</string>

@@ -5,6 +5,7 @@
     <string name="title_settings">Ajustes</string>
     <string name="title_template_manage">Administrar plantillas</string>
     <string name="title_template_settings">Configuración de la plantilla</string>
+    <string name="title_settings_template_conf">Configuración de plantilla de configuración</string>
     <string name="title_app_manage">Gestionar apps</string>
     <string name="title_app_select">Seleccionar aplicaciones</string>
     <string name="title_app_settings">Configuración de las apps</string>
@@ -28,6 +29,8 @@
     <string name="no">No</string>
     <string name="search">Buscar</string>
     <string name="system">Sistema</string>
+    <string name="add">Añadir</string>
+    <string name="edit">Editar</string>
     <string name="follow_system">Igual que el sistema</string>
     <!-- Home -->
     <string name="home_xposed_activated">Módulo Activado [%s]</string>
@@ -67,12 +70,14 @@
     <string name="template_usage_hint">Establece plantillas para aplicaciones \"inquietas\", controlando la lista de aplicaciones que pueden obtener.\n\nLista negra (recomendada): las aplicaciones seleccionadas en la plantilla serán invisibles para las aplicaciones que aplican la plantilla.\nLista blanca: las aplicaciones no seleccionadas en la plantilla serán invisibles para las aplicaciones que aplican la plantilla.</string>
     <string name="template_new_blacklist">Crear plantilla de lista negra</string>
     <string name="template_new_whitelist">Crear plantilla de lista blanca</string>
+    <string name="template_new_setting">Crear una plantilla de configuración</string>
     <string name="template_delete">¿Está seguro que desea eliminar la plantilla?</string>
     <string name="template_name">Nombre de la plantilla</string>
     <string name="template_name_invalid">El nombre no es válido</string>
     <string name="template_delete_title">Eliminar plantilla</string>
     <string name="template_name_already_exist">El nombre de la plantilla ya existe</string>
     <string name="template_applied_count">Aplicado a %d apps</string>
+    <string name="template_setting_count">%d ajustes añadidos</string>
     <string name="template_apps_visible_count">%d apps visibles</string>
     <string name="template_apps_invisible_count">%d apps invisibles</string>
     <!-- App settings -->
@@ -85,6 +90,7 @@
     <string name="app_template_using">Usando %d plantillas</string>
     <string name="app_preset_using">Usando %d presets</string>
     <string name="app_settings_preset_using">Usando %d presets de ajustes</string>
+    <string name="app_settings_template_using">Usando plantillas de configuración %d</string>
     <string name="app_extra_apps_visible_count">%d apps adicionales visibles</string>
     <string name="app_extra_apps_invisible_count">%d apps adicionales invisibles</string>
     <string name="app_warning_risky_package_title">Paquete riesgoso</string>
@@ -112,9 +118,15 @@
     <string name="preset_custom_rom">Aplicaciones de ROM personalizadas</string>
     <string name="preset_sus_apps">Apps sospechosas</string>
     <string name="preset_detector_apps">Aplicaciones de detección/Apps de Chequeos</string>
+    <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku apps</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Accesibilidad</string>
     <string name="settings_preset_dev_options">Opciones de desarrollador</string>
+    <string name="settings_preset_input_method">Método de entrada</string>
+    <!-- Settings templates -->
+    <string name="settings_templates_database">Configuración de base de datos</string>
+    <string name="settings_templates_name">Nombre de la configuración</string>
+    <string name="settings_templates_value">Valor de ajuste</string>
     <!-- Logs -->
     <string name="logs_save">Guardar logs</string>
     <string name="logs_clear">Borrar logs</string>
@@ -150,6 +162,8 @@
     <string name="settings_clear_uninstalled_app_configs">Borrar configuraciones de aplicaciones desinstaladas</string>
     <string name="settings_clear_uninstalled_app_configs_summary">Esta opción le permite crear una configuración sin restos pero tendrá que reconfigurar las aplicaciones cuando las haya instalado de nuevo.</string>
     <string name="settings_no_undone_warning">Esta acción no se puede deshacer.</string>
+    <string name="settings_package_query_workaround">Consulta alternativa de paquete</string>
+    <string name="settings_package_query_workaround_summary">No active esta opción si ve la lista de paquetes en esta aplicación correctamente.</string>
     <string name="settings_language">Idioma</string>
     <string name="settings_translate">Participa en la traducción</string>
     <string name="settings_translate_summary">Ayúdanos a traducir %s a tu idioma</string>
