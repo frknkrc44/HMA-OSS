@@ -51,6 +51,18 @@
     </fragment>
 
     <fragment
+        android:id="@+id/nav_setting_template_conf"
+        android:name="org.frknkrc44.hma_oss.ui.fragment.SettingsTemplateConfFragment"
+        android:label="@string/title_settings_template_conf">
+
+        <argument
+            android:name="name"
+            app:argType="string"
+            app:nullable="true" />
+
+    </fragment>
+
+    <fragment
         android:id="@+id/nav_app_manage"
         android:name="icu.nullptr.hidemyapplist.ui.fragment.AppManageFragment"
         android:label="@string/title_app_manage" />
@@ -60,12 +72,32 @@
         android:name="org.frknkrc44.hma_oss.ui.fragment.AppPresetFragment">
 
         <argument
-            android:name="presetName"
+            android:name="name"
             app:argType="string" />
 
         <argument
-            android:name="presetTitle"
+            android:name="title"
             app:argType="string" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_settings_templates_edit_setting"
+        android:name="org.frknkrc44.hma_oss.ui.fragment.EditSettingFragment">
+
+        <argument
+            android:name="database"
+            app:argType="string"
+            app:nullable="true" />
+
+        <argument
+            android:name="name"
+            app:argType="string" />
+
+        <argument
+            android:name="value"
+            app:argType="string"
+            app:nullable="true" />
 
     </fragment>
 
@@ -74,12 +106,22 @@
         android:name="org.frknkrc44.hma_oss.ui.fragment.SettingsPresetFragment">
 
         <argument
-            android:name="presetName"
+            android:name="name"
             app:argType="string" />
 
         <argument
-            android:name="presetTitle"
+            android:name="title"
             app:argType="string" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_settings_template_inner_manage"
+        android:name="org.frknkrc44.hma_oss.ui.fragment.SettingsTemplateInnerFragment">
+
+        <argument
+            android:name="items"
+            app:argType="android.os.Bundle" />
 
     </fragment>
 

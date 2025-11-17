@@ -23,4 +23,10 @@ interface IHMAService {
     void forceStop(String packageName, int userId) = 9;
 
     void log(int level, String tag, String message) = 10;
+
+    String[] getPackageNames(int userId) = 11;
+
+    PackageInfo getPackageInfo(String packageName, int userId) = 12;
+
+    String[] listAllSettings(String databaseName) = 13;
 }

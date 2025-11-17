@@ -11,28 +11,20 @@ object RiskyPackageUtils {
 
     fun appHasGMSConnection(query: String) = query in ignoredForRiskyPackagesList
 
-    internal fun appHasGMSConnection(appInfo: ApplicationInfo, query: String, loggerFunction: ((String) -> Unit)?): Boolean {
-        if (query in ignoredForRiskyPackagesList) return true
+    internal fun tryToAddIntoGMSConnectionList(appInfo: ApplicationInfo, packageName: String, loggerFunction: ((String) -> Unit)?) {
+        if (packageName in ignoredForRiskyPackagesList) return
 
         try {
             ZipFile(appInfo.sourceDir).use { zipFile ->
-                val manifestFile = zipFile.getInputStream(
-                    zipFile.getEntry("AndroidManifest.xml")
-                )
-                val manifestBytes = manifestFile.use { it.readBytes() }
-                val manifestStr = String(manifestBytes, Charsets.US_ASCII)
+                val manifestStr = AppPresets.instance.readManifest(packageName, zipFile)
 
                 // Checking with binary because the Android system sucks
                 if (manifestStr.contains(GMS_PROP) || manifestStr.contains(FIREBASE_PROP)) {
-                    if (ignoredForRiskyPackagesList.add(query)) {
-                        loggerFunction?.invoke("@appHasGMSConnection $query added in ignored packages list")
+                    if (ignoredForRiskyPackagesList.add(packageName)) {
+                        loggerFunction?.invoke("@appHasGMSConnection $packageName added in ignored packages list")
                     }
-
-                    return true
                 }
             }
         } catch (_: Throwable) { }
-
-        return false
     }
 }

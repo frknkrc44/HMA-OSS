@@ -2,14 +2,19 @@ package org.frknkrc44.hma_oss.ui.fragment
 
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
 import android.widget.LinearLayout
 import androidx.annotation.DrawableRes
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import androidx.core.net.toUri
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.transition.AutoTransition
+import androidx.transition.TransitionManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import icu.nullptr.hidemyapplist.service.PrefManager
@@ -31,7 +36,7 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
         binding.root.setOnApplyWindowInsetsListener { v, insets ->
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 val barInsets = insets.getInsets(WindowInsets.Type.systemBars())
-                binding.root.setPadding(
+                v.setPadding(
                     barInsets.left,
                     barInsets.top,
                     barInsets.right,
@@ -41,7 +46,7 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
                 binding.bottomPadding.minimumHeight = barInsets.bottom
             } else {
                 @Suppress("deprecation")
-                binding.root.setPadding(
+                v.setPadding(
                     insets.systemWindowInsetLeft,
                     insets.systemWindowInsetTop,
                     insets.systemWindowInsetRight,
@@ -53,10 +58,6 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
 
             insets
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
 
         val tint = ColorStateList.valueOf(homeItemBackgroundColor())
 
@@ -67,7 +68,7 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
             }
 
             Glide.with(this@AboutFragment)
-                .load(R.mipmap.ic_launcher_round)
+                .load(R.mipmap.ic_launcher)
                 .circleCrop()
                 .into(appIcon)
 
@@ -101,11 +102,28 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
         with(binding.listDeveloper) {
             backgroundTintList = tint
             clipToOutline = true
+        }
 
-            // HMA-OSS devs
+        with(binding.devHeader) {
+            setOnClickListener {
+                if (binding.listHma.isVisible) {
+                    binding.expandDevs.animate().rotation(0.0f).start()
+                } else {
+                    TransitionManager.beginDelayedTransition(binding.listDeveloper, AutoTransition())
+                    binding.expandDevs.animate().rotation(180.0f).start()
+                }
+
+                binding.listHma.isVisible = !binding.listHma.isVisible
+            }
+        }
+
+        // HMA-OSS devs
+        with(binding.listHmaOss) {
             addDevItem(this, R.drawable.cont_fk, "frknkrc44", "HMA-OSS Developer", "https://github.com/frknkrc44")
+        }
 
-            // Original HMA devs
+        // Original HMA devs
+        with(binding.listHma) {
             addDevItem(this, R.drawable.cont_nullptr, "nullptr", "HMA Developer", "https://github.com/Dr-TSNG")
             addDevItem(this, R.drawable.cont_k, "Ketal", "HMA Collaborator", "https://github.com/keta1")
             addDevItem(this, R.drawable.cont_aviraxp, "aviraxp", "HMA Collaborator", "https://github.com/aviraxp")
@@ -130,10 +148,12 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
         val newLayout = FragmentAboutListItemBinding.inflate(layoutInflater)
         setOnClickUrl(newLayout.root, url)
 
-        Glide.with(this)
-            .load(avatarResId)
-            .circleCrop()
-            .into(newLayout.aboutPersonIcon)
+        newLayout.aboutPersonIcon.setImageDrawable(RoundedBitmapDrawableFactory.create(
+            resources,
+            BitmapFactory.decodeResource(resources, avatarResId)
+        ).apply {
+            isCircular = true
+        })
 
         newLayout.text1.text = name
         newLayout.text2.text = desc
@@ -142,6 +162,7 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
 
     fun addTranslatorItem(layout: LinearLayout, avatarUrl: String, name: String) {
         val newLayout = FragmentAboutListItemBinding.inflate(layoutInflater)
+
         Glide.with(this)
             .load(avatarUrl)
             .placeholder(R.drawable.outline_info_24)

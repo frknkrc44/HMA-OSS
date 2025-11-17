@@ -27,7 +27,6 @@
     </style>
 
     <style name="ThemeOverlay.Wallpaper">
-        <item name="android:colorBackground">#AA000000</item>
         <item name="android:windowShowWallpaper">true</item>
     </style>
 </resources>

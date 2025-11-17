@@ -39,7 +39,7 @@ class PresetManageFragment : Fragment(R.layout.fragment_preset_manage) {
         binding.root.setOnApplyWindowInsetsListener { v, insets ->
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 val barInsets = insets.getInsets(WindowInsets.Type.systemBars())
-                binding.root.setPadding(
+                v.setPadding(
                     barInsets.left,
                     barInsets.top,
                     barInsets.right,
@@ -47,7 +47,7 @@ class PresetManageFragment : Fragment(R.layout.fragment_preset_manage) {
                 )
             } else {
                 @Suppress("deprecation")
-                binding.root.setPadding(
+                v.setPadding(
                     insets.systemWindowInsetLeft,
                     insets.systemWindowInsetTop,
                     insets.systemWindowInsetRight,
@@ -61,11 +61,11 @@ class PresetManageFragment : Fragment(R.layout.fragment_preset_manage) {
 
     private fun navigateToPreset(presetInfo: ConfigManager.PresetInfo) {
         when (presetInfo.type!!) {
-            ConfigManager.PresetType.APP -> {
+            ConfigManager.PTType.APP -> {
                 val args = AppPresetFragmentArgs(presetInfo.name, presetInfo.translation)
                 navigate(R.id.nav_preset_inner_manage, args.toBundle())
             }
-            ConfigManager.PresetType.SETTINGS -> {
+            ConfigManager.PTType.SETTINGS -> {
                 val args = SettingsPresetFragmentArgs(presetInfo.name, presetInfo.translation)
                 navigate(R.id.nav_settings_preset_inner_manage, args.toBundle())
             }

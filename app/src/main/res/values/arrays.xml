@@ -75,4 +75,9 @@
         <item>@string/app_force_stop_launch</item>
         <item>@string/app_launch</item>
     </string-array>
+
+    <string-array name="settings_template_inner_action_texts" translatable="false">
+        <item>@string/edit</item>
+        <item>@string/delete</item>
+    </string-array>
 </resources>

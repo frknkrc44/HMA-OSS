@@ -6,7 +6,9 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.hmaApp
+import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.service.PrefManager
+import icu.nullptr.hidemyapplist.service.ServiceClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.first
@@ -74,14 +76,30 @@ object PackageHelper {
             isRefreshing.emit(true)
             val cache = withContext(Dispatchers.IO) {
                 val pm = hmaApp.packageManager
-                val packages = pm.getInstalledPackages(0)
-                mutableMapOf<String, PackageCache>().also {
-                    for (packageInfo in packages) {
-                        if (packageInfo.packageName in Constants.packagesShouldNotHide) continue
-                        packageInfo.applicationInfo?.let { appInfo ->
-                            val label = pm.getApplicationLabel(appInfo).toString()
-                            val icon = hmaApp.appIconLoader.loadIcon(appInfo)
-                            it[packageInfo.packageName] = PackageCache(packageInfo, label, icon)
+
+                if (ConfigManager.packageQueryWorkaround) {
+                    val packages = ServiceClient.getPackageNames(0) ?: arrayOf<String>()
+                    mutableMapOf<String, PackageCache>().also {
+                        for (packageName in packages) {
+                            val packageInfo = ServiceClient.getPackageInfo(packageName, 0)!!
+                            if (packageInfo.packageName in Constants.packagesShouldNotHide) continue
+                            packageInfo.applicationInfo?.let { appInfo ->
+                                val label = pm.getApplicationLabel(appInfo).toString()
+                                val icon = hmaApp.appIconLoader.loadIcon(appInfo)
+                                it[packageInfo.packageName] = PackageCache(packageInfo, label, icon)
+                            }
+                        }
+                    }
+                } else {
+                    val packages = pm.getInstalledPackages(0)
+                    mutableMapOf<String, PackageCache>().also {
+                        for (packageInfo in packages) {
+                            if (packageInfo.packageName in Constants.packagesShouldNotHide) continue
+                            packageInfo.applicationInfo?.let { appInfo ->
+                                val label = pm.getApplicationLabel(appInfo).toString()
+                                val icon = hmaApp.appIconLoader.loadIcon(appInfo)
+                                it[packageInfo.packageName] = PackageCache(packageInfo, label, icon)
+                            }
                         }
                     }
                 }

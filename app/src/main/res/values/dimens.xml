@@ -9,5 +9,7 @@
 
     <dimen name="primary_elevation">6dp</dimen>
     <dimen name="secondary_elevation">1dp</dimen>
+    <dimen name="item_padding_mini">4dp</dimen>
+    <dimen name="item_padding_mini2x">8dp</dimen>
     <dimen name="text_margin">16dp</dimen>
 </resources>

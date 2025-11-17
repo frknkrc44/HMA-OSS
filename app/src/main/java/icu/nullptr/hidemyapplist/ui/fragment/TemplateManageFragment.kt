@@ -4,13 +4,12 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
-import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.clearFragmentResultListener
 import androidx.fragment.app.setFragmentResultListener
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.ui.adapter.TemplateAdapter
@@ -19,6 +18,8 @@ import icu.nullptr.hidemyapplist.ui.util.navigate
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentTemplateManageBinding
+import org.frknkrc44.hma_oss.ui.fragment.SettingsTemplateConfFragmentArgs
+import org.frknkrc44.hma_oss.ui.util.toTargetSettingList
 
 class TemplateManageFragment : Fragment(R.layout.fragment_template_manage) {
 
@@ -30,16 +31,29 @@ class TemplateManageFragment : Fragment(R.layout.fragment_template_manage) {
             toolbar = binding.toolbar,
             title = getString(R.string.title_template_manage),
             navigationIcon = R.drawable.baseline_arrow_back_24,
-            navigationOnClick = { navController.navigateUp() }
+            navigationOnClick = { navController.navigateUp() },
+            menuRes = R.menu.menu_template_manage,
+            onMenuOptionSelected = {
+                when (it.itemId) {
+                    R.id.menu_info -> {
+                        MaterialAlertDialogBuilder(requireContext())
+                            .setTitle(R.string.title_template_manage)
+                            .setMessage(R.string.template_usage_hint)
+                            .setNegativeButton(android.R.string.ok, null)
+                            .show()
+                    }
+                }
+            }
         )
-        postponeEnterTransition()
-        view.doOnPreDraw { startPostponedEnterTransition() }
 
         binding.newBlacklistTemplate.setOnClickListener {
-            navigateToSettings(ConfigManager.TemplateInfo(null, false))
+            navigateToSettings(ConfigManager.TemplateInfo(null, ConfigManager.PTType.APP, false))
         }
         binding.newWhitelistTemplate.setOnClickListener {
-            navigateToSettings(ConfigManager.TemplateInfo(null, true))
+            navigateToSettings(ConfigManager.TemplateInfo(null, ConfigManager.PTType.APP, true))
+        }
+        binding.newSettingTemplate.setOnClickListener {
+            navigateToSettings(ConfigManager.TemplateInfo(null, ConfigManager.PTType.SETTINGS, false))
         }
         binding.templateList.layoutManager = LinearLayoutManager(context)
         binding.templateList.adapter = adapter
@@ -47,7 +61,7 @@ class TemplateManageFragment : Fragment(R.layout.fragment_template_manage) {
         binding.root.setOnApplyWindowInsetsListener { v, insets ->
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 val barInsets = insets.getInsets(WindowInsets.Type.systemBars())
-                binding.root.setPadding(
+                v.setPadding(
                     barInsets.left,
                     barInsets.top,
                     barInsets.right,
@@ -55,7 +69,7 @@ class TemplateManageFragment : Fragment(R.layout.fragment_template_manage) {
                 )
             } else {
                 @Suppress("deprecation")
-                binding.root.setPadding(
+                v.setPadding(
                     insets.systemWindowInsetLeft,
                     insets.systemWindowInsetTop,
                     insets.systemWindowInsetRight,
@@ -68,6 +82,13 @@ class TemplateManageFragment : Fragment(R.layout.fragment_template_manage) {
     }
 
     private fun navigateToSettings(info: ConfigManager.TemplateInfo) {
+        when (info.type) {
+            ConfigManager.PTType.APP -> navigateToAppTemplateSettings(info)
+            ConfigManager.PTType.SETTINGS -> navigateToSettingTemplateSettings(info)
+        }
+    }
+
+    private fun navigateToAppTemplateSettings(info: ConfigManager.TemplateInfo) {
         setFragmentResultListener("template_settings") { _, bundle ->
             fun deal() {
                 var name = bundle.getString("name")
@@ -94,7 +115,42 @@ class TemplateManageFragment : Fragment(R.layout.fragment_template_manage) {
         }
 
         val args = TemplateSettingsFragmentArgs(info.name, info.isWhiteList)
-        val extras = FragmentNavigatorExtras(binding.hintCard to "transition_manage")
-        navigate(R.id.nav_template_settings, args.toBundle(), extras)
+        navigate(R.id.nav_template_settings, args.toBundle())
+    }
+
+    private fun navigateToSettingTemplateSettings(info: ConfigManager.TemplateInfo) {
+        setFragmentResultListener("settings_template_conf") { _, bundle ->
+            fun deal() {
+                var name = bundle.getString("name")
+                val appliedList = bundle.getStringArrayList("appliedList")!!
+                val targetList = bundle.getBundle("settingList")!!.toTargetSettingList()
+                if (info.name == null) { // New template
+                    if (name.isNullOrEmpty()) return
+                    ConfigManager.updateSettingTemplate(
+                        name,
+                        JsonConfig.SettingsTemplate(targetList.toSet())
+                    )
+                    ConfigManager.updateSettingTemplateAppliedApps(name, appliedList)
+                } else {                 // Existing template
+                    if (name == null) {
+                        ConfigManager.deleteSettingTemplate(info.name)
+                    } else {
+                        if (name.isEmpty()) name = info.name
+                        if (name != info.name) ConfigManager.renameSettingTemplate(info.name, name)
+                        ConfigManager.updateSettingTemplate(
+                            name,
+                            JsonConfig.SettingsTemplate(targetList.toSet())
+                        )
+                        ConfigManager.updateSettingTemplateAppliedApps(name, appliedList)
+                    }
+                }
+            }
+            deal()
+            adapter.updateList()
+            clearFragmentResultListener("settings_template_conf")
+        }
+
+        val args = SettingsTemplateConfFragmentArgs(info.name)
+        navigate(R.id.nav_setting_template_conf, args.toBundle())
     }
 }

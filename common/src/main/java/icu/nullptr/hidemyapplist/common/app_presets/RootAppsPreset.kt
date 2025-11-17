@@ -4,7 +4,11 @@ import android.content.pm.ApplicationInfo
 import icu.nullptr.hidemyapplist.common.Utils
 import java.util.zip.ZipFile
 
-class RootAppsPreset : BasePreset("root_apps") {
+class RootAppsPreset : BasePreset(NAME) {
+    companion object {
+        const val NAME = "root_apps"
+    }
+
     override val exactPackageNames = setOf(
         // rooted apps
         "io.github.a13e300.ksuwebui",
@@ -40,6 +44,7 @@ class RootAppsPreset : BasePreset("root_apps") {
         "me.twrp.twrpapp",
         "com.slash.batterychargelimit",
         "com.valhalla.thor",
+        "me.itejo443.bindhosts",
 
         // Scene's "Core Edition" cannot be detected in the Xposed preset
         "com.omarea.vtools",

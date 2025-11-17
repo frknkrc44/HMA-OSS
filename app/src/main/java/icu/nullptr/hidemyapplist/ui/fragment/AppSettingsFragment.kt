@@ -9,6 +9,7 @@ import android.view.WindowInsets
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.graphics.drawable.toDrawable
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.clearFragmentResultListener
 import androidx.fragment.app.setFragmentResultListener
@@ -35,6 +36,7 @@ import icu.nullptr.hidemyapplist.util.PackageHelper
 import org.frknkrc44.hma_oss.BuildConfig
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentSettingsBinding
+import org.frknkrc44.hma_oss.databinding.LayoutListEmptyBinding
 
 class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
     companion object {
@@ -65,11 +67,6 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
         saveConfig()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        saveConfig()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) { onBack() }
         setupToolbar(
@@ -88,7 +85,7 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
         binding.root.setOnApplyWindowInsetsListener { v, insets ->
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 val barInsets = insets.getInsets(WindowInsets.Type.systemBars())
-                binding.root.setPadding(
+                v.setPadding(
                     barInsets.left,
                     barInsets.top,
                     barInsets.right,
@@ -96,7 +93,7 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
                 )
             } else {
                 @Suppress("deprecation")
-                binding.root.setPadding(
+                v.setPadding(
                     insets.systemWindowInsetLeft,
                     insets.systemWindowInsetTop,
                     insets.systemWindowInsetRight,
@@ -119,6 +116,7 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
                 "hideSystemInstallationSource" -> pack.config.hideSystemInstallationSource
                 "excludeTargetInstallationSource" -> pack.config.excludeTargetInstallationSource
                 "invertActivityLaunchProtection" -> pack.config.invertActivityLaunchProtection
+                "excludeVoldIsolation" -> pack.config.excludeVoldIsolation
                 else -> throw IllegalArgumentException("Invalid key: $key")
             }
         }
@@ -132,6 +130,7 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
                 "hideSystemInstallationSource" -> pack.config.hideSystemInstallationSource = value
                 "excludeTargetInstallationSource" -> pack.config.excludeTargetInstallationSource = value
                 "invertActivityLaunchProtection" -> pack.config.invertActivityLaunchProtection = value
+                "excludeVoldIsolation" -> pack.config.excludeVoldIsolation = value
                 else -> throw IllegalArgumentException("Invalid key: $key")
             }
         }
@@ -147,14 +146,21 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
                 getString(R.string.app_template_using, pack.config.applyTemplates.size)
         }
 
-        private fun updateApplyPresets() {
-            findPreference<Preference>("applyPresets")?.title =
-                getString(R.string.app_preset_using, pack.config.applyPresets.size)
+        private fun updateApplyPresets(useWhitelist: Boolean = pack.config.useWhitelist) {
+            findPreference<Preference>("applyPresets")?.apply {
+                isVisible = !useWhitelist
+                title = getString(R.string.app_preset_using, pack.config.applyPresets.size)
+            }
         }
 
         private fun updateApplySettingsPresets() {
             findPreference<Preference>("applySettingsPresets")?.title =
                 getString(R.string.app_settings_preset_using, pack.config.applySettingsPresets.size)
+        }
+
+        private fun updateApplySettingsTemplates() {
+            findPreference<Preference>("applySettingsTemplates")?.title =
+                getString(R.string.app_settings_template_using, pack.config.applySettingTemplates.size)
         }
 
         private fun updateExtraAppList(useWhiteList: Boolean) {
@@ -225,6 +231,9 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
                     R.string.app_force_stop_warning, Toast.LENGTH_LONG).show()
                 true
             }
+            findPreference<SwitchPreferenceCompat>("excludeVoldIsolation")?.let {
+                it.isEnabled = ConfigManager.altVoldAppDataIsolation
+            }
             findPreference<SwitchPreferenceCompat>("invertActivityLaunchProtection")?.let {
                 it.summary = getString(R.string.app_invert_activity_launch_protection_desc) + "\n\n" +
                         getString(R.string.app_global_activity_launch_protection_state,
@@ -232,11 +241,14 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
                         )
             }
             findPreference<SwitchPreferenceCompat>("useWhiteList")?.setOnPreferenceChangeListener { _, newValue ->
+                val useWhitelist = newValue as Boolean
+
                 pack.config.applyTemplates.clear()
                 pack.config.extraAppList.clear()
+                pack.config.applyPresets.clear()
                 updateApplyTemplates()
-                updateApplyPresets()
-                updateExtraAppList(newValue as Boolean)
+                updateApplyPresets(useWhitelist)
+                updateExtraAppList(useWhitelist)
                 true
             }
             findPreference<Preference>("applyTemplates")?.setOnPreferenceClickListener {
@@ -246,9 +258,9 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
                 val checked = templates.map {
                     pack.config.applyTemplates.contains(it)
                 }.toBooleanArray()
-                MaterialAlertDialogBuilder(requireContext())
+
+                val dialog = MaterialAlertDialogBuilder(requireContext())
                     .setTitle(R.string.app_choose_template)
-                    .setMultiChoiceItems(templates, checked) { _, i, value -> checked[i] = value }
                     .setNegativeButton(android.R.string.cancel, null)
                     .setPositiveButton(android.R.string.ok) { _, _ ->
                         pack.config.applyTemplates = templates.mapIndexedNotNullTo(mutableSetOf()) { i, name ->
@@ -256,7 +268,21 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
                         }
                         updateApplyTemplates()
                     }
-                    .show()
+
+                if (templates.isNotEmpty()) {
+                    dialog.setMultiChoiceItems(templates, checked) { _, i, value ->
+                        checked[i] = value
+                    }
+                } else {
+                    val emptyView = LayoutListEmptyBinding.inflate(layoutInflater)
+                    emptyView.root.isVisible = true
+                    emptyView.listEmptyIcon.setImageResource(R.drawable.sentiment_very_dissatisfied_24px)
+                    emptyView.listEmptyText.text = getString(R.string.title_template_manage)
+                    dialog.setView(emptyView.root)
+                }
+
+                dialog.show()
+
                 true
             }
             findPreference<Preference>("applyPresets")?.setOnPreferenceClickListener {
@@ -292,6 +318,37 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
                     }
                     .show()
                 true
+            }
+            findPreference<Preference>("applySettingsTemplates")?.apply {
+                setOnPreferenceClickListener {
+                    val templates = ConfigManager.getSettingTemplateList().mapNotNull { it.name }.toTypedArray()
+                    val checked = templates.map {
+                        pack.config.applySettingTemplates.contains(it)
+                    }.toBooleanArray()
+
+                    val dialog = MaterialAlertDialogBuilder(requireContext())
+                        .setTitle(R.string.app_choose_template)
+                        .setNegativeButton(android.R.string.cancel, null)
+                        .setPositiveButton(android.R.string.ok) { _, _ ->
+                            pack.config.applySettingTemplates = templates.mapIndexedNotNullTo(mutableSetOf()) { i, name ->
+                                if (checked[i]) name else null
+                            }
+                            updateApplySettingsTemplates()
+                        }
+
+                    if (templates.isNotEmpty()) {
+                        dialog.setMultiChoiceItems(templates, checked) { _, i, value -> checked[i] = value }
+                    } else {
+                        val emptyView = LayoutListEmptyBinding.inflate(layoutInflater)
+                        emptyView.root.isVisible = true
+                        emptyView.listEmptyIcon.setImageResource(R.drawable.sentiment_very_dissatisfied_24px)
+                        emptyView.listEmptyText.text = getString(R.string.title_template_manage)
+                        dialog.setView(emptyView.root)
+                    }
+
+                    dialog.show()
+                    true
+                }
             }
             findPreference<Preference>("applySettingsPresets")?.setOnPreferenceClickListener {
                 val presetNames = SettingsPresets.instance.getAllPresetNames()
@@ -343,6 +400,7 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
             }
             updateApplyTemplates()
             updateApplyPresets()
+            updateApplySettingsTemplates()
             updateApplySettingsPresets()
             updateExtraAppList(pack.config.useWhitelist)
         }

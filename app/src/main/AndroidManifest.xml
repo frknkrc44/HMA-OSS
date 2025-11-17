@@ -31,7 +31,6 @@
         <activity-alias
             android:name=".MainActivityLauncher"
             android:exported="true"
-            android:label="@string/app_name"
             android:targetActivity="org.frknkrc44.hma_oss.ui.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -13,7 +13,7 @@ import icu.nullptr.hidemyapplist.xposed.HMAService
 import icu.nullptr.hidemyapplist.xposed.logD
 import icu.nullptr.hidemyapplist.xposed.logE
 import icu.nullptr.hidemyapplist.xposed.logI
-
+import org.frknkrc44.hma_oss.common.BuildConfig
 
 @RequiresApi(Build.VERSION_CODES.R)
 class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
@@ -36,7 +36,7 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
             "com.android.server.am.ProcessList"
         ) {
             name == "startProcess"
-        }?.hookAfter { param ->
+        }?.hookBefore { param ->
             if (service.config.altAppDataIsolation) {
                 val isEnabled = XposedHelpers.getBooleanField(
                     param.thisObject,
@@ -55,8 +55,7 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
             }
 
             if (service.config.altVoldAppDataIsolation && !voldHookSkipped) {
-                val fuseEnabled = Build.VERSION.SDK_INT > Build.VERSION_CODES.R ||
-                        SystemProperties.getBoolean(FUSE_PROP, false)
+                val fuseEnabled = SystemProperties.getBoolean(FUSE_PROP, false)
 
                 if (!fuseEnabled) {
                     voldHookSkipped = true
@@ -87,19 +86,53 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
         ) {
             name == "needsStorageDataIsolation"
         }?.hookAfter { param ->
-            if (service.config.altVoldAppDataIsolation && service.config.skipSystemAppDataIsolation) {
+            if (service.config.altVoldAppDataIsolation) {
                 val app = param.args.find { it.javaClass.simpleName == "ProcessRecord" }
                 val uid = XposedHelpers.getIntField(app, "uid")
+                val processName = runCatching {
+                    XposedHelpers.getObjectField(app, "processName")
+                }.getOrDefault("<unknown>")
+                val mountNode = runCatching {
+                    XposedHelpers.getIntField(app, "mMountMode")
+                }.getOrDefault(0)
+                val isolated = runCatching {
+                    XposedHelpers.getBooleanField(app, "isolated")
+                }.getOrDefault(false)
+                val appZygote = runCatching {
+                    XposedHelpers.getBooleanField(app, "appZygote")
+                }.getOrDefault(false)
+
                 val apps = Utils.binderLocalScope {
                     service.pms.getPackagesForUid(uid)
                 } ?: return@hookAfter
 
-                val isSystemApp = service.systemApps.any { apps.contains(it) }
                 logD(
                     TAG,
-                    "@needsStorageDataIsolation $uid - ${apps.contentToString()} isSystemApp: $isSystemApp"
+                    "@needsStorageDataIsolation $uid and ${apps.contentToString()} - $processName value without override: ${param.result}, mount node: $mountNode, isolated: $isolated, appZygote: $appZygote"
                 )
-                if (isSystemApp) param.result = false
+
+                // Do not isolate this module for safety
+                if (apps.contains(BuildConfig.APP_PACKAGE_NAME)) {
+                    param.result = false
+                    return@hookAfter
+                }
+
+                if (apps.any { service.isAppDataIsolationExcluded(it) }) {
+                    param.result = false
+                }
+
+                if (service.config.skipSystemAppDataIsolation) {
+                    val isSystemApp = service.systemApps.any { apps.contains(it) }
+                    logD(
+                        TAG,
+                        "@needsStorageDataIsolation $uid and ${apps.contentToString()} - isSystemApp: $isSystemApp"
+                    )
+
+                    if (isSystemApp) {
+                        param.result = false
+                        return@hookAfter
+                    }
+                }
             }
         }?.let {
             hooks += it
@@ -112,8 +145,7 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
         }?.hookBefore { param ->
             runCatching {
                 if (service.config.altVoldAppDataIsolation) {
-                    val fuseEnabled = Build.VERSION.SDK_INT > Build.VERSION_CODES.R ||
-                            SystemProperties.getBoolean(FUSE_PROP, false)
+                    val fuseEnabled = SystemProperties.getBoolean(FUSE_PROP, false)
 
                     if (!fuseEnabled) {
                         logE(TAG, "StorageManagerService - FUSE storage is not enabled, disable hooks")
@@ -165,7 +197,7 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
                     } ?: continue
 
                     for (app in apps) {
-                        if (app in service.systemApps) {
+                        if (app in service.systemApps || app == BuildConfig.APP_PACKAGE_NAME) {
                             logD(
                                 TAG,
                                 "@remountAppStorageDirs SYSTEM $pid - $packageName is marked to remove"

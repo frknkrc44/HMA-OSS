@@ -12,7 +12,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
-import androidx.navigation.Navigator
 import androidx.navigation.fragment.NavHostFragment
 import org.frknkrc44.hma_oss.R
 
@@ -29,10 +28,6 @@ private val navOptions by lazy {
 
 fun Fragment.navigate(@IdRes resId: Int, args: Bundle? = null) {
     navController.navigate(resId, args, navOptions)
-}
-
-fun Fragment.navigate(@IdRes resId: Int, args: Bundle? = null, navExtras: Navigator.Extras?) {
-    navController.navigate(resId, args, navOptions, navExtras)
 }
 
 fun Fragment.setupToolbar(

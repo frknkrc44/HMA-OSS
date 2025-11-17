@@ -28,6 +28,14 @@ object Utils {
         return result
     }
 
+    fun getInstalledPackagesCompat(pms: IPackageManager, flags: Long, userId: Int): List<PackageInfo> {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            pms.getInstalledPackages(flags, userId)
+        } else {
+            pms.getInstalledPackages(flags.toInt(), userId)
+        }.list
+    }
+
     fun getInstalledApplicationsCompat(pms: IPackageManager, flags: Long, userId: Int): List<ApplicationInfo> {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             pms.getInstalledApplications(flags, userId)

@@ -146,7 +146,7 @@ class LogsFragment : Fragment(R.layout.fragment_logs) {
         binding.root.setOnApplyWindowInsetsListener { v, insets ->
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 val barInsets = insets.getInsets(WindowInsets.Type.systemBars())
-                binding.root.setPadding(
+                v.setPadding(
                     barInsets.left,
                     barInsets.top,
                     barInsets.right,
@@ -154,7 +154,7 @@ class LogsFragment : Fragment(R.layout.fragment_logs) {
                 )
             } else {
                 @Suppress("deprecation")
-                binding.root.setPadding(
+                v.setPadding(
                     insets.systemWindowInsetLeft,
                     insets.systemWindowInsetTop,
                     insets.systemWindowInsetRight,

@@ -1,12 +1,14 @@
 package icu.nullptr.hidemyapplist.xposed.hook
 
 import android.accessibilityservice.AccessibilityServiceInfo
+import android.content.pm.ParceledListSlice
 import com.github.kyuubiran.ezxhelper.utils.findMethod
 import com.github.kyuubiran.ezxhelper.utils.hookBefore
 import de.robv.android.xposed.XC_MethodHook
 import icu.nullptr.hidemyapplist.common.settings_presets.AccessibilityPreset
 import icu.nullptr.hidemyapplist.xposed.HMAService
 import icu.nullptr.hidemyapplist.xposed.Utils4Xposed
+import icu.nullptr.hidemyapplist.xposed.logD
 import icu.nullptr.hidemyapplist.xposed.logE
 import icu.nullptr.hidemyapplist.xposed.logI
 
@@ -24,11 +26,11 @@ class AccessibilityHook(private val service: HMAService) : IFrameworkHook {
 
         hookList += findMethod(ACCESSIBILITY_SERVICE) {
             name == "getInstalledAccessibilityServiceList"
-        }.hookBefore { param -> hookedMethod(param) }
+        }.hookBefore { param -> hookedMethod(param, true) }
 
         hookList += findMethod(ACCESSIBILITY_SERVICE) {
             name == "getEnabledAccessibilityServiceList"
-        }.hookBefore { param -> hookedMethod(param) }
+        }.hookBefore { param -> hookedMethod(param, false) }
 
         hookList += findMethod(ACCESSIBILITY_SERVICE) {
             name == "addClient"
@@ -46,14 +48,23 @@ class AccessibilityHook(private val service: HMAService) : IFrameworkHook {
         }
     }
 
-    private fun hookedMethod(param: XC_MethodHook.MethodHookParam) {
+    private fun hookedMethod(param: XC_MethodHook.MethodHookParam, returnParcel: Boolean) {
         try {
             val callingApps = Utils4Xposed.getCallingApps(service)
             if (callingApps.isEmpty()) return
 
             for (caller in callingApps) {
                 if (service.getEnabledSettingsPresets(caller).contains(AccessibilityPreset.NAME)) {
-                    param.result = java.util.ArrayList<AccessibilityServiceInfo>()
+                    val returnedList = java.util.ArrayList<AccessibilityServiceInfo>()
+
+                    logD(TAG, "@${param.method.name} returned empty list for $caller")
+
+                    param.result = if (returnParcel) {
+                         ParceledListSlice(returnedList)
+                    } else {
+                        returnedList
+                    }
+
                     service.filterCount++
                     break
                 }

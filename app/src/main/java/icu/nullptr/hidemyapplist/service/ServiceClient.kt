@@ -73,4 +73,13 @@ object ServiceClient : IHMAService, IBinder.DeathRecipient {
     override fun log(level: Int, tag: String, message: String) {
         service?.log(level, tag, message)
     }
+
+    override fun getPackageNames(userId: Int) = service?.getPackageNames(userId)
+
+    override fun getPackageInfo(
+        packageName: String?,
+        userId: Int
+    ) = service?.getPackageInfo(packageName, userId)
+
+    override fun listAllSettings(databaseName: String) = service?.listAllSettings(databaseName) ?: arrayOf()
 }

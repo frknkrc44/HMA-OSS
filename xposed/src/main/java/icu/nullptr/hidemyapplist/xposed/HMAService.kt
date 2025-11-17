@@ -5,13 +5,16 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.IPackageManager
 import android.os.Build
 import android.os.UserHandle
+import android.provider.Settings
 import android.util.Log
+import com.github.kyuubiran.ezxhelper.utils.isStatic
 import icu.nullptr.hidemyapplist.common.AppPresets
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.IHMAService
 import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.common.RiskyPackageUtils.appHasGMSConnection
 import icu.nullptr.hidemyapplist.common.Utils
+import icu.nullptr.hidemyapplist.common.app_presets.DetectorAppsPreset
 import icu.nullptr.hidemyapplist.xposed.hook.AccessibilityHook
 import icu.nullptr.hidemyapplist.xposed.hook.ActivityHook
 import icu.nullptr.hidemyapplist.xposed.hook.AppDataIsolationHook
@@ -30,7 +33,7 @@ import java.io.File
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-class HMAService(val pms: IPackageManager) : IHMAService.Stub() {
+class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
     companion object {
         private const val TAG = "HMA-Service"
@@ -70,8 +73,8 @@ class HMAService(val pms: IPackageManager) : IHMAService.Stub() {
         instance = this
         loadConfig()
         installHooks()
-        AppPresets.instance.loggerFunction = { logD(TAG, it) }
-        AppPresets.instance.reloadPresetsIfEmpty(pms)
+        AppPresets.instance.loggerFunction = { level, msg -> logWithLevel(level, TAG, msg) }
+        AppPresets.instance.reloadPresets(pms)
         logI(TAG, "HMA service initialized")
     }
 
@@ -170,7 +173,18 @@ class HMAService(val pms: IPackageManager) : IHMAService.Stub() {
         logI(TAG, "Hooks installed")
     }
 
-    fun isHookEnabled(packageName: String) = config.scope.containsKey(packageName)
+    fun isHookEnabled(packageName: String?) = config.scope.containsKey(packageName)
+
+    fun isAppDataIsolationExcluded(packageName: String?): Boolean {
+        if (packageName.isNullOrBlank()) return false
+
+        return config.scope[packageName]?.excludeVoldIsolation ?: false
+    }
+
+    fun getEnabledSettingsTemplates(caller: String?): Set<String> {
+        if (caller == null) return setOf()
+        return config.scope[caller]?.applySettingTemplates ?: return setOf()
+    }
 
     fun getEnabledSettingsPresets(caller: String?): Set<String> {
         if (caller == null) return setOf()
@@ -201,8 +215,17 @@ class HMAService(val pms: IPackageManager) : IHMAService.Stub() {
         if (!appConfig.useWhitelist) {
             for (presetName in appConfig.applyPresets) {
                 val preset = AppPresets.instance.getPresetByName(presetName) ?: continue
-                if (preset.containsPackage(query))
-                    return !isAppInGMSIgnoredPackages(caller, query)
+
+                if (preset.containsPackage(query)) {
+                    // Do not hide detector apps from Play Store if they are connected to GMS
+                    val overriddenCaller = if (presetName == DetectorAppsPreset.NAME && caller == Constants.VENDING_PACKAGE_NAME) {
+                        Constants.GMS_PACKAGE_NAME
+                    } else {
+                        caller
+                    }
+
+                    return !isAppInGMSIgnoredPackages(overriddenCaller, query)
+                }
             }
         }
 
@@ -210,14 +233,12 @@ class HMAService(val pms: IPackageManager) : IHMAService.Stub() {
     }
 
     fun shouldHideActivityLaunch(caller: String?, query: String?): Boolean {
-        if (shouldHide(caller, query)) {
-            val appConfig = config.scope[caller]
-            if (appConfig != null) {
-                return if (appConfig.invertActivityLaunchProtection) {
-                    config.disableActivityLaunchProtection
-                } else {
-                    !config.disableActivityLaunchProtection
-                }
+        val appConfig = config.scope[caller]
+        if (appConfig != null && shouldHide(caller, query)) {
+            return if (appConfig.invertActivityLaunchProtection) {
+                config.disableActivityLaunchProtection
+            } else {
+                !config.disableActivityLaunchProtection
             }
         }
 
@@ -225,25 +246,31 @@ class HMAService(val pms: IPackageManager) : IHMAService.Stub() {
     }
 
     fun shouldHideInstallationSource(caller: String?, query: String?, user: UserHandle): Int {
-        if (caller == null || query == null) return 0
-        if (caller == BuildConfig.APP_PACKAGE_NAME) return 0
-        val appConfig = config.scope[caller] ?: return 0
-        if (!appConfig.hideInstallationSource) return 0
+        if (caller == null || query == null) return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
+        if (caller == BuildConfig.APP_PACKAGE_NAME) return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
+        val appConfig = config.scope[caller] ?: return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
+        if (!appConfig.hideInstallationSource) return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
         logD(TAG, "@shouldHideInstallationSource $caller: $query")
-        if (caller == query && appConfig.excludeTargetInstallationSource) return 0
+        if (caller == query && appConfig.excludeTargetInstallationSource) return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
 
         try {
             val uid = Utils.getPackageUidCompat(pms, query, 0L, user.hashCode())
             logD(TAG, "@shouldHideInstallationSource UID for $caller, ${user.hashCode()}: $query, $uid")
-            if (uid < 0) return 0 // invalid package installation source request
+            if (uid < 0) return Constants.FAKE_INSTALLATION_SOURCE_DISABLED // invalid package installation source request
         } catch (e: Throwable) {
             logD(TAG, "@shouldHideInstallationSource UID error for $caller, ${user.hashCode()}", e)
-            return 0
+            return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
         }
 
         return if (query in systemApps) {
-            if (appConfig.hideSystemInstallationSource) { 2 } else { 0 }
-        } else { 1 }
+            if (appConfig.hideSystemInstallationSource) {
+                Constants.FAKE_INSTALLATION_SOURCE_SYSTEM
+            } else {
+                Constants.FAKE_INSTALLATION_SOURCE_DISABLED
+            }
+        } else {
+            Constants.FAKE_INSTALLATION_SOURCE_USER
+        }
     }
 
     override fun stopService(cleanEnv: Boolean) {
@@ -332,5 +359,31 @@ class HMAService(val pms: IPackageManager) : IHMAService.Stub() {
 
     override fun log(level: Int, tag: String, message: String) {
         logWithLevel(level, tag, message)
+    }
+
+    override fun getPackageNames(userId: Int) = Utils.binderLocalScope {
+        Utils.getInstalledPackagesCompat(pms, 0L, userId).map { it.packageName }.toTypedArray()
+    }
+
+    override fun getPackageInfo(
+        packageName: String,
+        userId: Int
+    ) = Utils.binderLocalScope {
+        Utils.getPackageInfoCompat(pms, packageName, 0L, userId)
+    }
+
+    override fun listAllSettings(databaseName: String): Array<String> {
+        val settingClass = when (databaseName) {
+            Constants.SETTINGS_GLOBAL -> Settings.Global::class.java
+            Constants.SETTINGS_SECURE -> Settings.Secure::class.java
+            Constants.SETTINGS_SYSTEM -> Settings.System::class.java
+            else -> throw IllegalArgumentException("Invalid database name $databaseName")
+        }
+
+        val readableVariables = settingClass.declaredFields.mapNotNull { field ->
+            if (field.isStatic && field.type.simpleName == "String") field.get(null) as String else null
+        }
+
+        return readableVariables.toTypedArray()
     }
 }
