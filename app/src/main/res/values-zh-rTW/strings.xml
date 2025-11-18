@@ -89,7 +89,7 @@
     <string name="app_exclude_system_apps_summary">只有在真正必要時才關閉這個選項。如果關閉它，很可能會導致系統或應用崩潰</string>
     <string name="app_template_using">已使用 %d 個模板</string>
     <string name="app_preset_using">已使用 %d 個預設</string>
-    <string name="app_settings_preset_using">已使用 %d 個設定預設</string>
+    <string name="app_settings_preset_using">已使用 %d 個預設設定</string>
     <string name="app_settings_template_using">Using %d settings templates</string>
     <string name="app_extra_apps_visible_count">額外新增 %d 個可見的應用程式</string>
     <string name="app_extra_apps_invisible_count">額外新增 %d 個攔截的應用程式</string>
