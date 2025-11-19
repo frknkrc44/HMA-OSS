@@ -192,7 +192,7 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
             preferenceManager.preferenceDataStore = AppPreferenceDataStore(pack)
             setPreferencesFromResource(R.xml.app_settings, rootKey)
             findPreference<Preference>("appInfo")?.let {
-                it.icon = PackageHelper.loadAppIcon(pack.app).toDrawable(resources)
+                it.icon = PackageHelper.loadAppIcon(pack.app)
                 it.title = PackageHelper.loadAppLabel(pack.app)
                 it.summary = pack.app
                 it.setOnPreferenceClickListener { pref ->

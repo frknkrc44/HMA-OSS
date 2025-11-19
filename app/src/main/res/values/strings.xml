@@ -177,6 +177,7 @@
     <string name="settings_no_undone_warning">This action cannot be undone.</string>
     <string name="settings_package_query_workaround">Alternative package query</string>
     <string name="settings_package_query_workaround_summary">Don\'t enable this option if you see the package list in this app correctly.</string>
+    <string name="settings_launcher_icon">Launcher icon</string>
 
     <string name="settings_language">Language</string>
     <string name="settings_translate">Participate in translation</string>

@@ -8,6 +8,8 @@
     <color name="error">#8F3232</color>
 
     <color name="ic_launcher_background">#6D6D52</color>
+    <color name="ic_launcher_alt_background">#000000</color>
+    <color name="ic_launcher_alt_2_background">#000000</color>
 
     <color name="switch_accent_enabled">?colorPrimary</color>
     <color name="switch_accent_disabled">?colorOnSurfaceInverse</color>

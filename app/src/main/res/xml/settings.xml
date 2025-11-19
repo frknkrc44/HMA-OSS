@@ -89,11 +89,7 @@
             android:key="maxLogSize"
             android:summary="%s"
             android:title="@string/settings_max_log_size" />
-        <SwitchPreferenceCompat
-            android:icon="@drawable/outline_hide_image_24"
-            android:key="hideIcon"
-            android:summary="@string/settings_hide_icon_summary"
-            android:title="@string/settings_hide_icon" />
+        <org.frknkrc44.hma_oss.ui.preference.AppIconPreference />
         <Preference
             android:icon="@drawable/outline_delete_24"
             android:key="clearUninstalledPackageConfigs"

@@ -1,5 +1,7 @@
 package icu.nullptr.hidemyapplist.ui.util
 
+import android.content.ComponentName
+import android.content.pm.ActivityInfo
 import android.content.res.Resources
 import org.frknkrc44.hma_oss.R
 
@@ -9,3 +11,5 @@ fun Boolean.enabledString(resources: Resources, lower: Boolean = false): String 
 
     return if (lower) returnedStr.lowercase() else returnedStr
 }
+
+fun ActivityInfo.asComponentName() = ComponentName(packageName, name)
