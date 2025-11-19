@@ -111,7 +111,7 @@
     <string name="app_launch_failed">Error al iniciar la aplicación, compruebe los logs para más detalles</string>
     <!-- Presets -->
     <string name="title_preset">Presets</string>
-    <string name="title_settings_preset">Ajustes presets</string>
+    <string name="title_settings_preset">Presets de ajustes</string>
     <string name="title_preset_manage">Mostrar presets</string>
     <string name="preset_xposed">Módulos LSPosed/Xposed</string>
     <string name="preset_root_apps">Apps de gestión root/Aplicaciones Root</string>
@@ -125,7 +125,7 @@
     <string name="settings_preset_input_method">Método de entrada</string>
     <!-- Settings templates -->
     <string name="settings_templates_database">Base de datos de ajustes</string>
-    <string name="settings_templates_name">Nombre del ajuste</string>
+    <string name="settings_templates_name">Nombre de ajuste</string>
     <string name="settings_templates_value">Valor de ajuste</string>
     <!-- Logs -->
     <string name="logs_save">Guardar logs</string>
