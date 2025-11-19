@@ -90,7 +90,7 @@
     <string name="app_template_using">Używanie %d szablonów</string>
     <string name="app_preset_using">Używanie %d presetów</string>
     <string name="app_settings_preset_using">Używanie %d presetów ustawień</string>
-    <string name="app_settings_template_using">Używanie %d presetów ustawień</string>
+    <string name="app_settings_template_using">Używanie %d szablonów ustawień</string>
     <string name="app_extra_apps_visible_count">%d dodatkowo widzialnych aplikacji</string>
     <string name="app_extra_apps_invisible_count">%d dodatkowo niewidzialnych aplikacji</string>
     <string name="app_warning_risky_package_title">Ryzykowne pakiety</string>
