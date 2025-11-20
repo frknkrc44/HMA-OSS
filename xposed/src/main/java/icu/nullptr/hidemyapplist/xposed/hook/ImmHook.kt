@@ -2,6 +2,7 @@ package icu.nullptr.hidemyapplist.xposed.hook
 
 import android.content.ComponentName
 import android.content.Intent
+import android.os.Build
 import android.provider.Settings
 import android.view.inputmethod.InputMethodInfo
 import com.github.kyuubiran.ezxhelper.utils.findMethodOrNull
@@ -60,21 +61,37 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
     }
 
     override fun load() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            findMethodOrNull(
+                "com.android.server.inputmethod.InputMethodManagerService"
+            ) {
+                name == "getCurrentInputMethodInfoAsUser"
+            }?.hookBefore { param ->
+                val callingApps = Utils4Xposed.getCallingApps(service)
+
+                for (caller in callingApps) {
+                    if (callerIsSpoofed(caller)) {
+                        logD(TAG, "@${param.method.name} spoofed input method for $caller")
+
+                        param.result = getFakeInputMethodInfo(caller)
+                        service.filterCount++
+                        break
+                    }
+                }
+            }?.let {
+                logD(TAG, "@${it.hookedMethod.name} is hooked!")
+                hooks += it
+            }
+        }
+
         findMethodOrNull(
             "com.android.server.inputmethod.InputMethodManagerService"
         ) {
-            name == "getCurrentInputMethodInfoAsUser"
+            name == "getInputMethodList" && returnType.simpleName != "InputMethodInfoSafeList"
         }?.hookBefore { param ->
-            val callingApps = Utils4Xposed.getCallingApps(service)
-
-            for (caller in callingApps) {
-                if (callerIsSpoofed(caller)) {
-                    param.result = getFakeInputMethodInfo(caller)
-                    service.filterCount++
-                    break
-                }
-            }
+            listHook(param)
         }?.let {
+            logD(TAG, "@${it.hookedMethod.name} is hooked!")
             hooks += it
         }
 
@@ -85,6 +102,18 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
         }?.hookBefore { param ->
             listHook(param)
         }?.let {
+            logD(TAG, "@${it.hookedMethod.name} is hooked!")
+            hooks += it
+        }
+
+        findMethodOrNull(
+            "com.android.server.inputmethod.InputMethodManagerService"
+        ) {
+            name == "getEnabledInputMethodList" && returnType.simpleName != "InputMethodInfoSafeList"
+        }?.hookBefore { param ->
+            listHook(param)
+        }?.let {
+            logD(TAG, "@${it.hookedMethod.name} is hooked!")
             hooks += it
         }
 
@@ -95,6 +124,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
         }?.hookBefore { param ->
             listHook(param)
         }?.let {
+            logD(TAG, "@${it.hookedMethod.name} is hooked!")
             hooks += it
         }
     }
@@ -105,6 +135,8 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
 
         for (caller in callingApps) {
             if (callerIsSpoofed(caller)) {
+                logD(TAG, "@${param.method.name} spoofed input method for $caller")
+
                 param.result = listOf(getFakeInputMethodInfo(caller))
                 service.filterCount++
                 break
