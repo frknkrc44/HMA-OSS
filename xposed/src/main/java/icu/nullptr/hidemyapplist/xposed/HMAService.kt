@@ -13,13 +13,16 @@ import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.IHMAService
 import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.common.RiskyPackageUtils.appHasGMSConnection
+import icu.nullptr.hidemyapplist.common.SettingsPresets
 import icu.nullptr.hidemyapplist.common.Utils
 import icu.nullptr.hidemyapplist.common.app_presets.DetectorAppsPreset
+import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
 import icu.nullptr.hidemyapplist.xposed.hook.AccessibilityHook
 import icu.nullptr.hidemyapplist.xposed.hook.ActivityHook
 import icu.nullptr.hidemyapplist.xposed.hook.AppDataIsolationHook
 import icu.nullptr.hidemyapplist.xposed.hook.ContentProviderHook
 import icu.nullptr.hidemyapplist.xposed.hook.IFrameworkHook
+import icu.nullptr.hidemyapplist.xposed.hook.ImmHook
 import icu.nullptr.hidemyapplist.xposed.hook.PlatformCompatHook
 import icu.nullptr.hidemyapplist.xposed.hook.PmsHookTarget28
 import icu.nullptr.hidemyapplist.xposed.hook.PmsHookTarget30
@@ -32,6 +35,8 @@ import rikka.hidden.compat.ActivityManagerApis
 import java.io.File
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import kotlin.collections.component1
+import kotlin.collections.component2
 
 class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
@@ -168,6 +173,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         frameworkHooks.add(PmsPackageEventsHook(this))
         frameworkHooks.add(AccessibilityHook(this))
         frameworkHooks.add(ContentProviderHook(this))
+        frameworkHooks.add(ImmHook(this))
 
         frameworkHooks.forEach(IFrameworkHook::load)
         logI(TAG, "Hooks installed")
@@ -179,6 +185,27 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         if (packageName.isNullOrBlank()) return false
 
         return config.scope[packageName]?.excludeVoldIsolation ?: false
+    }
+
+    fun getSpoofedSetting(caller: String?, name: String?, database: String): ReplacementItem? {
+        if (caller == null || name == null) return null
+
+        val templates = getEnabledSettingsTemplates(caller)
+        val replacement = config.settingsTemplates.firstNotNullOfOrNull { (key, value) ->
+            if (key in templates) value.settingsList.firstOrNull { it.name == name } else null
+        }
+        if (replacement != null) return replacement
+
+        val presets = getEnabledSettingsPresets(caller)
+        if (presets.isNotEmpty()) {
+            for (presetName in presets) {
+                val preset = SettingsPresets.instance.getPresetByName(presetName)
+                val replacement = preset?.getSpoofedValue(name)
+                if (replacement?.database == database) return replacement
+            }
+        }
+
+        return null
     }
 
     fun getEnabledSettingsTemplates(caller: String?): Set<String> {

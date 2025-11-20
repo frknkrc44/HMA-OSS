@@ -40,9 +40,9 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
                 when (method) {
                     "GET_global", "GET_secure", "GET_system" -> {
                         val database = method.substring(method.indexOf('_') + 1)
-                        val replacement = getSpoofedSetting(caller, name, database)
+                        val replacement = service.getSpoofedSetting(caller, name, database)
                         if (replacement != null) {
-                            logI(TAG, "@spoofSettings $name in $database replaced for $caller")
+                            logD(TAG, "@spoofSettings $name in $database replaced for $caller")
                             param.result = Bundle().apply {
                                 putString(Settings.NameValueTable.VALUE, replacement.value)
                                 putInt("_generation_index", -1)
@@ -53,27 +53,6 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
                 }
             }
         }
-    }
-
-    fun getSpoofedSetting(caller: String?, name: String?, database: String): ReplacementItem? {
-        if (caller == null || name == null) return null
-
-        val templates = service.getEnabledSettingsTemplates(caller)
-        val replacement = service.config.settingsTemplates.firstNotNullOfOrNull { (key, value) ->
-            if (key in templates) value.settingsList.firstOrNull { it.name == name } else null
-        }
-        if (replacement != null) return replacement
-
-        val presets = service.getEnabledSettingsPresets(caller)
-        if (presets.isNotEmpty()) {
-            for (presetName in presets) {
-                val preset = SettingsPresets.instance.getPresetByName(presetName)
-                val replacement = preset?.getSpoofedValue(name)
-                if (replacement?.database == database) return replacement
-            }
-        }
-
-        return null
     }
 
     override fun unload() {

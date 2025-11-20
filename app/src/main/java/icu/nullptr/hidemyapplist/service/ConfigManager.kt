@@ -258,19 +258,39 @@ object ConfigManager {
     fun clearUninstalledAppConfigs(onFinish: (success: Boolean) -> Unit) {
         PackageHelper.invalidateCache { throwable ->
             if (throwable == null) {
-                val markedToRemove = mutableListOf<String>()
+                // --- STEP 1: Clear uninstalled app configs ---
+                val scopeMarkedToRemove = mutableListOf<String>()
                 config.scope.keys.forEach { packageName ->
                     if (!PackageHelper.exists(packageName)) {
-                        markedToRemove.add(packageName)
+                        scopeMarkedToRemove.add(packageName)
                     }
                 }
 
-                if (markedToRemove.isNotEmpty()) {
-                    markedToRemove.forEach { config.scope.remove(it) }
-                    saveConfig()
+                if (scopeMarkedToRemove.isNotEmpty()) {
+                    scopeMarkedToRemove.forEach { config.scope.remove(it) }
                 }
 
-                ServiceClient.log(Log.INFO, TAG, "Pruned ${markedToRemove.size} app config(s)")
+                // --- STEP 2: Clear uninstalled apps from templates ---
+                var cleanedAppCount = 0
+                config.templates.forEach { (key, value) ->
+                    val newList = value.appList.mapNotNull { if (PackageHelper.exists(it)) it else null }.toSet()
+                    val count = value.appList.size - newList.size
+
+                    if (count > 0) {
+                        cleanedAppCount += count
+                        config.templates[key] = JsonConfig.Template(
+                            isWhitelist = value.isWhitelist,
+                            appList = newList
+                        )
+                    }
+                }
+
+                if (scopeMarkedToRemove.isNotEmpty() || cleanedAppCount > 0) {
+                    ServiceClient.log(Log.INFO, TAG, "Pruned ${scopeMarkedToRemove.size} app config(s) and $cleanedAppCount app(s) from template(s)")
+                    saveConfig()
+                } else {
+                    ServiceClient.log(Log.INFO, TAG, "No actions are required")
+                }
 
                 onFinish(true)
             } else {

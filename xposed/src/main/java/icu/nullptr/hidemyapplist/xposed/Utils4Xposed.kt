@@ -1,8 +1,14 @@
 package icu.nullptr.hidemyapplist.xposed
 
+import android.app.ActivityThread
+import android.content.Context
+import android.content.pm.PackageManager
+import android.content.res.Resources
+import android.content.res.loader.ResourcesLoader
 import android.os.Binder
 import android.os.Build
 import com.github.kyuubiran.ezxhelper.utils.findField
+import de.robv.android.xposed.XposedHelpers
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.Utils
 
@@ -15,6 +21,8 @@ class Utils4Xposed {
                 }.get(packageSettings) as? String
             }.getOrNull()
         }
+
+        fun getPackageManager() = ActivityThread.currentActivityThread().application.packageManager!!
 
         fun getCallingApps(service: HMAService): Array<String> {
             return getCallingApps(service, Binder.getCallingUid())

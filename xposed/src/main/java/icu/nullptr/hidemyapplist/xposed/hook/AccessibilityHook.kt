@@ -39,7 +39,7 @@ class AccessibilityHook(private val service: HMAService) : IFrameworkHook {
             if (callingApps.isEmpty()) return@hookBefore
 
             for (caller in callingApps) {
-                if (service.getEnabledSettingsPresets(caller).contains(AccessibilityPreset.NAME)) {
+                if (callerIsSpoofed(caller)) {
                     param.result = 0L
                     service.filterCount++
                     break
@@ -48,13 +48,16 @@ class AccessibilityHook(private val service: HMAService) : IFrameworkHook {
         }
     }
 
+    private fun callerIsSpoofed(caller: String) =
+        service.getEnabledSettingsPresets(caller).contains(AccessibilityPreset.NAME)
+
     private fun hookedMethod(param: XC_MethodHook.MethodHookParam, returnParcel: Boolean) {
         try {
             val callingApps = Utils4Xposed.getCallingApps(service)
             if (callingApps.isEmpty()) return
 
             for (caller in callingApps) {
-                if (service.getEnabledSettingsPresets(caller).contains(AccessibilityPreset.NAME)) {
+                if (callerIsSpoofed(caller)) {
                     val returnedList = java.util.ArrayList<AccessibilityServiceInfo>()
 
                     logD(TAG, "@${param.method.name} returned empty list for $caller")
