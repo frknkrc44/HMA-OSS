@@ -9,6 +9,7 @@ import android.view.WindowInsets
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.ListPreference
 import androidx.preference.Preference
@@ -31,11 +32,16 @@ import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import icu.nullptr.hidemyapplist.ui.util.showToast
 import icu.nullptr.hidemyapplist.util.ConfigUtils.Companion.getLocale
 import icu.nullptr.hidemyapplist.util.LangList
+import icu.nullptr.hidemyapplist.util.PackageHelper
+import icu.nullptr.hidemyapplist.util.PackageHelper.findEnabledAppComponent
 import icu.nullptr.hidemyapplist.util.SuUtils
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentSettingsBinding
 import org.frknkrc44.hma_oss.ui.activity.BaseActivity
+import org.frknkrc44.hma_oss.ui.preference.AppIconPreference
 import java.util.Locale
 
 class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
@@ -51,6 +57,10 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                 navigationOnClick = { navController.navigateUp() }
             )
             // isTitleCentered = true
+        }
+
+        runBlocking {
+            PrefManager.isLauncherIconInvisible.emit(findEnabledAppComponent(hmaApp) == null)
         }
 
         if (childFragmentManager.findFragmentById(R.id.settings_container) == null) {
@@ -313,6 +323,16 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
 
                     true
                 }
+            }
+
+            lifecycleScope.launch {
+                PrefManager.isLauncherIconInvisible
+                    .flowWithLifecycle(lifecycle)
+                    .collect { _ ->
+                        findPreference<AppIconPreference>("launcherIcon")?.apply {
+                            updateHolder()
+                        }
+                    }
             }
 
             findPreference<Preference>("clearUninstalledPackageConfigs")?.apply {

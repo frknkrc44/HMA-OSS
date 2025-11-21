@@ -11,8 +11,10 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioGroup
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatRadioButton
 import androidx.core.graphics.drawable.updateBounds
@@ -22,99 +24,90 @@ import icu.nullptr.hidemyapplist.data.AppConstants
 import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.asDrawable
 import icu.nullptr.hidemyapplist.ui.util.asComponentName
+import icu.nullptr.hidemyapplist.ui.util.showToast
 import icu.nullptr.hidemyapplist.util.PackageHelper.findEnabledAppComponent
 import org.frknkrc44.hma_oss.BuildConfig
 import org.frknkrc44.hma_oss.R
 
 
 @Suppress("deprecation")
-class AppIconPreference : Preference {
-    val appIconsList = mutableMapOf<String, Drawable?>()
-    lateinit var appIconSelector: RadioGroup
+class AppIconPreference(context: Context, attrs: AttributeSet?) : Preference(context, attrs) {
+    val appIconsList = listOf(
+        R.mipmap.ic_launcher.asDrawable(context),
+        R.mipmap.ic_launcher_alt.asDrawable(context),
+        R.mipmap.ic_launcher_alt_2.asDrawable(context),
+        R.mipmap.ic_launcher_alt_3.asDrawable(context),
+    )
+
     val allAppIcons = listOf(
         ComponentName(BuildConfig.APPLICATION_ID, AppConstants.COMPONENT_NAME_DEFAULT),
         ComponentName(BuildConfig.APPLICATION_ID, AppConstants.COMPONENT_NAME_ALT),
         ComponentName(BuildConfig.APPLICATION_ID, AppConstants.COMPONENT_NAME_ALT_2),
+        ComponentName(BuildConfig.APPLICATION_ID, AppConstants.COMPONENT_NAME_ALT_3),
     )
 
-    constructor(context: Context) : super(context) {
-        init()
-    }
-
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
-        init()
-    }
-
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        init()
-    }
-
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes) {
-        init()
-    }
+    var viewHolder: PreferenceViewHolder? = null
 
     @SuppressLint("SetTextI18n")
     @Deprecated("Deprecated in Java")
     override fun onBindViewHolder(holder: PreferenceViewHolder) {
+        viewHolder = holder
+
         super.onBindViewHolder(holder)
 
-        val inflater = LayoutInflater.from(context)
+        updateHolder()
+    }
 
-        (holder.itemView as ViewGroup).apply {
-            removeAllViews()
-            addView(inflater.inflate(R.layout.preference_app_icon, this, false))
-        }
+    fun updateHolder() {
+        if (viewHolder == null) return
 
-        appIconSelector = holder.findViewById(R.id.app_icon_selector) as RadioGroup
+        (viewHolder!!.itemView as ViewGroup).apply {
+            val summary = findViewById<View>(android.R.id.summary)
+            val parent = summary.parent as ViewGroup
+            parent.removeView(summary)
 
-        val selected = findEnabledAppComponent(context)
-        val selectedIdx = allAppIcons.indexOfFirst { it.className == selected?.className } + 1
+            val view = LayoutInflater.from(context).inflate(R.layout.preference_app_icon, parent, false)
+            view.id = android.R.id.summary
+            (view.layoutParams as RelativeLayout.LayoutParams).addRule(RelativeLayout.BELOW, android.R.id.title)
 
-        for (idx in 0 ..< appIconsList.size) {
-            val radioButton = object : AppCompatRadioButton(context) {
-                override fun setChecked(checked: Boolean) {
-                    super.setChecked(checked)
+            val appIconSelector: RadioGroup = view.findViewById(R.id.app_icon_selector)
 
-                    alpha = if (checked) 1.0f else 0.4f
+            val selected = findEnabledAppComponent(context)
+            val selectedIdx = allAppIcons.indexOfFirst { it.className == selected?.className }
 
-                    if (checked) {
-                        if (idx == 0) {
-                            disableAppIcon()
-                        } else {
-                            setEnabledComponent(allAppIcons[idx - 1])
+            for (idx in 0 ..< appIconsList.size) {
+                val radioButton = object : AppCompatRadioButton(context) {
+                    override fun setChecked(checked: Boolean) {
+                        super.setChecked(checked)
+
+                        alpha = if (checked) 1.0f else 0.4f
+
+                        if (checked) {
+                            setEnabledComponent(allAppIcons[idx])
                         }
                     }
                 }
+
+                radioButton.layoutParams = RadioGroup.LayoutParams(-2, -2).apply {
+                    val padding = context.resources.getDimensionPixelOffset(R.dimen.item_padding_mini2x)
+                    setMargins(padding, padding, padding, padding)
+                }
+
+                radioButton.gravity = Gravity.CENTER_VERTICAL
+                radioButton.id = idx
+                radioButton.isChecked = idx == selectedIdx
+
+                radioButton.buttonDrawable = appIconsList.elementAt(idx)
+                radioButton.text = ""
+                radioButton.buttonTintList = null
+
+                appIconSelector.addView(radioButton)
             }
 
-            radioButton.layoutParams = RadioGroup.LayoutParams(-2, -2).apply {
-                val padding = context.resources.getDimensionPixelOffset(R.dimen.item_padding_mini2x)
-                setMargins(padding, padding, padding, padding)
-            }
+            appIconSelector.check(selectedIdx)
 
-            radioButton.gravity = Gravity.CENTER_VERTICAL
-            radioButton.id = idx
-            radioButton.isChecked = idx == selectedIdx
-
-            radioButton.buttonDrawable = appIconsList.values.elementAt(idx)
-            radioButton.text = if (radioButton.buttonDrawable == null) context.getString(R.string.disabled) else ""
-            radioButton.buttonTintList = null
-
-            appIconSelector.addView(radioButton)
+            parent.addView(view)
         }
-
-        appIconSelector.check(selectedIdx)
-    }
-
-    private fun init() {
-        fillAppIconsList()
-    }
-
-    private fun fillAppIconsList() {
-        appIconsList[AppConstants.APP_ICON_NONE] = null
-        appIconsList[AppConstants.APP_ICON_DEFAULT] = R.mipmap.ic_launcher.asDrawable(context)
-        appIconsList[AppConstants.APP_ICON_ALT] = R.mipmap.ic_launcher_alt.asDrawable(context)
-        appIconsList[AppConstants.APP_ICON_ALT_2] = R.mipmap.ic_launcher_alt_2.asDrawable(context)
     }
 
     private fun disableAppIcon() {
