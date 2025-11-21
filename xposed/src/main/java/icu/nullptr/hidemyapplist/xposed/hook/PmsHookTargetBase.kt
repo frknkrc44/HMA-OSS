@@ -31,7 +31,7 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                 VENDING_PACKAGE_NAME,
                 PackageManager.GET_SIGNING_CERTIFICATES.toLong(),
                 0
-            ).signingInfo
+            )?.signingInfo
         } catch (_: Throwable) {
             null
         }
