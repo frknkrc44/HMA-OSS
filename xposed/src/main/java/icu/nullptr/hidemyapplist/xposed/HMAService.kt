@@ -411,6 +411,6 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
             if (field.isStatic && field.type.simpleName == "String") field.get(null) as String else null
         }
 
-        return readableVariables.toTypedArray()
+        return readableVariables.sorted().toTypedArray()
     }
 }

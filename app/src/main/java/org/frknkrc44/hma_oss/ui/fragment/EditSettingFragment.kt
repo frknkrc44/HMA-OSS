@@ -1,5 +1,6 @@
 package org.frknkrc44.hma_oss.ui.fragment
 
+import android.content.DialogInterface
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -9,12 +10,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.google.android.material.textfield.TextInputLayout
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
+import kotlinx.coroutines.flow.MutableSharedFlow
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentEditSettingBinding
 
@@ -22,6 +25,8 @@ class EditSettingFragment : Fragment(R.layout.fragment_edit_setting) {
     private val binding by viewBinding<FragmentEditSettingBinding>()
 
     private val args by navArgs<EditSettingFragmentArgs>()
+
+    var settingsItems = MutableSharedFlow<Array<String>>(replay = 1)
 
     fun saveResult() {
         val databaseName = getEditTextValue(binding.databaseSelector)
@@ -83,6 +88,20 @@ class EditSettingFragment : Fragment(R.layout.fragment_edit_setting) {
             }
         }
 
+        with(binding.settingsGroupShowAll) {
+            setOnClickListener {
+                if (settingsItems.replayCache.isEmpty()) return@setOnClickListener
+
+                MaterialAlertDialogBuilder(requireContext())
+                    .setTitle(R.string.settings_templates_name)
+                    .setItems(settingsItems.replayCache.first()) { _, which ->
+                        binding.settingName.editText?.setText(settingsItems.replayCache.first()[which])
+                    }
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .show()
+            }
+        }
+
         with(binding.settingName.editText as MaterialAutoCompleteTextView) {
             setText(args.name)
         }
@@ -126,8 +145,11 @@ class EditSettingFragment : Fragment(R.layout.fragment_edit_setting) {
     fun fillSettingNames(databaseName: String) {
         with(binding.settingName) {
             isEnabled = true
+
+            settingsItems.tryEmit(ServiceClient.listAllSettings(databaseName))
+
             (editText as MaterialAutoCompleteTextView).setSimpleItems(
-                ServiceClient.listAllSettings(databaseName)
+                settingsItems.replayCache.first()
             )
         }
     }
