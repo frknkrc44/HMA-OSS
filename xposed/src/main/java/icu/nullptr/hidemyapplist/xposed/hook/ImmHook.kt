@@ -1,7 +1,6 @@
 package icu.nullptr.hidemyapplist.xposed.hook
 
 import android.content.ComponentName
-import android.content.Intent
 import android.os.Build
 import android.provider.Settings
 import android.view.inputmethod.InputMethodInfo

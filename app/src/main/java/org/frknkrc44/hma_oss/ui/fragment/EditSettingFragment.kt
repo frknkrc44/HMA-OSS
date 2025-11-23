@@ -1,6 +1,5 @@
 package org.frknkrc44.hma_oss.ui.fragment
 
-import android.content.DialogInterface
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -15,6 +14,7 @@ import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.google.android.material.textfield.TextInputLayout
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.service.ServiceClient
+import icu.nullptr.hidemyapplist.ui.util.get
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -94,8 +94,8 @@ class EditSettingFragment : Fragment(R.layout.fragment_edit_setting) {
 
                 MaterialAlertDialogBuilder(requireContext())
                     .setTitle(R.string.settings_templates_name)
-                    .setItems(settingsItems.replayCache.first()) { _, which ->
-                        binding.settingName.editText?.setText(settingsItems.replayCache.first()[which])
+                    .setItems(settingsItems.get()) { _, which ->
+                        binding.settingName.editText?.setText(settingsItems.get()[which])
                     }
                     .setNegativeButton(android.R.string.cancel, null)
                     .show()
@@ -148,9 +148,7 @@ class EditSettingFragment : Fragment(R.layout.fragment_edit_setting) {
 
             settingsItems.tryEmit(ServiceClient.listAllSettings(databaseName))
 
-            (editText as MaterialAutoCompleteTextView).setSimpleItems(
-                settingsItems.replayCache.first()
-            )
+            (editText as MaterialAutoCompleteTextView).setSimpleItems(settingsItems.get())
         }
     }
 }

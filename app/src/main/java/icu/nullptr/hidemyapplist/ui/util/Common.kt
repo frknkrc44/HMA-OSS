@@ -3,6 +3,7 @@ package icu.nullptr.hidemyapplist.ui.util
 import android.content.ComponentName
 import android.content.pm.ActivityInfo
 import android.content.res.Resources
+import kotlinx.coroutines.flow.MutableSharedFlow
 import org.frknkrc44.hma_oss.R
 
 fun Boolean.enabledString(resources: Resources, lower: Boolean = false): String {
@@ -13,3 +14,5 @@ fun Boolean.enabledString(resources: Resources, lower: Boolean = false): String 
 }
 
 fun ActivityInfo.asComponentName() = ComponentName(packageName, name)
+
+fun <T> MutableSharedFlow<T>.get() = replayCache.first()

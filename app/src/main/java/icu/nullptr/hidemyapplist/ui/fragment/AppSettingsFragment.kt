@@ -8,7 +8,6 @@ import android.view.View
 import android.view.WindowInsets
 import android.widget.Toast
 import androidx.activity.addCallback
-import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.clearFragmentResultListener

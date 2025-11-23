@@ -7,11 +7,10 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
 import icu.nullptr.hidemyapplist.data.AppConstants
 import icu.nullptr.hidemyapplist.hmaApp
+import icu.nullptr.hidemyapplist.ui.util.get
 import icu.nullptr.hidemyapplist.util.PackageHelper.findEnabledAppComponent
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.runBlocking
-import org.frknkrc44.hma_oss.BuildConfig
 
 object PrefManager {
 
@@ -74,7 +73,7 @@ object PrefManager {
         set(value) = pref.edit { putString(PREF_THEME_COLOR, value) }
 
     var hideIcon: Boolean
-        get() = isLauncherIconInvisible.replayCache.first()
+        get() = isLauncherIconInvisible.get()
         set(value) {
             val enabled = findEnabledAppComponent(hmaApp)
             if (value && enabled != null) {
