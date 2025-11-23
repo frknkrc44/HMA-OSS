@@ -5,7 +5,7 @@
     <string name="title_settings">Ustawienia</string>
     <string name="title_template_manage">Menedżer szablonów</string>
     <string name="title_template_settings">Ustawienia szablonu</string>
-    <string name="title_settings_template_conf">Konfiguracja szablonu ustawień</string>
+    <string name="title_settings_template_conf">Settings template configuration</string>
     <string name="title_app_manage">Zarządzaj aplikacjami</string>
     <string name="title_app_select">Wybierz aplikacje</string>
     <string name="title_app_settings">Ustawienia aplikacji</string>
@@ -187,7 +187,7 @@
     <string name="settings_receive_beta_update_summary">Wersje beta mogą być niestabilne</string>
     <!-- About -->
     <string name="about_description">        Chociaż wykrywanie konkretnej instalacji aplikacji jest niepoprawne, to nie każda aplikacja korzystająca z roota obsługuje losowe nazwy pakietów. W takim przypadku wykrycie aplikacji używających roota (takich jak Fake Location i Storage Isolation) jest równoznaczne z wykryciem samego roota.\n\nW tym samym czasie niektóre sprytne aplikacje wykorzystują różne luki, aby uzyskać dostęp do twojej listy aplikacji, dzięki czemu mogą stworzyć twój profil użytkownika.\n\nTen moduł udostępnia kilka metod pozwalających sprawdzić, czy udało ci się skutecznie ukryć swoją listę aplikacji. Może też działać jako moduł Xposed, aby ukrywać wybrane aplikacje lub odrzucać żądania dostępu do listy aplikacji w celu ochrony twojej prywatności    </string>
-    <string name="about_fork_description">Oryginalny projekt HMA stał się projektem o zamkniętym źródle i ostatnie zmiany kodu nie zawierają paru nowych zmian dlatego stworzyłem tego forka aby kontynuować prace i ponownie uczynić HMA otwartoźródłowym    </string>
+    <string name="about_fork_description">Oryginalny projekt HMA stał się projektem o zamkniętym źródle i ostatnie zmiany kodu nie zawierają paru nowych zmian dlatego stworzyłem tego forka aby kontynuuować prace i ponownie zrobić HMA open source</string>
     <string name="about_how_to_use_title">Jak używać tego modułu</string>
     <string name="about_how_to_use_description_1">Możesz tworzyć szablony w „Zarządzaniu szablonami”.\nNastępnie zastosuj szablony do aplikacji w „Zarządzaniu aplikacjami”. (Możesz również wybrać dodatkowe aplikacje dla celów).\nPowinieneś zaznaczyć TYLKO i wyłączne „System Framework” w zakresie modułu Xposed/białej liście.
     </string>
@@ -220,5 +220,5 @@
     <!-- Dark theme modes -->
     <string name="dark_theme">Motyw ciemny</string>
     <string name="dark_theme_off">Zawsze wył.</string>
-    <string name="dark_theme_on">Zawsze włączony</string>
+    <string name="dark_theme_on">Zawsze włą.</string>
 </resources>
