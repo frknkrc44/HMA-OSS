@@ -4,6 +4,7 @@ import android.content.ComponentName
 import android.os.Build
 import android.provider.Settings
 import android.view.inputmethod.InputMethodInfo
+import android.view.inputmethod.InputMethodSubtype
 import com.github.kyuubiran.ezxhelper.utils.findMethodOrNull
 import com.github.kyuubiran.ezxhelper.utils.hookBefore
 import de.robv.android.xposed.XC_MethodHook
@@ -14,6 +15,7 @@ import icu.nullptr.hidemyapplist.xposed.HMAService
 import icu.nullptr.hidemyapplist.xposed.Utils4Xposed
 import icu.nullptr.hidemyapplist.xposed.logD
 import icu.nullptr.hidemyapplist.xposed.logE
+import java.util.Collections
 
 class ImmHook(private val service: HMAService) : IFrameworkHook {
     companion object {
@@ -125,6 +127,25 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
         }?.let {
             logD(TAG, "@${it.hookedMethod.name} is hooked!")
             hooks += it
+        }
+
+        findMethodOrNull(
+            "com.android.server.inputmethod.InputMethodManagerService"
+        ) {
+            name == "getEnabledInputMethodSubtypeList"
+        }?.hookBefore { param ->
+            val callingApps = Utils4Xposed.getCallingApps(service)
+
+            for (caller in callingApps) {
+                if (callerIsSpoofed(caller)) {
+                    logD(TAG, "@${param.method.name} spoofed input method subtype for $caller")
+
+                    // TODO: Find a method to get exact list for spoofed input method
+                    param.result = Collections.emptyList<InputMethodSubtype>()
+                    service.filterCount++
+                    break
+                }
+            }
         }
     }
 
