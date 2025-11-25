@@ -129,8 +129,12 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
     }
 
     private fun listHook(param: XC_MethodHook.MethodHookParam) {
-        val callingUid = param.args.last() as Int
-        val callingApps = Utils4Xposed.getCallingApps(service, callingUid)
+        val callingApps = if (param.method.name.endsWith("Internal")) {
+            val callingUid = param.args.last() as Int
+            Utils4Xposed.getCallingApps(service, callingUid)
+        } else {
+            Utils4Xposed.getCallingApps(service)
+        }
 
         for (caller in callingApps) {
             if (callerIsSpoofed(caller)) {
