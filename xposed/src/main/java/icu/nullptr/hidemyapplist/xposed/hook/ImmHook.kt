@@ -20,6 +20,7 @@ import java.util.Collections
 class ImmHook(private val service: HMAService) : IFrameworkHook {
     companion object {
         private const val TAG = "ImmHook"
+        private const val IMM_SERVICE = "com.android.server.inputmethod.InputMethodManagerService"
     }
 
     private val hooks = mutableListOf<XC_MethodHook.Unhook>()
@@ -63,9 +64,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
 
     override fun load() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            findMethodOrNull(
-                "com.android.server.inputmethod.InputMethodManagerService"
-            ) {
+            findMethodOrNull(IMM_SERVICE) {
                 name == "getCurrentInputMethodInfoAsUser"
             }?.hookBefore { param ->
                 val callingApps = Utils4Xposed.getCallingApps(service)
@@ -85,53 +84,29 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
             }
         }
 
-        findMethodOrNull(
-            "com.android.server.inputmethod.InputMethodManagerService"
-        ) {
-            name == "getInputMethodList" && returnType.simpleName != "InputMethodInfoSafeList"
-        }?.hookBefore { param ->
-            listHook(param)
-        }?.let {
-            logD(TAG, "@${it.hookedMethod.name} is hooked!")
-            hooks += it
-        }
-
-        findMethodOrNull(
-            "com.android.server.inputmethod.InputMethodManagerService"
-        ) {
+        (findMethodOrNull(IMM_SERVICE) {
             name == "getInputMethodListInternal"
-        }?.hookBefore { param ->
+        } ?: findMethodOrNull(IMM_SERVICE) {
+            name == "getInputMethodList" && returnType.simpleName != "InputMethodInfoSafeList"
+        })?.hookBefore { param ->
             listHook(param)
         }?.let {
             logD(TAG, "@${it.hookedMethod.name} is hooked!")
             hooks += it
         }
 
-        findMethodOrNull(
-            "com.android.server.inputmethod.InputMethodManagerService"
-        ) {
-            name == "getEnabledInputMethodList" && returnType.simpleName != "InputMethodInfoSafeList"
-        }?.hookBefore { param ->
-            listHook(param)
-        }?.let {
-            logD(TAG, "@${it.hookedMethod.name} is hooked!")
-            hooks += it
-        }
-
-        findMethodOrNull(
-            "com.android.server.inputmethod.InputMethodManagerService"
-        ) {
+        (findMethodOrNull(IMM_SERVICE) {
             name == "getEnabledInputMethodListInternal"
-        }?.hookBefore { param ->
+        } ?: findMethodOrNull(IMM_SERVICE) {
+            name == "getEnabledInputMethodList" && returnType.simpleName != "InputMethodInfoSafeList"
+        })?.hookBefore { param ->
             listHook(param)
         }?.let {
             logD(TAG, "@${it.hookedMethod.name} is hooked!")
             hooks += it
         }
 
-        findMethodOrNull(
-            "com.android.server.inputmethod.InputMethodManagerService"
-        ) {
+        findMethodOrNull(IMM_SERVICE) {
             name == "getCurrentInputMethodSubtype"
         }?.hookBefore { param ->
             subtypeHook(param)
@@ -140,9 +115,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
             hooks += it
         }
 
-        findMethodOrNull(
-            "com.android.server.inputmethod.InputMethodManagerService"
-        ) {
+        findMethodOrNull(IMM_SERVICE) {
             name == "getLastInputMethodSubtype"
         }?.hookBefore { param ->
             subtypeHook(param)
@@ -151,23 +124,15 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
             hooks += it
         }
 
-        findMethodOrNull(
-            "com.android.server.inputmethod.InputMethodManagerService"
-        ) {
+        (findMethodOrNull(IMM_SERVICE) {
+            name == "getEnabledInputMethodSubtypeListInternal"
+        } ?: findMethodOrNull(IMM_SERVICE) {
             name == "getEnabledInputMethodSubtypeList"
-        }?.hookBefore { param ->
-            val callingApps = Utils4Xposed.getCallingApps(service)
-
-            for (caller in callingApps) {
-                if (callerIsSpoofed(caller)) {
-                    logD(TAG, "@${param.method.name} spoofed input method subtype for $caller")
-
-                    // TODO: Find a method to get exact list for spoofed input method
-                    param.result = Collections.emptyList<InputMethodSubtype>()
-                    service.filterCount++
-                    break
-                }
-            }
+        })?.hookBefore { param ->
+            subtypeListHook(param)
+        }?.let {
+            logD(TAG, "@${it.hookedMethod.name} is hooked!")
+            hooks += it
         }
     }
 
@@ -199,6 +164,21 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
 
                 // TODO: Find a method to get exact value for spoofed input method
                 param.result = null
+                service.filterCount++
+                break
+            }
+        }
+    }
+
+    private fun subtypeListHook(param: XC_MethodHook.MethodHookParam) {
+        val callingApps = Utils4Xposed.getCallingApps(service)
+
+        for (caller in callingApps) {
+            if (callerIsSpoofed(caller)) {
+                logD(TAG, "@${param.method.name} spoofed input method subtype for $caller")
+
+                // TODO: Find a method to get exact list for spoofed input method
+                param.result = Collections.emptyList<InputMethodSubtype>()
                 service.filterCount++
                 break
             }
