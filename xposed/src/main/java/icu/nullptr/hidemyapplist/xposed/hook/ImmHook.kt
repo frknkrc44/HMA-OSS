@@ -132,6 +132,25 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
         findMethodOrNull(
             "com.android.server.inputmethod.InputMethodManagerService"
         ) {
+            name == "getCurrentInputMethodSubtype"
+        }?.hookBefore { param ->
+            val callingApps = Utils4Xposed.getCallingApps(service)
+
+            for (caller in callingApps) {
+                if (callerIsSpoofed(caller)) {
+                    logD(TAG, "@${param.method.name} spoofed input method subtype for $caller")
+
+                    // TODO: Find a method to get exact value for spoofed input method
+                    param.result = null
+                    service.filterCount++
+                    break
+                }
+            }
+        }
+
+        findMethodOrNull(
+            "com.android.server.inputmethod.InputMethodManagerService"
+        ) {
             name == "getEnabledInputMethodSubtypeList"
         }?.hookBefore { param ->
             val callingApps = Utils4Xposed.getCallingApps(service)
