@@ -134,18 +134,21 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
         ) {
             name == "getCurrentInputMethodSubtype"
         }?.hookBefore { param ->
-            val callingApps = Utils4Xposed.getCallingApps(service)
+            subtypeHook(param)
+        }?.let {
+            logD(TAG, "@${it.hookedMethod.name} is hooked!")
+            hooks += it
+        }
 
-            for (caller in callingApps) {
-                if (callerIsSpoofed(caller)) {
-                    logD(TAG, "@${param.method.name} spoofed input method subtype for $caller")
-
-                    // TODO: Find a method to get exact value for spoofed input method
-                    param.result = null
-                    service.filterCount++
-                    break
-                }
-            }
+        findMethodOrNull(
+            "com.android.server.inputmethod.InputMethodManagerService"
+        ) {
+            name == "getLastInputMethodSubtype"
+        }?.hookBefore { param ->
+            subtypeHook(param)
+        }?.let {
+            logD(TAG, "@${it.hookedMethod.name} is hooked!")
+            hooks += it
         }
 
         findMethodOrNull(
@@ -181,6 +184,21 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
                 logD(TAG, "@${param.method.name} spoofed input method for $caller")
 
                 param.result = listOf(getFakeInputMethodInfo(caller))
+                service.filterCount++
+                break
+            }
+        }
+    }
+
+    private fun subtypeHook(param: XC_MethodHook.MethodHookParam) {
+        val callingApps = Utils4Xposed.getCallingApps(service)
+
+        for (caller in callingApps) {
+            if (callerIsSpoofed(caller)) {
+                logD(TAG, "@${param.method.name} spoofed input method subtype for $caller")
+
+                // TODO: Find a method to get exact value for spoofed input method
+                param.result = null
                 service.filterCount++
                 break
             }
