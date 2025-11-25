@@ -15,6 +15,7 @@ import icu.nullptr.hidemyapplist.xposed.HMAService
 import icu.nullptr.hidemyapplist.xposed.Utils4Xposed
 import icu.nullptr.hidemyapplist.xposed.logD
 import icu.nullptr.hidemyapplist.xposed.logE
+import icu.nullptr.hidemyapplist.xposed.logI
 import java.util.Collections
 
 class ImmHook(private val service: HMAService) : IFrameworkHook {
@@ -63,6 +64,8 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
     }
 
     override fun load() {
+        logI(TAG, "Load hook")
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             findMethodOrNull(IMM_SERVICE) {
                 name == "getCurrentInputMethodInfoAsUser"
