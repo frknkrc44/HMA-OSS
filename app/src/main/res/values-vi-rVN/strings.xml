@@ -5,7 +5,7 @@
     <string name="title_settings">Cài đặt</string>
     <string name="title_template_manage">Quản lý biểu mẫu</string>
     <string name="title_template_settings">Cài đặt biểu mẫu</string>
-    <string name="title_settings_template_conf">Settings template configuration</string>
+    <string name="title_settings_template_conf">Cài đặt biểu mẫu tùy chỉnh</string>
     <string name="title_app_manage">Quản lý ứng dụng</string>
     <string name="title_app_select">Chọn ứng dụng</string>
     <string name="title_app_settings">Cài đặt ứng dụng</string>
@@ -124,9 +124,9 @@
     <string name="settings_preset_dev_options">Tùy chọn nhà phát triển</string>
     <string name="settings_preset_input_method">Phương thức nhập</string>
     <!-- Settings templates -->
-    <string name="settings_templates_database">Settings database</string>
-    <string name="settings_templates_name">Setting name</string>
-    <string name="settings_templates_value">Setting value</string>
+    <string name="settings_templates_database">Cài đặt được lưu trữ</string>
+    <string name="settings_templates_name">Tên cài đặt</string>
+    <string name="settings_templates_value">Giá trị cài đặt</string>
     <!-- Logs -->
     <string name="logs_save">Lưu nhật ký</string>
     <string name="logs_clear">Xóa nhật ký</string>
@@ -162,7 +162,7 @@
     <string name="settings_clear_uninstalled_app_configs">Xóa những thiết lập của những Ứ.D đã xóa</string>
     <string name="settings_clear_uninstalled_app_configs_summary">Lựa chọn này cho phép bạn tạo cấu hình đã loại bỏ những cấu hình Ứ.D đã xóa, bạn phải thiết lập lại khi cài lại những Ư.D đó</string>
     <string name="settings_no_undone_warning">Thao tác không thể hoàn tác.</string>
-    <string name="settings_package_query_workaround">Alternative package query</string>
+    <string name="settings_package_query_workaround">Tìm gói cài đặt thay thế</string>
     <string name="settings_package_query_workaround_summary">Đừng bật lựa chọn này nếu bạn thấy danh sách tên gói ứng dụng trong ứng dụng này đúng cách.</string>
     <string name="settings_language">Ngôn ngữ</string>
     <string name="settings_translate">Giúp chúng tôi dịch</string>
