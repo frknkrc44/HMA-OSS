@@ -29,8 +29,8 @@
     <string name="no">Không</string>
     <string name="search">Tìm</string>
     <string name="system">Hệ thống</string>
-    <string name="add">Add</string>
-    <string name="edit">Edit</string>
+    <string name="add">Thêm</string>
+    <string name="edit">Chỉnh sửa</string>
     <string name="follow_system">Theo cài đặt hệ thống</string>
     <!-- Home -->
     <string name="home_xposed_activated">Mô đun đã kích hoạt [%s]</string>
@@ -70,14 +70,14 @@
     <string name="template_usage_hint">Thiết lập biểu mẫu cho các ứng dụng \"không dừng\", kiểm soát danh sách ứng dụng chúng có thể truy vấn.\n\nDanh sách đen (khuyến nghị): các ứng dụng được chọn trong biểu mẫu sẽ ẩn đối với các ứng dụng áp dụng biểu mẫu.\nDanh sách trắng: các ứng dụng không được chọn trong biểu mẫu sẽ không hiển thị đối với các ứng dụng áp dụng biểu mẫu.</string>
     <string name="template_new_blacklist">Tạo một biểu mẫu danh sách đen</string>
     <string name="template_new_whitelist">Tạo một biểu mẫu danh sách trắng</string>
-    <string name="template_new_setting">Create a settings template</string>
+    <string name="template_new_setting">Tạo một biểu mẫu mới</string>
     <string name="template_delete">Bạn có chắc chắn xóa biểu mẫu này không?</string>
     <string name="template_name">Tên biểu mẫu</string>
     <string name="template_name_invalid">Tên không hợp lệ</string>
     <string name="template_delete_title">Xóa biểu mẫu</string>
     <string name="template_name_already_exist">Tên biểu mẫu đã tồn tại</string>
     <string name="template_applied_count">Đã áp dụng cho các ứng dụng: %d</string>
-    <string name="template_setting_count">%d settings added</string>
+    <string name="template_setting_count">Cài đặt %d đã được thêm vào</string>
     <string name="template_apps_visible_count">%d ứng dụng không ẩn</string>
     <string name="template_apps_invisible_count">%d Ứng dụng bị ẩn</string>
     <!-- App settings -->
@@ -90,7 +90,7 @@
     <string name="app_template_using">Đang dùng %d biểu mẫu</string>
     <string name="app_preset_using">Đang sử dụng %d thiết lập trước</string>
     <string name="app_settings_preset_using">Đang sử dụng %d cài đặt thiết lập trước</string>
-    <string name="app_settings_template_using">Using %d settings templates</string>
+    <string name="app_settings_template_using">Sử dụng biểu mẫu cài đặt %d</string>
     <string name="app_extra_apps_visible_count">Ứng dụng bổ sung hiện hình %d</string>
     <string name="app_extra_apps_invisible_count">%d Ứng dụng bổ sung được ẩn</string>
     <string name="app_warning_risky_package_title">Gói rủi ro</string>
@@ -118,11 +118,11 @@
     <string name="preset_custom_rom">Ứng dụng ROM tùy biến</string>
     <string name="preset_sus_apps">Ứng dụng đáng ngờ</string>
     <string name="preset_detector_apps">ỨD phát hiện/KT Root</string>
-    <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku apps</string>
+    <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku ứng dụng</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Trợ năng</string>
     <string name="settings_preset_dev_options">Tùy chọn nhà phát triển</string>
-    <string name="settings_preset_input_method">Input method</string>
+    <string name="settings_preset_input_method">Phương thức nhập</string>
     <!-- Settings templates -->
     <string name="settings_templates_database">Settings database</string>
     <string name="settings_templates_name">Setting name</string>
