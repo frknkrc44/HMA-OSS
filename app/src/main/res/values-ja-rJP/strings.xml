@@ -127,6 +127,9 @@
     <string name="settings_templates_database">設定データベース</string>
     <string name="settings_templates_name">設定名</string>
     <string name="settings_templates_value">設定値</string>
+    <!-- Settings templates - basic configuration types -->
+    <string name="settings_templates_custom">Custom setting</string>
+    <string name="settings_templates_random_ssaid">Random SSAID</string>
     <!-- Logs -->
     <string name="logs_save">ログの保存</string>
     <string name="logs_clear">ログのクリア</string>
@@ -164,6 +167,7 @@
     <string name="settings_no_undone_warning">この操作は取り消せません。</string>
     <string name="settings_package_query_workaround">代替パッケージクエリ</string>
     <string name="settings_package_query_workaround_summary">このアプリでパッケージリストが正しく表示されている場合は、このオプションを有効にしないでください。</string>
+    <string name="settings_launcher_icon">Launcher icon</string>
     <string name="settings_language">言語</string>
     <string name="settings_translate">翻訳に参加する</string>
     <string name="settings_translate_summary">%s をあなたの言語に翻訳するのにご協力ください</string>
