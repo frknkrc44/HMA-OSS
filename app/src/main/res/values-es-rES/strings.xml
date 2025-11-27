@@ -127,6 +127,9 @@
     <string name="settings_templates_database">Base de datos de ajustes</string>
     <string name="settings_templates_name">Nombre de ajuste</string>
     <string name="settings_templates_value">Valor de ajuste</string>
+    <!-- Settings templates - basic configuration types -->
+    <string name="settings_templates_custom">Custom setting</string>
+    <string name="settings_templates_random_ssaid">Random SSAID</string>
     <!-- Logs -->
     <string name="logs_save">Guardar logs</string>
     <string name="logs_clear">Borrar logs</string>
@@ -164,6 +167,7 @@
     <string name="settings_no_undone_warning">Esta acción no se puede deshacer.</string>
     <string name="settings_package_query_workaround">Consulta alternativa de paquete</string>
     <string name="settings_package_query_workaround_summary">No active esta opción si ve la lista de paquetes en esta aplicación correctamente.</string>
+    <string name="settings_launcher_icon">Launcher icon</string>
     <string name="settings_language">Idioma</string>
     <string name="settings_translate">Participa en la traducción</string>
     <string name="settings_translate_summary">Ayúdanos a traducir %s a tu idioma</string>
