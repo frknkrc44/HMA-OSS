@@ -83,12 +83,10 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                 name == "getInstallerForPackage"
             }?.hookBefore { param ->
                 val query = param.args[0] as String?
+
                 val callingHandle = Binder.getCallingUserHandle()
 
-                val callingApps = Utils.binderLocalScope {
-                    service.pms.getPackagesForUid(callingHandle.hashCode())
-                } ?: return@hookBefore
-
+                val callingApps = Utils4Xposed.getCallingApps(service)
                 for (caller in callingApps) {
                     when (service.shouldHideInstallationSource(caller, query, callingHandle)) {
                         Constants.FAKE_INSTALLATION_SOURCE_USER -> param.result = VENDING_PACKAGE_NAME
@@ -112,10 +110,7 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                 val callingUid = Binder.getCallingUid()
                 if (callingUid == Constants.UID_SYSTEM) return@hookBefore
 
-                val callingApps = Utils.binderLocalScope {
-                    service.pms.getPackagesForUid(callingUid)
-                } ?: return@hookBefore
-
+                val callingApps = Utils4Xposed.getCallingApps(service, callingUid)
                 for (caller in callingApps) {
                     when (service.shouldHideInstallationSource(caller, query, user)) {
                         Constants.FAKE_INSTALLATION_SOURCE_USER -> param.result = fakeUserPackageInstallSourceInfo
@@ -139,9 +134,8 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
             val user = Binder.getCallingUserHandle()
             val callingUid = Binder.getCallingUid()
             if (callingUid == Constants.UID_SYSTEM) return@hookBefore
-            val callingApps = Utils.binderLocalScope {
-                service.pms.getPackagesForUid(callingUid)
-            } ?: return@hookBefore
+
+            val callingApps = Utils4Xposed.getCallingApps(service, callingUid)
             for (caller in callingApps) {
                 when (service.shouldHideInstallationSource(caller, query, user)) {
                     Constants.FAKE_INSTALLATION_SOURCE_USER -> param.result = VENDING_PACKAGE_NAME
