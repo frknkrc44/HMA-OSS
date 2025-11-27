@@ -37,35 +37,6 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
         }
     }
 
-    /*
-    // This part of code is not required, but kept for reference
-    protected val psPackageSignatures by lazy {
-        try {
-            val signingInfo = psPackageInfo?.signingInfo ?: return@lazy null
-            val details = XposedHelpers.getObjectField(signingInfo, "mSigningDetails")
-            findConstructor(
-                "com.android.server.pm.PackageSignatures"
-            ) {
-                parameterTypes.firstOrNull()?.simpleName == "SigningDetails"
-            }.newInstance(details)
-        } catch (_: Throwable) {
-            null
-        }
-    }
-
-    internal val fakeSystemPackageInstallSource: Any? by lazy {
-        try {
-            findField("com.android.server.pm.InstallSource") {
-                name == "EMPTY_ORPHANED"
-            }.get(null)!!
-        } catch (_: Throwable) {
-            null
-        }
-    }
-
-    abstract val fakeUserPackageInstallSource: Any?
-    */
-
     abstract val fakeSystemPackageInstallSourceInfo: Any?
     abstract val fakeUserPackageInstallSourceInfo: Any?
 
@@ -105,42 +76,6 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                     }
                 }
             }
-
-            /*
-            // This part of code is not required, but kept for reference
-            findMethodOrNull(
-                "com.android.server.pm.ComputerEngine"
-            ) {
-                name == "getInstallSource"
-            }?.hookBefore { param ->
-                val query = param.args[0] as String?
-                val callingUid = param.args[1] as Int
-                val user = UserHandle.getUserHandleForUid(param.args[2] as Int)
-
-                val callingApps = Utils4Xposed.getCallingApps(service, callingUid)
-
-                for (caller in callingApps) {
-                    when (service.shouldHideInstallationSource(caller, query, user)) {
-                        Constants.FAKE_INSTALLATION_SOURCE_USER -> {
-                            logD(TAG, "@getInstallSource: incoming user app query from $caller")
-                            param.result = fakeUserPackageInstallSource
-                            service.filterCount++
-                            break
-                        }
-                        Constants.FAKE_INSTALLATION_SOURCE_SYSTEM -> {
-                            logD(TAG, "@getInstallSource: incoming system app query from $caller")
-                            param.result = fakeSystemPackageInstallSource
-                            service.filterCount++
-                            break
-                        }
-                        else -> continue
-                    }
-                }
-            }?.let {
-                logD(TAG, "CE getInstallSource is hooked!")
-                hooks.add(it)
-            }
-             */
         }
 
         if (service.pmn != null) {

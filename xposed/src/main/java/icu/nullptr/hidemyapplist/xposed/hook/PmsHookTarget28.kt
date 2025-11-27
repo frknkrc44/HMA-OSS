@@ -18,9 +18,6 @@ class PmsHookTarget28(service: HMAService) : PmsHookTargetBase(service) {
         private const val TAG = "PmsHookTarget28"
     }
 
-    // not required until SDK 33
-    // override val fakeUserPackageInstallSource = null
-
     // not required until SDK 30
     override val fakeSystemPackageInstallSourceInfo = null
     override val fakeUserPackageInstallSourceInfo = null
