@@ -127,6 +127,9 @@
     <string name="settings_templates_database">Einstellungen Datenbank</string>
     <string name="settings_templates_name">Einstellungsname</string>
     <string name="settings_templates_value">Einstellungswert</string>
+    <!-- Settings templates - basic configuration types -->
+    <string name="settings_templates_custom">Custom setting</string>
+    <string name="settings_templates_random_ssaid">Random SSAID</string>
     <!-- Logs -->
     <string name="logs_save">Protokolle speichern</string>
     <string name="logs_clear">Protokolle löschen</string>
@@ -164,6 +167,7 @@
     <string name="settings_no_undone_warning">Diese Aktion kann nicht rückgängig gemacht werden.</string>
     <string name="settings_package_query_workaround">Alternative Paketabfrage</string>
     <string name="settings_package_query_workaround_summary">Aktivieren Sie diese Option nicht, wenn Sie die Paketliste in dieser App korrekt sehen.</string>
+    <string name="settings_launcher_icon">Launcher icon</string>
     <string name="settings_language">Sprache</string>
     <string name="settings_translate">Beim Übersetzen mitmachen</string>
     <string name="settings_translate_summary">Helfe uns, %s in deine Sprache zu übersetzen</string>
