@@ -77,4 +77,11 @@ object Utils {
 
         return targets.any { source.contains(it) }
     }
+
+    fun generateRandomHex(length: Int): String {
+        val allowedChars = ('a'..'f') + ('0'..'9')
+        return (1..length)
+            .map { allowedChars.random() }
+            .joinToString("")
+    }
 }

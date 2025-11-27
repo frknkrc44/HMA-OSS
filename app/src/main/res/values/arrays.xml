@@ -80,4 +80,9 @@
         <item>@string/edit</item>
         <item>@string/delete</item>
     </string-array>
+
+    <string-array name="settings_template_inner_add_texts" translatable="false">
+        <item>@string/settings_templates_custom</item>
+        <item>@string/settings_templates_random_ssaid</item>
+    </string-array>
 </resources>

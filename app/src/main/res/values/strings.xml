@@ -139,6 +139,10 @@
     <string name="settings_templates_value">Setting value</string>
     <string name="settings_templates_value_null" translatable="false">NULL</string>
 
+    <!-- Settings templates - basic configuration types -->
+    <string name="settings_templates_custom">Custom setting</string>
+    <string name="settings_templates_random_ssaid">Random SSAID</string>
+
     <!-- Logs -->
     <string name="logs_save">Save logs</string>
     <string name="logs_clear">Clear logs</string>
