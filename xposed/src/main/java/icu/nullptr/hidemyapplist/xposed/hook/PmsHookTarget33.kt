@@ -30,8 +30,24 @@ class PmsHookTarget33(service: HMAService) : PmsHookTargetBase(service) {
     }
 
     /*
-    override val fakeUserPackageInstallSource = null
-    */
+    // This part of code is not required, but kept for reference
+    override val fakeUserPackageInstallSource: Any by lazy {
+        findConstructor(
+            "com.android.server.pm.InstallSource"
+        ) {
+            true
+        }.newInstance(
+            VENDING_PACKAGE_NAME,
+            VENDING_PACKAGE_NAME,
+            VENDING_PACKAGE_NAME,
+            VENDING_PACKAGE_NAME,
+            false,
+            false,
+            psPackageSignatures,
+            PackageInstaller.PACKAGE_SOURCE_STORE,
+        )
+    }
+     */
 
     override val fakeSystemPackageInstallSourceInfo: Any by lazy {
         findConstructor(
@@ -54,7 +70,7 @@ class PmsHookTarget33(service: HMAService) : PmsHookTargetBase(service) {
             paramCount == 5
         }.newInstance(
             VENDING_PACKAGE_NAME,
-            psSigningInfo,
+            psPackageInfo?.signingInfo,
             VENDING_PACKAGE_NAME,
             VENDING_PACKAGE_NAME,
             PackageInstaller.PACKAGE_SOURCE_STORE,

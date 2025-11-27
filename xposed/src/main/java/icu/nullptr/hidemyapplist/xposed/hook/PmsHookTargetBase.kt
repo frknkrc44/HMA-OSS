@@ -24,26 +24,35 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
     protected val hooks = mutableListOf<XC_MethodHook.Unhook>()
     protected var lastFilteredApp: AtomicReference<String?> = AtomicReference(null)
 
-    protected val psSigningInfo by lazy {
+    protected val psPackageInfo by lazy {
         try {
             Utils.getPackageInfoCompat(
                 service.pms,
                 VENDING_PACKAGE_NAME,
                 PackageManager.GET_SIGNING_CERTIFICATES.toLong(),
                 0
-            )?.signingInfo
+            )
         } catch (_: Throwable) {
             null
         }
     }
 
     /*
-    protected val psSigningDetails by lazy {
-        // TODO: Implement vending signing details
-        null
+    // This part of code is not required, but kept for reference
+    protected val psPackageSignatures by lazy {
+        try {
+            val signingInfo = psPackageInfo?.signingInfo ?: return@lazy null
+            val details = XposedHelpers.getObjectField(signingInfo, "mSigningDetails")
+            findConstructor(
+                "com.android.server.pm.PackageSignatures"
+            ) {
+                parameterTypes.firstOrNull()?.simpleName == "SigningDetails"
+            }.newInstance(details)
+        } catch (_: Throwable) {
+            null
+        }
     }
 
-    // TODO: Spoof PM install source
     internal val fakeSystemPackageInstallSource: Any? by lazy {
         try {
             findField("com.android.server.pm.InstallSource") {
@@ -96,6 +105,42 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                     }
                 }
             }
+
+            /*
+            // This part of code is not required, but kept for reference
+            findMethodOrNull(
+                "com.android.server.pm.ComputerEngine"
+            ) {
+                name == "getInstallSource"
+            }?.hookBefore { param ->
+                val query = param.args[0] as String?
+                val callingUid = param.args[1] as Int
+                val user = UserHandle.getUserHandleForUid(param.args[2] as Int)
+
+                val callingApps = Utils4Xposed.getCallingApps(service, callingUid)
+
+                for (caller in callingApps) {
+                    when (service.shouldHideInstallationSource(caller, query, user)) {
+                        Constants.FAKE_INSTALLATION_SOURCE_USER -> {
+                            logD(TAG, "@getInstallSource: incoming user app query from $caller")
+                            param.result = fakeUserPackageInstallSource
+                            service.filterCount++
+                            break
+                        }
+                        Constants.FAKE_INSTALLATION_SOURCE_SYSTEM -> {
+                            logD(TAG, "@getInstallSource: incoming system app query from $caller")
+                            param.result = fakeSystemPackageInstallSource
+                            service.filterCount++
+                            break
+                        }
+                        else -> continue
+                    }
+                }
+            }?.let {
+                logD(TAG, "CE getInstallSource is hooked!")
+                hooks.add(it)
+            }
+             */
         }
 
         if (service.pmn != null) {
@@ -123,30 +168,6 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            /*
-            findMethodOrNull(service.pms::class.java, findSuper = true) {
-                name == "getInstallSource"
-            }?.hookBefore { param ->
-                val query = param.args[0] as String?
-                val callingUid = param.args[1] as Int
-                val user = UserHandle.getUserHandleForUid(param.args[2] as Int)
-
-                val callingApps = Utils.binderLocalScope {
-                    service.pms.getPackagesForUid(callingUid)
-                } ?: return@hookBefore
-
-                for (caller in callingApps) {
-                    when (service.shouldHideInstallationSource(caller, query, user)) {
-                        Constants.FAKE_INSTALLATION_SOURCE_USER -> param.result = fakeUserPackageInstallSource
-                        Constants.FAKE_INSTALLATION_SOURCE_SYSTEM -> param.result = fakeSystemPackageInstallSource
-                        else -> continue
-                    }
-                }
-            }?.let {
-                hooks.add(it)
-            }
-            */
-
             findMethodOrNull(service.pms::class.java, findSuper = true) {
                 name == "getInstallSourceInfo"
             }?.hookBefore { param ->

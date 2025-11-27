@@ -24,22 +24,8 @@ class PmsHookTarget30(service: HMAService) : PmsHookTargetBase(service) {
         private const val TAG = "PmsHookTarget30"
     }
 
-    /*
-    override val fakeUserPackageInstallSource: Any by lazy {
-        findConstructor(
-            "com.android.server.pm.InstallSource"
-        ) {
-            true
-        }.newInstance(
-            VENDING_PACKAGE_NAME,
-            VENDING_PACKAGE_NAME,
-            VENDING_PACKAGE_NAME,
-            false,
-            false,
-            psSigningDetails,
-        )
-    }
-     */
+    // not required until SDK 33
+    // override val fakeUserPackageInstallSource = null
 
     override val fakeSystemPackageInstallSourceInfo: Any by lazy {
         findConstructor(
@@ -61,7 +47,7 @@ class PmsHookTarget30(service: HMAService) : PmsHookTargetBase(service) {
             paramCount == 4
         }.newInstance(
             VENDING_PACKAGE_NAME,
-            psSigningInfo,
+            psPackageInfo?.signingInfo,
             VENDING_PACKAGE_NAME,
             VENDING_PACKAGE_NAME,
         )
@@ -71,6 +57,7 @@ class PmsHookTarget30(service: HMAService) : PmsHookTargetBase(service) {
         logI(TAG, "Load hook")
 
         /*
+        // This part of code is not required, but kept for reference
         findMethodOrNull("com.android.server.pm.PackageManagerService") {
             name == "checkPermission"
         }?.hookBefore { param ->
