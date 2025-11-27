@@ -5,7 +5,7 @@
     <string name="title_settings">Ustawienia</string>
     <string name="title_template_manage">Menedżer szablonów</string>
     <string name="title_template_settings">Ustawienia szablonu</string>
-    <string name="title_settings_template_conf">Settings template configuration</string>
+    <string name="title_settings_template_conf">Konfiguracja szablonów ustawień</string>
     <string name="title_app_manage">Zarządzaj aplikacjami</string>
     <string name="title_app_select">Wybierz aplikacje</string>
     <string name="title_app_settings">Ustawienia aplikacji</string>
@@ -128,8 +128,8 @@
     <string name="settings_templates_name">Nazwa ustawienia</string>
     <string name="settings_templates_value">Wartość ustawienia</string>
     <!-- Settings templates - basic configuration types -->
-    <string name="settings_templates_custom">Custom setting</string>
-    <string name="settings_templates_random_ssaid">Random SSAID</string>
+    <string name="settings_templates_custom">Customowe ustawienie</string>
+    <string name="settings_templates_random_ssaid">Losowy SSAID</string>
     <!-- Logs -->
     <string name="logs_save">Zapisz logi</string>
     <string name="logs_clear">Wyczyść logi</string>
@@ -167,7 +167,7 @@
     <string name="settings_no_undone_warning">Tej akcji nie da się cofnąć.</string>
     <string name="settings_package_query_workaround">Alternatywne zapytanie o paczki</string>
     <string name="settings_package_query_workaround_summary">Nie włączaj tej opcji, jeżeli widzisz listę paczek w tej aplikacji poprawnie.</string>
-    <string name="settings_launcher_icon">Launcher icon</string>
+    <string name="settings_launcher_icon">Ikona w launcherze</string>
     <string name="settings_language">Język</string>
     <string name="settings_translate">Weź udział w tłumaczeniu</string>
     <string name="settings_translate_summary">Pomóż nam przetłumaczyć %s na Twój język</string>
