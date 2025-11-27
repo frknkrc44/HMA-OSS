@@ -128,8 +128,8 @@
     <string name="settings_templates_name">Nom du paramètre</string>
     <string name="settings_templates_value">Valeur de réglage</string>
     <!-- Settings templates - basic configuration types -->
-    <string name="settings_templates_custom">Custom setting</string>
-    <string name="settings_templates_random_ssaid">Random SSAID</string>
+    <string name="settings_templates_custom">Paramètre personnalisé</string>
+    <string name="settings_templates_random_ssaid">SSAID aléatoire</string>
     <!-- Logs -->
     <string name="logs_save">Enregistrer le journal</string>
     <string name="logs_clear">Effacer le journal</string>
@@ -167,7 +167,7 @@
     <string name="settings_no_undone_warning">Cette action ne peut pas être annulée.</string>
     <string name="settings_package_query_workaround">Requête de paquet alternatif</string>
     <string name="settings_package_query_workaround_summary">N\'activez pas cette option si la liste des paquets s\'affiche correctement dans cette application.</string>
-    <string name="settings_launcher_icon">Launcher icon</string>
+    <string name="settings_launcher_icon">Icône du lanceur</string>
     <string name="settings_language">Langue</string>
     <string name="settings_translate">Participer à la traduction</string>
     <string name="settings_translate_summary">Aidez nous à traduire %s dans votre language</string>
