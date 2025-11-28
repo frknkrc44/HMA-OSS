@@ -128,8 +128,8 @@
     <string name="settings_templates_name">设置名称</string>
     <string name="settings_templates_value">设置值</string>
     <!-- Settings templates - basic configuration types -->
-    <string name="settings_templates_custom">Custom setting</string>
-    <string name="settings_templates_random_ssaid">Random SSAID</string>
+    <string name="settings_templates_custom">自定义设置</string>
+    <string name="settings_templates_random_ssaid">随机SSAID</string>
     <!-- Logs -->
     <string name="logs_save">保存日志</string>
     <string name="logs_clear">清除日志</string>
@@ -167,7 +167,7 @@
     <string name="settings_no_undone_warning">此操作无法撤销</string>
     <string name="settings_package_query_workaround">备选包查询</string>
     <string name="settings_package_query_workaround_summary">如果在此应用中能够正确显示软件包列表，请勿启用此选项。</string>
-    <string name="settings_launcher_icon">Launcher icon</string>
+    <string name="settings_launcher_icon">启动器图标</string>
     <string name="settings_language">语言</string>
     <string name="settings_translate">参与翻译</string>
     <string name="settings_translate_summary">帮助我们把 %s 翻译到你的语言</string>
