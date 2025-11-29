@@ -20,6 +20,7 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
 
     private val hooks = mutableListOf<XC_MethodHook.Unhook>()
 
+    @Suppress("UNCHECKED_CAST")
     override fun load() {
         hooks += findMethod(
             $$"android.content.ContentProvider$Transport"
@@ -27,8 +28,6 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
             name == "query"
         }.hookAfter { param ->
             val callingApps = Utils4Xposed.getCallingApps(service)
-            if (callingApps.isEmpty()) return@hookAfter
-
             val caller = callingApps.firstOrNull { service.isHookEnabled(it) }
             if (caller == null) return@hookAfter
 
@@ -36,21 +35,16 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
             val projection = param.args[2] as Array<String>?
             val args = param.args[3] as Bundle?
 
-            if (uri == null) return@hookAfter
-
-            if (uri.authority != "settings") return@hookAfter
+            if (uri?.authority != "settings") return@hookAfter
 
             val segments = uri.pathSegments
             if (segments.isEmpty()) return@hookAfter
 
-            val uriParts = uri.path + ", " + uri.query + ", " + uri.authority + ", " + uri.pathSegments
-
-            logD(TAG, "@spoofSettings QUERY in ${callingApps.contentToString()}: ($uriParts), ${projection?.contentToString()}, $args")
+            logD(TAG, "@spoofSettings QUERY in ${callingApps.contentToString()}: $uri, ${projection?.contentToString()}, $args")
 
             val database = segments[0]
-            val isListCmd = segments.size < 2
 
-            if (!isListCmd) {
+            if (segments.size >= 2) {
                 val name = segments[1]
 
                 logD(TAG, "@spoofSettings QUERY received caller: $caller, database: $database, name: $name")
@@ -67,14 +61,15 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
                 logD(TAG, "@spoofSettings LIST_QUERY received caller: $caller, database: $database")
 
                 val result = param.result as Cursor? ?: return@hookAfter
-                val cache = mutableMapOf<String, String?>()
                 val keyIdx = result.getColumnIndex("name")
                 val valIdx = result.getColumnIndex("value")
 
                 if (keyIdx < 0 || valIdx < 0) {
-                    logD(TAG, "@spoofSettings LIST_QUERY invalid query: $caller")
+                    logD(TAG, "@spoofSettings LIST_QUERY invalid query: $caller ($keyIdx, $valIdx)")
                     return@hookAfter
                 }
+
+                val cache = mutableMapOf<String, String?>()
 
                 while (result.moveToNext()) {
                     val name = result.getString(keyIdx)
