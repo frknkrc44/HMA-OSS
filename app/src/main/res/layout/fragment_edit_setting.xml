@@ -104,13 +104,17 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <androidx.appcompat.widget.AppCompatCheckBox
+                <CheckBox
+                    android:textAppearance="?textAppearanceBodyMedium"
                     android:id="@+id/setting_value_null"
                     android:layout_marginStart="@dimen/item_padding_mini2x"
                     android:text="@string/settings_templates_value_null"
                     android:layout_weight="0"
+                    android:button="@drawable/check_box"
+                    android:paddingStart="@dimen/item_padding_mini2x"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    tools:ignore="RtlSymmetry" />
 
             </LinearLayout>
 
