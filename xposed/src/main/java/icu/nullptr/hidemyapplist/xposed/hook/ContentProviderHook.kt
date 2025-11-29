@@ -29,16 +29,7 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
         hooks += findMethod(CONTENT_PROVIDER_TRANSPORT) {
             name == "query"
         }.hookAfter { param ->
-            val callingApps = try {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                    val attrSource = param.args.first() as AttributionSource
-                    arrayOf(attrSource.packageName)
-                } else {
-                    arrayOf(param.args.first() as String)
-                }
-            } catch (_: Throwable) {
-                Utils4Xposed.getCallingApps(service)
-            }
+            val callingApps = getCallingPackages(param)
 
             val caller = callingApps.firstOrNull { service.isHookEnabled(it) }
             if (caller == null) return@hookAfter
@@ -133,7 +124,7 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
         hooks += findMethod(CONTENT_PROVIDER_TRANSPORT) {
             name == "call"
         }.hookBefore { param ->
-            val callingApps = Utils4Xposed.getCallingApps(service)
+            val callingApps = getCallingPackages(param)
             if (callingApps.isEmpty()) return@hookBefore
 
             val method = param.args[2] as String?
@@ -160,6 +151,17 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
                 }
             }
         }
+    }
+
+    private fun getCallingPackages(param: XC_MethodHook.MethodHookParam) = try {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val attrSource = param.args.first() as AttributionSource
+            arrayOf(attrSource.packageName)
+        } else {
+            arrayOf(param.args.first() as String)
+        }
+    } catch (_: Throwable) {
+        Utils4Xposed.getCallingApps(service)
     }
 
     override fun unload() {
