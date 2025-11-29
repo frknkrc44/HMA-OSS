@@ -79,6 +79,11 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
                 val keyIdx = result.getColumnIndex("name")
                 val valIdx = result.getColumnIndex("value")
 
+                if (keyIdx < 0 || valIdx < 0) {
+                    logD(TAG, "@spoofSettings LIST_QUERY invalid query: $caller")
+                    return@hookAfter
+                }
+
                 while (result.moveToNext()) {
                     val name = result.getString(keyIdx)
                     val replacement = service.getSpoofedSetting(caller, name, database)
