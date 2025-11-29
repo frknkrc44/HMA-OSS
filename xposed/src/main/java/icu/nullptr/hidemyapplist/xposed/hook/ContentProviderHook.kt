@@ -125,28 +125,25 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
             name == "call"
         }.hookBefore { param ->
             val callingApps = getCallingPackages(param)
-            if (callingApps.isEmpty()) return@hookBefore
+            val caller = callingApps.firstOrNull { service.isHookEnabled(it) }
+            if (caller == null) return@hookBefore
 
             val method = param.args[2] as String?
             val name = param.args[3] as String?
 
-            for (caller in callingApps) {
-                if (!service.isHookEnabled(caller)) continue
+            logD(TAG, "@spoofSettings CALL received caller: ${callingApps.contentToString()}, method: $method, name: $name")
 
-                logD(TAG, "@spoofSettings CALL received caller: $caller, method: $method, name: $name")
-
-                when (method) {
-                    "GET_global", "GET_secure", "GET_system" -> {
-                        val database = method.substring(method.indexOf('_') + 1)
-                        val replacement = service.getSpoofedSetting(caller, name, database)
-                        if (replacement != null) {
-                            logD(TAG, "@spoofSettings CALL $name in $database replaced for $caller")
-                            param.result = Bundle().apply {
-                                putString(Settings.NameValueTable.VALUE, replacement.value)
-                                putInt("_generation_index", -1)
-                            }
-                            service.filterCount++
+            when (method) {
+                "GET_global", "GET_secure", "GET_system" -> {
+                    val database = method.substring(method.indexOf('_') + 1)
+                    val replacement = service.getSpoofedSetting(caller, name, database)
+                    if (replacement != null) {
+                        logD(TAG, "@spoofSettings CALL $name in $database replaced for $caller")
+                        param.result = Bundle().apply {
+                            putString(Settings.NameValueTable.VALUE, replacement.value)
+                            putInt("_generation_index", -1)
                         }
+                        service.filterCount++
                     }
                 }
             }
