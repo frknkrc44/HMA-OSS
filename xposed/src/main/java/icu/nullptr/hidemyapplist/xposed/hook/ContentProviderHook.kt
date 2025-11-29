@@ -16,6 +16,7 @@ import icu.nullptr.hidemyapplist.xposed.logD
 class ContentProviderHook(private val service: HMAService): IFrameworkHook {
     companion object {
         private const val TAG = "ContentProviderHook"
+        private val NV_PAIR = arrayOf("name", "value")
     }
 
     private val hooks = mutableListOf<XC_MethodHook.Unhook>()
@@ -61,35 +62,57 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
                 logD(TAG, "@spoofSettings LIST_QUERY received caller: $caller, database: $database")
 
                 val result = param.result as Cursor? ?: return@hookAfter
-                val keyIdx = result.getColumnIndex("name")
-                val valIdx = result.getColumnIndex("value")
 
-                if (keyIdx < 0 || valIdx < 0) {
-                    logD(TAG, "@spoofSettings LIST_QUERY invalid query: $caller ($keyIdx, $valIdx)")
+                val columns = mutableMapOf<String, MutableList<String?>>().apply {
+                    for (i in 0 ..< result.columnCount) {
+                        put(result.getColumnName(i), mutableListOf())
+                    }
+                }
+
+                logD(TAG, "@spoofSetting LIST_QUERY columns: ${columns.keys}")
+
+                val keyColumn = columns["name"]
+                val valueColumn = columns["value"]
+
+                if (keyColumn == null || valueColumn == null) {
+                    logD(TAG, "@spoofSettings LIST_QUERY invalid query: $caller ($keyColumn, $valueColumn)")
                     return@hookAfter
                 }
 
-                val cache = mutableMapOf<String, String?>()
-
                 while (result.moveToNext()) {
-                    val name = result.getString(keyIdx)
+                    val name = result.getString(columns.keys.indexOf("name"))
+                    keyColumn.add(name)
+
                     val replacement = service.getSpoofedSetting(caller, name, database)
-                    cache[name] = if (replacement != null) {
+                    val value = if (replacement != null) {
                         logD(TAG, "@spoofSettings QUERY $name in $database replaced for $caller")
 
                         replacement.value
                     } else {
-                        result.getString(valIdx)
+                        result.getString(columns.keys.indexOf("value"))
+                    }
+
+                    valueColumn.add(value)
+
+                    if (columns.keys.size > 2) {
+                        for (otherCol in columns.keys.filter { it !in NV_PAIR }) {
+                            val other = result.getString(columns.keys.indexOf(otherCol))
+
+                            columns[otherCol]!!.add(other)
+                        }
                     }
                 }
 
-                val items = mutableListOf("name", "value")
-                if (valIdx < keyIdx) items.reverse()
+                param.result = MatrixCursor(columns.keys.toTypedArray(), columns.size).apply {
+                    val size = columns.values.first().size
+                    for (i in 0 ..< size) {
+                        val innerList = mutableListOf<String?>()
 
-                param.result = MatrixCursor(items.toTypedArray(), cache.size).apply {
-                    for (entry in cache.entries) {
-                        if (valIdx < keyIdx) addRow(arrayOf(entry.value, entry.key))
-                        else addRow(arrayOf(entry.key, entry.value))
+                        columns.values.forEach { colVal ->
+                            innerList.add(colVal[i])
+                        }
+
+                        addRow(innerList)
                     }
                 }
             }
