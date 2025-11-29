@@ -1,8 +1,10 @@
 package icu.nullptr.hidemyapplist.xposed.hook
 
+import android.content.AttributionSource
 import android.database.Cursor
 import android.database.MatrixCursor
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import com.github.kyuubiran.ezxhelper.utils.findMethod
@@ -28,7 +30,17 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
         ) {
             name == "query"
         }.hookAfter { param ->
-            val callingApps = Utils4Xposed.getCallingApps(service)
+            val callingApps = try {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    val attrSource = param.args.first() as AttributionSource
+                    arrayOf(attrSource.packageName)
+                } else {
+                    arrayOf(param.args.first() as String)
+                }
+            } catch (_: Throwable) {
+                Utils4Xposed.getCallingApps(service)
+            }
+
             val caller = callingApps.firstOrNull { service.isHookEnabled(it) }
             if (caller == null) return@hookAfter
 
