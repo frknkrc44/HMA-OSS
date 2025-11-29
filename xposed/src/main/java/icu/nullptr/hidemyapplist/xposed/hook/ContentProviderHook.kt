@@ -26,6 +26,12 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
         ) {
             name == "query"
         }.hookAfter { param ->
+            val callingApps = Utils4Xposed.getCallingApps(service)
+            if (callingApps.isEmpty()) return@hookAfter
+
+            val caller = callingApps.firstOrNull { service.isHookEnabled(it) }
+            if (caller == null) return@hookAfter
+
             val uri = param.args[1] as Uri?
             val projection = param.args[2] as Array<String>?
             val args = param.args[3] as Bundle?
@@ -36,20 +42,6 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
 
             val segments = uri.pathSegments
             if (segments.isEmpty()) return@hookAfter
-
-            val callingApps = Utils4Xposed.getCallingApps(service)
-            if (callingApps.isEmpty()) return@hookAfter
-
-            var caller: String? = null
-
-            for (app in callingApps) {
-                if (!service.isHookEnabled(app)) continue
-
-                caller = app
-                break
-            }
-
-            if (caller == null) return@hookAfter
 
             val uriParts = uri.path + ", " + uri.query + ", " + uri.authority + ", " + uri.pathSegments
 
