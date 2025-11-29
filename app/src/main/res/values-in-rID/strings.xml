@@ -128,7 +128,7 @@
     <string name="settings_templates_name">Nama setelan</string>
     <string name="settings_templates_value">Nilai setelan</string>
     <!-- Settings templates - basic configuration types -->
-    <string name="settings_templates_custom">Pengaturan kustom</string>
+    <string name="settings_templates_custom">Kustom setelan</string>
     <string name="settings_templates_random_ssaid">SSAID acak</string>
     <!-- Logs -->
     <string name="logs_save">Simpan log</string>
