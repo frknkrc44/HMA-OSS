@@ -1,6 +1,6 @@
 # <img src="HideMyAss-OSS.svg" alt="HMA-OSS Logo" width="120px">
 
-# HMA-OSS
+# HMA-OSS <img src="HideMyAss-OSS.svg" alt="HMA-OSS Logo" width="120px" align="right">
 
 [![Stars](https://img.shields.io/github/stars/frknkrc44/HMA-OSS?label=Stars)](https://github.com/frknkrc44)
 [![Build](https://img.shields.io/github/actions/workflow/status/frknkrc44/HMA-OSS/main.yml?branch=master&logo=github)](https://github.com/frknkrc44/HMA-OSS/actions)
