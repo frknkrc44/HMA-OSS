@@ -128,8 +128,8 @@
     <string name="settings_templates_name">Tên cài đặt</string>
     <string name="settings_templates_value">Giá trị cài đặt</string>
     <!-- Settings templates - basic configuration types -->
-    <string name="settings_templates_custom">Custom setting</string>
-    <string name="settings_templates_random_ssaid">Random SSAID</string>
+    <string name="settings_templates_custom">Cài đặt tùy chỉnh</string>
+    <string name="settings_templates_random_ssaid">Android ID (SSAID) ngẫu nhiên</string>
     <!-- Logs -->
     <string name="logs_save">Lưu nhật ký</string>
     <string name="logs_clear">Xóa nhật ký</string>
@@ -167,7 +167,7 @@
     <string name="settings_no_undone_warning">Thao tác không thể hoàn tác.</string>
     <string name="settings_package_query_workaround">Tìm gói cài đặt thay thế</string>
     <string name="settings_package_query_workaround_summary">Đừng bật lựa chọn này nếu bạn thấy danh sách tên gói ứng dụng trong ứng dụng này đúng cách.</string>
-    <string name="settings_launcher_icon">Launcher icon</string>
+    <string name="settings_launcher_icon">Biểu tượng khởi động</string>
     <string name="settings_language">Ngôn ngữ</string>
     <string name="settings_translate">Giúp chúng tôi dịch</string>
     <string name="settings_translate_summary">Giúp chúng tôi dịch %s sang ngôn ngữ của bạn</string>
