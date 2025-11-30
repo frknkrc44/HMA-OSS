@@ -1,5 +1,3 @@
-# <img src="HideMyAss-OSS.svg" alt="HMA-OSS Logo" width="120px">
-
 # HMA-OSS <img src="HideMyAss-OSS.svg" alt="HMA-OSS Logo" style="max-width:360px;width:60%;height:auto;float:right;">
 
 [![Stars](https://img.shields.io/github/stars/frknkrc44/HMA-OSS?label=Stars)](https://github.com/frknkrc44)
