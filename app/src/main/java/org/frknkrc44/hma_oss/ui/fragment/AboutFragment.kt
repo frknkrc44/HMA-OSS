@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide
 import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.homeItemBackgroundColor
 import icu.nullptr.hidemyapplist.ui.util.navController
+import icu.nullptr.hidemyapplist.util.PackageHelper.findEnabledAppComponent
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.common.BuildConfig
 import org.frknkrc44.hma_oss.databinding.FragmentAboutBinding
@@ -67,10 +68,14 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
                 backgroundTintList = tint
             }
 
-            Glide.with(this@AboutFragment)
-                .load(R.mipmap.ic_launcher)
-                .circleCrop()
-                .into(appIcon)
+            Glide.with(this@AboutFragment).let {
+                val activityName = findEnabledAppComponent(requireContext())
+                return@let if (activityName == null) {
+                    it.load(R.mipmap.ic_launcher)
+                } else {
+                    it.load(requireContext().packageManager.getActivityIcon(activityName))
+                }
+            }.circleCrop().into(appIcon)
 
             appName.setText(R.string.app_name)
             appVersion.text = BuildConfig.APP_VERSION_NAME
@@ -120,6 +125,7 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
         // HMA-OSS devs
         with(binding.listHmaOss) {
             addDevItem(this, R.drawable.cont_fk, "frknkrc44", "HMA-OSS Developer", "https://github.com/frknkrc44")
+            addDevItem(this, R.drawable.cont_oukaromf, "OukaroMF", "HMA-OSS Alt Icon Designer", "https://github.com/OukaroMF")
         }
 
         // Original HMA devs

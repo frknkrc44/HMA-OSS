@@ -38,6 +38,42 @@
             </intent-filter>
         </activity-alias>
 
+        <activity-alias
+            android:name=".MainActivityLauncherAlt"
+            android:exported="true"
+            android:enabled="false"
+            android:icon="@mipmap/ic_launcher_alt"
+            android:targetActivity="org.frknkrc44.hma_oss.ui.activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias
+            android:name=".MainActivityLauncherAlt2"
+            android:exported="true"
+            android:enabled="false"
+            android:icon="@mipmap/ic_launcher_alt_2"
+            android:targetActivity="org.frknkrc44.hma_oss.ui.activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias
+            android:name=".MainActivityLauncherAlt3"
+            android:exported="true"
+            android:enabled="false"
+            android:icon="@mipmap/ic_launcher_alt_3"
+            android:targetActivity="org.frknkrc44.hma_oss.ui.activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
         <provider
             android:name="icu.nullptr.hidemyapplist.service.ServiceProvider"
             android:authorities="${applicationId}.ServiceProvider"

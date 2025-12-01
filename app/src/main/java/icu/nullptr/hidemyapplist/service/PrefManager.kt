@@ -5,8 +5,12 @@ import android.content.Context.MODE_PRIVATE
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
+import icu.nullptr.hidemyapplist.data.AppConstants
 import icu.nullptr.hidemyapplist.hmaApp
-import org.frknkrc44.hma_oss.BuildConfig
+import icu.nullptr.hidemyapplist.ui.util.get
+import icu.nullptr.hidemyapplist.util.PackageHelper.findEnabledAppComponent
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.runBlocking
 
 object PrefManager {
 
@@ -21,7 +25,6 @@ object PrefManager {
     private const val PREF_FOLLOW_SYSTEM_ACCENT = "follow_system_accent"
     private const val PREF_THEME_COLOR = "theme_color"
 
-    private const val PREF_HIDE_ICON = "hide_icon"
     private const val PREF_BYPASS_RISKY_PACKAGE_WARNING = "bypass_risky_package_warning"
 
     private const val PREF_APP_FILTER_SHOW_SYSTEM = "app_filter_show_system"
@@ -35,6 +38,7 @@ object PrefManager {
     }
 
     private val pref = hmaApp.getSharedPreferences("settings", MODE_PRIVATE)
+    val isLauncherIconInvisible = MutableSharedFlow<Boolean>(replay = 1)
 
     var lastVersion: Int
         get() = pref.getInt(PREF_LAST_VERSION, 0)
@@ -69,14 +73,24 @@ object PrefManager {
         set(value) = pref.edit { putString(PREF_THEME_COLOR, value) }
 
     var hideIcon: Boolean
-        get() = pref.getBoolean(PREF_HIDE_ICON, false)
+        get() = isLauncherIconInvisible.get()
         set(value) {
-            pref.edit { putBoolean(PREF_HIDE_ICON, value) }
-            val component = ComponentName(hmaApp, "${BuildConfig.APPLICATION_ID}.MainActivityLauncher")
-            val status =
-                if (value) PackageManager.COMPONENT_ENABLED_STATE_DISABLED
-                else PackageManager.COMPONENT_ENABLED_STATE_ENABLED
-            hmaApp.packageManager.setComponentEnabledSetting(component, status, PackageManager.DONT_KILL_APP)
+            val enabled = findEnabledAppComponent(hmaApp)
+            if (value && enabled != null) {
+                hmaApp.packageManager.setComponentEnabledSetting(
+                    enabled,
+                    PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                    PackageManager.DONT_KILL_APP
+                )
+            } else if (!value && enabled == null) {
+                hmaApp.packageManager.setComponentEnabledSetting(
+                    ComponentName(hmaApp, AppConstants.COMPONENT_NAME_DEFAULT),
+                    PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                    PackageManager.DONT_KILL_APP
+                )
+            }
+
+            runBlocking { isLauncherIconInvisible.emit(value) }
         }
 
     var bypassRiskyPackageWarning: Boolean

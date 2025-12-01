@@ -46,9 +46,9 @@
             tools:text="com.example.app" />
     </LinearLayout>
 
-
-    <com.google.android.material.checkbox.MaterialCheckBox
+    <CheckBox
         android:id="@+id/checkbox"
+        android:button="@drawable/check_box"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"

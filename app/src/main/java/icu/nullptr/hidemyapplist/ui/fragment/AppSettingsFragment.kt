@@ -8,7 +8,6 @@ import android.view.View
 import android.view.WindowInsets
 import android.widget.Toast
 import androidx.activity.addCallback
-import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.clearFragmentResultListener
@@ -192,7 +191,7 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
             preferenceManager.preferenceDataStore = AppPreferenceDataStore(pack)
             setPreferencesFromResource(R.xml.app_settings, rootKey)
             findPreference<Preference>("appInfo")?.let {
-                it.icon = PackageHelper.loadAppIcon(pack.app).toDrawable(resources)
+                it.icon = PackageHelper.loadAppIcon(pack.app)
                 it.title = PackageHelper.loadAppLabel(pack.app)
                 it.summary = pack.app
                 it.setOnPreferenceClickListener { pref ->

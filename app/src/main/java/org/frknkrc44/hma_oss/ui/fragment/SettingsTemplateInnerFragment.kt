@@ -1,11 +1,15 @@
 package org.frknkrc44.hma_oss.ui.fragment
 
+import android.provider.Settings
 import android.view.MenuItem
 import androidx.fragment.app.clearFragmentResultListener
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import icu.nullptr.hidemyapplist.common.Constants
+import icu.nullptr.hidemyapplist.common.Utils.generateRandomHex
+import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
 import icu.nullptr.hidemyapplist.ui.util.navigate
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.ui.adapter.SettingsTemplateListAdapter
@@ -53,8 +57,28 @@ class SettingsTemplateInnerFragment : BaseSettingsPTFragment() {
     fun onMenuOptionSelected(item: MenuItem) {
         when (item.itemId) {
             R.id.menu_add -> {
-                val args = EditSettingFragmentArgs(database = null, name = "", value = null)
-                launchEditSettingFragment(args)
+                MaterialAlertDialogBuilder(requireContext()).apply {
+                    setTitle(R.string.add)
+                    setItems(R.array.settings_template_inner_add_texts) { dialog, which ->
+                        when (which) {
+                            0 -> {
+                                val args = EditSettingFragmentArgs(database = null, name = "", value = null)
+                                launchEditSettingFragment(args)
+                            }
+                            1 -> {
+                                processIncomingSetting(
+                                    ReplacementItem(
+                                        name = Settings.Secure.ANDROID_ID,
+                                        value = generateRandomHex(16),
+                                        database = Constants.SETTINGS_SECURE,
+                                    )
+                                )
+                            }
+                        }
+
+                        dialog.dismiss()
+                    }
+                }.show()
             }
         }
     }
@@ -62,25 +86,26 @@ class SettingsTemplateInnerFragment : BaseSettingsPTFragment() {
     fun launchEditSettingFragment(args: EditSettingFragmentArgs) {
         setFragmentResultListener("edit_setting") { _, bundle ->
             fun deal() {
-                val item = bundle.toTargetSettingList().firstOrNull()
-
-                if (item != null) {
-                    val index = adapter.items.indexOfFirst { it.name == item.name && it.database == item.database }
-
-                    if (index >= 0) {
-                        adapter.items[index] = item
-                        adapter.notifyItemChanged(index)
-                    } else {
-                        adapter.items.add(item)
-                        adapter.notifyItemInserted(adapter.items.size - 1)
-                    }
-                }
+                val item = bundle.toTargetSettingList().firstOrNull() ?: return
+                processIncomingSetting(item)
             }
             deal()
             clearFragmentResultListener("edit_setting")
         }
 
         navigate(R.id.nav_settings_templates_edit_setting, args.toBundle())
+    }
+
+    private fun processIncomingSetting(item: ReplacementItem) {
+        val index = adapter.items.indexOfFirst { it.name == item.name && it.database == item.database }
+
+        if (index >= 0) {
+            adapter.items[index] = item
+            adapter.notifyItemChanged(index)
+        } else {
+            adapter.items.add(item)
+            adapter.notifyItemInserted(adapter.items.size - 1)
+        }
     }
 
     override val menu = Pair(

@@ -19,9 +19,6 @@ class PmsHookTarget28(service: HMAService) : PmsHookTargetBase(service) {
     }
 
     // not required until SDK 30
-    /*
-    override val fakeUserPackageInstallSource = null
-    */
     override val fakeSystemPackageInstallSourceInfo = null
     override val fakeUserPackageInstallSourceInfo = null
 

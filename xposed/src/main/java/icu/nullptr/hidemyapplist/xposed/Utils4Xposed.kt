@@ -1,5 +1,6 @@
 package icu.nullptr.hidemyapplist.xposed
 
+import android.app.ActivityThread
 import android.os.Binder
 import android.os.Build
 import com.github.kyuubiran.ezxhelper.utils.findField
@@ -15,6 +16,8 @@ class Utils4Xposed {
                 }.get(packageSettings) as? String
             }.getOrNull()
         }
+
+        fun getPackageManager() = ActivityThread.currentActivityThread().application.packageManager!!
 
         fun getCallingApps(service: HMAService): Array<String> {
             return getCallingApps(service, Binder.getCallingUid())
