@@ -127,6 +127,9 @@
     <string name="settings_templates_database">Settings database</string>
     <string name="settings_templates_name">Setting name</string>
     <string name="settings_templates_value">Setting value</string>
+    <!-- Settings templates - basic configuration types -->
+    <string name="settings_templates_custom">Custom setting</string>
+    <string name="settings_templates_random_ssaid">Random SSAID</string>
     <!-- Logs -->
     <string name="logs_save">Зберегти журнали</string>
     <string name="logs_clear">Очистити журнали</string>
@@ -164,6 +167,7 @@
     <string name="settings_no_undone_warning">This action cannot be undone.</string>
     <string name="settings_package_query_workaround">Alternative package query</string>
     <string name="settings_package_query_workaround_summary">Don\'t enable this option if you see the package list in this app correctly.</string>
+    <string name="settings_launcher_icon">Launcher icon</string>
     <string name="settings_language">Мова</string>
     <string name="settings_translate">Участь у перекладі</string>
     <string name="settings_translate_summary">Допоможіть нам перекласти %s вашою мовою</string>

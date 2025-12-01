@@ -5,12 +5,12 @@
     <string name="title_settings">Ustawienia</string>
     <string name="title_template_manage">Menedżer szablonów</string>
     <string name="title_template_settings">Ustawienia szablonu</string>
-    <string name="title_settings_template_conf">Konfiguracja szablonu ustawień</string>
+    <string name="title_settings_template_conf">Konfiguracja szablonów ustawień</string>
     <string name="title_app_manage">Zarządzaj aplikacjami</string>
     <string name="title_app_select">Wybierz aplikacje</string>
     <string name="title_app_settings">Ustawienia aplikacji</string>
     <string name="title_about">O</string>
-    <string name="title_about_fork">O tym rozwidleniu</string>
+    <string name="title_about_fork">O tym forku</string>
     <string name="do_not_dual">Nie instaluj HMA na drugim użytkowniku</string>
     <string name="show_crash_log">Pokaż dziennik awarii</string>
     <string name="config_damaged">Plik konfiguracyjny uszkodzony. Proszę wyczyścić dane aplikacji</string>
@@ -38,7 +38,7 @@
     <string name="home_xposed_service_on">Uruchomiono usługę systemową [%d]</string>
     <string name="home_xposed_service_off">Usługa systemowa nie jest uruchomiona</string>
     <string name="home_xposed_service_old">Moduł zaktualizowany, wymaga reboota</string>
-    <string name="home_xposed_filter_count">HMA-OSS przefiltrował łącznie %d żądań</string>
+    <string name="home_xposed_filter_count">HMA-OSS przefiltrowało %d zapytań</string>
     <string name="home_manage">Zarządzaj</string>
     <string name="home_detection_test">Test wykrywalności</string>
     <string name="home_download_test_app_title">Pobierz aplikację testową</string>
@@ -90,7 +90,7 @@
     <string name="app_template_using">Używanie %d szablonów</string>
     <string name="app_preset_using">Używanie %d presetów</string>
     <string name="app_settings_preset_using">Używanie %d presetów ustawień</string>
-    <string name="app_settings_template_using">Używanie %d presetów ustawień</string>
+    <string name="app_settings_template_using">Używanie %d szablonów ustawień</string>
     <string name="app_extra_apps_visible_count">%d dodatkowo widzialnych aplikacji</string>
     <string name="app_extra_apps_invisible_count">%d dodatkowo niewidzialnych aplikacji</string>
     <string name="app_warning_risky_package_title">Ryzykowne pakiety</string>
@@ -114,8 +114,8 @@
     <string name="title_settings_preset">Presety ustawień</string>
     <string name="title_preset_manage">Pokaż presety</string>
     <string name="preset_xposed">Moduły LSPosed/Xposed</string>
-    <string name="preset_root_apps">Menedżery Root/Aplikacje roota</string>
-    <string name="preset_custom_rom">Aplikacje customowego ROMu</string>
+    <string name="preset_root_apps">Menedżery Root/Aplikacje zrootowane</string>
+    <string name="preset_custom_rom">Aplikacje custom ROMu</string>
     <string name="preset_sus_apps">Podejrzane aplikacje</string>
     <string name="preset_detector_apps">Detectory/Checkery aplikacji</string>
     <string name="preset_shizuku_dhizuku">Aplikacje Shizuku/Dhizuku</string>
@@ -127,6 +127,9 @@
     <string name="settings_templates_database">Baza ustawień</string>
     <string name="settings_templates_name">Nazwa ustawienia</string>
     <string name="settings_templates_value">Wartość ustawienia</string>
+    <!-- Settings templates - basic configuration types -->
+    <string name="settings_templates_custom">Customowe ustawienie</string>
+    <string name="settings_templates_random_ssaid">Losowy SSAID</string>
     <!-- Logs -->
     <string name="logs_save">Zapisz logi</string>
     <string name="logs_clear">Wyczyść logi</string>
@@ -151,7 +154,7 @@
     <string name="settings_force_mount_data">Wymuś izolacje danych dla wszystkich aplikacji</string>
     <string name="settings_force_mount_data_summary">Izolacja danych jest wyłączona dla aplikacji celujących w API niższe niż 30 domyślnie</string>
     <string name="settings_detail_log">Szczegółowy log do debugowania</string>
-    <string name="settings_max_log_size">Rozmiar bufora loggera</string>
+    <string name="settings_max_log_size">Rozmiar bufora loggera </string>
     <string name="settings_hide_icon">Ukryj ikonę modułu w launcherze</string>
     <string name="settings_hide_icon_summary">Możesz nadal otworzyć tę aplikację przez menedżer Xposed</string>
     <string name="settings_bypass_risky_package_warning">Omiń ostrzeżenie o ryzykownej paczce</string>
@@ -164,6 +167,7 @@
     <string name="settings_no_undone_warning">Tej akcji nie da się cofnąć.</string>
     <string name="settings_package_query_workaround">Alternatywne zapytanie o paczki</string>
     <string name="settings_package_query_workaround_summary">Nie włączaj tej opcji, jeżeli widzisz listę paczek w tej aplikacji poprawnie.</string>
+    <string name="settings_launcher_icon">Ikona w launcherze</string>
     <string name="settings_language">Język</string>
     <string name="settings_translate">Weź udział w tłumaczeniu</string>
     <string name="settings_translate_summary">Pomóż nam przetłumaczyć %s na Twój język</string>
@@ -187,7 +191,7 @@
     <string name="settings_receive_beta_update_summary">Wersje beta mogą być niestabilne</string>
     <!-- About -->
     <string name="about_description">        Chociaż wykrywanie konkretnej instalacji aplikacji jest niepoprawne, to nie każda aplikacja korzystająca z roota obsługuje losowe nazwy pakietów. W takim przypadku wykrycie aplikacji używających roota (takich jak Fake Location i Storage Isolation) jest równoznaczne z wykryciem samego roota.\n\nW tym samym czasie niektóre sprytne aplikacje wykorzystują różne luki, aby uzyskać dostęp do twojej listy aplikacji, dzięki czemu mogą stworzyć twój profil użytkownika.\n\nTen moduł udostępnia kilka metod pozwalających sprawdzić, czy udało ci się skutecznie ukryć swoją listę aplikacji. Może też działać jako moduł Xposed, aby ukrywać wybrane aplikacje lub odrzucać żądania dostępu do listy aplikacji w celu ochrony twojej prywatności    </string>
-    <string name="about_fork_description">Oryginalny projekt HMA stał się projektem o zamkniętym źródle i ostatnie zmiany kodu nie zawierają paru nowych zmian dlatego stworzyłem tego forka aby kontynuować prace i ponownie uczynić HMA otwartoźródłowym    </string>
+    <string name="about_fork_description">Oryginalny projekt HMA stał się projektem o zamkniętym źródle i ostatnie zmiany kodu nie zawierają paru nowych zmian dlatego stworzyłem tego forka aby kontynuuować prace i ponownie zrobić HMA open source</string>
     <string name="about_how_to_use_title">Jak używać tego modułu</string>
     <string name="about_how_to_use_description_1">Możesz tworzyć szablony w „Zarządzaniu szablonami”.\nNastępnie zastosuj szablony do aplikacji w „Zarządzaniu aplikacjami”. (Możesz również wybrać dodatkowe aplikacje dla celów).\nPowinieneś zaznaczyć TYLKO i wyłączne „System Framework” w zakresie modułu Xposed/białej liście.
     </string>
@@ -220,5 +224,5 @@
     <!-- Dark theme modes -->
     <string name="dark_theme">Motyw ciemny</string>
     <string name="dark_theme_off">Zawsze wył.</string>
-    <string name="dark_theme_on">Zawsze włączony</string>
+    <string name="dark_theme_on">Zawsze włą.</string>
 </resources>

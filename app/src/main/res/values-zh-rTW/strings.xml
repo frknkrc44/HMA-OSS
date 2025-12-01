@@ -4,8 +4,8 @@
     <string name="title_logs">日誌</string>
     <string name="title_settings">設定</string>
     <string name="title_template_manage">模板管理</string>
-    <string name="title_template_settings">模板設定</string>
-    <string name="title_settings_template_conf">Settings template configuration</string>
+    <string name="title_template_settings">模板配置</string>
+    <string name="title_settings_template_conf">設定模板配置</string>
     <string name="title_app_manage">管理應用程式</string>
     <string name="title_app_select">選擇應用程式</string>
     <string name="title_app_settings">應用程式設定</string>
@@ -29,8 +29,8 @@
     <string name="no">否</string>
     <string name="search">搜索</string>
     <string name="system">系統</string>
-    <string name="add">Add</string>
-    <string name="edit">Edit</string>
+    <string name="add">添加</string>
+    <string name="edit">編輯</string>
     <string name="follow_system">依據系統設定</string>
     <!-- Home -->
     <string name="home_xposed_activated">模組已啟用 [%s]</string>
@@ -67,66 +67,69 @@
     <string name="list_empty_no_apps">找不到任何應用程式，可能是您未允許此應用程式查詢所有軟體包</string>
     <string name="list_empty_preset">此預設中尚未加入任何應用程式</string>
     <!-- Manage templates -->
-    <string name="template_usage_hint">為不安分的「應用程式」建立模板，控制他們可讀取的應用程式列表。\n\n黑名單 (推薦使用)：開啟此模板的應用程式將看不到黑名單內勾選的應用程式。\n白名單：開啟此模板的應用程式將只能看到白名單模板勾選內的應用程式。</string>
+    <string name="template_usage_hint">為「不安分」的應用程式建立模板，控制他們可讀取的應用程式列表。\n\n黑名單 (推薦使用)：使用此模板的應用程式將看不到黑名單內勾選的應用程式。\n白名單：使用此模板的應用程式將只能看到白名單內勾選的應用程式。</string>
     <string name="template_new_blacklist">建立黑名單模板</string>
     <string name="template_new_whitelist">建立白名單模板</string>
-    <string name="template_new_setting">Create a settings template</string>
+    <string name="template_new_setting">建立設定模板</string>
     <string name="template_delete">你確定要刪除該模板嗎？</string>
     <string name="template_name">模板名稱</string>
     <string name="template_name_invalid">名稱無效</string>
     <string name="template_delete_title">删除模板</string>
     <string name="template_name_already_exist">模板名稱已經存在</string>
     <string name="template_applied_count">已對 %d 個應用程式啟用</string>
-    <string name="template_setting_count">%d settings added</string>
+    <string name="template_setting_count">已添加 %d 個設定</string>
     <string name="template_apps_visible_count">對 %d 個應用程式顯示</string>
     <string name="template_apps_invisible_count">對 %d 個應用程式執行攔截</string>
     <!-- App settings -->
     <string name="app_enable_hide">啟用隱藏</string>
-    <string name="app_template_config">模板設定</string>
+    <string name="app_template_config">模板選項</string>
     <string name="app_choose_template">選擇模板</string>
-    <string name="app_choose_preset">選擇預設</string>
+    <string name="app_choose_preset">選擇預設模板</string>
     <string name="app_exclude_system_apps">排除系統應用程式</string>
     <string name="app_exclude_system_apps_summary">只有在真正必要時才關閉這個選項。如果關閉它，很可能會導致系統或應用崩潰</string>
     <string name="app_template_using">已使用 %d 個模板</string>
-    <string name="app_preset_using">已使用 %d 個預設</string>
-    <string name="app_settings_preset_using">已使用 %d 個設定預設</string>
-    <string name="app_settings_template_using">Using %d settings templates</string>
-    <string name="app_extra_apps_visible_count">額外新增 %d 個可見的應用程式</string>
-    <string name="app_extra_apps_invisible_count">額外新增 %d 個攔截的應用程式</string>
-    <string name="app_warning_risky_package_title">風險軟體包</string>
-    <string name="app_warning_risky_package_desc">此軟體包已被標記為高風險，可能會對隱藏的應用程式造成問題。您要繼續嗎？</string>
+    <string name="app_preset_using">已使用 %d 個預設模板</string>
+    <string name="app_settings_preset_using">已使用 %d 個預設設定模板</string>
+    <string name="app_settings_template_using">已使用 %d 個設定模板</string>
+    <string name="app_extra_apps_visible_count">可以查看額外 %d 個應用程式</string>
+    <string name="app_extra_apps_invisible_count">額外攔截 %d 個應用程式</string>
+    <string name="app_warning_risky_package_title">高風險應用程式</string>
+    <string name="app_warning_risky_package_desc">此應用程式被標記為高風險，可能會對被隱藏的應用程式造成問題。您要繼續嗎？</string>
     <string name="app_spoof">偽裝</string>
     <string name="app_hide_installation_source">偽裝安裝來源</string>
-    <string name="app_hide_installation_source_desc">此應用程式會將所有使用者的應用程式偽裝為自Play商店安裝</string>
-    <string name="app_hide_installation_source_system">偽裝系統應用程式</string>
-    <string name="app_hide_installation_source_system_desc">所有系統應用程式將被偽裝為未安裝此應用程式</string>
+    <string name="app_hide_installation_source_desc">對於此應用程式，所有使用者應用程式將被視為安裝自Play商店</string>
+    <string name="app_hide_installation_source_system">同時欺騙系統應用程式</string>
+    <string name="app_hide_installation_source_system_desc">對於此應用程式，所有系統應用程式將被視為無安裝來源</string>
     <string name="app_exclude_target_installation_source">排除目標應用程式</string>
     <string name="app_exclude_target_installation_source_desc">若此應用程式未在 Play 商店上架，您可以啟用此功能</string>
     <string name="app_force_stop_warning">儲存設定後，別忘了強制停止目標應用程式</string>
     <string name="app_invert_activity_launch_protection">反轉 Activity 啟動保護</string>
-    <string name="app_invert_activity_launch_protection_desc">此選項將反轉設定中”停用 Activity 啟動保護“的選取狀態。</string>
-    <string name="app_global_activity_launch_protection_state">保護範圍為 %s 全域</string>
+    <string name="app_invert_activity_launch_protection_desc">此選項將反轉設定中「停用 Activity 啟動保護」的選項。</string>
+    <string name="app_global_activity_launch_protection_state">保護範圍為 全域%s</string>
     <string name="app_force_stop_launch">強制停止並啟動</string>
     <string name="app_launch">啟動</string>
     <string name="app_launch_failed">應用程式啟動失敗，請檢查日誌以取得詳細資訊</string>
     <!-- Presets -->
-    <string name="title_preset">預設值</string>
-    <string name="title_settings_preset">設定預設值</string>
+    <string name="title_preset">預設模板</string>
+    <string name="title_settings_preset">設定預設模板</string>
     <string name="title_preset_manage">顯示預設</string>
     <string name="preset_xposed">LSPosed/Xposed 模組</string>
     <string name="preset_root_apps">Root 管理器 / 已 Root 的應用程式</string>
     <string name="preset_custom_rom">自訂 ROM 應用程式</string>
     <string name="preset_sus_apps">可疑應用程式</string>
     <string name="preset_detector_apps">偵測/檢查應用程式</string>
-    <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku apps</string>
+    <string name="preset_shizuku_dhizuku">使用 Shizuku/Dhizuku 的應用程式</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">輔助功能</string>
     <string name="settings_preset_dev_options">開發人員選項</string>
-    <string name="settings_preset_input_method">Input method</string>
+    <string name="settings_preset_input_method">輸入法</string>
     <!-- Settings templates -->
-    <string name="settings_templates_database">Settings database</string>
-    <string name="settings_templates_name">Setting name</string>
-    <string name="settings_templates_value">Setting value</string>
+    <string name="settings_templates_database">設定命名空間</string>
+    <string name="settings_templates_name">設定名稱</string>
+    <string name="settings_templates_value">設定值</string>
+    <!-- Settings templates - basic configuration types -->
+    <string name="settings_templates_custom">Custom setting</string>
+    <string name="settings_templates_random_ssaid">Random SSAID</string>
     <!-- Logs -->
     <string name="logs_save">保存日誌</string>
     <string name="logs_clear">清除日誌</string>
@@ -153,22 +156,23 @@
     <string name="settings_detail_log">除錯用的詳細日誌</string>
     <string name="settings_max_log_size">記錄器的緩衝區大小</string>
     <string name="settings_hide_icon">在啟動器中隱藏圖示</string>
-    <string name="settings_hide_icon_summary">你仍然可以在 Xposed 管理器中開啟並管理此應用</string>
-    <string name="settings_bypass_risky_package_warning">跳過風險軟體包警告</string>
-    <string name="settings_bypass_risky_package_warning_summary">請注意，開發者對於與高風險軟體包相關的問題，在您啟用此功能前後皆不承擔責任</string>
+    <string name="settings_hide_icon_summary">你仍然可以在 Xposed 管理器中開啟此應用</string>
+    <string name="settings_bypass_risky_package_warning">跳過高風險應用程式警告</string>
+    <string name="settings_bypass_risky_package_warning_summary">請注意，開發者對於與高風險應用程式相關的問題，在您啟用此功能前後皆不承擔責任</string>
     <string name="settings_disable_activity_launch_protection">停用 Activity 啟動保護</string>
-    <string name="settings_disable_activity_launch_protection_summary">此切換將會移除所有 startActivity 保護。如果不確定用途，請勿啟用。</string>
+    <string name="settings_disable_activity_launch_protection_summary">此切換將會移除所有 startActivity 保護。如果不確定用途，請勿啟用</string>
     <string name="settings_system_wallpaper">使用系統桌布</string>
     <string name="settings_clear_uninstalled_app_configs">清除未安裝應用程式的配置檔</string>
-    <string name="settings_clear_uninstalled_app_configs_summary">此選項可以清理您的配置檔，但重新安裝應用程式時需要重新配置它們。</string>
-    <string name="settings_no_undone_warning">此操作無法撤銷。</string>
-    <string name="settings_package_query_workaround">Alternative package query</string>
-    <string name="settings_package_query_workaround_summary">Don\'t enable this option if you see the package list in this app correctly.</string>
+    <string name="settings_clear_uninstalled_app_configs_summary">此選項可以清理您的配置檔，但重新安裝應用程式時需要重新配置它們</string>
+    <string name="settings_no_undone_warning">此操作無法撤銷</string>
+    <string name="settings_package_query_workaround">備選應用程式查詢</string>
+    <string name="settings_package_query_workaround_summary">如果應用程式列表正常顯示，請勿開啟此選項</string>
+    <string name="settings_launcher_icon">Launcher icon</string>
     <string name="settings_language">語言</string>
     <string name="settings_translate">參與翻譯</string>
     <string name="settings_translate_summary">幫助我們翻譯 %s 到您的語言</string>
     <string name="settings_theme">主題</string>
-    <string name="settings_system_theme_color">系統主題色</string>
+    <string name="settings_system_theme_color">使用系統主題色</string>
     <string name="settings_theme_color">主題色</string>
     <string name="settings_dark_theme">深色主題</string>
     <string name="settings_pure_black_dark_theme">純黑的深色主題</string>
@@ -177,10 +181,10 @@
     <string name="settings_stop_system_service">停止系統服務</string>
     <string name="settings_stop_system_service_summary">需要重新開機來重啟服務</string>
     <string name="settings_is_clean_env">同時清理執行環境？</string>
-    <string name="settings_is_clean_env_summary">刪除 /data/misc/hide_my_applist_* 中的系統服務快取。這意味著你需要在下次重啟後手動啟動一次模組應用，以便啟用攔截，攔截次數也將被清理。</string>
+    <string name="settings_is_clean_env_summary">刪除 /data/misc/hide_my_applist_* 中的系統服務快取。這意味著你需要在下次重啟後手動啟動一次模組應用程式，以便啟用攔截，攔截次數也將被清理。</string>
     <string name="settings_force_clean_env">強制清理執行環境 (root)</string>
-    <string name="settings_force_clean_env_summary">只有在系統服務無法啟動的情況下使用</string>
-    <string name="settings_force_clean_env_toast_successful">執行環境已清理</string>
+    <string name="settings_force_clean_env_summary">只有在系統服務無法啟動的情況下使用，否則使用上一個選項</string>
+    <string name="settings_force_clean_env_toast_successful">已清理執行環境</string>
     <string name="settings_update">更新</string>
     <string name="settings_disable_update">禁用更新通知</string>
     <string name="settings_receive_beta_update">接收 Beta 版更新</string>
@@ -191,7 +195,7 @@
     <string name="about_fork_description">原本的 HMA 專案已經轉為閉源，他們的最新程式碼並未包含一些最新變更，因此我建立了這個分支，讓它再次以開源方式持續下去。
     </string>
     <string name="about_how_to_use_title">如何使用此模組</string>
-    <string name="about_how_to_use_description_1">        首先在 「模板管理」中建立模板。\n然後在 「應用管理」選擇想隱藏應用列表的應用程式並「啟用隱藏」並選擇設定好的模板。\n（當然你也可以選擇額外的應用程式隱藏或顯示）\n注意：你應該而且只應該在 Xposed 模組作用域或白名單中僅勾選「系統框架」（某些系統中可能會將系統框架顯示為 Android）
+    <string name="about_how_to_use_description_1">        首先在 「模板管理」中建立模板。\n然後在 「應用管理」選擇想隱藏應用列表的應用程式並「啟用隱藏」並選擇設定好的模板。\n(當然你也可以選擇額外的應用程式隱藏或顯示)\n注意：在 Xposed 模組作用域或白名單中你應該只勾選「系統框架」(某些系統中可能會將系統框架顯示為 Android)
     </string>
     <string name="about_how_to_use_description_2">        修改設定會立刻生效。
     </string>
@@ -200,7 +204,7 @@
     <string name="about_support">支援和反饋</string>
     <string name="about_open_source">開源許可證</string>
     <!-- Colors -->
-    <string name="color_sakura">櫻花</string>
+    <string name="color_sakura">櫻花粉</string>
     <string name="color_red">紅色</string>
     <string name="color_pink">粉紅色</string>
     <string name="color_purple">紫色</string>

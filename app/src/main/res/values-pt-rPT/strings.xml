@@ -127,6 +127,9 @@
     <string name="settings_templates_database">Settings database</string>
     <string name="settings_templates_name">Setting name</string>
     <string name="settings_templates_value">Setting value</string>
+    <!-- Settings templates - basic configuration types -->
+    <string name="settings_templates_custom">Custom setting</string>
+    <string name="settings_templates_random_ssaid">Random SSAID</string>
     <!-- Logs -->
     <string name="logs_save">Guardar registos</string>
     <string name="logs_clear">Limpar registos</string>
@@ -164,6 +167,7 @@
     <string name="settings_no_undone_warning">Esta ação não pode ser desfeita.</string>
     <string name="settings_package_query_workaround">Consulta alternativa de pacote</string>
     <string name="settings_package_query_workaround_summary">Não ative essa opção se você consegue ver a lista de pacotes corretamente neste app.</string>
+    <string name="settings_launcher_icon">Launcher icon</string>
     <string name="settings_language">Idioma</string>
     <string name="settings_translate">Participar na tradução</string>
     <string name="settings_translate_summary">Ajude-nos a traduzir o %s para o seu idioma</string>

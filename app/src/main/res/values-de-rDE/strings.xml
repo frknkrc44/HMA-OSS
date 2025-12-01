@@ -6,7 +6,7 @@
     <string name="title_template_manage">Listen verwalten</string>
     <string name="title_template_settings">Vorlagen Einstellungen</string>
     <string name="title_settings_template_conf">Konfiguration der Einstellungsvorlage</string>
-    <string name="title_app_manage">App verwalten</string>
+    <string name="title_app_manage">Anwendungen konfigurieren</string>
     <string name="title_app_select">Apps auswählen</string>
     <string name="title_app_settings">App Einstellungen</string>
     <string name="title_about">Über</string>
@@ -111,7 +111,7 @@
     <string name="app_launch_failed">App-Start fehlgeschlagen, überprüfen Sie die Logs für weitere Details</string>
     <!-- Presets -->
     <string name="title_preset">Vorlagen</string>
-    <string name="title_settings_preset">Einstellungen Vorlagen</string>
+    <string name="title_settings_preset">System</string>
     <string name="title_preset_manage">Vorlagen des Entwicklers</string>
     <string name="preset_xposed">LSPosed/Xposed-Module</string>
     <string name="preset_root_apps">Root-Manager/Root-Apps</string>
@@ -127,6 +127,9 @@
     <string name="settings_templates_database">Einstellungen Datenbank</string>
     <string name="settings_templates_name">Einstellungsname</string>
     <string name="settings_templates_value">Einstellungswert</string>
+    <!-- Settings templates - basic configuration types -->
+    <string name="settings_templates_custom">Benutzerdefinierte Einstellungen</string>
+    <string name="settings_templates_random_ssaid">Zufällige SSAID</string>
     <!-- Logs -->
     <string name="logs_save">Protokolle speichern</string>
     <string name="logs_clear">Protokolle löschen</string>
@@ -164,6 +167,7 @@
     <string name="settings_no_undone_warning">Diese Aktion kann nicht rückgängig gemacht werden.</string>
     <string name="settings_package_query_workaround">Alternative Paketabfrage</string>
     <string name="settings_package_query_workaround_summary">Aktivieren Sie diese Option nicht, wenn Sie die Paketliste in dieser App korrekt sehen.</string>
+    <string name="settings_launcher_icon">Startbildschirm Symbol</string>
     <string name="settings_language">Sprache</string>
     <string name="settings_translate">Beim Übersetzen mitmachen</string>
     <string name="settings_translate_summary">Helfe uns, %s in deine Sprache zu übersetzen</string>
