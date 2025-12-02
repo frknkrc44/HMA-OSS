@@ -163,7 +163,14 @@ class RootAppsPreset : BasePreset(NAME) {
         }
 
         ZipFile(appInfo.sourceDir).use { zipFile ->
+            val manifestStr = AppPresets.instance.readManifest(packageName, zipFile)
+
             if (findAppsFromLibs(zipFile, libNames) || findAppsFromAssets(zipFile, assetNames)) {
+                return true
+            }
+
+            // Many older root apps add this permission
+            if (Utils.containsMultiple(manifestStr, ACCESS_SUPERUSER)) {
                 return true
             }
         }
