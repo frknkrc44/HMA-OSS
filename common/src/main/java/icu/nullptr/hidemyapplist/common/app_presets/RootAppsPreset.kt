@@ -7,6 +7,7 @@ import java.util.zip.ZipFile
 class RootAppsPreset : BasePreset(NAME) {
     companion object {
         const val NAME = "root_apps"
+        const val ACCESS_SUPERUSER_PERM = "\u0000a\u0000n\u0000d\u0000r\u0000o\u0000i\u0000d\u0000.\u0000p\u0000e\u0000r\u0000m\u0000i\u0000s\u0000s\u0000i\u0000o\u0000n\u0000.\u0000A\u0000C\u0000C\u0000E\u0000S\u0000S\u0000_\u0000S\u0000U\u0000P\u0000E\u0000R\u0000U\u0000S\u0000E\u0000R"
     }
 
     override val exactPackageNames = setOf(
@@ -31,6 +32,7 @@ class RootAppsPreset : BasePreset(NAME) {
         "com.machiav3lli.backup",
         "com.bartixxx.opflashcontrol",
         "dev.ukanth.ufirewall",
+        "dev.ukanth.ufirewall.donate",
         "org.nuntius35.wrongpinshutdown",
         "ru.nsu.bobrofon.easysshfs",
         "x1125io.initdlight",
@@ -45,6 +47,9 @@ class RootAppsPreset : BasePreset(NAME) {
         "com.slash.batterychargelimit",
         "com.valhalla.thor",
         "me.itejo443.bindhosts",
+        "com.pittvandewitt.viperfx",
+        "com.aam.viper4android",
+        "james.dsp",
 
         // Scene's "Core Edition" cannot be detected in the Xposed preset
         "com.omarea.vtools",
@@ -55,6 +60,37 @@ class RootAppsPreset : BasePreset(NAME) {
         "com.lybxlpsv.kernelmanager",
         "com.html6405.boefflakernelconfig",
         "ccc71.st.cpu",
+        "com.umang96.radon",
+
+        // NetHunter related apps
+        "com.mayank.rucky",
+        "org.csploit.android",
+        "whid.usb.injector",
+        "de.tu_darmstadt.seemoo.nexmon",
+        "remote.hid.keyboard.client",
+        "com.softwarebakery.drivedroid",
+        "de.srlabs.snoopsnitch",
+        "com.hijacker",
+        "su.sniff.cepter",
+
+        // WPS WPA Tester
+        "com.tester.wpswpatester",
+
+        // LSpeed
+        "com.paget96.lsandroid",
+
+        // GMS Flags
+        "ua.polodarb.gmsflags",
+
+        // SysLog
+        "com.tortel.syslog",
+
+        // Stericson Busybox installer
+        "stericson.busybox",
+        "stericson.busybox.donate",
+
+        // Integrity Box
+        "meow.helper",
     )
 
     val libNames = arrayOf(
@@ -73,6 +109,11 @@ class RootAppsPreset : BasePreset(NAME) {
 
     override fun canBeAddedIntoPreset(appInfo: ApplicationInfo): Boolean {
         val packageName = appInfo.packageName
+
+        // All NetHunter apps (Nethunter app, NH KeX, ...)
+        if (Utils.startsWith(packageName, "com.offsec.nethunter.")) {
+            return true
+        }
 
         // All libxzr apps (konabess, hkf, ...)
         if (Utils.startsWithMultiple(packageName, "xzr.", "moe.xzr.")) {
@@ -120,7 +161,14 @@ class RootAppsPreset : BasePreset(NAME) {
         }
 
         ZipFile(appInfo.sourceDir).use { zipFile ->
+            val manifestStr = AppPresets.instance.readManifest(packageName, zipFile)
+
             if (findAppsFromLibs(zipFile, libNames) || findAppsFromAssets(zipFile, assetNames)) {
+                return true
+            }
+
+            // Many older root apps add this permission
+            if (Utils.containsMultiple(manifestStr, ACCESS_SUPERUSER_PERM)) {
                 return true
             }
         }
