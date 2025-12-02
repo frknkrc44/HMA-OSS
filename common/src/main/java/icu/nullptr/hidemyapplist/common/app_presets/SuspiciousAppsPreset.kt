@@ -49,9 +49,6 @@ class SuspiciousAppsPreset : BasePreset(NAME) {
         "com.offsec.nhterm",
         "com.offsec.nhvnc",
 
-        // NetHunter related apps
-        "org.exobel.routerkeygen",
-
         // Gravitybox Unlocker
         "com.ceco.gravitybox.unlocker",
     )
