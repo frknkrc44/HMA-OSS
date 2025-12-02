@@ -95,14 +95,11 @@ class RootAppsPreset : BasePreset(NAME) {
 
     val libNames = arrayOf(
         "libkernelsu.so",
-        "libksud.so",
-        "libksu_susfs.so",
         "libapd.so",
         "libmagisk.so",
         "libmagiskboot.so",
         "libmmrl-kernelsu.so",
         "libzakoboot.so",
-        "libzakosign.so",
     )
 
     val assetNames = arrayOf(
