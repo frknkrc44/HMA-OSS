@@ -7,6 +7,7 @@ import java.util.zip.ZipFile
 class RootAppsPreset : BasePreset(NAME) {
     companion object {
         const val NAME = "root_apps"
+        const val ACCESS_SUPERUSER_PERM = "\u0000a\u0000n\u0000d\u0000r\u0000o\u0000i\u0000d\u0000.\u0000p\u0000e\u0000r\u0000m\u0000i\u0000s\u0000s\u0000i\u0000o\u0000n\u0000.\u0000A\u0000C\u0000C\u0000E\u0000S\u0000S\u0000_\u0000S\u0000U\u0000P\u0000E\u0000R\u0000U\u0000S\u0000E\u0000R"
     }
 
     override val exactPackageNames = setOf(
@@ -170,7 +171,7 @@ class RootAppsPreset : BasePreset(NAME) {
             }
 
             // Many older root apps add this permission
-            if (Utils.containsMultiple(manifestStr, ACCESS_SUPERUSER)) {
+            if (Utils.containsMultiple(manifestStr, ACCESS_SUPERUSER_PERM)) {
                 return true
             }
         }
