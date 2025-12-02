@@ -23,6 +23,7 @@ class SuspiciousAppsPreset : BasePreset(NAME) {
         "com.happymod.apk",
         "com.pd.pdhelper",
         "cm.aptoide.pt",
+        "com.offsec.nethunter.store",
 
         // File managers
         "com.speedsoftware.rootexplorer",
@@ -30,6 +31,29 @@ class SuspiciousAppsPreset : BasePreset(NAME) {
         "com.lonelycatgames.Xplore",
         "org.fossify.filemanager",
         "com.amaze.filemanager",
+
+        // auto clicker/macro apps
+        "com.truedevelopersstudio.automatictap.autoclicker"
+
+        // Traffic sniffers
+        "com.emanuelef.remote_capture",
+        "com.pcapdroid.mitm",
+
+        // lower level settings editor
+        "io.github.muntashirakon.setedit",
+
+        // App Manager
+        "io.github.muntashirakon.AppManager",
+
+        // NetHunter apps
+        "com.offsec.nhterm",
+        "com.offsec.nhvnc",
+
+        // NetHunter related apps
+        "org.exobel.routerkeygen",
+
+        // Gravitybox Unlocker
+        "com.ceco.gravitybox.unlocker",
     )
 
     /*
