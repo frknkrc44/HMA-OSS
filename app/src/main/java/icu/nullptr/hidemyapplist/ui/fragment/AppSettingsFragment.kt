@@ -201,7 +201,9 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
                         setTitle(it.title)
                         setItems(
                             R.array.app_action_texts,
-                        ) { dialog, which ->
+                        ) { _, which ->
+                           parent.saveConfig()
+
                             when (which) {
                                 0 -> {
                                     ServiceClient.forceStop(pack.app, 0)
