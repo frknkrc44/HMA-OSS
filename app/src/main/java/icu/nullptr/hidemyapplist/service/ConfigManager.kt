@@ -66,7 +66,7 @@ object ConfigManager {
         }
     }
 
-    private fun saveConfig() {
+    fun saveConfig() {
         val text = config.toString()
         ServiceClient.writeConfig(text)
         configFile.writeText(text)

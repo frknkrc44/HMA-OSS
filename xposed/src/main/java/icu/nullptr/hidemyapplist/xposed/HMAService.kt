@@ -257,6 +257,9 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         return appConfig.useWhitelist
     }
 
+    fun shouldRestrictZygotePermissions(caller: String?) =
+        config.scope[caller]?.restrictZygotePermissions ?: false
+
     fun shouldHideActivityLaunch(caller: String?, query: String?): Boolean {
         val appConfig = config.scope[caller]
         if (appConfig != null && shouldHide(caller, query)) {

@@ -19,7 +19,30 @@ import icu.nullptr.hidemyapplist.xposed.logD
 import java.util.concurrent.atomic.AtomicReference
 
 abstract class PmsHookTargetBase(protected val service: HMAService) : IFrameworkHook {
-    private val TAG by lazy { this::class.java.simpleName }
+    companion object {
+        private val TAG by lazy { this::class.java.simpleName }
+        private const val COMPUTER_ENGINE_CLASS = "com.android.server.pm.ComputerEngine"
+        private const val ZYGOTE_PROCESS_CLASS = "android.os.ZygoteProcess"
+
+        /**
+         * GID that gives write access to app-private data directories on external
+         * storage (used on devices without sdcardfs only).
+         */
+        const val EXT_DATA_RW_GID: Int = 1078
+
+        /**
+         * GID that gives write access to app-private OBB directories on external
+         * storage (used on devices without sdcardfs only).
+         */
+        const val EXT_OBB_RW_GID: Int = 1079
+
+        /**
+         * Defines the gid shared by all applications running under the same profile.
+         */
+        const val SHARED_USER_GID: Int = 9997
+
+        val TARGET_GIDS = intArrayOf(SHARED_USER_GID, EXT_DATA_RW_GID, EXT_OBB_RW_GID)
+    }
 
     protected val hooks = mutableListOf<XC_MethodHook.Unhook>()
     protected var lastFilteredApp: AtomicReference<String?> = AtomicReference(null)
@@ -42,7 +65,7 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
 
     override fun load() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            hooks += findMethod("com.android.server.pm.ComputerEngine") {
+            hooks += findMethod(COMPUTER_ENGINE_CLASS) {
                 name == "getPackageStates"
             }.hookAfter { param ->
                 val callingUid = Binder.getCallingUid()
@@ -76,6 +99,25 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                     }
                 }
             }
+        }
+
+        findMethodOrNull(ZYGOTE_PROCESS_CLASS) {
+            name == "start"
+        }?.hookBefore { param ->
+            logD(TAG, "@startZygoteProcess: Starting ${param.args.contentToString()}")
+
+            val caller = param.args.lastOrNull { it is String } as String? ?: return@hookBefore
+            if (service.shouldRestrictZygotePermissions(caller)) {
+                val gIDsIndex = param.args.indexOfFirst { it.javaClass == IntArray::class.java }
+                val gIDs = param.args[gIDsIndex] as IntArray
+
+                logD(TAG, "@startZygoteProcess: GIDs are ${gIDs.contentToString()}, replacing now")
+                param.args[gIDsIndex] = gIDs.filter { it !in TARGET_GIDS }.toIntArray()
+                service.filterCount++
+            }
+        }?.let {
+            logD(TAG, "Loaded ZygoteProcess start hook!")
+            hooks += it
         }
 
         if (service.pmn != null) {

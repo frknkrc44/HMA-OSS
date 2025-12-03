@@ -133,6 +133,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 val versionNameSimple = BuildConfig.VERSION_NAME.substringBefore(".r")
                 moduleStatus.text =
                     getString(R.string.home_xposed_activated, versionNameSimple)
+                root.setOnLongClickListener {
+                    ConfigManager.saveConfig()
+                    showToast(android.R.string.ok)
+
+                    true
+                }
             } else {
                 moduleStatusIcon.setImageResource(R.drawable.sentiment_very_dissatisfied_24px)
                 moduleStatus.setText(R.string.home_xposed_not_activated)

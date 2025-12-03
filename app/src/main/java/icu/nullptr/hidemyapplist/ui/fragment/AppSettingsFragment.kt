@@ -116,6 +116,7 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
                 "excludeTargetInstallationSource" -> pack.config.excludeTargetInstallationSource
                 "invertActivityLaunchProtection" -> pack.config.invertActivityLaunchProtection
                 "excludeVoldIsolation" -> pack.config.excludeVoldIsolation
+                "restrictZygotePermissions" -> pack.config.restrictZygotePermissions
                 else -> throw IllegalArgumentException("Invalid key: $key")
             }
         }
@@ -130,6 +131,7 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
                 "excludeTargetInstallationSource" -> pack.config.excludeTargetInstallationSource = value
                 "invertActivityLaunchProtection" -> pack.config.invertActivityLaunchProtection = value
                 "excludeVoldIsolation" -> pack.config.excludeVoldIsolation = value
+                "restrictZygotePermissions" -> pack.config.restrictZygotePermissions = value
                 else -> throw IllegalArgumentException("Invalid key: $key")
             }
         }
