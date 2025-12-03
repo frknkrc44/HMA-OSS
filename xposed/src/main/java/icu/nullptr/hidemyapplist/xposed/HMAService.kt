@@ -30,6 +30,7 @@ import icu.nullptr.hidemyapplist.xposed.hook.PmsHookTarget31
 import icu.nullptr.hidemyapplist.xposed.hook.PmsHookTarget33
 import icu.nullptr.hidemyapplist.xposed.hook.PmsHookTarget34
 import icu.nullptr.hidemyapplist.xposed.hook.PmsPackageEventsHook
+import icu.nullptr.hidemyapplist.xposed.hook.ZygoteHook
 import org.frknkrc44.hma_oss.common.BuildConfig
 import rikka.hidden.compat.ActivityManagerApis
 import java.io.File
@@ -172,6 +173,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         frameworkHooks.add(AccessibilityHook(this))
         frameworkHooks.add(ContentProviderHook(this))
         frameworkHooks.add(ImmHook(this))
+        frameworkHooks.add(ZygoteHook(this))
 
         frameworkHooks.forEach(IFrameworkHook::load)
         logI(TAG, "Hooks installed")
