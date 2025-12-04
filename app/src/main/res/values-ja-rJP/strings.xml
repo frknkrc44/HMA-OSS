@@ -151,7 +151,7 @@
     <string name="settings_change_require_root">変更には root 権限が必要です</string>
     <string name="settings_need_reboot">変更には再起動が必要です</string>
     <string name="settings_permission_denied">権限が拒否されました</string>
-    <string name="settings_force_mount_data">すべてアプリでデータ分離を強制</string>
+    <string name="settings_force_mount_data">すべてのアプリでデータ分離を強制</string>
     <string name="settings_force_mount_data_summary">ターゲット API が 30 未満のアプリに対してはデフォルトでデータ分離が無効になっています</string>
     <string name="settings_detail_log">デバッグ用詳細ログ</string>
     <string name="settings_max_log_size">ロガーのバッファサイズ</string>
