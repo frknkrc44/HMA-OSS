@@ -1,0 +1,59 @@
+name: 编译并签名 HMA-OSS
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build-signed:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 拉取代码
+        uses: actions/checkout@v4
+
+      - name: 配置 JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: 配置 Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          api-level: 34
+          build-tools: 34.0.0
+          ndk-version: 26.1.10909125
+
+      - name: 授权 Gradle 执行权限
+        run: chmod +x ./gradlew
+
+      - name: 配置签名信息（写入 gradle.properties）
+        run: |
+          echo "MYAPP_UPLOAD_STORE_FILE=${{ secrets.KEYSTORE_FILENAME }}" >> gradle.properties
+          echo "MYAPP_UPLOAD_KEY_ALIAS=${{ secrets.KEY_ALIAS }}" >> gradle.properties
+          echo "MYAPP_UPLOAD_STORE_PASSWORD=${{ secrets.STORE_PASSWORD }}" >> gradle.properties
+          echo "MYAPP_UPLOAD_KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}" >> gradle.properties
+          # 上传签名文件到工作目录
+          echo "${{ secrets.KEYSTORE_CONTENT }}" | base64 -d > ${{ secrets.KEYSTORE_FILENAME }}
+
+      - name: 编译并签名 Release 版本
+        run: ./gradlew assembleRelease --no-daemon
+        env:
+          ANDROID_HOME: ${{ env.ANDROID_HOME }}
+          ANDROID_SDK_ROOT: ${{ env.ANDROID_SDK_ROOT }}
+
+      - name: 上传签名 APK 产物
+        uses: actions/upload-artifact@v4
+        with:
+          name: HMA-OSS-Signed-Release-APK
+          path: app/build/outputs/apk/release/*.apk
+          retention-days: 30
+
+      - name: 上传映射文件（用于崩溃分析）
+        uses: actions/upload-artifact@v4
+        with:
+          name: HMA-OSS-Proguard-Mapping
+          path: app/build/outputs/mapping/release/mapping.txt
+          retention-days: 30
