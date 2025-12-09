@@ -1,6 +1,5 @@
 package org.frknkrc44.hma_oss.ui.activity
 
-import android.os.Binder
 import android.os.Bundle
 import androidx.navigation.findNavController
 import icu.nullptr.hidemyapplist.service.ServiceClient

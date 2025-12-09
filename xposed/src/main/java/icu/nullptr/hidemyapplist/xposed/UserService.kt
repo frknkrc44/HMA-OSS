@@ -3,11 +3,9 @@ package icu.nullptr.hidemyapplist.xposed
 import android.app.ActivityManagerHidden
 import android.content.AttributionSource
 import android.content.pm.IPackageManager
-import android.os.Binder
 import android.os.Build
 import android.os.Bundle
 import android.os.ServiceManager
-import android.os.UserHandle
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.Utils
 import org.frknkrc44.hma_oss.common.BuildConfig

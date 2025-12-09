@@ -1,6 +1,5 @@
 package icu.nullptr.hidemyapplist.service
 
-import android.os.Binder
 import android.os.IBinder
 import android.util.Log
 import icu.nullptr.hidemyapplist.common.IHMAService

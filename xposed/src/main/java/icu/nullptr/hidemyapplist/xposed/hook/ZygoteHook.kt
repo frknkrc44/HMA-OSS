@@ -42,7 +42,8 @@ class ZygoteHook(private val service: HMAService): IFrameworkHook {
 
             val caller = param.args.lastOrNull { it is String } as String? ?: return@hookBefore
             if (service.shouldRestrictZygotePermissions(caller)) {
-                val gIDsIndex = param.args.indexOfFirst { it.javaClass == IntArray::class.java }
+                val gIDsIndex = param.args.indexOfFirst { it is IntArray }
+                if (gIDsIndex < 0) return@hookBefore
                 val gIDs = param.args[gIDsIndex] as IntArray
 
                 logD(TAG, "@startZygoteProcess: GIDs are ${gIDs.contentToString()}, replacing now")

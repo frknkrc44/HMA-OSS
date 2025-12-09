@@ -18,12 +18,6 @@ object Constants {
     const val SETTINGS_SYSTEM = "system"
     const val SETTINGS_SECURE = "secure"
 
-    const val SETTINGS_TYPE_GLOBAL: Int = 0
-    const val SETTINGS_TYPE_SYSTEM: Int = 1
-    const val SETTINGS_TYPE_SECURE: Int = 2
-    // const val SETTINGS_TYPE_SSAID: Int = 3
-    // const val SETTINGS_TYPE_CONFIG: Int = 4
-
     const val FAKE_INSTALLATION_SOURCE_DISABLED = 0
     const val FAKE_INSTALLATION_SOURCE_USER = 1
     const val FAKE_INSTALLATION_SOURCE_SYSTEM = 2
