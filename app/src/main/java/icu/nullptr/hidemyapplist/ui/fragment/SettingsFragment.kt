@@ -39,6 +39,7 @@ import kotlinx.coroutines.runBlocking
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentSettingsBinding
 import org.frknkrc44.hma_oss.ui.activity.BaseActivity
+import org.frknkrc44.hma_oss.ui.activity.MainActivity
 import org.frknkrc44.hma_oss.ui.preference.AppIconPreference
 import java.util.Locale
 
@@ -303,7 +304,9 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
             findPreference<SwitchPreferenceCompat>("systemWallpaper")?.apply {
                 isEnabled = findPreference<SwitchPreferenceCompat>("blackDarkTheme")?.isChecked != true
                 setOnPreferenceChangeListener { _, value ->
-                    val activity = requireActivity()
+                    val activity = requireActivity() as MainActivity
+                    activity.readyToKill = false
+
                     if (value as Boolean) {
                         activity.finish()
                         startActivity(Intent(activity, activity.javaClass))

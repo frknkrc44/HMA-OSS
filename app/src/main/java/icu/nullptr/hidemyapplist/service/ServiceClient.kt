@@ -1,5 +1,6 @@
 package icu.nullptr.hidemyapplist.service
 
+import android.os.Binder
 import android.os.IBinder
 import android.util.Log
 import icu.nullptr.hidemyapplist.common.IHMAService
@@ -64,6 +65,10 @@ object ServiceClient : IHMAService, IBinder.DeathRecipient {
 
     override fun stopService(cleanEnv: Boolean) {
         service?.stopService(cleanEnv)
+    }
+
+    fun forceStop(packageName: String) {
+        forceStop(packageName, 0)
     }
 
     override fun forceStop(packageName: String, userId: Int) {
