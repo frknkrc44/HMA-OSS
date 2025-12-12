@@ -148,10 +148,8 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
         }
 
         private fun updateApplyPresets(useWhitelist: Boolean = pack.config.useWhitelist) {
-            findPreference<Preference>("applyPresets")?.apply {
-                isVisible = !useWhitelist
-                title = getString(R.string.app_preset_using, pack.config.applyPresets.size)
-            }
+            findPreference<Preference>("applyPresets")?.title =
+                getString(R.string.app_preset_using, pack.config.applyPresets.size)
         }
 
         private fun updateApplySettingsPresets() {
@@ -167,6 +165,12 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
         private fun updateExtraAppList(useWhiteList: Boolean) {
             findPreference<Preference>("extraAppList")?.title =
                 if (useWhiteList) getString(R.string.app_extra_apps_visible_count, pack.config.extraAppList.size)
+                else getString(R.string.app_extra_apps_invisible_count, pack.config.extraAppList.size)
+        }
+
+        private fun updateExtraOppositeAppList(useWhiteList: Boolean) {
+            findPreference<Preference>("extraOppositeAppList")?.title =
+                if (!useWhiteList) getString(R.string.app_extra_apps_visible_count, pack.config.extraAppList.size)
                 else getString(R.string.app_extra_apps_invisible_count, pack.config.extraAppList.size)
         }
 
@@ -247,11 +251,13 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
                 val useWhitelist = newValue as Boolean
 
                 pack.config.applyTemplates.clear()
-                pack.config.extraAppList.clear()
                 pack.config.applyPresets.clear()
+                pack.config.extraAppList.clear()
+                pack.config.extraOppositeAppList.clear()
                 updateApplyTemplates()
                 updateApplyPresets(useWhitelist)
                 updateExtraAppList(useWhitelist)
+                updateExtraOppositeAppList(useWhitelist)
                 true
             }
             findPreference<Preference>("applyTemplates")?.setOnPreferenceClickListener {
@@ -401,11 +407,26 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
                 navigate(R.id.nav_scope, args.toBundle())
                 true
             }
+            findPreference<Preference>("extraOppositeAppList")?.setOnPreferenceClickListener {
+                parent.setFragmentResultListener("app_opposite_select") { _, bundle ->
+                    pack.config.extraOppositeAppList = bundle.getStringArrayList("checked")!!.toMutableSet()
+                    updateExtraOppositeAppList(pack.config.useWhitelist)
+                    parent.clearFragmentResultListener("app_opposite_select")
+                }
+
+                val args = ScopeFragmentArgs(
+                    filterOnlyEnabled = false,
+                    checked = pack.config.extraOppositeAppList.toTypedArray()
+                )
+                navigate(R.id.nav_scope, args.toBundle())
+                true
+            }
             updateApplyTemplates()
             updateApplyPresets()
             updateApplySettingsTemplates()
             updateApplySettingsPresets()
             updateExtraAppList(pack.config.useWhitelist)
+            updateExtraOppositeAppList(pack.config.useWhitelist)
         }
     }
 }

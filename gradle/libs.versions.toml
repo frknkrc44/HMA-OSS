@@ -1,5 +1,5 @@
 [versions]
-agp = "8.13.0"
+agp = "8.13.1"
 kotlin = "2.2.20"
 material = "1.13.0"
 hidden-api = "4.4.0"

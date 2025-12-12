@@ -49,7 +49,8 @@ data class JsonConfig(
         var applyPresets: MutableSet<String> = mutableSetOf(),
         var applySettingTemplates: MutableSet<String> = mutableSetOf(),
         var applySettingsPresets: MutableSet<String> = mutableSetOf(),
-        var extraAppList: MutableSet<String> = mutableSetOf()
+        var extraAppList: MutableSet<String> = mutableSetOf(),
+        var extraOppositeAppList: MutableSet<String> = mutableSetOf(),
     ) {
         override fun toString() = encoder.encodeToString(this)
     }

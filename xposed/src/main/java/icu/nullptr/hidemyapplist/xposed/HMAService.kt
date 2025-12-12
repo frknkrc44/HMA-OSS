@@ -227,9 +227,10 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         if (caller in Constants.packagesShouldNotHide || query in Constants.packagesShouldNotHide) return false
         if (caller == query) return false
         val appConfig = config.scope[caller] ?: return false
-        if (appConfig.useWhitelist && appConfig.excludeSystemApps && query in systemApps) return false
 
         if (query in appConfig.extraAppList) return !appConfig.useWhitelist
+        if (query in appConfig.extraOppositeAppList) return appConfig.useWhitelist
+
         for (tplName in appConfig.applyTemplates) {
             val tpl = config.templates[tplName]!!
             if (query in tpl.appList) {
@@ -239,22 +240,22 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
             }
         }
 
-        if (!appConfig.useWhitelist) {
-            for (presetName in appConfig.applyPresets) {
-                val preset = AppPresets.instance.getPresetByName(presetName) ?: continue
+        for (presetName in appConfig.applyPresets) {
+            val preset = AppPresets.instance.getPresetByName(presetName) ?: continue
 
-                if (preset.containsPackage(query)) {
-                    // Do not hide detector apps from Play Store if they are connected to GMS
-                    val overriddenCaller = if (presetName == DetectorAppsPreset.NAME && caller == Constants.VENDING_PACKAGE_NAME) {
-                        Constants.GMS_PACKAGE_NAME
-                    } else {
-                        caller
-                    }
-
-                    return !isAppInGMSIgnoredPackages(overriddenCaller, query)
+            if (preset.containsPackage(query)) {
+                // Do not hide detector apps from Play Store if they are connected to GMS
+                val overriddenCaller = if (presetName == DetectorAppsPreset.NAME && caller == Constants.VENDING_PACKAGE_NAME) {
+                    Constants.GMS_PACKAGE_NAME
+                } else {
+                    caller
                 }
+
+                return !isAppInGMSIgnoredPackages(overriddenCaller, query)
             }
         }
+
+        if (appConfig.useWhitelist && appConfig.excludeSystemApps && query in systemApps) return false
 
         return appConfig.useWhitelist
     }

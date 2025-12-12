@@ -62,6 +62,8 @@ class RootAppsPreset : BasePreset(NAME) {
         "libapd.so",
         "libmagisk.so",
         "libmagiskboot.so",
+        "libjnidispatch.so",
+        "libmmrl-file-manager.so",
         "libmmrl-kernelsu.so",
         "libzakoboot.so",
     )

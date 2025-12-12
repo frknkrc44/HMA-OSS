@@ -91,5 +91,9 @@
             android:icon="@drawable/baseline_apps_24"
             android:key="extraAppList"
             tools:title="@string/app_extra_apps_invisible_count" />
+        <Preference
+            android:icon="@drawable/baseline_apps_24"
+            android:key="extraOppositeAppList"
+            tools:title="@string/app_extra_apps_visible_count" />
     </PreferenceCategory>
 </PreferenceScreen>
