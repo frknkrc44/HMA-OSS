@@ -44,7 +44,7 @@ data class JsonConfig(
         var excludeTargetInstallationSource: Boolean = false,
         var invertActivityLaunchProtection: Boolean = false,
         var excludeVoldIsolation: Boolean = false,
-        var restrictZygotePermissions: Boolean = false,
+        var restrictedZygotePermissions: List<Int> = listOf(),
         var applyTemplates: MutableSet<String> = mutableSetOf(),
         var applyPresets: MutableSet<String> = mutableSetOf(),
         var applySettingTemplates: MutableSet<String> = mutableSetOf(),

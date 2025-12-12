@@ -22,6 +22,42 @@ object Constants {
     const val FAKE_INSTALLATION_SOURCE_USER = 1
     const val FAKE_INSTALLATION_SOURCE_SYSTEM = 2
 
+    /**
+     * Access to installed package details
+     */
+    const val PACKAGE_INFO_GID: Int = 1032
+
+    /**
+     * GID that gives write access to app-private data directories on external
+     * storage (used on devices without sdcardfs only).
+     */
+    const val EXT_DATA_RW_GID: Int = 1078
+
+    /**
+     * GID that gives write access to app-private OBB directories on external
+     * storage (used on devices without sdcardfs only).
+     */
+    const val EXT_OBB_RW_GID: Int = 1079
+
+    /**
+     * GID that corresponds to the INTERNET permission.
+     * Must match the value of AID_INET.
+     */
+    const val INET_GID: Int = 3003
+
+    /**
+     * Defines the gid shared by all applications running under the same profile.
+     */
+    const val SHARED_USER_GID: Int = 9997
+
+    val GID_PAIRS = mapOf(
+        "PACKAGE_INFO_GID" to PACKAGE_INFO_GID,
+        "EXT_DATA_RW_GID" to EXT_DATA_RW_GID,
+        "EXT_OBB_RW_GID" to EXT_OBB_RW_GID,
+        "INET_GID" to INET_GID,
+        "SHARED_USER_GID" to SHARED_USER_GID,
+    )
+
     val packagesShouldNotHide = setOf(
         "android",
         "android.media",

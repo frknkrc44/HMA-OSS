@@ -21,6 +21,7 @@ import androidx.preference.SwitchPreferenceCompat
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import icu.nullptr.hidemyapplist.common.AppPresets
+import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.common.SettingsPresets
 import icu.nullptr.hidemyapplist.service.ConfigManager
@@ -116,7 +117,6 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
                 "excludeTargetInstallationSource" -> pack.config.excludeTargetInstallationSource
                 "invertActivityLaunchProtection" -> pack.config.invertActivityLaunchProtection
                 "excludeVoldIsolation" -> pack.config.excludeVoldIsolation
-                "restrictZygotePermissions" -> pack.config.restrictZygotePermissions
                 else -> throw IllegalArgumentException("Invalid key: $key")
             }
         }
@@ -131,7 +131,6 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
                 "excludeTargetInstallationSource" -> pack.config.excludeTargetInstallationSource = value
                 "invertActivityLaunchProtection" -> pack.config.invertActivityLaunchProtection = value
                 "excludeVoldIsolation" -> pack.config.excludeVoldIsolation = value
-                "restrictZygotePermissions" -> pack.config.restrictZygotePermissions = value
                 else -> throw IllegalArgumentException("Invalid key: $key")
             }
         }
@@ -258,6 +257,25 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
                 updateApplyPresets(useWhitelist)
                 updateExtraAppList(useWhitelist)
                 updateExtraOppositeAppList(useWhitelist)
+                true
+            }
+            findPreference<Preference>("restrictZygotePermissions")?.setOnPreferenceClickListener {
+                val gidPairs = Constants.GID_PAIRS
+                val checked = gidPairs.values.map {
+                    it in pack.config.restrictedZygotePermissions
+                }.toBooleanArray()
+
+                MaterialAlertDialogBuilder(requireContext())
+                    .setTitle(R.string.app_restrict_zygote_permissions)
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .setPositiveButton(android.R.string.ok) { _, _ ->
+                        pack.config.restrictedZygotePermissions = gidPairs.values.mapIndexedNotNullTo(mutableSetOf()) { i, value ->
+                            if (checked[i]) value else null
+                        }.toList()
+                    }.setMultiChoiceItems(gidPairs.keys.toTypedArray(), checked) { _, i, value ->
+                        checked[i] = value
+                    }.show()
+
                 true
             }
             findPreference<Preference>("applyTemplates")?.setOnPreferenceClickListener {
