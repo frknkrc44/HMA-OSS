@@ -272,6 +272,8 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
                         pack.config.restrictedZygotePermissions = gidPairs.values.mapIndexedNotNullTo(mutableSetOf()) { i, value ->
                             if (checked[i]) value else null
                         }.toList()
+                        Toast.makeText(requireContext(),
+                            R.string.app_force_stop_warning, Toast.LENGTH_LONG).show()
                     }.setMultiChoiceItems(gidPairs.keys.toTypedArray(), checked) { _, i, value ->
                         checked[i] = value
                     }.show()
