@@ -5,7 +5,7 @@ import icu.nullptr.hidemyapplist.common.AppPresets
 import icu.nullptr.hidemyapplist.common.Utils
 import java.util.zip.ZipFile
 
-class RootAppsPreset : BasePreset(NAME) {
+class RootAppsPreset(private val appPresets: AppPresets) : BasePreset(NAME) {
     companion object {
         const val NAME = "root_apps"
         const val ACCESS_SUPERUSER_PERM = "\u0000a\u0000n\u0000d\u0000r\u0000o\u0000i\u0000d\u0000.\u0000p\u0000e\u0000r\u0000m\u0000i\u0000s\u0000s\u0000i\u0000o\u0000n\u0000.\u0000A\u0000C\u0000C\u0000E\u0000S\u0000S\u0000_\u0000S\u0000U\u0000P\u0000E\u0000R\u0000U\u0000S\u0000E\u0000R"
@@ -106,6 +106,11 @@ class RootAppsPreset : BasePreset(NAME) {
     override fun canBeAddedIntoPreset(appInfo: ApplicationInfo): Boolean {
         val packageName = appInfo.packageName
 
+        // Some of detectors trying to abuse the ACCESS_SUPERUSER permission
+        if (appPresets.getPresetByName(DetectorAppsPreset.NAME)?.containsPackage(packageName) ?: false) {
+            return false
+        }
+
         // All uFirewall apps
         if (packageName.startsWith("dev.ukanth.ufirewall")) {
             return true
@@ -167,9 +172,9 @@ class RootAppsPreset : BasePreset(NAME) {
         }
 
         ZipFile(appInfo.sourceDir).use { zipFile ->
-            val manifestStr = AppPresets.instance.readManifest(packageName, zipFile)
+            val manifestStr = appPresets.readManifest(packageName, zipFile)
 
-            // Whitelist the Mozilla apps
+            // Whitelist the Mozilla apps (why a browser app has ACCESS_SUPERUSER?)
             if (manifestStr.contains(MOZILLA_WHITELIST)) {
                 return false
             }

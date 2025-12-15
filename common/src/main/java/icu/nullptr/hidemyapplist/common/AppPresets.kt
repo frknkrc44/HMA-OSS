@@ -133,11 +133,11 @@ class AppPresets private constructor() {
 
     init {
         presetList.add(CustomROMPreset())
-        presetList.add(RootAppsPreset())
+        presetList.add(DetectorAppsPreset())
+        presetList.add(RootAppsPreset(this))
         presetList.add(XposedModulesPreset())
         presetList.add(SuspiciousAppsPreset())
-        presetList.add(SDhizukuAppsPreset())
-        presetList.add(DetectorAppsPreset())
+        presetList.add(SDhizukuAppsPreset(this))
     }
 }
 

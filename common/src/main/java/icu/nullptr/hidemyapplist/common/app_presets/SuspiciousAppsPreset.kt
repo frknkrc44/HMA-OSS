@@ -58,7 +58,7 @@ class SuspiciousAppsPreset : BasePreset(NAME) {
     override fun canBeAddedIntoPreset(appInfo: ApplicationInfo): Boolean {
         val packageName = appInfo.packageName
 
-        // All NetHUnter apps
+        // All NetHunter apps
         if (packageName.startsWith("com.offsec.")) {
             return true
         }
