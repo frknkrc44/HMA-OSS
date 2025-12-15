@@ -92,7 +92,6 @@ class RootAppsPreset(private val appPresets: AppPresets) : BasePreset(NAME) {
         "libapd.so",
         "libmagisk.so",
         "libmagiskboot.so",
-        "libjnidispatch.so",
         "libmmrl-file-manager.so",
         "libmmrl-kernelsu.so",
         "libzakoboot.so",
@@ -171,26 +170,26 @@ class RootAppsPreset(private val appPresets: AppPresets) : BasePreset(NAME) {
             return true
         }
 
-        ZipFile(appInfo.sourceDir).use { zipFile ->
+        return checkSplitPackages(appInfo) { zipFile ->
             val manifestStr = appPresets.readManifest(packageName, zipFile)
 
             // Whitelist the Mozilla apps (why a browser app has ACCESS_SUPERUSER?)
             if (manifestStr.contains(MOZILLA_WHITELIST)) {
-                return false
+                return@checkSplitPackages false
             }
 
             // Many older rooted apps had this permission for an old Superuser implementation
             // It is not used anymore, but can be good to use it as rooted app indicator
             // Thanks to @F640 for giving this idea
             if (manifestStr.contains(ACCESS_SUPERUSER_PERM)) {
-                return true
+                return@checkSplitPackages true
             }
 
             if (findAppsFromLibs(zipFile, libNames) || findAppsFromAssets(zipFile, assetNames)) {
-                return true
+                return@checkSplitPackages true
             }
-        }
 
-        return false
+            return@checkSplitPackages false
+        }
     }
 }

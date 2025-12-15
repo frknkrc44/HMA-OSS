@@ -113,13 +113,13 @@ class SuspiciousAppsPreset : BasePreset(NAME) {
             return true
         }
 
-        ZipFile(appInfo.sourceDir).use { zipFile ->
+        return checkSplitPackages(appInfo) { zipFile ->
             if (/*findAppsFromLibs(zipFile, libNames) ||*/ findAppsFromAssets(zipFile, assetNames)) {
-                return true
+                return@checkSplitPackages true
             }
-        }
 
-        // TODO: Add more suspicious apps
-        return false
+            // TODO: Add more suspicious apps
+            return@checkSplitPackages false
+        }
     }
 }

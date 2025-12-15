@@ -54,6 +54,26 @@ abstract class BasePreset(val name: String) {
         return false
     }
 
+    fun checkSplitPackages(appInfo: ApplicationInfo, onZipFile: (ZipFile) -> Boolean): Boolean {
+        ZipFile(appInfo.sourceDir).use { zipFile ->
+            if (onZipFile(zipFile)) {
+                return true
+            }
+        }
+
+        val splits = appInfo.splitSourceDirs ?: return false
+
+        for (split in splits) {
+            ZipFile(split).use { zipFile ->
+                if (onZipFile(zipFile)) {
+                    return true
+                }
+            }
+        }
+
+        return false
+    }
+
     override fun toString() = "${javaClass.simpleName} {" +
             " \"exactPackageNames\": $exactPackageNames," +
             " \"packageNames\": $packageNames" +

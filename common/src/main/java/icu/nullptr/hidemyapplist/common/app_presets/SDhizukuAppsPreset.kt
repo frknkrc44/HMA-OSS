@@ -24,14 +24,14 @@ class SDhizukuAppsPreset(private val appPresets: AppPresets) : BasePreset(NAME) 
             return true
         }
 
-        ZipFile(appInfo.sourceDir).use { zipFile ->
+        return checkSplitPackages(appInfo) { zipFile ->
             val manifestStr = appPresets.readManifest(packageName, zipFile)
 
-            if (Utils.containsMultiple(manifestStr, SHIZUKU_PROVIDER, DHIZUKU_PROVIDER)) {
-                return true
-            }
+            return@checkSplitPackages Utils.containsMultiple(
+                manifestStr,
+                SHIZUKU_PROVIDER,
+                DHIZUKU_PROVIDER
+            )
         }
-
-        return false
     }
 }
