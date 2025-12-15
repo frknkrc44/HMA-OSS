@@ -54,9 +54,9 @@ abstract class BasePreset(val name: String) {
         return false
     }
 
-    fun checkSplitPackages(appInfo: ApplicationInfo, onZipFile: (ZipFile) -> Boolean): Boolean {
+    fun checkSplitPackages(appInfo: ApplicationInfo, onZipFile: (String, ZipFile) -> Boolean): Boolean {
         ZipFile(appInfo.sourceDir).use { zipFile ->
-            if (onZipFile(zipFile)) {
+            if (onZipFile(appInfo.sourceDir, zipFile)) {
                 return true
             }
         }
@@ -65,7 +65,7 @@ abstract class BasePreset(val name: String) {
 
         for (split in splits) {
             ZipFile(split).use { zipFile ->
-                if (onZipFile(zipFile)) {
+                if (onZipFile(split, zipFile)) {
                     return true
                 }
             }

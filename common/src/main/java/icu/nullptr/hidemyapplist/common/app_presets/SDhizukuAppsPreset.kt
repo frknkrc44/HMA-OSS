@@ -24,8 +24,8 @@ class SDhizukuAppsPreset(private val appPresets: AppPresets) : BasePreset(NAME) 
             return true
         }
 
-        return checkSplitPackages(appInfo) { zipFile ->
-            val manifestStr = appPresets.readManifest(packageName, zipFile)
+        return checkSplitPackages(appInfo) { key, zipFile ->
+            val manifestStr = appPresets.readManifest(key, zipFile)
 
             return@checkSplitPackages Utils.containsMultiple(
                 manifestStr,

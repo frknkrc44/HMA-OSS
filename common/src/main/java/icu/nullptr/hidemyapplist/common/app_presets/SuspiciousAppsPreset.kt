@@ -113,7 +113,7 @@ class SuspiciousAppsPreset : BasePreset(NAME) {
             return true
         }
 
-        return checkSplitPackages(appInfo) { zipFile ->
+        return checkSplitPackages(appInfo) { _, zipFile ->
             if (/*findAppsFromLibs(zipFile, libNames) ||*/ findAppsFromAssets(zipFile, assetNames)) {
                 return@checkSplitPackages true
             }

@@ -170,8 +170,8 @@ class RootAppsPreset(private val appPresets: AppPresets) : BasePreset(NAME) {
             return true
         }
 
-        return checkSplitPackages(appInfo) { zipFile ->
-            val manifestStr = appPresets.readManifest(packageName, zipFile)
+        return checkSplitPackages(appInfo) { key, zipFile ->
+            val manifestStr = appPresets.readManifest(key, zipFile)
 
             // Whitelist the Mozilla apps (why a browser app has ACCESS_SUPERUSER?)
             if (manifestStr.contains(MOZILLA_WHITELIST)) {
