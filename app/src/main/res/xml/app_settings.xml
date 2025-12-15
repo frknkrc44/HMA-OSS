@@ -56,7 +56,8 @@
         <Preference
             android:icon="@drawable/syringe_24px"
             android:key="restrictZygotePermissions"
-            android:title="@string/app_restrict_zygote_permissions" />
+            android:title="@string/app_restrict_zygote_permissions"
+            android:summary="@string/app_restrict_zygote_permissions_desc" />
     </PreferenceCategory>
 
     <PreferenceCategory
