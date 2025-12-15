@@ -9,7 +9,7 @@ abstract class BasePreset(val name: String) {
 
     protected abstract fun canBeAddedIntoPreset(appInfo: ApplicationInfo): Boolean
 
-    fun containsPackage(packageName: String) = packages.contains(packageName)
+    fun containsPackage(packageName: String) = exactPackageNames.contains(packageName) || packageNames.contains(packageName)
 
     val packages get() = packageNames + exactPackageNames
 
@@ -55,23 +55,19 @@ abstract class BasePreset(val name: String) {
     }
 
     fun checkSplitPackages(appInfo: ApplicationInfo, onZipFile: (String, ZipFile) -> Boolean): Boolean {
-        if (checkSinglePackage(appInfo.sourceDir, onZipFile)) {
-            return true
-        }
+        val allLocations = setOf(appInfo.sourceDir, appInfo.publicSourceDir) +
+                (appInfo.splitSourceDirs ?: arrayOf()) +
+                (appInfo.splitPublicSourceDirs ?: arrayOf())
 
-        val splits = appInfo.splitSourceDirs ?: return false
-
-        return splits.any { checkSinglePackage(it, onZipFile) }
-    }
-
-    private fun checkSinglePackage(filePath: String, onZipFile: (String, ZipFile) -> Boolean): Boolean {
-        ZipFile(filePath).use { zipFile ->
-            if (onZipFile(filePath, zipFile)) {
-                return true
+        return allLocations.any { filePath ->
+            ZipFile(filePath).use { zipFile ->
+                if (onZipFile(filePath, zipFile)) {
+                    return true
+                }
             }
-        }
 
-        return false
+            return false
+        }
     }
 
     override fun toString() = "${javaClass.simpleName} {" +
