@@ -109,6 +109,8 @@
     <string name="app_force_stop_launch">强制停止并启动</string>
     <string name="app_launch">启动</string>
     <string name="app_launch_failed">应用启动失败，请检查日志获取更多详细信息</string>
+    <string name="app_restrict_zygote_permissions">限制Zygote权限</string>
+    <string name="app_restrict_zygote_permissions_desc">此选项可能导致崩溃或误报，请谨慎选择.</string>
     <!-- Presets -->
     <string name="title_preset">预设</string>
     <string name="title_settings_preset">设置预设</string>
