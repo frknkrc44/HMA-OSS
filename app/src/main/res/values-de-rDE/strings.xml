@@ -70,7 +70,7 @@
     <string name="template_usage_hint">Erstellen Sie Vorlagen für \"ruhelose\" Apps und kontrollieren Sie den App, den Sie erhalten können.\n\nBlacklist (empfohlen): Die im Template ausgewählten Apps werden für die Apps, die die Vorlage anwenden, unsichtbar sein.\nWhitelist: Die im Template nicht ausgewählten Apps sind für die Apps, die die Vorlage anwenden, unsichtbar.</string>
     <string name="template_new_blacklist">Blacklist</string>
     <string name="template_new_whitelist">Whitelist</string>
-    <string name="template_new_setting">Einstellungsvorlage erstellen</string>
+    <string name="template_new_setting">Eigene Vorlagen erstellen</string>
     <string name="template_delete">Sind Sie sicher, dass Sie die Vorlage löschen wollen?</string>
     <string name="template_name">Name der Vorlage</string>
     <string name="template_name_invalid">Ungültiger Name</string>
@@ -89,7 +89,7 @@
     <string name="app_exclude_system_apps_summary">Deaktivieren Sie diese Option nur, wenn sie wirklich notwendig ist. Sie wird wahrscheinlich einen Absturz verursachen</string>
     <string name="app_template_using">Verwendung von %d Vorlagen</string>
     <string name="app_preset_using">Verwendung von %d Vorlagen des Entwicklers</string>
-    <string name="app_settings_preset_using">Entwickleroptionen/Bedienungshilfen werden %d genutzt</string>
+    <string name="app_settings_preset_using">%d eigene Einstellungsvorlagen werden genutzt</string>
     <string name="app_settings_template_using">Entwickleroptionen/Bedienungshilfen werden %d genutzt</string>
     <string name="app_extra_apps_visible_count">%d weitere Apps sichtbar</string>
     <string name="app_extra_apps_invisible_count">%d weitere Anwendungen unsichtbar</string>
