@@ -30,6 +30,9 @@ class SuspiciousAppsPreset : BasePreset(NAME) {
         "com.lonelycatgames.Xplore",
         "org.fossify.filemanager",
         "com.amaze.filemanager",
+
+        // Gravitybox Unlocker
+        "com.ceco.gravitybox.unlocker",
     )
 
     /*
@@ -54,6 +57,11 @@ class SuspiciousAppsPreset : BasePreset(NAME) {
 
     override fun canBeAddedIntoPreset(appInfo: ApplicationInfo): Boolean {
         val packageName = appInfo.packageName
+
+        // All NetHUnter apps
+        if (packageName.startsWith("com.offsec.")) {
+            return true
+        }
 
         // Termux, all of its plugins and some of Termux forks
         if (packageName.startsWith("com.termux")) {
