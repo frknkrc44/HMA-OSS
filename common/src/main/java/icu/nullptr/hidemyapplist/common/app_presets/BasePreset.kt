@@ -55,19 +55,19 @@ abstract class BasePreset(val name: String) {
     }
 
     fun checkSplitPackages(appInfo: ApplicationInfo, onZipFile: (String, ZipFile) -> Boolean): Boolean {
-        ZipFile(appInfo.sourceDir).use { zipFile ->
-            if (onZipFile(appInfo.sourceDir, zipFile)) {
-                return true
-            }
+        if (checkSinglePackage(appInfo.sourceDir, onZipFile)) {
+            return true
         }
 
         val splits = appInfo.splitSourceDirs ?: return false
 
-        for (split in splits) {
-            ZipFile(split).use { zipFile ->
-                if (onZipFile(split, zipFile)) {
-                    return true
-                }
+        return splits.any { checkSinglePackage(it, onZipFile) }
+    }
+
+    private fun checkSinglePackage(filePath: String, onZipFile: (String, ZipFile) -> Boolean): Boolean {
+        ZipFile(filePath).use { zipFile ->
+            if (onZipFile(filePath, zipFile)) {
+                return true
             }
         }
 
