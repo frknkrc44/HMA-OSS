@@ -169,8 +169,8 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
 
         private fun updateExtraOppositeAppList(useWhiteList: Boolean) {
             findPreference<Preference>("extraOppositeAppList")?.title =
-                if (!useWhiteList) getString(R.string.app_extra_apps_visible_count, pack.config.extraAppList.size)
-                else getString(R.string.app_extra_apps_invisible_count, pack.config.extraAppList.size)
+                if (!useWhiteList) getString(R.string.app_extra_apps_visible_count, pack.config.extraOppositeAppList.size)
+                else getString(R.string.app_extra_apps_invisible_count, pack.config.extraOppositeAppList.size)
         }
 
         private fun launchMainActivity(packageName: String) {
@@ -436,6 +436,7 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
 
                 val args = ScopeFragmentArgs(
                     filterOnlyEnabled = false,
+                    isOpposite = true,
                     checked = pack.config.extraOppositeAppList.toTypedArray()
                 )
                 navigate(R.id.nav_scope, args.toBundle())
