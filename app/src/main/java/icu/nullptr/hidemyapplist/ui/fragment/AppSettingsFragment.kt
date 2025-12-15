@@ -250,11 +250,9 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
                 val useWhitelist = newValue as Boolean
 
                 pack.config.applyTemplates.clear()
-                pack.config.applyPresets.clear()
                 pack.config.extraAppList.clear()
                 pack.config.extraOppositeAppList.clear()
                 updateApplyTemplates()
-                updateApplyPresets(useWhitelist)
                 updateExtraAppList(useWhitelist)
                 updateExtraOppositeAppList(useWhitelist)
                 true
