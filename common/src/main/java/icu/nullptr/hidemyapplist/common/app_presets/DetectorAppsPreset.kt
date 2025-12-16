@@ -33,6 +33,7 @@ class DetectorAppsPreset  : BasePreset(NAME) {
         "wu.Zygisk.Detector",
         "com.atominvention.rootchecker",
         "com.joeykrim.rootcheck",
+        "com.dexprotector.detector.envchecks",
 
         // Play Integrity checkers
         "krypton.tbsafetychecker",
