@@ -34,6 +34,9 @@ class DetectorAppsPreset  : BasePreset(NAME) {
         "com.atominvention.rootchecker",
         "com.joeykrim.rootcheck",
 
+        // EnvChecksDemo (thanks @gavdoc38)
+        "com.dexprotector.detector.envchecks",
+
         // Play Integrity checkers
         "krypton.tbsafetychecker",
         "gr.nikolasspyr.integritycheck",
