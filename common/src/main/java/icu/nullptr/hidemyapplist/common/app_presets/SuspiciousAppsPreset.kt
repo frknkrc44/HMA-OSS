@@ -1,7 +1,6 @@
 package icu.nullptr.hidemyapplist.common.app_presets
 
 import android.content.pm.ApplicationInfo
-import java.util.zip.ZipFile
 
 class SuspiciousAppsPreset : BasePreset(NAME) {
     companion object {

@@ -1,7 +1,10 @@
 package org.frknkrc44.hma_oss.ui.fragment
 
+import android.content.ComponentName
+import android.content.Context
 import android.provider.Settings
 import android.view.MenuItem
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.clearFragmentResultListener
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
@@ -59,6 +62,7 @@ class SettingsTemplateInnerFragment : BaseSettingsPTFragment() {
             R.id.menu_add -> {
                 MaterialAlertDialogBuilder(requireContext()).apply {
                     setTitle(R.string.add)
+                    setNegativeButton(android.R.string.cancel, null)
                     setItems(R.array.settings_template_inner_add_texts) { dialog, which ->
                         when (which) {
                             0 -> {
@@ -73,6 +77,17 @@ class SettingsTemplateInnerFragment : BaseSettingsPTFragment() {
                                         database = Constants.SETTINGS_SECURE,
                                     )
                                 )
+                            }
+                            2 -> {
+                                launchInputMethodSelectorDialog { componentName ->
+                                    processIncomingSetting(
+                                        ReplacementItem(
+                                            name = Settings.Secure.DEFAULT_INPUT_METHOD,
+                                            value = componentName.flattenToString(),
+                                            database = Constants.SETTINGS_SECURE,
+                                        )
+                                    )
+                                }
                             }
                         }
 
@@ -106,6 +121,20 @@ class SettingsTemplateInnerFragment : BaseSettingsPTFragment() {
             adapter.items.add(item)
             adapter.notifyItemInserted(adapter.items.size - 1)
         }
+    }
+
+    private fun launchInputMethodSelectorDialog(onSelected: (ComponentName) -> Unit) {
+        val pkgMgr = requireContext().packageManager
+        val immService = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val immMap = immService.inputMethodList.associate { it.loadLabel(pkgMgr) to it.component }
+
+        MaterialAlertDialogBuilder(requireContext()).apply {
+            setTitle(R.string.settings_preset_input_method)
+            setNegativeButton(android.R.string.cancel, null)
+
+            val mapKeys = immMap.keys.toTypedArray()
+            setItems(mapKeys) { _, which -> onSelected(immMap[mapKeys[which]]!!) }
+        }.show()
     }
 
     override val menu = Pair(
