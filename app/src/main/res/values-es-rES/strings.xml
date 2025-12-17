@@ -109,8 +109,8 @@
     <string name="app_force_stop_launch">Forzar la detención y abrir</string>
     <string name="app_launch">Abrir</string>
     <string name="app_launch_failed">Error al iniciar la aplicación, compruebe los logs para más detalles</string>
-    <string name="app_restrict_zygote_permissions">Restrict Zygote permissions</string>
-    <string name="app_restrict_zygote_permissions_desc">This option can cause crashes or false positives, choose wisely.</string>
+    <string name="app_restrict_zygote_permissions">Restringir los permisos de Zygote</string>
+    <string name="app_restrict_zygote_permissions_desc">Esta opción puede causar fallos o falsos positivos, elija sabiamente.</string>
     <!-- Presets -->
     <string name="title_preset">Presets</string>
     <string name="title_settings_preset">Presets de ajustes</string>
