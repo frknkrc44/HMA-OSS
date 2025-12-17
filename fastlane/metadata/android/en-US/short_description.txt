@@ -1,0 +1,1 @@
+An open-source continuation of Hide My Applist project with bunch of new features.
