@@ -70,17 +70,24 @@ afterEvaluate {
         "cvnertnc" to "https://avatars.githubusercontent.com/u/148134890?v=4",
     )
 
-    if (localBuild || officialBuild) {
+    val urlConnection = if (crowdinApiKey.isNotBlank()) {
         val url = URL("https://crowdin.com/api/v2/projects/$crowdinProjectId/members")
-        val urlConnection = url.openConnection() as HttpURLConnection
-        urlConnection.setRequestProperty("authorization", "Bearer $crowdinApiKey")
+        (url.openConnection() as HttpURLConnection).apply {
+            setRequestProperty("authorization", "Bearer $crowdinApiKey")
+        }
+    } else {
+        val url = URL("https://raw.githubusercontent.com/frknkrc44/HMA-OSS/refs/heads/crowdin/translators.json")
+        url.openConnection() as HttpURLConnection
+    }
 
-        val inputStream = DataInputStream(urlConnection.getInputStream())
-        val str = String(inputStream.readAllBytes())
-        inputStream.close()
-        urlConnection.disconnect()
+    val inputStream = DataInputStream(urlConnection.getInputStream())
+    val str = String(inputStream.readAllBytes())
+    inputStream.close()
+    urlConnection.disconnect()
 
-        val json = JsonParser.parseString(str).asJsonObject
+    val json = JsonParser.parseString(str).asJsonObject
+
+    if (crowdinApiKey.isNotBlank()) {
         val translators = json.getAsJsonArray("data")
 
         for (item in translators) {
@@ -99,6 +106,8 @@ afterEvaluate {
                 translatorsMap[username] = avatarUrl
             }
         }
+    } else {
+        json.keySet().forEach { translatorsMap[it] = json.get(it).asString }
     }
 
     val translatorJson = JSONObject(translatorsMap).toJSONString()
