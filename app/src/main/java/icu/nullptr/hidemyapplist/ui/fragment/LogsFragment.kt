@@ -11,10 +11,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
-import icu.nullptr.hidemyapplist.hmaApp
 import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.adapter.LogAdapter
+import icu.nullptr.hidemyapplist.ui.util.contentResolver
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import icu.nullptr.hidemyapplist.ui.util.showToast
@@ -39,7 +39,7 @@ class LogsFragment : Fragment(R.layout.fragment_logs) {
                 showToast(R.string.logs_empty)
                 return@save
             }
-            requireContext().contentResolver.openOutputStream(uri).use { output ->
+            contentResolver.openOutputStream(uri).use { output ->
                 if (output == null) showToast(R.string.home_export_failed)
                 else output.write(logCache!!.toByteArray())
             }
