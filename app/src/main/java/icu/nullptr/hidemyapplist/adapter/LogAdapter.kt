@@ -21,7 +21,7 @@ class LogAdapter(context: Context) : RecyclerView.Adapter<LogAdapter.ViewHolder>
     )
 
     companion object {
-        private val pattern = Pattern.compile("\\[ ?(.*)] (.*) \\((.*)\\) (.*)", Pattern.DOTALL)
+        private val pattern = Pattern.compile("\\[ ?(.*)] (.*) \\((.*?)\\) (.*)", Pattern.DOTALL)
 
         fun parseLog(text: String): LogItem? {
             val matcher = pattern.matcher(text)

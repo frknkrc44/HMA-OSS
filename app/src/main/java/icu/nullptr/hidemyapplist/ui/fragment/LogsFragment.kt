@@ -39,7 +39,7 @@ class LogsFragment : Fragment(R.layout.fragment_logs) {
                 showToast(R.string.logs_empty)
                 return@save
             }
-            hmaApp.contentResolver.openOutputStream(uri).use { output ->
+            requireContext().contentResolver.openOutputStream(uri).use { output ->
                 if (output == null) showToast(R.string.home_export_failed)
                 else output.write(logCache!!.toByteArray())
             }
