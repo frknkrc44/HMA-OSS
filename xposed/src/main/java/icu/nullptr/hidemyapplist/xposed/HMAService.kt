@@ -417,4 +417,6 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
         return readableVariables.sorted().toTypedArray()
     }
+
+    override fun getLogFileLocation(): String = logFile.absolutePath
 }

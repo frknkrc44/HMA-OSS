@@ -48,7 +48,11 @@ class LogsFragment : Fragment(R.layout.fragment_logs) {
 
     private fun updateLogs() {
         lifecycleScope.launch {
-            logCache = ServiceClient.logs
+            logCache = try {
+                ServiceClient.logs
+            } catch (_: Throwable) {
+                "[ERROR] 01-01 01:01:01 (${getString(R.string.app_name)}) Cannot read logs due to Binder issues, try reading ${ServiceClient.logFileLocation} manually"
+            }
             val raw = logCache?.split("\n")
             if (raw == null) {
                 binding.serviceOff.visibility = View.VISIBLE
