@@ -102,7 +102,7 @@
     <string name="app_hide_installation_source_system_desc">所有系统应用程序都将被欺骗为未安装此应用程序</string>
     <string name="app_exclude_target_installation_source">排除目标应用</string>
     <string name="app_exclude_target_installation_source_desc">如果此应用程序在Play商店不可用，您可以启用它</string>
-    <string name="app_force_stop_warning">保存配置后强制停止目标应用程序</string>
+    <string name="app_force_stop_warning">保存配置后请强制停止目标应用以使配置生效</string>
     <string name="app_invert_activity_launch_protection">反向活动启动保护</string>
     <string name="app_invert_activity_launch_protection_desc">此选项将反转 “设置 ”中的 “禁用活动启动保护”选项。</string>
     <string name="app_global_activity_launch_protection_state">保护范围为 %s 全局</string>
