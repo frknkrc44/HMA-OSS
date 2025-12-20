@@ -20,8 +20,8 @@ class ServiceProvider : ContentProvider() {
     override fun update(p0: Uri, p1: ContentValues?, p2: String?, p3: Array<out String>?) = 0
 
     override fun call(method: String, arg: String?, extras: Bundle?): Bundle? {
-        if (callingPackage != "android" || extras == null) return null
-        val binder = extras.getBinder("binder") ?: return null
+        if (callingPackage != "android") return null
+        val binder = extras?.getBinder("binder") ?: return null
         ServiceClient.linkService(binder)
         return Bundle()
     }

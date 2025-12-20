@@ -146,6 +146,11 @@
             app:argType="boolean" />
 
         <argument
+            android:name="isOpposite"
+            app:argType="boolean"
+            android:defaultValue="false" />
+
+        <argument
             android:name="isWhiteList"
             android:defaultValue="false"
             app:argType="boolean" />

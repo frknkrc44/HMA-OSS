@@ -21,6 +21,7 @@ import androidx.preference.SwitchPreferenceCompat
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import icu.nullptr.hidemyapplist.common.AppPresets
+import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.common.SettingsPresets
 import icu.nullptr.hidemyapplist.service.ConfigManager
@@ -146,10 +147,8 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
         }
 
         private fun updateApplyPresets(useWhitelist: Boolean = pack.config.useWhitelist) {
-            findPreference<Preference>("applyPresets")?.apply {
-                isVisible = !useWhitelist
-                title = getString(R.string.app_preset_using, pack.config.applyPresets.size)
-            }
+            findPreference<Preference>("applyPresets")?.title =
+                getString(R.string.app_preset_using, pack.config.applyPresets.size)
         }
 
         private fun updateApplySettingsPresets() {
@@ -166,6 +165,12 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
             findPreference<Preference>("extraAppList")?.title =
                 if (useWhiteList) getString(R.string.app_extra_apps_visible_count, pack.config.extraAppList.size)
                 else getString(R.string.app_extra_apps_invisible_count, pack.config.extraAppList.size)
+        }
+
+        private fun updateExtraOppositeAppList(useWhiteList: Boolean) {
+            findPreference<Preference>("extraOppositeAppList")?.title =
+                if (!useWhiteList) getString(R.string.app_extra_apps_visible_count, pack.config.extraOppositeAppList.size)
+                else getString(R.string.app_extra_apps_invisible_count, pack.config.extraOppositeAppList.size)
         }
 
         private fun launchMainActivity(packageName: String) {
@@ -199,7 +204,9 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
                         setTitle(it.title)
                         setItems(
                             R.array.app_action_texts,
-                        ) { dialog, which ->
+                        ) { _, which ->
+                           parent.saveConfig()
+
                             when (which) {
                                 0 -> {
                                     ServiceClient.forceStop(pack.app, 0)
@@ -244,10 +251,31 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
 
                 pack.config.applyTemplates.clear()
                 pack.config.extraAppList.clear()
-                pack.config.applyPresets.clear()
+                pack.config.extraOppositeAppList.clear()
                 updateApplyTemplates()
-                updateApplyPresets(useWhitelist)
                 updateExtraAppList(useWhitelist)
+                updateExtraOppositeAppList(useWhitelist)
+                true
+            }
+            findPreference<Preference>("restrictZygotePermissions")?.setOnPreferenceClickListener {
+                val gidPairs = Constants.GID_PAIRS
+                val checked = gidPairs.values.map {
+                    it in pack.config.restrictedZygotePermissions
+                }.toBooleanArray()
+
+                MaterialAlertDialogBuilder(requireContext())
+                    .setTitle(R.string.app_restrict_zygote_permissions)
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .setPositiveButton(android.R.string.ok) { _, _ ->
+                        pack.config.restrictedZygotePermissions = gidPairs.values.mapIndexedNotNullTo(mutableSetOf()) { i, value ->
+                            if (checked[i]) value else null
+                        }.toList()
+                        Toast.makeText(requireContext(),
+                            R.string.app_force_stop_warning, Toast.LENGTH_LONG).show()
+                    }.setMultiChoiceItems(gidPairs.keys.toTypedArray(), checked) { _, i, value ->
+                        checked[i] = value
+                    }.show()
+
                 true
             }
             findPreference<Preference>("applyTemplates")?.setOnPreferenceClickListener {
@@ -397,11 +425,27 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
                 navigate(R.id.nav_scope, args.toBundle())
                 true
             }
+            findPreference<Preference>("extraOppositeAppList")?.setOnPreferenceClickListener {
+                parent.setFragmentResultListener("app_opposite_select") { _, bundle ->
+                    pack.config.extraOppositeAppList = bundle.getStringArrayList("checked")!!.toMutableSet()
+                    updateExtraOppositeAppList(pack.config.useWhitelist)
+                    parent.clearFragmentResultListener("app_opposite_select")
+                }
+
+                val args = ScopeFragmentArgs(
+                    filterOnlyEnabled = false,
+                    isOpposite = true,
+                    checked = pack.config.extraOppositeAppList.toTypedArray()
+                )
+                navigate(R.id.nav_scope, args.toBundle())
+                true
+            }
             updateApplyTemplates()
             updateApplyPresets()
             updateApplySettingsTemplates()
             updateApplySettingsPresets()
             updateExtraAppList(pack.config.useWhitelist)
+            updateExtraOppositeAppList(pack.config.useWhitelist)
         }
     }
 }

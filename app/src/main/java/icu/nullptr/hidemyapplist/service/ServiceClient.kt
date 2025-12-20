@@ -66,6 +66,10 @@ object ServiceClient : IHMAService, IBinder.DeathRecipient {
         service?.stopService(cleanEnv)
     }
 
+    fun forceStop(packageName: String) {
+        forceStop(packageName, 0)
+    }
+
     override fun forceStop(packageName: String, userId: Int) {
         service?.forceStop(packageName, userId)
     }
@@ -82,4 +86,6 @@ object ServiceClient : IHMAService, IBinder.DeathRecipient {
     ) = service?.getPackageInfo(packageName, userId)
 
     override fun listAllSettings(databaseName: String) = service?.listAllSettings(databaseName) ?: arrayOf()
+
+    override fun getLogFileLocation() = service?.logFileLocation ?: "the log file"
 }

@@ -11,10 +11,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
-import icu.nullptr.hidemyapplist.hmaApp
 import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.adapter.LogAdapter
+import icu.nullptr.hidemyapplist.ui.util.contentResolver
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import icu.nullptr.hidemyapplist.ui.util.showToast
@@ -39,7 +39,7 @@ class LogsFragment : Fragment(R.layout.fragment_logs) {
                 showToast(R.string.logs_empty)
                 return@save
             }
-            hmaApp.contentResolver.openOutputStream(uri).use { output ->
+            contentResolver.openOutputStream(uri).use { output ->
                 if (output == null) showToast(R.string.home_export_failed)
                 else output.write(logCache!!.toByteArray())
             }
@@ -48,7 +48,11 @@ class LogsFragment : Fragment(R.layout.fragment_logs) {
 
     private fun updateLogs() {
         lifecycleScope.launch {
-            logCache = ServiceClient.logs
+            logCache = try {
+                ServiceClient.logs
+            } catch (_: Throwable) {
+                "[ERROR] 01-01 01:01:01 (${getString(R.string.app_name)}) Cannot read logs due to Binder issues, try reading ${ServiceClient.logFileLocation} manually"
+            }
             val raw = logCache?.split("\n")
             if (raw == null) {
                 binding.serviceOff.visibility = View.VISIBLE

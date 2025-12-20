@@ -1,5 +1,6 @@
 package icu.nullptr.hidemyapplist.ui.util
 
+import android.content.ContentResolver
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -60,3 +61,5 @@ fun Fragment.setupToolbar(
         menuProvider.onPrepareMenu(toolbar.menu)
     }
 }
+
+val Fragment.contentResolver get(): ContentResolver = requireContext().contentResolver

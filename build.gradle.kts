@@ -75,7 +75,7 @@ val appVerName by extra("oss-${gitCommitCountAfterOss}${gitHasUncommittedSuffix}
 val configVerCode by extra(93)
 
 @Suppress("unused")
-val serviceVerCode by extra(99)
+val serviceVerCode by extra(100)
 
 @Suppress("unused")
 val minBackupVerCode by extra(65)
@@ -136,6 +136,13 @@ fun Project.configureBaseExtension() {
             named("release") {
                 isShrinkResources = true
             }
+        }
+
+        dependenciesInfo {
+            // Disables dependency metadata when building APKs (for IzzyOnDroid/F-Droid)
+            includeInApk = false
+            // Disables dependency metadata when building Android App Bundles (for Google Play)
+            includeInBundle = false
         }
     }
 }

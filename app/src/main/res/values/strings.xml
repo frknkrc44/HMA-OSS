@@ -116,6 +116,8 @@
     <string name="app_force_stop_launch">Force stop and launch</string>
     <string name="app_launch">Launch</string>
     <string name="app_launch_failed">App launch failed, check logs for more details</string>
+    <string name="app_restrict_zygote_permissions">Restrict Zygote permissions</string>
+    <string name="app_restrict_zygote_permissions_desc">This option can cause crashes or false positives, choose wisely.</string>
 
     <!-- Presets -->
     <string name="title_preset">Presets</string>

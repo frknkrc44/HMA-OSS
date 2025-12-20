@@ -15,7 +15,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import icu.nullptr.hidemyapplist.hmaApp
 import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.service.ServiceClient
@@ -23,6 +22,7 @@ import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.attrDrawable
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.getColor
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.homeItemBackgroundColor
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.themeColor
+import icu.nullptr.hidemyapplist.ui.util.contentResolver
 import icu.nullptr.hidemyapplist.ui.util.navigate
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import icu.nullptr.hidemyapplist.ui.util.showToast
@@ -43,7 +43,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         registerForActivityResult(ActivityResultContracts.CreateDocument("application/json")) backup@{ uri ->
             if (uri == null) return@backup
             ConfigManager.configFile.inputStream().use { input ->
-                hmaApp.contentResolver.openOutputStream(uri).use { output ->
+                contentResolver.openOutputStream(uri).use { output ->
                     if (output == null) showToast(R.string.home_export_failed)
                     else input.copyTo(output)
                 }
@@ -55,7 +55,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         registerForActivityResult(ActivityResultContracts.GetContent()) restore@{ uri ->
             if (uri == null) return@restore
             runCatching {
-                val backup = hmaApp.contentResolver
+                val backup = contentResolver
                     .openInputStream(uri)?.reader().use { it?.readText() }
                     ?: throw IOException(getString(R.string.home_import_file_damaged))
                 ConfigManager.importConfig(backup)
@@ -133,6 +133,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 val versionNameSimple = BuildConfig.VERSION_NAME.substringBefore(".r")
                 moduleStatus.text =
                     getString(R.string.home_xposed_activated, versionNameSimple)
+                root.setOnLongClickListener {
+                    ConfigManager.saveConfig()
+                    showToast(android.R.string.ok)
+
+                    true
+                }
             } else {
                 moduleStatusIcon.setImageResource(R.drawable.sentiment_very_dissatisfied_24px)
                 moduleStatus.setText(R.string.home_xposed_not_activated)

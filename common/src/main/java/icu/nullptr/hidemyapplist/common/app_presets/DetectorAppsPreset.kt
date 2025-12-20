@@ -33,6 +33,10 @@ class DetectorAppsPreset  : BasePreset(NAME) {
         "wu.Zygisk.Detector",
         "com.atominvention.rootchecker",
         "com.joeykrim.rootcheck",
+        "com.studio.duckdetector",
+
+        // EnvChecksDemo (thanks @gavdoc38)
+        "com.dexprotector.detector.envchecks",
 
         // Play Integrity checkers
         "krypton.tbsafetychecker",

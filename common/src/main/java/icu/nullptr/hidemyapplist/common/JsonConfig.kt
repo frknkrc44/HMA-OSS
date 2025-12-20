@@ -44,11 +44,13 @@ data class JsonConfig(
         var excludeTargetInstallationSource: Boolean = false,
         var invertActivityLaunchProtection: Boolean = false,
         var excludeVoldIsolation: Boolean = false,
+        var restrictedZygotePermissions: List<Int> = listOf(),
         var applyTemplates: MutableSet<String> = mutableSetOf(),
         var applyPresets: MutableSet<String> = mutableSetOf(),
         var applySettingTemplates: MutableSet<String> = mutableSetOf(),
         var applySettingsPresets: MutableSet<String> = mutableSetOf(),
-        var extraAppList: MutableSet<String> = mutableSetOf()
+        var extraAppList: MutableSet<String> = mutableSetOf(),
+        var extraOppositeAppList: MutableSet<String> = mutableSetOf(),
     ) {
         override fun toString() = encoder.encodeToString(this)
     }

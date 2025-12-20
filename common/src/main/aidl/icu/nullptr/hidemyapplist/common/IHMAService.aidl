@@ -29,4 +29,6 @@ interface IHMAService {
     PackageInfo getPackageInfo(String packageName, int userId) = 12;
 
     String[] listAllSettings(String databaseName) = 13;
+
+    String getLogFileLocation() = 14;
 }

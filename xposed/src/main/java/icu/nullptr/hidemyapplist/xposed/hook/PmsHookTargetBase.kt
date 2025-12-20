@@ -19,6 +19,10 @@ import icu.nullptr.hidemyapplist.xposed.logD
 import java.util.concurrent.atomic.AtomicReference
 
 abstract class PmsHookTargetBase(protected val service: HMAService) : IFrameworkHook {
+    companion object {
+        private const val COMPUTER_ENGINE_CLASS = "com.android.server.pm.ComputerEngine"
+    }
+
     private val TAG by lazy { this::class.java.simpleName }
 
     protected val hooks = mutableListOf<XC_MethodHook.Unhook>()
@@ -42,7 +46,7 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
 
     override fun load() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            hooks += findMethod("com.android.server.pm.ComputerEngine") {
+            hooks += findMethod(COMPUTER_ENGINE_CLASS) {
                 name == "getPackageStates"
             }.hookAfter { param ->
                 val callingUid = Binder.getCallingUid()

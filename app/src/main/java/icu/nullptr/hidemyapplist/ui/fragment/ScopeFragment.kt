@@ -13,6 +13,11 @@ class ScopeFragment : AppSelectFragment() {
 
     override val firstComparator: Comparator<String> = Comparator.comparing { !checked.contains(it) }
 
+    private val requestKey by lazy {
+        val args by navArgs<ScopeFragmentArgs>()
+        if (args.isOpposite) "app_opposite_select" else "app_select"
+    }
+
     override val adapter by lazy {
         val args by navArgs<ScopeFragmentArgs>()
         checked = args.checked.toMutableSet()
@@ -21,7 +26,7 @@ class ScopeFragment : AppSelectFragment() {
     }
 
     override fun onBack() {
-        setFragmentResult("app_select", Bundle().apply {
+        setFragmentResult(requestKey, Bundle().apply {
             putStringArrayList("checked", ArrayList(checked))
         })
         navController.navigateUp()

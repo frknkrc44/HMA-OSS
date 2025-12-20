@@ -53,6 +53,11 @@
             android:key="invertActivityLaunchProtection"
             android:title="@string/app_invert_activity_launch_protection"
             android:summary="@string/app_invert_activity_launch_protection_desc" />
+        <Preference
+            android:icon="@drawable/syringe_24px"
+            android:key="restrictZygotePermissions"
+            android:title="@string/app_restrict_zygote_permissions"
+            android:summary="@string/app_restrict_zygote_permissions_desc" />
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -87,5 +92,9 @@
             android:icon="@drawable/baseline_apps_24"
             android:key="extraAppList"
             tools:title="@string/app_extra_apps_invisible_count" />
+        <Preference
+            android:icon="@drawable/baseline_apps_24"
+            android:key="extraOppositeAppList"
+            tools:title="@string/app_extra_apps_visible_count" />
     </PreferenceCategory>
 </PreferenceScreen>

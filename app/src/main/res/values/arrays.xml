@@ -84,5 +84,6 @@
     <string-array name="settings_template_inner_add_texts" translatable="false">
         <item>@string/settings_templates_custom</item>
         <item>@string/settings_templates_random_ssaid</item>
+        <item>@string/settings_preset_input_method</item>
     </string-array>
 </resources>

@@ -66,7 +66,7 @@ object ConfigManager {
         }
     }
 
-    private fun saveConfig() {
+    fun saveConfig() {
         val text = config.toString()
         ServiceClient.writeConfig(text)
         configFile.writeText(text)
@@ -285,11 +285,9 @@ object ConfigManager {
                     }
                 }
 
+                ServiceClient.log(Log.INFO, TAG, "Pruned ${scopeMarkedToRemove.size} app config(s) and $cleanedAppCount app(s) from template(s)")
                 if (scopeMarkedToRemove.isNotEmpty() || cleanedAppCount > 0) {
-                    ServiceClient.log(Log.INFO, TAG, "Pruned ${scopeMarkedToRemove.size} app config(s) and $cleanedAppCount app(s) from template(s)")
                     saveConfig()
-                } else {
-                    ServiceClient.log(Log.INFO, TAG, "No actions are required")
                 }
 
                 onFinish(true)

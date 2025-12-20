@@ -1,7 +1,6 @@
 package icu.nullptr.hidemyapplist.common.app_presets
 
 import android.content.pm.ApplicationInfo
-import java.util.zip.ZipFile
 
 class SuspiciousAppsPreset : BasePreset(NAME) {
     companion object {
@@ -30,6 +29,9 @@ class SuspiciousAppsPreset : BasePreset(NAME) {
         "com.lonelycatgames.Xplore",
         "org.fossify.filemanager",
         "com.amaze.filemanager",
+
+        // Gravitybox Unlocker
+        "com.ceco.gravitybox.unlocker",
     )
 
     /*
@@ -54,6 +56,11 @@ class SuspiciousAppsPreset : BasePreset(NAME) {
 
     override fun canBeAddedIntoPreset(appInfo: ApplicationInfo): Boolean {
         val packageName = appInfo.packageName
+
+        // All NetHunter apps
+        if (packageName.startsWith("com.offsec.")) {
+            return true
+        }
 
         // Termux, all of its plugins and some of Termux forks
         if (packageName.startsWith("com.termux")) {
@@ -105,13 +112,13 @@ class SuspiciousAppsPreset : BasePreset(NAME) {
             return true
         }
 
-        ZipFile(appInfo.sourceDir).use { zipFile ->
+        return checkSplitPackages(appInfo) { _, zipFile ->
             if (/*findAppsFromLibs(zipFile, libNames) ||*/ findAppsFromAssets(zipFile, assetNames)) {
-                return true
+                return@checkSplitPackages true
             }
-        }
 
-        // TODO: Add more suspicious apps
-        return false
+            // TODO: Add more suspicious apps
+            return@checkSplitPackages false
+        }
     }
 }

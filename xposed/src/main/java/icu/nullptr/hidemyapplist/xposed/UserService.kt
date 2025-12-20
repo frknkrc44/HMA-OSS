@@ -6,6 +6,7 @@ import android.content.pm.IPackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.ServiceManager
+import de.robv.android.xposed.XposedHelpers
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.Utils
 import org.frknkrc44.hma_oss.common.BuildConfig
@@ -67,20 +68,35 @@ object UserService {
         }
 
         logD(TAG, "Client uid: $appUid")
-        logI(TAG, "Register observer")
 
-        waitSystemService("activity")
+        waitActivityService()
         ActivityManagerApis.registerUidObserver(
             uidObserver,
             ActivityManagerHidden.UID_OBSERVER_ACTIVE,
             ActivityManagerHidden.PROCESS_STATE_TOP,
             null
         )
+
+        logI(TAG, "Registered observer")
     }
 
-    private fun waitSystemService(name: String) {
-        while (ServiceManager.getService(name) == null) {
-            Thread.sleep(1000)
+    private fun waitActivityService() {
+        // use the new Android method for 11+
+        // but use the getService fallback if fails to run
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            try {
+                XposedHelpers.callStaticMethod(
+                    ServiceManager::class.java,
+                    "waitForService",
+                    "activity"
+                )
+
+                return
+            } catch (_: Throwable) {}
+        }
+
+        while (ServiceManager.getService("activity") == null) {
+            Thread.sleep(250)
         }
     }
 }
