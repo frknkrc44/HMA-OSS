@@ -109,6 +109,8 @@
     <string name="app_force_stop_launch">Forzar la detención y abrir</string>
     <string name="app_launch">Abrir</string>
     <string name="app_launch_failed">Error al iniciar la aplicación, compruebe los logs para más detalles</string>
+    <string name="app_restrict_zygote_permissions">Restringir los permisos de Zygote</string>
+    <string name="app_restrict_zygote_permissions_desc">Esta opción puede causar fallos o falsos positivos, elija sabiamente.</string>
     <!-- Presets -->
     <string name="title_preset">Presets</string>
     <string name="title_settings_preset">Presets de ajustes</string>
@@ -128,8 +130,8 @@
     <string name="settings_templates_name">Nombre de ajuste</string>
     <string name="settings_templates_value">Valor de ajuste</string>
     <!-- Settings templates - basic configuration types -->
-    <string name="settings_templates_custom">Custom setting</string>
-    <string name="settings_templates_random_ssaid">Random SSAID</string>
+    <string name="settings_templates_custom">Configuración personalizada</string>
+    <string name="settings_templates_random_ssaid">SSAID aleatorio</string>
     <!-- Logs -->
     <string name="logs_save">Guardar logs</string>
     <string name="logs_clear">Borrar logs</string>
@@ -167,7 +169,7 @@
     <string name="settings_no_undone_warning">Esta acción no se puede deshacer.</string>
     <string name="settings_package_query_workaround">Consulta alternativa de paquete</string>
     <string name="settings_package_query_workaround_summary">No active esta opción si ve la lista de paquetes en esta aplicación correctamente.</string>
-    <string name="settings_launcher_icon">Launcher icon</string>
+    <string name="settings_launcher_icon">Icono de la app</string>
     <string name="settings_language">Idioma</string>
     <string name="settings_translate">Participa en la traducción</string>
     <string name="settings_translate_summary">Ayúdanos a traducir %s a tu idioma</string>

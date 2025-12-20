@@ -109,6 +109,8 @@
     <string name="app_force_stop_launch">Forcer l\'arrêt et démarrer</string>
     <string name="app_launch">Démarrer</string>
     <string name="app_launch_failed">Le démarrage de l\'application a échoué, vérifiez les journaux d\'activités pour plus d\'informations</string>
+    <string name="app_restrict_zygote_permissions">Restreindre les permissions de Zygote</string>
+    <string name="app_restrict_zygote_permissions_desc">Cette option peut causer des crashs ou des faux positifs, choisissez là de manière judicieuse.</string>
     <!-- Presets -->
     <string name="title_preset">Préréglages</string>
     <string name="title_settings_preset">Options de préréglages</string>

@@ -109,6 +109,8 @@
     <string name="app_force_stop_launch">強制停止並啟動</string>
     <string name="app_launch">啟動</string>
     <string name="app_launch_failed">應用程式啟動失敗，請檢查日誌以取得詳細資訊</string>
+    <string name="app_restrict_zygote_permissions">Restrict Zygote permissions</string>
+    <string name="app_restrict_zygote_permissions_desc">This option can cause crashes or false positives, choose wisely.</string>
     <!-- Presets -->
     <string name="title_preset">預設模板</string>
     <string name="title_settings_preset">設定預設模板</string>
@@ -128,8 +130,8 @@
     <string name="settings_templates_name">設定名稱</string>
     <string name="settings_templates_value">設定值</string>
     <!-- Settings templates - basic configuration types -->
-    <string name="settings_templates_custom">Custom setting</string>
-    <string name="settings_templates_random_ssaid">Random SSAID</string>
+    <string name="settings_templates_custom">自訂設定</string>
+    <string name="settings_templates_random_ssaid">隨機 SSAID</string>
     <!-- Logs -->
     <string name="logs_save">保存日誌</string>
     <string name="logs_clear">清除日誌</string>
@@ -167,7 +169,7 @@
     <string name="settings_no_undone_warning">此操作無法撤銷</string>
     <string name="settings_package_query_workaround">備選應用程式查詢</string>
     <string name="settings_package_query_workaround_summary">如果應用程式列表正常顯示，請勿開啟此選項</string>
-    <string name="settings_launcher_icon">Launcher icon</string>
+    <string name="settings_launcher_icon">啟動器圖示</string>
     <string name="settings_language">語言</string>
     <string name="settings_translate">參與翻譯</string>
     <string name="settings_translate_summary">幫助我們翻譯 %s 到您的語言</string>

@@ -21,7 +21,7 @@
     <string name="work_mode">作業モード</string>
     <string name="blacklist">ブラックリスト</string>
     <string name="whitelist">ホワイトリスト</string>
-    <string name="application">アプリケーション</string>
+    <string name="application">アプリ</string>
     <string name="preferences">環境設定</string>
     <string name="refresh">更新</string>
     <string name="filter">フィルター</string>
@@ -44,8 +44,8 @@
     <string name="home_download_test_app_title">テストアプリのダウンロード</string>
     <string name="home_download_test_app_message">個別検知テストアプリを開発し、検知テストを移行しました。今すぐダウンロードしますか？</string>
     <string name="home_backup_and_restore">バックアップ &amp; 復元</string>
-    <string name="home_backup_config">設定をバックアップ</string>
-    <string name="home_restore_config">設定を復元</string>
+    <string name="home_backup_config">バックアップ</string>
+    <string name="home_restore_config">復元</string>
     <string name="home_import_successful">インポート成功</string>
     <string name="home_import_failed">インポート失敗</string>
     <string name="home_import_app_version_too_old">モジュールのバージョンが古すぎます</string>
@@ -59,13 +59,13 @@
     <string name="list_show_system">システムアプリを表示</string>
     <string name="list_sorting">並び替え</string>
     <string name="list_reverse_order">逆順</string>
-    <string name="list_sort_by_label">アプリ名で</string>
-    <string name="list_sort_by_package_name">パッケージネームで</string>
-    <string name="list_sort_by_install_time">インストール日時で</string>
-    <string name="list_sort_by_update_time">アップデート時間で</string>
+    <string name="list_sort_by_label">アプリ名</string>
+    <string name="list_sort_by_package_name">パッケージ名</string>
+    <string name="list_sort_by_install_time">インストール日時</string>
+    <string name="list_sort_by_update_time">アップデート日時</string>
     <string name="list_empty_no_enabled">このテンプレートの作業モードでアプリの非表示を有効にすると、アプリがここに表示されます</string>
-    <string name="list_empty_no_apps">アプリケーションが見つかりませんでした。このアプリがすべてのパッケージを照会することを許可していない可能性があります</string>
-    <string name="list_empty_preset">このプリセットにはアプリケーションが追加されていません</string>
+    <string name="list_empty_no_apps">アプリが見つかりませんでした。このアプリがすべてのパッケージを照会することを許可していない可能性があります</string>
+    <string name="list_empty_preset">このプリセットにはアプリが追加されていません</string>
     <!-- Manage templates -->
     <string name="template_usage_hint">「落ち着きのない」アプリのテンプレートを確立し、取得できるアプリリストを制御します。\n\nブラックリスト (推奨): テンプレートで選択されたアプリは、テンプレートを適用するアプリから見えなくなります。\nホワイトリスト: テンプレートで選択されていないアプリは、テンプレートを適用するアプリには表示されません。</string>
     <string name="template_new_blacklist">ブラックリストのテンプレートを作成</string>
@@ -97,18 +97,20 @@
     <string name="app_warning_risky_package_desc">このパッケージは危険とマークされており、非表示のアプリに問題を引き起こす可能性があります。続行しますか？</string>
     <string name="app_spoof">偽装</string>
     <string name="app_hide_installation_source">インストールソースを偽装する</string>
-    <string name="app_hide_installation_source_desc">このアプリケーションでは、すべてのユーザーアプリが Play ストア経由でインストールされたように偽装されます</string>
+    <string name="app_hide_installation_source_desc">このアプリでは、すべてのユーザーアプリが Play ストア経由でインストールされたように偽装されます</string>
     <string name="app_hide_installation_source_system">システムアプリにも偽装する</string>
-    <string name="app_hide_installation_source_system_desc">このアプリケーションでは、すべてのシステムアプリが何もインストールされていないように偽装されます</string>
+    <string name="app_hide_installation_source_system_desc">このアプリでは、すべてのシステムアプリが何もインストールされていないように偽装されます</string>
     <string name="app_exclude_target_installation_source">対象アプリを除外する</string>
     <string name="app_exclude_target_installation_source_desc">このアプリが Play ストアで利用できない場合、有効にすることができます</string>
     <string name="app_force_stop_warning">設定を保存した後に対象のアプリを強制終了することを忘れないでください</string>
     <string name="app_invert_activity_launch_protection">アクティビティ起動保護を反転する</string>
     <string name="app_invert_activity_launch_protection_desc">このオプションは、設定の「アクティビティ起動保護を無効にする」の選択を反転します。</string>
-    <string name="app_global_activity_launch_protection_state">保護はグローバルで %s です</string>
+    <string name="app_global_activity_launch_protection_state">保護はグローバルで%sです</string>
     <string name="app_force_stop_launch">強制停止と起動</string>
     <string name="app_launch">起動</string>
     <string name="app_launch_failed">アプリの起動に失敗しました。詳細はログを確認してください</string>
+    <string name="app_restrict_zygote_permissions">Zygote 権限を制限する</string>
+    <string name="app_restrict_zygote_permissions_desc">このオプションはクラッシュや誤検知を引き起こす可能性があります。慎重に選択してください。</string>
     <!-- Presets -->
     <string name="title_preset">プリセット</string>
     <string name="title_settings_preset">プリセット設定</string>
@@ -138,7 +140,7 @@
     <!-- Settings -->
     <string name="settings_module">モジュール</string>
     <string name="settings_overwrite">上書き</string>
-    <string name="settings_overwritten">上書きされました</string>
+    <string name="settings_overwritten">上書き済み</string>
     <string name="settings_overwrite_summary">このカテゴリの項目は、スイッチがチェックされている場合、強制的に有効になります</string>
     <string name="settings_default_value">デフォルト値: %s</string>
     <string name="settings_data_isolation">データ分離</string>
@@ -151,15 +153,15 @@
     <string name="settings_change_require_root">変更には root 権限が必要です</string>
     <string name="settings_need_reboot">変更には再起動が必要です</string>
     <string name="settings_permission_denied">権限が拒否されました</string>
-    <string name="settings_force_mount_data">全てのアプリに対してデータ分離を強制する</string>
+    <string name="settings_force_mount_data">すべてのアプリでデータ分離を強制</string>
     <string name="settings_force_mount_data_summary">ターゲット API が 30 未満のアプリに対してはデフォルトでデータ分離が無効になっています</string>
     <string name="settings_detail_log">デバッグ用詳細ログ</string>
     <string name="settings_max_log_size">ロガーのバッファサイズ</string>
-    <string name="settings_hide_icon">ランチャーでモジュールアイコンを非表示にする</string>
+    <string name="settings_hide_icon">ランチャー上のアイコンを非表示</string>
     <string name="settings_hide_icon_summary">LSPosed マネージャーで引き続きアプリを開くことができます</string>
-    <string name="settings_bypass_risky_package_warning">危険なパッケージに関する警告を無視する</string>
+    <string name="settings_bypass_risky_package_warning">危険なパッケージの警告を無視</string>
     <string name="settings_bypass_risky_package_warning_summary">この機能を有効にする前後で、危険なパッケージに関する問題が発生した場合、開発者は一切責任を負わないことをご了承ください</string>
-    <string name="settings_disable_activity_launch_protection">アクティビティ起動保護を無効にする</string>
+    <string name="settings_disable_activity_launch_protection">アクティビティ起動保護を無効</string>
     <string name="settings_disable_activity_launch_protection_summary">このトグルをオンにすると、すべての startActivity 保護が解除されます。不明な場合は有効にしないでください。</string>
     <string name="settings_system_wallpaper">システムの壁紙を使用する</string>
     <string name="settings_clear_uninstalled_app_configs">アンインストール済みのアプリの設定を消去する</string>
