@@ -6,7 +6,7 @@
     <string name="title_template_manage">Listen verwalten</string>
     <string name="title_template_settings">Vorlagen Einstellungen</string>
     <string name="title_settings_template_conf">Konfiguration der Einstellungsvorlage</string>
-    <string name="title_app_manage">Anwendungen konfigurieren</string>
+    <string name="title_app_manage">Anwendungskonfiguration</string>
     <string name="title_app_select">Apps auswählen</string>
     <string name="title_app_settings">App Einstellungen</string>
     <string name="title_about">Über</string>
