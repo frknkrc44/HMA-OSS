@@ -100,7 +100,7 @@
     <string name="app_hide_installation_source_desc">对此应用，将所有用户安装的应用伪装成是通过Play商店安装的</string>
     <string name="app_hide_installation_source_system">同时伪装系统应用</string>
     <string name="app_hide_installation_source_system_desc">对此应用，将所有系统应用伪装成无安装来源</string>
-    <string name="app_exclude_target_installation_source">不伪装此应用自身</string>
+    <string name="app_exclude_target_installation_source">排除此应用自身</string>
     <string name="app_exclude_target_installation_source_desc">如果此应用不在Play商店上架，可以启用此项</string>
     <string name="app_force_stop_warning">保存配置后请强制停止目标应用以使配置生效</string>
     <string name="app_invert_activity_launch_protection">反转Activity启动保护</string>
