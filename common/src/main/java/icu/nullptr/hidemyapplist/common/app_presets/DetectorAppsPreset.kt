@@ -36,11 +36,9 @@ class DetectorAppsPreset  : BasePreset(NAME) {
         "com.studio.duckdetector",
         "com.lingqing.detector",
         "com.android.nativetest",
-        "com.meowna",
         "com.youhu.laifu",
         "chunqiu.safe.detector",
         "chunqiu.safe",
-        "com.meowna.keybox",
         "wu.Rookie.Detector",
         "me.garfieldhan.attestation",
         
