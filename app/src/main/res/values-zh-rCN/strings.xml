@@ -11,7 +11,7 @@
     <string name="title_app_settings">应用设置</string>
     <string name="title_about">关于</string>
     <string name="title_about_fork">关于HMA-OSS</string>
-    <string name="do_not_dual">请勿将HMA安装到分身或多用户空间</string>
+    <string name="do_not_dual">请勿将HMA-OSS安装到分身或多用户空间</string>
     <string name="show_crash_log">显示崩溃日志</string>
     <string name="config_damaged">配置文件损坏，请清除应用数据</string>
     <string name="edit_list">编辑列表</string>
@@ -63,7 +63,7 @@
     <string name="list_sort_by_package_name">按应用包名</string>
     <string name="list_sort_by_install_time">按安装时间</string>
     <string name="list_sort_by_update_time">按更新时间</string>
-    <string name="list_empty_no_enabled">启用此模版的应用程序会显示在这里</string>
+    <string name="list_empty_no_enabled">使用此模版的应用程序会显示在这里</string>
     <string name="list_empty_no_apps">未找到应用，可能您未授权本应用查询所有已安装应用</string>
     <string name="list_empty_preset">此预设中未添加任何应用程序</string>
     <!-- Manage templates -->
@@ -71,7 +71,7 @@
     <string name="template_new_blacklist">创建黑名单应用模板</string>
     <string name="template_new_whitelist">创建白名单应用模板</string>
     <string name="template_new_setting">创建设置模板</string>
-    <string name="template_delete">你确定要删除此模板吗？</string>
+    <string name="template_delete">您确定要删除此模板吗？</string>
     <string name="template_name">模板名称</string>
     <string name="template_name_invalid">名称无效</string>
     <string name="template_delete_title">删除模板</string>
@@ -158,14 +158,14 @@
     <string name="settings_detail_log">详细调试日志</string>
     <string name="settings_max_log_size">日志缓冲区大小</string>
     <string name="settings_hide_icon">在桌面隐藏图标</string>
-    <string name="settings_hide_icon_summary">您仍然可以在 Xposed 管理器中打开本应用</string>
+    <string name="settings_hide_icon_summary">您仍然可以在 LSPosed 管理器中打开本应用</string>
     <string name="settings_bypass_risky_package_warning">绕过风险应用警告</string>
     <string name="settings_bypass_risky_package_warning_summary">请注意，对于启用此功能之前或之后出现的与风险应用相关的问题，开发人员概不负责</string>
     <string name="settings_disable_activity_launch_protection">禁用 Activity 启动保护</string>
     <string name="settings_disable_activity_launch_protection_summary">启用此选项将解除所有 startActivity 保护，如果不确定，请勿开启</string>
     <string name="settings_system_wallpaper">使用系统壁纸</string>
     <string name="settings_clear_uninstalled_app_configs">清除已卸载应用的配置</string>
-    <string name="settings_clear_uninstalled_app_configs_summary">此选项可避免残留配置，但如果您重装了该应用，则需要重新进行配置</string>
+    <string name="settings_clear_uninstalled_app_configs_summary">此选项可避免配置残留，但如果您重装了该应用，则需要重新进行配置</string>
     <string name="settings_no_undone_warning">此操作无法撤销</string>
     <string name="settings_package_query_workaround">备用应用查询方案</string>
     <string name="settings_package_query_workaround_summary">如果本应用能正常显示已安装的应用列表，请勿开启此项</string>
@@ -192,10 +192,10 @@
     <string name="settings_receive_beta_update">接收测试版更新</string>
     <string name="settings_receive_beta_update_summary">注意：测试版可能不稳定</string>
     <!-- About -->
-    <string name="about_description">尽管简单粗暴地检测特定应用安装来判断环境是不准确的，但并非所有使用 Root 的应用都支持随机包名。在这种情况下，被检测到安装了 Root 相关应用（如 Fake Location 或 存储空间隔离）就等同于被检测到了 Root 本身。\n\n同时，一些“聪明”的应用会利用各种漏洞获取你的应用列表，以此为你建立用户画像。\n\n本模块提供了一些方法来测试你是否已经完美隐藏了应用列表。同时，它作为一个 Xposed 模块，可以隐藏特定应用，或拒绝应用列表请求，从而保护你的隐私。</string>
+    <string name="about_description">尽管简单粗暴地检测特定应用安装来判断系统环境是不准确的，但并非所有使用 Root 的应用都支持随机包名。在这种情况下，被检测到安装了 Root 相关应用（如 Fake Location 或 存储空间隔离）就等同于被检测到了 Root 本身。\n\n同时，一些“聪明”的应用会利用各种漏洞获取您的应用列表，以此为您建立用户画像。\n\n本模块提供了一些方法来测试您是否已经完美隐藏了应用列表。同时，它作为一个 LSPosed 模块，可以隐藏特定应用，或拒绝应用列表请求，从而保护您的隐私。</string>
     <string name="about_fork_description">原 HMA 项目已闭源，且最新代码未包含部分新改动，因此我创建了这个分支以继续保持开源维护。</string>
     <string name="about_how_to_use_title">如何使用本模块</string>
-    <string name="about_how_to_use_description_1">1. 在“模板管理”中创建模板。\n2. 在“应用管理”中将模板应用到目标APP上。（你也可以为目标APP额外单独选择可见/不可见的应用）。\n3. 注意：在 LSPosed/Xposed 作用域中，你应该且只应该勾选“系统框架 (System Framework)”。</string>
+    <string name="about_how_to_use_description_1">1. 在“模板管理”中创建模板。\n2. 在“应用管理”中将模板应用到目标APP上。（您也可以为目标APP额外单独选择可见/不可见的应用）。\n3. 注意：在 LSPosed 作用域中，您应该且只应该勾选“系统框架”。</string>
     <string name="about_how_to_use_description_2">配置修改即时生效</string>
     <string name="about_translator">翻译者</string>
     <string name="about_developer">开发者</string>
