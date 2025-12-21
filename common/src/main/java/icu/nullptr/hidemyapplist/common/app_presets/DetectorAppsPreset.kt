@@ -34,7 +34,16 @@ class DetectorAppsPreset  : BasePreset(NAME) {
         "com.atominvention.rootchecker",
         "com.joeykrim.rootcheck",
         "com.studio.duckdetector",
-
+        "com.lingqing.detector",
+        "com.android.nativetest",
+        "com.meowna",
+        "com.youhu.laifu",
+        "chunqiu.safe.detector",
+        "chunqiu.safe",
+        "com.meowna.keybox",
+        "wu.Rookie.Detector",
+        "me.garfieldhan.attestation",
+        
         // EnvChecksDemo (thanks @gavdoc38)
         "com.dexprotector.detector.envchecks",
 
