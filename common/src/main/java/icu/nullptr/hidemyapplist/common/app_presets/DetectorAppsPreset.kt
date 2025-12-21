@@ -11,12 +11,9 @@ class DetectorAppsPreset  : BasePreset(NAME) {
         // Detector apps
         "com.reveny.nativecheck",
         "icu.nullptr.nativetest",
-        "com.android.nativetest",
         "io.github.rabehx.securify",
         "com.zhenxi.hunter",
-        "com.tsng.applistdetector",
         "io.github.vvb2060.mahoshojo",
-        "me.garfieldhan.attestation",
         "io.github.huskydg.memorydetector",
         "org.akanework.checker",
         "icu.nullptr.applistdetector",
@@ -36,14 +33,20 @@ class DetectorAppsPreset  : BasePreset(NAME) {
         "wu.Zygisk.Detector",
         "com.atominvention.rootchecker",
         "com.joeykrim.rootcheck",
+        "com.studio.duckdetector",
         "com.lingqing.detector",
+        "com.android.nativetest",
         "com.meowna",
         "com.youhu.laifu",
         "chunqiu.safe.detector",
         "chunqiu.safe",
         "com.meowna.keybox",
         "wu.Rookie.Detector",
+        "me.garfieldhan.attestation",
         
+        // EnvChecksDemo (thanks @gavdoc38)
+        "com.dexprotector.detector.envchecks",
+
         // Play Integrity checkers
         "krypton.tbsafetychecker",
         "gr.nikolasspyr.integritycheck",
