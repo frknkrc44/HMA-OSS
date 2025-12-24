@@ -261,7 +261,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     }
 
     fun getRestrictedZygotePermissions(caller: String?) =
-        config.scope[caller]?.restrictedZygotePermissions ?: emptyList()
+        config.scope[caller]?.restrictedZygotePermissions
 
     fun shouldHideActivityLaunch(caller: String?, query: String?): Boolean {
         val appConfig = config.scope[caller]

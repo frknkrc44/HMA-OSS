@@ -26,14 +26,10 @@ fun logWithLevel(level: Int, tag: String, msg: String, cause: Throwable? = null)
     val parsedLog = parseLog(level, tag, msg, cause)
     val executor = HMAService.instance?.executor
 
-    if (executor != null) {
-        executor.execute {
-            HMAService.instance?.addLog(parsedLog)
-            XposedBridge.log(parsedLog)
-        }
-    } else {
+    executor?.execute {
+        HMAService.instance?.addLog(parsedLog)
         XposedBridge.log(parsedLog)
-    }
+    } ?: XposedBridge.log(parsedLog)
 }
 
 fun logD(tag: String, msg: String, cause: Throwable? = null) = logWithLevel(Log.DEBUG, tag, msg, cause)

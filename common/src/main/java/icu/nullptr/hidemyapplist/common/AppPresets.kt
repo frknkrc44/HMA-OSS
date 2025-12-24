@@ -28,6 +28,13 @@ class AppPresets private constructor() {
     }
 
     fun readManifest(packageName: String, zipFile: ZipFile): String {
+        // Run gc immediately if runs out of free memory
+        if (Runtime.getRuntime().freeMemory() < 2048000) {
+            loggerFunction?.invoke(Log.WARN, "@readManifest tried to clear the memory")
+            manifestDataCache.clear()
+            System.gc()
+        }
+
         var cache = manifestDataCache[packageName]
         if (cache == null) {
             loggerFunction?.invoke(Log.DEBUG, "@readManifest cache is null, reading manifest for $packageName")

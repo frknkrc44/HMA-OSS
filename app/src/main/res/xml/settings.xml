@@ -75,8 +75,7 @@
         <Preference
             android:icon="@drawable/outline_storage_24"
             android:key="dataIsolation"
-            android:title="@string/settings_data_isolation"
-            app:fragment="icu.nullptr.hidemyapplist.ui.fragment.SettingsFragment$DataIsolationPreferenceFragment" />
+            android:title="@string/settings_data_isolation" />
         <SwitchPreferenceCompat
             android:icon="@drawable/outline_bug_report_24"
             android:key="detailLog"

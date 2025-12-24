@@ -1,4 +1,4 @@
-package icu.nullptr.hidemyapplist.ui.fragment
+package org.frknkrc44.hma_oss.ui.fragment
 
 import android.annotation.SuppressLint
 import android.os.Build
@@ -26,6 +26,7 @@ import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.common.SettingsPresets
 import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.service.ServiceClient
+import icu.nullptr.hidemyapplist.ui.fragment.ScopeFragmentArgs
 import icu.nullptr.hidemyapplist.ui.util.enabledString
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.navigate
@@ -38,14 +39,14 @@ import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentSettingsBinding
 import org.frknkrc44.hma_oss.databinding.LayoutListEmptyBinding
 
-class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
+class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
     companion object {
-        private const val TAG = "AppSettingsFragment"
+        private const val TAG = "AppSettingsV2Fragment"
     }
 
     private val binding by viewBinding<FragmentSettingsBinding>()
     private val viewModel by viewModels<AppSettingsViewModel>() {
-        val args by navArgs<AppSettingsFragmentArgs>()
+        val args by navArgs<AppSettingsV2FragmentArgs>()
         val cfg = ConfigManager.getAppConfig(args.packageName)
         val pack = if (cfg != null) AppSettingsViewModel.Pack(args.packageName, true, cfg)
         else AppSettingsViewModel.Pack(args.packageName, false, JsonConfig.AppConfig())
@@ -58,8 +59,10 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
     }
 
     private fun onBack() {
-        saveConfig()
-        navController.navigateUp()
+        if (!parentFragmentManager.popBackStackImmediate()) {
+            saveConfig()
+            navController.navigateUp()
+        }
     }
 
     override fun onPause() {
@@ -138,40 +141,8 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
 
     class AppPreferenceFragment : PreferenceFragmentCompat() {
 
-        private val parent get() = requireParentFragment() as AppSettingsFragment
+        private val parent get() = requireParentFragment() as AppSettingsV2Fragment
         private val pack get() = parent.viewModel.pack
-
-        private fun updateApplyTemplates() {
-            findPreference<Preference>("applyTemplates")?.title =
-                getString(R.string.app_template_using, pack.config.applyTemplates.size)
-        }
-
-        private fun updateApplyPresets(useWhitelist: Boolean = pack.config.useWhitelist) {
-            findPreference<Preference>("applyPresets")?.title =
-                getString(R.string.app_preset_using, pack.config.applyPresets.size)
-        }
-
-        private fun updateApplySettingsPresets() {
-            findPreference<Preference>("applySettingsPresets")?.title =
-                getString(R.string.app_settings_preset_using, pack.config.applySettingsPresets.size)
-        }
-
-        private fun updateApplySettingsTemplates() {
-            findPreference<Preference>("applySettingsTemplates")?.title =
-                getString(R.string.app_settings_template_using, pack.config.applySettingTemplates.size)
-        }
-
-        private fun updateExtraAppList(useWhiteList: Boolean) {
-            findPreference<Preference>("extraAppList")?.title =
-                if (useWhiteList) getString(R.string.app_extra_apps_visible_count, pack.config.extraAppList.size)
-                else getString(R.string.app_extra_apps_invisible_count, pack.config.extraAppList.size)
-        }
-
-        private fun updateExtraOppositeAppList(useWhiteList: Boolean) {
-            findPreference<Preference>("extraOppositeAppList")?.title =
-                if (!useWhiteList) getString(R.string.app_extra_apps_visible_count, pack.config.extraOppositeAppList.size)
-                else getString(R.string.app_extra_apps_invisible_count, pack.config.extraOppositeAppList.size)
-        }
 
         private fun launchMainActivity(packageName: String) {
             try {
@@ -194,7 +165,7 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
         @SuppressLint("DiscouragedApi")
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             preferenceManager.preferenceDataStore = AppPreferenceDataStore(pack)
-            setPreferencesFromResource(R.xml.app_settings, rootKey)
+            setPreferencesFromResource(R.xml.app_settings_v2, rootKey)
             findPreference<Preference>("appInfo")?.let {
                 it.icon = PackageHelper.loadAppIcon(pack.app)
                 it.title = PackageHelper.loadAppLabel(pack.app)
@@ -222,19 +193,42 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
                     true
                 }
             }
-            findPreference<SwitchPreferenceCompat>("hideInstallationSource")?.setOnPreferenceChangeListener { _, newValue ->
-                Toast.makeText(requireContext(),
-                    R.string.app_force_stop_warning, Toast.LENGTH_LONG).show()
+            findPreference<Preference>("spoofing")?.setOnPreferenceClickListener { _ ->
+                parentFragmentManager.beginTransaction()
+                    .setCustomAnimations(
+                        R.anim.activity_open_enter,
+                        R.anim.activity_open_exit,
+                        R.anim.activity_close_enter,
+                        R.anim.activity_close_exit,
+                    )
+                    .replace(
+                        R.id.settings_container,
+                        AppSpoofingPreferenceFragment(
+                            preferenceManager.preferenceDataStore!!
+                        )
+                    )
+                    .addToBackStack(null)
+                    .commit()
+
                 true
             }
-            findPreference<SwitchPreferenceCompat>("hideSystemInstallationSource")?.setOnPreferenceChangeListener { _, newValue ->
-                Toast.makeText(requireContext(),
-                    R.string.app_force_stop_warning, Toast.LENGTH_LONG).show()
-                true
-            }
-            findPreference<SwitchPreferenceCompat>("excludeTargetInstallationSource")?.setOnPreferenceChangeListener { _, newValue ->
-                Toast.makeText(requireContext(),
-                    R.string.app_force_stop_warning, Toast.LENGTH_LONG).show()
+            findPreference<Preference>("templateConfig")?.setOnPreferenceClickListener { _ ->
+                parentFragmentManager.beginTransaction()
+                    .setCustomAnimations(
+                        R.anim.activity_open_enter,
+                        R.anim.activity_open_exit,
+                        R.anim.activity_close_enter,
+                        R.anim.activity_close_exit,
+                    )
+                    .replace(
+                        R.id.settings_container,
+                        TemplateConfigPreferenceFragment(
+                            preferenceManager.preferenceDataStore!!
+                        )
+                    )
+                    .addToBackStack(null)
+                    .commit()
+
                 true
             }
             findPreference<SwitchPreferenceCompat>("excludeVoldIsolation")?.let {
@@ -242,20 +236,10 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
             }
             findPreference<SwitchPreferenceCompat>("invertActivityLaunchProtection")?.let {
                 it.summary = getString(R.string.app_invert_activity_launch_protection_desc) + "\n\n" +
-                        getString(R.string.app_global_activity_launch_protection_state,
+                        getString(
+                            R.string.app_global_activity_launch_protection_state,
                             (!ConfigManager.disableActivityLaunchProtection).enabledString(resources)
                         )
-            }
-            findPreference<SwitchPreferenceCompat>("useWhiteList")?.setOnPreferenceChangeListener { _, newValue ->
-                val useWhitelist = newValue as Boolean
-
-                pack.config.applyTemplates.clear()
-                pack.config.extraAppList.clear()
-                pack.config.extraOppositeAppList.clear()
-                updateApplyTemplates()
-                updateExtraAppList(useWhitelist)
-                updateExtraOppositeAppList(useWhitelist)
-                true
             }
             findPreference<Preference>("restrictZygotePermissions")?.setOnPreferenceClickListener {
                 val gidPairs = Constants.GID_PAIRS
@@ -276,6 +260,84 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
                         checked[i] = value
                     }.show()
 
+                true
+            }
+        }
+    }
+
+    class AppSpoofingPreferenceFragment(private val preferenceDataStore: PreferenceDataStore) : PreferenceFragmentCompat() {
+        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+            preferenceManager.preferenceDataStore = preferenceDataStore
+            setPreferencesFromResource(R.xml.app_settings_spoofing_v2, rootKey)
+
+            findPreference<SwitchPreferenceCompat>("hideInstallationSource")?.setOnPreferenceChangeListener { _, newValue ->
+                Toast.makeText(requireContext(),
+                    R.string.app_force_stop_warning, Toast.LENGTH_LONG).show()
+                true
+            }
+            findPreference<SwitchPreferenceCompat>("hideSystemInstallationSource")?.setOnPreferenceChangeListener { _, newValue ->
+                Toast.makeText(requireContext(),
+                    R.string.app_force_stop_warning, Toast.LENGTH_LONG).show()
+                true
+            }
+            findPreference<SwitchPreferenceCompat>("excludeTargetInstallationSource")?.setOnPreferenceChangeListener { _, newValue ->
+                Toast.makeText(requireContext(),
+                    R.string.app_force_stop_warning, Toast.LENGTH_LONG).show()
+                true
+            }
+        }
+    }
+
+    class TemplateConfigPreferenceFragment(private val preferenceDataStore: PreferenceDataStore) : PreferenceFragmentCompat() {
+        private val parent get() = requireParentFragment() as AppSettingsV2Fragment
+        private val pack get() = parent.viewModel.pack
+
+        private fun updateApplyTemplates() {
+            findPreference<Preference>("applyTemplates")?.title =
+                getString(R.string.app_template_using, pack.config.applyTemplates.size)
+        }
+
+        @SuppressLint("StringFormatInvalid")
+        private fun updateApplyPresets(useWhitelist: Boolean = pack.config.useWhitelist) {
+            findPreference<Preference>("applyPresets")?.title =
+                getString(R.string.app_preset_using, pack.config.applyPresets.size)
+        }
+
+        private fun updateApplySettingsPresets() {
+            findPreference<Preference>("applySettingsPresets")?.title =
+                getString(R.string.app_settings_preset_using, pack.config.applySettingsPresets.size)
+        }
+
+        private fun updateApplySettingsTemplates() {
+            findPreference<Preference>("applySettingsTemplates")?.title =
+                getString(R.string.app_settings_template_using, pack.config.applySettingTemplates.size)
+        }
+
+        private fun updateExtraAppList(useWhiteList: Boolean) {
+            findPreference<Preference>("extraAppList")?.title =
+                if (useWhiteList) getString(R.string.app_extra_apps_visible_count, pack.config.extraAppList.size)
+                else getString(R.string.app_extra_apps_invisible_count, pack.config.extraAppList.size)
+        }
+
+        private fun updateExtraOppositeAppList(useWhiteList: Boolean) {
+            findPreference<Preference>("extraOppositeAppList")?.title =
+                if (!useWhiteList) getString(R.string.app_extra_apps_visible_count, pack.config.extraOppositeAppList.size)
+                else getString(R.string.app_extra_apps_invisible_count, pack.config.extraOppositeAppList.size)
+        }
+
+        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+            preferenceManager.preferenceDataStore = preferenceDataStore
+            setPreferencesFromResource(R.xml.app_settings_template_config_v2, rootKey)
+
+            findPreference<SwitchPreferenceCompat>("useWhiteList")?.setOnPreferenceChangeListener { _, newValue ->
+                val useWhitelist = newValue as Boolean
+
+                pack.config.applyTemplates.clear()
+                pack.config.extraAppList.clear()
+                pack.config.extraOppositeAppList.clear()
+                updateApplyTemplates()
+                updateExtraAppList(useWhitelist)
+                updateExtraOppositeAppList(useWhitelist)
                 true
             }
             findPreference<Preference>("applyTemplates")?.setOnPreferenceClickListener {
@@ -313,7 +375,7 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
                 true
             }
             findPreference<Preference>("applyPresets")?.setOnPreferenceClickListener {
-                val presetNames = AppPresets.instance.getAllPresetNames()
+                val presetNames = AppPresets.Companion.instance.getAllPresetNames()
                 val presetTranslations = presetNames.map { name ->
                     try {
                         val id = resources.getIdentifier(
@@ -378,7 +440,7 @@ class AppSettingsFragment : Fragment(R.layout.fragment_settings) {
                 }
             }
             findPreference<Preference>("applySettingsPresets")?.setOnPreferenceClickListener {
-                val presetNames = SettingsPresets.instance.getAllPresetNames()
+                val presetNames = SettingsPresets.Companion.instance.getAllPresetNames()
                 val presetTranslations = presetNames.map { name ->
                     try {
                         val id = resources.getIdentifier(

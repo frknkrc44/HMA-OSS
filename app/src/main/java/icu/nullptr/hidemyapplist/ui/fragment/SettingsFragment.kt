@@ -40,7 +40,6 @@ import kotlinx.coroutines.runBlocking
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentSettingsBinding
 import org.frknkrc44.hma_oss.ui.activity.BaseActivity
-import org.frknkrc44.hma_oss.ui.activity.MainActivity
 import org.frknkrc44.hma_oss.ui.preference.AppIconPreference
 import java.util.Locale
 
@@ -174,9 +173,9 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
         }
     }
 
-    class DataIsolationPreferenceFragment : PreferenceFragmentCompat() {
+    class DataIsolationPreferenceFragment(private val preferenceDataStore: PreferenceDataStore) : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-            preferenceManager.preferenceDataStore = SettingsPreferenceDataStore()
+            preferenceManager.preferenceDataStore = preferenceDataStore
             setPreferencesFromResource(R.xml.settings_data_isolation, rootKey)
 
             findPreference<SwitchPreferenceCompat>("appDataIsolation")?.let {
@@ -229,6 +228,25 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                         ConfigManager.forceMountData.enabledString(resources)
                     )
                     else -> getString(R.string.settings_data_isolation_unsupported)
+                }
+                it.setOnPreferenceClickListener { _ ->
+                    parentFragmentManager.beginTransaction()
+                        .setCustomAnimations(
+                            R.anim.activity_open_enter,
+                            R.anim.activity_open_exit,
+                            R.anim.activity_close_enter,
+                            R.anim.activity_close_exit,
+                        )
+                        .replace(
+                            R.id.settings_container,
+                            DataIsolationPreferenceFragment(
+                                preferenceManager.preferenceDataStore!!
+                            )
+                        )
+                        .addToBackStack(null)
+                        .commit()
+
+                    true
                 }
             }
         }
