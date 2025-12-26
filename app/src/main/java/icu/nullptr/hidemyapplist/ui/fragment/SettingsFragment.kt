@@ -16,7 +16,6 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceDataStore
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SeekBarPreference
-import androidx.preference.SwitchPreference
 import androidx.preference.SwitchPreferenceCompat
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.color.DynamicColors

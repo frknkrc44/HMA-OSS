@@ -15,6 +15,7 @@ import androidx.appcompat.widget.AppCompatRadioButton
 import androidx.preference.Preference
 import androidx.preference.PreferenceViewHolder
 import icu.nullptr.hidemyapplist.data.AppConstants
+import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.asDrawable
 import icu.nullptr.hidemyapplist.util.PackageHelper.findEnabledAppComponent
 import org.frknkrc44.hma_oss.BuildConfig
@@ -69,6 +70,11 @@ class AppIconPreference(context: Context, attrs: AttributeSet?) : Preference(con
             for (idx in 0 ..< appIconsList.size) {
                 val radioButton = object : AppCompatRadioButton(context) {
                     override fun setChecked(checked: Boolean) {
+                        if (PrefManager.hideIcon) {
+                            alpha = 0.4f
+                            return
+                        }
+
                         super.setChecked(checked)
 
                         alpha = if (checked) 1.0f else 0.4f
