@@ -3,6 +3,7 @@ package icu.nullptr.hidemyapplist.xposed.hook
 import android.content.pm.PackageManager
 import android.os.Binder
 import android.os.Build
+import android.os.UserHandle
 import android.util.ArrayMap
 import com.github.kyuubiran.ezxhelper.utils.findMethod
 import com.github.kyuubiran.ezxhelper.utils.findMethodOrNull
@@ -77,6 +78,25 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
 
                             return@hookAfter
                         }
+                    }
+                }
+            }
+
+            hooks += findMethod(COMPUTER_ENGINE_CLASS) {
+                name == "isCallerInstallerOfRecord"
+            }.hookBefore { param ->
+                val pkg = param.args.first()
+                val query = XposedHelpers.callMethod(pkg, "getPackageName") as String
+
+                val callingUid = param.args.last() as Int
+                val callingApps = Utils4Xposed.getCallingApps(service, callingUid)
+                val callingHandle = UserHandle.getUserHandleForUid(callingUid)
+
+                for (caller in callingApps) {
+                    when (service.shouldHideInstallationSource(caller, query, callingHandle)) {
+                        Constants.FAKE_INSTALLATION_SOURCE_USER -> param.result = callingUid == psPackageInfo?.applicationInfo?.uid
+                        Constants.FAKE_INSTALLATION_SOURCE_SYSTEM -> param.result = false
+                        else -> continue
                     }
                 }
             }
