@@ -16,6 +16,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceDataStore
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SeekBarPreference
+import androidx.preference.SwitchPreference
 import androidx.preference.SwitchPreferenceCompat
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.color.DynamicColors
@@ -108,6 +109,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                 "systemWallpaper" -> PrefManager.systemWallpaper
                 "blackDarkTheme" -> PrefManager.blackDarkTheme
                 "detailLog" -> ConfigManager.detailLog
+                "errorOnlyLog" -> ConfigManager.errorOnlyLog
                 "hideIcon" -> PrefManager.hideIcon
                 "bypassRiskyPackageWarning" -> PrefManager.bypassRiskyPackageWarning
                 "appDataIsolation" -> ConfigManager.altAppDataIsolation
@@ -143,6 +145,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                 "systemWallpaper" -> PrefManager.systemWallpaper = value
                 "blackDarkTheme" -> PrefManager.blackDarkTheme = value
                 "detailLog" -> ConfigManager.detailLog = value
+                "errorOnlyLog" -> ConfigManager.errorOnlyLog = value
                 "forceMountData" -> ConfigManager.forceMountData = value
                 "hideIcon" -> PrefManager.hideIcon = value
                 "bypassRiskyPackageWarning" -> PrefManager.bypassRiskyPackageWarning = value
@@ -332,6 +335,28 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
             findPreference<SeekBarPreference>("systemWallpaperAlpha")?.apply {
                 setOnPreferenceChangeListener { _, value ->
                     (requireActivity() as BaseActivity).applyWallpaperBackgroundColor(value as Int)
+
+                    true
+                }
+            }
+
+            val detailLog = findPreference<SwitchPreferenceCompat>("detailLog")
+            val errorOnlyLog = findPreference<SwitchPreferenceCompat>("errorOnlyLog")
+
+            detailLog?.apply {
+                isEnabled = !(errorOnlyLog?.isChecked ?: false)
+
+                setOnPreferenceChangeListener { _, value ->
+                    errorOnlyLog?.isEnabled = !(value as Boolean)
+
+                    true
+                }
+            }
+            errorOnlyLog?.apply {
+                isEnabled = !(detailLog?.isChecked ?: false)
+
+                setOnPreferenceChangeListener { _, value ->
+                    detailLog?.isEnabled = !(value as Boolean)
 
                     true
                 }

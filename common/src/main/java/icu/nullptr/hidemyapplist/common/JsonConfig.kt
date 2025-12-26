@@ -9,6 +9,7 @@ import org.frknkrc44.hma_oss.common.BuildConfig
 data class JsonConfig(
     var configVersion: Int = BuildConfig.CONFIG_VERSION,
     var detailLog: Boolean = false,
+    var errorOnlyLog: Boolean = false,
     var maxLogSize: Int = 512,
     var forceMountData: Boolean = true,
     var disableActivityLaunchProtection: Boolean = false,

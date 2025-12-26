@@ -80,6 +80,10 @@
             android:icon="@drawable/outline_bug_report_24"
             android:key="detailLog"
             android:title="@string/settings_detail_log" />
+        <SwitchPreferenceCompat
+            android:icon="@drawable/outline_bug_report_24"
+            android:key="errorOnlyLog"
+            android:title="@string/settings_error_only_log" />
         <ListPreference
             android:defaultValue="512"
             android:entries="@array/max_log_size_entries"
