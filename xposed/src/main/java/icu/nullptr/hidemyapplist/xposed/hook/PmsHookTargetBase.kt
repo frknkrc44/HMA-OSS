@@ -53,7 +53,7 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                 val callingUid = Binder.getCallingUid()
                 if (callingUid == Constants.UID_SYSTEM) return@hookAfter
 
-                val callingApps = Utils4Xposed.getCallingApps(service)
+                val callingApps = Utils4Xposed.getCallingApps(service, callingUid)
                 for (caller in callingApps) {
                     if (service.isHookEnabled(caller)) {
                         logD(TAG, "@getPackageStates: incoming query from $caller")
@@ -89,6 +89,8 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                 val query = XposedHelpers.callMethod(pkg, "getPackageName") as String
 
                 val callingUid = param.args.last() as Int
+                if (callingUid == Constants.UID_SYSTEM) return@hookBefore
+
                 val callingApps = Utils4Xposed.getCallingApps(service, callingUid)
                 val callingHandle = UserHandle.getUserHandleForUid(callingUid)
 
@@ -111,9 +113,12 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
             }?.hookBefore { param ->
                 val query = param.args[0] as String?
 
-                val callingHandle = Binder.getCallingUserHandle()
+                val callingUid = Binder.getCallingUid()
+                if (callingUid == Constants.UID_SYSTEM) return@hookBefore
 
-                val callingApps = Utils4Xposed.getCallingApps(service)
+                val callingApps = Utils4Xposed.getCallingApps(service, callingUid)
+                val callingHandle = UserHandle.getUserHandleForUid(callingUid)
+
                 for (caller in callingApps) {
                     when (service.shouldHideInstallationSource(caller, query, callingHandle)) {
                         Constants.FAKE_INSTALLATION_SOURCE_USER -> param.result = VENDING_PACKAGE_NAME
@@ -136,13 +141,14 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
             }?.hookBefore { param ->
                 val query = param.args[0] as String?
 
-                val user = Binder.getCallingUserHandle()
                 val callingUid = Binder.getCallingUid()
                 if (callingUid == Constants.UID_SYSTEM) return@hookBefore
 
                 val callingApps = Utils4Xposed.getCallingApps(service, callingUid)
+                val callingHandle = UserHandle.getUserHandleForUid(callingUid)
+
                 for (caller in callingApps) {
-                    when (service.shouldHideInstallationSource(caller, query, user)) {
+                    when (service.shouldHideInstallationSource(caller, query, callingHandle)) {
                         Constants.FAKE_INSTALLATION_SOURCE_USER -> param.result = fakeUserPackageInstallSourceInfo
                         Constants.FAKE_INSTALLATION_SOURCE_SYSTEM -> param.result = fakeSystemPackageInstallSourceInfo
                         else -> continue
@@ -161,13 +167,14 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
         }.hookBefore { param ->
             val query = param.args[0] as String?
 
-            val user = Binder.getCallingUserHandle()
             val callingUid = Binder.getCallingUid()
             if (callingUid == Constants.UID_SYSTEM) return@hookBefore
 
             val callingApps = Utils4Xposed.getCallingApps(service, callingUid)
+            val callingHandle = UserHandle.getUserHandleForUid(callingUid)
+
             for (caller in callingApps) {
-                when (service.shouldHideInstallationSource(caller, query, user)) {
+                when (service.shouldHideInstallationSource(caller, query, callingHandle)) {
                     Constants.FAKE_INSTALLATION_SOURCE_USER -> param.result = VENDING_PACKAGE_NAME
                     Constants.FAKE_INSTALLATION_SOURCE_SYSTEM -> param.result = null
                     else -> continue

@@ -276,7 +276,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         return false
     }
 
-    fun shouldHideInstallationSource(caller: String?, query: String?, user: UserHandle): Int {
+    fun shouldHideInstallationSource(caller: String?, query: String?, callingHandle: UserHandle): Int {
         if (caller == null || query == null) return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
         if (caller == BuildConfig.APP_PACKAGE_NAME) return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
         val appConfig = config.scope[caller] ?: return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
@@ -285,11 +285,11 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         if (caller == query && appConfig.excludeTargetInstallationSource) return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
 
         try {
-            val uid = Utils.getPackageUidCompat(pms, query, 0L, user.hashCode())
-            logD(TAG, "@shouldHideInstallationSource UID for $caller, ${user.hashCode()}: $query, $uid")
+            val uid = Utils.getPackageUidCompat(pms, query, 0L, callingHandle.hashCode())
+            logD(TAG, "@shouldHideInstallationSource UID for $caller, ${callingHandle.hashCode()}: $query, $uid")
             if (uid < 0) return Constants.FAKE_INSTALLATION_SOURCE_DISABLED // invalid package installation source request
         } catch (e: Throwable) {
-            logD(TAG, "@shouldHideInstallationSource UID error for $caller, ${user.hashCode()}", e)
+            logD(TAG, "@shouldHideInstallationSource UID error for $caller, ${callingHandle.hashCode()}", e)
             return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
         }
 
