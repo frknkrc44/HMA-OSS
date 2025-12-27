@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/application">
+        <Preference
+            android:key="appInfo" />
+        <SwitchPreferenceCompat
+            android:icon="@drawable/outline_shield_24"
+            android:key="enableHide"
+            android:title="@string/app_enable_hide" />
+    </PreferenceCategory>
+
+    <Preference
+        android:dependency="enableHide"
+        android:key="spoofing"
+        android:icon="@drawable/outline_shop_24"
+        android:title="@string/app_spoof" />
+
+    <PreferenceCategory
+        android:dependency="enableHide"
+        android:title="@string/preferences">
+        <Preference
+            android:key="templateConfig"
+            android:icon="@drawable/outline_assignment_24"
+            android:title="@string/app_template_config" />
+        <SwitchPreferenceCompat
+            android:icon="@drawable/outline_android_24"
+            android:key="invertActivityLaunchProtection"
+            android:title="@string/app_invert_activity_launch_protection"
+            android:summary="@string/app_invert_activity_launch_protection_desc" />
+        <Preference
+            android:icon="@drawable/syringe_24px"
+            android:key="restrictZygotePermissions"
+            android:title="@string/app_restrict_zygote_permissions"
+            android:summary="@string/app_restrict_zygote_permissions_desc" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:dependency="enableHide"
+        android:title="@string/settings_vold_app_data_isolation">
+        <SwitchPreferenceCompat
+            android:icon="@drawable/baseline_call_split_24"
+            android:key="excludeVoldIsolation"
+            android:title="@string/app_exclude_target_installation_source" />
+    </PreferenceCategory>
+</PreferenceScreen>

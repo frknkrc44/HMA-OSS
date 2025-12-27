@@ -6,6 +6,8 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
+import android.util.Log
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toDrawable
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.hmaApp
@@ -26,6 +28,8 @@ import java.text.Collator
 import java.util.Locale
 
 object PackageHelper {
+    const val TAG = "PackageHelper"
+
     class PackageCache(
         val info: PackageInfo,
         val label: String,
@@ -169,7 +173,23 @@ object PackageHelper {
                 hmaApp.packageManager.getActivityIcon(activityName)
             }
         } else {
-            hmaApp.appIconLoader.loadIcon(appInfo).toDrawable(hmaApp.resources)
+            try {
+                hmaApp.appIconLoader.loadIcon(appInfo).toDrawable(hmaApp.resources)
+            } catch (e: Throwable) {
+                ServiceClient.log(Log.ERROR, TAG, e.stackTraceToString())
+
+                try {
+                    appInfo.loadIcon(hmaApp.packageManager)
+                } catch (x: Throwable) {
+                    ServiceClient.log(Log.ERROR, TAG, x.stackTraceToString())
+
+                    return ResourcesCompat.getDrawable(
+                        hmaApp.resources,
+                        android.R.drawable.sym_def_app_icon,
+                        hmaApp.theme,
+                    )!!
+                }
+            }
         }
     }
 

@@ -1,6 +1,7 @@
 package org.frknkrc44.hma_oss.ui.fragment
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.LayerDrawable
 import android.os.Build
@@ -12,9 +13,12 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import icu.nullptr.hidemyapplist.data.fetchLatestUpdate
 import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.service.ServiceClient
@@ -26,10 +30,16 @@ import icu.nullptr.hidemyapplist.ui.util.contentResolver
 import icu.nullptr.hidemyapplist.ui.util.navigate
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import icu.nullptr.hidemyapplist.ui.util.showToast
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.frknkrc44.hma_oss.BuildConfig
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentHomeBinding
 import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 /**
  * A simple [Fragment] subclass.
@@ -307,7 +317,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             if (PrefManager.systemWallpaper) background.alpha = 0xAA
 
             setOnClickListener {
-                backupSAFLauncher.launch("HMA_Config_${System.currentTimeMillis()}.json")
+                val date = SimpleDateFormat("yyyy-MM-dd_HH.mm.ss", Locale.getDefault()).format(Date())
+                backupSAFLauncher.launch("HMA-OSS_config_$date.json")
             }
         }
 
@@ -316,6 +327,38 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
             setOnClickListener {
                 restoreSAFLauncher.launch("application/json")
+            }
+        }
+
+        lifecycleScope.launch {
+            loadUpdateDialog()
+        }
+    }
+
+    @SuppressLint("StringFormatInvalid")
+    private fun loadUpdateDialog() {
+        if (PrefManager.disableUpdate || BuildConfig.VERSION_NAME.count { it == '-' } != 1) return
+        fetchLatestUpdate { updateInfo ->
+            if (updateInfo.versionName != BuildConfig.VERSION_NAME) {
+                withContext(Dispatchers.Main) {
+                    MaterialAlertDialogBuilder(requireContext())
+                        .setCancelable(false)
+                        .setTitle(getString(R.string.home_new_update, updateInfo.versionName))
+                        .setMessage(updateInfo.content)
+                        .setPositiveButton("GitHub") { _, _ ->
+                            startActivity(
+                                Intent(
+                                    Intent.ACTION_VIEW,
+                                    updateInfo.downloadUrl.toUri()
+                                )
+                            )
+                        }
+                        .setNegativeButton("Telegram") { _, _ ->
+                            startActivity(Intent(Intent.ACTION_VIEW, "https://t.me/aerathfuns".toUri()))
+                        }
+                        .setNeutralButton(android.R.string.cancel, null)
+                        .show()
+                }
             }
         }
     }

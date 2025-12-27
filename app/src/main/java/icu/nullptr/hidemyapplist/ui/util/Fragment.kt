@@ -1,6 +1,7 @@
 package icu.nullptr.hidemyapplist.ui.util
 
 import android.content.ContentResolver
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -15,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import org.frknkrc44.hma_oss.R
+import org.frknkrc44.hma_oss.ui.activity.MainActivity
 
 val Fragment.navController get() = NavHostFragment.findNavController(this)
 
@@ -63,3 +65,15 @@ fun Fragment.setupToolbar(
 }
 
 val Fragment.contentResolver get(): ContentResolver = requireContext().contentResolver
+
+fun Fragment.recreateMainActivity(restart: Boolean = false) {
+    val mainActivity = activity as MainActivity
+    mainActivity.readyToKill = false
+
+    if (restart) {
+        mainActivity.finish()
+        startActivity(Intent(mainActivity, mainActivity.javaClass))
+    } else {
+        mainActivity.recreate()
+    }
+}

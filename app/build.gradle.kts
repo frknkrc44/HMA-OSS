@@ -12,7 +12,7 @@ plugins {
     alias(libs.plugins.kotlin)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.nav.safeargs.kotlin)
-    alias(libs.plugins.naterialthemebuilder)
+    alias(libs.plugins.materialthemebuilder)
 }
 
 materialThemeBuilder {

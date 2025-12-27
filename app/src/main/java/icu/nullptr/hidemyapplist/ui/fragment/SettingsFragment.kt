@@ -28,6 +28,7 @@ import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.util.enabledString
 import icu.nullptr.hidemyapplist.ui.util.navController
+import icu.nullptr.hidemyapplist.ui.util.recreateMainActivity
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import icu.nullptr.hidemyapplist.ui.util.showToast
 import icu.nullptr.hidemyapplist.util.ConfigUtils.Companion.getLocale
@@ -39,7 +40,6 @@ import kotlinx.coroutines.runBlocking
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentSettingsBinding
 import org.frknkrc44.hma_oss.ui.activity.BaseActivity
-import org.frknkrc44.hma_oss.ui.activity.MainActivity
 import org.frknkrc44.hma_oss.ui.preference.AppIconPreference
 import java.util.Locale
 
@@ -108,6 +108,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                 "systemWallpaper" -> PrefManager.systemWallpaper
                 "blackDarkTheme" -> PrefManager.blackDarkTheme
                 "detailLog" -> ConfigManager.detailLog
+                "errorOnlyLog" -> ConfigManager.errorOnlyLog
                 "hideIcon" -> PrefManager.hideIcon
                 "bypassRiskyPackageWarning" -> PrefManager.bypassRiskyPackageWarning
                 "appDataIsolation" -> ConfigManager.altAppDataIsolation
@@ -115,6 +116,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                 "skipSystemAppDataIsolation" -> ConfigManager.skipSystemAppDataIsolation
                 "disableActivityLaunchProtection" -> ConfigManager.disableActivityLaunchProtection
                 "forceMountData" -> ConfigManager.forceMountData
+                "disableUpdate" -> PrefManager.disableUpdate
                 "packageQueryWorkaround" -> ConfigManager.packageQueryWorkaround
                 else -> throw IllegalArgumentException("Invalid key: $key")
             }
@@ -143,7 +145,9 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                 "systemWallpaper" -> PrefManager.systemWallpaper = value
                 "blackDarkTheme" -> PrefManager.blackDarkTheme = value
                 "detailLog" -> ConfigManager.detailLog = value
+                "errorOnlyLog" -> ConfigManager.errorOnlyLog = value
                 "forceMountData" -> ConfigManager.forceMountData = value
+                "disableUpdate" -> PrefManager.disableUpdate = value
                 "hideIcon" -> PrefManager.hideIcon = value
                 "bypassRiskyPackageWarning" -> PrefManager.bypassRiskyPackageWarning = value
                 "disableActivityLaunchProtection" -> ConfigManager.disableActivityLaunchProtection = value
@@ -173,9 +177,9 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
         }
     }
 
-    class DataIsolationPreferenceFragment : PreferenceFragmentCompat() {
+    class DataIsolationPreferenceFragment(private val preferenceDataStore: PreferenceDataStore) : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-            preferenceManager.preferenceDataStore = SettingsPreferenceDataStore()
+            preferenceManager.preferenceDataStore = preferenceDataStore
             setPreferencesFromResource(R.xml.settings_data_isolation, rootKey)
 
             findPreference<SwitchPreferenceCompat>("appDataIsolation")?.let {
@@ -229,6 +233,25 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                     )
                     else -> getString(R.string.settings_data_isolation_unsupported)
                 }
+                it.setOnPreferenceClickListener { _ ->
+                    parentFragmentManager.beginTransaction()
+                        .setCustomAnimations(
+                            R.anim.activity_open_enter,
+                            R.anim.activity_open_exit,
+                            R.anim.activity_close_enter,
+                            R.anim.activity_close_exit,
+                        )
+                        .replace(
+                            R.id.settings_container,
+                            DataIsolationPreferenceFragment(
+                                preferenceManager.preferenceDataStore!!
+                            )
+                        )
+                        .addToBackStack(null)
+                        .commit()
+
+                    true
+                }
             }
         }
 
@@ -261,7 +284,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                     val config = resources.configuration
                     config.setLocale(locale)
                     hmaApp.resources.updateConfiguration(config, resources.displayMetrics)
-                    activity?.recreate()
+                    recreateMainActivity()
                     true
                 }
             }
@@ -278,7 +301,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                 it.isVisible = DynamicColors.isDynamicColorAvailable()
 
                 it.setOnPreferenceChangeListener { _, _ ->
-                    activity?.recreate()
+                    recreateMainActivity()
                     true
                 }
             }
@@ -287,7 +310,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                 if (!DynamicColors.isDynamicColorAvailable()) it.dependency = null
 
                 it.setOnPreferenceChangeListener { _, _ ->
-                    activity?.recreate()
+                    recreateMainActivity()
                     true
                 }
             }
@@ -296,7 +319,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                 val newMode = (newValue as String).toInt()
                 if (PrefManager.darkTheme != newMode) {
                     AppCompatDelegate.setDefaultNightMode(newMode)
-                    activity?.recreate()
+                    recreateMainActivity()
                 }
                 true
             }
@@ -304,15 +327,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
             findPreference<SwitchPreferenceCompat>("systemWallpaper")?.apply {
                 isEnabled = findPreference<SwitchPreferenceCompat>("blackDarkTheme")?.isChecked != true
                 setOnPreferenceChangeListener { _, value ->
-                    val activity = requireActivity() as MainActivity
-                    activity.readyToKill = false
-
-                    if (value as Boolean) {
-                        activity.finish()
-                        startActivity(Intent(activity, activity.javaClass))
-                    } else {
-                        activity.recreate()
-                    }
+                    recreateMainActivity(value as Boolean)
 
                     true
                 }
@@ -321,6 +336,28 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
             findPreference<SeekBarPreference>("systemWallpaperAlpha")?.apply {
                 setOnPreferenceChangeListener { _, value ->
                     (requireActivity() as BaseActivity).applyWallpaperBackgroundColor(value as Int)
+
+                    true
+                }
+            }
+
+            val detailLog = findPreference<SwitchPreferenceCompat>("detailLog")
+            val errorOnlyLog = findPreference<SwitchPreferenceCompat>("errorOnlyLog")
+
+            detailLog?.apply {
+                isEnabled = !(errorOnlyLog?.isChecked ?: false)
+
+                setOnPreferenceChangeListener { _, value ->
+                    errorOnlyLog?.isEnabled = !(value as Boolean)
+
+                    true
+                }
+            }
+            errorOnlyLog?.apply {
+                isEnabled = !(detailLog?.isChecked ?: false)
+
+                setOnPreferenceChangeListener { _, value ->
+                    detailLog?.isEnabled = !(value as Boolean)
 
                     true
                 }
@@ -371,7 +408,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
             findPreference<SwitchPreferenceCompat>("blackDarkTheme")?.apply {
                 isEnabled = findPreference<SwitchPreferenceCompat>("systemWallpaper")?.isChecked != true
                 setOnPreferenceChangeListener { _, _ ->
-                    activity?.recreate()
+                    recreateMainActivity()
                     true
                 }
             }

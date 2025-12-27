@@ -1,26 +1,27 @@
 [versions]
-agp = "8.13.1"
-kotlin = "2.2.20"
+agp = "8.13.2"
+kotlin = "2.3.0"
 material = "1.13.0"
 hidden-api = "4.4.0"
+androidx-navigation = "2.9.6"
 
 [plugins]
 agp-app = { id = "com.android.application", version.ref = "agp" }
 agp-lib = { id = "com.android.library", version.ref = "agp" }
 kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-nav-safeargs-kotlin = { id = "androidx.navigation.safeargs.kotlin", version = "2.9.5" }
+nav-safeargs-kotlin = { id = "androidx.navigation.safeargs.kotlin", version.ref = "androidx-navigation" }
 autoresconfig = { id = "dev.rikka.tools.autoresconfig", version = "1.2.2" }
 refine = { id = "dev.rikka.tools.refine", version = "4.4.0" }
-naterialthemebuilder = { id = "dev.rikka.tools.materialthemebuilder", version = "1.5.1" }
+materialthemebuilder = { id = "dev.rikka.tools.materialthemebuilder", version = "1.5.1" }
 
 [libraries]
 androidx-appcompat-appcompat = { group = "androidx.appcompat", name = "appcompat", version = "1.7.1" }
 androidx-annotation-jvm = { group = "androidx.annotation", name = "annotation-jvm", version = "1.9.1" }
-androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version = "2.9.5" }
-androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version = "2.9.5" }
+androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "androidx-navigation" }
+androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidx-navigation" }
 androidx-preference-ktx = { module = "androidx.preference:preference-ktx", version = "1.2.1" }
-androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version = "1.1.0" }
+androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version = "1.2.0" }
 com-github-bumptech-glide = { module = "com.github.bumptech.glide:glide", version = "5.0.5" }
 com-github-kirich1409-viewbindingpropertydelegate = { module = "com.github.kirich1409:viewbindingpropertydelegate", version = "1.5.9" }
 #noinspection NewerVersionAvailable

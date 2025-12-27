@@ -85,7 +85,7 @@ class LogsFragment : Fragment(R.layout.fragment_logs) {
             R.id.menu_refresh -> updateLogs()
             R.id.menu_save -> {
                 val date = SimpleDateFormat("yyyy-MM-dd_HH.mm.ss", Locale.getDefault()).format(Date())
-                saveSAFLauncher.launch("hma_logs_$date.log")
+                saveSAFLauncher.launch("HMA-OSS_logs_$date.log")
             }
             R.id.menu_delete -> {
                 ServiceClient.clearLogs()

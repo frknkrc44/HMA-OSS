@@ -7,4 +7,6 @@ object AppConstants {
     const val COMPONENT_NAME_ALT     = "${BuildConfig.APPLICATION_ID}.MainActivityLauncherAlt"
     const val COMPONENT_NAME_ALT_2   = "${BuildConfig.APPLICATION_ID}.MainActivityLauncherAlt2"
     const val COMPONENT_NAME_ALT_3   = "${BuildConfig.APPLICATION_ID}.MainActivityLauncherAlt3"
+
+    const val UPDATE_CHECK_URL = "https://api.github.com/repos/frknkrc44/HMA-OSS/releases/latest"
 }
