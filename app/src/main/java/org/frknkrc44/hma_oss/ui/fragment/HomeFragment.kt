@@ -37,6 +37,9 @@ import org.frknkrc44.hma_oss.BuildConfig
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentHomeBinding
 import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 /**
  * A simple [Fragment] subclass.
@@ -314,7 +317,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             if (PrefManager.systemWallpaper) background.alpha = 0xAA
 
             setOnClickListener {
-                backupSAFLauncher.launch("HMA_Config_${System.currentTimeMillis()}.json")
+                val date = SimpleDateFormat("yyyy-MM-dd_HH.mm.ss", Locale.getDefault()).format(Date())
+                backupSAFLauncher.launch("HMA-OSS_config_$date.json")
             }
         }
 
