@@ -98,6 +98,9 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                         Constants.FAKE_INSTALLATION_SOURCE_SYSTEM -> param.result = false
                         else -> continue
                     }
+
+                    service.filterCount++
+                    break
                 }
             }
         }
@@ -117,6 +120,9 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                         Constants.FAKE_INSTALLATION_SOURCE_SYSTEM -> param.result = "preload"
                         else -> continue
                     }
+
+                    service.filterCount++
+                    break
                 }
             }?.let {
                 logD(TAG, "PMN getInstallerForPackage is hooked!")
