@@ -12,16 +12,11 @@ class UpdateInfo(
     val downloadUrl: String,
 )
 
-fun fetchLatestUpdate(onGetUpdateInfo: suspend (UpdateInfo?) -> Unit) {
+fun fetchLatestUpdate(onGetUpdateInfo: suspend (UpdateInfo) -> Unit) {
     thread {
         val jsonText = runCatching {
             URL(AppConstants.UPDATE_CHECK_URL).readText()
-        }.getOrNull()
-
-        if (jsonText == null) {
-            runBlocking { onGetUpdateInfo(null) }
-            return@thread
-        }
+        }.getOrNull() ?: return@thread
 
         val json = JSONObject(jsonText)
 

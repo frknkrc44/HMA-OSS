@@ -337,8 +337,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun loadUpdateDialog() {
         if (PrefManager.disableUpdate) return
         fetchLatestUpdate { updateInfo ->
-            if (updateInfo == null) return@fetchLatestUpdate
-
             if (updateInfo.versionName != BuildConfig.VERSION_NAME && BuildConfig.VERSION_NAME.count { it == '-' } == 1) {
                 withContext(Dispatchers.Main) {
                     MaterialAlertDialogBuilder(requireContext())
