@@ -116,6 +116,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                 "skipSystemAppDataIsolation" -> ConfigManager.skipSystemAppDataIsolation
                 "disableActivityLaunchProtection" -> ConfigManager.disableActivityLaunchProtection
                 "forceMountData" -> ConfigManager.forceMountData
+                "disableUpdate" -> PrefManager.disableUpdate
                 "packageQueryWorkaround" -> ConfigManager.packageQueryWorkaround
                 else -> throw IllegalArgumentException("Invalid key: $key")
             }
@@ -146,6 +147,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                 "detailLog" -> ConfigManager.detailLog = value
                 "errorOnlyLog" -> ConfigManager.errorOnlyLog = value
                 "forceMountData" -> ConfigManager.forceMountData = value
+                "disableUpdate" -> PrefManager.disableUpdate = value
                 "hideIcon" -> PrefManager.hideIcon = value
                 "bypassRiskyPackageWarning" -> PrefManager.bypassRiskyPackageWarning = value
                 "disableActivityLaunchProtection" -> ConfigManager.disableActivityLaunchProtection = value

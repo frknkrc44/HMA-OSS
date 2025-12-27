@@ -119,4 +119,12 @@
             android:summary="@string/settings_force_clean_env_summary"
             android:title="@string/settings_force_clean_env" />
     </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/settings_update">
+        <SwitchPreferenceCompat
+            android:disableDependentsState="true"
+            android:icon="@drawable/outline_update_disabled_24"
+            android:key="disableUpdate"
+            android:title="@string/settings_disable_update" />
+    </PreferenceCategory>
 </PreferenceScreen>
