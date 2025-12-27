@@ -4,10 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.LayerDrawable
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.text.Html
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
@@ -335,9 +333,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     @SuppressLint("StringFormatInvalid")
     private fun loadUpdateDialog() {
-        if (PrefManager.disableUpdate) return
+        if (PrefManager.disableUpdate || BuildConfig.VERSION_NAME.count { it == '-' } != 1) return
         fetchLatestUpdate { updateInfo ->
-            if (updateInfo.versionName != BuildConfig.VERSION_NAME && BuildConfig.VERSION_NAME.count { it == '-' } == 1) {
+            if (updateInfo.versionName != BuildConfig.VERSION_NAME) {
                 withContext(Dispatchers.Main) {
                     MaterialAlertDialogBuilder(requireContext())
                         .setCancelable(false)

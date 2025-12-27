@@ -1,10 +1,9 @@
 package icu.nullptr.hidemyapplist.data
 
 import kotlinx.coroutines.runBlocking
+import org.json.JSONObject
 import java.net.URL
 import kotlin.concurrent.thread
-
-import org.json.JSONObject
 
 class UpdateInfo(
     val versionName: String,
