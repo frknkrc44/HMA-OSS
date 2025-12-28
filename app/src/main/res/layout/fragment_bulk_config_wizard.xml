@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:buttonText="@string/edit_list"
-            app:icon="@drawable/baseline_apps_24" />
+            app:icon="@drawable/outline_android_24" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/apply_button"
