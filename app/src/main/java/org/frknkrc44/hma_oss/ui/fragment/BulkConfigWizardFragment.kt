@@ -5,32 +5,24 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowInsets
-import android.widget.Toast
-import androidx.activity.addCallback
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.clearFragmentResultListener
-import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.service.ConfigManager
+import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.fragment.ScopeFragmentArgs
-import icu.nullptr.hidemyapplist.ui.fragment.TemplateSettingsFragmentArgs
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.navigate
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import icu.nullptr.hidemyapplist.ui.util.showToast
-import icu.nullptr.hidemyapplist.ui.viewmodel.TemplateSettingsViewModel
 import kotlinx.coroutines.launch
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentBulkConfigWizardBinding
-import org.frknkrc44.hma_oss.databinding.FragmentTemplateSettingsBinding
 import org.frknkrc44.hma_oss.ui.viewmodel.BulkConfigWizardViewModel
 
 class BulkConfigWizardFragment : Fragment(R.layout.fragment_bulk_config_wizard) {
@@ -74,15 +66,21 @@ class BulkConfigWizardFragment : Fragment(R.layout.fragment_bulk_config_wizard) 
             )
             navigate(R.id.nav_app_settings, args.toBundle())
         }
-        binding.applyButton.setOnClickListener {
-            if (viewModel.appliedAppList.value.isEmpty()) return@setOnClickListener
-
-            for (pkg in viewModel.appliedAppList.value) {
-                ConfigManager.setAppConfig(pkg, viewModel.appConfig.value)
+        with(binding.applyButton){
+            if (PrefManager.systemWallpaper) {
+                background.alpha = 0xAA
             }
 
-            showToast(android.R.string.ok)
-            navController.navigateUp()
+            setOnClickListener {
+                if (viewModel.appliedAppList.value.isEmpty()) return@setOnClickListener
+
+                for (pkg in viewModel.appliedAppList.value) {
+                    ConfigManager.setAppConfig(pkg, viewModel.appConfig.value)
+                }
+
+                showToast(android.R.string.ok)
+                navController.navigateUp()
+            }
         }
 
         lifecycleScope.launch {

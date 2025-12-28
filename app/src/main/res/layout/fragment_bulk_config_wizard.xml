@@ -42,7 +42,6 @@
             app:icon="@drawable/outline_settings_24" />
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Widget.Material3.Button.ElevatedButton"
             android:id="@+id/apply_button"
             android:text="@string/apply"
             android:layout_width="wrap_content"
