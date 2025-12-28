@@ -31,6 +31,7 @@
     <string name="system">Система</string>
     <string name="add">Add</string>
     <string name="edit">Edit</string>
+    <string name="apply">Apply</string>
     <string name="follow_system">Как в системе</string>
     <!-- Home -->
     <string name="home_xposed_activated">Модуль активирован [%s]</string>
@@ -170,6 +171,7 @@
     <string name="settings_package_query_workaround">Alternative package query</string>
     <string name="settings_package_query_workaround_summary">Don\'t enable this option if you see the package list in this app correctly.</string>
     <string name="settings_launcher_icon">Launcher icon</string>
+    <string name="settings_error_only_log">Error-only log</string>
     <string name="settings_language">Язык</string>
     <string name="settings_translate">Принять участие в переводе</string>
     <string name="settings_translate_summary">Помогите нам перевести %s на ваш язык</string>
@@ -191,6 +193,8 @@
     <string name="settings_disable_update">Отключить уведомления об обновлениях</string>
     <string name="settings_receive_beta_update">Получать обновления до бета-версий</string>
     <string name="settings_receive_beta_update_summary">Бета-версии могут быть нестабильными</string>
+    <!-- Bulk config wizard -->
+    <string name="title_bulk_config_wizard">Bulk config wizard</string>
     <!-- About -->
     <string name="about_description">        Хотя и неправильно определять наличие конкретных приложений, сейчас не каждое приложение, использующее root-права имеет поддержку случайного имени пакета. В этом случае обнаруженные приложения, использующие root-права (такие как Fake Location и Storage Isolation), будут равны обнаруженным root-правам.\n\nВ это же время некоторые умные приложения используют лазейки, чтобы получить список приложений и нарисовать себе вашу персону.\n\nЭто приложение предоставляет несколько методов для проверки того, насколько хорошо вы скрыли свой список приложений. Также это приложение может работать как Xposed модуль, чтобы скрыть какие-либо приложения или отклонять запросы на получение списка приложений для защиты вашей конфиденциальности.
     </string>
