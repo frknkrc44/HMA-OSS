@@ -31,7 +31,7 @@
     <string name="system">系统</string>
     <string name="add">添加</string>
     <string name="edit">编辑</string>
-    <string name="apply">Apply</string>
+    <string name="apply">应用</string>
     <string name="follow_system">跟随系统</string>
     <!-- Home -->
     <string name="home_xposed_activated">模块已激活 [%s]</string>
@@ -171,7 +171,7 @@
     <string name="settings_package_query_workaround">备用应用查询方案</string>
     <string name="settings_package_query_workaround_summary">如果本应用能正常显示已安装的应用列表，请勿开启此项</string>
     <string name="settings_launcher_icon">桌面图标</string>
-    <string name="settings_error_only_log">Error-only log</string>
+    <string name="settings_error_only_log">错误日志</string>
     <string name="settings_language">语言</string>
     <string name="settings_translate">参与翻译</string>
     <string name="settings_translate_summary">帮助我们把 %s 翻译到您的语言</string>
@@ -194,7 +194,7 @@
     <string name="settings_receive_beta_update">接收测试版更新</string>
     <string name="settings_receive_beta_update_summary">注意：测试版可能不稳定</string>
     <!-- Bulk config wizard -->
-    <string name="title_bulk_config_wizard">Bulk config wizard</string>
+    <string name="title_bulk_config_wizard">批量配置向导</string>
     <!-- About -->
     <string name="about_description">尽管简单粗暴地检测特定应用安装来判断系统环境是不准确的，但并非所有使用 Root 的应用都支持随机包名。在这种情况下，被检测到安装了 Root 相关应用（如 Fake Location 或 存储空间隔离）就等同于被检测到了 Root 本身。\n\n同时，一些“聪明”的应用会利用各种漏洞获取您的应用列表，以此为您建立用户画像。\n\n本模块提供了一些方法来测试您是否已经完美隐藏了应用列表。同时，它作为一个 LSPosed 模块，可以隐藏特定应用，或拒绝应用列表请求，从而保护您的隐私。</string>
     <string name="about_fork_description">原 HMA 项目已闭源，且最新代码未包含部分新改动，因此我创建了这个分支以继续保持开源维护。</string>
