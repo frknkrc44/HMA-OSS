@@ -31,6 +31,7 @@
     <string name="system">Sistem</string>
     <string name="add">Ekle</string>
     <string name="edit">Düzenle</string>
+    <string name="apply">Uygula</string>
     <string name="follow_system">Sistemi takip et</string>
     <!-- Home -->
     <string name="home_xposed_activated">Modül Etkin [%s]</string>
@@ -170,6 +171,7 @@
     <string name="settings_package_query_workaround">Alternatif paket sorgusu</string>
     <string name="settings_package_query_workaround_summary">Uygulama içindeki paket listesi doğru şekilde görünüyorsa bu özelliği etkinleştirmeyin.</string>
     <string name="settings_launcher_icon">Başlatıcı simgesi</string>
+    <string name="settings_error_only_log">Sadece hataları kaydet</string>
     <string name="settings_language">Dil</string>
     <string name="settings_translate">Çeviriye katkıda bulun</string>
     <string name="settings_translate_summary">%s’i kendi dilinize çevirmemize yardımcı olun</string>
@@ -191,6 +193,8 @@
     <string name="settings_disable_update">Güncelleme bildirimini devre dışı bırak</string>
     <string name="settings_receive_beta_update">Beta güncellemelerini al</string>
     <string name="settings_receive_beta_update_summary">Beta sürümleri kararsız olabilir</string>
+    <!-- Bulk config wizard -->
+    <string name="title_bulk_config_wizard">Çoklu yapılandırma sihirbazı</string>
     <!-- About -->
     <string name="about_description">        Belirli bir uygulamanın yüklü olup olmadığını tespit etmek yanlış olsa da, root kullanan her uygulama rastgele paket adı desteği sunmaz. Bu durumda, root kullanan tespit edilen uygulamalar (örneğin, Sahte Konum ve Depolama İzolasyonu), root’un kendisinin tespit edilmesiyle eşdeğerdir.\n\nAynı zamanda, bazı akıllı uygulamalar, uygulama listenizi elde etmek için çeşitli açıkları kullanır, böylece sizin için bir profil çizebilir.\n\nBu modül, uygulama listenizi başarıyla gizleyip gizlemediğinizi test etmenin bazı yollarını sunar. Ayrıca, bir Xposed modülü olarak çalışarak bazı uygulamaları gizlemek veya uygulama liste isteklerini reddederek gizliliğinizi korumak için kullanılabilir.
     </string>
