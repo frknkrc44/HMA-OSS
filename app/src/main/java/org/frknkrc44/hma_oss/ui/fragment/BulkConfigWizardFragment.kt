@@ -70,6 +70,7 @@ class BulkConfigWizardFragment : Fragment(R.layout.fragment_bulk_config_wizard) 
                 packageName = "bulk_config",
                 bulkConfig = viewModel.appConfig.value?.toString(),
                 bulkConfigMode = true,
+                bulkConfigApps = viewModel.appliedAppList.value.toTypedArray(),
             )
             navigate(R.id.nav_app_settings, args.toBundle())
         }

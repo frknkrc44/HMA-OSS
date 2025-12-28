@@ -61,6 +61,7 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
             enabled = cfg != null,
             bulkConfig =  args.bulkConfigMode,
             config = cfg ?: JsonConfig.AppConfig(),
+            bulkApps = args.bulkConfigApps,
         )
         AppSettingsViewModel.Factory(pack)
     }
@@ -192,7 +193,15 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
             findPreference<Preference>("appInfo")?.let {
                 if (pack.bulkConfig) {
                     it.icon = R.drawable.outline_storage_24.asDrawable(requireContext())
-                    it.title = getString(R.string.title_bulk_config_wizard)
+                    if (pack.bulkApps.isNullOrEmpty()) {
+                        it.title = getString(R.string.title_bulk_config_wizard)
+                    } else {
+                        it.title = pack.bulkApps?.joinToString(", ") {
+                            PackageHelper.loadAppLabel(it)
+                        }
+                        it.isSingleLineTitle = true
+                        it.summary = getString(R.string.title_bulk_config_wizard)
+                    }
                 } else {
                     it.icon = PackageHelper.loadAppIcon(pack.app)
                     it.title = PackageHelper.loadAppLabel(pack.app)
