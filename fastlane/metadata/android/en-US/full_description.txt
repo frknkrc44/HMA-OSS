@@ -15,5 +15,6 @@ Features of HMA-OSS:
   - More visible apps in blacklist mode
   - More invisible apps in whitelist mode
 * Redesigned home screen and some other screens
+* Bulk config wizard (apply a config to more than one apps)
 
 For more information, check this wiki page: https://github.com/frknkrc44/HMA-OSS/wiki
