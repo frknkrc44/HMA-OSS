@@ -2,7 +2,6 @@ package org.frknkrc44.hma_oss.ui.fragment
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import androidx.fragment.app.Fragment
@@ -14,7 +13,6 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.service.PrefManager
-import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.fragment.ScopeFragmentArgs
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.navigate
@@ -54,7 +52,6 @@ class BulkConfigWizardFragment : Fragment(R.layout.fragment_bulk_config_wizard) 
         binding.targetAppSettings.setOnClickListener {
             setFragmentResultListener("bulk_app_settings") { _, bundle ->
                 val appConfigStr = bundle.getString("appConfig")
-                ServiceClient.log(Log.INFO, javaClass.simpleName, "New appConfig: $appConfigStr")
                 viewModel.appConfig.value = if (appConfigStr != null) JsonConfig.AppConfig.parse(appConfigStr) else null
                 clearFragmentResultListener("bulk_app_settings")
             }
@@ -92,7 +89,7 @@ class BulkConfigWizardFragment : Fragment(R.layout.fragment_bulk_config_wizard) 
         lifecycleScope.launch {
             viewModel.appConfig.collect {
                 binding.targetAppSettings.subText = getString(
-                    if (viewModel.appConfig.value != null) R.string.enabled
+                    if (it != null) R.string.enabled
                     else R.string.disabled
                 )
             }
