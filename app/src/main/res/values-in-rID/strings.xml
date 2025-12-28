@@ -194,7 +194,7 @@
     <string name="settings_receive_beta_update">Terima pembaruan beta</string>
     <string name="settings_receive_beta_update_summary">Versi beta mungkin tidak stabil</string>
     <!-- Bulk config wizard -->
-    <string name="title_bulk_config_wizard">Bulk config wizard</string>
+    <string name="title_bulk_config_wizard">Asisten konfigurasi massal</string>
     <!-- About -->
     <string name="about_description">        Meskipun tidak tepat untuk mendeteksi instalasi aplikasi tertentu, tidak semua aplikasi yang menggunakan root mendukung nama paket acak. Dalam kasus ini, aplikasi terdeteksi yang menggunakan root (seperti Pemalsuan Lokasi dan Isolasi Data) dianggap sama dengan root itu sendiri.\n\nPada saat yang sama, beberapa aplikasi cerdas memanfaatkan celah untuk mendapatkan daftar aplikasi anda, sehingga mereka bisa membangun profil tentang anda.\n\nModul ini menyediakan beberapa metode untuk menguji apakah anda telah menyembunyikan daftar aplikasi dengan baik. Selain itu, dapat berfungsi sebagai modul Xposed untuk menyembunyikan aplikasi tertentu atau menolak permintaan daftar aplikasi guna melindungi privasi anda.
     </string>
