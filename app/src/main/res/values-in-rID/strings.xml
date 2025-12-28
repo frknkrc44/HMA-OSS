@@ -31,7 +31,7 @@
     <string name="system">Sistem</string>
     <string name="add">Tambahkan</string>
     <string name="edit">Ubah</string>
-    <string name="apply">Apply</string>
+    <string name="apply">Terapkan</string>
     <string name="follow_system">Ikut sistem</string>
     <!-- Home -->
     <string name="home_xposed_activated">Modul Diaktifkan [%s]</string>
@@ -171,7 +171,7 @@
     <string name="settings_package_query_workaround">Pencarian paket alternatif</string>
     <string name="settings_package_query_workaround_summary">Jangan aktifkan opsi ini jika daftar paket sudah tampil dengan benar.</string>
     <string name="settings_launcher_icon">Ikon aplikasi</string>
-    <string name="settings_error_only_log">Error-only log</string>
+    <string name="settings_error_only_log">Log khusus error</string>
     <string name="settings_language">Bahasa</string>
     <string name="settings_translate">Berpartisipasi dalam penerjemahan</string>
     <string name="settings_translate_summary">Bantu kami menerjemahkan %s ke bahasa anda</string>
