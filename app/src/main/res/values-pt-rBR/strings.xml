@@ -31,6 +31,7 @@
     <string name="system">Sistema</string>
     <string name="add">Adicionar</string>
     <string name="edit">Editar</string>
+    <string name="apply">Apply</string>
     <string name="follow_system">Seguir o sistema</string>
     <!-- Home -->
     <string name="home_xposed_activated">Módulo ativado [%s]</string>
@@ -170,6 +171,7 @@
     <string name="settings_package_query_workaround">Método de listagem alternativa</string>
     <string name="settings_package_query_workaround_summary">Não ative essa opção se você consegue ver a lista de aplicativos corretamente neste app.</string>
     <string name="settings_launcher_icon">Ícone do iniciador</string>
+    <string name="settings_error_only_log">Error-only log</string>
     <string name="settings_language">Idioma</string>
     <string name="settings_translate">Participe na tradução</string>
     <string name="settings_translate_summary">Nos ajude a traduzir %s na sua língua </string>
@@ -191,6 +193,8 @@
     <string name="settings_disable_update">Desativar notificações de atualizações</string>
     <string name="settings_receive_beta_update">Receber atualizações beta</string>
     <string name="settings_receive_beta_update_summary">A versão beta pode ser instável</string>
+    <!-- Bulk config wizard -->
+    <string name="title_bulk_config_wizard">Bulk config wizard</string>
     <!-- About -->
     <string name="about_description">        Although It is incorrect to detect specific app installation, yet not every app using root provides random package name support. In this case, detected apps that use root (such as Fake Location and Storage Isolation) is equal to detected root itself.\n\nAt the same time, some smart apps use various loopholes to acquire your app list, so that it can draw a persona for you.\n\nThis module provides some methods to test whether you have already hidden your applist nicely. Also, it can work as an Xposed module to hide some apps or reject app list requests to protect your privacy.
     </string>
