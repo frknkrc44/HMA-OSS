@@ -31,6 +31,7 @@
     <string name="system">Sistem</string>
     <string name="add">Tambahkan</string>
     <string name="edit">Ubah</string>
+    <string name="apply">Apply</string>
     <string name="follow_system">Ikut sistem</string>
     <!-- Home -->
     <string name="home_xposed_activated">Modul Diaktifkan [%s]</string>
@@ -170,6 +171,7 @@
     <string name="settings_package_query_workaround">Pencarian paket alternatif</string>
     <string name="settings_package_query_workaround_summary">Jangan aktifkan opsi ini jika daftar paket sudah tampil dengan benar.</string>
     <string name="settings_launcher_icon">Ikon aplikasi</string>
+    <string name="settings_error_only_log">Error-only log</string>
     <string name="settings_language">Bahasa</string>
     <string name="settings_translate">Berpartisipasi dalam penerjemahan</string>
     <string name="settings_translate_summary">Bantu kami menerjemahkan %s ke bahasa anda</string>
@@ -191,6 +193,8 @@
     <string name="settings_disable_update">Nonaktifkan notifikasi pembaruan</string>
     <string name="settings_receive_beta_update">Terima pembaruan beta</string>
     <string name="settings_receive_beta_update_summary">Versi beta mungkin tidak stabil</string>
+    <!-- Bulk config wizard -->
+    <string name="title_bulk_config_wizard">Bulk config wizard</string>
     <!-- About -->
     <string name="about_description">        Meskipun tidak tepat untuk mendeteksi instalasi aplikasi tertentu, tidak semua aplikasi yang menggunakan root mendukung nama paket acak. Dalam kasus ini, aplikasi terdeteksi yang menggunakan root (seperti Pemalsuan Lokasi dan Isolasi Data) dianggap sama dengan root itu sendiri.\n\nPada saat yang sama, beberapa aplikasi cerdas memanfaatkan celah untuk mendapatkan daftar aplikasi anda, sehingga mereka bisa membangun profil tentang anda.\n\nModul ini menyediakan beberapa metode untuk menguji apakah anda telah menyembunyikan daftar aplikasi dengan baik. Selain itu, dapat berfungsi sebagai modul Xposed untuk menyembunyikan aplikasi tertentu atau menolak permintaan daftar aplikasi guna melindungi privasi anda.
     </string>
