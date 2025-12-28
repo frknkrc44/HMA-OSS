@@ -40,17 +40,6 @@ class BulkConfigWizardFragment : Fragment(R.layout.fragment_bulk_config_wizard) 
         BulkConfigWizardViewModel.Factory()
     }
 
-    /*
-    private fun saveResult(delete: Boolean) {
-        setFragmentResult("template_settings", Bundle().apply {
-            putString("name",if (delete) null else viewModel.name)
-            putStringArrayList("appliedList", viewModel.appliedAppList.value)
-            putStringArrayList("targetList", viewModel.targetAppList.value)
-        })
-        navController.navigateUp()
-    }
-     */
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupToolbar(
             toolbar = binding.toolbar,
