@@ -25,10 +25,15 @@ class ListItemView @JvmOverloads constructor(
         val typedArray = context.theme.obtainStyledAttributes(attrs, R.styleable.ListItemView, defStyleAttr, defStyleRes)
         val icon = typedArray.getResourceId(R.styleable.ListItemView_icon, 0)
         val text = typedArray.getString(R.styleable.ListItemView_text)
+        val subText = typedArray.getString(R.styleable.ListItemView_subText)
         val buttonText = typedArray.getText(R.styleable.ListItemView_buttonText)
         typedArray.recycle()
         binding.icon.setImageResource(icon)
         binding.text.text = text
+
+        binding.subText.visibility = if (subText != null) VISIBLE else GONE
+        binding.subText.text = subText
+
         if (buttonText != null) {
             binding.button.visibility = VISIBLE
             binding.button.text = buttonText
@@ -39,6 +44,13 @@ class ListItemView @JvmOverloads constructor(
         get() = binding.text.text
         set(value) {
             binding.text.text = value
+        }
+
+    var subText: CharSequence?
+        get() = binding.subText.text
+        set(value) {
+            binding.subText.visibility = if (value != null) VISIBLE else GONE
+            binding.subText.text = value
         }
 
     fun setIcon(@DrawableRes icon: Int) {

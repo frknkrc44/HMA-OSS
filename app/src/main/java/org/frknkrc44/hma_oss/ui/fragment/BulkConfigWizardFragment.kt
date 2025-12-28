@@ -89,6 +89,15 @@ class BulkConfigWizardFragment : Fragment(R.layout.fragment_bulk_config_wizard) 
             }
         }
 
+        lifecycleScope.launch {
+            viewModel.appConfig.collect {
+                binding.targetAppSettings.subText = getString(
+                    if (viewModel.appConfig.value != null) R.string.enabled
+                    else R.string.disabled
+                )
+            }
+        }
+
         binding.root.setOnApplyWindowInsetsListener { v, insets ->
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 val barInsets = insets.getInsets(WindowInsets.Type.systemBars())
