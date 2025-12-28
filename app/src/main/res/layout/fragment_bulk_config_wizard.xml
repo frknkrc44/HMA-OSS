@@ -27,19 +27,19 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <icu.nullptr.hidemyapplist.ui.view.ListItemView
-            android:id="@+id/applied_apps"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:buttonText="@string/edit_list"
-            app:icon="@drawable/baseline_apps_24" />
-
-        <icu.nullptr.hidemyapplist.ui.view.ListItemView
             android:id="@+id/target_app_settings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:buttonText="@string/edit"
             app:text="@string/title_app_settings"
             app:icon="@drawable/outline_settings_24" />
+
+        <icu.nullptr.hidemyapplist.ui.view.ListItemView
+            android:id="@+id/applied_apps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:buttonText="@string/edit_list"
+            app:icon="@drawable/baseline_apps_24" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/apply_button"
