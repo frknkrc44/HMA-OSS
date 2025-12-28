@@ -39,21 +39,21 @@
     <string name="home_xposed_service_on">Layanan sistem sedang berjalan [%d]</string>
     <string name="home_xposed_service_off">Layanan sistem tidak berjalan</string>
     <string name="home_xposed_service_old">Modul diperbarui, perlu mulai ulang</string>
-    <string name="home_xposed_filter_count">HMA-OSS telah memfilter total %d permintaan</string>
+    <string name="home_xposed_filter_count">HMA-OSS telah menyaring total %d permintaan</string>
     <string name="home_manage">Kelola</string>
     <string name="home_detection_test">Uji deteksi</string>
     <string name="home_download_test_app_title">Unduh aplikasi uji</string>
-    <string name="home_download_test_app_message">Kami telah mengembangkan aplikasi uji deteksi individual dan memigrasikan uji deteksi ke dalamnya. Ingin mengunduhnya sekarang?</string>
+    <string name="home_download_test_app_message">Kami telah mengembangkan aplikasi uji deteksi individual dan memindahkan uji deteksi ke dalamnya. Ingin mengunduhnya sekarang?</string>
     <string name="home_backup_and_restore">Cadangkan &amp; Pulihkan</string>
-    <string name="home_backup_config">Konfigurasi cadangan</string>
-    <string name="home_restore_config">Konfigurasi pemulihan</string>
+    <string name="home_backup_config">Cadangkan konfig</string>
+    <string name="home_restore_config">Pulihkan konfig</string>
     <string name="home_import_successful">Impor berhasil</string>
     <string name="home_import_failed">Impor gagal</string>
     <string name="home_import_app_version_too_old">Versi modul lebih rendah dari versi cadangan</string>
     <string name="home_import_backup_version_too_old">Versi cadangan terlalu lama</string>
     <string name="home_import_file_damaged">File cadangan rusak</string>
     <string name="home_export_failed">Ekspor gagal</string>
-    <string name="home_exported">Konfigurasi yang dicadangkan</string>
+    <string name="home_exported">Konfig dicadangkan</string>
     <string name="home_new_update">Pembaruan baru tersedia: %s</string>
     <string name="home_update">Memperbarui: %s</string>
     <!-- App select -->
