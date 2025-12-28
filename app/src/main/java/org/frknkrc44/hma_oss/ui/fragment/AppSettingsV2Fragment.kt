@@ -11,6 +11,7 @@ import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.clearFragmentResultListener
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
@@ -27,6 +28,7 @@ import icu.nullptr.hidemyapplist.common.SettingsPresets
 import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.fragment.ScopeFragmentArgs
+import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.asDrawable
 import icu.nullptr.hidemyapplist.ui.util.enabledString
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.navigate
@@ -47,15 +49,36 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
     private val binding by viewBinding<FragmentSettingsBinding>()
     private val viewModel by viewModels<AppSettingsViewModel>() {
         val args by navArgs<AppSettingsV2FragmentArgs>()
-        val cfg = ConfigManager.getAppConfig(args.packageName)
-        val pack = if (cfg != null) AppSettingsViewModel.Pack(args.packageName, true, cfg)
-        else AppSettingsViewModel.Pack(args.packageName, false, JsonConfig.AppConfig())
+        val cfg: JsonConfig.AppConfig? = if (args.bulkConfigMode) {
+            if (args.bulkConfig != null) JsonConfig.AppConfig.parse(args.bulkConfig!!)
+            else null
+        } else {
+            ConfigManager.getAppConfig(args.packageName)
+        }
+
+        val pack = AppSettingsViewModel.Pack(
+            app = args.packageName,
+            enabled = cfg != null,
+            bulkConfig =  args.bulkConfigMode,
+            config = cfg ?: JsonConfig.AppConfig(),
+        )
         AppSettingsViewModel.Factory(pack)
     }
 
     private fun saveConfig() {
-        if (!viewModel.pack.enabled) ConfigManager.setAppConfig(viewModel.pack.app, null)
-        else ConfigManager.setAppConfig(viewModel.pack.app, viewModel.pack.config)
+        if (viewModel.pack.bulkConfig) {
+            setFragmentResult("bulk_app_settings", Bundle().apply {
+                putString(
+                    "appConfig",
+                    if (viewModel.pack.enabled) viewModel.pack.config.toString() else null,
+                )
+            })
+        } else {
+            ConfigManager.setAppConfig(
+                viewModel.pack.app,
+                if (viewModel.pack.enabled) viewModel.pack.config else null,
+            )
+        }
     }
 
     private fun onBack() {
@@ -167,30 +190,35 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
             preferenceManager.preferenceDataStore = AppPreferenceDataStore(pack)
             setPreferencesFromResource(R.xml.app_settings_v2, rootKey)
             findPreference<Preference>("appInfo")?.let {
-                it.icon = PackageHelper.loadAppIcon(pack.app)
-                it.title = PackageHelper.loadAppLabel(pack.app)
-                it.summary = pack.app
-                it.setOnPreferenceClickListener { pref ->
-                    MaterialAlertDialogBuilder(pref.context).apply {
-                        setTitle(it.title)
-                        setItems(
-                            R.array.app_action_texts,
-                        ) { _, which ->
-                           parent.saveConfig()
+                if (pack.bulkConfig) {
+                    it.icon = R.drawable.outline_storage_24.asDrawable(requireContext())
+                    it.title = getString(R.string.title_bulk_config_wizard)
+                } else {
+                    it.icon = PackageHelper.loadAppIcon(pack.app)
+                    it.title = PackageHelper.loadAppLabel(pack.app)
+                    it.summary = pack.app
+                    it.setOnPreferenceClickListener { pref ->
+                        MaterialAlertDialogBuilder(pref.context).apply {
+                            setTitle(it.title)
+                            setItems(
+                                R.array.app_action_texts,
+                            ) { _, which ->
+                                parent.saveConfig()
 
-                            when (which) {
-                                0 -> {
-                                    ServiceClient.forceStop(pack.app, 0)
-                                    launchMainActivity(pack.app)
-                                }
-                                1 -> {
-                                    launchMainActivity(pack.app)
+                                when (which) {
+                                    0 -> {
+                                        ServiceClient.forceStop(pack.app, 0)
+                                        launchMainActivity(pack.app)
+                                    }
+                                    1 -> {
+                                        launchMainActivity(pack.app)
+                                    }
                                 }
                             }
-                        }
-                    }.show()
+                        }.show()
 
-                    true
+                        true
+                    }
                 }
             }
             findPreference<Preference>("spoofing")?.setOnPreferenceClickListener { _ ->

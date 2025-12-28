@@ -51,6 +51,22 @@
     </fragment>
 
     <fragment
+        android:id="@+id/nav_bulk_config_wizard"
+        android:name="org.frknkrc44.hma_oss.ui.fragment.BulkConfigWizardFragment"
+        android:label="@string/title_template_settings">
+
+        <argument
+            android:name="name"
+            app:argType="string"
+            app:nullable="true" />
+
+        <argument
+            android:name="isWhiteList"
+            app:argType="boolean" />
+
+    </fragment>
+
+    <fragment
         android:id="@+id/nav_setting_template_conf"
         android:name="org.frknkrc44.hma_oss.ui.fragment.SettingsTemplateConfFragment"
         android:label="@string/title_settings_template_conf">
@@ -133,6 +149,16 @@
         <argument
             android:name="packageName"
             app:argType="string" />
+
+        <argument
+            android:name="bulkConfig"
+            app:argType="string"
+            app:nullable="true" />
+
+        <argument
+            android:name="bulkConfigMode"
+            app:argType="boolean"
+            android:defaultValue="false" />
 
     </fragment>
 

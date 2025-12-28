@@ -1,0 +1,126 @@
+package org.frknkrc44.hma_oss.ui.fragment
+
+import android.os.Build
+import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.view.WindowInsets
+import android.widget.Toast
+import androidx.activity.addCallback
+import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.clearFragmentResultListener
+import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.navArgs
+import by.kirich1409.viewbindingdelegate.viewBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import icu.nullptr.hidemyapplist.common.JsonConfig
+import icu.nullptr.hidemyapplist.service.ConfigManager
+import icu.nullptr.hidemyapplist.service.ServiceClient
+import icu.nullptr.hidemyapplist.ui.fragment.ScopeFragmentArgs
+import icu.nullptr.hidemyapplist.ui.fragment.TemplateSettingsFragmentArgs
+import icu.nullptr.hidemyapplist.ui.util.navController
+import icu.nullptr.hidemyapplist.ui.util.navigate
+import icu.nullptr.hidemyapplist.ui.util.setupToolbar
+import icu.nullptr.hidemyapplist.ui.util.showToast
+import icu.nullptr.hidemyapplist.ui.viewmodel.TemplateSettingsViewModel
+import kotlinx.coroutines.launch
+import org.frknkrc44.hma_oss.R
+import org.frknkrc44.hma_oss.databinding.FragmentBulkConfigWizardBinding
+import org.frknkrc44.hma_oss.databinding.FragmentTemplateSettingsBinding
+import org.frknkrc44.hma_oss.ui.viewmodel.BulkConfigWizardViewModel
+
+class BulkConfigWizardFragment : Fragment(R.layout.fragment_bulk_config_wizard) {
+
+    private val binding by viewBinding<FragmentBulkConfigWizardBinding>()
+    private val viewModel by viewModels<BulkConfigWizardViewModel> {
+        BulkConfigWizardViewModel.Factory()
+    }
+
+    /*
+    private fun saveResult(delete: Boolean) {
+        setFragmentResult("template_settings", Bundle().apply {
+            putString("name",if (delete) null else viewModel.name)
+            putStringArrayList("appliedList", viewModel.appliedAppList.value)
+            putStringArrayList("targetList", viewModel.targetAppList.value)
+        })
+        navController.navigateUp()
+    }
+     */
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setupToolbar(
+            toolbar = binding.toolbar,
+            title = getString(R.string.title_bulk_config_wizard),
+            navigationIcon = R.drawable.baseline_arrow_back_24,
+            navigationOnClick = { navController.navigateUp() },
+        )
+
+        binding.appliedApps.setOnClickListener {
+            setFragmentResultListener("app_select") { _, bundle ->
+                viewModel.appliedAppList.value = bundle.getStringArrayList("checked")!!
+                clearFragmentResultListener("app_select")
+            }
+            val args = ScopeFragmentArgs(
+                filterOnlyEnabled = false,
+                checked = viewModel.appliedAppList.value.toTypedArray()
+            )
+            navigate(R.id.nav_scope, args.toBundle())
+        }
+        binding.targetAppSettings.setOnClickListener {
+            setFragmentResultListener("bulk_app_settings") { _, bundle ->
+                val appConfigStr = bundle.getString("appConfig")
+                ServiceClient.log(Log.INFO, javaClass.simpleName, "New appConfig: $appConfigStr")
+                viewModel.appConfig.value = if (appConfigStr != null) JsonConfig.AppConfig.parse(appConfigStr) else null
+                clearFragmentResultListener("bulk_app_settings")
+            }
+            val args = AppSettingsV2FragmentArgs(
+                packageName = "bulk_config",
+                bulkConfig = viewModel.appConfig.value?.toString(),
+                bulkConfigMode = true,
+            )
+            navigate(R.id.nav_app_settings, args.toBundle())
+        }
+        binding.applyButton.setOnClickListener {
+            if (viewModel.appliedAppList.value.isEmpty()) return@setOnClickListener
+
+            for (pkg in viewModel.appliedAppList.value) {
+                ConfigManager.setAppConfig(pkg, viewModel.appConfig.value)
+            }
+
+            showToast(android.R.string.ok)
+            navController.navigateUp()
+        }
+
+        lifecycleScope.launch {
+            viewModel.appliedAppList.collect {
+                binding.appliedApps.text = String.format(getString(R.string.template_applied_count), it.size)
+            }
+        }
+
+        binding.root.setOnApplyWindowInsetsListener { v, insets ->
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                val barInsets = insets.getInsets(WindowInsets.Type.systemBars())
+                v.setPadding(
+                    barInsets.left,
+                    barInsets.top,
+                    barInsets.right,
+                    barInsets.bottom,
+                )
+            } else {
+                @Suppress("deprecation")
+                v.setPadding(
+                    insets.systemWindowInsetLeft,
+                    insets.systemWindowInsetTop,
+                    insets.systemWindowInsetRight,
+                    insets.systemWindowInsetBottom,
+                )
+            }
+
+            insets
+        }
+    }
+}

@@ -289,6 +289,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
         }
 
+        with(binding.navBulkConfigWizard) {
+            text1.text = getString(R.string.title_bulk_config_wizard)
+            icon.setImageResource(R.drawable.outline_storage_24)
+            root.setOnClickListener {
+                navigate(R.id.nav_bulk_config_wizard)
+            }
+        }
+
         with(binding.navLogs) {
             text1.text = getString(R.string.title_logs)
             icon.setImageResource(R.drawable.outline_assignment_24)

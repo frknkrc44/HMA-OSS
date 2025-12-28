@@ -54,6 +54,10 @@ data class JsonConfig(
         var extraOppositeAppList: MutableSet<String> = mutableSetOf(),
     ) {
         override fun toString() = encoder.encodeToString(this)
+
+        companion object {
+            fun parse(json: String) = encoder.decodeFromString<AppConfig>(json)
+        }
     }
 
     companion object {
