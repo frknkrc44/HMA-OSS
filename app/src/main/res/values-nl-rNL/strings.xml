@@ -34,7 +34,7 @@
     <string name="apply">Apply</string>
     <string name="follow_system">Volg systeem</string>
     <!-- Home -->
-    <string name="home_xposed_activated">Module Geactiveerd</string>
+    <string name="home_xposed_activated">Module Geactiveerd [%s]</string>
     <string name="home_xposed_not_activated">Module Niet Geactiveerd</string>
     <string name="home_xposed_service_on">Systeem Service Actief</string>
     <string name="home_xposed_service_off">Systeem Service Niet Actief</string>
@@ -54,7 +54,7 @@
     <string name="home_import_file_damaged">Back-up bestand was beschadigd</string>
     <string name="home_export_failed">Exporteren mislukt</string>
     <string name="home_exported">Backed-up config</string>
-    <string name="home_new_update">Nieuwe Update Beschikbaar</string>
+    <string name="home_new_update">Nieuwe Update Beschikbaar: %s</string>
     <string name="home_update">Update %s</string>
     <!-- App select -->
     <string name="list_show_system">Laat systeem apps zien</string>
