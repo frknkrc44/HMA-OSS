@@ -14,7 +14,7 @@ import android.widget.RelativeLayout
 import androidx.appcompat.widget.AppCompatRadioButton
 import androidx.preference.Preference
 import androidx.preference.PreferenceViewHolder
-import icu.nullptr.hidemyapplist.data.AppConstants
+import icu.nullptr.hidemyapplist.data.AppConstants.allAppIcons
 import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.asDrawable
 import icu.nullptr.hidemyapplist.util.PackageHelper.findEnabledAppComponent
@@ -29,13 +29,6 @@ class AppIconPreference(context: Context, attrs: AttributeSet?) : Preference(con
         R.mipmap.ic_launcher_alt.asDrawable(context),
         R.mipmap.ic_launcher_alt_2.asDrawable(context),
         R.mipmap.ic_launcher_alt_3.asDrawable(context),
-    )
-
-    val allAppIcons = listOf(
-        ComponentName(BuildConfig.APPLICATION_ID, AppConstants.COMPONENT_NAME_DEFAULT),
-        ComponentName(BuildConfig.APPLICATION_ID, AppConstants.COMPONENT_NAME_ALT),
-        ComponentName(BuildConfig.APPLICATION_ID, AppConstants.COMPONENT_NAME_ALT_2),
-        ComponentName(BuildConfig.APPLICATION_ID, AppConstants.COMPONENT_NAME_ALT_3),
     )
 
     var viewHolder: PreferenceViewHolder? = null
@@ -65,7 +58,7 @@ class AppIconPreference(context: Context, attrs: AttributeSet?) : Preference(con
             val appIconSelector: RadioGroup = view.findViewById(R.id.app_icon_selector)
 
             val selected = findEnabledAppComponent(context)
-            val selectedIdx = allAppIcons.indexOfFirst { it.className == selected?.className }
+            val selectedIdx = allAppIcons.indexOfFirst { it == selected?.className }
 
             for (idx in 0 ..< appIconsList.size) {
                 val radioButton = object : AppCompatRadioButton(context) {
@@ -119,11 +112,11 @@ class AppIconPreference(context: Context, attrs: AttributeSet?) : Preference(con
         }
     }
 
-    private fun setEnabledComponent(componentName: ComponentName) {
+    private fun setEnabledComponent(className: String) {
         disableAppIcon()
 
         context.packageManager.setComponentEnabledSetting(
-            componentName,
+            ComponentName(BuildConfig.APPLICATION_ID, className),
             PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
             PackageManager.DONT_KILL_APP
         )
