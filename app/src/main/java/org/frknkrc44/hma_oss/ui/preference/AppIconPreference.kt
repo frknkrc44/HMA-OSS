@@ -24,13 +24,6 @@ import org.frknkrc44.hma_oss.R
 
 @Suppress("deprecation")
 class AppIconPreference(context: Context, attrs: AttributeSet?) : Preference(context, attrs) {
-    val appIconsList = listOf(
-        R.mipmap.ic_launcher.asDrawable(context),
-        R.mipmap.ic_launcher_alt.asDrawable(context),
-        R.mipmap.ic_launcher_alt_2.asDrawable(context),
-        R.mipmap.ic_launcher_alt_3.asDrawable(context),
-    )
-
     var viewHolder: PreferenceViewHolder? = null
 
     @SuppressLint("SetTextI18n")
@@ -57,10 +50,7 @@ class AppIconPreference(context: Context, attrs: AttributeSet?) : Preference(con
 
             val appIconSelector: RadioGroup = view.findViewById(R.id.app_icon_selector)
 
-            val selected = findEnabledAppComponent(context)
-            val selectedIdx = allAppIcons.indexOfFirst { it == selected?.className }
-
-            for (idx in 0 ..< appIconsList.size) {
+            for (idx in 0 ..< allAppIcons.size) {
                 val radioButton = object : AppCompatRadioButton(context) {
                     override fun setChecked(checked: Boolean) {
                         if (PrefManager.hideIcon) {
@@ -71,30 +61,33 @@ class AppIconPreference(context: Context, attrs: AttributeSet?) : Preference(con
                         super.setChecked(checked)
 
                         alpha = if (checked) 1.0f else 0.4f
-
-                        if (checked) {
-                            setEnabledComponent(allAppIcons[idx])
-                        }
                     }
                 }
 
-                radioButton.layoutParams = RadioGroup.LayoutParams(-2, -2).apply {
-                    val padding = context.resources.getDimensionPixelOffset(R.dimen.item_padding_mini2x)
-                    setMargins(padding, padding, padding, padding)
+                with(radioButton) {
+                    layoutParams = RadioGroup.LayoutParams(-2, -2).apply {
+                        val padding = context.resources.getDimensionPixelOffset(R.dimen.item_padding_mini2x)
+                        setMargins(padding, padding, padding, padding)
+                    }
+
+                    id = idx
+                    gravity = Gravity.CENTER_VERTICAL
+                    buttonDrawable = allAppIcons[idx].first.asDrawable(context)
+                    text = ""
+                    buttonTintList = null
                 }
-
-                radioButton.gravity = Gravity.CENTER_VERTICAL
-                radioButton.id = idx
-                radioButton.isChecked = idx == selectedIdx
-
-                radioButton.buttonDrawable = appIconsList.elementAt(idx)
-                radioButton.text = ""
-                radioButton.buttonTintList = null
 
                 appIconSelector.addView(radioButton)
             }
 
-            appIconSelector.check(selectedIdx)
+            val selected = findEnabledAppComponent(context)
+            if (selected != null) {
+                appIconSelector.check(allAppIcons.indexOfFirst { it.second == selected.className })
+            }
+
+            appIconSelector.setOnCheckedChangeListener { _, checkedId ->
+                setEnabledComponent(allAppIcons[checkedId].second)
+            }
 
             parent.addView(view)
         }
@@ -102,7 +95,6 @@ class AppIconPreference(context: Context, attrs: AttributeSet?) : Preference(con
 
     private fun disableAppIcon() {
         val enabled = findEnabledAppComponent(context)
-
         if (enabled != null) {
             context.packageManager.setComponentEnabledSetting(
                 enabled,
