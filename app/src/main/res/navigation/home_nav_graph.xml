@@ -153,12 +153,14 @@
         <argument
             android:name="bulkConfig"
             app:argType="string"
-            app:nullable="true" />
+            app:nullable="true"
+            android:defaultValue="@null" />
 
         <argument
             android:name="bulkConfigApps"
             app:argType="string[]"
-            app:nullable="true" />
+            app:nullable="true"
+            android:defaultValue="@null" />
 
         <argument
             android:name="bulkConfigMode"

@@ -13,7 +13,7 @@ class AppManageFragment : AppSelectFragment() {
 
     override val adapter = AppManageAdapter {
         if (PackageHelper.exists(it)) {
-            val args = AppSettingsV2FragmentArgs(it, null, null)
+            val args = AppSettingsV2FragmentArgs(it)
             navigate(R.id.nav_app_settings, args.toBundle())
         }
     }
