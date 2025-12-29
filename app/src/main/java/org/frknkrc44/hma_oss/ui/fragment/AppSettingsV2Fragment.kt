@@ -34,6 +34,7 @@ import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.navigate
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import icu.nullptr.hidemyapplist.ui.util.showToast
+import icu.nullptr.hidemyapplist.ui.util.withAnimations
 import icu.nullptr.hidemyapplist.ui.viewmodel.AppSettingsViewModel
 import icu.nullptr.hidemyapplist.util.PackageHelper
 import org.frknkrc44.hma_oss.BuildConfig
@@ -232,12 +233,7 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
             }
             findPreference<Preference>("spoofing")?.setOnPreferenceClickListener { _ ->
                 parentFragmentManager.beginTransaction()
-                    .setCustomAnimations(
-                        R.anim.activity_open_enter,
-                        R.anim.activity_open_exit,
-                        R.anim.activity_close_enter,
-                        R.anim.activity_close_exit,
-                    )
+                    .withAnimations()
                     .replace(
                         R.id.settings_container,
                         AppSpoofingPreferenceFragment(
@@ -251,12 +247,7 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
             }
             findPreference<Preference>("templateConfig")?.setOnPreferenceClickListener { _ ->
                 parentFragmentManager.beginTransaction()
-                    .setCustomAnimations(
-                        R.anim.activity_open_enter,
-                        R.anim.activity_open_exit,
-                        R.anim.activity_close_enter,
-                        R.anim.activity_close_exit,
-                    )
+                    .withAnimations()
                     .replace(
                         R.id.settings_container,
                         TemplateConfigPreferenceFragment(

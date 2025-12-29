@@ -31,6 +31,7 @@ import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.recreateMainActivity
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import icu.nullptr.hidemyapplist.ui.util.showToast
+import icu.nullptr.hidemyapplist.ui.util.withAnimations
 import icu.nullptr.hidemyapplist.util.ConfigUtils.Companion.getLocale
 import icu.nullptr.hidemyapplist.util.LangList
 import icu.nullptr.hidemyapplist.util.PackageHelper.findEnabledAppComponent
@@ -235,12 +236,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                 }
                 it.setOnPreferenceClickListener { _ ->
                     parentFragmentManager.beginTransaction()
-                        .setCustomAnimations(
-                            R.anim.activity_open_enter,
-                            R.anim.activity_open_exit,
-                            R.anim.activity_close_enter,
-                            R.anim.activity_close_exit,
-                        )
+                        .withAnimations()
                         .replace(
                             R.id.settings_container,
                             DataIsolationPreferenceFragment(

@@ -13,6 +13,7 @@ import androidx.annotation.MenuRes
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import org.frknkrc44.hma_oss.R
@@ -77,3 +78,10 @@ fun Fragment.recreateMainActivity(restart: Boolean = false) {
         mainActivity.recreate()
     }
 }
+
+fun FragmentTransaction.withAnimations() = setCustomAnimations(
+        R.anim.activity_open_enter,
+        R.anim.activity_open_exit,
+        R.anim.activity_close_enter,
+        R.anim.activity_close_exit,
+    )
