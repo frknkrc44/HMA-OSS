@@ -324,7 +324,6 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
                 getString(R.string.app_template_using, pack.config.applyTemplates.size)
         }
 
-        @SuppressLint("StringFormatInvalid")
         private fun updateApplyPresets(useWhitelist: Boolean = pack.config.useWhitelist) {
             findPreference<Preference>("applyPresets")?.title =
                 getString(R.string.app_preset_using, pack.config.applyPresets.size)

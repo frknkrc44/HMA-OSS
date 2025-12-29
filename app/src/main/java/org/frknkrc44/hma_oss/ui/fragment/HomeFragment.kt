@@ -121,7 +121,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
-    @SuppressLint("StringFormatInvalid", "StringFormatMatches")
     override fun onStart() {
         super.onStart()
 
@@ -343,7 +342,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
-    @SuppressLint("StringFormatInvalid")
     private fun loadUpdateDialog() {
         if (PrefManager.disableUpdate || BuildConfig.VERSION_NAME.count { it == '-' } != 1) return
         fetchLatestUpdate { updateInfo ->
