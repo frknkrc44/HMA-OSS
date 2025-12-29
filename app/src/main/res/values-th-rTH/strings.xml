@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_home">หน้าแรก</string>
+    <string name="title_logs">บันทึกการทำงาน</string>
+    <string name="title_settings">การตั้งค่า</string>
+    <string name="title_template_manage">จัดการเทมเพลต</string>
+    <string name="title_template_settings">การตั้งค่าเทมเพลต</string>
+    <string name="title_settings_template_conf">การกำหนดค่าเทมเพลตการตั้งค่า</string>
+    <string name="title_app_manage">จัดการแอป</string>
+    <string name="title_app_select">เลือกแอป</string>
+    <string name="title_app_settings">การตั้งค่าแอป</string>
+    <string name="title_about">เกี่ยวกับ</string>
+    <string name="title_about_fork">เกี่ยวกับเวอร์ชันแยกนี้</string>
+    <string name="do_not_dual">ไม่ต้องติดตั้ง HMA สำหรับผู้ใช้รอง</string>
+    <string name="show_crash_log">แสดงบันทึกข้อขัดข้อง</string>
+    <string name="config_damaged">ไฟล์การตั้งค่าเสียหาย กรุณาล้างข้อมูลแอป</string>
+    <string name="edit_list">แก้ไขรายการ</string>
+    <string name="delete">ลบ</string>
+    <string name="enabled">เปิดใช้งาน</string>
+    <string name="disabled">ปิดใช้งาน</string>
+    <string name="work_mode">โหมดการทำงาน</string>
+    <string name="blacklist">บัญชีดำ</string>
+    <string name="whitelist">รายการอนุญาต</string>
+    <string name="application">แอปพลิเคชัน</string>
+    <string name="preferences">การตั้งค่า</string>
+    <string name="refresh">รีเฟรช</string>
+    <string name="filter">ตัวกรอง</string>
+    <string name="yes">ใช่</string>
+    <string name="no">ไม่</string>
+    <string name="search">ค้นหา</string>
+    <string name="system">ระบบ</string>
+    <string name="add">เพิ่ม</string>
+    <string name="edit">แก้ไข</string>
+    <string name="apply">นำไปใช้</string>
+    <string name="follow_system">ตามระบบ</string>
+    <!-- Home -->
+    <string name="home_xposed_activated">โมดูลถูกเปิดใช้งานแล้ว [%s]</string>
+    <string name="home_xposed_not_activated">โมดูลยังไม่ได้เปิดใช้งาน</string>
+    <string name="home_xposed_service_on">บริการระบบกำลังทำงาน [%d]</string>
+    <string name="home_xposed_service_off">บริการระบบไม่ทำงาน</string>
+    <string name="home_xposed_service_old">โมดูลได้รับการอัปเดต จำเป็นต้องรีบูต</string>
+    <string name="home_xposed_filter_count">HMA-OSS ได้กรองคำขอทั้งหมด %d รายการ</string>
+    <string name="home_manage">จัดการ</string>
+    <string name="home_detection_test">ทดสอบการตรวจจับ</string>
+    <string name="home_download_test_app_title">ดาวน์โหลดแอปทดสอบ</string>
+    <string name="home_download_test_app_message">เราได้พัฒนาแอปทดสอบการตรวจจับแยกต่างหาก และย้ายระบบทดสอบไปยังแอปนั้นแล้ว คุณต้องการดาวน์โหลดตอนนี้หรือไม่?</string>
+    <string name="home_backup_and_restore">สำรองข้อมูลและกู้คืน</string>
+    <string name="home_backup_config">สำรองการตั้งค่า</string>
+    <string name="home_restore_config">กู้คืนการตั้งค่า</string>
+    <string name="home_import_successful">นำเข้าสำเร็จ</string>
+    <string name="home_import_failed">นำเข้าไม่สำเร็จ</string>
+    <string name="home_import_app_version_too_old">เวอร์ชันโมดูลต่ำกว่าการสำรองข้อมูล</string>
+    <string name="home_import_backup_version_too_old">เวอร์ชันไฟล์สำรองเก่าเกินไป</string>
+    <string name="home_import_file_damaged">ไฟล์สำรองข้อมูลเสียหาย</string>
+    <string name="home_export_failed">ส่งออกล้มเหลว</string>
+    <string name="home_exported">สำรองการตั้งค่าแล้ว</string>
+    <string name="home_new_update">มีอัปเดตใหม่: %s</string>
+    <string name="home_update">อัปเดต: %s</string>
+    <!-- App select -->
+    <string name="list_show_system">แสดงแอประบบ</string>
+    <string name="list_sorting">การจัดเรียง</string>
+    <string name="list_reverse_order">เรียงลำดับย้อนกลับ</string>
+    <string name="list_sort_by_label">ตามชื่อแอป</string>
+    <string name="list_sort_by_package_name">ตามชื่อแพ็กเกจ</string>
+    <string name="list_sort_by_install_time">ตามเวลาติดตั้ง</string>
+    <string name="list_sort_by_update_time">ตามเวลาอัปเดต</string>
+    <string name="list_empty_no_enabled">ลองเปิดการซ่อนสำหรับแอปที่ใช้โหมดการทำงานของเทมเพลตนี้ แล้วแอปจะปรากฏที่นี่</string>
+    <string name="list_empty_no_apps">ไม่พบแอปพลิเคชัน อาจเป็นเพราะคุณยังไม่ได้อนุญาตให้แอปนี้ค้นหาทุกแพ็กเกจ</string>
+    <string name="list_empty_preset">ยังไม่มีการเพิ่มแอปในพรีเซ็ตนี้</string>
+    <!-- Manage templates -->
+    <string name="template_usage_hint">สร้างเทมเพลตสำหรับแอปที่มีพฤติกรรม \"ไม่นิ่ง\" เพื่อควบคุมรายการแอปที่แอปเหล่านั้นสามารถเข้าถึงได้
+
+บัญชีดำ (แนะนำ): แอปที่เลือกในเทมเพลตจะไม่ปรากฏให้แอปที่ใช้เทมเพลตเห็น
+รายการอนุญาต: แอปที่ไม่ได้เลือกในเทมเพลตจะไม่ปรากฏให้แอปที่ใช้เทมเพลตเห็น</string>
+    <string name="template_new_blacklist">สร้างเทมเพลตบัญชีดำ</string>
+    <string name="template_new_whitelist">สร้างเทมเพลตรายการอนุญาต</string>
+    <string name="template_new_setting">สร้างเทมเพลตการตั้งค่า</string>
+    <string name="template_delete">คุณแน่ใจหรือไม่ว่าต้องการลบเทมเพลตนี้?</string>
+    <string name="template_name">ชื่อเทมเพลต</string>
+    <string name="template_name_invalid">ชื่อไม่ถูกต้อง</string>
+    <string name="template_delete_title">ลบเทมเพลต</string>
+    <string name="template_name_already_exist">ชื่อเทมเพลตนี้มีอยู่แล้ว</string>
+    <string name="template_applied_count">นำไปใช้กับ %d แอป</string>
+    <string name="template_setting_count">เพิ่มการตั้งค่าแล้ว %d รายการ</string>
+    <string name="template_apps_visible_count">%d แอปแสดงผล</string>
+    <string name="template_apps_invisible_count">%d แอปถูกซ่อน</string>
+    <!-- App settings -->
+    <string name="app_enable_hide">เปิดใช้งานการซ่อน</string>
+    <string name="app_template_config">การตั้งค่าเทมเพลต</string>
+    <string name="app_choose_template">เลือกเทมเพลต</string>
+    <string name="app_choose_preset">เลือกพรีเซ็ต</string>
+    <string name="app_exclude_system_apps">ไม่รวมแอประบบ</string>
+    <string name="app_exclude_system_apps_summary">ปิดตัวเลือกนี้เฉพาะเมื่อจำเป็นจริง ๆ เท่านั้น การปิดอาจทำให้แอปเกิดการแครชได้</string>
+    <string name="app_template_using">กำลังใช้เทมเพลต %d รายการ</string>
+    <string name="app_preset_using">กำลังใช้พรีเซ็ต %d รายการ</string>
+    <string name="app_settings_preset_using">กำลังใช้พรีเซ็ตการตั้งค่า %d รายการ</string>
+    <string name="app_settings_template_using">กำลังใช้เทมเพลตการตั้งค่า %d รายการ</string>
+    <string name="app_extra_apps_visible_count">มีแอปเพิ่มเติม %d แอปที่แสดง</string>
+    <string name="app_extra_apps_invisible_count">มีแอปเพิ่มเติม %d แอปที่ถูกซ่อน</string>
+    <string name="app_warning_risky_package_title">แพ็กเกจที่มีความเสี่ยง</string>
+    <string name="app_warning_risky_package_desc">แพ็กเกจนี้ถูกทำเครื่องหมายว่าเสี่ยง และอาจทำให้แอปที่ถูกซ่อนเกิดปัญหา คุณต้องการดำเนินการต่อหรือไม่?</string>
+    <string name="app_spoof">การปลอมแปลง</string>
+    <string name="app_hide_installation_source">ปลอมแหล่งที่มาของการติดตั้ง</string>
+    <string name="app_hide_installation_source_desc">แอปผู้ใช้ทั้งหมดจะถูกปลอมว่าเป็นการติดตั้งผ่าน Play Store สำหรับแอปนี้</string>
+    <string name="app_hide_installation_source_system">ปลอมแอประบบด้วย</string>
+    <string name="app_hide_installation_source_system_desc">แอประบบทั้งหมดจะถูกปลอมว่าไม่ได้ติดตั้งจากแหล่งใดเลยสำหรับแอปนี้</string>
+    <string name="app_exclude_target_installation_source">ยกเว้นแอปเป้าหมาย</string>
+    <string name="app_exclude_target_installation_source_desc">คุณสามารถเปิดใช้งานได้หากแอปนี้ไม่มีอยู่ใน Play Store</string>
+    <string name="app_force_stop_warning">อย่าลืมบังคับหยุดแอปเป้าหมายหลังจากบันทึกการตั้งค่าแล้ว</string>
+    <string name="app_invert_activity_launch_protection">กลับค่าการป้องกันการเปิด Activity</string>
+    <string name="app_invert_activity_launch_protection_desc">ตัวเลือกนี้จะกลับค่าการตั้งค่า “ปิดการป้องกันการเปิด Activity” ในการตั้งค่า</string>
+    <string name="app_global_activity_launch_protection_state">การป้องกันถูกตั้งค่าเป็น %s ทั่วทั้งระบบ</string>
+    <string name="app_force_stop_launch">บังคับหยุดและเปิดใหม่</string>
+    <string name="app_launch">เปิดแอป</string>
+    <string name="app_launch_failed">ไม่สามารถเปิดแอปได้ โปรดตรวจสอบ log เพื่อดูรายละเอียดเพิ่มเติม</string>
+    <string name="app_restrict_zygote_permissions">จำกัดสิทธิ์ของ Zygote</string>
+    <string name="app_restrict_zygote_permissions_desc">ตัวเลือกนี้อาจทำให้แอปแครชหรือเกิดการตรวจจับผิดพลาด โปรดเลือกใช้อย่างระมัดระวัง</string>
+    <!-- Presets -->
+    <string name="title_preset">พรีเซ็ต</string>
+    <string name="title_settings_preset">พรีเซ็ตการตั้งค่า</string>
+    <string name="title_preset_manage">แสดงพรีเซ็ต</string>
+    <string name="preset_xposed">โมดูล LSPosed / Xposed</string>
+    <string name="preset_root_apps">ตัวจัดการ Root / แอปที่รูทแล้ว</string>
+    <string name="preset_custom_rom">แอป Custom ROM</string>
+    <string name="preset_sus_apps">แอปที่น่าสงสัย</string>
+    <string name="preset_detector_apps">แอปตรวจจับ / ตรวจสอบ</string>
+    <string name="preset_shizuku_dhizuku">แอป Shizuku / Dhizuku</string>
+    <!-- Settings preset names -->
+    <string name="settings_preset_accessibility">การช่วยการเข้าถึง</string>
+    <string name="settings_preset_dev_options">ตัวเลือกสำหรับนักพัฒนา</string>
+    <string name="settings_preset_input_method">วิธีการป้อนข้อมูล</string>
+    <!-- Settings templates -->
+    <string name="settings_templates_database">ฐานข้อมูลการตั้งค่า</string>
+    <string name="settings_templates_name">ชื่อการตั้งค่า</string>
+    <string name="settings_templates_value">ค่าการตั้งค่า</string>
+    <!-- Settings templates - basic configuration types -->
+    <string name="settings_templates_custom">การตั้งค่าแบบกำหนดเอง</string>
+    <string name="settings_templates_random_ssaid">สุ่ม SSAID</string>
+    <!-- Logs -->
+    <string name="logs_save">บันทึกบันทึก</string>
+    <string name="logs_clear">ล้างบันทึก</string>
+    <string name="logs_empty">ไม่มีบันทึกให้บันทึก</string>
+    <string name="logs_saved">บันทึกถูกบันทึกแล้ว</string>
+    <!-- Settings -->
+    <string name="settings_module">โมดูล</string>
+    <string name="settings_overwrite">เขียนทับ</string>
+    <string name="settings_overwritten">ถูกเขียนทับแล้ว</string>
+    <string name="settings_overwrite_summary">รายการในหมวดหมู่นี้จะถูกบังคับให้เปิดใช้งานหากสวิตช์ถูกเลือก</string>
+    <string name="settings_default_value">ค่าเริ่มต้น: %s</string>
+    <string name="settings_data_isolation">การแยกข้อมูล</string>
+    <string name="settings_data_isolation_summary">ข้อมูลแอป: %s
+Vold ข้อมูลแอป: %s
+บังคับเมานต์: %s</string>
+    <string name="settings_data_isolation_unsupported">ตัวเลือกนี้รองรับเฉพาะ Android 11 ขึ้นไปเท่านั้น</string>
+    <string name="settings_app_data_isolation">แยกข้อมูลแอป</string>
+    <string name="settings_vold_app_data_isolation">การแยกข้อมูลแอปด้วย Vold</string>
+    <string name="settings_warning">คำเตือน</string>
+    <string name="settings_vold_warning">การตั้งค่านี้จะเปิดใช้งานฟีเจอร์ของ AOSP ที่ทำให้ไดเรกทอรีจัดเก็บข้อมูลส่วนตัวภายนอกของแอปถูกแยกออกจากกัน ซึ่งช่วยเพิ่มประสิทธิภาพในการซ่อนแอป แต่อาจทำให้เกิดปัญหาด้านความเสถียร ฟีเจอร์นี้อาจหยุดทำงานได้ทุกเมื่อ เนื่องจากถูกยกเลิกการพัฒนาใน AOSP</string>
+    <string name="settings_change_require_root">การเปลี่ยนแปลงต้องใช้สิทธิ์รูท</string>
+    <string name="settings_need_reboot">การเปลี่ยนแปลงต้องรีบูต</string>
+    <string name="settings_permission_denied">การอนุญาตถูกปฏิเสธ</string>
+    <string name="settings_force_mount_data">บังคับแยกข้อมูลสำหรับทุกแอป</string>
+    <string name="settings_force_mount_data_summary">ค่าเริ่มต้นจะปิดการแยกข้อมูลสำหรับแอปที่ target API ต่ำกว่า 30</string>
+    <string name="settings_detail_log">บันทึกรายละเอียดสำหรับการดีบัก</string>
+    <string name="settings_max_log_size">ขนาดบัฟเฟอร์ของบันทึก</string>
+    <string name="settings_hide_icon">ซ่อนไอคอนโมดูลในตัวเรียกใช้งาน</string>
+    <string name="settings_hide_icon_summary">คุณยังสามารถเปิดแอปได้จาก Xposed manager</string>
+    <string name="settings_bypass_risky_package_warning">ข้ามคำเตือนแพ็กเกจที่มีความเสี่ยง</string>
+    <string name="settings_bypass_risky_package_warning_summary">โปรดทราบว่าทีมพัฒนาไม่รับผิดชอบต่อปัญหาที่เกี่ยวข้องกับแพ็กเกจที่มีความเสี่ยง ทั้งก่อนหรือหลังจากที่คุณเปิดใช้งานฟีเจอร์นี้</string>
+    <string name="settings_disable_activity_launch_protection">ปิดการป้องกันการเรียกใช้ Activity</string>
+    <string name="settings_disable_activity_launch_protection_summary">สวิตช์นี้จะยกเลิกการป้องกัน startActivity ทั้งหมด หากไม่แน่ใจ ไม่ควรเปิดใช้งาน</string>
+    <string name="settings_system_wallpaper">ใช้วอลเปเปอร์ของระบบ</string>
+    <string name="settings_clear_uninstalled_app_configs">ล้างการตั้งค่าแอปที่ถอนการติดตั้งแล้ว</string>
+    <string name="settings_clear_uninstalled_app_configs_summary">ตัวเลือกนี้ช่วยให้คุณสร้างการตั้งค่าใหม่โดยไม่มีข้อมูลตกค้าง แต่คุณจะต้องตั้งค่าแอปใหม่เมื่อทำการติดตั้งอีกครั้ง</string>
+    <string name="settings_no_undone_warning">การกระทำนี้ไม่สามารถย้อนกลับได้</string>
+    <string name="settings_package_query_workaround">ทางเลือกการค้นหาแพ็กเกจ</string>
+    <string name="settings_package_query_workaround_summary">อย่าเปิดใช้งานตัวเลือกนี้หากคุณเห็นรายการแพ็กเกจในแอปนี้ถูกต้องอยู่แล้ว</string>
+    <string name="settings_launcher_icon">ไอคอนตัวเรียกใช้งาน</string>
+    <string name="settings_error_only_log">บันทึกเฉพาะข้อผิดพลาด</string>
+    <string name="settings_language">ภาษา</string>
+    <string name="settings_translate">เข้าร่วมการแปลภาษา</string>
+    <string name="settings_translate_summary">ช่วยเราแปล %s เป็นภาษาของคุณ</string>
+    <string name="settings_theme">ธีม</string>
+    <string name="settings_system_theme_color">สีธีมของระบบ</string>
+    <string name="settings_theme_color">สีธีม</string>
+    <string name="settings_dark_theme">ธีมมืด</string>
+    <string name="settings_pure_black_dark_theme">ธีมมืดสีดำสนิท</string>
+    <string name="settings_pure_black_dark_theme_summary">ใช้ธีมสีดำสนิทเมื่อเปิดใช้งานธีมมืด</string>
+    <string name="settings_service">บริการ</string>
+    <string name="settings_stop_system_service">หยุดบริการของระบบ</string>
+    <string name="settings_stop_system_service_summary">ต้องรีบูตเพื่อเริ่มบริการใหม่</string>
+    <string name="settings_is_clean_env">ล้างสภาพแวดล้อมการทำงานพร้อมกันหรือไม่?</string>
+    <string name="settings_is_clean_env_summary">ลบแคชของ system service ใน /data/misc/hide_my_applist_* ซึ่งหมายความว่าคุณต้องเปิดแอปโมดูลด้วยตนเองหนึ่งครั้งหลังจากรีบูตครั้งถัดไป เพื่อเปิดใช้งานการดักจับ และจำนวนการดักจับจะถูกล้างด้วย</string>
+    <string name="settings_force_clean_env">บังคับล้างสภาพแวดล้อมการทำงาน (รูท)</string>
+    <string name="settings_force_clean_env_summary">ใช้เฉพาะกรณีที่ system service ไม่สามารถเริ่มทำงานได้ มิฉะนั้นควรกดตัวเลือกด้านบน</string>
+    <string name="settings_force_clean_env_toast_successful">ล้างสภาพแวดล้อมการทำงานเรียบร้อยแล้ว</string>
+    <string name="settings_update">อัปเดต</string>
+    <string name="settings_disable_update">ปิดการแจ้งเตือนอัปเดต</string>
+    <string name="settings_receive_beta_update">รับการอัปเดตเวอร์ชันทดลอง (เบต้า)</string>
+    <string name="settings_receive_beta_update_summary">เวอร์ชันเบต้าอาจไม่เสถียร</string>
+    <!-- Bulk config wizard -->
+    <string name="title_bulk_config_wizard">ตัวช่วยตั้งค่าจำนวนมาก</string>
+    <!-- About -->
+    <string name="about_description">แม้ว่าการตรวจจับการติดตั้งแอปแบบระบุเจาะจงจะไม่ถูกต้องนักแต่ก็ไม่ใช่ทุกแอปที่ใช้ root จะรองรับการสุ่มชื่อแพ็กเกจในกรณีนี้ การตรวจพบแอปที่ใช้ root (เช่น Fake Location และ Storage Isolation)ถือว่าเทียบเท่ากับการตรวจพบ root เอง
+
+ในขณะเดียวกัน แอปอัจฉริยะบางตัวใช้ช่องโหว่หลากหลายรูปแบบเพื่อเข้าถึงรายชื่อแอปของคุณ และนำไปสร้างโปรไฟล์พฤติกรรมของคุณ
+
+โมดูลนี้มีวิธีการสำหรับทดสอบว่าคุณได้ซ่อนรายชื่อแอปของคุณไว้อย่างเหมาะสมแล้วหรือไม่นอกจากนี้ยังสามารถทำงานเป็นโมดูล Xposedเพื่อซ่อนบางแอป หรือปฏิเสธคำขอรายชื่อแอปเพื่อปกป้องความเป็นส่วนตัวของคุณ</string>
+    <string name="about_fork_description">โปรเจกต์ HMA ดั้งเดิมได้เปลี่ยนเป็นซอร์สโค้ดแบบปิดและโค้ดล่าสุดของพวกเขาไม่ได้รวมการเปลี่ยนแปลงใหม่บางส่วนดังนั้นผมจึงสร้างฟอร์กนี้ขึ้นมาเพื่อให้โปรเจกต์สามารถดำเนินต่อไปในรูปแบบโอเพนซอร์สได้อีกครั้ง</string>
+    <string name="about_how_to_use_title">วิธีใช้งานโมดูลนี้</string>
+    <string name="about_how_to_use_description_1">คุณสามารถสร้างเทมเพลตได้ในเมนู \"จัดการเทมเพลต\"
+จากนั้นนำเทมเพลตไปใช้กับแอปในเมนู \"จัดการแอป\"(คุณสามารถเลือกแอปเพิ่มเติมสำหรับเป้าหมายได้)
+คุณควร และต้องเลือกเพียง \"System Framework\"ในขอบเขต / ไวท์ลิสต์ของโมดูล Xposed เท่านั้น</string>
+    <string name="about_how_to_use_description_2">การแก้ไขการตั้งค่าจะมีผลทันทีแบบเรียลไทม์</string>
+    <string name="about_translator">ผู้แปล</string>
+    <string name="about_developer">ผู้พัฒนา</string>
+    <string name="about_support">การสนับสนุนและข้อเสนอแนะ</string>
+    <string name="about_open_source">สัญญาอนุญาตโอเพนซอร์ส</string>
+    <!-- Colors -->
+    <string name="color_sakura">สีซากุระ</string>
+    <string name="color_red">สีแดง</string>
+    <string name="color_pink">สีชมพู</string>
+    <string name="color_purple">สีม่วง</string>
+    <string name="color_deep_purple">สีม่วงเข้ม</string>
+    <string name="color_indigo">สีคราม</string>
+    <string name="color_blue">สีน้ำเงิน</string>
+    <string name="color_light_blue">สีฟ้าอ่อน</string>
+    <string name="color_cyan">สีฟ้าอมเขียว</string>
+    <string name="color_teal">สีเขียวน้ำทะเล</string>
+    <string name="color_green">สีเขียว</string>
+    <string name="color_light_green">สีเขียวอ่อน</string>
+    <string name="color_lime">สีเขียวมะนาว</string>
+    <string name="color_yellow">สีเหลือง</string>
+    <string name="color_amber">สีอำพัน</string>
+    <string name="color_orange">สีส้ม</string>
+    <string name="color_deep_orange">สีส้มเข้ม</string>
+    <string name="color_brown">สีน้ำตาล</string>
+    <string name="color_blue_grey">สีน้ำเงินเทา</string>
+    <!-- Dark theme modes -->
+    <string name="dark_theme">ธีมมืด</string>
+    <string name="dark_theme_off">ปิดตลอดเวลา</string>
+    <string name="dark_theme_on">เปิดตลอดเวลา</string>
+</resources>
