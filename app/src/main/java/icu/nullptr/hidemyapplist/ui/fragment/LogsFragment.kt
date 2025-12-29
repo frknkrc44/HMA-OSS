@@ -1,10 +1,8 @@
 package icu.nullptr.hidemyapplist.ui.fragment
 
-import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.view.WindowInsets
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -16,6 +14,7 @@ import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.adapter.LogAdapter
 import icu.nullptr.hidemyapplist.ui.util.contentResolver
 import icu.nullptr.hidemyapplist.ui.util.navController
+import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import icu.nullptr.hidemyapplist.ui.util.showToast
 import kotlinx.coroutines.launch
@@ -147,26 +146,6 @@ class LogsFragment : Fragment(R.layout.fragment_logs) {
         binding.list.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
         updateLogs()
 
-        binding.root.setOnApplyWindowInsetsListener { v, insets ->
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                val barInsets = insets.getInsets(WindowInsets.Type.systemBars())
-                v.setPadding(
-                    barInsets.left,
-                    barInsets.top,
-                    barInsets.right,
-                    barInsets.bottom,
-                )
-            } else {
-                @Suppress("deprecation")
-                v.setPadding(
-                    insets.systemWindowInsetLeft,
-                    insets.systemWindowInsetTop,
-                    insets.systemWindowInsetRight,
-                    insets.systemWindowInsetBottom,
-                )
-            }
-
-            insets
-        }
+        setEdge2EdgeFlags(binding.root)
     }
 }

@@ -1,14 +1,11 @@
 package org.frknkrc44.hma_oss.ui.fragment
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.LayerDrawable
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowInsets
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -28,6 +25,7 @@ import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.homeItemBackgroundColor
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.themeColor
 import icu.nullptr.hidemyapplist.ui.util.contentResolver
 import icu.nullptr.hidemyapplist.ui.util.navigate
+import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import icu.nullptr.hidemyapplist.ui.util.showToast
 import kotlinx.coroutines.Dispatchers
@@ -98,27 +96,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             // isTitleCentered = true
         }
 
-        binding.root.setOnApplyWindowInsetsListener { v, insets ->
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                val barInsets = insets.getInsets(WindowInsets.Type.systemBars())
-                v.setPadding(
-                    barInsets.left,
-                    barInsets.top,
-                    barInsets.right,
-                    barInsets.bottom,
-                )
-            } else {
-                @Suppress("deprecation")
-                v.setPadding(
-                    insets.systemWindowInsetLeft,
-                    insets.systemWindowInsetTop,
-                    insets.systemWindowInsetRight,
-                    insets.systemWindowInsetBottom,
-                )
-            }
-
-            insets
-        }
+        setEdge2EdgeFlags(binding.root)
     }
 
     override fun onStart() {

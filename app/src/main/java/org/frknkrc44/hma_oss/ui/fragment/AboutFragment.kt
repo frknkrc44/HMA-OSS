@@ -3,10 +3,8 @@ package org.frknkrc44.hma_oss.ui.fragment
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.BitmapFactory
-import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.view.WindowInsets
 import android.widget.LinearLayout
 import androidx.annotation.DrawableRes
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
@@ -20,6 +18,7 @@ import com.bumptech.glide.Glide
 import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.homeItemBackgroundColor
 import icu.nullptr.hidemyapplist.ui.util.navController
+import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
 import icu.nullptr.hidemyapplist.util.PackageHelper.findEnabledAppComponent
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.common.BuildConfig
@@ -34,30 +33,8 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.root.setOnApplyWindowInsetsListener { v, insets ->
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                val barInsets = insets.getInsets(WindowInsets.Type.systemBars())
-                v.setPadding(
-                    barInsets.left,
-                    barInsets.top,
-                    barInsets.right,
-                    0,
-                )
-
-                binding.bottomPadding.minimumHeight = barInsets.bottom
-            } else {
-                @Suppress("deprecation")
-                v.setPadding(
-                    insets.systemWindowInsetLeft,
-                    insets.systemWindowInsetTop,
-                    insets.systemWindowInsetRight,
-                    0,
-                )
-
-                binding.bottomPadding.minimumHeight = insets.systemWindowInsetBottom
-            }
-
-            insets
+        setEdge2EdgeFlags(binding.root, bottom = 0) { _, _, _, bottom ->
+            binding.bottomPadding.minimumHeight = bottom
         }
 
         val tint = ColorStateList.valueOf(homeItemBackgroundColor())
