@@ -89,7 +89,7 @@
     <string name="app_exclude_system_apps">Виключити системні додатки</string>
     <string name="app_exclude_system_apps_summary">Вимкніть цей параметр лише тоді, коли це дійсно необхідно. Імовірно, це призведе до збою, якщо його вимкнено</string>
     <string name="app_template_using">Використання %d шаблонів</string>
-    <string name="app_preset_using"></string>
+    <string name="app_preset_using">Using %d presets</string>
     <string name="app_settings_preset_using">Using %d settings presets</string>
     <string name="app_settings_template_using">Using %d settings templates</string>
     <string name="app_extra_apps_visible_count">%d видимі додаткові додатки</string>
