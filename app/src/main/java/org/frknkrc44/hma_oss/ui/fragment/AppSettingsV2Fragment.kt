@@ -270,8 +270,7 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
                         )
             }
             findPreference<Preference>("restrictZygotePermissions")?.setOnPreferenceClickListener {
-                val gidPairs = Constants.GID_PAIRS
-                val checked = gidPairs.values.map {
+                val checked = Constants.GID_PAIRS.values.map {
                     it in pack.config.restrictedZygotePermissions
                 }.toBooleanArray()
 
@@ -279,12 +278,12 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
                     .setTitle(R.string.app_restrict_zygote_permissions)
                     .setNegativeButton(android.R.string.cancel, null)
                     .setPositiveButton(android.R.string.ok) { _, _ ->
-                        pack.config.restrictedZygotePermissions = gidPairs.values.mapIndexedNotNullTo(mutableSetOf()) { i, value ->
+                        pack.config.restrictedZygotePermissions = Constants.GID_PAIRS.values.mapIndexedNotNullTo(mutableSetOf()) { i, value ->
                             if (checked[i]) value else null
                         }.toList()
                         Toast.makeText(requireContext(),
                             R.string.app_force_stop_warning, Toast.LENGTH_LONG).show()
-                    }.setMultiChoiceItems(gidPairs.keys.toTypedArray(), checked) { _, i, value ->
+                    }.setMultiChoiceItems(Constants.GID_PAIRS.keys.toTypedArray(), checked) { _, i, value ->
                         checked[i] = value
                     }.show()
 
