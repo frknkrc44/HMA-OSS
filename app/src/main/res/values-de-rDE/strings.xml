@@ -31,7 +31,7 @@
     <string name="system">System</string>
     <string name="add">Hinzufügen</string>
     <string name="edit">Bearbeiten</string>
-    <string name="apply">Apply</string>
+    <string name="apply">Übernehmen</string>
     <string name="follow_system">Systemeinstellung folgen</string>
     <!-- Home -->
     <string name="home_xposed_activated">Modul aktiviert [%s]</string>
@@ -171,7 +171,7 @@
     <string name="settings_package_query_workaround">Alternative Paketabfrage</string>
     <string name="settings_package_query_workaround_summary">Aktivieren Sie diese Option nicht, wenn Sie die Paketliste in dieser App korrekt sehen.</string>
     <string name="settings_launcher_icon">Startbildschirm Symbol</string>
-    <string name="settings_error_only_log">Error-only log</string>
+    <string name="settings_error_only_log">Nur Fehlerprotokoll</string>
     <string name="settings_language">Sprache</string>
     <string name="settings_translate">Beim Übersetzen mitmachen</string>
     <string name="settings_translate_summary">Helfe uns, %s in deine Sprache zu übersetzen</string>
@@ -194,7 +194,7 @@
     <string name="settings_receive_beta_update">Beta-Aktualisierungen erhalten</string>
     <string name="settings_receive_beta_update_summary">Beta-Version könnte instabil sein</string>
     <!-- Bulk config wizard -->
-    <string name="title_bulk_config_wizard">Bulk config wizard</string>
+    <string name="title_bulk_config_wizard">Mehrfachkonfigurations-Assistent</string>
     <!-- About -->
     <string name="about_description">        Although It is incorrect to detect specific app installation, yet not every app using root provides random package name support. In this case, detected apps that use root (such as Fake Location and Storage Isolation) is equal to detected root itself.\n\nAt the same time, some smart apps use various loopholes to acquire your app list, so that it can draw a persona for you.\n\nThis module provides some methods to test whether you have already hidden your applist nicely. Also, it can work as an Xposed module to hide some apps or reject app list requests to protect your privacy.
     </string>
