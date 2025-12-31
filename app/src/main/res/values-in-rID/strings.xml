@@ -5,7 +5,7 @@
     <string name="title_settings">Setelan</string>
     <string name="title_template_manage">Kelola templat</string>
     <string name="title_template_settings">Setelan templat</string>
-    <string name="title_settings_template_conf">Konfigurasi templat setelan</string>
+    <string name="title_settings_template_conf">Konfigurasi setelan templat</string>
     <string name="title_app_manage">Kelola aplikasi</string>
     <string name="title_app_select">Pilih aplikasi</string>
     <string name="title_app_settings">Setelan aplikasi</string>
@@ -54,7 +54,7 @@
     <string name="home_import_file_damaged">File cadangan rusak</string>
     <string name="home_export_failed">Ekspor gagal</string>
     <string name="home_exported">Konfig dicadangkan</string>
-    <string name="home_new_update">Pembaruan baru tersedia: %s</string>
+    <string name="home_new_update">Pembaruan tersedia: %s</string>
     <string name="home_update">Memperbarui: %s</string>
     <!-- App select -->
     <string name="list_show_system">Tampilkan apl sistem</string>
