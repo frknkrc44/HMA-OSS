@@ -1,9 +1,7 @@
 package org.frknkrc44.hma_oss.ui.fragment
 
-import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.view.WindowInsets
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
@@ -16,6 +14,7 @@ import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.util.get
 import icu.nullptr.hidemyapplist.ui.util.navController
+import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import kotlinx.coroutines.flow.MutableSharedFlow
 import org.frknkrc44.hma_oss.R
@@ -59,7 +58,7 @@ class EditSettingFragment : Fragment(R.layout.fragment_edit_setting) {
             return if (returnNullOnBlank) null else ""
         }
 
-        return textInputLayout.editText!!.text.toString()
+        return textInputLayout.editText?.text.toString()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -74,17 +73,18 @@ class EditSettingFragment : Fragment(R.layout.fragment_edit_setting) {
             navigationOnClick = { onBack() },
         )
 
-        with(binding.databaseSelector.editText as MaterialAutoCompleteTextView) {
+        with(binding.databaseSelector) {
             val values = arrayOf(Constants.SETTINGS_GLOBAL, Constants.SETTINGS_SECURE, Constants.SETTINGS_SYSTEM)
-            setSimpleItems(values)
-            setText(args.database)
+            val autoCompleteTextView = editText as MaterialAutoCompleteTextView?
+            autoCompleteTextView?.setSimpleItems(values)
+            autoCompleteTextView?.setText(args.database)
 
             if (args.database != null) {
-                fillSettingNames(args.database.toString())
+                fillSettingNames(args.database!!)
             }
 
-            setOnItemClickListener { _, _, _, _ ->
-                fillSettingNames(text.toString())
+            autoCompleteTextView?.setOnItemClickListener { _, _, _, _ ->
+                fillSettingNames(autoCompleteTextView.text.toString())
             }
         }
 
@@ -102,8 +102,8 @@ class EditSettingFragment : Fragment(R.layout.fragment_edit_setting) {
             }
         }
 
-        with(binding.settingName.editText as MaterialAutoCompleteTextView) {
-            setText(args.name)
+        with(binding.settingName) {
+            editText?.setText(args.name)
         }
 
         with(binding.settingValueNull) {
@@ -114,32 +114,12 @@ class EditSettingFragment : Fragment(R.layout.fragment_edit_setting) {
             }
         }
 
-        with(binding.settingValue.editText as MaterialAutoCompleteTextView) {
-            setText(args.value ?: "")
+        with(binding.settingValue) {
+            editText?.setText(args.value ?: "")
             binding.settingValueNull.isChecked = args.value == null && args.database != null
         }
 
-        binding.root.setOnApplyWindowInsetsListener { v, insets ->
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                val barInsets = insets.getInsets(WindowInsets.Type.systemBars())
-                v.setPadding(
-                    barInsets.left,
-                    barInsets.top,
-                    barInsets.right,
-                    barInsets.bottom,
-                )
-            } else {
-                @Suppress("deprecation")
-                v.setPadding(
-                    insets.systemWindowInsetLeft,
-                    insets.systemWindowInsetTop,
-                    insets.systemWindowInsetRight,
-                    insets.systemWindowInsetBottom,
-                )
-            }
-
-            insets
-        }
+        setEdge2EdgeFlags(binding.root)
     }
 
     fun fillSettingNames(databaseName: String) {

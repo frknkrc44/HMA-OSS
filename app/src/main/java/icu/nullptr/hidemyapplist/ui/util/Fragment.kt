@@ -1,20 +1,25 @@
 package icu.nullptr.hidemyapplist.ui.util
 
 import android.content.ContentResolver
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.view.WindowInsets
 import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import androidx.annotation.MenuRes
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import org.frknkrc44.hma_oss.R
+import org.frknkrc44.hma_oss.ui.activity.MainActivity
 
 val Fragment.navController get() = NavHostFragment.findNavController(this)
 
@@ -63,3 +68,67 @@ fun Fragment.setupToolbar(
 }
 
 val Fragment.contentResolver get(): ContentResolver = requireContext().contentResolver
+
+fun Fragment.recreateMainActivity(restart: Boolean = false) {
+    val mainActivity = activity as MainActivity
+    mainActivity.readyToKill = false
+
+    if (restart) {
+        mainActivity.finish()
+        startActivity(Intent(mainActivity, mainActivity.javaClass))
+    } else {
+        mainActivity.recreate()
+    }
+}
+
+fun FragmentTransaction.withAnimations() = setCustomAnimations(
+        R.anim.activity_open_enter,
+        R.anim.activity_open_exit,
+        R.anim.activity_close_enter,
+        R.anim.activity_close_exit,
+    )
+
+fun setEdge2EdgeFlags(
+    root: View,
+    left: Int? = null,
+    top: Int? = null,
+    right: Int? = null,
+    bottom: Int? = null,
+    getInsets: ((left: Int, top: Int, right: Int, bottom: Int) -> Unit)? = null,
+) {
+    @Suppress("deprecation")
+    root.setOnApplyWindowInsetsListener { v, insets ->
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val barInsets = insets.getInsets(WindowInsets.Type.systemBars())
+            v.setPadding(
+                left ?: barInsets.left,
+                top ?: barInsets.top,
+                right ?: barInsets.right,
+                bottom ?: barInsets.bottom,
+            )
+
+            getInsets?.invoke(
+                barInsets.left,
+                barInsets.top,
+                barInsets.right,
+                barInsets.bottom
+            )
+        } else {
+            v.setPadding(
+                left ?: insets.systemWindowInsetLeft,
+                top ?: insets.systemWindowInsetLeft,
+                right ?: insets.systemWindowInsetRight,
+                bottom ?: insets.systemWindowInsetBottom,
+            )
+
+            getInsets?.invoke(
+                insets.systemWindowInsetLeft,
+                insets.systemWindowInsetLeft,
+                insets.systemWindowInsetRight,
+                insets.systemWindowInsetBottom
+            )
+        }
+
+        insets
+    }
+}

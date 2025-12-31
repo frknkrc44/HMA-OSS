@@ -15,18 +15,34 @@
         tools:ignore="ContentDescription"
         tools:src="@tools:sample/avatars" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_weight="1"
-        android:textAppearance="?textAppearanceBodyLarge"
-        tools:text="@tools:sample/full_names" />
+        android:layout_width="0dp"
+        android:gravity="center_vertical"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textAppearance="?textAppearanceBodyLarge"
+            tools:text="@tools:sample/full_names" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/subText"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textAppearance="?textAppearanceBodyMedium"
+            tools:text="@tools:sample/full_names" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/button"
-        style="@style/Widget.Material3.Button.TextButton"
+        style="@style/Widget.Material3.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"

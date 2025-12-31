@@ -9,6 +9,7 @@ import org.frknkrc44.hma_oss.common.BuildConfig
 data class JsonConfig(
     var configVersion: Int = BuildConfig.CONFIG_VERSION,
     var detailLog: Boolean = false,
+    var errorOnlyLog: Boolean = false,
     var maxLogSize: Int = 512,
     var forceMountData: Boolean = true,
     var disableActivityLaunchProtection: Boolean = false,
@@ -53,6 +54,10 @@ data class JsonConfig(
         var extraOppositeAppList: MutableSet<String> = mutableSetOf(),
     ) {
         override fun toString() = encoder.encodeToString(this)
+
+        companion object {
+            fun parse(json: String) = encoder.decodeFromString<AppConfig>(json)
+        }
     }
 
     companion object {

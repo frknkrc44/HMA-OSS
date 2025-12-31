@@ -14,8 +14,6 @@ import kotlinx.coroutines.runBlocking
 
 object PrefManager {
 
-    private const val PREF_LAST_VERSION = "last_version"
-
     private const val PREF_LOCALE = "language"
 
     private const val PREF_SYSTEM_WALLPAPER = "system_wallpaper"
@@ -26,6 +24,8 @@ object PrefManager {
     private const val PREF_THEME_COLOR = "theme_color"
 
     private const val PREF_BYPASS_RISKY_PACKAGE_WARNING = "bypass_risky_package_warning"
+
+    private const val PREF_DISABLE_UPDATE = "disable_update"
 
     private const val PREF_APP_FILTER_SHOW_SYSTEM = "app_filter_show_system"
     private const val PREF_APP_FILTER_SORT_METHOD = "app_filter_sort_method"
@@ -39,10 +39,6 @@ object PrefManager {
 
     private val pref = hmaApp.getSharedPreferences("settings", MODE_PRIVATE)
     val isLauncherIconInvisible = MutableSharedFlow<Boolean>(replay = 1)
-
-    var lastVersion: Int
-        get() = pref.getInt(PREF_LAST_VERSION, 0)
-        set(value) = pref.edit { putInt(PREF_LAST_VERSION, value) }
 
     var locale: String
         get() = pref.getString(PREF_LOCALE, "SYSTEM")!!
@@ -96,6 +92,10 @@ object PrefManager {
     var bypassRiskyPackageWarning: Boolean
         get() = pref.getBoolean(PREF_BYPASS_RISKY_PACKAGE_WARNING, false)
         set(value) = pref.edit { putBoolean(PREF_BYPASS_RISKY_PACKAGE_WARNING, value) }
+
+    var disableUpdate: Boolean
+        get() = pref.getBoolean(PREF_DISABLE_UPDATE, false)
+        set(value) = pref.edit { putBoolean(PREF_DISABLE_UPDATE, value) }
 
     var appFilter_showSystem: Boolean
         get() = pref.getBoolean(PREF_APP_FILTER_SHOW_SYSTEM, false)

@@ -79,6 +79,13 @@ object ConfigManager {
             saveConfig()
         }
 
+    var errorOnlyLog: Boolean
+        get() = config.errorOnlyLog
+        set(value) {
+            config.errorOnlyLog = value
+            saveConfig()
+        }
+
     var maxLogSize: Int
         get() = config.maxLogSize
         set(value) {

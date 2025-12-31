@@ -1,9 +1,7 @@
 package org.frknkrc44.hma_oss.ui.fragment
 
-import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.view.WindowInsets
 import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
@@ -21,6 +19,7 @@ import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.ui.fragment.ScopeFragmentArgs
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.navigate
+import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import kotlinx.coroutines.launch
 import org.frknkrc44.hma_oss.R
@@ -111,26 +110,6 @@ class SettingsTemplateConfFragment : Fragment(R.layout.fragment_template_setting
             }
         }
 
-        binding.root.setOnApplyWindowInsetsListener { v, insets ->
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                val barInsets = insets.getInsets(WindowInsets.Type.systemBars())
-                v.setPadding(
-                    barInsets.left,
-                    barInsets.top,
-                    barInsets.right,
-                    barInsets.bottom,
-                )
-            } else {
-                @Suppress("deprecation")
-                v.setPadding(
-                    insets.systemWindowInsetLeft,
-                    insets.systemWindowInsetTop,
-                    insets.systemWindowInsetRight,
-                    insets.systemWindowInsetBottom,
-                )
-            }
-
-            insets
-        }
+        setEdge2EdgeFlags(binding.root)
     }
 }

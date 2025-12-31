@@ -3,6 +3,7 @@ package icu.nullptr.hidemyapplist.xposed.hook
 import com.github.kyuubiran.ezxhelper.utils.findMethodOrNull
 import com.github.kyuubiran.ezxhelper.utils.hookBefore
 import de.robv.android.xposed.XC_MethodHook
+import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.xposed.HMAService
 import icu.nullptr.hidemyapplist.xposed.logD
 
@@ -26,9 +27,12 @@ class ZygoteHook(private val service: HMAService): IFrameworkHook {
             if (gIDsIndex < 0) return@hookBefore
 
             val caller = param.args.lastOrNull { it is String } as String? ?: return@hookBefore
-            val perms = service.getRestrictedZygotePermissions(caller)
+            var perms = service.getRestrictedZygotePermissions(caller) ?: return@hookBefore
             if (perms.isNotEmpty()) {
                 val gIDs = param.args[gIDsIndex] as IntArray
+
+                // add more security, reject if not available in GID_PAIRS
+                perms = perms.filter { Constants.GID_PAIRS.containsValue(it) }
 
                 logD(TAG, "@startZygoteProcess: GIDs are ${gIDs.contentToString()}, removing $perms now")
                 param.args[gIDsIndex] = gIDs.filter { it !in perms }.toIntArray()
