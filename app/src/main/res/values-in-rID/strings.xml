@@ -90,7 +90,7 @@
     <string name="app_exclude_system_apps_summary">Matikan opsi ini hanya jika benar-benar diperlukan. Kemungkinan menyebabkan crash jika dinonaktifkan</string>
     <string name="app_template_using">Menggunakan %d templat</string>
     <string name="app_preset_using">Menggunakan %d preset</string>
-    <string name="app_settings_preset_using">Menggunakan %d setelan preset</string>
+    <string name="app_settings_preset_using">Menggunakan %d preset setelan</string>
     <string name="app_settings_template_using">Menggunakan templat setelan %d</string>
     <string name="app_extra_apps_visible_count">%d apl tambahan terlihat</string>
     <string name="app_extra_apps_invisible_count">%d apl tambahan tidak terlihat</string>
@@ -114,8 +114,8 @@
     <string name="app_restrict_zygote_permissions_desc">Opsi ini dapat menyebabkan crash atau deteksi palsu. Gunakan dengan bijak.</string>
     <!-- Presets -->
     <string name="title_preset">Preset</string>
-    <string name="title_settings_preset">Setelan preset</string>
-    <string name="title_preset_manage">Tampilkan preset</string>
+    <string name="title_settings_preset">Preset setelan</string>
+    <string name="title_preset_manage">Tampilan preset</string>
     <string name="preset_xposed">Modul LSPosed/Xposed</string>
     <string name="preset_root_apps">Manajer root/Apl root</string>
     <string name="preset_custom_rom">Apl ROM kustom</string>
@@ -125,7 +125,7 @@
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Aksesibilitas</string>
     <string name="settings_preset_dev_options">Opsi pengembang</string>
-    <string name="settings_preset_input_method">Metode input</string>
+    <string name="settings_preset_input_method">Alat input</string>
     <!-- Settings templates -->
     <string name="settings_templates_database">Setelan database</string>
     <string name="settings_templates_name">Nama setelan</string>
