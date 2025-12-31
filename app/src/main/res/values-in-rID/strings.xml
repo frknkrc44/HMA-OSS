@@ -31,6 +31,7 @@
     <string name="system">Sistem</string>
     <string name="add">Tambahkan</string>
     <string name="edit">Ubah</string>
+    <string name="apply">Terapkan</string>
     <string name="follow_system">Ikut sistem</string>
     <!-- Home -->
     <string name="home_xposed_activated">Modul Diaktifkan [%s]</string>
@@ -38,21 +39,21 @@
     <string name="home_xposed_service_on">Layanan sistem sedang berjalan [%d]</string>
     <string name="home_xposed_service_off">Layanan sistem tidak berjalan</string>
     <string name="home_xposed_service_old">Modul diperbarui, perlu mulai ulang</string>
-    <string name="home_xposed_filter_count">HMA-OSS telah memfilter total %d permintaan</string>
+    <string name="home_xposed_filter_count">HMA-OSS telah menyaring total %d permintaan</string>
     <string name="home_manage">Kelola</string>
     <string name="home_detection_test">Uji deteksi</string>
     <string name="home_download_test_app_title">Unduh aplikasi uji</string>
-    <string name="home_download_test_app_message">Kami telah mengembangkan aplikasi uji deteksi individual dan memigrasikan uji deteksi ke dalamnya. Ingin mengunduhnya sekarang?</string>
+    <string name="home_download_test_app_message">Kami telah mengembangkan aplikasi uji deteksi individual dan memindahkan uji deteksi ke dalamnya. Ingin mengunduhnya sekarang?</string>
     <string name="home_backup_and_restore">Cadangkan &amp; Pulihkan</string>
-    <string name="home_backup_config">Konfigurasi cadangan</string>
-    <string name="home_restore_config">Konfigurasi pemulihan</string>
+    <string name="home_backup_config">Cadangkan konfig</string>
+    <string name="home_restore_config">Pulihkan konfig</string>
     <string name="home_import_successful">Impor berhasil</string>
     <string name="home_import_failed">Impor gagal</string>
     <string name="home_import_app_version_too_old">Versi modul lebih rendah dari versi cadangan</string>
     <string name="home_import_backup_version_too_old">Versi cadangan terlalu lama</string>
     <string name="home_import_file_damaged">File cadangan rusak</string>
     <string name="home_export_failed">Ekspor gagal</string>
-    <string name="home_exported">Konfigurasi yang dicadangkan</string>
+    <string name="home_exported">Konfig dicadangkan</string>
     <string name="home_new_update">Pembaruan baru tersedia: %s</string>
     <string name="home_update">Memperbarui: %s</string>
     <!-- App select -->
@@ -170,6 +171,7 @@
     <string name="settings_package_query_workaround">Pencarian paket alternatif</string>
     <string name="settings_package_query_workaround_summary">Jangan aktifkan opsi ini jika daftar paket sudah tampil dengan benar.</string>
     <string name="settings_launcher_icon">Ikon aplikasi</string>
+    <string name="settings_error_only_log">Log khusus error</string>
     <string name="settings_language">Bahasa</string>
     <string name="settings_translate">Berpartisipasi dalam penerjemahan</string>
     <string name="settings_translate_summary">Bantu kami menerjemahkan %s ke bahasa anda</string>
@@ -191,6 +193,8 @@
     <string name="settings_disable_update">Nonaktifkan notifikasi pembaruan</string>
     <string name="settings_receive_beta_update">Terima pembaruan beta</string>
     <string name="settings_receive_beta_update_summary">Versi beta mungkin tidak stabil</string>
+    <!-- Bulk config wizard -->
+    <string name="title_bulk_config_wizard">Asisten konfigurasi massal</string>
     <!-- About -->
     <string name="about_description">        Meskipun tidak tepat untuk mendeteksi instalasi aplikasi tertentu, tidak semua aplikasi yang menggunakan root mendukung nama paket acak. Dalam kasus ini, aplikasi terdeteksi yang menggunakan root (seperti Pemalsuan Lokasi dan Isolasi Data) dianggap sama dengan root itu sendiri.\n\nPada saat yang sama, beberapa aplikasi cerdas memanfaatkan celah untuk mendapatkan daftar aplikasi anda, sehingga mereka bisa membangun profil tentang anda.\n\nModul ini menyediakan beberapa metode untuk menguji apakah anda telah menyembunyikan daftar aplikasi dengan baik. Selain itu, dapat berfungsi sebagai modul Xposed untuk menyembunyikan aplikasi tertentu atau menolak permintaan daftar aplikasi guna melindungi privasi anda.
     </string>
@@ -215,7 +219,7 @@
     <string name="color_blue">Biru</string>
     <string name="color_light_blue">Biru muda</string>
     <string name="color_cyan">Sian</string>
-    <string name="color_teal">Toska</string>
+    <string name="color_teal">Hijau kebiruan</string>
     <string name="color_green">Hijau</string>
     <string name="color_light_green">Hijau muda</string>
     <string name="color_lime">Hijau limau</string>

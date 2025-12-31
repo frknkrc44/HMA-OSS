@@ -31,6 +31,7 @@
     <string name="system">Hệ thống</string>
     <string name="add">Thêm</string>
     <string name="edit">Chỉnh sửa</string>
+    <string name="apply">Áp dụng thay đổi</string>
     <string name="follow_system">Theo cài đặt hệ thống</string>
     <!-- Home -->
     <string name="home_xposed_activated">Mô đun đã kích hoạt [%s]</string>
@@ -108,7 +109,7 @@
     <string name="app_global_activity_launch_protection_state">Bảo vệ đang được %s toàn hệ thống</string>
     <string name="app_force_stop_launch">Buộc dừng và khởi chạy</string>
     <string name="app_launch">Khởi chạy</string>
-    <string name="app_launch_failed">Ứng dụng khởi chạy thất bại, kiểm tra Logs để biết chi tiết</string>
+    <string name="app_launch_failed">Ứng dụng khởi chạy thất bại, kiểm tra nhật ký để biết chi tiết</string>
     <string name="app_restrict_zygote_permissions">Hạn chế quyền Zygote</string>
     <string name="app_restrict_zygote_permissions_desc">Lựa chọn này có thể gây lỗi hoặc báo giả, hãy lựa chọn cho chính xác.</string>
     <!-- Presets -->
@@ -135,7 +136,7 @@
     <!-- Logs -->
     <string name="logs_save">Lưu nhật ký</string>
     <string name="logs_clear">Xóa nhật ký</string>
-    <string name="logs_empty">Ko có nhật ký được lưu</string>
+    <string name="logs_empty">Không có nhật ký được lưu</string>
     <string name="logs_saved">Đã lưu nhật ký</string>
     <!-- Settings -->
     <string name="settings_module">Mô đun</string>
@@ -170,6 +171,7 @@
     <string name="settings_package_query_workaround">Tìm gói cài đặt thay thế</string>
     <string name="settings_package_query_workaround_summary">Đừng bật lựa chọn này nếu bạn thấy danh sách tên gói ứng dụng trong ứng dụng này đúng cách.</string>
     <string name="settings_launcher_icon">Biểu tượng khởi động</string>
+    <string name="settings_error_only_log">Chỉ lổi được lưu nhật ký</string>
     <string name="settings_language">Ngôn ngữ</string>
     <string name="settings_translate">Giúp chúng tôi dịch</string>
     <string name="settings_translate_summary">Giúp chúng tôi dịch %s sang ngôn ngữ của bạn</string>
@@ -191,6 +193,8 @@
     <string name="settings_disable_update">Tắt thông báo</string>
     <string name="settings_receive_beta_update">Nhận bản beta</string>
     <string name="settings_receive_beta_update_summary">Bản beta có thể ko tương thích</string>
+    <!-- Bulk config wizard -->
+    <string name="title_bulk_config_wizard">Cấu hình hàng loạt</string>
     <!-- About -->
     <string name="about_description">Mặc dù việc phát hiện cài đặt ứng dụng cụ thể là không chính xác, nhưng không phải mọi ứng dụng sử dụng root đều cung cấp hỗ trợ tên gói ngẫu nhiên. Trong trường hợp này, các ứng dụng được phát hiện sử dụng quyền root (chẳng hạn như Vị trí giả mạo và Cách ly bộ nhớ) tương đương với chính ứng dụng gốc được phát hiện. \n\n Đồng thời, một số ứng dụng thông minh sử dụng nhiều kẽ hở khác nhau để lấy danh sách ứng dụng của bạn, để nó có thể thu hút một cá tính dành cho bạn. \n\nMô-đun này cung cấp một số phương pháp để kiểm tra xem bạn đã ẩn danh sách ứng dụng của mình hay chưa. Ngoài ra, nó có thể hoạt động như một mô-đun Xposed để ẩn một số ứng dụng hoặc từ chối các yêu cầu danh sách ứng dụng để bảo vệ quyền riêng tư của bạn.
  </string>

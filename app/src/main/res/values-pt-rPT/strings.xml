@@ -31,6 +31,7 @@
     <string name="system">Sistema</string>
     <string name="add">Add</string>
     <string name="edit">Edit</string>
+    <string name="apply">Apply</string>
     <string name="follow_system">Seguir o sistema</string>
     <!-- Home -->
     <string name="home_xposed_activated">Módulo ativado [%s]</string>
@@ -170,6 +171,7 @@
     <string name="settings_package_query_workaround">Consulta alternativa de pacote</string>
     <string name="settings_package_query_workaround_summary">Não ative essa opção se você consegue ver a lista de pacotes corretamente neste app.</string>
     <string name="settings_launcher_icon">Launcher icon</string>
+    <string name="settings_error_only_log">Error-only log</string>
     <string name="settings_language">Idioma</string>
     <string name="settings_translate">Participar na tradução</string>
     <string name="settings_translate_summary">Ajude-nos a traduzir o %s para o seu idioma</string>
@@ -191,6 +193,8 @@
     <string name="settings_disable_update">Desativar notificação de atualização</string>
     <string name="settings_receive_beta_update">Receber atualizações beta</string>
     <string name="settings_receive_beta_update_summary">A versão beta pode ser instável</string>
+    <!-- Bulk config wizard -->
+    <string name="title_bulk_config_wizard">Bulk config wizard</string>
     <!-- About -->
     <string name="about_description">Embora seja incorreto detetar a instalação de aplicações específicas, nem todas as aplicações que usam root oferecem suporte para nomes de pacotes aleatórios. Neste caso, detetar aplicações que usam root (como a Fake Location e a Storage Isolation) equivale a detetar o próprio root.\n\nAo mesmo tempo, algumas aplicações mais inteligentes aproveitam várias falhas para obter a sua lista de aplicações, de modo a traçar um perfil seu.\n\nEste módulo fornece alguns métodos para testar se já ocultou bem a sua lista de aplicações. Além disso, pode funcionar como um módulo Xposed para ocultar algumas aplicações ou rejeitar pedidos de acesso à lista de aplicações para proteger a sua privacidade.    </string>
     <string name="about_fork_description">        O projeto original HMA passou a ser de código fechado e a sua versão mais recente não incluía algumas das últimas alterações, portanto, criei este fork para o continuar como um projeto de código aberto.

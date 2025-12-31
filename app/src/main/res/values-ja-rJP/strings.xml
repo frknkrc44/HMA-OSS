@@ -31,6 +31,7 @@
     <string name="system">システム</string>
     <string name="add">追加</string>
     <string name="edit">編集</string>
+    <string name="apply">適用</string>
     <string name="follow_system">システムに従う</string>
     <!-- Home -->
     <string name="home_xposed_activated">モジュールは有効です [%s]</string>
@@ -170,6 +171,7 @@
     <string name="settings_package_query_workaround">代替パッケージクエリ</string>
     <string name="settings_package_query_workaround_summary">このアプリでパッケージリストが正しく表示されている場合は、このオプションを有効にしないでください。</string>
     <string name="settings_launcher_icon">ランチャーアイコン</string>
+    <string name="settings_error_only_log">エラーのみのログ</string>
     <string name="settings_language">言語</string>
     <string name="settings_translate">翻訳に参加する</string>
     <string name="settings_translate_summary">%s をあなたの言語に翻訳するのにご協力ください</string>
@@ -191,6 +193,8 @@
     <string name="settings_disable_update">アップデートの通知を無効にする</string>
     <string name="settings_receive_beta_update">ベータ版アップデートを受け取る</string>
     <string name="settings_receive_beta_update_summary">ベータ版は不安定な場合があります</string>
+    <!-- Bulk config wizard -->
+    <string name="title_bulk_config_wizard">一括設定ウィザード</string>
     <!-- About -->
     <string name="about_description">        特定のアプリのインストールを検出することは正しくありませんが、root 権限を使用するすべてのアプリがランダムなパッケージ名に対応しているわけではありません。この場合、root 権限を使用しているアプリ (Fake Location や Storage Isolation など) の検出は、root 権限自体が検出されることと同等です。\n\n同時に、一部のスマートアプリは、さまざまな抜け穴を使用してアプリリストを取得して、ユーザーの行動特性を分析する場合があります。\n\nこのモジュールは、アプリリストを適切に非表示にしているかどうかを検証する方法をいくつか提供します。また、Xposed モジュールとして動作することで、特定のアプリを非表示にしたり、アプリリストの取得要求を拒否したりして、プライバシーを保護することも可能です。
     </string>

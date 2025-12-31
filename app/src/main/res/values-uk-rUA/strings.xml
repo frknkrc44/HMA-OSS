@@ -31,6 +31,7 @@
     <string name="system">Система</string>
     <string name="add">Add</string>
     <string name="edit">Edit</string>
+    <string name="apply">Apply</string>
     <string name="follow_system">Як у системі</string>
     <!-- Home -->
     <string name="home_xposed_activated">Модуль активовано [%s]</string>
@@ -88,7 +89,7 @@
     <string name="app_exclude_system_apps">Виключити системні додатки</string>
     <string name="app_exclude_system_apps_summary">Вимкніть цей параметр лише тоді, коли це дійсно необхідно. Імовірно, це призведе до збою, якщо його вимкнено</string>
     <string name="app_template_using">Використання %d шаблонів</string>
-    <string name="app_preset_using"></string>
+    <string name="app_preset_using">Using %d presets</string>
     <string name="app_settings_preset_using">Using %d settings presets</string>
     <string name="app_settings_template_using">Using %d settings templates</string>
     <string name="app_extra_apps_visible_count">%d видимі додаткові додатки</string>
@@ -170,6 +171,7 @@
     <string name="settings_package_query_workaround">Alternative package query</string>
     <string name="settings_package_query_workaround_summary">Don\'t enable this option if you see the package list in this app correctly.</string>
     <string name="settings_launcher_icon">Launcher icon</string>
+    <string name="settings_error_only_log">Error-only log</string>
     <string name="settings_language">Мова</string>
     <string name="settings_translate">Участь у перекладі</string>
     <string name="settings_translate_summary">Допоможіть нам перекласти %s вашою мовою</string>
@@ -191,6 +193,8 @@
     <string name="settings_disable_update">Вимкнути сповіщення про оновлення</string>
     <string name="settings_receive_beta_update">Отримувати бета-оновлення</string>
     <string name="settings_receive_beta_update_summary">Бета-версія може бути нестабільною</string>
+    <!-- Bulk config wizard -->
+    <string name="title_bulk_config_wizard">Bulk config wizard</string>
     <!-- About -->
     <string name="about_description">        Незважаючи на те, що виявляти встановлену конкретний додаток неправильно, не кожен додаток, що використовує root, забезпечує підтримку довільних імен пакетів. У цьому випадку виявлені додатки, які використовують root (наприклад, Fake Location and Storage Isolation), дорівнюють самому виявленому root.\n\nУ той же час деякі розумні додатки використовують різні лазівки, щоб отримати ваш список додатків, щоб він міг малювати особистість для вас.\n\nЦей модуль надає деякі методи перевірити, чи добре ви вже приховали свій список додатків. Крім того, він може працювати як модуль Xposed, щоб приховати деякі додатки або відхилити запити списку додатків, щоб захистити вашу конфіденційність.
     </string>

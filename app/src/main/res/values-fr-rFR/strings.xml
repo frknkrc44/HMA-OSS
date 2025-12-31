@@ -31,6 +31,7 @@
     <string name="system">Système</string>
     <string name="add">Ajouter</string>
     <string name="edit">Modifier</string>
+    <string name="apply">Appliquer</string>
     <string name="follow_system">Suivre le système</string>
     <!-- Home -->
     <string name="home_xposed_activated">Module Actif [%s]</string>
@@ -170,6 +171,7 @@
     <string name="settings_package_query_workaround">Requête de paquet alternatif</string>
     <string name="settings_package_query_workaround_summary">N\'activez pas cette option si la liste des paquets s\'affiche correctement dans cette application.</string>
     <string name="settings_launcher_icon">Icône du lanceur</string>
+    <string name="settings_error_only_log">Journal d\'erreurs uniquement</string>
     <string name="settings_language">Langue</string>
     <string name="settings_translate">Participer à la traduction</string>
     <string name="settings_translate_summary">Aidez nous à traduire %s dans votre language</string>
@@ -191,6 +193,8 @@
     <string name="settings_disable_update">Désactiver la notification de mise à jour</string>
     <string name="settings_receive_beta_update">Recevoir les mises à jours beta</string>
     <string name="settings_receive_beta_update_summary">Les versions Beta pourraient êtres instables</string>
+    <!-- Bulk config wizard -->
+    <string name="title_bulk_config_wizard">Assistant de configuration de masse</string>
     <!-- About -->
     <string name="about_description">        Bien qu\'il soit incorrect de détecter l\'installation d\'une application spécifique, toutes les applications utilisant la racine ne prennent pas en charge les noms de paquets aléatoires. Dans ce cas, les applications détectées qui utilisent la racine (telles que Fake Location et Storage Isolation) sont égales à la racine détectée elle-même.\n\nDans le même temps, certaines applications intelligentes utilisent diverses failles pour acquérir votre liste d\'applications, afin de vous dessiner un personnage.\n\nCe module fournit quelques méthodes pour tester si vous avez déjà bien caché votre liste d\'applications. De plus, il peut fonctionner comme un module Xposed pour cacher certaines applications ou rejeter les demandes de liste d\'applications afin de protéger votre vie privée.
     </string>
