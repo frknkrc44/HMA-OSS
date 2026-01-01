@@ -3,6 +3,8 @@
 [![Stars](https://img.shields.io/github/stars/frknkrc44/HMA-OSS?label=Stars)](https://github.com/frknkrc44)
 [![Build](https://img.shields.io/github/actions/workflow/status/frknkrc44/HMA-OSS/main.yml?branch=master&logo=github)](https://github.com/frknkrc44/HMA-OSS/actions)
 [![Release](https://img.shields.io/github/v/release/frknkrc44/HMA-OSS?label=Release)](https://github.com/frknkrc44/HMA-OSS/releases/latest)
+[![IzzyOnDroid](https://img.shields.io/endpoint?url=https://apt.izzysoft.de/fdroid/api/v1/shield/org.frknkrc44.hma_oss&label=IzzyOnDroid)](https://apt.izzysoft.de/fdroid/index/apk/org.frknkrc44.hma_oss)
+[![RB Status](https://shields.rbtlog.dev/simple/org.frknkrc44.hma_oss)](https://shields.rbtlog.dev/org.frknkrc44.hma_oss)
 [![Download](https://img.shields.io/github/downloads/frknkrc44/HMA-OSS/total)](https://github.com/frknkrc44/HMA-OSS/releases/latest)
 [![Channel](https://img.shields.io/badge/Telegram-Channel-blue.svg?logo=telegram)](https://t.me/aerathfuns)
 [![License](https://img.shields.io/github/license/frknkrc44/HMA-OSS?label=License)](https://choosealicense.com/licenses/gpl-3.0/)
