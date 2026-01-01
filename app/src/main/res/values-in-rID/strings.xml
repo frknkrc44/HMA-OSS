@@ -157,7 +157,7 @@
     <string name="settings_force_mount_data">Paksa isolasi data untuk semua apl</string>
     <string name="settings_force_mount_data_summary">Isolasi data dinonaktifkan untuk apl target API yang lebih rendah dari 30 secara default</string>
     <string name="settings_detail_log">Log detail untuk debugging</string>
-    <string name="settings_max_log_size">Ukuran buffer logger</string>
+    <string name="settings_max_log_size">Ukuran buffer log</string>
     <string name="settings_hide_icon">Sembunyikan ikon modul di launcher</string>
     <string name="settings_hide_icon_summary">Anda masih dapat membuka apl di manajer Xposed</string>
     <string name="settings_bypass_risky_package_warning">Abaikan paket berisiko</string>
