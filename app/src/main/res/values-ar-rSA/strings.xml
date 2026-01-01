@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="title_home">القائمة ألرئيسية</string>
+    <string name="title_home">الصفحة الرئيسية</string>
     <string name="title_logs">السجلات</string>
     <string name="title_settings">الإعدادات</string>
     <string name="title_template_manage">إدارة القوالب</string>
@@ -36,7 +36,7 @@
     <!-- Home -->
     <string name="home_xposed_activated">الإضافة مفعلة [%s]</string>
     <string name="home_xposed_not_activated">الإضافة غير مفعلة</string>
-    <string name="home_xposed_service_on">خدمة النظام تعمل [%d]</string>
+    <string name="home_xposed_service_on">خدمة النظام متوقفة [%d]</string>
     <string name="home_xposed_service_off">خدمة النظام متوقفة</string>
     <string name="home_xposed_service_old">تم تحديث الإضافة، تحتاج إلي إعادة التشغيل</string>
     <string name="home_xposed_filter_count">HMA-OSS قام بتصفية إجمالي %d من الطلبات</string>
@@ -47,14 +47,14 @@
     <string name="home_backup_and_restore">حفظ نسخة &amp; استعادة نسخة</string>
     <string name="home_backup_config">نسخ احتياطي للإعدادات</string>
     <string name="home_restore_config">استعادة إعداداتي</string>
-    <string name="home_import_successful">تم التحميل بنجاح</string>
-    <string name="home_import_failed">فَشِل التحميل</string>
+    <string name="home_import_successful">تم الاستيراد بنجاح</string>
+    <string name="home_import_failed">فَشِل الاستيراد</string>
     <string name="home_import_app_version_too_old">إصدار الوحدة أقل من النسخة</string>
     <string name="home_import_backup_version_too_old">النسخة الاحتياطية قديمة للغاية</string>
     <string name="home_import_file_damaged">مِلف النسخة الاحتياطية متضرر</string>
     <string name="home_export_failed">فشـل التصدير</string>
-    <string name="home_exported">نسخ احتياطي لمِلف إعداداتي</string>
-    <string name="home_new_update">متوفر تحديث جديد: %s</string>
+    <string name="home_exported">تم النسخ الاحتياطي للإعدادات</string>
+    <string name="home_new_update">تحديث جديد متوفر: %s</string>
     <string name="home_update">تحديث: %s</string>
     <!-- App select -->
     <string name="list_show_system">إظهار تطبيقات النظام</string>
@@ -94,11 +94,11 @@
     <string name="app_settings_template_using">يتم استخدام %d قالب (قوالب) إعدادات</string>
     <string name="app_extra_apps_visible_count">%d تطبيقات إضافية مرئية</string>
     <string name="app_extra_apps_invisible_count">%d تطبيقات إضافية غير مرئية</string>
-    <string name="app_warning_risky_package_title">حُزْمَة قد تكون خطرة</string>
-    <string name="app_warning_risky_package_desc">تم تصنيف هذه الحُزْمَة على إنها خطرة ويمكنك التسبب بمشاكل على التطبيقات المخفية. هل ترغب بالاستمرار؟</string>
-    <string name="app_spoof">خداع</string>
-    <string name="app_hide_installation_source">خداع مصادر التثبيت</string>
-    <string name="app_hide_installation_source_desc">سيتم خداع جميع تطبيقات المستخدم كما لو انه مثبتة من متجر التطبيقات</string>
+    <string name="app_warning_risky_package_title">حِزْمَة خطيرة</string>
+    <string name="app_warning_risky_package_desc">تم تصنيف هذه الحُزْمَة على إنها خطرة ويمكنها التسبب بمشاكل على التطبيقات المخفية. هل ترغب بالاستمرار؟</string>
+    <string name="app_spoof">تزوير</string>
+    <string name="app_hide_installation_source">تزوير مصادر التثبيت</string>
+    <string name="app_hide_installation_source_desc">سيتم تزوير جميع تطبيقات المستخدم كما لو انه مثبتة من متجر التطبيقات</string>
     <string name="app_hide_installation_source_system">خداع تطبيقات النظام أيضأ</string>
     <string name="app_hide_installation_source_system_desc">سيتم خداع جميع تطبيقات النظام كما لو انه تم تثبيته من لا شيء</string>
     <string name="app_exclude_target_installation_source">عدم شمول التطبيقات المستهدفة</string>
