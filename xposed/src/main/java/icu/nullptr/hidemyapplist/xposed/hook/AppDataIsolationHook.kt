@@ -182,6 +182,7 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
             name == "remountAppStorageDirs"
         }?.hookBefore { param ->
             if (service.config.altVoldAppDataIsolation && service.config.skipSystemAppDataIsolation) {
+                @Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN")
                 val pidPkgMap = param.args[0] as java.util.Map<*, *>
                 val userId = param.args[1] as Int
 
