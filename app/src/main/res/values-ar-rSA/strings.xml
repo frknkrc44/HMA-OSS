@@ -100,18 +100,18 @@
     <string name="app_hide_installation_source">تزوير مصادر التثبيت</string>
     <string name="app_hide_installation_source_desc">سيتم تزوير جميع تطبيقات المستخدم كما لو انه مثبتة من متجر التطبيقات</string>
     <string name="app_hide_installation_source_system">خداع تطبيقات النظام أيضأ</string>
-    <string name="app_hide_installation_source_system_desc">سيتم خداع جميع تطبيقات النظام كما لو انه تم تثبيته من لا شيء</string>
-    <string name="app_exclude_target_installation_source">عدم شمول التطبيقات المستهدفة</string>
+    <string name="app_hide_installation_source_system_desc">سيتم خداع جميع تطبيقات النظام كما لو انه لم يتم تثبيتها من تطبيق معين</string>
+    <string name="app_exclude_target_installation_source">استبعاد التطبيقات المستهدفة</string>
     <string name="app_exclude_target_installation_source_desc">يمكنك تفعيلها إذا لم يكن هذا التطبيق متوفرا في متجر التطبيقات</string>
     <string name="app_force_stop_warning">لا تنس عمل إيقاف أجباري للتطبيق المستهدف بعد حفظ إعدادات التكوين</string>
-    <string name="app_invert_activity_launch_protection">قلب حماية تشغيل نشاط التطبيق</string>
-    <string name="app_invert_activity_launch_protection_desc">هذا الخِيار سيقلب خِيار\'\'تعطيل حماية تشغيل نشاط التطبيق\'\' في الإعدادات.</string>
+    <string name="app_invert_activity_launch_protection">عكس حماية تشغيل نشاط التطبيق</string>
+    <string name="app_invert_activity_launch_protection_desc">هذا الخِيار سيقلب خِيار \'\'تعطيل حماية تشغيل نشاط التطبيق\'\' في الإعدادات.</string>
     <string name="app_global_activity_launch_protection_state">حالة الحماية المطبقة عمومًا: %s</string>
-    <string name="app_force_stop_launch">فرض الإيقاف ثم الفتح</string>
-    <string name="app_launch">فتح</string>
-    <string name="app_launch_failed">أخفق فتح التطبيق, تفقد السجلات لمعرفة التفاصيل</string>
+    <string name="app_force_stop_launch">إيقاف إجباري ثم التشغيل</string>
+    <string name="app_launch">تشغيل</string>
+    <string name="app_launch_failed">أخفق تشغيل التطبيق, تفقّد السجلات لمعرفة التفاصيل</string>
     <string name="app_restrict_zygote_permissions">تقييد صلاحيات Zygote</string>
-    <string name="app_restrict_zygote_permissions_desc">هذا الخِيار قد يسبب أعطالا أو نتائج غير مرغوبة، استخدمه على مسؤوليتك</string>
+    <string name="app_restrict_zygote_permissions_desc">هذا الخِيار قد يسبب أعطالا أو نتائج غير مرغوبة، استخدمه على مسؤوليتك.</string>
     <!-- Presets -->
     <string name="title_preset">الإعدادات المسبقة</string>
     <string name="title_settings_preset">الضبط المسبق</string>
@@ -139,7 +139,7 @@
     <string name="logs_empty">لا يوجد سجلات لحفظها</string>
     <string name="logs_saved">تم حفظ السجلات</string>
     <!-- Settings -->
-    <string name="settings_module">الإضافة</string>
+    <string name="settings_module">الوحدة</string>
     <string name="settings_overwrite">الكتابة عليه</string>
     <string name="settings_overwritten">مكتوب عليه</string>
     <string name="settings_overwrite_summary">هذا الصنف من الفقرات سيتم إجبارها على كونها مفعلة إذا تم تفعيل الخيارات</string>
