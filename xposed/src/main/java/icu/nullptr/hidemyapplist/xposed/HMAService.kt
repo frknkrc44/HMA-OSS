@@ -36,6 +36,7 @@ import rikka.hidden.compat.ActivityManagerApis
 import java.io.File
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import kotlin.concurrent.thread
 
 class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
@@ -78,8 +79,13 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         loadConfig()
         installHooks()
         AppPresets.instance.loggerFunction = { level, msg -> logWithLevel(level, TAG, msg) }
-        AppPresets.instance.reloadPresets(pms)
         logI(TAG, "HMA service initialized")
+
+        // Add thread to speed up the boot process
+        thread {
+            AppPresets.instance.reloadPresets(pms)
+            logI(TAG, "All presets are loaded")
+        }
     }
 
     private fun searchDataDir() {
