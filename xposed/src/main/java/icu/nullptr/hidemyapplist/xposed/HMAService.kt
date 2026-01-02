@@ -78,8 +78,11 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         instance = this
         loadConfig()
         installHooks()
-        AppPresets.instance.loggerFunction = { level, msg -> logWithLevel(level, TAG, msg) }
         logI(TAG, "HMA service initialized")
+
+        AppPresets.instance.loggerFunction = { level, msg ->
+            logWithLevel(level, "AppPresets", msg)
+        }
 
         // Add thread to speed up the boot process
         thread {
