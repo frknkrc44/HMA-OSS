@@ -13,6 +13,7 @@ import icu.nullptr.hidemyapplist.common.Utils
 import icu.nullptr.hidemyapplist.common.settings_presets.InputMethodPreset
 import icu.nullptr.hidemyapplist.xposed.HMAService
 import icu.nullptr.hidemyapplist.xposed.Utils4Xposed
+import icu.nullptr.hidemyapplist.xposed.XposedConstants.IMM_SERVICE_CLASS
 import icu.nullptr.hidemyapplist.xposed.logD
 import icu.nullptr.hidemyapplist.xposed.logE
 import icu.nullptr.hidemyapplist.xposed.logI
@@ -21,7 +22,6 @@ import java.util.Collections
 class ImmHook(private val service: HMAService) : IFrameworkHook {
     companion object {
         private const val TAG = "ImmHook"
-        private const val IMM_SERVICE = "com.android.server.inputmethod.InputMethodManagerService"
     }
 
     private val hooks = mutableListOf<XC_MethodHook.Unhook>()
@@ -67,7 +67,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
         logI(TAG, "Load hook")
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            findMethodOrNull(IMM_SERVICE) {
+            findMethodOrNull(IMM_SERVICE_CLASS) {
                 name == "getCurrentInputMethodInfoAsUser"
             }?.hookBefore { param ->
                 val callingApps = Utils4Xposed.getCallingApps(service)
@@ -87,9 +87,9 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
             }
         }
 
-        (findMethodOrNull(IMM_SERVICE) {
+        (findMethodOrNull(IMM_SERVICE_CLASS) {
             name == "getInputMethodListInternal"
-        } ?: findMethodOrNull(IMM_SERVICE) {
+        } ?: findMethodOrNull(IMM_SERVICE_CLASS) {
             name == "getInputMethodList" && returnType.simpleName != "InputMethodInfoSafeList"
         })?.hookBefore { param ->
             listHook(param)
@@ -98,9 +98,9 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
             hooks += it
         }
 
-        (findMethodOrNull(IMM_SERVICE) {
+        (findMethodOrNull(IMM_SERVICE_CLASS) {
             name == "getEnabledInputMethodListInternal"
-        } ?: findMethodOrNull(IMM_SERVICE) {
+        } ?: findMethodOrNull(IMM_SERVICE_CLASS) {
             name == "getEnabledInputMethodList" && returnType.simpleName != "InputMethodInfoSafeList"
         })?.hookBefore { param ->
             listHook(param)
@@ -109,7 +109,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
             hooks += it
         }
 
-        findMethodOrNull(IMM_SERVICE) {
+        findMethodOrNull(IMM_SERVICE_CLASS) {
             name == "getCurrentInputMethodSubtype"
         }?.hookBefore { param ->
             subtypeHook(param)
@@ -118,7 +118,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
             hooks += it
         }
 
-        findMethodOrNull(IMM_SERVICE) {
+        findMethodOrNull(IMM_SERVICE_CLASS) {
             name == "getLastInputMethodSubtype"
         }?.hookBefore { param ->
             subtypeHook(param)
@@ -127,9 +127,9 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
             hooks += it
         }
 
-        (findMethodOrNull(IMM_SERVICE) {
+        (findMethodOrNull(IMM_SERVICE_CLASS) {
             name == "getEnabledInputMethodSubtypeListInternal"
-        } ?: findMethodOrNull(IMM_SERVICE) {
+        } ?: findMethodOrNull(IMM_SERVICE_CLASS) {
             name == "getEnabledInputMethodSubtypeList"
         })?.hookBefore { param ->
             subtypeListHook(param)

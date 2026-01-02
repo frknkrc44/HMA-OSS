@@ -13,12 +13,12 @@ import com.github.kyuubiran.ezxhelper.utils.hookBefore
 import de.robv.android.xposed.XC_MethodHook
 import icu.nullptr.hidemyapplist.xposed.HMAService
 import icu.nullptr.hidemyapplist.xposed.Utils4Xposed
+import icu.nullptr.hidemyapplist.xposed.XposedConstants.CONTENT_PROVIDER_TRANSPORT_CLASS
 import icu.nullptr.hidemyapplist.xposed.logD
 
 class ContentProviderHook(private val service: HMAService): IFrameworkHook {
     companion object {
         private const val TAG = "ContentProviderHook"
-        private const val CONTENT_PROVIDER_TRANSPORT = $$"android.content.ContentProvider$Transport"
         private val NV_PAIR = arrayOf("name", "value")
     }
 
@@ -26,7 +26,7 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
 
     @Suppress("UNCHECKED_CAST")
     override fun load() {
-        hooks += findMethod(CONTENT_PROVIDER_TRANSPORT) {
+        hooks += findMethod(CONTENT_PROVIDER_TRANSPORT_CLASS) {
             name == "query"
         }.hookAfter { param ->
             val callingApps = getCallingPackages(param)
@@ -121,7 +121,7 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
         }
 
         // Credit: https://github.com/Nitsuya/DoNotTryAccessibility/blob/main/app/src/main/java/io/github/nitsuya/donottryaccessibility/hook/AndroidFrameworkHooker.kt
-        hooks += findMethod(CONTENT_PROVIDER_TRANSPORT) {
+        hooks += findMethod(CONTENT_PROVIDER_TRANSPORT_CLASS) {
             name == "call"
         }.hookBefore { param ->
             val callingApps = getCallingPackages(param)

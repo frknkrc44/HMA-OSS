@@ -13,6 +13,8 @@ import icu.nullptr.hidemyapplist.common.Constants.VENDING_PACKAGE_NAME
 import icu.nullptr.hidemyapplist.common.Utils
 import icu.nullptr.hidemyapplist.xposed.HMAService
 import icu.nullptr.hidemyapplist.xposed.Utils4Xposed
+import icu.nullptr.hidemyapplist.xposed.XposedConstants.APPS_FILTER_CLASS
+import icu.nullptr.hidemyapplist.xposed.XposedConstants.PMS_COMPUTER_TRACKER_CLASS
 import icu.nullptr.hidemyapplist.xposed.logD
 import icu.nullptr.hidemyapplist.xposed.logE
 import icu.nullptr.hidemyapplist.xposed.logI
@@ -53,7 +55,7 @@ class PmsHookTarget31(service: HMAService) : PmsHookTargetBase(service) {
     override fun load() {
         logI(TAG, "Load hook")
 
-        findMethodOrNull("com.android.server.pm.PackageManagerService\$ComputerTracker") {
+        findMethodOrNull(PMS_COMPUTER_TRACKER_CLASS) {
             name == "getPackageSetting"
         }?.hookBefore { param ->
             val targetApp = param.args[0] as String
@@ -71,7 +73,7 @@ class PmsHookTarget31(service: HMAService) : PmsHookTargetBase(service) {
             hooks += it
         }
 
-        findMethodOrNull("com.android.server.pm.PackageManagerService\$ComputerTracker") {
+        findMethodOrNull(PMS_COMPUTER_TRACKER_CLASS) {
             name == "getPackageSettingInternal"
         }?.hookBefore { param ->
             val targetApp = param.args[0] as String
@@ -89,7 +91,7 @@ class PmsHookTarget31(service: HMAService) : PmsHookTargetBase(service) {
             hooks += it
         }
 
-        hooks += findMethod("com.android.server.pm.AppsFilter") {
+        hooks += findMethod(APPS_FILTER_CLASS) {
             name == "shouldFilterApplication"
         }.hookBefore { param ->
             runCatching {

@@ -16,14 +16,11 @@ import icu.nullptr.hidemyapplist.common.Constants.VENDING_PACKAGE_NAME
 import icu.nullptr.hidemyapplist.common.Utils
 import icu.nullptr.hidemyapplist.xposed.HMAService
 import icu.nullptr.hidemyapplist.xposed.Utils4Xposed
+import icu.nullptr.hidemyapplist.xposed.XposedConstants.COMPUTER_ENGINE_CLASS
 import icu.nullptr.hidemyapplist.xposed.logD
 import java.util.concurrent.atomic.AtomicReference
 
 abstract class PmsHookTargetBase(protected val service: HMAService) : IFrameworkHook {
-    companion object {
-        private const val COMPUTER_ENGINE_CLASS = "com.android.server.pm.ComputerEngine"
-    }
-
     private val TAG by lazy { this::class.java.simpleName }
 
     protected val hooks = mutableListOf<XC_MethodHook.Unhook>()

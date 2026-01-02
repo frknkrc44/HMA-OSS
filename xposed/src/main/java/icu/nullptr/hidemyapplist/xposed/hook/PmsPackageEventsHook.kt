@@ -6,6 +6,7 @@ import com.github.kyuubiran.ezxhelper.utils.findMethod
 import com.github.kyuubiran.ezxhelper.utils.hookBefore
 import de.robv.android.xposed.XC_MethodHook
 import icu.nullptr.hidemyapplist.xposed.HMAService
+import icu.nullptr.hidemyapplist.xposed.XposedConstants.PACKAGE_MANAGER_SERVICE_CLASS
 
 class PmsPackageEventsHook(private val service: HMAService) : IFrameworkHook {
     private var hook: XC_MethodHook.Unhook? = null
@@ -34,7 +35,7 @@ class PmsPackageEventsHook(private val service: HMAService) : IFrameworkHook {
                 }
             }
         } else {
-            hook = findMethod("com.android.server.pm.PackageManagerService") {
+            hook = findMethod(PACKAGE_MANAGER_SERVICE_CLASS) {
                 name == "sendPackageBroadcast"
             }.hookBefore { param ->
                 service.handlePackageEvent(

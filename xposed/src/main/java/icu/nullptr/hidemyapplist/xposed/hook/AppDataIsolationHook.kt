@@ -10,6 +10,7 @@ import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers
 import icu.nullptr.hidemyapplist.common.Utils
 import icu.nullptr.hidemyapplist.xposed.HMAService
+import icu.nullptr.hidemyapplist.xposed.XposedConstants.STORAGE_MANAGER_SERVICE_CLASS
 import icu.nullptr.hidemyapplist.xposed.logD
 import icu.nullptr.hidemyapplist.xposed.logE
 import icu.nullptr.hidemyapplist.xposed.logI
@@ -138,9 +139,7 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
             hooks += it
         }
 
-        findMethodOrNull(
-            "com.android.server.StorageManagerService"
-        ) {
+        findMethodOrNull(STORAGE_MANAGER_SERVICE_CLASS) {
             name == "onVolumeStateChangedLocked"
         }?.hookBefore { param ->
             runCatching {
@@ -176,9 +175,7 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
             hooks += it
         }
 
-        findMethodOrNull(
-            "com.android.server.StorageManagerService"
-        ) {
+        findMethodOrNull(STORAGE_MANAGER_SERVICE_CLASS) {
             name == "remountAppStorageDirs"
         }?.hookBefore { param ->
             if (service.config.altVoldAppDataIsolation && service.config.skipSystemAppDataIsolation) {
