@@ -31,12 +31,12 @@
     <string name="system">النظام</string>
     <string name="add">إضافة</string>
     <string name="edit">تعديل</string>
-    <string name="apply">Apply</string>
+    <string name="apply">تطبيق</string>
     <string name="follow_system">يتبع النظام</string>
     <!-- Home -->
     <string name="home_xposed_activated">الإضافة مفعلة [%s]</string>
     <string name="home_xposed_not_activated">الإضافة غير مفعلة</string>
-    <string name="home_xposed_service_on">خدمة النظام تعمل [%d]</string>
+    <string name="home_xposed_service_on">خدمة النظام متوقفة [%d]</string>
     <string name="home_xposed_service_off">خدمة النظام متوقفة</string>
     <string name="home_xposed_service_old">تم تحديث الإضافة، تحتاج إلي إعادة التشغيل</string>
     <string name="home_xposed_filter_count">HMA-OSS قام بتصفية إجمالي %d من الطلبات</string>
@@ -47,14 +47,14 @@
     <string name="home_backup_and_restore">حفظ نسخة &amp; استعادة نسخة</string>
     <string name="home_backup_config">نسخ احتياطي للإعدادات</string>
     <string name="home_restore_config">استعادة إعداداتي</string>
-    <string name="home_import_successful">تم التحميل بنجاح</string>
-    <string name="home_import_failed">فَشِل التحميل</string>
+    <string name="home_import_successful">تم الاستيراد بنجاح</string>
+    <string name="home_import_failed">فَشِل الاستيراد</string>
     <string name="home_import_app_version_too_old">إصدار الوحدة أقل من النسخة</string>
     <string name="home_import_backup_version_too_old">النسخة الاحتياطية قديمة للغاية</string>
     <string name="home_import_file_damaged">مِلف النسخة الاحتياطية متضرر</string>
     <string name="home_export_failed">فشـل التصدير</string>
-    <string name="home_exported">نسخ احتياطي لمِلف إعداداتي</string>
-    <string name="home_new_update">متوفر تحديث جديد: %s</string>
+    <string name="home_exported">تم النسخ الاحتياطي للإعدادات</string>
+    <string name="home_new_update">تحديث جديد متوفر: %s</string>
     <string name="home_update">تحديث: %s</string>
     <!-- App select -->
     <string name="list_show_system">إظهار تطبيقات النظام</string>
@@ -94,24 +94,24 @@
     <string name="app_settings_template_using">يتم استخدام %d قالب (قوالب) إعدادات</string>
     <string name="app_extra_apps_visible_count">%d تطبيقات إضافية مرئية</string>
     <string name="app_extra_apps_invisible_count">%d تطبيقات إضافية غير مرئية</string>
-    <string name="app_warning_risky_package_title">حُزْمَة قد تكون خطرة</string>
-    <string name="app_warning_risky_package_desc">تم تصنيف هذه الحُزْمَة على إنها خطرة ويمكنك التسبب بمشاكل على التطبيقات المخفية. هل ترغب بالاستمرار؟</string>
-    <string name="app_spoof">خداع</string>
-    <string name="app_hide_installation_source">خداع مصادر التثبيت</string>
-    <string name="app_hide_installation_source_desc">سيتم خداع جميع تطبيقات المستخدم كما لو انه مثبتة من متجر التطبيقات</string>
+    <string name="app_warning_risky_package_title">حِزْمَة خطيرة</string>
+    <string name="app_warning_risky_package_desc">تم تصنيف هذه الحُزْمَة على إنها خطرة ويمكنها التسبب بمشاكل على التطبيقات المخفية. هل ترغب بالاستمرار؟</string>
+    <string name="app_spoof">تزوير</string>
+    <string name="app_hide_installation_source">تزوير مصادر التثبيت</string>
+    <string name="app_hide_installation_source_desc">سيتم تزوير جميع تطبيقات المستخدم كما لو انه مثبتة من متجر التطبيقات</string>
     <string name="app_hide_installation_source_system">خداع تطبيقات النظام أيضأ</string>
-    <string name="app_hide_installation_source_system_desc">سيتم خداع جميع تطبيقات النظام كما لو انه تم تثبيته من لا شيء</string>
-    <string name="app_exclude_target_installation_source">عدم شمول التطبيقات المستهدفة</string>
+    <string name="app_hide_installation_source_system_desc">سيتم خداع جميع تطبيقات النظام كما لو انه لم يتم تثبيتها من تطبيق معين</string>
+    <string name="app_exclude_target_installation_source">استبعاد التطبيقات المستهدفة</string>
     <string name="app_exclude_target_installation_source_desc">يمكنك تفعيلها إذا لم يكن هذا التطبيق متوفرا في متجر التطبيقات</string>
     <string name="app_force_stop_warning">لا تنس عمل إيقاف أجباري للتطبيق المستهدف بعد حفظ إعدادات التكوين</string>
-    <string name="app_invert_activity_launch_protection">قلب حماية تشغيل نشاط التطبيق</string>
-    <string name="app_invert_activity_launch_protection_desc">هذا الخِيار سيقلب خِيار\'\'تعطيل حماية تشغيل نشاط التطبيق\'\' في الإعدادات.</string>
+    <string name="app_invert_activity_launch_protection">عكس حماية تشغيل نشاط التطبيق</string>
+    <string name="app_invert_activity_launch_protection_desc">هذا الخِيار سيقلب خِيار \'\'تعطيل حماية تشغيل نشاط التطبيق\'\' في الإعدادات.</string>
     <string name="app_global_activity_launch_protection_state">حالة الحماية المطبقة عمومًا: %s</string>
-    <string name="app_force_stop_launch">فرض الإيقاف ثم الفتح</string>
-    <string name="app_launch">فتح</string>
-    <string name="app_launch_failed">أخفق فتح التطبيق, تفقد السجلات لمعرفة التفاصيل</string>
-    <string name="app_restrict_zygote_permissions">Restrict Zygote permissions</string>
-    <string name="app_restrict_zygote_permissions_desc">This option can cause crashes or false positives, choose wisely.</string>
+    <string name="app_force_stop_launch">إيقاف إجباري ثم التشغيل</string>
+    <string name="app_launch">تشغيل</string>
+    <string name="app_launch_failed">أخفق تشغيل التطبيق, تفقّد السجلات لمعرفة التفاصيل</string>
+    <string name="app_restrict_zygote_permissions">تقييد صلاحيات Zygote</string>
+    <string name="app_restrict_zygote_permissions_desc">هذا الخِيار قد يسبب أعطالا أو نتائج غير مرغوبة، استخدمه على مسؤوليتك.</string>
     <!-- Presets -->
     <string name="title_preset">الإعدادات المسبقة</string>
     <string name="title_settings_preset">الضبط المسبق</string>
@@ -139,7 +139,7 @@
     <string name="logs_empty">لا يوجد سجلات لحفظها</string>
     <string name="logs_saved">تم حفظ السجلات</string>
     <!-- Settings -->
-    <string name="settings_module">الإضافة</string>
+    <string name="settings_module">الوحدة</string>
     <string name="settings_overwrite">الكتابة عليه</string>
     <string name="settings_overwritten">مكتوب عليه</string>
     <string name="settings_overwrite_summary">هذا الصنف من الفقرات سيتم إجبارها على كونها مفعلة إذا تم تفعيل الخيارات</string>
@@ -172,7 +172,7 @@
     <string name="settings_package_query_workaround">استعلام الحزمة البديلة</string>
     <string name="settings_package_query_workaround_summary">لا تقم بتمكين هذا الخيار إذا كنت ترى قائمة الحزم في هذا التطبيق بشكل صحيح.</string>
     <string name="settings_launcher_icon">أيقونة التطبيق</string>
-    <string name="settings_error_only_log">Error-only log</string>
+    <string name="settings_error_only_log">تسجيل الأخطاء فقط</string>
     <string name="settings_language">اللغة</string>
     <string name="settings_translate">المشاركة في التَّرْجَمَة</string>
     <string name="settings_translate_summary">ساعدنا في التَرجمة %s إلي لغتك</string>
@@ -195,7 +195,7 @@
     <string name="settings_receive_beta_update">استقبال التحديثات المسبقة</string>
     <string name="settings_receive_beta_update_summary">الإصدارات المسبقة من الممكن أن تكون غير مستقرة</string>
     <!-- Bulk config wizard -->
-    <string name="title_bulk_config_wizard">Bulk config wizard</string>
+    <string name="title_bulk_config_wizard">معالج الإعدادات الجماعية</string>
     <!-- About -->
     <string name="about_description">على الرغم من أنه من غير الصحيح اكتشاف تثبيت تطبيق معين ، إلا أنه لا يوفر كل تطبيق يستخدم الجذر دعمًا عشوائيًا لاسم الحزمة. في هذه الحالة ، فإن التطبيقات المكتشفة التي تستخدم الجذر (مثل الموقع المزيف وعزل التخزين) تساوي الجذر المكتشف نفسه.\n\n في نفس الوقت ، تستخدم بعض التطبيقات الذكية ثغرات مختلفة للحصول على قائمة التطبيقات الخاصة بك ، بحيث يمكنها رسم شخصية لك.\n\n توفر هذه الإضافة بعض الطرق لاختبار ما إذا كنت قد أخفيت التطبيق الخاص بك بشكل جيد. أيضًا ، يمكن أن يعمل كإضافة Xposed لإخفاء بعض التطبيقات أو رفض طلبات قائمة التطبيقات لحماية خصوصيتك.    </string>
     <string name="about_fork_description">مشروع تطبيق HMA الأصلي اصبح مغلق المصدر والشفرات الأخيرة الخاصة بها لا تحتوي على بعض التغييرات الأخيرة،لذا قمتُ بصناعة هذه النسخة من جديد للاستمرار بها على أنها مفتوحة المصدر    </string>

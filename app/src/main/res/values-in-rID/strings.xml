@@ -5,7 +5,7 @@
     <string name="title_settings">Setelan</string>
     <string name="title_template_manage">Kelola templat</string>
     <string name="title_template_settings">Setelan templat</string>
-    <string name="title_settings_template_conf">Konfigurasi templat setelan</string>
+    <string name="title_settings_template_conf">Konfigurasi setelan templat</string>
     <string name="title_app_manage">Kelola aplikasi</string>
     <string name="title_app_select">Pilih aplikasi</string>
     <string name="title_app_settings">Setelan aplikasi</string>
@@ -54,7 +54,7 @@
     <string name="home_import_file_damaged">File cadangan rusak</string>
     <string name="home_export_failed">Ekspor gagal</string>
     <string name="home_exported">Konfig dicadangkan</string>
-    <string name="home_new_update">Pembaruan baru tersedia: %s</string>
+    <string name="home_new_update">Pembaruan tersedia: %s</string>
     <string name="home_update">Memperbarui: %s</string>
     <!-- App select -->
     <string name="list_show_system">Tampilkan apl sistem</string>
@@ -90,7 +90,7 @@
     <string name="app_exclude_system_apps_summary">Matikan opsi ini hanya jika benar-benar diperlukan. Kemungkinan menyebabkan crash jika dinonaktifkan</string>
     <string name="app_template_using">Menggunakan %d templat</string>
     <string name="app_preset_using">Menggunakan %d preset</string>
-    <string name="app_settings_preset_using">Menggunakan %d setelan preset</string>
+    <string name="app_settings_preset_using">Menggunakan %d preset setelan</string>
     <string name="app_settings_template_using">Menggunakan templat setelan %d</string>
     <string name="app_extra_apps_visible_count">%d apl tambahan terlihat</string>
     <string name="app_extra_apps_invisible_count">%d apl tambahan tidak terlihat</string>
@@ -114,8 +114,8 @@
     <string name="app_restrict_zygote_permissions_desc">Opsi ini dapat menyebabkan crash atau deteksi palsu. Gunakan dengan bijak.</string>
     <!-- Presets -->
     <string name="title_preset">Preset</string>
-    <string name="title_settings_preset">Setelan preset</string>
-    <string name="title_preset_manage">Tampilkan preset</string>
+    <string name="title_settings_preset">Preset setelan</string>
+    <string name="title_preset_manage">Tampilan preset</string>
     <string name="preset_xposed">Modul LSPosed/Xposed</string>
     <string name="preset_root_apps">Manajer root/Apl root</string>
     <string name="preset_custom_rom">Apl ROM kustom</string>
@@ -125,7 +125,7 @@
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Aksesibilitas</string>
     <string name="settings_preset_dev_options">Opsi pengembang</string>
-    <string name="settings_preset_input_method">Metode input</string>
+    <string name="settings_preset_input_method">Alat input</string>
     <!-- Settings templates -->
     <string name="settings_templates_database">Setelan database</string>
     <string name="settings_templates_name">Nama setelan</string>
@@ -157,7 +157,7 @@
     <string name="settings_force_mount_data">Paksa isolasi data untuk semua apl</string>
     <string name="settings_force_mount_data_summary">Isolasi data dinonaktifkan untuk apl target API yang lebih rendah dari 30 secara default</string>
     <string name="settings_detail_log">Log detail untuk debugging</string>
-    <string name="settings_max_log_size">Ukuran buffer logger</string>
+    <string name="settings_max_log_size">Ukuran buffer log</string>
     <string name="settings_hide_icon">Sembunyikan ikon modul di launcher</string>
     <string name="settings_hide_icon_summary">Anda masih dapat membuka apl di manajer Xposed</string>
     <string name="settings_bypass_risky_package_warning">Abaikan paket berisiko</string>
