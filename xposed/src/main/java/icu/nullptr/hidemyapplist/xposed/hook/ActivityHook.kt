@@ -1,6 +1,7 @@
 package icu.nullptr.hidemyapplist.xposed.hook
 
 import android.content.Intent
+import android.content.pm.ResolveInfo
 import android.os.Build
 import com.github.kyuubiran.ezxhelper.init.InitFields
 import com.github.kyuubiran.ezxhelper.utils.findMethod
@@ -11,8 +12,15 @@ import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers.findClass
 import de.robv.android.xposed.XposedHelpers.getObjectField
 import de.robv.android.xposed.XposedHelpers.getStaticIntField
+import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.Utils
 import icu.nullptr.hidemyapplist.xposed.HMAService
+import icu.nullptr.hidemyapplist.xposed.Utils4Xposed
+import icu.nullptr.hidemyapplist.xposed.XposedConstants.ACTIVITY_STACK_SUPERVISOR_CLASS
+import icu.nullptr.hidemyapplist.xposed.XposedConstants.ACTIVITY_STARTER_CLASS
+import icu.nullptr.hidemyapplist.xposed.XposedConstants.ACTIVITY_TASK_SUPERVISOR_CLASS
+import icu.nullptr.hidemyapplist.xposed.XposedConstants.COMPUTER_ENGINE_CLASS
+import icu.nullptr.hidemyapplist.xposed.XposedConstants.PACKAGE_MANAGER_SERVICE_CLASS
 import icu.nullptr.hidemyapplist.xposed.logD
 import icu.nullptr.hidemyapplist.xposed.logE
 import icu.nullptr.hidemyapplist.xposed.logI
@@ -36,9 +44,7 @@ class ActivityHook(private val service: HMAService) : IFrameworkHook {
     override fun load() {
         logI(TAG, "Load hook")
 
-        hooks += findMethod(
-            "com.android.server.wm.ActivityStarter"
-        ) {
+        hooks += findMethod(ACTIVITY_STARTER_CLASS) {
             name == "execute"
         }.hookBefore { param ->
             runCatching {
@@ -61,13 +67,11 @@ class ActivityHook(private val service: HMAService) : IFrameworkHook {
             }
         }
 
-        findMethodOrNull(
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                "com.android.server.wm.ActivityTaskSupervisor"
-            } else {
-                "com.android.server.wm.ActivityStackSupervisor"
-            }
-        ) {
+        findMethodOrNull(if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            ACTIVITY_TASK_SUPERVISOR_CLASS
+        } else {
+            ACTIVITY_STACK_SUPERVISOR_CLASS
+        }) {
             name == "checkStartAnyActivityPermission"
         }?.hookAfter { param ->
             var throwable = param.throwable
@@ -83,16 +87,59 @@ class ActivityHook(private val service: HMAService) : IFrameworkHook {
                 }
 
                 if (newTrace.size != throwable.stackTrace.size) {
-                    logD(TAG, "@checkStartAnyActivityPermission: ${throwable.stackTrace.size - newTrace.size} remnants cleared!")
                     throwable.stackTrace = newTrace.toTypedArray()
                     service.filterCount++
+                    logD(TAG, "@checkStartAnyActivityPermission: ${throwable.stackTrace.size - newTrace.size} remnants cleared!")
                 }
 
                 throwable = throwable.cause
             }
         }?.let {
-            logD(TAG, "Loaded checkStartAnyActivityPermission hook from ${it.hookedMethod.declaringClass}!")
             hooks += it
+            logD(TAG, "Loaded ${it.hookedMethod.name} hook from ${it.hookedMethod.declaringClass}!")
+        }
+
+        hooks += findMethod(
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                COMPUTER_ENGINE_CLASS
+            } else {
+                PACKAGE_MANAGER_SERVICE_CLASS
+            },
+            findSuper = Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU,
+        ) {
+            name == "applyPostResolutionFilter"
+        }.hookBefore { param ->
+            @Suppress("UNCHECKED_CAST") // I know what I do
+            val list = param.args.first() as List<ResolveInfo>?
+            if (list.isNullOrEmpty()) return@hookBefore
+
+            val callingUid = param.args.first { it is Int } as Int
+            if (callingUid == Constants.UID_SYSTEM) return@hookBefore
+
+            val callingApps = Utils4Xposed.getCallingApps(service, callingUid)
+            for (caller in callingApps) {
+                if (!service.isHookEnabled(caller)) continue
+
+                // logD(TAG, "@${param.method.name}: $caller requested a resolve info")
+
+                val filteredList = list.filter { resolveInfo ->
+                    val targetApp = Utils.getPackageNameFromResolveInfo(resolveInfo)
+
+                    // logD(TAG, "@${param.method.name}: Checking $targetApp for $caller")
+
+                    (!service.shouldHideActivityLaunch(caller, targetApp)).apply {
+                        if (!this) {
+                            logD(TAG, "@${param.method.name}: Filtered $targetApp from $caller")
+                        }
+                    }
+                }
+
+                if (filteredList.size != list.size) {
+                    param.args[0] = filteredList.toList()
+
+                    service.filterCount++
+                }
+            }
         }
     }
 

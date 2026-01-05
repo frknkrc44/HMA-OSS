@@ -40,7 +40,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentSettingsBinding
-import org.frknkrc44.hma_oss.ui.activity.BaseActivity
+import org.frknkrc44.hma_oss.ui.activity.MainActivity
 import org.frknkrc44.hma_oss.ui.preference.AppIconPreference
 import java.util.Locale
 
@@ -311,7 +311,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
 
             findPreference<SeekBarPreference>("systemWallpaperAlpha")?.apply {
                 setOnPreferenceChangeListener { _, value ->
-                    (requireActivity() as BaseActivity).applyWallpaperBackgroundColor(value as Int)
+                    (requireActivity() as MainActivity).applyWallpaperBackgroundColor(value as Int)
 
                     true
                 }

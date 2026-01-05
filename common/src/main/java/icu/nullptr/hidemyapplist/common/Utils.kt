@@ -3,6 +3,7 @@ package icu.nullptr.hidemyapplist.common
 import android.content.pm.ApplicationInfo
 import android.content.pm.IPackageManager
 import android.content.pm.PackageInfo
+import android.content.pm.ResolveInfo
 import android.os.Binder
 import android.os.Build
 import java.util.Random
@@ -83,5 +84,12 @@ object Utils {
         return (1..length)
             .map { allowedChars.random() }
             .joinToString("")
+    }
+
+    fun getPackageNameFromResolveInfo(resolveInfo: ResolveInfo): String {
+        return resolveInfo.resolvePackageName ?:
+            resolveInfo.activityInfo?.packageName ?:
+            resolveInfo.serviceInfo?.packageName ?:
+            resolveInfo.providerInfo!!.packageName
     }
 }

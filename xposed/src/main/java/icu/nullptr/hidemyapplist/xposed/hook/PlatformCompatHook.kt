@@ -8,6 +8,7 @@ import com.github.kyuubiran.ezxhelper.utils.hookBefore
 import de.robv.android.xposed.XC_MethodHook
 import icu.nullptr.hidemyapplist.common.PropertyUtils
 import icu.nullptr.hidemyapplist.xposed.HMAService
+import icu.nullptr.hidemyapplist.xposed.XposedConstants.PLATFORM_COMPAT_CLASS
 import icu.nullptr.hidemyapplist.xposed.logD
 import icu.nullptr.hidemyapplist.xposed.logE
 import icu.nullptr.hidemyapplist.xposed.logI
@@ -30,7 +31,7 @@ class PlatformCompatHook(private val service: HMAService) : IFrameworkHook {
         if (!service.config.forceMountData) return
         logI(TAG, "Load hook")
         logI(TAG, "App data isolation enabled: $sAppDataIsolationEnabled")
-        hook = findMethod("com.android.server.compat.PlatformCompat") {
+        hook = findMethod(PLATFORM_COMPAT_CLASS) {
             name == "isChangeEnabled"
         }.hookBefore { param ->
             runCatching {

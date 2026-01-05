@@ -14,6 +14,8 @@ import icu.nullptr.hidemyapplist.common.Constants.VENDING_PACKAGE_NAME
 import icu.nullptr.hidemyapplist.common.Utils
 import icu.nullptr.hidemyapplist.xposed.HMAService
 import icu.nullptr.hidemyapplist.xposed.Utils4Xposed
+import icu.nullptr.hidemyapplist.xposed.XposedConstants.APPS_FILTER_IMPL_CLASS
+import icu.nullptr.hidemyapplist.xposed.XposedConstants.PACKAGE_MANAGER_SERVICE_CLASS
 import icu.nullptr.hidemyapplist.xposed.logD
 import icu.nullptr.hidemyapplist.xposed.logE
 import icu.nullptr.hidemyapplist.xposed.logI
@@ -64,7 +66,7 @@ class PmsHookTarget34(service: HMAService) : PmsHookTargetBase(service) {
     @Suppress("UNCHECKED_CAST")
     override fun load() {
         logI(TAG, "Load hook")
-        hooks += findMethod("com.android.server.pm.AppsFilterImpl", findSuper = true) {
+        hooks += findMethod(APPS_FILTER_IMPL_CLASS, findSuper = true) {
             name == "shouldFilterApplication"
         }.hookBefore { param ->
             runCatching {
@@ -92,7 +94,7 @@ class PmsHookTarget34(service: HMAService) : PmsHookTargetBase(service) {
         }
         // AOSP exploit - https://github.com/aosp-mirror/platform_frameworks_base/commit/5bc482bd99ea18fe0b4064d486b29d5ae2d65139
         // Only 14 QPR2+ has this method
-        findMethodOrNull("com.android.server.pm.PackageManagerService", findSuper = true) {
+        findMethodOrNull(PACKAGE_MANAGER_SERVICE_CLASS, findSuper = true) {
             name == "getArchivedPackageInternal"
         }?.hookBefore { param ->
             runCatching {

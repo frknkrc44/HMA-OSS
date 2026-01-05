@@ -8,6 +8,7 @@ import de.robv.android.xposed.XC_MethodHook
 import icu.nullptr.hidemyapplist.common.settings_presets.AccessibilityPreset
 import icu.nullptr.hidemyapplist.xposed.HMAService
 import icu.nullptr.hidemyapplist.xposed.Utils4Xposed
+import icu.nullptr.hidemyapplist.xposed.XposedConstants.ACCESSIBILITY_SERVICE_CLASS
 import icu.nullptr.hidemyapplist.xposed.logD
 import icu.nullptr.hidemyapplist.xposed.logE
 import icu.nullptr.hidemyapplist.xposed.logI
@@ -16,7 +17,6 @@ import icu.nullptr.hidemyapplist.xposed.logI
 class AccessibilityHook(private val service: HMAService) : IFrameworkHook {
     companion object {
         private const val TAG = "AccessibilityHook"
-        private const val ACCESSIBILITY_SERVICE = "com.android.server.accessibility.AccessibilityManagerService"
     }
 
     private val hookList = mutableSetOf<XC_MethodHook.Unhook>()
@@ -24,15 +24,15 @@ class AccessibilityHook(private val service: HMAService) : IFrameworkHook {
     override fun load() {
         logI(TAG, "Load hook")
 
-        hookList += findMethod(ACCESSIBILITY_SERVICE) {
+        hookList += findMethod(ACCESSIBILITY_SERVICE_CLASS) {
             name == "getInstalledAccessibilityServiceList"
         }.hookBefore { param -> hookedMethod(param, true) }
 
-        hookList += findMethod(ACCESSIBILITY_SERVICE) {
+        hookList += findMethod(ACCESSIBILITY_SERVICE_CLASS) {
             name == "getEnabledAccessibilityServiceList"
         }.hookBefore { param -> hookedMethod(param, false) }
 
-        hookList += findMethod(ACCESSIBILITY_SERVICE) {
+        hookList += findMethod(ACCESSIBILITY_SERVICE_CLASS) {
             name == "addClient"
         }.hookBefore { param ->
             val callingApps = Utils4Xposed.getCallingApps(service)
