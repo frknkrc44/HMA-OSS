@@ -6,6 +6,7 @@ import android.content.pm.PackageInfo
 import android.content.pm.ResolveInfo
 import android.os.Binder
 import android.os.Build
+import java.lang.reflect.Field
 import java.util.Random
 import java.util.zip.ZipFile
 
@@ -106,6 +107,17 @@ object Utils {
                 }
             }
 
+            return false
+        }
+    }
+
+    fun isSamsung(): Boolean {
+        try {
+            val semPlatformIntField: Field =
+                Build.VERSION::class.java.getDeclaredField("SEM_PLATFORM_INT")
+            semPlatformIntField.isAccessible = true
+            return semPlatformIntField.getInt(null) >= 0
+        } catch (_: Throwable) {
             return false
         }
     }

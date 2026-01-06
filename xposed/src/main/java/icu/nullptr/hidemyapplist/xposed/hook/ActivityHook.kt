@@ -99,13 +99,17 @@ class ActivityHook(private val service: HMAService) : IFrameworkHook {
             logD(TAG, "Loaded ${it.hookedMethod.name} hook from ${it.hookedMethod.declaringClass}!")
         }
 
-        /*
-        try {
-            (findMethodOrNull(COMPUTER_ENGINE_CLASS) {
+        if (!Utils.isSamsung()) {
+            hooks += findMethod(
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    COMPUTER_ENGINE_CLASS
+                } else {
+                    PACKAGE_MANAGER_SERVICE_CLASS
+                },
+                findSuper = Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU,
+            ) {
                 name == "applyPostResolutionFilter"
-            } ?: findMethodOrNull(PACKAGE_MANAGER_SERVICE_CLASS, findSuper = true) {
-                name == "applyPostResolutionFilter"
-            })?.hookBefore { param ->
+            }.hookBefore { param ->
                 @Suppress("UNCHECKED_CAST") // I know what I do
                 val list = param.args.first() as List<ResolveInfo>?
                 if (list.isNullOrEmpty()) return@hookBefore
@@ -137,13 +141,8 @@ class ActivityHook(private val service: HMAService) : IFrameworkHook {
                         service.filterCount++
                     }
                 }
-            }?.let {
-                hooks += it
             }
-        } catch (e: Throwable) {
-            logE(TAG, e.toString(), e)
         }
-         */
     }
 
     override fun unload() {
