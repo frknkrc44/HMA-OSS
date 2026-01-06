@@ -99,10 +99,11 @@ class ActivityHook(private val service: HMAService) : IFrameworkHook {
             logD(TAG, "Loaded ${it.hookedMethod.name} hook from ${it.hookedMethod.declaringClass}!")
         }
 
+        /*
         try {
             (findMethodOrNull(COMPUTER_ENGINE_CLASS) {
                 name == "applyPostResolutionFilter"
-            } ?: findMethodOrNull(PACKAGE_MANAGER_SERVICE_CLASS) {
+            } ?: findMethodOrNull(PACKAGE_MANAGER_SERVICE_CLASS, findSuper = true) {
                 name == "applyPostResolutionFilter"
             })?.hookBefore { param ->
                 @Suppress("UNCHECKED_CAST") // I know what I do
@@ -142,6 +143,7 @@ class ActivityHook(private val service: HMAService) : IFrameworkHook {
         } catch (e: Throwable) {
             logE(TAG, e.toString(), e)
         }
+         */
     }
 
     override fun unload() {
