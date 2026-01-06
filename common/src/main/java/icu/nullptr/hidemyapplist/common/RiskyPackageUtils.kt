@@ -16,7 +16,7 @@ object RiskyPackageUtils {
 
         try {
             ZipFile(appInfo.sourceDir).use { zipFile ->
-                val manifestStr = AppPresets.instance.readManifest(packageName, zipFile)
+                val manifestStr = AppPresets.instance.readManifest(appInfo.sourceDir, zipFile)
 
                 // Checking with binary because the Android system sucks
                 if (manifestStr.contains(GMS_PROP) || manifestStr.contains(FIREBASE_PROP)) {
