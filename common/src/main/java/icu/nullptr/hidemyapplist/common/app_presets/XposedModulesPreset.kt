@@ -11,16 +11,18 @@ class XposedModulesPreset : BasePreset(NAME) {
     override val exactPackageNames = setOf<String>()
 
     override fun canBeAddedIntoPreset(appInfo: ApplicationInfo): Boolean {
-        ZipFile(appInfo.sourceDir).use { zipFile ->
+        checkSplitPackages(appInfo) { _, zipFile ->
             // Legacy Xposed method
             if (zipFile.getEntry("assets/xposed_init") != null) {
-                return true
+                return@checkSplitPackages true
             }
 
             // New LSPosed method
             if (zipFile.getEntry("META-INF/xposed/module.prop") != null) {
-                return true
+                return@checkSplitPackages true
             }
+
+            return@checkSplitPackages false
         }
 
         return false

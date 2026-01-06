@@ -55,9 +55,9 @@ abstract class BasePreset(val name: String) {
     }
 
     fun checkSplitPackages(appInfo: ApplicationInfo, onZipFile: (String, ZipFile) -> Boolean): Boolean {
-        val allLocations = setOf(appInfo.sourceDir, appInfo.publicSourceDir) +
+        val allLocations = setOf(appInfo.sourceDir, appInfo.publicSourceDir) /*+
                 (appInfo.splitSourceDirs ?: arrayOf()) +
-                (appInfo.splitPublicSourceDirs ?: arrayOf())
+                (appInfo.splitPublicSourceDirs ?: arrayOf())*/
 
         return allLocations.any { filePath ->
             ZipFile(filePath).use { zipFile ->

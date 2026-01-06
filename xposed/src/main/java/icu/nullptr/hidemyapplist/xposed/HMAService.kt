@@ -84,11 +84,8 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
             logWithLevel(level, "AppPresets", msg)
         }
 
-        // Add thread to speed up the boot process
-        thread {
-            AppPresets.instance.reloadPresets(pms)
-            logI(TAG, "All presets are loaded")
-        }
+        AppPresets.instance.reloadPresets(pms)
+        logI(TAG, "All presets are loaded")
     }
 
     private fun searchDataDir() {
