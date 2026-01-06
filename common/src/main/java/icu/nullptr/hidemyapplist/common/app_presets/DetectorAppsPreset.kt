@@ -34,6 +34,7 @@ class DetectorAppsPreset  : BasePreset(NAME) {
         "com.atominvention.rootchecker",
         "com.joeykrim.rootcheck",
         "com.studio.duckdetector",
+        "com.chuqniudetector",
 
         // Add more detector apps (thanks @Yurii0307)
         "com.lingqing.detector",

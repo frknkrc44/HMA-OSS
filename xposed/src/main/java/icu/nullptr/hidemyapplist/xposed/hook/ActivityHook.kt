@@ -99,45 +99,47 @@ class ActivityHook(private val service: HMAService) : IFrameworkHook {
             logD(TAG, "Loaded ${it.hookedMethod.name} hook from ${it.hookedMethod.declaringClass}!")
         }
 
-        hooks += findMethod(
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                COMPUTER_ENGINE_CLASS
-            } else {
-                PACKAGE_MANAGER_SERVICE_CLASS
-            },
-            findSuper = Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU,
-        ) {
-            name == "applyPostResolutionFilter"
-        }.hookBefore { param ->
-            @Suppress("UNCHECKED_CAST") // I know what I do
-            val list = param.args.first() as List<ResolveInfo>?
-            if (list.isNullOrEmpty()) return@hookBefore
+        if (!Utils.isSamsung()) {
+            hooks += findMethod(
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    COMPUTER_ENGINE_CLASS
+                } else {
+                    PACKAGE_MANAGER_SERVICE_CLASS
+                },
+                findSuper = Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU,
+            ) {
+                name == "applyPostResolutionFilter"
+            }.hookBefore { param ->
+                @Suppress("UNCHECKED_CAST") // I know what I do
+                val list = param.args.first() as List<ResolveInfo>?
+                if (list.isNullOrEmpty()) return@hookBefore
 
-            val callingUid = param.args.first { it is Int } as Int
-            if (callingUid == Constants.UID_SYSTEM) return@hookBefore
+                val callingUid = param.args.first { it is Int } as Int
+                if (callingUid == Constants.UID_SYSTEM) return@hookBefore
 
-            val callingApps = Utils4Xposed.getCallingApps(service, callingUid)
-            for (caller in callingApps) {
-                if (!service.isHookEnabled(caller)) continue
+                val callingApps = Utils4Xposed.getCallingApps(service, callingUid)
+                for (caller in callingApps) {
+                    if (!service.isHookEnabled(caller)) continue
 
-                // logD(TAG, "@${param.method.name}: $caller requested a resolve info")
+                    // logD(TAG, "@${param.method.name}: $caller requested a resolve info")
 
-                val filteredList = list.filter { resolveInfo ->
-                    val targetApp = Utils.getPackageNameFromResolveInfo(resolveInfo)
+                    val filteredList = list.filter { resolveInfo ->
+                        val targetApp = Utils.getPackageNameFromResolveInfo(resolveInfo)
 
-                    // logD(TAG, "@${param.method.name}: Checking $targetApp for $caller")
+                        // logD(TAG, "@${param.method.name}: Checking $targetApp for $caller")
 
-                    (!service.shouldHideActivityLaunch(caller, targetApp)).apply {
-                        if (!this) {
-                            logD(TAG, "@${param.method.name}: Filtered $targetApp from $caller")
+                        (!service.shouldHideActivityLaunch(caller, targetApp)).apply {
+                            if (!this) {
+                                logD(TAG, "@${param.method.name}: Filtered $targetApp from $caller")
+                            }
                         }
                     }
-                }
 
-                if (filteredList.size != list.size) {
-                    param.args[0] = filteredList.toList()
+                    if (filteredList.size != list.size) {
+                        param.args[0] = filteredList.toList()
 
-                    service.filterCount++
+                        service.filterCount++
+                    }
                 }
             }
         }

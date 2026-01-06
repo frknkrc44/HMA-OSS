@@ -6,7 +6,9 @@ import android.content.pm.PackageInfo
 import android.content.pm.ResolveInfo
 import android.os.Binder
 import android.os.Build
+import java.lang.reflect.Field
 import java.util.Random
+import java.util.zip.ZipFile
 
 object Utils {
 
@@ -91,5 +93,32 @@ object Utils {
             resolveInfo.activityInfo?.packageName ?:
             resolveInfo.serviceInfo?.packageName ?:
             resolveInfo.providerInfo!!.packageName
+    }
+
+    fun checkSplitPackages(appInfo: ApplicationInfo, onZipFile: (String, ZipFile) -> Boolean): Boolean {
+        val allLocations = setOf(appInfo.sourceDir, appInfo.publicSourceDir) /*+
+                (appInfo.splitSourceDirs ?: arrayOf()) +
+                (appInfo.splitPublicSourceDirs ?: arrayOf())*/
+
+        return allLocations.any { filePath ->
+            ZipFile(filePath).use { zipFile ->
+                if (onZipFile(filePath, zipFile)) {
+                    return true
+                }
+            }
+
+            return false
+        }
+    }
+
+    fun isSamsung(): Boolean {
+        try {
+            val semPlatformIntField: Field =
+                Build.VERSION::class.java.getDeclaredField("SEM_PLATFORM_INT")
+            semPlatformIntField.isAccessible = true
+            return semPlatformIntField.getInt(null) >= 0
+        } catch (_: Throwable) {
+            return false
+        }
     }
 }

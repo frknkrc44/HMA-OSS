@@ -53,38 +53,6 @@ class PmsHookTarget28(service: HMAService) : PmsHookTargetBase(service) {
             }
         }
 
-        hooks += findMethod(service.pms::class.java, findSuper = true) {
-            name == "applyPostResolutionFilter"
-        }.hookAfter { param ->
-            runCatching {
-                val callingUid = param.args[3] as Int
-                if (callingUid == Constants.UID_SYSTEM) return@hookAfter
-                val callingApps = Utils.binderLocalScope {
-                    service.pms.getPackagesForUid(callingUid)
-                } ?: return@hookAfter
-                val list = param.result as MutableCollection<ResolveInfo>
-                val listToRemove = mutableSetOf<ResolveInfo>()
-                for (resolveInfo in list) {
-                    val targetApp = with(resolveInfo) {
-                        activityInfo?.packageName ?: serviceInfo?.packageName ?: providerInfo?.packageName ?: resolvePackageName
-                    }
-                    for (caller in callingApps) {
-                        if (service.shouldHide(caller, targetApp)) {
-                            val last = lastFilteredApp.getAndSet(caller)
-                            if (last != caller) logI(TAG, "@applyPostResolutionFilter query from $caller")
-                            logD(TAG, "@applyPostResolutionFilter caller: $callingUid $caller, target: $targetApp")
-                            listToRemove.add(resolveInfo)
-                            break
-                        }
-                    }
-                }
-                list.removeAll(listToRemove)
-            }.onFailure {
-                logE(TAG, "Fatal error occurred, disable hooks", it)
-                unload()
-            }
-        }
-
         super.load()
     }
 }
