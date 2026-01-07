@@ -36,6 +36,7 @@ import rikka.hidden.compat.ActivityManagerApis
 import java.io.File
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import kotlin.concurrent.thread
 
 class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
@@ -83,8 +84,11 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
             logWithLevel(level, "AppPresets", msg)
         }
 
-        AppPresets.instance.reloadPresets(pms)
-        logI(TAG, "All presets are loaded")
+        // Blame your OEM ROM and app list for delayed preset load
+        thread {
+            AppPresets.instance.reloadPresets(pms)
+            logI(TAG, "All presets are loaded")
+        }
     }
 
     private fun searchDataDir() {

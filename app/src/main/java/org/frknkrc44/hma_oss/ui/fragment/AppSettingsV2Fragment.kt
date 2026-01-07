@@ -94,11 +94,26 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
         saveConfig()
     }
 
+    val subtitle: String by lazy {
+        if (viewModel.pack.bulkConfig) {
+            if (viewModel.pack.bulkApps.isNullOrEmpty()) {
+                return@lazy getString(R.string.title_bulk_config_wizard)
+            } else {
+                return@lazy viewModel.pack.bulkApps!!.joinToString(", ") {
+                    PackageHelper.loadAppLabel(it)
+                }
+            }
+        }
+
+        return@lazy PackageHelper.loadAppLabel(viewModel.pack.app)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) { onBack() }
         setupToolbar(
             toolbar = binding.toolbar,
             title = getString(R.string.title_app_settings),
+            subtitle = subtitle,
             navigationIcon = R.drawable.baseline_arrow_back_24,
             navigationOnClick = { onBack() }
         )
@@ -173,12 +188,8 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
             findPreference<Preference>("appInfo")?.let {
                 if (pack.bulkConfig) {
                     it.icon = R.drawable.outline_storage_24.asDrawable(requireContext())
-                    if (pack.bulkApps.isNullOrEmpty()) {
-                        it.title = getString(R.string.title_bulk_config_wizard)
-                    } else {
-                        it.title = pack.bulkApps?.joinToString(", ") {
-                            PackageHelper.loadAppLabel(it)
-                        }
+                    it.title = parent.subtitle
+                    if (!pack.bulkApps.isNullOrEmpty()) {
                         it.isSingleLineTitle = true
                         it.summary = getString(R.string.title_bulk_config_wizard)
                     }

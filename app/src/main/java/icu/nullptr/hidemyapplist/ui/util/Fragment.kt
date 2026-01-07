@@ -39,6 +39,7 @@ fun Fragment.navigate(@IdRes resId: Int, args: Bundle? = null) {
 fun Fragment.setupToolbar(
     toolbar: Toolbar,
     title: String,
+    subtitle: String? = null,
     @DrawableRes navigationIcon: Int? = null,
     navigationOnClick: View.OnClickListener? = null,
     @MenuRes menuRes: Int? = null,
@@ -47,6 +48,7 @@ fun Fragment.setupToolbar(
     navigationOnClick?.let { toolbar.setNavigationOnClickListener(it) }
     navigationIcon?.let { toolbar.setNavigationIcon(navigationIcon) }
     toolbar.title = title
+    if (subtitle != null) toolbar.subtitle = subtitle
     toolbar.tooltipText = title
     if (menuRes != null) {
         val menuProvider = object : MenuProvider {

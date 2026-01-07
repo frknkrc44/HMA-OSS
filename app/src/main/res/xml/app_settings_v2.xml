@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceCategory android:title="@string/application">
         <Preference
             android:key="appInfo" />
         <SwitchPreferenceCompat
             android:icon="@drawable/outline_shield_24"
             android:key="enableHide"
+            app:singleLineTitle="false"
             android:title="@string/app_enable_hide" />
     </PreferenceCategory>
 
@@ -25,6 +27,7 @@
         <SwitchPreferenceCompat
             android:icon="@drawable/outline_android_24"
             android:key="invertActivityLaunchProtection"
+            app:singleLineTitle="false"
             android:title="@string/app_invert_activity_launch_protection"
             android:summary="@string/app_invert_activity_launch_protection_desc" />
         <Preference
@@ -40,6 +43,7 @@
         <SwitchPreferenceCompat
             android:icon="@drawable/baseline_call_split_24"
             android:key="excludeVoldIsolation"
+            app:singleLineTitle="false"
             android:title="@string/app_exclude_target_installation_source" />
     </PreferenceCategory>
 </PreferenceScreen>
