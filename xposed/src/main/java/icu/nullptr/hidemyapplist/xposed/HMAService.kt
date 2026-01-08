@@ -92,9 +92,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         }
 
         thread {
-            presetCache = AppPresets.instance.reloadPresets(pms, presetCache, false)
-            writePresetCache()
-            logI(TAG, "All presets are loaded")
+            reloadPresets(false)
         }
     }
 
@@ -480,11 +478,16 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
     override fun getLogFileLocation(): String = logFile.absolutePath
 
+    fun reloadPresets(clearPresets: Boolean) {
+        presetCache = AppPresets.instance.reloadPresets(pms, presetCache, clearPresets)
+        writePresetCache()
+        logI(TAG, "All presets are loaded")
+    }
+
     override fun reloadPresetsFromScratch() {
         presetCache.presetPackageNames.clear()
         presetCache.gmsDependentApps.clear()
 
-        presetCache = AppPresets.instance.reloadPresets(pms, presetCache, true)
-        writePresetCache()
+        reloadPresets(true)
     }
 }
