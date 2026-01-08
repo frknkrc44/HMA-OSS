@@ -2,6 +2,7 @@ package icu.nullptr.hidemyapplist.xposed.hook
 
 import android.content.Intent
 import android.os.Build
+import android.os.Bundle
 import com.github.kyuubiran.ezxhelper.utils.findMethod
 import com.github.kyuubiran.ezxhelper.utils.hookBefore
 import de.robv.android.xposed.XC_MethodHook
@@ -19,10 +20,11 @@ class PmsPackageEventsHook(private val service: HMAService) : IFrameworkHook {
                 }.hookBefore { param ->
                     service.handlePackageEvent(
                         param.args[0] as String?,
-                        param.args[1] as String?
+                        param.args[1] as String?,
+                        param.args[2] as Bundle?,
                     )
                 }
-            } catch (e: Throwable) {
+            } catch (_: Throwable) {
                 hook = findMethod("com.android.internal.content.PackageMonitor") {
                     name == "onReceive"
                 }.hookBefore { param ->
@@ -30,7 +32,8 @@ class PmsPackageEventsHook(private val service: HMAService) : IFrameworkHook {
 
                     service.handlePackageEvent(
                         intent.action,
-                        intent.data?.encodedSchemeSpecificPart
+                        intent.data?.encodedSchemeSpecificPart,
+                        intent.extras,
                     )
                 }
             }
@@ -40,7 +43,8 @@ class PmsPackageEventsHook(private val service: HMAService) : IFrameworkHook {
             }.hookBefore { param ->
                 service.handlePackageEvent(
                     param.args[0] as String?,
-                    param.args[1] as String?
+                    param.args[1] as String?,
+                    param.args[2] as Bundle?,
                 )
             }
         }

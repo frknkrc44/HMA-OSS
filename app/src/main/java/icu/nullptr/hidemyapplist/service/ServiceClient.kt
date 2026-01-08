@@ -1,5 +1,6 @@
 package icu.nullptr.hidemyapplist.service
 
+import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
 import icu.nullptr.hidemyapplist.common.IHMAService
@@ -49,8 +50,8 @@ object ServiceClient : IHMAService, IBinder.DeathRecipient {
         service?.clearLogs()
     }
 
-    override fun handlePackageEvent(eventType: String?, packageName: String?) {
-        service?.handlePackageEvent(eventType, packageName)
+    override fun handlePackageEvent(eventType: String?, packageName: String?, extras: Bundle?) {
+        service?.handlePackageEvent(eventType, packageName, extras)
     }
 
     override fun getPackagesForPreset(presetName: String) =
@@ -88,4 +89,8 @@ object ServiceClient : IHMAService, IBinder.DeathRecipient {
     override fun listAllSettings(databaseName: String) = service?.listAllSettings(databaseName) ?: arrayOf()
 
     override fun getLogFileLocation() = service?.logFileLocation ?: "the log file"
+
+    override fun reloadPresetsFromScratch() {
+        service?.reloadPresetsFromScratch()
+    }
 }

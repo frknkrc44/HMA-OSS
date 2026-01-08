@@ -5,7 +5,7 @@ import java.util.zip.ZipFile
 
 abstract class BasePreset(val name: String) {
     protected abstract val exactPackageNames: Set<String>
-    protected val packageNames = mutableSetOf<String>()
+    internal val packageNames = mutableSetOf<String>()
 
     protected abstract fun canBeAddedIntoPreset(appInfo: ApplicationInfo): Boolean
 

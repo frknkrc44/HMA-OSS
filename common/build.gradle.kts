@@ -10,6 +10,7 @@ val serviceVerCode: Int by rootProject.extra
 val minBackupVerCode: Int by rootProject.extra
 val appPackageName: String by rootProject.extra
 val appVerName: String by rootProject.extra
+val appVerCode: Int by rootProject.extra
 
 android {
     namespace = "$appPackageName.common"
@@ -25,6 +26,7 @@ android {
         buildConfigField("int", "MIN_BACKUP_VERSION", minBackupVerCode.toString())
         buildConfigField("String", "APP_PACKAGE_NAME", "\"$appPackageName\"")
         buildConfigField("String", "APP_VERSION_NAME", "\"$appVerName\"")
+        buildConfigField("int", "APP_VERSION_CODE", appVerCode.toString())
     }
 }
 
