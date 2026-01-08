@@ -82,7 +82,7 @@
     <string name="template_apps_visible_count">%d 個のアプリが表示されます</string>
     <string name="template_apps_invisible_count">%d 個のアプリが表示されません</string>
     <!-- App settings -->
-    <string name="app_enable_hide">非表示を有効にする</string>
+    <string name="app_enable_hide">非表示を有効化</string>
     <string name="app_template_config">テンプレート設定</string>
     <string name="app_choose_template">テンプレートを選択する</string>
     <string name="app_choose_preset">プリセットを選択する</string>
@@ -110,7 +110,7 @@
     <string name="app_force_stop_launch">強制停止と起動</string>
     <string name="app_launch">起動</string>
     <string name="app_launch_failed">アプリの起動に失敗しました。詳細はログを確認してください</string>
-    <string name="app_restrict_zygote_permissions">Zygote 権限を制限する</string>
+    <string name="app_restrict_zygote_permissions">Zygote 権限を制限</string>
     <string name="app_restrict_zygote_permissions_desc">このオプションはクラッシュや誤検知を引き起こす可能性があります。慎重に選択してください。</string>
     <!-- Presets -->
     <string name="title_preset">プリセット</string>
@@ -165,7 +165,7 @@
     <string name="settings_disable_activity_launch_protection">アクティビティ起動保護を無効</string>
     <string name="settings_disable_activity_launch_protection_summary">このトグルをオンにすると、すべての startActivity 保護が解除されます。不明な場合は有効にしないでください。</string>
     <string name="settings_system_wallpaper">システムの壁紙を使用する</string>
-    <string name="settings_clear_uninstalled_app_configs">アンインストール済みのアプリの設定を消去する</string>
+    <string name="settings_clear_uninstalled_app_configs">アンインストール済みのアプリの設定を消去</string>
     <string name="settings_clear_uninstalled_app_configs_summary">このオプションを使用すると、残骸を残さずに設定ファイルを作成できますが、アプリを再インストールした際には再設定が必要になります。</string>
     <string name="settings_no_undone_warning">この操作は取り消せません。</string>
     <string name="settings_package_query_workaround">代替パッケージクエリ</string>
