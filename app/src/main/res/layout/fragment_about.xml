@@ -12,6 +12,7 @@
         layout="@layout/fragment_about_header" />
 
     <ScrollView
+        android:id="@+id/about_scroll"
         android:layout_marginTop="@dimen/item_padding_vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

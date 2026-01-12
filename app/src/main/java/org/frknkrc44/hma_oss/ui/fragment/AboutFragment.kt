@@ -16,6 +16,7 @@ import androidx.transition.TransitionManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import icu.nullptr.hidemyapplist.service.PrefManager
+import icu.nullptr.hidemyapplist.ui.util.AccessibilityUtils
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.homeItemBackgroundColor
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
@@ -38,6 +39,12 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
         }
 
         val tint = ColorStateList.valueOf(homeItemBackgroundColor())
+
+        if (!AccessibilityUtils.isAnimationEnabled(requireContext().contentResolver)) {
+            with(binding.aboutScroll) {
+                overScrollMode = View.OVER_SCROLL_NEVER
+            }
+        }
 
         with(binding.aboutHeader) {
             with(backButton.parent as View) {
