@@ -11,6 +11,7 @@
         <Preference
             android:icon="@drawable/outline_translate_24"
             android:key="translation"
+            app:singleLineTitle="false"
             android:title="@string/settings_translate" />
     </PreferenceCategory>
 
@@ -20,6 +21,7 @@
             android:disableDependentsState="true"
             android:icon="@drawable/outline_palette_24"
             android:key="followSystemAccent"
+            app:singleLineTitle="false"
             android:title="@string/settings_system_theme_color" />
         <ListPreference
             android:defaultValue="MATERIAL_BLUE"
@@ -29,6 +31,7 @@
             android:icon="@drawable/outline_format_color_fill_24"
             android:key="themeColor"
             android:summary="%s"
+            app:singleLineTitle="false"
             android:title="@string/settings_theme_color" />
         <ListPreference
             android:defaultValue="-1"
@@ -37,10 +40,12 @@
             android:icon="@drawable/outline_dark_mode_24"
             android:key="darkTheme"
             android:summary="%s"
+            app:singleLineTitle="false"
             android:title="@string/dark_theme" />
         <SwitchPreferenceCompat
             android:icon="@drawable/baseline_wallpaper_24"
             android:key="systemWallpaper"
+            app:singleLineTitle="false"
             android:title="@string/settings_system_wallpaper" />
         <SeekBarPreference
             android:key="systemWallpaperAlpha"
@@ -53,6 +58,7 @@
             android:icon="@drawable/outline_invert_colors_24"
             android:key="blackDarkTheme"
             android:summary="@string/settings_pure_black_dark_theme_summary"
+            app:singleLineTitle="false"
             android:title="@string/settings_pure_black_dark_theme" />
     </PreferenceCategory>
 
@@ -60,16 +66,19 @@
         <SwitchPreferenceCompat
             android:icon="@drawable/outline_bug_report_24"
             android:key="bypassRiskyPackageWarning"
+            app:singleLineTitle="false"
             android:title="@string/settings_bypass_risky_package_warning"
             android:summary="@string/settings_bypass_risky_package_warning_summary" />
         <SwitchPreferenceCompat
             android:icon="@drawable/baseline_apps_24"
             android:key="packageQueryWorkaround"
+            app:singleLineTitle="false"
             android:title="@string/settings_package_query_workaround"
             android:summary="@string/settings_package_query_workaround_summary" />
         <SwitchPreferenceCompat
             android:icon="@drawable/outline_android_24"
             android:key="disableActivityLaunchProtection"
+            app:singleLineTitle="false"
             android:title="@string/settings_disable_activity_launch_protection"
             android:summary="@string/settings_disable_activity_launch_protection_summary" />
         <Preference
@@ -79,10 +88,12 @@
         <SwitchPreferenceCompat
             android:icon="@drawable/outline_bug_report_24"
             android:key="detailLog"
+            app:singleLineTitle="false"
             android:title="@string/settings_detail_log" />
         <SwitchPreferenceCompat
             android:icon="@drawable/outline_bug_report_24"
             android:key="errorOnlyLog"
+            app:singleLineTitle="false"
             android:title="@string/settings_error_only_log" />
         <ListPreference
             android:defaultValue="512"
@@ -91,11 +102,13 @@
             android:icon="@drawable/outline_sd_storage_24"
             android:key="maxLogSize"
             android:summary="%s"
+            app:singleLineTitle="false"
             android:title="@string/settings_max_log_size" />
         <SwitchPreferenceCompat
             android:icon="@drawable/outline_hide_image_24"
             android:key="hideIcon"
             android:summary="@string/settings_hide_icon_summary"
+            app:singleLineTitle="false"
             android:title="@string/settings_hide_icon" />
         <org.frknkrc44.hma_oss.ui.preference.AppIconPreference
             android:key="launcherIcon"
@@ -125,6 +138,7 @@
             android:disableDependentsState="true"
             android:icon="@drawable/outline_update_disabled_24"
             android:key="disableUpdate"
+            app:singleLineTitle="false"
             android:title="@string/settings_disable_update" />
     </PreferenceCategory>
 </PreferenceScreen>

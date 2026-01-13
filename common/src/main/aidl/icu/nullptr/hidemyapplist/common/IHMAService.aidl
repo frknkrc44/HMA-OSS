@@ -14,7 +14,7 @@ interface IHMAService {
 
     void clearLogs() = 5;
 
-    void handlePackageEvent(String eventType, String packageName) = 6;
+    void handlePackageEvent(String eventType, String packageName, in Bundle extras) = 6;
 
     String[] getPackagesForPreset(String presetName) = 7;
 
@@ -31,4 +31,6 @@ interface IHMAService {
     String[] listAllSettings(String databaseName) = 13;
 
     String getLogFileLocation() = 14;
+
+    void reloadPresetsFromScratch() = 15;
 }

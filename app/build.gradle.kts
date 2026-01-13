@@ -76,7 +76,7 @@ afterEvaluate {
             setRequestProperty("authorization", "Bearer $crowdinApiKey")
         }
     } else {
-        val url = URL("https://raw.githubusercontent.com/frknkrc44/HMA-OSS/refs/heads/crowdin/translators.json")
+        val url = URL("https://github.com/frknkrc44/HMA-OSS/releases/latest/download/translators.json")
         url.openConnection() as HttpURLConnection
     }
 

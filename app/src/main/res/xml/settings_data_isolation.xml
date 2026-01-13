@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceCategory android:title="@string/settings_overwrite">
         <SwitchPreferenceCompat
             android:icon="@drawable/ic_outline_layers_24"
             android:key="appDataIsolation"
+            app:singleLineTitle="false"
             android:title="@string/settings_app_data_isolation" />
         <SwitchPreferenceCompat
             android:icon="@drawable/outline_sd_storage_24"
             android:key="voldAppDataIsolation"
+            app:singleLineTitle="false"
             android:title="@string/settings_vold_app_data_isolation" />
         <Preference
             android:key="info"
@@ -22,6 +25,7 @@
         <SwitchPreferenceCompat
             android:key="skipSystemAppDataIsolation"
             android:summary="@string/settings_need_reboot"
+            app:singleLineTitle="false"
             android:title="@string/app_exclude_system_apps" />
     </PreferenceCategory>
 
@@ -30,6 +34,7 @@
             android:icon="@drawable/outline_storage_24"
             android:key="forceMountData"
             android:summary="@string/settings_force_mount_data_summary"
+            app:singleLineTitle="false"
             android:title="@string/settings_force_mount_data" />
     </PreferenceCategory>
 </PreferenceScreen>

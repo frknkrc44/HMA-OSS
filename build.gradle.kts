@@ -62,7 +62,7 @@ val gitCommitCountAfterOss = gitCommitCount - 432
 val minSdkVer by extra(29)
 val targetSdkVer by extra(36)
 
-val appVerCode = gitCommitCount + 0x6f7373 // commit count + 0xOSS
+val appVerCode by extra(gitCommitCount + 0x6f7373) // commit count + 0xOSS
 val appVerName by extra("oss-${gitCommitCountAfterOss}${gitHasUncommittedSuffix}")
 
 /*

@@ -14,6 +14,7 @@ import icu.nullptr.hidemyapplist.common.app_presets.RootAppsPreset
 import icu.nullptr.hidemyapplist.common.app_presets.SDhizukuAppsPreset
 import icu.nullptr.hidemyapplist.common.app_presets.SuspiciousAppsPreset
 import icu.nullptr.hidemyapplist.common.app_presets.XposedModulesPreset
+import org.frknkrc44.hma_oss.common.BuildConfig
 import java.util.zip.ZipFile
 
 class AppPresets private constructor() {
@@ -56,7 +57,22 @@ class AppPresets private constructor() {
     // fun filterPresetsByName(names: Array<String>) = presetList.filter { names.contains(it.name) }
     fun getPresetByName(name: String) = presetList.firstOrNull { it.name == name }
 
-    fun reloadPresets(pms: IPackageManager) {
+    fun reloadPresets(pms: IPackageManager, holder: PresetCacheHolder, clearPresets: Boolean): PresetCacheHolder {
+        if (holder.cacheVersion == BuildConfig.APP_VERSION_CODE && !clearPresets) {
+            ignoredForRiskyPackagesList.addAll(holder.gmsDependentApps)
+
+            presetList.forEach { preset ->
+                holder.presetPackageNames[preset.name]?.let { preset.packageNames.addAll(it) }
+            }
+
+            return holder
+        }
+
+        return reloadPresetsFromScratch(pms)
+    }
+
+    private fun reloadPresetsFromScratch(pms: IPackageManager): PresetCacheHolder {
+        ignoredForRiskyPackagesList.clear()
         presetList.forEach { it.clearPackageList() }
 
         val appsList = getInstalledApplicationsCompat(pms, 0, 0)
@@ -82,11 +98,19 @@ class AppPresets private constructor() {
         presetList.forEach { loggerFunction?.invoke(Log.DEBUG, it.toString()) }
 
         manifestDataCache.clear()
+
+        return PresetCacheHolder(
+            BuildConfig.APP_VERSION_CODE,
+            presetList.associate {
+                it.name to it.packageNames
+            }.toMutableMap(),
+            ignoredForRiskyPackagesList.toMutableSet(),
+        )
     }
 
-    fun handlePackageAdded(pms: IPackageManager, packageName: String) {
+    fun handlePackageAdded(pms: IPackageManager, packageName: String, holder: PresetCacheHolder): Boolean {
         if (presetList.any { it.containsPackage(packageName) }) {
-            return
+            return false
         }
 
         var appInfo: ApplicationInfo? = null
@@ -101,6 +125,7 @@ class AppPresets private constructor() {
                     runCatching {
                         if (it.addPackageInfoPreset(appInfo!!)) {
                             loggerFunction?.invoke(Log.DEBUG, "Package $packageName added into ${it.name}!")
+                            holder.presetPackageNames[it.name]?.add(appInfo!!.packageName)
                             addedInAList = true
                         }
                     }.onFailure { fail ->
@@ -114,28 +139,35 @@ class AppPresets private constructor() {
             appInfo = getPackageInfoCompat(pms, packageName, 0, 0)?.applicationInfo
 
         if (appInfo != null)
-            tryToAddIntoGMSConnectionList(appInfo, packageName) {
+            addedInAList = tryToAddIntoGMSConnectionList(appInfo, packageName) {
                 loggerFunction?.invoke(Log.DEBUG, it)
-            }
+            } || addedInAList
 
         if (addedInAList)
             loggerFunction?.invoke(Log.DEBUG, "Package add event handled for $packageName!")
 
         manifestDataCache.clear()
+
+        return addedInAList
     }
 
-    fun handlePackageRemoved(packageName: String) {
+    fun handlePackageRemoved(packageName: String, holder: PresetCacheHolder): Boolean {
         var itWasInAList = false
 
         presetList.forEach {
-            if (it.removePackageFromPreset(packageName))
+            if (it.removePackageFromPreset(packageName)) {
+                holder.presetPackageNames[it.name]?.remove(packageName)
                 itWasInAList = true
+            }
         }
 
-        ignoredForRiskyPackagesList.remove(packageName)
+        if (ignoredForRiskyPackagesList.remove(packageName))
+            itWasInAList = true
 
         if (itWasInAList)
             loggerFunction?.invoke(Log.DEBUG, "Package remove event handled for $packageName!")
+
+        return itWasInAList
     }
 
     init {

@@ -105,6 +105,7 @@ jobs:
           files: |
             ${{ steps.buildAll.outputs.releaseFile }}
             ${{ steps.buildAll.outputs.debugFile }}
+            app/src/main/assets/translators.json
           tag_name: oss-${{ steps.buildAll.outputs.ossNum }}
 
       - name: Post to channel
