@@ -38,7 +38,7 @@
     <string name="home_xposed_not_activated">الإضافة غير مفعلة</string>
     <string name="home_xposed_service_on">خدمة النظام تعمل [%d]</string>
     <string name="home_xposed_service_off">خدمة النظام متوقفة</string>
-    <string name="home_xposed_service_old">تم تحديث الإضافة، تحتاج إلي إعادة التشغيل</string>
+    <string name="home_xposed_service_old">تم تحديث الإضافة، تحتاج إلى إعادة التشغيل</string>
     <string name="home_xposed_filter_count">HMA-OSS قام بتصفية إجمالي %d من الطلبات</string>
     <string name="home_manage">الإدارة</string>
     <string name="home_detection_test">اختبار الاكتشاف</string>
@@ -175,7 +175,7 @@
     <string name="settings_error_only_log">تسجيل الأخطاء فقط</string>
     <string name="settings_language">اللغة</string>
     <string name="settings_translate">المشاركة في التَّرْجَمَة</string>
-    <string name="settings_translate_summary">ساعدنا في التَرجمة %s إلي لغتك</string>
+    <string name="settings_translate_summary">ساعدنا في التَّرجمة %s إلي لغتك</string>
     <string name="settings_theme">الثيم</string>
     <string name="settings_system_theme_color">لون ثيم النظام</string>
     <string name="settings_theme_color">لون الثيم</string>
