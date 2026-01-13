@@ -17,7 +17,7 @@
     <string name="edit_list">Sửa danh sách</string>
     <string name="delete">Xóa</string>
     <string name="enabled">Đã bật</string>
-    <string name="disabled">Tắt</string>
+    <string name="disabled">Đã tắt</string>
     <string name="work_mode">Chế độ hoạt động</string>
     <string name="blacklist">Danh sách đen</string>
     <string name="whitelist">Danh sách trắng</string>
@@ -34,11 +34,11 @@
     <string name="apply">Áp dụng thay đổi</string>
     <string name="follow_system">Theo cài đặt hệ thống</string>
     <!-- Home -->
-    <string name="home_xposed_activated">Mô đun đã kích hoạt [%s]</string>
-    <string name="home_xposed_not_activated">Mô đun không kích hoạt</string>
+    <string name="home_xposed_activated">Mô-đun đã Kích hoạt [%s]</string>
+    <string name="home_xposed_not_activated">Mô-đun chưa Kích hoạt</string>
     <string name="home_xposed_service_on">Dịch vụ hệ thống đang chạy [%d]</string>
     <string name="home_xposed_service_off">Dịch vụ hệ thống đang không chạy</string>
-    <string name="home_xposed_service_old">Mô-đun đã cập nhật, cần khởi động lại máy</string>
+    <string name="home_xposed_service_old">Mô-đun đã cập nhật, cần khởi động lại</string>
     <string name="home_xposed_filter_count">HMA-OSS đã lọc tổng cộng %d yêu cầu</string>
     <string name="home_manage">Quản lý</string>
     <string name="home_detection_test">Thử phát hiện</string>
@@ -47,9 +47,9 @@
     <string name="home_backup_and_restore">Sao lưu &amp; Khôi phục</string>
     <string name="home_backup_config">Sao lưu cấu hình</string>
     <string name="home_restore_config">Khôi phục cấu hình</string>
-    <string name="home_import_successful">Nhập dữ liệu thành công</string>
+    <string name="home_import_successful">Nhập thành công</string>
     <string name="home_import_failed">Nhập không thành công</string>
-    <string name="home_import_app_version_too_old">Phiên bản mô-đun thấp hơn dữ liệu sao lưu</string>
+    <string name="home_import_app_version_too_old">Phiên bản mô-đun thấp hơn bản sao lưu</string>
     <string name="home_import_backup_version_too_old">Bản sao lưu quá cũ</string>
     <string name="home_import_file_damaged">Bản sao lưu bị hư</string>
     <string name="home_export_failed">Xuất không thành công</string>
@@ -86,7 +86,7 @@
     <string name="app_template_config">Mục tùy chỉnh</string>
     <string name="app_choose_template">Chọn mục</string>
     <string name="app_choose_preset">Chọn thiết lập trước</string>
-    <string name="app_exclude_system_apps">Trừ ứng dụng hệ thống</string>
+    <string name="app_exclude_system_apps">Loại trừ ứng dụng hệ thống</string>
     <string name="app_exclude_system_apps_summary">Chỉ tắt tùy chọn này khi cần thiết vì nó có thể gây sự cố nếu tắt</string>
     <string name="app_template_using">Đang dùng %d biểu mẫu</string>
     <string name="app_preset_using">Đang sử dụng %d thiết lập trước</string>
@@ -102,7 +102,7 @@
     <string name="app_hide_installation_source_system">Giả mạo các ứng dụng hệ thống luôn</string>
     <string name="app_hide_installation_source_system_desc">Tất cả các ứng dụng hệ thống sẽ được giả mạo là đã cài đặt qua không gì cả cho ứng dụng này</string>
     <string name="app_exclude_target_installation_source">Loại trừ ứng dụng mục tiêu</string>
-    <string name="app_exclude_target_installation_source_desc">Bạn có thể bật nó nếu ứng dụng này không có sẵn trên Play Store</string>
+    <string name="app_exclude_target_installation_source_desc">Bạn có thể bật nó nếu ứng dụng này không có sẵn trên CH Play</string>
     <string name="app_force_stop_warning">Đừng quên buộc dừng ứng dụng mục tiêu sau khi lưu cấu hình</string>
     <string name="app_invert_activity_launch_protection">Đảo ngược lựa chọn Tắt bảo vệ khởi chạy hoạt động</string>
     <string name="app_invert_activity_launch_protection_desc">Tùy chọn này sẽ đảo ngược lựa chọn \"Tắt bảo vệ khởi chạy hoạt động\" trong Cài đặt.</string>
@@ -118,10 +118,10 @@
     <string name="title_preset_manage">Hiển thị các cài đặt trước</string>
     <string name="preset_xposed">Các mô-đun LSPosed/Xposed</string>
     <string name="preset_root_apps">Ứng dụng quản lý Root/Ứng dụng được cấp Root</string>
-    <string name="preset_custom_rom">Ứng dụng ROM tùy biến</string>
+    <string name="preset_custom_rom">Ứng dụng ROM Tùy chỉnh</string>
     <string name="preset_sus_apps">Ứng dụng đáng ngờ</string>
-    <string name="preset_detector_apps">ỨD phát hiện/KT Root</string>
-    <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku ứng dụng</string>
+    <string name="preset_detector_apps">Ứng dụng Trình phát hiện/Trình k.tra</string>
+    <string name="preset_shizuku_dhizuku">Ứng dụng Shizuku/Dhizuku</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Trợ năng</string>
     <string name="settings_preset_dev_options">Tùy chọn nhà phát triển</string>
@@ -139,7 +139,7 @@
     <string name="logs_empty">Không có nhật ký được lưu</string>
     <string name="logs_saved">Đã lưu nhật ký</string>
     <!-- Settings -->
-    <string name="settings_module">Mô đun</string>
+    <string name="settings_module">Mô-đun</string>
     <string name="settings_overwrite">Ghi đè</string>
     <string name="settings_overwritten">Bị ghi đè</string>
     <string name="settings_overwrite_summary">Các mục trong danh mục này sẽ bị buộc phải bật nếu các công tắc được chọn</string>
@@ -158,7 +158,7 @@
     <string name="settings_force_mount_data_summary">Tính năng cô lập dữ liệu bị vô hiệu hóa đối với các ứng dụng mục tiêu có API thấp hơn 30 theo mặc định</string>
     <string name="settings_detail_log">Nhật ký chi tiết gỡ lỗi</string>
     <string name="settings_max_log_size">Kích cỡ bộ đệm nhật ký</string>
-    <string name="settings_hide_icon">Ẩn mô đun trong Trình khởi chạy</string>
+    <string name="settings_hide_icon">Ẩn hình biểu tượng mô-đun trong trình khởi chạy</string>
     <string name="settings_hide_icon_summary">Bạn vẫn có thể mở ứng dụng trong Xposed</string>
     <string name="settings_bypass_risky_package_warning">Bỏ qua cảnh báo gói rủi ro</string>
     <string name="settings_bypass_risky_package_warning_summary">Lưu ý rằng nhà phát triển không chịu trách nhiệm về các vấn đề liên quan đến gói rủi ro trước hoặc sau khi bạn bật tính năng này</string>
@@ -175,10 +175,10 @@
     <string name="settings_language">Ngôn ngữ</string>
     <string name="settings_translate">Giúp chúng tôi dịch</string>
     <string name="settings_translate_summary">Giúp chúng tôi dịch %s sang ngôn ngữ của bạn</string>
-    <string name="settings_theme">Giao diện</string>
+    <string name="settings_theme">Chủ đề</string>
     <string name="settings_system_theme_color">Màu hệ thống</string>
     <string name="settings_theme_color">Màu chủ đề</string>
-    <string name="settings_dark_theme">Giao diện tối</string>
+    <string name="settings_dark_theme">Chủ đề tối</string>
     <string name="settings_pure_black_dark_theme">Chủ đề đen thuần</string>
     <string name="settings_pure_black_dark_theme_summary">Sử dụng màu đen thuần nếu chủ đề tối được bật</string>
     <string name="settings_service">Dịch vụ</string>
@@ -199,8 +199,8 @@
     <string name="about_description">Mặc dù việc phát hiện cài đặt ứng dụng cụ thể là không chính xác, nhưng không phải mọi ứng dụng sử dụng root đều cung cấp hỗ trợ tên gói ngẫu nhiên. Trong trường hợp này, các ứng dụng được phát hiện sử dụng quyền root (chẳng hạn như Vị trí giả mạo và Cách ly bộ nhớ) tương đương với chính ứng dụng gốc được phát hiện. \n\n Đồng thời, một số ứng dụng thông minh sử dụng nhiều kẽ hở khác nhau để lấy danh sách ứng dụng của bạn, để nó có thể thu hút một cá tính dành cho bạn. \n\nMô-đun này cung cấp một số phương pháp để kiểm tra xem bạn đã ẩn danh sách ứng dụng của mình hay chưa. Ngoài ra, nó có thể hoạt động như một mô-đun Xposed để ẩn một số ứng dụng hoặc từ chối các yêu cầu danh sách ứng dụng để bảo vệ quyền riêng tư của bạn.
  </string>
     <string name="about_fork_description">Dự án HMA ban đầu đã trở thành mã nguồn đóng và mã mới nhất của họ không chứa một số thay đổi mới nhất, vì vậy tôi đã tạo nhánh này để tiếp tục nó dưới dạng mã nguồn mở một lần nữa.</string>
-    <string name="about_how_to_use_title">Làm sao để dùng mô đun này</string>
-    <string name="about_how_to_use_description_1">Bạn có thể tạo biểu mẫu trong \"Quản lý biểu mẫu\". \nSau đó, áp dụng cho các ứng dụng trong \"Quản lý ứng dụng\". (Bạn cũng có thể chọn các ứng dụng bổ sung cho nó.) \nBạn nên và CHỈ nên chọn \"Khung hệ thống(System Framework)\" trong scope của mô-đun Xposed / danh sách trắng.    </string>
+    <string name="about_how_to_use_title">Làm sao để dùng mô-đun này</string>
+    <string name="about_how_to_use_description_1">Bạn có thể tạo biểu mẫu trong \"Quản lý biểu mẫu\". \nSau đó áp dụng cho các ứng dụng trong \"Quản lý ứng dụng\". (Bạn cũng có thể chọn các ứng dụng bổ sung cho các mục tiêu.) \nBạn nên và CHỈ nên chọn \"Khung Hệ thống\" trong scope của mô-đun Xposed / danh sách trắng.    </string>
     <string name="about_how_to_use_description_2">Sửa đổi cấu hình hiệu quả trong thời gian thực.</string>
     <string name="about_translator">Dịch giả</string>
     <string name="about_developer">Nhà phát triển</string>
@@ -227,7 +227,7 @@
     <string name="color_brown">Nâu</string>
     <string name="color_blue_grey">Xanh xám</string>
     <!-- Dark theme modes -->
-    <string name="dark_theme">Giao diện tối</string>
+    <string name="dark_theme">Chủ đề tối</string>
     <string name="dark_theme_off">Luôn tắt</string>
     <string name="dark_theme_on">Luôn bật</string>
 </resources>
