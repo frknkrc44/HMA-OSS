@@ -43,7 +43,12 @@ class DetectorAppsPreset  : BasePreset(NAME) {
         "chunqiu.safe.detector",
         "chunqiu.safe",
         "wu.Rookie.Detector",
-
+        "com.fkjc.zcro",
+        "wu.keyChain.test",
+        "at.persie0.root_detection_app",
+        "at.austriao.fake_gps_detector_app",
+        "io.ngankbakaa.lineage.detector",
+        
         // EnvChecksDemo (thanks @gavdoc38)
         "com.dexprotector.detector.envchecks",
 
