@@ -33,7 +33,12 @@ private val navOptions by lazy {
 }
 
 fun Fragment.navigate(@IdRes resId: Int, args: Bundle? = null) {
-    navController.navigate(resId, args, navOptions)
+    val cr = requireContext().contentResolver
+    if (AccessibilityUtils.isAnimationEnabled(cr)) {
+        navController.navigate(resId, args, navOptions)
+    } else {
+        navController.navigate(resId, args)
+    }
 }
 
 fun Fragment.setupToolbar(
