@@ -82,10 +82,10 @@
     <string name="template_apps_visible_count">%d 個のアプリが表示されます</string>
     <string name="template_apps_invisible_count">%d 個のアプリが表示されません</string>
     <!-- App settings -->
-    <string name="app_enable_hide">非表示を有効にする</string>
+    <string name="app_enable_hide">非表示を有効化</string>
     <string name="app_template_config">テンプレート設定</string>
-    <string name="app_choose_template">テンプレートを選択する</string>
-    <string name="app_choose_preset">プリセットを選択する</string>
+    <string name="app_choose_template">テンプレートを選択</string>
+    <string name="app_choose_preset">プリセットを選択</string>
     <string name="app_exclude_system_apps">システムアプリを除外</string>
     <string name="app_exclude_system_apps_summary">本当に必要な場合にのみ、このオプションをオフにしてください。無効にするとクラッシュする可能性があります</string>
     <string name="app_template_using">%d 個のテンプレートを使用中</string>
@@ -97,20 +97,20 @@
     <string name="app_warning_risky_package_title">危険なパッケージ</string>
     <string name="app_warning_risky_package_desc">このパッケージは危険とマークされており、非表示のアプリに問題を引き起こす可能性があります。続行しますか？</string>
     <string name="app_spoof">偽装</string>
-    <string name="app_hide_installation_source">インストールソースを偽装する</string>
+    <string name="app_hide_installation_source">インストールソースを偽装</string>
     <string name="app_hide_installation_source_desc">このアプリでは、すべてのユーザーアプリが Play ストア経由でインストールされたように偽装されます</string>
-    <string name="app_hide_installation_source_system">システムアプリにも偽装する</string>
+    <string name="app_hide_installation_source_system">システムアプリにも偽装</string>
     <string name="app_hide_installation_source_system_desc">このアプリでは、すべてのシステムアプリが何もインストールされていないように偽装されます</string>
-    <string name="app_exclude_target_installation_source">対象アプリを除外する</string>
+    <string name="app_exclude_target_installation_source">対象アプリを除外</string>
     <string name="app_exclude_target_installation_source_desc">このアプリが Play ストアで利用できない場合、有効にすることができます</string>
     <string name="app_force_stop_warning">設定を保存した後に対象のアプリを強制終了することを忘れないでください</string>
-    <string name="app_invert_activity_launch_protection">アクティビティ起動保護を反転する</string>
-    <string name="app_invert_activity_launch_protection_desc">このオプションは、設定の「アクティビティ起動保護を無効にする」の選択を反転します。</string>
+    <string name="app_invert_activity_launch_protection">アクティビティ起動保護を反転</string>
+    <string name="app_invert_activity_launch_protection_desc">このオプションは、設定の「アクティビティ起動保護を無効化」の選択を反転します。</string>
     <string name="app_global_activity_launch_protection_state">保護はグローバルで%sです</string>
     <string name="app_force_stop_launch">強制停止と起動</string>
     <string name="app_launch">起動</string>
     <string name="app_launch_failed">アプリの起動に失敗しました。詳細はログを確認してください</string>
-    <string name="app_restrict_zygote_permissions">Zygote 権限を制限する</string>
+    <string name="app_restrict_zygote_permissions">Zygote 権限を制限</string>
     <string name="app_restrict_zygote_permissions_desc">このオプションはクラッシュや誤検知を引き起こす可能性があります。慎重に選択してください。</string>
     <!-- Presets -->
     <string name="title_preset">プリセット</string>
@@ -162,10 +162,10 @@
     <string name="settings_hide_icon_summary">LSPosed マネージャーで引き続きアプリを開くことができます</string>
     <string name="settings_bypass_risky_package_warning">危険なパッケージの警告を無視</string>
     <string name="settings_bypass_risky_package_warning_summary">この機能を有効にする前後で、危険なパッケージに関する問題が発生した場合、開発者は一切責任を負わないことをご了承ください</string>
-    <string name="settings_disable_activity_launch_protection">アクティビティ起動保護を無効</string>
+    <string name="settings_disable_activity_launch_protection">アクティビティ起動保護を無効化</string>
     <string name="settings_disable_activity_launch_protection_summary">このトグルをオンにすると、すべての startActivity 保護が解除されます。不明な場合は有効にしないでください。</string>
-    <string name="settings_system_wallpaper">システムの壁紙を使用する</string>
-    <string name="settings_clear_uninstalled_app_configs">アンインストール済みのアプリの設定を消去する</string>
+    <string name="settings_system_wallpaper">システムの壁紙を使用</string>
+    <string name="settings_clear_uninstalled_app_configs">アンインストール済みのアプリの設定を消去</string>
     <string name="settings_clear_uninstalled_app_configs_summary">このオプションを使用すると、残骸を残さずに設定ファイルを作成できますが、アプリを再インストールした際には再設定が必要になります。</string>
     <string name="settings_no_undone_warning">この操作は取り消せません。</string>
     <string name="settings_package_query_workaround">代替パッケージクエリ</string>
@@ -173,7 +173,7 @@
     <string name="settings_launcher_icon">ランチャーアイコン</string>
     <string name="settings_error_only_log">エラーのみのログ</string>
     <string name="settings_language">言語</string>
-    <string name="settings_translate">翻訳に参加する</string>
+    <string name="settings_translate">翻訳に参加</string>
     <string name="settings_translate_summary">%s をあなたの言語に翻訳するのにご協力ください</string>
     <string name="settings_theme">テーマ</string>
     <string name="settings_system_theme_color">システムのテーマカラー</string>
@@ -182,7 +182,7 @@
     <string name="settings_pure_black_dark_theme">ピュアブラックテーマ</string>
     <string name="settings_pure_black_dark_theme_summary">ダークテーマが有効になっている場合、ピュアブラックテーマを使用します</string>
     <string name="settings_service">サービス</string>
-    <string name="settings_stop_system_service">システムサービスを停止する</string>
+    <string name="settings_stop_system_service">システムサービスを停止</string>
     <string name="settings_stop_system_service_summary">サービスを再開するには再起動が必要です</string>
     <string name="settings_is_clean_env">実行環境のクリーンアップをしますか？</string>
     <string name="settings_is_clean_env_summary">/data/misc/hide_my_applist_* のシステムサービスキャッシュを削除します。つまり、インターセプトを有効にするには、次回の再起動後にモジュールアプリを手動で 1 回起動する必要があり、インターセプトカウントも消去されます。</string>
@@ -190,7 +190,7 @@
     <string name="settings_force_clean_env_summary">システムサービスの開始に失敗した場合のみ、それ以外の場合は上記のオプションをクリックする必要があります。</string>
     <string name="settings_force_clean_env_toast_successful">実行環境がクリーンアップされました</string>
     <string name="settings_update">アップデート</string>
-    <string name="settings_disable_update">アップデートの通知を無効にする</string>
+    <string name="settings_disable_update">アップデートの通知を無効化</string>
     <string name="settings_receive_beta_update">ベータ版アップデートを受け取る</string>
     <string name="settings_receive_beta_update_summary">ベータ版は不安定な場合があります</string>
     <!-- Bulk config wizard -->
@@ -201,7 +201,7 @@
     <string name="about_fork_description">        オリジナルの HMA プロジェクトはクローズドソースになり、最新版のコードには一部の重要な変更点が反映されていませんでした。そこで、再びオープンソースとして継続していくために、このフォーク版を作成しました。
     </string>
     <string name="about_how_to_use_title">このモジュールの使用方法</string>
-    <string name="about_how_to_use_description_1">        「テンプレート管理」でテンプレートを作成できます。\n次に、「アプリ管理」でテンプレートをアプリに適用します。 (ターゲットに追加のアプリを選択することもできます。)\nXposed モジュール スコープ/ホワイトリストで「システム フレームワーク」をチェックする必要があります。
+    <string name="about_how_to_use_description_1">        「テンプレート管理」でテンプレートを作成できます。\n次に、「アプリの管理」でテンプレートをアプリに適用します。 (ターゲットに追加のアプリを選択することもできます。)\nXposed モジュール スコープ/ホワイトリストで「システム フレームワーク」をチェックする必要があります。
     </string>
     <string name="about_how_to_use_description_2">        設定変更はリアルタイムで行われます。
     </string>
