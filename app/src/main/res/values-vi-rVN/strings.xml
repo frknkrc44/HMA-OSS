@@ -31,8 +31,8 @@
     <string name="system">Hệ thống</string>
     <string name="add">Thêm</string>
     <string name="edit">Chỉnh sửa</string>
-    <string name="apply">Áp dụng thay đổi</string>
-    <string name="follow_system">Theo cài đặt hệ thống</string>
+    <string name="apply">Áp dụng</string>
+    <string name="follow_system">Theo hệ thống</string>
     <!-- Home -->
     <string name="home_xposed_activated">Mô-đun đã Kích hoạt [%s]</string>
     <string name="home_xposed_not_activated">Mô-đun chưa Kích hoạt</string>
@@ -50,19 +50,19 @@
     <string name="home_import_successful">Nhập thành công</string>
     <string name="home_import_failed">Nhập không thành công</string>
     <string name="home_import_app_version_too_old">Phiên bản mô-đun thấp hơn bản sao lưu</string>
-    <string name="home_import_backup_version_too_old">Bản sao lưu quá cũ</string>
-    <string name="home_import_file_damaged">Bản sao lưu bị hư</string>
-    <string name="home_export_failed">Xuất không thành công</string>
+    <string name="home_import_backup_version_too_old">Phiên bản của bản sao lưu quá cũ</string>
+    <string name="home_import_file_damaged">Tệp bản sao lưu bị hư</string>
+    <string name="home_export_failed">Xuất thất bại</string>
     <string name="home_exported">Sao lưu cấu hình</string>
-    <string name="home_new_update">Bản cập nhật mới: %s</string>
+    <string name="home_new_update">Bản cập nhật mới khả dụng: %s</string>
     <string name="home_update">Cập nhật: %s</string>
     <!-- App select -->
-    <string name="list_show_system">Hiện Ứng dụng hệ thống</string>
+    <string name="list_show_system">Hiện ứng dụng hệ thống</string>
     <string name="list_sorting">Sắp xếp</string>
     <string name="list_reverse_order">Đảo ngược thứ tự</string>
-    <string name="list_sort_by_label">Bởi tên ứng dụng</string>
+    <string name="list_sort_by_label">Theo tên ứng dụng</string>
     <string name="list_sort_by_package_name">Theo tên gói</string>
-    <string name="list_sort_by_install_time">Bởi thời gian cài</string>
+    <string name="list_sort_by_install_time">Theo thời gian cài đặt</string>
     <string name="list_sort_by_update_time">Theo thời gian cập nhật</string>
     <string name="list_empty_no_enabled">Hãy thử bật chế độ ẩn cho các ứng dụng có chế độ làm việc của biểu mẫu này, các ứng dụng đó sẽ xuất hiện ở đây</string>
     <string name="list_empty_no_apps">Không tìm thấy ứng dụng nào, có thể bạn đã không cho phép ứng dụng này truy vấn những gói đã cài đặt</string>
@@ -183,7 +183,7 @@
     <string name="settings_pure_black_dark_theme_summary">Sử dụng màu đen thuần nếu chủ đề tối được bật</string>
     <string name="settings_service">Dịch vụ</string>
     <string name="settings_stop_system_service">Dừng dịch vụ</string>
-    <string name="settings_stop_system_service_summary">Cần chạy lại dịch vụ</string>
+    <string name="settings_stop_system_service_summary">Cần khởi động lại để bắt đầu lại dịch vụ</string>
     <string name="settings_is_clean_env">Làm sạch môi trường thời gian chạy cùng lúc?</string>
     <string name="settings_is_clean_env_summary">Xóa bộ nhớ tạm của dịch vụ hệ thống trong /data/misc/hide_my_applist_*. Điều này có nghĩa là bạn cần phải khởi chạy ứng dụng mô-đun một lần theo cách thủ công sau lần khởi động lại tiếp theo để cho phép đánh chặn và số lần đánh chặn cũng sẽ được xóa sạch.</string>
     <string name="settings_force_clean_env">Buộc dọn dẹp môi trường thực thi (root)</string>
