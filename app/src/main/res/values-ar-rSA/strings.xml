@@ -162,7 +162,7 @@
     <string name="settings_hide_icon">إخفاء أيقونة الوحدة من قائمة التطبيقات</string>
     <string name="settings_hide_icon_summary">لا يزال بإمكانك فتح التطبيق في مدير Xposed</string>
     <string name="settings_bypass_risky_package_warning">تجاوز تحذيرات الحزم الخطرة</string>
-    <string name="settings_bypass_risky_package_warning_summary">أعلم أن خيارات المطور ليست مسؤولة عن مشكلات متعلقة بالحزمة ألخطيرة قبل او بعد تفعيلك لهذه المِيزة</string>
+    <string name="settings_bypass_risky_package_warning_summary">أعلم أن خيارات المطور ليست مسؤولة عن مشكلات متعلقة بالحزمة الخطيرة قبل او بعد تفعيلك لهذه المِيزة</string>
     <string name="settings_disable_activity_launch_protection">تعطيل حماية تشغيل الفعالية</string>
     <string name="settings_disable_activity_launch_protection_summary">هذه الوصلة سترفع جميع حمايات بَدْء الفعالية. إذا كنت في شك، فلا تفعلها.</string>
     <string name="settings_system_wallpaper">استخدام خلفية النظام</string>
@@ -188,7 +188,7 @@
     <string name="settings_is_clean_env">تنظيف بيئة التشغيل في نفس الوقت؟</string>
     <string name="settings_is_clean_env_summary">إزالة التخزين المؤقت لخدمة النظام في /data/misc/hide_my_applist_*. هذا يعني أنك ستحتاج إلى تشغيل الإضافة مرة واحدة يدويا بعد إعادة التشغيل التالي حتي تعمل الاعتراضات، وسيتم أيضا تنظيف عمليات الاعتراض.</string>
     <string name="settings_force_clean_env">إجبار تنظيف بيئة العمل (روت)</string>
-    <string name="settings_force_clean_env_summary">فقط إذا فشلت خدمة النظام في البَدْء، وإلا يجب عليك أن تضغط علي الخِيار أعلاه.</string>
+    <string name="settings_force_clean_env_summary">فقط إذا فشلت خدمة النظام في البَدْء، وإلا يجب عليك أن تضغط على الخِيار أعلاه.</string>
     <string name="settings_force_clean_env_toast_successful">تم تنظيف بيئة التشغيل</string>
     <string name="settings_update">تحديث</string>
     <string name="settings_disable_update">إيقاف إشعارات التحديث</string>
@@ -198,7 +198,7 @@
     <string name="title_bulk_config_wizard">معالج الإعدادات الجماعية</string>
     <!-- About -->
     <string name="about_description">على الرغم من أنه من غير الصحيح اكتشاف تثبيت تطبيق معين ، إلا أنه لا يوفر كل تطبيق يستخدم الجذر دعمًا عشوائيًا لاسم الحزمة. في هذه الحالة ، فإن التطبيقات المكتشفة التي تستخدم الجذر (مثل الموقع المزيف وعزل التخزين) تساوي الجذر المكتشف نفسه.\n\n في نفس الوقت ، تستخدم بعض التطبيقات الذكية ثغرات مختلفة للحصول على قائمة التطبيقات الخاصة بك ، بحيث يمكنها رسم شخصية لك.\n\n توفر هذه الإضافة بعض الطرق لاختبار ما إذا كنت قد أخفيت التطبيق الخاص بك بشكل جيد. أيضًا ، يمكن أن يعمل كإضافة Xposed لإخفاء بعض التطبيقات أو رفض طلبات قائمة التطبيقات لحماية خصوصيتك.    </string>
-    <string name="about_fork_description">مشروع تطبيق HMA الأصلي اصبح مغلق المصدر والشفرات الأخيرة الخاصة بها لا تحتوي على بعض التغييرات الأخيرة،لذا قمتُ بصناعة هذه النسخة من جديد للاستمرار بها على أنها مفتوحة المصدر    </string>
+    <string name="about_fork_description">مشروع تطبيق HMA الأصلي اصبح مغلق المصدر والشفرات الأخيرة الخاصة بها لا تحتوي على بعض التغييرات الأخيرة،لذا قمتُ بصناعة هذه النسخة من جديد للاستمرار بها على أنها مفتوحة المصدر                            </string>
     <string name="about_how_to_use_title">كيفية استخدام هذه الإضافة</string>
     <string name="about_how_to_use_description_1">يمكنك إنشاء قوالب من \"إدارة القوالب\".\nثم تطبيق هذه القوالب على التطبيقات من \"إدارة التطبيقات\".(يمكنك أيضا اختيار تطبيقات إضافية للتطبيقات المستهدفة.)\n ينبغي فقط فحص \"إطار النظام\" من نطاق وحدة إكسبوسد/القائمة البيضاء.    </string>
     <string name="about_how_to_use_description_2">تعديل التكوين يطبق في الوقت الفعلى.    </string>
