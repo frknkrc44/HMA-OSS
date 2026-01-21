@@ -5,13 +5,12 @@ import com.github.kyuubiran.ezxhelper.utils.hookBefore
 import de.robv.android.xposed.XC_MethodHook
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.xposed.HMAService
+import icu.nullptr.hidemyapplist.xposed.XposedConstants.ZYGOTE_PROCESS_CLASS
 import icu.nullptr.hidemyapplist.xposed.logD
 
 class ZygoteHook(private val service: HMAService): IFrameworkHook {
     companion object {
         private const val TAG = "ZygoteHook"
-
-        private const val ZYGOTE_PROCESS_CLASS = "android.os.ZygoteProcess"
     }
 
     private val hooks = mutableListOf<XC_MethodHook.Unhook>()

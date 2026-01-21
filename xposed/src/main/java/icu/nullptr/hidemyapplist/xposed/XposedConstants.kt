@@ -14,4 +14,5 @@ object XposedConstants {
     const val ACTIVITY_STARTER_CLASS = "com.android.server.wm.ActivityStarter"
     const val ACTIVITY_TASK_SUPERVISOR_CLASS = "com.android.server.wm.ActivityTaskSupervisor"
     const val ACTIVITY_STACK_SUPERVISOR_CLASS = "com.android.server.wm.ActivityStackSupervisor"
+    const val ZYGOTE_PROCESS_CLASS = "android.os.ZygoteProcess"
 }
