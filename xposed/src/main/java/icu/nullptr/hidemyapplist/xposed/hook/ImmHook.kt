@@ -147,44 +147,36 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
             Utils4Xposed.getCallingApps(service)
         }
 
-        for (caller in callingApps) {
-            if (callerIsSpoofed(caller)) {
-                logD(TAG, "@${param.method.name} spoofed input method for $caller")
+        val caller = callingApps.firstOrNull { service.isHookEnabled(it) }
+        if (caller != null) {
+            logD(TAG, "@${param.method.name} spoofed input method for $caller")
 
-                param.result = listOf(getFakeInputMethodInfo(caller))
-                service.filterCount++
-                break
-            }
+            param.result = listOf(getFakeInputMethodInfo(caller))
+            service.filterCount++
         }
     }
 
     private fun subtypeHook(param: XC_MethodHook.MethodHookParam) {
         val callingApps = Utils4Xposed.getCallingApps(service)
 
-        for (caller in callingApps) {
-            if (callerIsSpoofed(caller)) {
-                logD(TAG, "@${param.method.name} spoofed input method subtype for $caller")
+        if (callingApps.any { callerIsSpoofed(it) }) {
+            logD(TAG, "@${param.method.name} spoofed input method subtype for ${callingApps.contentToString()}")
 
-                // TODO: Find a method to get exact value for spoofed input method
-                param.result = null
-                service.filterCount++
-                break
-            }
+            // TODO: Find a method to get exact value for spoofed input method
+            param.result = null
+            service.filterCount++
         }
     }
 
     private fun subtypeListHook(param: XC_MethodHook.MethodHookParam) {
         val callingApps = Utils4Xposed.getCallingApps(service)
 
-        for (caller in callingApps) {
-            if (callerIsSpoofed(caller)) {
-                logD(TAG, "@${param.method.name} spoofed input method subtype for $caller")
+        if (callingApps.any { callerIsSpoofed(it) }) {
+            logD(TAG, "@${param.method.name} spoofed input method subtype for ${callingApps.contentToString()}")
 
-                // TODO: Find a method to get exact list for spoofed input method
-                param.result = Collections.emptyList<InputMethodSubtype>()
-                service.filterCount++
-                break
-            }
+            // TODO: Find a method to get exact list for spoofed input method
+            param.result = Collections.emptyList<InputMethodSubtype>()
+            service.filterCount++
         }
     }
 

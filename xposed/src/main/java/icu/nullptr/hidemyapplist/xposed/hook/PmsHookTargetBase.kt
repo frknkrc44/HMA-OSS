@@ -51,30 +51,27 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                 if (callingUid == Constants.UID_SYSTEM) return@hookAfter
 
                 val callingApps = Utils4Xposed.getCallingApps(service, callingUid)
-                for (caller in callingApps) {
-                    if (service.isHookEnabled(caller)) {
-                        logD(TAG, "@getPackageStates: incoming query from $caller")
+                val caller = callingApps.firstOrNull { service.isHookEnabled(it) }
+                if (caller != null) {
+                    logD(TAG, "@getPackageStates: incoming query from $caller")
 
-                        val result = param.result as ArrayMap<*, *>
-                        val markedToRemove = mutableListOf<Any>()
+                    val result = param.result as ArrayMap<*, *>
+                    val markedToRemove = mutableListOf<Any>()
 
-                        for (pair in result.entries) {
-                            val value = pair.value
-                            val packageName = XposedHelpers.callMethod(value, "getPackageName") as String
-                            if (service.shouldHide(caller, packageName)) {
-                                markedToRemove.add(pair.key)
-                            }
+                    for (pair in result.entries) {
+                        val value = pair.value
+                        val packageName = XposedHelpers.callMethod(value, "getPackageName") as String
+                        if (service.shouldHide(caller, packageName)) {
+                            markedToRemove.add(pair.key)
                         }
+                    }
 
-                        if (markedToRemove.isNotEmpty()) {
-                            val copyResult = ArrayMap(result)
-                            copyResult.removeAll(markedToRemove)
-                            logD(TAG, "@getPackageStates: removed ${markedToRemove.size} entries from $caller")
-                            param.result = copyResult
-                            service.filterCount++
-
-                            return@hookAfter
-                        }
+                    if (markedToRemove.isNotEmpty()) {
+                        val copyResult = ArrayMap(result)
+                        copyResult.removeAll(markedToRemove)
+                        logD(TAG, "@getPackageStates: removed ${markedToRemove.size} entries from $caller")
+                        param.result = copyResult
+                        service.filterCount++
                     }
                 }
             }

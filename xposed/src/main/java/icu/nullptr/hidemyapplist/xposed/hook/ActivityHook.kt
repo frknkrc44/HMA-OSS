@@ -118,9 +118,8 @@ class ActivityHook(private val service: HMAService) : IFrameworkHook {
                 if (callingUid == Constants.UID_SYSTEM) return@hookBefore
 
                 val callingApps = Utils4Xposed.getCallingApps(service, callingUid)
-                for (caller in callingApps) {
-                    if (!service.isHookEnabled(caller)) continue
-
+                val caller = callingApps.firstOrNull { service.isHookEnabled(it) }
+                if (caller != null) {
                     // logD(TAG, "@${param.method.name}: $caller requested a resolve info")
 
                     val filteredList = list.filter { resolveInfo ->

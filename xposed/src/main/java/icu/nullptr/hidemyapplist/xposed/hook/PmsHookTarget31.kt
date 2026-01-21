@@ -61,13 +61,11 @@ class PmsHookTarget31(service: HMAService) : PmsHookTargetBase(service) {
             val targetApp = param.args[0] as String
             val callingUid = Binder.getCallingUid()
             val callingApps = Utils4Xposed.getCallingApps(service, callingUid)
-            for (caller in callingApps) {
-                if (service.shouldHide(caller, targetApp)) {
-                    logD(TAG, "@getPackageSetting - Computer: insecure query from $caller to $targetApp")
-                    param.result = null
-                    service.filterCount++
-                    return@hookBefore
-                }
+            val caller = callingApps.firstOrNull { service.shouldHide(it, targetApp) }
+            if (caller != null) {
+                logD(TAG, "@getPackageSetting - Computer: insecure query from $caller to $targetApp")
+                param.result = null
+                service.filterCount++
             }
         }?.let {
             hooks += it
@@ -79,13 +77,11 @@ class PmsHookTarget31(service: HMAService) : PmsHookTargetBase(service) {
             val targetApp = param.args[0] as String
             val callingUid = param.args[1] as Int
             val callingApps = Utils4Xposed.getCallingApps(service, callingUid)
-            for (caller in callingApps) {
-                if (service.shouldHide(caller, targetApp)) {
-                    logD(TAG, "@getPackageSettingInternal - Computer: insecure query from $caller to $targetApp")
-                    param.result = null
-                    service.filterCount++
-                    return@hookBefore
-                }
+            val caller = callingApps.firstOrNull { service.shouldHide(it, targetApp) }
+            if (caller != null) {
+                logD(TAG, "@getPackageSettingInternal - Computer: insecure query from $caller to $targetApp")
+                param.result = null
+                service.filterCount++
             }
         }?.let {
             hooks += it
@@ -101,15 +97,13 @@ class PmsHookTarget31(service: HMAService) : PmsHookTargetBase(service) {
                     service.pms.getPackagesForUid(callingUid)
                 } ?: return@hookBefore
                 val targetApp = Utils4Xposed.getPackageNameFromPackageSettings(param.args[2])
-                for (caller in callingApps) {
-                    if (service.shouldHide(caller, targetApp)) {
-                        param.result = true
-                        service.filterCount++
-                        val last = lastFilteredApp.getAndSet(caller)
-                        if (last != caller) logI(TAG, "@shouldFilterApplication: query from $caller")
-                        logD(TAG, "@shouldFilterApplication caller: $callingUid $caller, target: $targetApp")
-                        return@hookBefore
-                    }
+                val caller = callingApps.firstOrNull { service.shouldHide(it, targetApp) }
+                if (caller != null) {
+                    param.result = true
+                    service.filterCount++
+                    val last = lastFilteredApp.getAndSet(caller)
+                    if (last != caller) logI(TAG, "@shouldFilterApplication: query from $caller")
+                    logD(TAG, "@shouldFilterApplication caller: $callingUid $caller, target: $targetApp")
                 }
             }.onFailure {
                 logE(TAG, "Fatal error occurred, disable hooks", it)
