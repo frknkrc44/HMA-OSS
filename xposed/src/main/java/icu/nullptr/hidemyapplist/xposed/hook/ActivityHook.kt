@@ -24,6 +24,7 @@ import icu.nullptr.hidemyapplist.xposed.XposedConstants.PACKAGE_MANAGER_SERVICE_
 import icu.nullptr.hidemyapplist.xposed.logD
 import icu.nullptr.hidemyapplist.xposed.logE
 import icu.nullptr.hidemyapplist.xposed.logI
+import icu.nullptr.hidemyapplist.xposed.logV
 
 class ActivityHook(private val service: HMAService) : IFrameworkHook {
     companion object {
@@ -124,12 +125,12 @@ class ActivityHook(private val service: HMAService) : IFrameworkHook {
                 val callingApps = Utils4Xposed.getCallingApps(service, callingUid)
                 val caller = callingApps.firstOrNull { service.isHookEnabled(it) }
                 if (caller != null) {
-                    // logD(TAG, "@${param.method.name}: $caller requested a resolve info")
+                    logV(TAG, "@${param.method.name}: $caller requested a resolve info")
 
                     val filteredList = list.filter { resolveInfo ->
                         val targetApp = Utils.getPackageNameFromResolveInfo(resolveInfo)
 
-                        // logD(TAG, "@${param.method.name}: Checking $targetApp for $caller")
+                        logV(TAG, "@${param.method.name}: Checking $targetApp for $caller")
 
                         (!service.shouldHideActivityLaunch(caller, targetApp)).apply {
                             if (!this) {
