@@ -2,10 +2,8 @@ package icu.nullptr.hidemyapplist.ui.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.themeColor
@@ -13,7 +11,7 @@ import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.LogItemViewBinding
 import java.util.regex.Pattern
 
-class LogAdapter(context: Context, private val hideLogLevels: Boolean = false) : RecyclerView.Adapter<LogAdapter.ViewHolder>() {
+class LogAdapter(context: Context) : RecyclerView.Adapter<LogAdapter.ViewHolder>() {
 
     class LogItem(
         val level: String,
@@ -67,15 +65,8 @@ class LogAdapter(context: Context, private val hideLogLevels: Boolean = false) :
                 else -> throw IllegalArgumentException("Unknown level: ${logItem.level}")
             }
 
-            if (hideLogLevels) {
-                binding.level.isVisible = false
-                binding.date.typeface = Typeface.DEFAULT
-                binding.message.typeface = Typeface.DEFAULT
-            } else {
-                binding.level.setBackgroundColor(color)
-                binding.level.text = logItem.level.take(1)
-            }
-
+            binding.level.setBackgroundColor(color)
+            binding.level.text = logItem.level.take(1)
             binding.date.text = logItem.date
             binding.tag.text = logItem.tag
             binding.message.text = logItem.message
