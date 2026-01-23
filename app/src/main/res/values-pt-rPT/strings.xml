@@ -138,6 +138,8 @@
     <string name="logs_clear">Limpar registos</string>
     <string name="logs_empty">Não há registos para guardar</string>
     <string name="logs_saved">Registos guardados</string>
+    <!-- Filter logs -->
+    <string name="title_filter_logs">Filter logs</string>
     <!-- Settings -->
     <string name="settings_module">Módulo</string>
     <string name="settings_overwrite">Substituir</string>
