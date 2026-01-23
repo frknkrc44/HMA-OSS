@@ -138,6 +138,8 @@
     <string name="logs_clear">مسح السجلات</string>
     <string name="logs_empty">لا يوجد سجلات لحفظها</string>
     <string name="logs_saved">تم حفظ السجلات</string>
+    <!-- Filter logs -->
+    <string name="title_filter_logs">Filter logs</string>
     <!-- Settings -->
     <string name="settings_module">الوحدة</string>
     <string name="settings_overwrite">الكتابة عليه</string>
