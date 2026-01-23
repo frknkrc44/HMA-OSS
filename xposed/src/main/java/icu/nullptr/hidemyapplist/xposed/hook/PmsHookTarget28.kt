@@ -32,15 +32,22 @@ class PmsHookTarget28(service: HMAService) : PmsHookTargetBase(service) {
             runCatching {
                 val callingUid = param.args[1] as Int
                 if (callingUid == Constants.UID_SYSTEM) return@hookBefore
+                val packageSettings = param.args[0] ?: return@hookBefore
+                val targetApp = Utils4Xposed.getPackageNameFromPackageSettings(packageSettings)
+                if (service.shouldHideFromUid(callingUid, targetApp) == true) {
+                    param.result = true
+                    // service.filterCount++
+                    logD(TAG, "@filterAppAccessLPr caller cache: $callingUid, target: $targetApp")
+                    return@hookBefore
+                }
                 val callingApps = Utils.binderLocalScope {
                     service.pms.getPackagesForUid(callingUid)
                 } ?: return@hookBefore
-                val packageSettings = param.args[0] ?: return@hookBefore
-                val targetApp = Utils4Xposed.getPackageNameFromPackageSettings(packageSettings)
                 for (caller in callingApps) {
                     if (service.shouldHide(caller, targetApp)) {
                         param.result = true
-                        service.filterCount++
+                        // service.filterCount++
+                        service.putShouldHideUidCache(callingUid, targetApp!!)
                         val last = lastFilteredApp.getAndSet(caller)
                         if (last != caller) logI(TAG, "@filterAppAccessLPr query from $caller")
                         logD(TAG, "@filterAppAccessLPr caller: $callingUid $caller, target: $targetApp")

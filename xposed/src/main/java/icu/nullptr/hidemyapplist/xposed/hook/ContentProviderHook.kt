@@ -58,7 +58,7 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
                     param.result = MatrixCursor(arrayOf("name", "value"), 1).apply {
                         addRow(arrayOf(replacement.name, replacement.value))
                     }
-                    service.filterCount++
+                    // service.filterCount++
                 }
             } else {
                 logD(TAG, "@spoofSettings LIST_QUERY received caller: $caller, database: $database")
@@ -143,7 +143,7 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
                             putString(Settings.NameValueTable.VALUE, replacement.value)
                             putInt("_generation_index", -1)
                         }
-                        service.filterCount++
+                        // service.filterCount++
                     }
                 }
             }

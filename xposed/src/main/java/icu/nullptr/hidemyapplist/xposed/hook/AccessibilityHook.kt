@@ -40,7 +40,7 @@ class AccessibilityHook(private val service: HMAService) : IFrameworkHook {
 
             if (callingApps.any { callerIsSpoofed(it) }) {
                 param.result = 0L
-                service.filterCount++
+                // service.filterCount++
             }
         }
     }
@@ -64,7 +64,7 @@ class AccessibilityHook(private val service: HMAService) : IFrameworkHook {
                     returnedList
                 }
 
-                service.filterCount++
+                // service.filterCount++
             }
         } catch (e: Throwable) {
             logE(TAG, "Fatal error occurred, ignore hooks", e)

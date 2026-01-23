@@ -35,7 +35,7 @@ class ZygoteHook(private val service: HMAService): IFrameworkHook {
 
                 logD(TAG, "@startZygoteProcess: GIDs are ${gIDs.contentToString()}, removing $perms now")
                 param.args[gIDsIndex] = gIDs.filter { it !in perms }.toIntArray()
-                service.filterCount++
+                // service.filterCount++
             }
         }?.let {
             logD(TAG, "Loaded ZygoteProcess start hook!")

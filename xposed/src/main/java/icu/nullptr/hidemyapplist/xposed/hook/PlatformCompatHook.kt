@@ -45,7 +45,7 @@ class PlatformCompatHook(private val service: HMAService) : IFrameworkHook {
                 if (app == BuildConfig.APP_PACKAGE_NAME || app in service.systemApps) return@hookBefore
                 if (service.isHookEnabled(app)) {
                     param.result = true
-                    service.filterCount++
+                    // service.filterCount++
                     logD(TAG, "force mount data: ${appInfo.uid} $app")
                 }
             }.onFailure {

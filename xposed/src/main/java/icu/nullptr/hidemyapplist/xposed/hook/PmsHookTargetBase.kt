@@ -10,6 +10,7 @@ import com.github.kyuubiran.ezxhelper.utils.findMethodOrNull
 import com.github.kyuubiran.ezxhelper.utils.hookAfter
 import com.github.kyuubiran.ezxhelper.utils.hookBefore
 import de.robv.android.xposed.XC_MethodHook
+import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.Constants.VENDING_PACKAGE_NAME
@@ -71,9 +72,33 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                         copyResult.removeAll(markedToRemove)
                         logD(TAG, "@getPackageStates: removed ${markedToRemove.size} entries from $caller")
                         param.result = copyResult
-                        service.filterCount++
+                        // service.filterCount++
                     }
                 }
+            }
+
+            findMethodOrNull(COMPUTER_ENGINE_CLASS) {
+                name == "addPackageHoldingPermissions"
+            }?.hookBefore { param ->
+                val callingUid = Binder.getCallingUid()
+                val packageState = param.args[1] ?: return@hookBefore
+                val targetApp = XposedHelpers.callMethod(packageState, "getPackageName") as String? ?: return@hookBefore
+                if (service.shouldHideFromUid(callingUid, targetApp) == true) {
+                    param.result = null
+                    // service.filterCount++
+                    logD(TAG, "@addPackageHoldingPermissions caller cache: $callingUid, target: $targetApp")
+                    return@hookBefore
+                }
+                val callingApps = Utils4Xposed.getCallingApps(service, callingUid)
+                val caller = callingApps.firstOrNull { service.shouldHide(it, targetApp) }
+                if (caller != null) {
+                    logD(TAG, "@addPackageHoldingPermissions caller: $callingUid $caller, target: $targetApp")
+                    param.result = null
+                    service.putShouldHideUidCache(callingUid, targetApp)
+                }
+            }?.let {
+                logD(TAG, "CE addPackageHoldingPermissions is hooked!")
+                hooks += it
             }
 
             hooks += findMethod(COMPUTER_ENGINE_CLASS) {
@@ -95,8 +120,52 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                         else -> continue
                     }
 
-                    service.filterCount++
+                    // service.filterCount++
                     break
+                }
+            }
+
+            hooks += findMethod(COMPUTER_ENGINE_CLASS) {
+                name == "getPackageInfoInternal"
+            }.hookBefore { param ->
+                val targetApp = param.args.first() as String? ?: return@hookBefore
+                val callingUid = param.args[3] as Int
+                if (callingUid == Constants.UID_SYSTEM) return@hookBefore
+                logD(TAG, "@${param.method.name} incoming query: $callingUid => $targetApp")
+                if (service.shouldHideFromUid(callingUid, targetApp) == true) {
+                    param.result = null
+                    // service.filterCount++
+                    logD(TAG, "@${param.method.name} caller cache: $callingUid, target: $targetApp")
+                    return@hookBefore
+                }
+                val callingApps = Utils4Xposed.getCallingApps(service, callingUid)
+                val caller = callingApps.firstOrNull { service.shouldHide(it, targetApp) }
+                if (caller != null) {
+                    logD(TAG, "@${param.method.name} caller: $callingUid $caller, target: $targetApp")
+                    param.result = null
+                    service.putShouldHideUidCache(callingUid, targetApp)
+                }
+            }
+
+            hooks += findMethod(COMPUTER_ENGINE_CLASS) {
+                name == "getApplicationInfoInternal"
+            }.hookBefore { param ->
+                val targetApp = param.args.first() as String? ?: return@hookBefore
+                val callingUid = param.args[2] as Int
+                if (callingUid == Constants.UID_SYSTEM) return@hookBefore
+                logD(TAG, "@${param.method.name} incoming query: $callingUid => $targetApp")
+                if (service.shouldHideFromUid(callingUid, targetApp) == true) {
+                    param.result = null
+                    // service.filterCount++
+                    logD(TAG, "@${param.method.name} caller cache: $callingUid, target: $targetApp")
+                    return@hookBefore
+                }
+                val callingApps = Utils4Xposed.getCallingApps(service, callingUid)
+                val caller = callingApps.firstOrNull { service.shouldHide(it, targetApp) }
+                if (caller != null) {
+                    logD(TAG, "@${param.method.name} caller: $callingUid $caller, target: $targetApp")
+                    param.result = null
+                    service.putShouldHideUidCache(callingUid, targetApp)
                 }
             }
         }
@@ -120,7 +189,7 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                         else -> continue
                     }
 
-                    service.filterCount++
+                    // service.filterCount++
                     break
                 }
             }?.let {
@@ -148,7 +217,7 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                         else -> continue
                     }
 
-                    service.filterCount++
+                    // service.filterCount++
                     break
                 }
             }?.let {
@@ -174,7 +243,7 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                     else -> continue
                 }
 
-                service.filterCount++
+                // service.filterCount++
                 break
             }
         }

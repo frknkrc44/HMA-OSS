@@ -60,12 +60,20 @@ class PmsHookTarget31(service: HMAService) : PmsHookTargetBase(service) {
         }?.hookBefore { param ->
             val targetApp = param.args[0] as String
             val callingUid = Binder.getCallingUid()
+            if (callingUid == Constants.UID_SYSTEM) return@hookBefore
+            if (service.shouldHideFromUid(callingUid, targetApp) == true) {
+                param.result = null
+                // service.filterCount++
+                logD(TAG, "@getPackageSetting - Computer cache: insecure query from $callingUid to $targetApp")
+                return@hookBefore
+            }
             val callingApps = Utils4Xposed.getCallingApps(service, callingUid)
             val caller = callingApps.firstOrNull { service.shouldHide(it, targetApp) }
             if (caller != null) {
                 logD(TAG, "@getPackageSetting - Computer: insecure query from $caller to $targetApp")
                 param.result = null
-                service.filterCount++
+                service.putShouldHideUidCache(callingUid, targetApp)
+                // service.filterCount++
             }
         }?.let {
             hooks += it
@@ -76,12 +84,20 @@ class PmsHookTarget31(service: HMAService) : PmsHookTargetBase(service) {
         }?.hookBefore { param ->
             val targetApp = param.args[0] as String
             val callingUid = param.args[1] as Int
+            if (callingUid == Constants.UID_SYSTEM) return@hookBefore
+            if (service.shouldHideFromUid(callingUid, targetApp) == true) {
+                param.result = null
+                // service.filterCount++
+                logD(TAG, "@getPackageSettingInternal - Computer cache: insecure query from $callingUid to $targetApp")
+                return@hookBefore
+            }
             val callingApps = Utils4Xposed.getCallingApps(service, callingUid)
             val caller = callingApps.firstOrNull { service.shouldHide(it, targetApp) }
             if (caller != null) {
                 logD(TAG, "@getPackageSettingInternal - Computer: insecure query from $caller to $targetApp")
                 param.result = null
-                service.filterCount++
+                service.putShouldHideUidCache(callingUid, targetApp)
+                // service.filterCount++
             }
         }?.let {
             hooks += it
@@ -93,14 +109,21 @@ class PmsHookTarget31(service: HMAService) : PmsHookTargetBase(service) {
             runCatching {
                 val callingUid = param.args[0] as Int
                 if (callingUid == Constants.UID_SYSTEM) return@hookBefore
+                val targetApp = Utils4Xposed.getPackageNameFromPackageSettings(param.args[2])
+                if (service.shouldHideFromUid(callingUid, targetApp) == true) {
+                    param.result = true
+                    // service.filterCount++
+                    logD(TAG, "@shouldFilterApplication caller cache: $callingUid, target: $targetApp")
+                    return@hookBefore
+                }
                 val callingApps = Utils.binderLocalScope {
                     service.pms.getPackagesForUid(callingUid)
                 } ?: return@hookBefore
-                val targetApp = Utils4Xposed.getPackageNameFromPackageSettings(param.args[2])
                 val caller = callingApps.firstOrNull { service.shouldHide(it, targetApp) }
                 if (caller != null) {
                     param.result = true
-                    service.filterCount++
+                    // service.filterCount++
+                    service.putShouldHideUidCache(callingUid, targetApp!!)
                     val last = lastFilteredApp.getAndSet(caller)
                     if (last != caller) logI(TAG, "@shouldFilterApplication: query from $caller")
                     logD(TAG, "@shouldFilterApplication caller: $callingUid $caller, target: $targetApp")

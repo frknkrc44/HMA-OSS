@@ -33,6 +33,11 @@ import icu.nullptr.hidemyapplist.xposed.hook.PmsHookTarget33
 import icu.nullptr.hidemyapplist.xposed.hook.PmsHookTarget34
 import icu.nullptr.hidemyapplist.xposed.hook.PmsPackageEventsHook
 import icu.nullptr.hidemyapplist.xposed.hook.ZygoteHook
+import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.frknkrc44.hma_oss.common.BuildConfig
 import rikka.hidden.compat.ActivityManagerApis
 import java.io.File
@@ -61,6 +66,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     val systemApps = mutableSetOf<String>()
     private val frameworkHooks = mutableSetOf<IFrameworkHook>()
     val executor: ExecutorService = Executors.newSingleThreadExecutor()
+    internal val uidHideCache = mutableMapOf<Int, MutableList<String>>()
 
     var config = JsonConfig().apply { detailLog = true }
         private set
@@ -68,16 +74,19 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     var presetCache = PresetCacheHolder()
         private set
 
+    /*
     var filterCount = 0
         @JvmName("getFilterCountInternal") get
         set(value) {
             field = value
-            if (field % 100 == 0) {
-                synchronized(configLock) {
-                    File("$dataDir/filter_count").writeText(field.toString())
+
+            if (value % 100 == 0) {
+                GlobalScope.launch(Dispatchers.IO, CoroutineStart.LAZY) {
+                    File("$dataDir/filter_count").writeText(value.toString())
                 }
             }
         }
+     */
 
     init {
         searchDataDir()
@@ -134,6 +143,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     }
 
     private fun loadConfig() {
+        /*
         File("$dataDir/filter_count").also {
             runCatching {
                 if (it.exists()) filterCount = it.readText().toInt()
@@ -142,6 +152,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
                 it.writeText("0")
             }
         }
+         */
         if (!configFile.exists()) {
             logI(TAG, "Config file not found")
             return
@@ -251,6 +262,22 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
     fun isAppInGMSIgnoredPackages(caller: String, query: String) =
         (caller in Constants.gmsPackages) && appHasGMSConnection(query)
+
+    fun shouldHideFromUid(uid: Int, query: String?): Boolean? {
+        if (!uidHideCache.containsKey(uid)) {
+            uidHideCache[uid] = mutableListOf()
+        }
+
+        return uidHideCache[uid]?.contains(query)
+    }
+
+    fun putShouldHideUidCache(uid: Int, query: String) {
+        if (!uidHideCache.containsKey(uid)) {
+            uidHideCache[uid] = mutableListOf()
+        }
+
+        uidHideCache[uid]?.add(query)
+    }
 
     fun shouldHide(caller: String?, query: String?): Boolean {
         if (caller == null || query == null) return false
@@ -371,6 +398,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
                 config = newConfig
                 configFile.writeText(json)
                 frameworkHooks.forEach(IFrameworkHook::onConfigChanged)
+                uidHideCache.clear()
             }.onSuccess {
                 logD(TAG, "Config synced")
             }.onFailure {
@@ -393,7 +421,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
     override fun getServiceVersion() = BuildConfig.SERVICE_VERSION
 
-    override fun getFilterCount() = filterCount
+    override fun getFilterCount() = /* filterCount */ 0
 
     override fun getLogs() = synchronized(loggerLock) {
         logFile.readText()

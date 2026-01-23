@@ -77,7 +77,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
                         logD(TAG, "@${param.method.name} spoofed input method for $caller")
 
                         param.result = getFakeInputMethodInfo(caller)
-                        service.filterCount++
+                        // service.filterCount++
                         break
                     }
                 }
@@ -152,7 +152,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
             logD(TAG, "@${param.method.name} spoofed input method for $caller")
 
             param.result = listOf(getFakeInputMethodInfo(caller))
-            service.filterCount++
+            // service.filterCount++
         }
     }
 
@@ -164,7 +164,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
 
             // TODO: Find a method to get exact value for spoofed input method
             param.result = null
-            service.filterCount++
+            // service.filterCount++
         }
     }
 
@@ -176,7 +176,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
 
             // TODO: Find a method to get exact list for spoofed input method
             param.result = Collections.emptyList<InputMethodSubtype>()
-            service.filterCount++
+            // service.filterCount++
         }
     }
 
