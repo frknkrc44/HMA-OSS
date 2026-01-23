@@ -39,12 +39,9 @@ class StatsFragment : Fragment(R.layout.fragment_logs) {
                 val countsKeys = stats.filterCounts.keys.sortedWith { key1, key2 ->
                     if (getTotalCount(key1) > getTotalCount(key2)) -1 else 0
                 }
-                adapter.logs = buildList {
-                    for (key in countsKeys) {
-                        val item = stats.filterCounts[key]!!
 
-                        add(StatAdapter.StatItem(key, item))
-                    }
+                adapter.logs = countsKeys.map { key ->
+                    StatAdapter.StatItem(key, stats.filterCounts[key]!!)
                 }
             }
         }
@@ -72,8 +69,9 @@ class StatsFragment : Fragment(R.layout.fragment_logs) {
         binding.list.layoutManager = LinearLayoutManager(context)
         binding.list.adapter = adapter
         binding.list.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
-        updateLogs()
 
         setEdge2EdgeFlags(binding.root)
+
+        updateLogs()
     }
 }
