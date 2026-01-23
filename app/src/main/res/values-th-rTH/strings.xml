@@ -142,7 +142,7 @@
     <string name="logs_empty">ไม่มีบันทึกให้บันทึก</string>
     <string name="logs_saved">บันทึกถูกบันทึกแล้ว</string>
     <!-- Filter logs -->
-    <string name="title_filter_logs">Filter logs</string>
+    <string name="title_filter_logs">ตัวกรองบันทึก</string>
     <!-- Settings -->
     <string name="settings_module">โมดูล</string>
     <string name="settings_overwrite">เขียนทับ</string>
