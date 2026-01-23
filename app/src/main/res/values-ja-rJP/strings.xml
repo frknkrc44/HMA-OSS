@@ -138,6 +138,8 @@
     <string name="logs_clear">ログの消去</string>
     <string name="logs_empty">保存するログがありません</string>
     <string name="logs_saved">ログを保存しました</string>
+    <!-- Filter logs -->
+    <string name="title_filter_logs">Filter logs</string>
     <!-- Settings -->
     <string name="settings_module">モジュール</string>
     <string name="settings_overwrite">上書き</string>
