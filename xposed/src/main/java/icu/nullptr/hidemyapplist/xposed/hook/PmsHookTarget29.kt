@@ -1,22 +1,20 @@
 package icu.nullptr.hidemyapplist.xposed.hook
 
-import android.os.Build
 import com.github.kyuubiran.ezxhelper.utils.findMethod
 import com.github.kyuubiran.ezxhelper.utils.hookBefore
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.Utils
 import icu.nullptr.hidemyapplist.xposed.HMAService
 import icu.nullptr.hidemyapplist.xposed.Utils4Xposed
-import icu.nullptr.hidemyapplist.xposed.XposedConstants.COMPUTER_ENGINE_CLASS
 import icu.nullptr.hidemyapplist.xposed.XposedConstants.PACKAGE_MANAGER_SERVICE_CLASS
 import icu.nullptr.hidemyapplist.xposed.logD
 import icu.nullptr.hidemyapplist.xposed.logE
 import icu.nullptr.hidemyapplist.xposed.logI
 import icu.nullptr.hidemyapplist.xposed.logV
 
-class PmsHookTarget28(service: HMAService) : PmsHookTargetBase(service) {
+class PmsHookTarget29(service: HMAService) : PmsHookTargetBase(service) {
 
-    override val TAG = "PmsHookTarget28"
+    override val TAG = "PmsHookTarget29"
 
     // not required until SDK 30
     override val fakeSystemPackageInstallSourceInfo = null

@@ -28,7 +28,7 @@ import icu.nullptr.hidemyapplist.xposed.hook.ContentProviderHook
 import icu.nullptr.hidemyapplist.xposed.hook.IFrameworkHook
 import icu.nullptr.hidemyapplist.xposed.hook.ImmHook
 import icu.nullptr.hidemyapplist.xposed.hook.PlatformCompatHook
-import icu.nullptr.hidemyapplist.xposed.hook.PmsHookTarget28
+import icu.nullptr.hidemyapplist.xposed.hook.PmsHookTarget29
 import icu.nullptr.hidemyapplist.xposed.hook.PmsHookTarget30
 import icu.nullptr.hidemyapplist.xposed.hook.PmsHookTarget31
 import icu.nullptr.hidemyapplist.xposed.hook.PmsHookTarget33
@@ -222,7 +222,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             frameworkHooks.add(PmsHookTarget30(this))
         } else {
-            frameworkHooks.add(PmsHookTarget28(this))
+            frameworkHooks.add(PmsHookTarget29(this))
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
