@@ -23,9 +23,7 @@ import icu.nullptr.hidemyapplist.xposed.logV
 @RequiresApi(Build.VERSION_CODES.R)
 class PmsHookTarget30(service: HMAService) : PmsHookTargetBase(service) {
 
-    companion object {
-        private const val TAG = "PmsHookTarget30"
-    }
+    override val TAG = "PmsHookTarget30"
 
     override val fakeSystemPackageInstallSourceInfo: Any by lazy {
         findConstructor(

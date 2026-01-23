@@ -22,7 +22,9 @@ import icu.nullptr.hidemyapplist.xposed.logV
 import java.util.concurrent.atomic.AtomicReference
 
 abstract class PmsHookTargetBase(protected val service: HMAService) : IFrameworkHook {
-    private val TAG by lazy { this::class.java.simpleName }
+
+    @Suppress("PropertyName")
+    abstract val TAG: String
 
     protected val hooks = mutableListOf<XC_MethodHook.Unhook>()
     protected var lastFilteredApp: AtomicReference<String?> = AtomicReference(null)

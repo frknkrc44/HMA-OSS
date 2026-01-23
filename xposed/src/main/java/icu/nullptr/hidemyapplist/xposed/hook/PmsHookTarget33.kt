@@ -20,9 +20,7 @@ import icu.nullptr.hidemyapplist.xposed.logI
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 class PmsHookTarget33(service: HMAService) : PmsHookTargetBase(service) {
 
-    companion object {
-        private const val TAG = "PmsHookTarget33"
-    }
+    override val TAG = "PmsHookTarget33"
 
     private val getPackagesForUidMethod by lazy {
         findMethod("com.android.server.pm.Computer") {
