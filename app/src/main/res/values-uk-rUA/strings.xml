@@ -138,6 +138,8 @@
     <string name="logs_clear">Очистити журнали</string>
     <string name="logs_empty">Немає журналів для збереження</string>
     <string name="logs_saved">Журнали збережено</string>
+    <!-- Filter logs -->
+    <string name="title_filter_logs">Filter logs</string>
     <!-- Settings -->
     <string name="settings_module">Модуль</string>
     <string name="settings_overwrite">Overwrite</string>
