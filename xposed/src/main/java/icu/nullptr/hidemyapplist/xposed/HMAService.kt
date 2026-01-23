@@ -241,12 +241,16 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         logI(TAG, "Hooks installed")
     }
 
-    fun increasePMFilterCount(callingUid: Int, amount: Int = 1) = increaseFilterCount(
+    fun increasePMFilterCount(callingUid: Int?, amount: Int = 1) = increaseFilterCount(
         callingUid, amount, FilterHolder.FilterType.PACKAGE_MANAGER
     )
 
     fun increasePMFilterCount(caller: String?, amount: Int = 1) = increaseFilterCount(
         caller, amount, FilterHolder.FilterType.PACKAGE_MANAGER
+    )
+
+    fun increaseALFilterCount(callingUid: Int?, amount: Int = 1) = increaseFilterCount(
+        callingUid, amount, FilterHolder.FilterType.ACTIVITY_LAUNCH
     )
 
     fun increaseALFilterCount(caller: String?, amount: Int = 1) = increaseFilterCount(
@@ -265,8 +269,8 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         caller, amount, FilterHolder.FilterType.OTHERS
     )
 
-    fun increaseFilterCount(uid: Int, amount: Int = 1, filterType: FilterHolder.FilterType) {
-        if (amount < 1) return
+    fun increaseFilterCount(uid: Int?, amount: Int = 1, filterType: FilterHolder.FilterType) {
+        if (uid == null || amount < 1) return
 
         val caller = uidHideCache.firstOrNull { it.first == uid }?.second
         if (caller == null) return

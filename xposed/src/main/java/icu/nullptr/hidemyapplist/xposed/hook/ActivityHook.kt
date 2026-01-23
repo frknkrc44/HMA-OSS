@@ -88,7 +88,12 @@ class ActivityHook(private val service: HMAService) : IFrameworkHook {
 
                 if (newTrace.size != throwable.stackTrace.size) {
                     throwable.stackTrace = newTrace.toTypedArray()
-                    logD(TAG, "@checkStartAnyActivityPermission: ${throwable.stackTrace.size - newTrace.size} remnants cleared!")
+
+                    val callingUid = param.args.lastOrNull { it is Int } as Int?
+
+                    logD(TAG, "@checkStartAnyActivityPermission: ${throwable.stackTrace.size - newTrace.size} remnants cleared for $callingUid!")
+
+                    service.increaseALFilterCount(callingUid)
                 }
 
                 throwable = throwable.cause
