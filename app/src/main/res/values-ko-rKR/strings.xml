@@ -138,6 +138,8 @@
     <string name="logs_clear">로그 지우기</string>
     <string name="logs_empty">저장할 로그 없음</string>
     <string name="logs_saved">로그 저장됨</string>
+    <!-- Filter logs -->
+    <string name="title_filter_logs">Filter logs</string>
     <!-- Settings -->
     <string name="settings_module">모듈</string>
     <string name="settings_overwrite">덮어쓰기</string>
