@@ -139,7 +139,7 @@
     <string name="logs_empty">Sem registros para salvar</string>
     <string name="logs_saved">Registros salvos</string>
     <!-- Filter logs -->
-    <string name="title_filter_logs">Filter logs</string>
+    <string name="title_filter_logs">Filtrar registros</string>
     <!-- Settings -->
     <string name="settings_module">Modulo</string>
     <string name="settings_overwrite">Habilitar</string>
@@ -172,7 +172,7 @@
     <string name="settings_no_undone_warning">Esta ação não pode ser desfeita.</string>
     <string name="settings_package_query_workaround">Método de listagem alternativa</string>
     <string name="settings_package_query_workaround_summary">Não ative essa opção se você consegue ver a lista de aplicativos corretamente neste app.</string>
-    <string name="settings_launcher_icon">Ícone do iniciador</string>
+    <string name="settings_launcher_icon">Ícone do lançador</string>
     <string name="settings_error_only_log">Log somente de erros</string>
     <string name="settings_language">Idioma</string>
     <string name="settings_translate">Participe na tradução</string>
