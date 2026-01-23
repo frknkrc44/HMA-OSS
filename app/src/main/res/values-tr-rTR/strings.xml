@@ -138,6 +138,8 @@
     <string name="logs_clear">Kayıtları temizle</string>
     <string name="logs_empty">Kaydedilecek kayıt yok</string>
     <string name="logs_saved">Kayıtlar kaydedildi</string>
+    <!-- Filter logs -->
+    <string name="title_filter_logs">Filtre kayıtları</string>
     <!-- Settings -->
     <string name="settings_module">Modül</string>
     <string name="settings_overwrite">Üzerine yaz</string>
