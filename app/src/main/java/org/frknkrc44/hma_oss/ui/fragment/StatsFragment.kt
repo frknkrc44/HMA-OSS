@@ -1,22 +1,30 @@
 package org.frknkrc44.hma_oss.ui.fragment
 
+import android.animation.Animator
+import android.animation.AnimatorInflater
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.view.animation.Animation
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import icu.nullptr.hidemyapplist.common.FilterHolder
+import icu.nullptr.hidemyapplist.hmaApp
 import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentLogsBinding
 import org.frknkrc44.hma_oss.ui.adapter.StatAdapter
+import kotlin.concurrent.thread
 
 class StatsFragment : Fragment(R.layout.fragment_logs) {
 
@@ -26,22 +34,33 @@ class StatsFragment : Fragment(R.layout.fragment_logs) {
 
     private fun updateLogs() {
         lifecycleScope.launch {
-            statCache = runCatching { ServiceClient.detailedFilterStats }.getOrNull()
-            if (statCache == null) {
-                binding.serviceOff.visibility = View.VISIBLE
-            } else {
-                binding.serviceOff.visibility = View.GONE
-
-                val stats = FilterHolder.parse(statCache!!)
-
-                fun getTotalCount(key: String) = stats.filterCounts[key]!!.totalCount
-
-                val countsKeys = stats.filterCounts.keys.sortedWith { key1, key2 ->
-                    if (getTotalCount(key1) > getTotalCount(key2)) -1 else 0
+            coroutineScope {
+                statCache = try {
+                    ServiceClient.detailedFilterStats
+                } catch (_: Throwable) {
+                    null
                 }
+                if (statCache == null) {
+                    lifecycleScope.launch { binding.serviceOff.visibility = View.VISIBLE }
+                } else {
+                    lifecycleScope.launch { binding.serviceOff.visibility = View.GONE }
 
-                adapter.logs = countsKeys.map { key ->
-                    StatAdapter.StatItem(key, stats.filterCounts[key]!!)
+                    val stats = FilterHolder.parse(statCache!!)
+
+                    fun getTotalCount(key: String) = stats.filterCounts[key]!!.totalCount
+
+                    val countsKeys = stats.filterCounts.keys.sortedWith { key1, key2 ->
+                        if (getTotalCount(key1) > getTotalCount(key2)) -1 else 0
+                    }
+
+                    for (key in countsKeys) {
+                        lifecycleScope.launch {
+                            adapter.addOrUpdateEntry(
+                                key,
+                                stats.filterCounts[key]!!
+                            )
+                        }
+                    }
                 }
             }
         }

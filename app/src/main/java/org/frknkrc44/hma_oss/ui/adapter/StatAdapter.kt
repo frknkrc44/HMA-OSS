@@ -1,10 +1,10 @@
 package org.frknkrc44.hma_oss.ui.adapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import icu.nullptr.hidemyapplist.common.FilterHolder
+import icu.nullptr.hidemyapplist.ui.util.get
 import icu.nullptr.hidemyapplist.util.PackageHelper
 import org.frknkrc44.hma_oss.databinding.StatItemViewBinding
 
@@ -15,17 +15,28 @@ class StatAdapter() : RecyclerView.Adapter<StatAdapter.ViewHolder>() {
         val filterCount: FilterHolder.FilterCount,
     )
 
-    var logs = listOf<StatItem>()
-        @SuppressLint("NotifyDataSetChanged")
-        set(value) {
-            field = value
-            notifyDataSetChanged()
+    private val logs = mutableListOf<StatItem>()
+
+    internal fun addOrUpdateEntry(packageName: String, filterCount: FilterHolder.FilterCount) {
+        val position = logs.indexOfFirst { it.packageName == packageName }
+        if (position < 0) {
+            logs.add(StatItem(packageName, filterCount))
+            notifyItemInserted(logs.size - 1)
+        } else {
+            logs[position] = StatItem(packageName, filterCount)
+            notifyItemChanged(position)
         }
+    }
 
     class ViewHolder(private val binding: StatItemViewBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(logItem: StatItem) {
-            binding.icon.setImageDrawable(PackageHelper.loadAppIcon(logItem.packageName))
-            binding.tag.text = PackageHelper.loadAppLabel(logItem.packageName)
+            if (PackageHelper.isRefreshing.replayCache.isEmpty() || PackageHelper.isRefreshing.get()) {
+                binding.tag.text = logItem.packageName
+            } else {
+                binding.icon.setImageDrawable(PackageHelper.loadAppIcon(logItem.packageName))
+                binding.tag.text = PackageHelper.loadAppLabel(logItem.packageName)
+            }
+
             binding.countPkgMgr.text = logItem.filterCount.packageManagerCount.toString()
             binding.countActLaunch.text = logItem.filterCount.activityLaunchCount.toString()
             binding.countSettings.text = logItem.filterCount.settingsCount.toString()
