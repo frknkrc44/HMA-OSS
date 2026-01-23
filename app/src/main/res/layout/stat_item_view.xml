@@ -104,7 +104,7 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:importantForAccessibility="no"
-            android:src="@drawable/unfold_more_24px"
+            android:src="@drawable/baseline_help_outline_24"
             android:layout_marginLeft="@dimen/item_padding_mini"
             android:layout_width="@dimen/profile_badge_size"
             android:layout_height="@dimen/profile_badge_size" />
