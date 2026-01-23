@@ -12,24 +12,23 @@ class StatAdapter() : RecyclerView.Adapter<StatAdapter.ViewHolder>() {
     data class StatItem(
         val packageName: String,
         val filterCount: FilterHolder.FilterCount,
+        val refreshing: Boolean,
     ) {
         val totalCount get() = filterCount.totalCount
     }
 
     private val logs = mutableListOf<StatItem>()
 
-    private var wasRefreshing = false
-
     internal fun addOrUpdateEntry(packageName: String, filterCount: FilterHolder.FilterCount) {
         val position = logs.indexOfFirst { it.packageName == packageName }
         if (position < 0) {
-            logs.add(StatItem(packageName, filterCount))
+            logs.add(StatItem(packageName, filterCount, PackageHelper.refreshing))
             notifyItemInserted(logs.size - 1)
         } else {
             val item = logs[position]
-            if (item.totalCount == filterCount.totalCount && !wasRefreshing) return
+            if (item.totalCount == filterCount.totalCount && !item.refreshing) return
 
-            logs[position] = StatItem(packageName, filterCount)
+            logs[position] = StatItem(packageName, filterCount, PackageHelper.refreshing)
 
             val resort = logs.sortedWith { it1, it2 -> if (it1.totalCount > it2.totalCount) -1 else 0 }
             val newIndex = resort.indexOfFirst { it.packageName == packageName }
@@ -47,13 +46,11 @@ class StatAdapter() : RecyclerView.Adapter<StatAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: StatItemViewBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(logItem: StatItem) {
-            if (PackageHelper.refreshing) {
+            if (logItem.refreshing) {
                 binding.tag.text = logItem.packageName
-                wasRefreshing = true
             } else {
                 binding.icon.setImageDrawable(PackageHelper.loadAppIcon(logItem.packageName))
                 binding.tag.text = PackageHelper.loadAppLabel(logItem.packageName)
-                wasRefreshing = false
             }
 
             binding.countPkgMgr.text = logItem.filterCount.packageManagerCount.toString()
