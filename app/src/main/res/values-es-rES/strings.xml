@@ -139,7 +139,7 @@
     <string name="logs_empty">No hay logs para guardar</string>
     <string name="logs_saved">Logs guardados</string>
     <!-- Filter logs -->
-    <string name="title_filter_logs">Filter logs</string>
+    <string name="title_filter_logs">Filtrar logs</string>
     <!-- Settings -->
     <string name="settings_module">Módulo</string>
     <string name="settings_overwrite">Sobreescribir</string>
