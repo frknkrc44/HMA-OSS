@@ -139,7 +139,7 @@
     <string name="logs_empty">Không có nhật ký được lưu</string>
     <string name="logs_saved">Đã lưu nhật ký</string>
     <!-- Filter logs -->
-    <string name="title_filter_logs">Filter logs</string>
+    <string name="title_filter_logs">Nhật ký bộ lọc</string>
     <!-- Settings -->
     <string name="settings_module">Mô-đun</string>
     <string name="settings_overwrite">Ghi đè</string>
