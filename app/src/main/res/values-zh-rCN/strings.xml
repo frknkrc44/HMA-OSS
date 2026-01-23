@@ -138,6 +138,8 @@
     <string name="logs_clear">清除日志</string>
     <string name="logs_empty">没有可保存的日志</string>
     <string name="logs_saved">日志已保存</string>
+    <!-- Filter logs -->
+    <string name="title_filter_logs">Filter logs</string>
     <!-- Settings -->
     <string name="settings_module">模块</string>
     <string name="settings_overwrite">覆盖</string>
