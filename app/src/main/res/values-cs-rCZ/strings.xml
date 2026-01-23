@@ -138,6 +138,8 @@
     <string name="logs_clear">Vymazat protokoly</string>
     <string name="logs_empty">Žádné protokoly k uložení</string>
     <string name="logs_saved">Protokoly uloženy</string>
+    <!-- Filter logs -->
+    <string name="title_filter_logs">Filter logs</string>
     <!-- Settings -->
     <string name="settings_module">Modul</string>
     <string name="settings_overwrite">Overwrite</string>
