@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="title_home">Home</string>
-    <string name="title_logs">Logs</string>
+    <string name="title_logs">Registri</string>
     <string name="title_settings">Impostazioni</string>
     <string name="title_template_manage">Gestione template</string>
     <string name="title_template_settings">Impostazioni template</string>
-    <string name="title_settings_template_conf">Settings template configuration</string>
+    <string name="title_settings_template_conf">Configurazione impostazioni template</string>
     <string name="title_app_manage">Gestione app</string>
     <string name="title_app_select">Seleziona applicazioni</string>
     <string name="title_app_settings">Impostazioni app</string>
     <string name="title_about">A proposito</string>
-    <string name="title_about_fork">About this fork</string>
+    <string name="title_about_fork">Informazioni su questo fork</string>
     <string name="do_not_dual">Non installare HMA per l\'utente secondario</string>
     <string name="show_crash_log">Mostra crash log</string>
     <string name="config_damaged">File di configurazione danneggiato. Per favore cancella i dati dell\'app</string>
@@ -29,10 +29,10 @@
     <string name="no">No</string>
     <string name="search">Cerca</string>
     <string name="system">Sistema</string>
-    <string name="add">Add</string>
-    <string name="edit">Edit</string>
-    <string name="apply">Apply</string>
-    <string name="follow_system">Follow system</string>
+    <string name="add">Aggiungi</string>
+    <string name="edit">Modifica</string>
+    <string name="apply">Applica</string>
+    <string name="follow_system">Segui sistema</string>
     <!-- Home -->
     <string name="home_xposed_activated">Modulo attivato [%s]</string>
     <string name="home_xposed_not_activated">Modulo non attivato</string>
@@ -64,33 +64,33 @@
     <string name="list_sort_by_package_name">Per package name</string>
     <string name="list_sort_by_install_time">Per data installazione</string>
     <string name="list_sort_by_update_time">Per data aggiornamento</string>
-    <string name="list_empty_no_enabled">Try enabling hiding for apps with this template\'s work mode and apps will appear here</string>
-    <string name="list_empty_no_apps">No applications found, maybe you didn\'t allow this app to query all packages</string>
-    <string name="list_empty_preset">No applications added in this preset</string>
+    <string name="list_empty_no_enabled">Prova ad abilitare l\'occultamento per le app con la modalità di lavoro di questo template e le app appariranno qui</string>
+    <string name="list_empty_no_apps">Nessuna applicazione trovata, forse non hai consentito a questa app di interrogare tutti i pacchetti</string>
+    <string name="list_empty_preset">Nessuna applicazione aggiunta in questo preset</string>
     <!-- Manage templates -->
     <string name="template_usage_hint">Stabilisci template per app \"nervose\", controllando la lista di app che possono ottenere.\n\nBlacklist (consigliata): le app selezionate nel template saranno invisibili alle app che applicano il template.\nWhitelist: le app non selezionate nel template saranno invisibili alle app che applicano il template.</string>
     <string name="template_new_blacklist">Crea un template blacklist</string>
     <string name="template_new_whitelist">Crea un template whitelist</string>
-    <string name="template_new_setting">Create a settings template</string>
+    <string name="template_new_setting">Crea un template di impostazioni</string>
     <string name="template_delete">Sei sicuro di voler eliminare il template?</string>
     <string name="template_name">Nome template</string>
     <string name="template_name_invalid">Nome non valido</string>
     <string name="template_delete_title">Cancella Template</string>
     <string name="template_name_already_exist">Nome template già esistente</string>
     <string name="template_applied_count">Applicato a %d app</string>
-    <string name="template_setting_count">%d settings added</string>
+    <string name="template_setting_count">Impostazioni %d aggiunte</string>
     <string name="template_apps_visible_count">%d app visibili</string>
     <string name="template_apps_invisible_count">%d app invisibili</string>
     <!-- App settings -->
     <string name="app_enable_hide">Abilita nascondimento</string>
     <string name="app_template_config">Configurazione template</string>
     <string name="app_choose_template">Scegli template</string>
-    <string name="app_choose_preset">Choose preset</string>
+    <string name="app_choose_preset">Scegli preset</string>
     <string name="app_exclude_system_apps">Escludi app di sistema</string>
     <string name="app_exclude_system_apps_summary">Disattiva questa opzione solo quando realmente necessario. È possibile che causi dei crash disabilitandola</string>
     <string name="app_template_using">%d template in uso</string>
-    <string name="app_preset_using">Using %d presets</string>
-    <string name="app_settings_preset_using">Using %d settings presets</string>
+    <string name="app_preset_using">Usare i preset %d</string>
+    <string name="app_settings_preset_using">Usare le impostazioni preset %d</string>
     <string name="app_settings_template_using">Using %d settings templates</string>
     <string name="app_extra_apps_visible_count">%d ulteriori app visibili</string>
     <string name="app_extra_apps_invisible_count">%d ulteriori app invisibili</string>
@@ -114,9 +114,9 @@
     <string name="app_restrict_zygote_permissions_desc">This option can cause crashes or false positives, choose wisely.</string>
     <!-- Presets -->
     <string name="title_preset">Presets</string>
-    <string name="title_settings_preset">Settings presets</string>
-    <string name="title_preset_manage">Show presets</string>
-    <string name="preset_xposed">LSPosed/Xposed modules</string>
+    <string name="title_settings_preset">Impostazioni preset</string>
+    <string name="title_preset_manage">Mostra preset</string>
+    <string name="preset_xposed">Moduli LSPosed/Xposed</string>
     <string name="preset_root_apps">Root managers/Rooted apps</string>
     <string name="preset_custom_rom">Custom ROM apps</string>
     <string name="preset_sus_apps">Suspicious apps</string>
