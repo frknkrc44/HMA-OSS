@@ -138,6 +138,8 @@
     <string name="logs_clear">Protokolle löschen</string>
     <string name="logs_empty">Keine Protokolle zu speichern</string>
     <string name="logs_saved">Protokolle gespeichert</string>
+    <!-- Filter logs -->
+    <string name="title_filter_logs">Filter logs</string>
     <!-- Settings -->
     <string name="settings_module">Module</string>
     <string name="settings_overwrite">Überschreiben</string>
