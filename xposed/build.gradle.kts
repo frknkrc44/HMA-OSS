@@ -26,5 +26,4 @@ dependencies {
     implementation(libs.dev.rikka.hidden.compat)
     compileOnly(libs.de.robv.android.xposed.api)
     compileOnly(libs.dev.rikka.hidden.stub)
-    implementation(libs.kotlinx.coroutines.core)
 }

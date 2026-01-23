@@ -35,7 +35,6 @@ import icu.nullptr.hidemyapplist.xposed.hook.PmsHookTarget33
 import icu.nullptr.hidemyapplist.xposed.hook.PmsHookTarget34
 import icu.nullptr.hidemyapplist.xposed.hook.PmsPackageEventsHook
 import icu.nullptr.hidemyapplist.xposed.hook.ZygoteHook
-import kotlinx.coroutines.DelicateCoroutinesApi
 import org.frknkrc44.hma_oss.common.BuildConfig
 import rikka.hidden.compat.ActivityManagerApis
 import java.io.File
@@ -495,7 +494,6 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         }
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
     fun writeFilterCount(force: Boolean = false) {
         if (!force && totalFilterCount % 100 != 0) {
             return

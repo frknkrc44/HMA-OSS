@@ -1,7 +1,6 @@
 [versions]
 agp = "8.13.2"
 kotlin = "2.3.0"
-kotlinx-coroutines-core = "1.10.2"
 material = "1.13.0"
 hidden-api = "4.4.0"
 androidx-navigation = "2.9.6"
@@ -31,7 +30,6 @@ com-github-topjohnwu-libsu-core = { module = "com.github.topjohnwu.libsu:core", 
 de-robv-android-xposed-api = { module = "de.robv.android.xposed:api", version = "82" }
 dev-rikka-hidden-compat = { module = "dev.rikka.hidden:compat", version.ref = "hidden-api" }
 dev-rikka-hidden-stub = { module = "dev.rikka.hidden:stub", version.ref = "hidden-api" }
-kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines-core" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.9.0" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
 me-zhanghai-android-appiconloader = { module = "me.zhanghai.android.appiconloader:appiconloader", version = "1.5.0" }
