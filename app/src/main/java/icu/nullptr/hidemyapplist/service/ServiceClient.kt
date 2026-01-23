@@ -93,4 +93,6 @@ object ServiceClient : IHMAService, IBinder.DeathRecipient {
     override fun reloadPresetsFromScratch() {
         service?.reloadPresetsFromScratch()
     }
+
+    override fun getDetailedFilterStats() = service?.detailedFilterStats
 }

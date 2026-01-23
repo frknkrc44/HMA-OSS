@@ -33,12 +33,12 @@ class AppPresets private constructor() {
         if (Runtime.getRuntime().freeMemory() < 2048000) {
             manifestDataCache.clear()
             System.gc()
-            loggerFunction?.invoke(Log.DEBUG, "@readManifest tried to clear the memory")
+            loggerFunction?.invoke(Log.VERBOSE, "@readManifest tried to clear the memory")
         }
 
         var cache = manifestDataCache[packageName]
         if (cache == null) {
-            loggerFunction?.invoke(Log.DEBUG, "@readManifest cache is null, reading manifest for $packageName")
+            loggerFunction?.invoke(Log.VERBOSE, "@readManifest cache is null, reading manifest for $packageName")
 
             val manifestFile = zipFile.getInputStream(
                 zipFile.getEntry("AndroidManifest.xml")
@@ -47,7 +47,7 @@ class AppPresets private constructor() {
             cache = String(manifestBytes, Charsets.US_ASCII)
             manifestDataCache[packageName] = cache
         } else {
-            loggerFunction?.invoke(Log.DEBUG, "@readManifest returning cache for $packageName")
+            loggerFunction?.invoke(Log.VERBOSE, "@readManifest returning cache for $packageName")
         }
 
         return cache

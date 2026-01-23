@@ -70,7 +70,7 @@ class PmsHookTarget33(service: HMAService) : PmsHookTargetBase(service) {
                 val targetApp = Utils4Xposed.getPackageNameFromPackageSettings(param.args[3]) // PackageSettings <- PackageStateInternal
                 if (service.shouldHideFromUid(callingUid, targetApp) == true) {
                     param.result = true
-                    // service.filterCount++
+                    service.increasePMFilterCount(callingUid)
                     logD(TAG, "@shouldFilterApplication caller cache: $callingUid, target: $targetApp")
                     return@hookBefore
                 }
@@ -81,8 +81,8 @@ class PmsHookTarget33(service: HMAService) : PmsHookTargetBase(service) {
                 val caller = callingApps.firstOrNull { service.shouldHide(it, targetApp) }
                 if (caller != null) {
                     param.result = true
-                    // service.filterCount++
-                    service.putShouldHideUidCache(callingUid, targetApp!!)
+                    service.putShouldHideUidCache(callingUid, caller, targetApp!!)
+                    service.increasePMFilterCount(caller)
                     val last = lastFilteredApp.getAndSet(caller)
                     if (last != caller) logI(TAG, "@shouldFilterApplication: query from $caller")
                     logD(TAG, "@shouldFilterApplication caller: $callingUid $caller, target: $targetApp")

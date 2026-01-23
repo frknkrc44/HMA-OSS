@@ -2,17 +2,19 @@ package icu.nullptr.hidemyapplist.xposed
 
 import android.util.Log
 import de.robv.android.xposed.XposedBridge
+import org.frknkrc44.hma_oss.common.BuildConfig
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 private fun parseLog(level: Int, tag: String, msg: String, cause: Throwable? = null) = buildString {
     val levelStr = when (level) {
-        Log.DEBUG -> "DEBUG"
-        Log.INFO -> " INFO"
-        Log.WARN -> " WARN"
-        Log.ERROR -> "ERROR"
-        else -> "?????"
+        Log.VERBOSE -> "VERBS"
+        Log.DEBUG   -> "DEBUG"
+        Log.INFO    -> " INFO"
+        Log.WARN    -> " WARN"
+        Log.ERROR   -> "ERROR"
+        else        -> "?WTF?"
     }
     val date = SimpleDateFormat("MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
     append("[$levelStr] $date ($tag) $msg")
@@ -24,14 +26,16 @@ private fun parseLog(level: Int, tag: String, msg: String, cause: Throwable? = n
 fun logWithLevel(level: Int, tag: String, msg: String, cause: Throwable? = null) {
     if (level != Log.ERROR && HMAService.instance?.config?.errorOnlyLog == true) return
     if (level <= Log.DEBUG && HMAService.instance?.config?.detailLog == false) return
+    if (level == Log.VERBOSE && !BuildConfig.DEBUG) return
     val parsedLog = parseLog(level, tag, msg, cause)
 
     HMAService.instance?.executor?.execute {
         HMAService.instance?.addLog(parsedLog)
-        XposedBridge.log(parsedLog)
-    } ?: XposedBridge.log(parsedLog)
+        XposedBridge.log("[HMA-OSS] $parsedLog")
+    } ?: XposedBridge.log("[HMA-OSS] $parsedLog")
 }
 
+fun logV(tag: String, msg: String, cause: Throwable? = null) = logWithLevel(Log.VERBOSE, tag, msg, cause)
 fun logD(tag: String, msg: String, cause: Throwable? = null) = logWithLevel(Log.DEBUG, tag, msg, cause)
 fun logI(tag: String, msg: String, cause: Throwable? = null) = logWithLevel(Log.INFO, tag, msg, cause)
 fun logW(tag: String, msg: String, cause: Throwable? = null) = logWithLevel(Log.WARN, tag, msg, cause)

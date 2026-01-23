@@ -59,7 +59,7 @@ class ActivityHook(private val service: HMAService) : IFrameworkHook {
                         "@executeRequest: insecure query from $caller, target: ${intent?.component}"
                     )
                     param.result = fakeReturnCode
-                    // service.filterCount++
+                    service.increaseALFilterCount(caller)
                 }
             }.onFailure {
                 logE(TAG, "Fatal error occurred, ignore hook\n", it)
@@ -88,7 +88,6 @@ class ActivityHook(private val service: HMAService) : IFrameworkHook {
 
                 if (newTrace.size != throwable.stackTrace.size) {
                     throwable.stackTrace = newTrace.toTypedArray()
-                    // service.filterCount++
                     logD(TAG, "@checkStartAnyActivityPermission: ${throwable.stackTrace.size - newTrace.size} remnants cleared!")
                 }
 
@@ -137,7 +136,7 @@ class ActivityHook(private val service: HMAService) : IFrameworkHook {
                     if (filteredList.size != list.size) {
                         param.args[0] = filteredList.toList()
 
-                        // service.filterCount++
+                        service.increasePMFilterCount(caller)
                     }
                 }
             }

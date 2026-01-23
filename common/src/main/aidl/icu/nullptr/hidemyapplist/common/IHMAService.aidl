@@ -33,4 +33,6 @@ interface IHMAService {
     String getLogFileLocation() = 14;
 
     void reloadPresetsFromScratch() = 15;
+
+    String getDetailedFilterStats() = 16;
 }

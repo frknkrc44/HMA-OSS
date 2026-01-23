@@ -38,6 +38,7 @@ class LogAdapter(context: Context) : RecyclerView.Adapter<LogAdapter.ViewHolder>
         }
     }
 
+    private val colorVerbose = context.getColor(R.color.invalid)
     private val colorDebug = context.getColor(R.color.debug)
     private val colorInfo = context.getColor(R.color.info)
     private val colorWarn = context.getColor(R.color.warn)
@@ -54,6 +55,7 @@ class LogAdapter(context: Context) : RecyclerView.Adapter<LogAdapter.ViewHolder>
     inner class ViewHolder(private val binding: LogItemViewBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(logItem: LogItem) {
             val color = when (logItem.level) {
+                "VERBOSE" -> colorVerbose
                 "DEBUG" -> colorDebug
                 "INFO" -> colorInfo
                 "WARN" -> colorWarn
@@ -62,7 +64,7 @@ class LogAdapter(context: Context) : RecyclerView.Adapter<LogAdapter.ViewHolder>
             }
 
             binding.level.setBackgroundColor(color)
-            binding.level.text = logItem.level.substring(0, 1)
+            binding.level.text = logItem.level.take(1)
             binding.date.text = logItem.date
             binding.tag.text = logItem.tag
             binding.message.text = logItem.message

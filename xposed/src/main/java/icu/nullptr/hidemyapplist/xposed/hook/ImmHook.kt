@@ -72,14 +72,12 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
             }?.hookBefore { param ->
                 val callingApps = Utils4Xposed.getCallingApps(service)
 
-                for (caller in callingApps) {
-                    if (callerIsSpoofed(caller)) {
-                        logD(TAG, "@${param.method.name} spoofed input method for $caller")
+                val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
+                if (caller != null) {
+                    logD(TAG, "@${param.method.name} spoofed input method for $caller")
 
-                        param.result = getFakeInputMethodInfo(caller)
-                        // service.filterCount++
-                        break
-                    }
+                    param.result = getFakeInputMethodInfo(caller)
+                    service.increaseSettingsFilterCount(caller)
                 }
             }?.let {
                 logD(TAG, "@${it.hookedMethod.name} is hooked!")
@@ -147,36 +145,38 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
             Utils4Xposed.getCallingApps(service)
         }
 
-        val caller = callingApps.firstOrNull { service.isHookEnabled(it) }
+        val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
         if (caller != null) {
             logD(TAG, "@${param.method.name} spoofed input method for $caller")
 
             param.result = listOf(getFakeInputMethodInfo(caller))
-            // service.filterCount++
+            service.increaseSettingsFilterCount(caller)
         }
     }
 
     private fun subtypeHook(param: XC_MethodHook.MethodHookParam) {
         val callingApps = Utils4Xposed.getCallingApps(service)
 
-        if (callingApps.any { callerIsSpoofed(it) }) {
+        val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
+        if (caller != null) {
             logD(TAG, "@${param.method.name} spoofed input method subtype for ${callingApps.contentToString()}")
 
             // TODO: Find a method to get exact value for spoofed input method
             param.result = null
-            // service.filterCount++
+            service.increaseSettingsFilterCount(caller)
         }
     }
 
     private fun subtypeListHook(param: XC_MethodHook.MethodHookParam) {
         val callingApps = Utils4Xposed.getCallingApps(service)
 
-        if (callingApps.any { callerIsSpoofed(it) }) {
+        val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
+        if (caller != null) {
             logD(TAG, "@${param.method.name} spoofed input method subtype for ${callingApps.contentToString()}")
 
             // TODO: Find a method to get exact list for spoofed input method
             param.result = Collections.emptyList<InputMethodSubtype>()
-            // service.filterCount++
+            service.increaseSettingsFilterCount(caller)
         }
     }
 

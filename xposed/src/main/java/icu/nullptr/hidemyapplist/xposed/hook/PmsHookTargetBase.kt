@@ -10,7 +10,6 @@ import com.github.kyuubiran.ezxhelper.utils.findMethodOrNull
 import com.github.kyuubiran.ezxhelper.utils.hookAfter
 import com.github.kyuubiran.ezxhelper.utils.hookBefore
 import de.robv.android.xposed.XC_MethodHook
-import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.Constants.VENDING_PACKAGE_NAME
@@ -19,6 +18,7 @@ import icu.nullptr.hidemyapplist.xposed.HMAService
 import icu.nullptr.hidemyapplist.xposed.Utils4Xposed
 import icu.nullptr.hidemyapplist.xposed.XposedConstants.COMPUTER_ENGINE_CLASS
 import icu.nullptr.hidemyapplist.xposed.logD
+import icu.nullptr.hidemyapplist.xposed.logV
 import java.util.concurrent.atomic.AtomicReference
 
 abstract class PmsHookTargetBase(protected val service: HMAService) : IFrameworkHook {
@@ -85,7 +85,7 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                 val targetApp = XposedHelpers.callMethod(packageState, "getPackageName") as String? ?: return@hookBefore
                 if (service.shouldHideFromUid(callingUid, targetApp) == true) {
                     param.result = null
-                    // service.filterCount++
+                    service.increasePMFilterCount(callingUid)
                     logD(TAG, "@addPackageHoldingPermissions caller cache: $callingUid, target: $targetApp")
                     return@hookBefore
                 }
@@ -94,7 +94,8 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                 if (caller != null) {
                     logD(TAG, "@addPackageHoldingPermissions caller: $callingUid $caller, target: $targetApp")
                     param.result = null
-                    service.putShouldHideUidCache(callingUid, targetApp)
+                    service.putShouldHideUidCache(callingUid, caller, targetApp)
+                    service.increasePMFilterCount(caller)
                 }
             }?.let {
                 logD(TAG, "CE addPackageHoldingPermissions is hooked!")
@@ -120,7 +121,7 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                         else -> continue
                     }
 
-                    // service.filterCount++
+                    service.increaseInstallerFilterCount(caller)
                     break
                 }
             }
@@ -131,10 +132,10 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                 val targetApp = param.args.first() as String? ?: return@hookBefore
                 val callingUid = param.args[3] as Int
                 if (callingUid == Constants.UID_SYSTEM) return@hookBefore
-                logD(TAG, "@${param.method.name} incoming query: $callingUid => $targetApp")
+                logV(TAG, "@${param.method.name} incoming query: $callingUid => $targetApp")
                 if (service.shouldHideFromUid(callingUid, targetApp) == true) {
                     param.result = null
-                    // service.filterCount++
+                    service.increasePMFilterCount(callingUid)
                     logD(TAG, "@${param.method.name} caller cache: $callingUid, target: $targetApp")
                     return@hookBefore
                 }
@@ -143,7 +144,8 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                 if (caller != null) {
                     logD(TAG, "@${param.method.name} caller: $callingUid $caller, target: $targetApp")
                     param.result = null
-                    service.putShouldHideUidCache(callingUid, targetApp)
+                    service.putShouldHideUidCache(callingUid, caller, targetApp)
+                    service.increasePMFilterCount(caller)
                 }
             }
 
@@ -153,10 +155,10 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                 val targetApp = param.args.first() as String? ?: return@hookBefore
                 val callingUid = param.args[2] as Int
                 if (callingUid == Constants.UID_SYSTEM) return@hookBefore
-                logD(TAG, "@${param.method.name} incoming query: $callingUid => $targetApp")
+                logV(TAG, "@${param.method.name} incoming query: $callingUid => $targetApp")
                 if (service.shouldHideFromUid(callingUid, targetApp) == true) {
                     param.result = null
-                    // service.filterCount++
+                    service.increasePMFilterCount(callingUid)
                     logD(TAG, "@${param.method.name} caller cache: $callingUid, target: $targetApp")
                     return@hookBefore
                 }
@@ -165,7 +167,8 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                 if (caller != null) {
                     logD(TAG, "@${param.method.name} caller: $callingUid $caller, target: $targetApp")
                     param.result = null
-                    service.putShouldHideUidCache(callingUid, targetApp)
+                    service.putShouldHideUidCache(callingUid, caller, targetApp)
+                    service.increasePMFilterCount(caller)
                 }
             }
         }
@@ -189,7 +192,7 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                         else -> continue
                     }
 
-                    // service.filterCount++
+                    service.increaseInstallerFilterCount(caller)
                     break
                 }
             }?.let {
@@ -217,7 +220,7 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                         else -> continue
                     }
 
-                    // service.filterCount++
+                    service.increaseInstallerFilterCount(caller)
                     break
                 }
             }?.let {
@@ -243,7 +246,7 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                     else -> continue
                 }
 
-                // service.filterCount++
+                service.increaseInstallerFilterCount(caller)
                 break
             }
         }

@@ -18,6 +18,7 @@ import icu.nullptr.hidemyapplist.xposed.XposedConstants.PACKAGE_MANAGER_SERVICE_
 import icu.nullptr.hidemyapplist.xposed.logD
 import icu.nullptr.hidemyapplist.xposed.logE
 import icu.nullptr.hidemyapplist.xposed.logI
+import icu.nullptr.hidemyapplist.xposed.logV
 
 @RequiresApi(Build.VERSION_CODES.R)
 class PmsHookTarget30(service: HMAService) : PmsHookTargetBase(service) {
@@ -62,7 +63,7 @@ class PmsHookTarget30(service: HMAService) : PmsHookTargetBase(service) {
             val callingUid = Binder.getCallingUid()
             if (service.shouldHideFromUid(callingUid, targetApp) == true) {
                 param.result = null
-                // service.filterCount++
+                service.increasePMFilterCount(callingUid)
                 logD(TAG, "@getPackageSetting - PkgMgr cache: insecure query from $callingUid to $targetApp")
                 return@hookBefore
             }
@@ -71,8 +72,8 @@ class PmsHookTarget30(service: HMAService) : PmsHookTargetBase(service) {
             if (caller != null) {
                 logD(TAG, "@getPackageSetting - PkgMgr: insecure query from $caller to $targetApp")
                 param.result = null
-                service.putShouldHideUidCache(callingUid, targetApp)
-                // service.filterCount++
+                service.putShouldHideUidCache(callingUid, caller, targetApp)
+                service.increasePMFilterCount(caller)
             }
         }?.let {
             hooks += it
@@ -87,7 +88,7 @@ class PmsHookTarget30(service: HMAService) : PmsHookTargetBase(service) {
                 val targetApp = Utils4Xposed.getPackageNameFromPackageSettings(param.args[2])
                 if (service.shouldHideFromUid(callingUid, targetApp) == true) {
                     param.result = true
-                    // service.filterCount++
+                    service.increasePMFilterCount(callingUid)
                     logD(TAG, "@shouldFilterApplication caller cache: $callingUid, target: $targetApp")
                     return@hookBefore
                 }
@@ -97,8 +98,8 @@ class PmsHookTarget30(service: HMAService) : PmsHookTargetBase(service) {
                 val caller = callingApps.firstOrNull { service.shouldHide(it, targetApp) }
                 if (caller != null) {
                     param.result = true
-                    // service.filterCount++
-                    service.putShouldHideUidCache(callingUid, targetApp!!)
+                    service.putShouldHideUidCache(callingUid, caller, targetApp!!)
+                    service.increasePMFilterCount(caller)
                     val last = lastFilteredApp.getAndSet(caller)
                     if (last != caller) logI(TAG, "@shouldFilterApplication: query from $caller")
                     logD(TAG, "@shouldFilterApplication caller: $callingUid $caller, target: $targetApp")
@@ -106,6 +107,52 @@ class PmsHookTarget30(service: HMAService) : PmsHookTargetBase(service) {
             }.onFailure {
                 logE(TAG, "Fatal error occurred, disable hooks", it)
                 unload()
+            }
+        }
+
+        hooks += findMethod(PACKAGE_MANAGER_SERVICE_CLASS) {
+            name == "getPackageInfoInternal"
+        }.hookBefore { param ->
+            val targetApp = param.args.first() as String? ?: return@hookBefore
+            val callingUid = param.args[3] as Int
+            if (callingUid == Constants.UID_SYSTEM) return@hookBefore
+            logV(TAG, "@${param.method.name} incoming query: $callingUid => $targetApp")
+            if (service.shouldHideFromUid(callingUid, targetApp) == true) {
+                param.result = null
+                service.increasePMFilterCount(callingUid)
+                logD(TAG, "@${param.method.name} caller cache: $callingUid, target: $targetApp")
+                return@hookBefore
+            }
+            val callingApps = Utils4Xposed.getCallingApps(service, callingUid)
+            val caller = callingApps.firstOrNull { service.shouldHide(it, targetApp) }
+            if (caller != null) {
+                logD(TAG, "@${param.method.name} caller: $callingUid $caller, target: $targetApp")
+                param.result = null
+                service.putShouldHideUidCache(callingUid, caller, targetApp)
+                service.increasePMFilterCount(caller)
+            }
+        }
+
+        hooks += findMethod(PACKAGE_MANAGER_SERVICE_CLASS) {
+            name == "getApplicationInfoInternal"
+        }.hookBefore { param ->
+            val targetApp = param.args.first() as String? ?: return@hookBefore
+            val callingUid = param.args[2] as Int
+            if (callingUid == Constants.UID_SYSTEM) return@hookBefore
+            logV(TAG, "@${param.method.name} incoming query: $callingUid => $targetApp")
+            if (service.shouldHideFromUid(callingUid, targetApp) == true) {
+                param.result = null
+                service.increasePMFilterCount(callingUid)
+                logD(TAG, "@${param.method.name} caller cache: $callingUid, target: $targetApp")
+                return@hookBefore
+            }
+            val callingApps = Utils4Xposed.getCallingApps(service, callingUid)
+            val caller = callingApps.firstOrNull { service.shouldHide(it, targetApp) }
+            if (caller != null) {
+                logD(TAG, "@${param.method.name} caller: $callingUid $caller, target: $targetApp")
+                param.result = null
+                service.putShouldHideUidCache(callingUid, caller, targetApp)
+                service.increasePMFilterCount(caller)
             }
         }
 

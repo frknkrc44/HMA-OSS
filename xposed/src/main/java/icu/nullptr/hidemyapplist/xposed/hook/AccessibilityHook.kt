@@ -38,9 +38,10 @@ class AccessibilityHook(private val service: HMAService) : IFrameworkHook {
             val callingApps = Utils4Xposed.getCallingApps(service)
             if (callingApps.isEmpty()) return@hookBefore
 
-            if (callingApps.any { callerIsSpoofed(it) }) {
+            val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
+            if (caller != null) {
                 param.result = 0L
-                // service.filterCount++
+                // service.increasePMFilterCount(caller)
             }
         }
     }
@@ -53,7 +54,8 @@ class AccessibilityHook(private val service: HMAService) : IFrameworkHook {
             val callingApps = Utils4Xposed.getCallingApps(service)
             if (callingApps.isEmpty()) return
 
-            if (callingApps.any { callerIsSpoofed(it) }) {
+            val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
+            if (caller != null) {
                 val returnedList = java.util.ArrayList<AccessibilityServiceInfo>()
 
                 logD(TAG, "@${param.method.name} returned empty list for ${callingApps.contentToString()}")
@@ -64,7 +66,7 @@ class AccessibilityHook(private val service: HMAService) : IFrameworkHook {
                     returnedList
                 }
 
-                // service.filterCount++
+                // service.increasePMFilterCount(caller)
             }
         } catch (e: Throwable) {
             logE(TAG, "Fatal error occurred, ignore hooks", e)
