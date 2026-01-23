@@ -283,7 +283,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
 
         with(binding.navStats) {
-            text1.text = getString(R.string.title_filter_stats)
+            text1.text = getString(R.string.title_filter_logs)
             icon.setImageResource(R.drawable.outline_cleaning_services_24)
             root.setOnClickListener {
                 navigate(R.id.nav_stats)

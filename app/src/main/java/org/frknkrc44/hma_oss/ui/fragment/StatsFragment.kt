@@ -58,7 +58,7 @@ class StatsFragment : Fragment(R.layout.fragment_logs) {
         with(binding.toolbar) {
             setupToolbar(
                 toolbar = this,
-                title = getString(R.string.title_filter_stats),
+                title = getString(R.string.title_filter_logs),
                 menuRes = R.menu.menu_stats,
                 onMenuOptionSelected = this@StatsFragment::onMenuOptionSelected,
             )

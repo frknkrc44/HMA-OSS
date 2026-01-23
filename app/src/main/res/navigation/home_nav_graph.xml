@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/nav_stats"
         android:name="org.frknkrc44.hma_oss.ui.fragment.StatsFragment"
-        android:label="@string/title_filter_stats" />
+        android:label="@string/title_filter_logs" />
 
     <fragment
         android:id="@+id/nav_settings"
