@@ -15,6 +15,11 @@
         android:label="@string/title_logs" />
 
     <fragment
+        android:id="@+id/nav_stats"
+        android:name="org.frknkrc44.hma_oss.ui.fragment.StatsFragment"
+        android:label="@string/title_filter_stats" />
+
+    <fragment
         android:id="@+id/nav_settings"
         android:name="icu.nullptr.hidemyapplist.ui.fragment.SettingsFragment"
         android:label="@string/title_settings" />

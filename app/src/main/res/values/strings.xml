@@ -152,6 +152,9 @@
     <string name="logs_empty">No logs to save</string>
     <string name="logs_saved">Logs saved</string>
 
+    <!-- Filter stats -->
+    <string name="title_filter_stats">Filter statistics</string>
+
     <!-- Settings -->
     <string name="settings_module">Module</string>
     <string name="settings_overwrite">Overwrite</string>
