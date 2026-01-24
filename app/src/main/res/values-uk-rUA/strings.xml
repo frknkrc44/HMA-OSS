@@ -5,7 +5,7 @@
     <string name="title_settings">Налаштування</string>
     <string name="title_template_manage">Керування шаблоном</string>
     <string name="title_template_settings">Налаштування шаблону</string>
-    <string name="title_settings_template_conf">Settings template configuration</string>
+    <string name="title_settings_template_conf">Налаштування конфігурації шаблону</string>
     <string name="title_app_manage">Керування додатком</string>
     <string name="title_app_select">Виберіть додатки</string>
     <string name="title_app_settings">Налаштування додатка</string>
@@ -29,9 +29,9 @@
     <string name="no">Ні</string>
     <string name="search">Пошук</string>
     <string name="system">Система</string>
-    <string name="add">Add</string>
-    <string name="edit">Edit</string>
-    <string name="apply">Apply</string>
+    <string name="add">Додати</string>
+    <string name="edit">Редагувати</string>
+    <string name="apply">Застосувати</string>
     <string name="follow_system">Як у системі</string>
     <!-- Home -->
     <string name="home_xposed_activated">Модуль активовано [%s]</string>
@@ -64,28 +64,28 @@
     <string name="list_sort_by_package_name">За назвою пакета</string>
     <string name="list_sort_by_install_time">За часом встановлення</string>
     <string name="list_sort_by_update_time">За часом оновлення</string>
-    <string name="list_empty_no_enabled">Try enabling hiding for apps with this template\'s work mode and apps will appear here</string>
-    <string name="list_empty_no_apps">No applications found, maybe you didn\'t allow this app to query all packages</string>
-    <string name="list_empty_preset">No applications added in this preset</string>
+    <string name="list_empty_no_enabled">Спробуйте увімкнути приховування для програм з цим робочим режимом шаблона і програми з\'являтимуться тут</string>
+    <string name="list_empty_no_apps">Жодних програм не знайдено, можливо ви не дозволили цій програмі запитувати всі пакети</string>
+    <string name="list_empty_preset">Не додано жодних програм для цього шаблону</string>
     <!-- Manage templates -->
     <string name="template_usage_hint">Створіть шаблони для «неспокійних» додатків, контролюючи список додатків, які вони можуть отримати.\n\nЧорний список (рекомендовано): додатки, вибрані в шаблоні, будуть невидимі для додатків, які застосовують шаблон.\nБілий список: додатки, не вибрані в шаблоні, будуть невидимий для додатків, які застосовують шаблон.</string>
     <string name="template_new_blacklist">Створити шаблон чорного списку</string>
     <string name="template_new_whitelist">Створити шаблон білого списку</string>
-    <string name="template_new_setting">Create a settings template</string>
+    <string name="template_new_setting">Створити шаблон налаштувань</string>
     <string name="template_delete">Ви впевнені, що хочете видалити шаблон?</string>
     <string name="template_name">Назва шаблону</string>
     <string name="template_name_invalid">Назва недійсна</string>
     <string name="template_delete_title">Видалити шаблон</string>
     <string name="template_name_already_exist">Назва шаблону вже існує</string>
     <string name="template_applied_count">Застосовується до %d додатків</string>
-    <string name="template_setting_count">%d settings added</string>
+    <string name="template_setting_count">%d налаштувань додано</string>
     <string name="template_apps_visible_count">Видно %d додатків</string>
     <string name="template_apps_invisible_count">Невидимі %d додатків</string>
     <!-- App settings -->
     <string name="app_enable_hide">Увімкнути приховування</string>
     <string name="app_template_config">Конфігурація шаблону</string>
     <string name="app_choose_template">Виберіть шаблон</string>
-    <string name="app_choose_preset">Choose preset</string>
+    <string name="app_choose_preset">Обрати шаблон</string>
     <string name="app_exclude_system_apps">Виключити системні додатки</string>
     <string name="app_exclude_system_apps_summary">Вимкніть цей параметр лише тоді, коли це дійсно необхідно. Імовірно, це призведе до збою, якщо його вимкнено</string>
     <string name="app_template_using">Використання %d шаблонів</string>
