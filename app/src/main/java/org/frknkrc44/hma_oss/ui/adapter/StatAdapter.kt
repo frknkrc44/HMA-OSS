@@ -36,10 +36,11 @@ class StatAdapter() : RecyclerView.Adapter<StatAdapter.ViewHolder>() {
             logs.clear()
             logs.addAll(resort)
 
-            notifyItemChanged(position)
-
             if (newIndex != position) {
+                notifyItemMoved(position, newIndex)
                 notifyItemChanged(newIndex)
+            } else {
+                notifyItemChanged(position)
             }
         }
     }
