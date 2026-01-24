@@ -4,6 +4,11 @@
     <item
         android:id="@+id/menu_refresh"
         android:icon="@drawable/baseline_refresh_24"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom"
         android:title="@string/refresh" />
+    <item
+        android:id="@+id/menu_delete"
+        android:icon="@drawable/outline_delete_24"
+        app:showAsAction="never"
+        android:title="@string/logs_clear" />
 </menu>

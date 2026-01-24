@@ -95,4 +95,8 @@ object ServiceClient : IHMAService, IBinder.DeathRecipient {
     }
 
     override fun getDetailedFilterStats() = service?.detailedFilterStats
+
+    override fun clearFilterStats() {
+        service?.clearFilterStats()
+    }
 }

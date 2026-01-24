@@ -17,6 +17,7 @@ import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
+import icu.nullptr.hidemyapplist.ui.util.showToast
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -34,34 +35,28 @@ class StatsFragment : Fragment(R.layout.fragment_logs) {
 
     private fun updateLogs() {
         lifecycleScope.launch {
-            coroutineScope {
-                statCache = try {
-                    ServiceClient.detailedFilterStats
-                } catch (_: Throwable) {
-                    null
+            statCache = runCatching { ServiceClient.detailedFilterStats }.getOrNull()
+            if (statCache == null) {
+                binding.serviceOff.visibility = View.VISIBLE
+            } else {
+                binding.serviceOff.visibility = View.GONE
+
+                val stats = FilterHolder.parse(statCache!!)
+
+                fun getTotalCount(key: String) = stats.filterCounts[key]!!.totalCount
+
+                val countsKeys = stats.filterCounts.keys.sortedWith { key1, key2 ->
+                    if (getTotalCount(key1) > getTotalCount(key2)) -1 else 0
                 }
-                if (statCache == null) {
-                    lifecycleScope.launch { binding.serviceOff.visibility = View.VISIBLE }
-                } else {
-                    lifecycleScope.launch { binding.serviceOff.visibility = View.GONE }
 
-                    val stats = FilterHolder.parse(statCache!!)
-
-                    fun getTotalCount(key: String) = stats.filterCounts[key]!!.totalCount
-
-                    val countsKeys = stats.filterCounts.keys.sortedWith { key1, key2 ->
-                        if (getTotalCount(key1) > getTotalCount(key2)) -1 else 0
-                    }
-
-                    for (key in countsKeys) {
-                        lifecycleScope.launch {
-                            adapter.addOrUpdateEntry(
-                                key,
-                                stats.filterCounts[key]!!
-                            )
-                        }
-                    }
+                for (key in countsKeys) {
+                    adapter.addOrUpdateEntry(
+                        key,
+                        stats.filterCounts[key]!!
+                    )
                 }
+
+                adapter.clearEntriesIfNotFound(countsKeys)
             }
         }
     }
@@ -69,6 +64,11 @@ class StatsFragment : Fragment(R.layout.fragment_logs) {
     private fun onMenuOptionSelected(item: MenuItem) {
         when (item.itemId) {
             R.id.menu_refresh -> updateLogs()
+            R.id.menu_delete -> {
+                ServiceClient.clearFilterStats()
+                showToast(android.R.string.ok)
+                updateLogs()
+            }
             // TODO: Add other options when required
         }
     }

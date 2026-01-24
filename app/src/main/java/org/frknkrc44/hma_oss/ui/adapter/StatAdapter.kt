@@ -45,7 +45,17 @@ class StatAdapter() : RecyclerView.Adapter<StatAdapter.ViewHolder>() {
         }
     }
 
-    inner class ViewHolder(private val binding: StatItemViewBinding) : RecyclerView.ViewHolder(binding.root) {
+    internal fun clearEntriesIfNotFound(packageNames: Iterable<String>) {
+        val keysToRemove = logs.filter { it.packageName !in packageNames }.map { it.packageName }
+
+        for (key in keysToRemove) {
+            val indexOfKey = logs.indexOfFirst { it.packageName == key }
+            logs.removeAt(indexOfKey)
+            notifyItemRemoved(indexOfKey)
+        }
+    }
+
+    class ViewHolder(private val binding: StatItemViewBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(logItem: StatItem) {
             if (logItem.refreshing) {
                 binding.tag.text = logItem.packageName

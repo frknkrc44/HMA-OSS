@@ -35,4 +35,6 @@ interface IHMAService {
     void reloadPresetsFromScratch() = 15;
 
     String getDetailedFilterStats() = 16;
+
+    void clearFilterStats() = 17;
 }

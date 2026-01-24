@@ -613,4 +613,9 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     }
 
     override fun getDetailedFilterStats() = filterHolder.toString()
+
+    override fun clearFilterStats() {
+        filterHolder.filterCounts.clear()
+        writeFilterCount(true)
+    }
 }
