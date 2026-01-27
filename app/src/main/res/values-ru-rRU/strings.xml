@@ -5,7 +5,7 @@
     <string name="title_settings">Настройки</string>
     <string name="title_template_manage">Управление шаблонами</string>
     <string name="title_template_settings">Настройки шаблона</string>
-    <string name="title_settings_template_conf">Settings template configuration</string>
+    <string name="title_settings_template_conf">Конфигурация шаблона настроек</string>
     <string name="title_app_manage">Управление приложениями</string>
     <string name="title_app_select">Выберите приложения</string>
     <string name="title_app_settings">Настройки приложения</string>
@@ -29,9 +29,9 @@
     <string name="no">Нет</string>
     <string name="search">Поиск</string>
     <string name="system">Система</string>
-    <string name="add">Add</string>
-    <string name="edit">Edit</string>
-    <string name="apply">Apply</string>
+    <string name="add">Добавить</string>
+    <string name="edit">Редактировать</string>
+    <string name="apply">Применить</string>
     <string name="follow_system">Как в системе</string>
     <!-- Home -->
     <string name="home_xposed_activated">Модуль активирован [%s]</string>
@@ -71,14 +71,14 @@
     <string name="template_usage_hint">Установите шаблоны для «не спящих» приложений, контролируя список приложений, который они могут получить.\n\nЧёрный список (рекомендуется): приложения, выбранные в шаблоне, будут невидимыми для приложений, применяющих шаблон.\nБелый список: приложения, не выбранные в шаблоне, будут невидимыми для приложений, применяющих шаблон.</string>
     <string name="template_new_blacklist">Создать шаблон с чёрным списком</string>
     <string name="template_new_whitelist">Создать шаблон с белым списком</string>
-    <string name="template_new_setting">Create a settings template</string>
+    <string name="template_new_setting">Создать шаблон настроек</string>
     <string name="template_delete">Вы уверены, что хотите удалить шаблон?</string>
     <string name="template_name">Название шаблона</string>
     <string name="template_name_invalid">Неверное название</string>
     <string name="template_delete_title">Удалить шаблон</string>
     <string name="template_name_already_exist">Шаблон с таким названием уже существует</string>
     <string name="template_applied_count">Применено к %d приложениям</string>
-    <string name="template_setting_count">%d settings added</string>
+    <string name="template_setting_count">%d Настройки добавлены</string>
     <string name="template_apps_visible_count">Видимы %d приложений</string>
     <string name="template_apps_invisible_count">Невидимы %d приложений</string>
     <!-- App settings -->
@@ -91,7 +91,7 @@
     <string name="app_template_using">Использует %d шаблонов</string>
     <string name="app_preset_using">Использует %d пресетов</string>
     <string name="app_settings_preset_using">Использует %d настроек пресетов</string>
-    <string name="app_settings_template_using">Using %d settings templates</string>
+    <string name="app_settings_template_using">Использование %d шаблонов настроек</string>
     <string name="app_extra_apps_visible_count">%d дополнительных приложений видимы</string>
     <string name="app_extra_apps_invisible_count">%d дополнительных приложений невидимы</string>
     <string name="app_warning_risky_package_title">Рискованный пакет</string>
@@ -110,8 +110,8 @@
     <string name="app_force_stop_launch">Принудительно остановить и запустить</string>
     <string name="app_launch">Запустить</string>
     <string name="app_launch_failed">Ошибка запуска приложения, проверьте логи для больших деталей</string>
-    <string name="app_restrict_zygote_permissions">Restrict Zygote permissions</string>
-    <string name="app_restrict_zygote_permissions_desc">This option can cause crashes or false positives, choose wisely.</string>
+    <string name="app_restrict_zygote_permissions">Ограничить права доступа зигот</string>
+    <string name="app_restrict_zygote_permissions_desc">Этот вариант может привести к сбоям или ложным срабатываниям, выбирайте его с умом.</string>
     <!-- Presets -->
     <string name="title_preset">Пресеты</string>
     <string name="title_settings_preset">Настройка пресетов</string>
@@ -121,23 +121,25 @@
     <string name="preset_custom_rom">Приложения кастомных прошивок</string>
     <string name="preset_sus_apps">Подозрительные приложения</string>
     <string name="preset_detector_apps">Детекторы/Чекеры приложений</string>
-    <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku apps</string>
+    <string name="preset_shizuku_dhizuku">Приложения Shizuku/Dhizuku</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Доступность</string>
     <string name="settings_preset_dev_options">Параметры разработчика</string>
-    <string name="settings_preset_input_method">Input method</string>
+    <string name="settings_preset_input_method">Метод ввода</string>
     <!-- Settings templates -->
-    <string name="settings_templates_database">Settings database</string>
-    <string name="settings_templates_name">Setting name</string>
-    <string name="settings_templates_value">Setting value</string>
+    <string name="settings_templates_database">База данных настроек</string>
+    <string name="settings_templates_name">Название настройки</string>
+    <string name="settings_templates_value">Значение настройки</string>
     <!-- Settings templates - basic configuration types -->
-    <string name="settings_templates_custom">Custom setting</string>
-    <string name="settings_templates_random_ssaid">Random SSAID</string>
+    <string name="settings_templates_custom">Кастомные настройки</string>
+    <string name="settings_templates_random_ssaid">Случайный SSAID</string>
     <!-- Logs -->
     <string name="logs_save">Сохранить логи</string>
     <string name="logs_clear">Очистить логи</string>
     <string name="logs_empty">Нет логов для сохранения</string>
     <string name="logs_saved">Логи сохранены</string>
+    <!-- Filter logs -->
+    <string name="title_filter_logs">Фильтр логов</string>
     <!-- Settings -->
     <string name="settings_module">Модуль</string>
     <string name="settings_overwrite">Перезаписать</string>
@@ -168,10 +170,10 @@
     <string name="settings_clear_uninstalled_app_configs">Очистить конфиг удаленных прил.</string>
     <string name="settings_clear_uninstalled_app_configs_summary">Эта опция позволяет создавать конфиг без остатков, но вам придется перенастроить приложения при их повторной установке.</string>
     <string name="settings_no_undone_warning">Это действие не может быть отменено.</string>
-    <string name="settings_package_query_workaround">Alternative package query</string>
-    <string name="settings_package_query_workaround_summary">Don\'t enable this option if you see the package list in this app correctly.</string>
-    <string name="settings_launcher_icon">Launcher icon</string>
-    <string name="settings_error_only_log">Error-only log</string>
+    <string name="settings_package_query_workaround">Альтернативный запрос пакета</string>
+    <string name="settings_package_query_workaround_summary">Не включайте эту опцию, если вы видите список пакетов в этом приложении корректно.</string>
+    <string name="settings_launcher_icon">Значок запуска</string>
+    <string name="settings_error_only_log">Журнал только ошибок</string>
     <string name="settings_language">Язык</string>
     <string name="settings_translate">Принять участие в переводе</string>
     <string name="settings_translate_summary">Помогите нам перевести %s на ваш язык</string>
@@ -194,7 +196,7 @@
     <string name="settings_receive_beta_update">Получать обновления до бета-версий</string>
     <string name="settings_receive_beta_update_summary">Бета-версии могут быть нестабильными</string>
     <!-- Bulk config wizard -->
-    <string name="title_bulk_config_wizard">Bulk config wizard</string>
+    <string name="title_bulk_config_wizard">Мастер массовой настройки</string>
     <!-- About -->
     <string name="about_description">        Хотя и неправильно определять наличие конкретных приложений, сейчас не каждое приложение, использующее root-права имеет поддержку случайного имени пакета. В этом случае обнаруженные приложения, использующие root-права (такие как Fake Location и Storage Isolation), будут равны обнаруженным root-правам.\n\nВ это же время некоторые умные приложения используют лазейки, чтобы получить список приложений и нарисовать себе вашу персону.\n\nЭто приложение предоставляет несколько методов для проверки того, насколько хорошо вы скрыли свой список приложений. Также это приложение может работать как Xposed модуль, чтобы скрыть какие-либо приложения или отклонять запросы на получение списка приложений для защиты вашей конфиденциальности.
     </string>

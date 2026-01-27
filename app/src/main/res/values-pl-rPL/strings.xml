@@ -10,7 +10,7 @@
     <string name="title_app_select">Wybierz aplikacje</string>
     <string name="title_app_settings">Ustawienia aplikacji</string>
     <string name="title_about">O</string>
-    <string name="title_about_fork">O tym forku</string>
+    <string name="title_about_fork"></string>
     <string name="do_not_dual">Nie instaluj HMA na drugim użytkowniku</string>
     <string name="show_crash_log">Pokaż dziennik awarii</string>
     <string name="config_damaged">Plik konfiguracyjny uszkodzony. Proszę wyczyścić dane aplikacji</string>
@@ -138,6 +138,8 @@
     <string name="logs_clear">Wyczyść logi</string>
     <string name="logs_empty">Nie ma logów do zapisania</string>
     <string name="logs_saved">Logi zapisano</string>
+    <!-- Filter logs -->
+    <string name="title_filter_logs">Filtruj logi</string>
     <!-- Settings -->
     <string name="settings_module">Moduł</string>
     <string name="settings_overwrite">Nadpisz</string>

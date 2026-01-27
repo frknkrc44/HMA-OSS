@@ -38,7 +38,7 @@
     <string name="home_xposed_not_activated">الإضافة غير مفعلة</string>
     <string name="home_xposed_service_on">خدمة النظام تعمل [%d]</string>
     <string name="home_xposed_service_off">خدمة النظام متوقفة</string>
-    <string name="home_xposed_service_old">تم تحديث الإضافة، تحتاج إلي إعادة التشغيل</string>
+    <string name="home_xposed_service_old">تم تحديث الإضافة، تحتاج إلى إعادة التشغيل</string>
     <string name="home_xposed_filter_count">HMA-OSS قام بتصفية إجمالي %d من الطلبات</string>
     <string name="home_manage">الإدارة</string>
     <string name="home_detection_test">اختبار الاكتشاف</string>
@@ -138,6 +138,8 @@
     <string name="logs_clear">مسح السجلات</string>
     <string name="logs_empty">لا يوجد سجلات لحفظها</string>
     <string name="logs_saved">تم حفظ السجلات</string>
+    <!-- Filter logs -->
+    <string name="title_filter_logs">تصفية السجلات</string>
     <!-- Settings -->
     <string name="settings_module">الوحدة</string>
     <string name="settings_overwrite">الكتابة عليه</string>
@@ -162,7 +164,7 @@
     <string name="settings_hide_icon">إخفاء أيقونة الوحدة من قائمة التطبيقات</string>
     <string name="settings_hide_icon_summary">لا يزال بإمكانك فتح التطبيق في مدير Xposed</string>
     <string name="settings_bypass_risky_package_warning">تجاوز تحذيرات الحزم الخطرة</string>
-    <string name="settings_bypass_risky_package_warning_summary">أعلم أن خيارات المطور ليست مسؤولة عن مشكلات متعلقة بالحزمة ألخطيرة قبل او بعد تفعيلك لهذه المِيزة</string>
+    <string name="settings_bypass_risky_package_warning_summary">أعلم أن خيارات المطور ليست مسؤولة عن مشكلات متعلقة بالحزمة الخطيرة قبل او بعد تفعيلك لهذه المِيزة</string>
     <string name="settings_disable_activity_launch_protection">تعطيل حماية تشغيل الفعالية</string>
     <string name="settings_disable_activity_launch_protection_summary">هذه الوصلة سترفع جميع حمايات بَدْء الفعالية. إذا كنت في شك، فلا تفعلها.</string>
     <string name="settings_system_wallpaper">استخدام خلفية النظام</string>
@@ -175,7 +177,7 @@
     <string name="settings_error_only_log">تسجيل الأخطاء فقط</string>
     <string name="settings_language">اللغة</string>
     <string name="settings_translate">المشاركة في التَّرْجَمَة</string>
-    <string name="settings_translate_summary">ساعدنا في التَرجمة %s إلي لغتك</string>
+    <string name="settings_translate_summary">ساعدنا في ترجمة %s إلى لغتك</string>
     <string name="settings_theme">الثيم</string>
     <string name="settings_system_theme_color">لون ثيم النظام</string>
     <string name="settings_theme_color">لون الثيم</string>
@@ -188,7 +190,7 @@
     <string name="settings_is_clean_env">تنظيف بيئة التشغيل في نفس الوقت؟</string>
     <string name="settings_is_clean_env_summary">إزالة التخزين المؤقت لخدمة النظام في /data/misc/hide_my_applist_*. هذا يعني أنك ستحتاج إلى تشغيل الإضافة مرة واحدة يدويا بعد إعادة التشغيل التالي حتي تعمل الاعتراضات، وسيتم أيضا تنظيف عمليات الاعتراض.</string>
     <string name="settings_force_clean_env">إجبار تنظيف بيئة العمل (روت)</string>
-    <string name="settings_force_clean_env_summary">فقط إذا فشلت خدمة النظام في البَدْء، وإلا يجب عليك أن تضغط علي الخِيار أعلاه.</string>
+    <string name="settings_force_clean_env_summary">فقط إذا فشلت خدمة النظام في البَدْء، وإلا يجب عليك أن تضغط على الخِيار أعلاه.</string>
     <string name="settings_force_clean_env_toast_successful">تم تنظيف بيئة التشغيل</string>
     <string name="settings_update">تحديث</string>
     <string name="settings_disable_update">إيقاف إشعارات التحديث</string>
@@ -198,7 +200,7 @@
     <string name="title_bulk_config_wizard">معالج الإعدادات الجماعية</string>
     <!-- About -->
     <string name="about_description">على الرغم من أنه من غير الصحيح اكتشاف تثبيت تطبيق معين ، إلا أنه لا يوفر كل تطبيق يستخدم الجذر دعمًا عشوائيًا لاسم الحزمة. في هذه الحالة ، فإن التطبيقات المكتشفة التي تستخدم الجذر (مثل الموقع المزيف وعزل التخزين) تساوي الجذر المكتشف نفسه.\n\n في نفس الوقت ، تستخدم بعض التطبيقات الذكية ثغرات مختلفة للحصول على قائمة التطبيقات الخاصة بك ، بحيث يمكنها رسم شخصية لك.\n\n توفر هذه الإضافة بعض الطرق لاختبار ما إذا كنت قد أخفيت التطبيق الخاص بك بشكل جيد. أيضًا ، يمكن أن يعمل كإضافة Xposed لإخفاء بعض التطبيقات أو رفض طلبات قائمة التطبيقات لحماية خصوصيتك.    </string>
-    <string name="about_fork_description">مشروع تطبيق HMA الأصلي اصبح مغلق المصدر والشفرات الأخيرة الخاصة بها لا تحتوي على بعض التغييرات الأخيرة،لذا قمتُ بصناعة هذه النسخة من جديد للاستمرار بها على أنها مفتوحة المصدر    </string>
+    <string name="about_fork_description">مشروع تطبيق HMA الأصلي اصبح مغلق المصدر والشفرات الأخيرة الخاصة بها لا تحتوي على بعض التغييرات الأخيرة،لذا قمتُ بصناعة هذه النسخة من جديد للاستمرار بها على أنها مفتوحة المصدر                            </string>
     <string name="about_how_to_use_title">كيفية استخدام هذه الإضافة</string>
     <string name="about_how_to_use_description_1">يمكنك إنشاء قوالب من \"إدارة القوالب\".\nثم تطبيق هذه القوالب على التطبيقات من \"إدارة التطبيقات\".(يمكنك أيضا اختيار تطبيقات إضافية للتطبيقات المستهدفة.)\n ينبغي فقط فحص \"إطار النظام\" من نطاق وحدة إكسبوسد/القائمة البيضاء.    </string>
     <string name="about_how_to_use_description_2">تعديل التكوين يطبق في الوقت الفعلى.    </string>

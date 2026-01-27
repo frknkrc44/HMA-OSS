@@ -5,7 +5,7 @@
     <string name="title_settings">Definições</string>
     <string name="title_template_manage">Gerir modelos</string>
     <string name="title_template_settings">Definições do modelo</string>
-    <string name="title_settings_template_conf">Settings template configuration</string>
+    <string name="title_settings_template_conf">Configuração do perfil de configurações</string>
     <string name="title_app_manage">Gerir aplicações</string>
     <string name="title_app_select">Selecionar aplicações</string>
     <string name="title_app_settings">Definições da aplicação</string>
@@ -29,9 +29,9 @@
     <string name="no">Não</string>
     <string name="search">Pesquisar</string>
     <string name="system">Sistema</string>
-    <string name="add">Add</string>
-    <string name="edit">Edit</string>
-    <string name="apply">Apply</string>
+    <string name="add">Adicionar</string>
+    <string name="edit">Editar</string>
+    <string name="apply">Aplicar</string>
     <string name="follow_system">Seguir o sistema</string>
     <!-- Home -->
     <string name="home_xposed_activated">Módulo ativado [%s]</string>
@@ -71,14 +71,14 @@
     <string name="template_usage_hint">Crie modelos para aplicações \"inquietas\", controlando a lista de aplicações que estas podem obter.\n\nLista Negra (recomendado): as aplicações selecionadas no modelo ficarão invisíveis para as aplicações que o aplicam.\nLista Branca: as aplicações não selecionadas no modelo ficarão invisíveis para as aplicações que o aplicam.</string>
     <string name="template_new_blacklist">Criar um modelo de lista negra</string>
     <string name="template_new_whitelist">Criar um modelo de lista branca</string>
-    <string name="template_new_setting">Create a settings template</string>
+    <string name="template_new_setting">Criar um modelo de configs</string>
     <string name="template_delete">Tem a certeza de que deseja eliminar o modelo?</string>
     <string name="template_name">Nome do modelo</string>
     <string name="template_name_invalid">Nome inválido</string>
     <string name="template_delete_title">Eliminar modelo</string>
     <string name="template_name_already_exist">O nome do modelo já existe</string>
     <string name="template_applied_count">Aplicado a %d aplicações</string>
-    <string name="template_setting_count">%d settings added</string>
+    <string name="template_setting_count">%d configs adicionadas</string>
     <string name="template_apps_visible_count">%d aplicações visíveis</string>
     <string name="template_apps_invisible_count">%d aplicações invisíveis</string>
     <!-- App settings -->
@@ -91,7 +91,7 @@
     <string name="app_template_using">Usando %d modelos</string>
     <string name="app_preset_using">Usando %d predefinições</string>
     <string name="app_settings_preset_using">A utilizar %d predefinições de definições</string>
-    <string name="app_settings_template_using">Using %d settings templates</string>
+    <string name="app_settings_template_using">Usando %d modelos de configs</string>
     <string name="app_extra_apps_visible_count">%d aplicativos adicionais visíveis</string>
     <string name="app_extra_apps_invisible_count">%d aplicativos adicionais invisíveis</string>
     <string name="app_warning_risky_package_title">Pacote de risco</string>
@@ -110,8 +110,8 @@
     <string name="app_force_stop_launch">Forçar parada e abrir</string>
     <string name="app_launch">Abrir</string>
     <string name="app_launch_failed">Falha ao abrir app, verifique os registros para mais detalhes</string>
-    <string name="app_restrict_zygote_permissions">Restrict Zygote permissions</string>
-    <string name="app_restrict_zygote_permissions_desc">This option can cause crashes or false positives, choose wisely.</string>
+    <string name="app_restrict_zygote_permissions">Restringir permissões do ziygote</string>
+    <string name="app_restrict_zygote_permissions_desc">Esta opção pode causar travamentos ou falso positivos, escolha sabiamente.</string>
     <!-- Presets -->
     <string name="title_preset">Modelos</string>
     <string name="title_settings_preset">Configurações de modelos</string>
@@ -125,19 +125,21 @@
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Acessibilidade</string>
     <string name="settings_preset_dev_options">Opções de programador</string>
-    <string name="settings_preset_input_method">Input method</string>
+    <string name="settings_preset_input_method">Método de entrada</string>
     <!-- Settings templates -->
-    <string name="settings_templates_database">Settings database</string>
-    <string name="settings_templates_name">Setting name</string>
-    <string name="settings_templates_value">Setting value</string>
+    <string name="settings_templates_database">Banco de dados</string>
+    <string name="settings_templates_name">Nome</string>
+    <string name="settings_templates_value">Valor</string>
     <!-- Settings templates - basic configuration types -->
-    <string name="settings_templates_custom">Custom setting</string>
-    <string name="settings_templates_random_ssaid">Random SSAID</string>
+    <string name="settings_templates_custom">Configuração personalizada</string>
+    <string name="settings_templates_random_ssaid">SSAID aleatório</string>
     <!-- Logs -->
     <string name="logs_save">Guardar registos</string>
     <string name="logs_clear">Limpar registos</string>
     <string name="logs_empty">Não há registos para guardar</string>
     <string name="logs_saved">Registos guardados</string>
+    <!-- Filter logs -->
+    <string name="title_filter_logs">Filtrar registros</string>
     <!-- Settings -->
     <string name="settings_module">Módulo</string>
     <string name="settings_overwrite">Substituir</string>
@@ -170,8 +172,8 @@
     <string name="settings_no_undone_warning">Esta ação não pode ser desfeita.</string>
     <string name="settings_package_query_workaround">Consulta alternativa de pacote</string>
     <string name="settings_package_query_workaround_summary">Não ative essa opção se você consegue ver a lista de pacotes corretamente neste app.</string>
-    <string name="settings_launcher_icon">Launcher icon</string>
-    <string name="settings_error_only_log">Error-only log</string>
+    <string name="settings_launcher_icon">Ícone do lançador</string>
+    <string name="settings_error_only_log">Registrar somente erros</string>
     <string name="settings_language">Idioma</string>
     <string name="settings_translate">Participar na tradução</string>
     <string name="settings_translate_summary">Ajude-nos a traduzir o %s para o seu idioma</string>
@@ -194,7 +196,7 @@
     <string name="settings_receive_beta_update">Receber atualizações beta</string>
     <string name="settings_receive_beta_update_summary">A versão beta pode ser instável</string>
     <!-- Bulk config wizard -->
-    <string name="title_bulk_config_wizard">Bulk config wizard</string>
+    <string name="title_bulk_config_wizard">Assistente de configuração em massa</string>
     <!-- About -->
     <string name="about_description">Embora seja incorreto detetar a instalação de aplicações específicas, nem todas as aplicações que usam root oferecem suporte para nomes de pacotes aleatórios. Neste caso, detetar aplicações que usam root (como a Fake Location e a Storage Isolation) equivale a detetar o próprio root.\n\nAo mesmo tempo, algumas aplicações mais inteligentes aproveitam várias falhas para obter a sua lista de aplicações, de modo a traçar um perfil seu.\n\nEste módulo fornece alguns métodos para testar se já ocultou bem a sua lista de aplicações. Além disso, pode funcionar como um módulo Xposed para ocultar algumas aplicações ou rejeitar pedidos de acesso à lista de aplicações para proteger a sua privacidade.    </string>
     <string name="about_fork_description">        O projeto original HMA passou a ser de código fechado e a sua versão mais recente não incluía algumas das últimas alterações, portanto, criei este fork para o continuar como um projeto de código aberto.

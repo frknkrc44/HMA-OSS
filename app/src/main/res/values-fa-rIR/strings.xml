@@ -138,6 +138,8 @@
     <string name="logs_clear">پاک کردن لاگ‌ها</string>
     <string name="logs_empty">هیچ لاگی برای ذخیره نیست</string>
     <string name="logs_saved">لاگ‌ها ذخیره شدند</string>
+    <!-- Filter logs -->
+    <string name="title_filter_logs">Filter logs</string>
     <!-- Settings -->
     <string name="settings_module">ماژول</string>
     <string name="settings_overwrite">بازنویسی</string>

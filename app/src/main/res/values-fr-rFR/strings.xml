@@ -138,6 +138,8 @@
     <string name="logs_clear">Effacer le journal</string>
     <string name="logs_empty">Aucun journal à enregistrer</string>
     <string name="logs_saved">Journeaux sauvegardés</string>
+    <!-- Filter logs -->
+    <string name="title_filter_logs">Filtrer les journaux</string>
     <!-- Settings -->
     <string name="settings_module">Modules</string>
     <string name="settings_overwrite">Remplacer</string>

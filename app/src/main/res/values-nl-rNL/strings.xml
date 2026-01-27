@@ -36,7 +36,7 @@
     <!-- Home -->
     <string name="home_xposed_activated">Module Geactiveerd [%s]</string>
     <string name="home_xposed_not_activated">Module Niet Geactiveerd</string>
-    <string name="home_xposed_service_on">Systeem Service Actief</string>
+    <string name="home_xposed_service_on">Systeem Service Actief [%d]</string>
     <string name="home_xposed_service_off">Systeem Service Niet Actief</string>
     <string name="home_xposed_service_old">Module Geüpdate Herstarten Nodig</string>
     <string name="home_xposed_filter_count">HMA-OSS Heeft gefilterd Totaal %d verzoeken</string>
@@ -138,6 +138,8 @@
     <string name="logs_clear">Clear logs</string>
     <string name="logs_empty">No logs to save</string>
     <string name="logs_saved">Logs saved</string>
+    <!-- Filter logs -->
+    <string name="title_filter_logs">Filter logs</string>
     <!-- Settings -->
     <string name="settings_module">Module</string>
     <string name="settings_overwrite">Overwrite</string>

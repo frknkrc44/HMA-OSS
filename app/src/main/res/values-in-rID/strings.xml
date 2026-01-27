@@ -138,6 +138,8 @@
     <string name="logs_clear">Hapus log</string>
     <string name="logs_empty">Tidak ada log tersimpan</string>
     <string name="logs_saved">Log disimpan</string>
+    <!-- Filter logs -->
+    <string name="title_filter_logs">Filter log</string>
     <!-- Settings -->
     <string name="settings_module">Modul</string>
     <string name="settings_overwrite">Timpa</string>

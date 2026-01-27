@@ -36,7 +36,7 @@
     <!-- Home -->
     <string name="home_xposed_activated">モジュールは有効です [%s]</string>
     <string name="home_xposed_not_activated">モジュールは無効です</string>
-    <string name="home_xposed_service_on">システムサービスは実行中 [%d]</string>
+    <string name="home_xposed_service_on">システムサービスが実行中 [%d]</string>
     <string name="home_xposed_service_off">システムサービスは実行されていません</string>
     <string name="home_xposed_service_old">モジュールが更新されました。再起動してください</string>
     <string name="home_xposed_filter_count">HMA-OSS は合計 %d 件のリクエストをフィルタリングしました</string>
@@ -47,12 +47,12 @@
     <string name="home_backup_and_restore">バックアップ &amp; 復元</string>
     <string name="home_backup_config">バックアップ</string>
     <string name="home_restore_config">復元</string>
-    <string name="home_import_successful">インポート成功</string>
-    <string name="home_import_failed">インポート失敗</string>
+    <string name="home_import_successful">インポートしました</string>
+    <string name="home_import_failed">インポートできませんでした</string>
     <string name="home_import_app_version_too_old">モジュールのバージョンが古すぎます</string>
     <string name="home_import_backup_version_too_old">バックアップのバージョンが古すぎます</string>
-    <string name="home_import_file_damaged">バックアップは破損しています</string>
-    <string name="home_export_failed">書き出しの失敗</string>
+    <string name="home_import_file_damaged">バックアップファイルが破損しています</string>
+    <string name="home_export_failed">エクスポートできませんでした</string>
     <string name="home_exported">設定をバックアップしました</string>
     <string name="home_new_update">利用可能なアップデート: %s</string>
     <string name="home_update">アップデート: %s</string>
@@ -74,10 +74,10 @@
     <string name="template_new_setting">設定テンプレートを作成</string>
     <string name="template_delete">テンプレートを削除してもよろしいですか？</string>
     <string name="template_name">テンプレート名</string>
-    <string name="template_name_invalid">無効な名前</string>
+    <string name="template_name_invalid">名前が無効です</string>
     <string name="template_delete_title">テンプレートを削除</string>
     <string name="template_name_already_exist">このテンプレート名は既に存在します</string>
-    <string name="template_applied_count">%d 個のアプリに適用</string>
+    <string name="template_applied_count">%d 個のアプリに適用されました</string>
     <string name="template_setting_count">%d 個の設定が追加されました</string>
     <string name="template_apps_visible_count">%d 個のアプリが表示されます</string>
     <string name="template_apps_invisible_count">%d 個のアプリが表示されません</string>
@@ -88,10 +88,10 @@
     <string name="app_choose_preset">プリセットを選択</string>
     <string name="app_exclude_system_apps">システムアプリを除外</string>
     <string name="app_exclude_system_apps_summary">本当に必要な場合にのみ、このオプションをオフにしてください。無効にするとクラッシュする可能性があります</string>
-    <string name="app_template_using">%d 個のテンプレートを使用中</string>
-    <string name="app_preset_using">%d 個のプリセットを使用中</string>
-    <string name="app_settings_preset_using">%d 個のプリセット設定を使用中</string>
-    <string name="app_settings_template_using">%d 個の設定テンプレートを使用中</string>
+    <string name="app_template_using">%d 個のテンプレートを使用しています</string>
+    <string name="app_preset_using">%d 個のプリセットを使用しています</string>
+    <string name="app_settings_preset_using">%d 個のプリセット設定を使用しています</string>
+    <string name="app_settings_template_using">%d 個の設定テンプレートを使用しています</string>
     <string name="app_extra_apps_visible_count">%d 個の追加アプリが表示されます</string>
     <string name="app_extra_apps_invisible_count">%d 個の追加アプリが表示されません</string>
     <string name="app_warning_risky_package_title">危険なパッケージ</string>
@@ -135,9 +135,11 @@
     <string name="settings_templates_random_ssaid">ランダム SSAID</string>
     <!-- Logs -->
     <string name="logs_save">ログの保存</string>
-    <string name="logs_clear">ログのクリア</string>
+    <string name="logs_clear">ログの消去</string>
     <string name="logs_empty">保存するログがありません</string>
     <string name="logs_saved">ログを保存しました</string>
+    <!-- Filter logs -->
+    <string name="title_filter_logs">ログをフィルタリング</string>
     <!-- Settings -->
     <string name="settings_module">モジュール</string>
     <string name="settings_overwrite">上書き</string>
@@ -150,7 +152,7 @@
     <string name="settings_app_data_isolation">アプリのデータ分離</string>
     <string name="settings_vold_app_data_isolation">Vold アプリのデータ分離</string>
     <string name="settings_warning">警告</string>
-    <string name="settings_vold_warning">この機能は AOSP の「アプリの外部ストレージディレクトリを隔離する」という機能を有効化します。これにより、アプリの非表示機能が向上する可能性がありますが、システムの安定性に問題が生じる可能性もあります。また、この機能は AOSP で廃止されているため、いつ動作しなくなるか分からない点にも注意が必要です。</string>
+    <string name="settings_vold_warning">この機能は AOSP の「アプリの外部ストレージディレクトリを隔離する」という機能を有効にします。これにより、アプリの非表示機能が向上する可能性がありますが、システムの安定性に問題が生じる可能性もあります。また、この機能は AOSP で廃止されているため、いつ動作しなくなるか分からない点にも注意が必要です。</string>
     <string name="settings_change_require_root">変更には root 権限が必要です</string>
     <string name="settings_need_reboot">変更には再起動が必要です</string>
     <string name="settings_permission_denied">権限が拒否されました</string>
@@ -192,7 +194,7 @@
     <string name="settings_update">アップデート</string>
     <string name="settings_disable_update">アップデートの通知を無効化</string>
     <string name="settings_receive_beta_update">ベータ版アップデートを受け取る</string>
-    <string name="settings_receive_beta_update_summary">ベータ版は不安定な場合があります</string>
+    <string name="settings_receive_beta_update_summary">ベータ版は不安定である可能性があります</string>
     <!-- Bulk config wizard -->
     <string name="title_bulk_config_wizard">一括設定ウィザード</string>
     <!-- About -->
@@ -201,7 +203,7 @@
     <string name="about_fork_description">        オリジナルの HMA プロジェクトはクローズドソースになり、最新版のコードには一部の重要な変更点が反映されていませんでした。そこで、再びオープンソースとして継続していくために、このフォーク版を作成しました。
     </string>
     <string name="about_how_to_use_title">このモジュールの使用方法</string>
-    <string name="about_how_to_use_description_1">        「テンプレート管理」でテンプレートを作成できます。\n次に、「アプリの管理」でテンプレートをアプリに適用します。 (ターゲットに追加のアプリを選択することもできます。)\nXposed モジュール スコープ/ホワイトリストで「システム フレームワーク」をチェックする必要があります。
+    <string name="about_how_to_use_description_1">        「テンプレートの管理」でテンプレートを作成できます。\n作成したテンプレートは、「アプリの管理」でアプリに適用できます。(対象アプリを追加選択することもできます。)\nXposed モジュールのスコープ/ホワイトリストで「システム フレームワーク」のみにチェックを入れてください。
     </string>
     <string name="about_how_to_use_description_2">        設定変更はリアルタイムで行われます。
     </string>
