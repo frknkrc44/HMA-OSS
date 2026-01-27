@@ -59,7 +59,7 @@
     <!-- App select -->
     <string name="list_show_system">Tampilkan apl sistem</string>
     <string name="list_sorting">Urutkan</string>
-    <string name="list_reverse_order">Urutkan terbalik</string>
+    <string name="list_reverse_order">Terbalik</string>
     <string name="list_sort_by_label">Nama apl</string>
     <string name="list_sort_by_package_name">Nama paket</string>
     <string name="list_sort_by_install_time">Waktu instalasi</string>
@@ -104,8 +104,8 @@
     <string name="app_exclude_target_installation_source">Kecualikan target apl</string>
     <string name="app_exclude_target_installation_source_desc">Anda dapat mengaktifkannya jika apl ini tidak tersedia di Play Store</string>
     <string name="app_force_stop_warning">Jangan lupa untuk menghentikan paksa target apl setelah menyimpan konfigurasi</string>
-    <string name="app_invert_activity_launch_protection">Ubah proteksi peluncuran Activity</string>
-    <string name="app_invert_activity_launch_protection_desc">Opsi ini akan mengubah pilihan \"Nonaktifkan proteksi peluncuran Activity\" di setelan.</string>
+    <string name="app_invert_activity_launch_protection">Ubah proteksi peluncuran aktivitas</string>
+    <string name="app_invert_activity_launch_protection_desc">Opsi ini akan mengubah pilihan \"Nonaktifkan proteksi peluncuran aktivitas\" di setelan.</string>
     <string name="app_global_activity_launch_protection_state">Proteksi %s secara universal</string>
     <string name="app_force_stop_launch">Paksa berhenti dan luncurkan</string>
     <string name="app_launch">Luncurkan</string>
@@ -164,8 +164,8 @@
     <string name="settings_hide_icon_summary">Anda masih dapat membuka apl di manajer Xposed</string>
     <string name="settings_bypass_risky_package_warning">Abaikan paket berisiko</string>
     <string name="settings_bypass_risky_package_warning_summary">Perlu diketahui bahwa pengembang tidak bertanggung jawab atas masalah terkait paket berisiko sebelum atau setelah anda mengaktifkan fitur ini</string>
-    <string name="settings_disable_activity_launch_protection">Nonaktifkan peluncuran proteksi Activity</string>
-    <string name="settings_disable_activity_launch_protection_summary">Tombol ini akan menonaktifkan semua proteksi startActivity. Jika anda tidak yakin, jangan aktifkan.</string>
+    <string name="settings_disable_activity_launch_protection">Nonaktifkan proteksi peluncuran aktivitas</string>
+    <string name="settings_disable_activity_launch_protection_summary">Tombol ini akan menonaktifkan semua proteksi peluncuran aktivitas. Jika anda tidak yakin, jangan aktifkan.</string>
     <string name="settings_system_wallpaper">Gunakan wallpaper sistem</string>
     <string name="settings_clear_uninstalled_app_configs">Bersihkan konfig apl terhapus</string>
     <string name="settings_clear_uninstalled_app_configs_summary">Opsi ini memungkinkan anda membuat konfigurasi tanpa sisa tetapi anda harus mengonfigurasi ulang apl saat anda menginstalnya lagi.</string>
@@ -189,7 +189,7 @@
     <string name="settings_is_clean_env">Bersihkan lingkungan runtime pada saat yang bersamaan?</string>
     <string name="settings_is_clean_env_summary">Hapus cache layanan sistem di /data/misc/hide_my_applist_*. Setelah mulai ulang berikutnya, Diperlukan membuka apl modul sekali secara manual untuk mengaktifkan intersepsi, dan jumlah intersepsi juga akan dihapus.</string>
     <string name="settings_force_clean_env">Paksa bersihkan lingkungan runtime (root)</string>
-    <string name="settings_force_clean_env_summary">Hanya jika layanan sistem gagal untuk memulai, jika tidak, anda harus mengklik opsi di atas.</string>
+    <string name="settings_force_clean_env_summary">Hanya jika layanan sistem gagal untuk memulai, jika tidak, anda harus mengetuk opsi di atas.</string>
     <string name="settings_force_clean_env_toast_successful">Lingkungan runtime dibersihkan</string>
     <string name="settings_update">Pembaruan</string>
     <string name="settings_disable_update">Nonaktifkan notifikasi pembaruan</string>
@@ -203,7 +203,7 @@
     <string name="about_fork_description">        Proyek HMA asli telah menjadi sumber tertutup dan kode terbaru mereka tidak memuat beberapa perubahan terbaru, jadi saya membuat percabangan ini untuk melanjutkannya sebagai sumber terbuka lagi.
     </string>
     <string name="about_how_to_use_title">Cara menggunakan modul ini</string>
-    <string name="about_how_to_use_description_1">        Anda dapat membuat templat di \"Kelola templat\".\nKemudian terapkan templat ke aplikasi di \"Kelola aplikasi\". (Anda juga dapat memilih aplikasi tambahan untuk target.)\nAnda harus dan HANYA mengaktifkan \"Kerangka Kerja Sistem\" dalam scope modul Xposed / daftar putih.
+    <string name="about_how_to_use_description_1">        Anda dapat membuat templat di \"Kelola templat\".\nKemudian terapkan templat ke aplikasi di \"Kelola aplikasi\". (Anda juga dapat memilih aplikasi tambahan untuk target.)\nAnda harus dan HANYA mengaktifkan \"Kerangka Kerja Sistem\" dalam cakupan modul Xposed / daftar putih.
     </string>
     <string name="about_how_to_use_description_2">        Perubahan konfigurasi efektif secara real time.
     </string>
