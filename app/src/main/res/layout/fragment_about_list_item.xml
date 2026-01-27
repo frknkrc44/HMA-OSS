@@ -11,11 +11,11 @@
         android:id="@+id/about_person_icon"
         android:layout_width="48dp"
         android:layout_height="48dp"
+        android:layout_marginEnd="@dimen/item_padding_vertical"
         android:importantForAccessibility="no" />
 
     <LinearLayout
-        android:paddingStart="@dimen/item_padding_vertical"
-        android:paddingEnd="@dimen/item_padding_vertical"
+        android:layout_marginEnd="@dimen/item_padding_vertical"
         android:gravity="center"
         android:orientation="vertical"
         android:layout_width="match_parent"

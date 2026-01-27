@@ -123,14 +123,14 @@ fun setEdge2EdgeFlags(
         } else {
             v.setPadding(
                 left ?: insets.systemWindowInsetLeft,
-                top ?: insets.systemWindowInsetLeft,
+                top ?: insets.systemWindowInsetTop,
                 right ?: insets.systemWindowInsetRight,
                 bottom ?: insets.systemWindowInsetBottom,
             )
 
             getInsets?.invoke(
                 insets.systemWindowInsetLeft,
-                insets.systemWindowInsetLeft,
+                insets.systemWindowInsetTop,
                 insets.systemWindowInsetRight,
                 insets.systemWindowInsetBottom
             )

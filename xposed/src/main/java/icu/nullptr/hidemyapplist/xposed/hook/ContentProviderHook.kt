@@ -58,7 +58,8 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
                     param.result = MatrixCursor(arrayOf("name", "value"), 1).apply {
                         addRow(arrayOf(replacement.name, replacement.value))
                     }
-                    service.filterCount++
+
+                    service.increaseSettingsFilterCount(caller)
                 }
             } else {
                 logD(TAG, "@spoofSettings LIST_QUERY received caller: $caller, database: $database")
@@ -88,6 +89,8 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
                     val replacement = service.getSpoofedSetting(caller, name, database)
                     val value = if (replacement != null) {
                         logD(TAG, "@spoofSettings QUERY $name in $database replaced for $caller")
+
+                        service.increaseSettingsFilterCount(caller)
 
                         replacement.value
                     } else {
@@ -143,7 +146,8 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
                             putString(Settings.NameValueTable.VALUE, replacement.value)
                             putInt("_generation_index", -1)
                         }
-                        service.filterCount++
+
+                        service.increaseSettingsFilterCount(caller)
                     }
                 }
             }

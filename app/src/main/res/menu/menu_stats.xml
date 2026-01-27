@@ -2,8 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/menu_refresh"
+        android:icon="@drawable/baseline_refresh_24"
+        app:showAsAction="ifRoom"
+        android:title="@string/refresh" />
+    <item
         android:id="@+id/menu_delete"
         android:icon="@drawable/outline_delete_24"
-        app:showAsAction="always"
-        android:title="@string/delete" />
+        app:showAsAction="never"
+        android:title="@string/logs_clear" />
 </menu>

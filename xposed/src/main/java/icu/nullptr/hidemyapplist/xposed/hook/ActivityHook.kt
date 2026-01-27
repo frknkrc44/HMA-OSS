@@ -24,6 +24,7 @@ import icu.nullptr.hidemyapplist.xposed.XposedConstants.PACKAGE_MANAGER_SERVICE_
 import icu.nullptr.hidemyapplist.xposed.logD
 import icu.nullptr.hidemyapplist.xposed.logE
 import icu.nullptr.hidemyapplist.xposed.logI
+import icu.nullptr.hidemyapplist.xposed.logV
 
 class ActivityHook(private val service: HMAService) : IFrameworkHook {
     companion object {
@@ -59,7 +60,7 @@ class ActivityHook(private val service: HMAService) : IFrameworkHook {
                         "@executeRequest: insecure query from $caller, target: ${intent?.component}"
                     )
                     param.result = fakeReturnCode
-                    service.filterCount++
+                    service.increaseALFilterCount(caller)
                 }
             }.onFailure {
                 logE(TAG, "Fatal error occurred, ignore hook\n", it)
@@ -88,8 +89,12 @@ class ActivityHook(private val service: HMAService) : IFrameworkHook {
 
                 if (newTrace.size != throwable.stackTrace.size) {
                     throwable.stackTrace = newTrace.toTypedArray()
-                    service.filterCount++
-                    logD(TAG, "@checkStartAnyActivityPermission: ${throwable.stackTrace.size - newTrace.size} remnants cleared!")
+
+                    val callingUid = param.args.lastOrNull { it is Int } as Int?
+
+                    logD(TAG, "@checkStartAnyActivityPermission: ${throwable.stackTrace.size - newTrace.size} remnants cleared for $callingUid!")
+
+                    service.increaseALFilterCount(callingUid)
                 }
 
                 throwable = throwable.cause
@@ -118,15 +123,14 @@ class ActivityHook(private val service: HMAService) : IFrameworkHook {
                 if (callingUid == Constants.UID_SYSTEM) return@hookBefore
 
                 val callingApps = Utils4Xposed.getCallingApps(service, callingUid)
-                for (caller in callingApps) {
-                    if (!service.isHookEnabled(caller)) continue
-
-                    // logD(TAG, "@${param.method.name}: $caller requested a resolve info")
+                val caller = callingApps.firstOrNull { service.isHookEnabled(it) }
+                if (caller != null) {
+                    logV(TAG, "@${param.method.name}: $caller requested a resolve info")
 
                     val filteredList = list.filter { resolveInfo ->
                         val targetApp = Utils.getPackageNameFromResolveInfo(resolveInfo)
 
-                        // logD(TAG, "@${param.method.name}: Checking $targetApp for $caller")
+                        logV(TAG, "@${param.method.name}: Checking $targetApp for $caller")
 
                         (!service.shouldHideActivityLaunch(caller, targetApp)).apply {
                             if (!this) {
@@ -138,7 +142,7 @@ class ActivityHook(private val service: HMAService) : IFrameworkHook {
                     if (filteredList.size != list.size) {
                         param.args[0] = filteredList.toList()
 
-                        service.filterCount++
+                        service.increasePMFilterCount(caller)
                     }
                 }
             }

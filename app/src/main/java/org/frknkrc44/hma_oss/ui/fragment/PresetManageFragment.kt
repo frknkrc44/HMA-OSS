@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -19,7 +18,6 @@ import kotlinx.coroutines.launch
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentPresetManageBinding
 import org.frknkrc44.hma_oss.ui.adapter.AppPresetListAdapter
-import kotlin.concurrent.thread
 
 class PresetManageFragment : Fragment(R.layout.fragment_preset_manage) {
 

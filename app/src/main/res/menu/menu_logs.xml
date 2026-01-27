@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/menu_refresh"
         android:icon="@drawable/baseline_refresh_24"
-        android:showAsAction="always"
+        app:showAsAction="always"
         android:title="@string/refresh" />
     <item
         android:id="@+id/menu_save"
         android:icon="@drawable/outline_save_24"
-        android:showAsAction="ifRoom"
+        app:showAsAction="ifRoom"
         android:title="@string/logs_save" />
     <item
         android:id="@+id/menu_delete"
         android:icon="@drawable/outline_delete_24"
-        android:showAsAction="ifRoom"
+        app:showAsAction="ifRoom"
         android:title="@string/logs_clear" />
     <item
-        android:showAsAction="never"
+        app:showAsAction="never"
         android:title="@string/filter">
         <menu>
             <group android:checkableBehavior="single">

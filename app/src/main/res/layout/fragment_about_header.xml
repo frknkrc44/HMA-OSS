@@ -85,9 +85,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_marginTop="@dimen/item_padding_vertical"
+            android:text="@string/about_support"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
         <com.google.android.material.button.MaterialButtonGroup
             style="@style/Widget.Material3.MaterialButtonGroup.Connected"
-            android:layout_marginTop="@dimen/item_padding_vertical"
+            android:layout_marginTop="@dimen/item_padding_mini"
             android:id="@+id/link_buttons"
             android:orientation="horizontal"
             android:layout_width="match_parent"

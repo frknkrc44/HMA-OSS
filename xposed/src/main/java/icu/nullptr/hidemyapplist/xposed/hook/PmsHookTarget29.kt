@@ -1,93 +1,41 @@
 package icu.nullptr.hidemyapplist.xposed.hook
 
-import android.os.Binder
-import android.os.Build
-import androidx.annotation.RequiresApi
-import com.github.kyuubiran.ezxhelper.utils.findConstructor
 import com.github.kyuubiran.ezxhelper.utils.findMethod
-import com.github.kyuubiran.ezxhelper.utils.findMethodOrNull
 import com.github.kyuubiran.ezxhelper.utils.hookBefore
-import com.github.kyuubiran.ezxhelper.utils.paramCount
 import icu.nullptr.hidemyapplist.common.Constants
-import icu.nullptr.hidemyapplist.common.Constants.VENDING_PACKAGE_NAME
 import icu.nullptr.hidemyapplist.common.Utils
 import icu.nullptr.hidemyapplist.xposed.HMAService
 import icu.nullptr.hidemyapplist.xposed.Utils4Xposed
-import icu.nullptr.hidemyapplist.xposed.XposedConstants.APPS_FILTER_CLASS
 import icu.nullptr.hidemyapplist.xposed.XposedConstants.PACKAGE_MANAGER_SERVICE_CLASS
 import icu.nullptr.hidemyapplist.xposed.logD
 import icu.nullptr.hidemyapplist.xposed.logE
 import icu.nullptr.hidemyapplist.xposed.logI
 import icu.nullptr.hidemyapplist.xposed.logV
 
-@RequiresApi(Build.VERSION_CODES.R)
-class PmsHookTarget30(service: HMAService) : PmsHookTargetBase(service) {
+class PmsHookTarget29(service: HMAService) : PmsHookTargetBase(service) {
 
-    override val TAG = "PmsHookTarget30"
+    override val TAG = "PmsHookTarget29"
 
-    override val fakeSystemPackageInstallSourceInfo: Any by lazy {
-        findConstructor(
-            "android.content.pm.InstallSourceInfo"
-        ) {
-            paramCount == 4
-        }.newInstance(
-            null,
-            null,
-            null,
-            null,
-        )
-    }
+    // not required until SDK 30
+    override val fakeSystemPackageInstallSourceInfo = null
+    override val fakeUserPackageInstallSourceInfo = null
 
-    override val fakeUserPackageInstallSourceInfo: Any by lazy {
-        findConstructor(
-            "android.content.pm.InstallSourceInfo"
-        ) {
-            paramCount == 4
-        }.newInstance(
-            VENDING_PACKAGE_NAME,
-            psPackageInfo?.signingInfo,
-            VENDING_PACKAGE_NAME,
-            VENDING_PACKAGE_NAME,
-        )
-    }
-
+    @Suppress("UNCHECKED_CAST")
     override fun load() {
         logI(TAG, "Load hook")
 
-        findMethodOrNull(PACKAGE_MANAGER_SERVICE_CLASS, findSuper = true) {
-            name == "getPackageSetting"
-        }?.hookBefore { param ->
-            val targetApp = param.args[0] as String
-            val callingUid = Binder.getCallingUid()
-            if (service.shouldHideFromUid(callingUid, targetApp) == true) {
-                param.result = null
-                service.increasePMFilterCount(callingUid)
-                logD(TAG, "@getPackageSetting - PkgMgr cache: insecure query from $callingUid to $targetApp")
-                return@hookBefore
-            }
-            val callingApps = Utils4Xposed.getCallingApps(service, callingUid)
-            val caller = callingApps.firstOrNull { service.shouldHide(it, targetApp) }
-            if (caller != null) {
-                logD(TAG, "@getPackageSetting - PkgMgr: insecure query from $caller to $targetApp")
-                param.result = null
-                service.putShouldHideUidCache(callingUid, caller, targetApp)
-                service.increasePMFilterCount(caller)
-            }
-        }?.let {
-            hooks += it
-        }
-
-        hooks += findMethod(APPS_FILTER_CLASS) {
-            name == "shouldFilterApplication"
+        hooks += findMethod(service.pms::class.java, findSuper = true) {
+            name == "filterAppAccessLPr" && parameterCount == 5
         }.hookBefore { param ->
             runCatching {
-                val callingUid = param.args[0] as Int
+                val callingUid = param.args[1] as Int
                 if (callingUid == Constants.UID_SYSTEM) return@hookBefore
-                val targetApp = Utils4Xposed.getPackageNameFromPackageSettings(param.args[2])
+                val packageSettings = param.args[0] ?: return@hookBefore
+                val targetApp = Utils4Xposed.getPackageNameFromPackageSettings(packageSettings)
                 if (service.shouldHideFromUid(callingUid, targetApp) == true) {
                     param.result = true
                     service.increasePMFilterCount(callingUid)
-                    logD(TAG, "@shouldFilterApplication caller cache: $callingUid, target: $targetApp")
+                    logD(TAG, "@filterAppAccessLPr caller cache: $callingUid, target: $targetApp")
                     return@hookBefore
                 }
                 val callingApps = Utils.binderLocalScope {
@@ -99,8 +47,8 @@ class PmsHookTarget30(service: HMAService) : PmsHookTargetBase(service) {
                     service.putShouldHideUidCache(callingUid, caller, targetApp!!)
                     service.increasePMFilterCount(caller)
                     val last = lastFilteredApp.getAndSet(caller)
-                    if (last != caller) logI(TAG, "@shouldFilterApplication: query from $caller")
-                    logD(TAG, "@shouldFilterApplication caller: $callingUid $caller, target: $targetApp")
+                    if (last != caller) logI(TAG, "@filterAppAccessLPr query from $caller")
+                    logD(TAG, "@filterAppAccessLPr caller: $callingUid $caller, target: $targetApp")
                 }
             }.onFailure {
                 logE(TAG, "Fatal error occurred, disable hooks", it)
@@ -154,6 +102,6 @@ class PmsHookTarget30(service: HMAService) : PmsHookTargetBase(service) {
             }
         }
 
-       super.load()
+        super.load()
     }
 }

@@ -132,6 +132,14 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
                 addTranslatorItem(this, avatarUrl, name)
             }
         }
+
+        with(binding.listOpenSource) {
+            backgroundTintList = tint
+            clipToOutline = true
+
+            addLibraryItem(this, "EzXHelper", "Apache Software License 2.0", "https://github.com/KyuubiRan/EzXHelper")
+            addLibraryItem(this, "Glide", "Simplified BSD License", "https://github.com/bumptech/glide")
+        }
     }
 
     fun addDevItem(layout: LinearLayout, @DrawableRes avatarResId: Int, name: String, desc: String, url: String) {
@@ -145,6 +153,16 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
             isCircular = true
         })
 
+        newLayout.text1.text = name
+        newLayout.text2.text = desc
+        layout.addView(newLayout.root)
+    }
+
+    fun addLibraryItem(layout: LinearLayout, name: String, desc: String, url: String) {
+        val newLayout = FragmentAboutListItemBinding.inflate(layoutInflater)
+        setOnClickUrl(newLayout.root, url)
+
+        newLayout.aboutPersonIcon.isVisible = false
         newLayout.text1.text = name
         newLayout.text2.text = desc
         layout.addView(newLayout.root)

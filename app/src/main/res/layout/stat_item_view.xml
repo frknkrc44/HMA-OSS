@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="@dimen/item_padding_mini2x"
+    android:paddingHorizontal="@dimen/text_margin"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_padding_mini"
+        android:layout_marginBottom="@dimen/item_padding_mini2x"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/icon"
+            style="@style/AppTheme.SideImage"
+            android:layout_margin="0dp"
+            tools:ignore="ContentDescription"
+            tools:src="@tools:sample/avatars" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/item_padding_mini2x"
+            android:textAppearance="?textAppearanceTitleSmall"
+            tools:text="HMA-Bridge" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingVertical="@dimen/item_padding_mini">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:importantForAccessibility="no"
+            android:src="@drawable/package_2_24px"
+            android:layout_width="@dimen/profile_badge_size"
+            android:layout_height="@dimen/profile_badge_size" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/count_pkg_mgr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/item_padding_mini"
+            android:fontFamily="monospace"
+            android:textAppearance="?textAppearanceTitleSmall"
+            tools:text="736" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:importantForAccessibility="no"
+            android:src="@drawable/rocket_launch_24px"
+            android:layout_marginLeft="@dimen/item_padding_mini"
+            android:layout_width="@dimen/profile_badge_size"
+            android:layout_height="@dimen/profile_badge_size" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/count_act_launch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/item_padding_mini"
+            android:fontFamily="monospace"
+            android:textAppearance="?textAppearanceTitleSmall"
+            tools:text="127" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:importantForAccessibility="no"
+            android:src="@drawable/outline_settings_24"
+            android:layout_marginLeft="@dimen/item_padding_mini"
+            android:layout_width="@dimen/profile_badge_size"
+            android:layout_height="@dimen/profile_badge_size" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/count_settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/item_padding_mini"
+            android:fontFamily="monospace"
+            android:textAppearance="?textAppearanceTitleSmall"
+            tools:text="565" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:importantForAccessibility="no"
+            android:src="@drawable/outline_shop_24"
+            android:layout_marginLeft="@dimen/item_padding_mini"
+            android:layout_width="@dimen/profile_badge_size"
+            android:layout_height="@dimen/profile_badge_size" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/count_installers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/item_padding_mini"
+            android:fontFamily="monospace"
+            android:textAppearance="?textAppearanceTitleSmall"
+            tools:text="65" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:importantForAccessibility="no"
+            android:src="@drawable/baseline_help_outline_24"
+            android:layout_marginLeft="@dimen/item_padding_mini"
+            android:layout_width="@dimen/profile_badge_size"
+            android:layout_height="@dimen/profile_badge_size" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/count_others"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/item_padding_mini"
+            android:fontFamily="monospace"
+            android:textAppearance="?textAppearanceTitleSmall"
+            tools:text="3" />
+    </LinearLayout>
+</LinearLayout>

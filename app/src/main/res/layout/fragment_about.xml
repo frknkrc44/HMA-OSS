@@ -96,12 +96,28 @@
                 android:id="@+id/list_translator"
                 android:orientation="vertical"
                 android:background="@drawable/about_content_bg"
-                android:layout_marginBottom="@dimen/item_padding_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_marginVertical="16dp"
+                android:text="@string/about_open_source"
+                android:textStyle="bold"
+                android:textColor="?colorPrimary"
+                android:paddingHorizontal="@dimen/item_padding_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:id="@+id/list_open_source"
+                android:orientation="vertical"
+                android:background="@drawable/about_content_bg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <Space
                 android:id="@+id/bottom_padding"
+                android:layout_marginBottom="@dimen/item_padding_vertical"
                 android:minHeight="@dimen/item_padding_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

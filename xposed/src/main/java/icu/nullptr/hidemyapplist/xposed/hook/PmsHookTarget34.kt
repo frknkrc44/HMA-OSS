@@ -23,9 +23,7 @@ import icu.nullptr.hidemyapplist.xposed.logI
 @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 class PmsHookTarget34(service: HMAService) : PmsHookTargetBase(service) {
 
-    companion object {
-        private const val TAG = "PmsHookTarget34"
-    }
+    override val TAG = "PmsHookTarget34"
 
     private val getPackagesForUidMethod by lazy {
         findMethod("com.android.server.pm.Computer") {
@@ -70,22 +68,27 @@ class PmsHookTarget34(service: HMAService) : PmsHookTargetBase(service) {
             name == "shouldFilterApplication"
         }.hookBefore { param ->
             runCatching {
-                val snapshot = param.args[0]
                 val callingUid = param.args[1] as Int
                 if (callingUid == Constants.UID_SYSTEM) return@hookBefore
+                val targetApp = Utils4Xposed.getPackageNameFromPackageSettings(param.args[3]) // PackageSettings <- PackageStateInternal
+                if (service.shouldHideFromUid(callingUid, targetApp) == true) {
+                    param.result = true
+                    service.increasePMFilterCount(callingUid)
+                    logD(TAG, "@shouldFilterApplication caller cache: $callingUid, target: $targetApp")
+                    return@hookBefore
+                }
+                val snapshot = param.args[0]
                 val callingApps = Utils.binderLocalScope {
                     getPackagesForUidMethod.invoke(snapshot, callingUid) as Array<String>?
                 } ?: return@hookBefore
-                val targetApp = Utils4Xposed.getPackageNameFromPackageSettings(param.args[3]) // PackageSettings <- PackageStateInternal
-                for (caller in callingApps) {
-                    if (service.shouldHide(caller, targetApp)) {
-                        param.result = true
-                        service.filterCount++
-                        val last = lastFilteredApp.getAndSet(caller)
-                        if (last != caller) logI(TAG, "@shouldFilterApplication: query from $caller")
-                        logD(TAG, "@shouldFilterApplication caller: $callingUid $caller, target: $targetApp")
-                        return@hookBefore
-                    }
+                val caller = callingApps.firstOrNull { service.shouldHide(it, targetApp) }
+                if (caller != null) {
+                    param.result = true
+                    service.putShouldHideUidCache(callingUid, caller, targetApp!!)
+                    service.increasePMFilterCount(caller)
+                    val last = lastFilteredApp.getAndSet(caller)
+                    if (last != caller) logI(TAG, "@shouldFilterApplication: query from $caller")
+                    logD(TAG, "@shouldFilterApplication caller: $callingUid $caller, target: $targetApp")
                 }
             }.onFailure {
                 logE(TAG, "Fatal error occurred, disable hooks", it)
@@ -100,19 +103,24 @@ class PmsHookTarget34(service: HMAService) : PmsHookTargetBase(service) {
             runCatching {
                 val callingUid = Binder.getCallingUid()
                 if (callingUid == Constants.UID_SYSTEM) return@hookBefore
+                val targetApp = param.args[0].toString()
+                if (service.shouldHideFromUid(callingUid, targetApp) == true) {
+                    param.result = true
+                    service.increasePMFilterCount(callingUid)
+                    logD(TAG, "@getArchivedPackageInternal caller cache: $callingUid, target: $targetApp")
+                    return@hookBefore
+                }
                 val callingApps = Utils.binderLocalScope {
                     service.pms.getPackagesForUid(callingUid)
                 } ?: return@hookBefore
-                val targetApp = param.args[0].toString()
-                for (caller in callingApps) {
-                    if (service.shouldHide(caller, targetApp)) {
-                        param.result = null
-                        service.filterCount++
-                        val last = lastFilteredApp.getAndSet(caller)
-                        if (last != caller) logI(TAG, "@getArchivedPackageInternal: query from $caller")
-                        logD(TAG, "@getArchivedPackageInternal caller: $callingUid $caller, target: $targetApp")
-                        return@hookBefore
-                    }
+                val caller = callingApps.firstOrNull { service.shouldHide(it, targetApp) }
+                if (caller != null) {
+                    param.result = null
+                    service.putShouldHideUidCache(callingUid, caller, targetApp)
+                    service.increasePMFilterCount(caller)
+                    val last = lastFilteredApp.getAndSet(caller)
+                    if (last != caller) logI(TAG, "@getArchivedPackageInternal: query from $caller")
+                    logD(TAG, "@getArchivedPackageInternal caller: $callingUid $caller, target: $targetApp")
                 }
             }.onFailure {
                 logE(TAG, "Fatal error occurred, disable hooks", it)

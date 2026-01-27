@@ -5,13 +5,13 @@ import com.github.kyuubiran.ezxhelper.utils.hookBefore
 import de.robv.android.xposed.XC_MethodHook
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.xposed.HMAService
+import icu.nullptr.hidemyapplist.xposed.XposedConstants.ZYGOTE_PROCESS_CLASS
 import icu.nullptr.hidemyapplist.xposed.logD
+import icu.nullptr.hidemyapplist.xposed.logV
 
 class ZygoteHook(private val service: HMAService): IFrameworkHook {
     companion object {
         private const val TAG = "ZygoteHook"
-
-        private const val ZYGOTE_PROCESS_CLASS = "android.os.ZygoteProcess"
     }
 
     private val hooks = mutableListOf<XC_MethodHook.Unhook>()
@@ -20,7 +20,7 @@ class ZygoteHook(private val service: HMAService): IFrameworkHook {
         findMethodOrNull(ZYGOTE_PROCESS_CLASS) {
             name == "start"
         }?.hookBefore { param ->
-            logD(TAG, "@startZygoteProcess: Starting ${param.args.contentToString()}")
+            logV(TAG, "@startZygoteProcess: Starting ${param.args.contentToString()}")
 
             // ignore if the GIDs array is null
             val gIDsIndex = param.args.indexOfFirst { it is IntArray }
@@ -36,7 +36,7 @@ class ZygoteHook(private val service: HMAService): IFrameworkHook {
 
                 logD(TAG, "@startZygoteProcess: GIDs are ${gIDs.contentToString()}, removing $perms now")
                 param.args[gIDsIndex] = gIDs.filter { it !in perms }.toIntArray()
-                service.filterCount++
+                service.increaseOthersFilterCount(caller)
             }
         }?.let {
             logD(TAG, "Loaded ZygoteProcess start hook!")

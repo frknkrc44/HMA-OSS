@@ -16,6 +16,7 @@ import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.asDrawable
 import icu.nullptr.hidemyapplist.ui.util.asComponentName
+import icu.nullptr.hidemyapplist.ui.util.get
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.first
@@ -75,6 +76,8 @@ object PackageHelper {
     val appList = MutableSharedFlow<List<String>>(replay = 1)
 
     val isRefreshing = MutableSharedFlow<Boolean>(replay = 1)
+
+    val refreshing get() = isRefreshing.replayCache.isEmpty() || isRefreshing.get()
 
     init {
         invalidateCache()

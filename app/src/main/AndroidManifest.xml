@@ -86,7 +86,7 @@
             android:value="true" />
         <meta-data
             android:name="xposeddescription"
-            android:value="Reject applist detection." />
+            android:value="Hide your app list, settings, package installers and more." />
         <meta-data
             android:name="xposedminversion"
             android:value="82" />
