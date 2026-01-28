@@ -74,7 +74,7 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                         copyResult.removeAll(markedToRemove)
                         logD(TAG, "@getPackageStates: removed ${markedToRemove.size} entries from $caller")
                         param.result = copyResult
-                        // service.filterCount++
+                        service.increasePMFilterCount(caller)
                     }
                 }
             }

@@ -72,24 +72,10 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     var presetCache = PresetCacheHolder()
         private set
 
-    /*
-    var filterCount = 0
-        @JvmName("getFilterCountInternal") get
-        set(value) {
-            field = value
-
-            if (value % 100 == 0) {
-                GlobalScope.launch(Dispatchers.IO, CoroutineStart.LAZY) {
-                    File("$dataDir/filter_count").writeText(value.toString())
-                }
-            }
-        }
-     */
-
     var filterHolder = FilterHolder()
         private set
 
-    val totalFilterCount: Int get() = filterHolder.totalCount
+    val totalFilterCount: Int get() = runCatching { filterHolder.totalCount }.getOrElse { 1 }
 
     init {
         searchDataDir()
@@ -153,8 +139,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
             runCatching {
                 if (it.exists()) it.delete()
             }.onFailure { e ->
-                logW(TAG, "Failed to load filter count, set to 0", e)
-                it.writeText("0")
+                logW(TAG, "Failed to delete filter count, skip it", e)
             }
         }
         if (!configFile.exists()) {
@@ -281,20 +266,22 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     fun increaseFilterCount(caller: String?, amount: Int = 1, filterType: FilterHolder.FilterType) {
         if (caller == null || amount < 1) return
 
-        if (!filterHolder.filterCounts.containsKey(caller)) {
-            filterHolder.filterCounts[caller] = FilterHolder.FilterCount()
+        synchronized(configLock) {
+            if (!filterHolder.filterCounts.containsKey(caller)) {
+                filterHolder.filterCounts[caller] = FilterHolder.FilterCount()
+            }
+
+            val filterCount = filterHolder.filterCounts[caller]!!
+            when (filterType) {
+                FilterHolder.FilterType.PACKAGE_MANAGER -> filterCount.packageManagerCount += amount
+                FilterHolder.FilterType.ACTIVITY_LAUNCH -> filterCount.activityLaunchCount += amount
+                FilterHolder.FilterType.INSTALLER -> filterCount.installerCount += amount
+                FilterHolder.FilterType.SETTINGS -> filterCount.settingsCount += amount
+                FilterHolder.FilterType.OTHERS -> filterCount.othersCount += amount
+            }
         }
 
-        val filterCount = filterHolder.filterCounts[caller]!!
-        when (filterType) {
-            FilterHolder.FilterType.PACKAGE_MANAGER -> filterCount.packageManagerCount += amount
-            FilterHolder.FilterType.ACTIVITY_LAUNCH -> filterCount.activityLaunchCount += amount
-            FilterHolder.FilterType.INSTALLER -> filterCount.installerCount += amount
-            FilterHolder.FilterType.SETTINGS -> filterCount.settingsCount += amount
-            FilterHolder.FilterType.OTHERS -> filterCount.othersCount += amount
-        }
-
-        executor.execute { writeFilterCount() }
+        writeFilterCount()
     }
 
     fun isHookEnabled(packageName: String?) = config.scope.containsKey(packageName)
@@ -477,13 +464,14 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
                 // remove filter counts for apps if they are not in config
                 filterHolder.filterCounts.removeIf { key, _ -> !config.scope.containsKey(key) }
-                writeFilterCount(true)
             }.onSuccess {
                 logD(TAG, "Config synced")
             }.onFailure {
                 return@synchronized
             }
         }
+
+        writeFilterCount(true)
     }
 
     fun writePresetCache() {
@@ -499,16 +487,18 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     }
 
     fun writeFilterCount(force: Boolean = false) {
-        if (!force && totalFilterCount % 100 != 0) {
-            return
-        }
+        synchronized(configLock) {
+            if (!force && totalFilterCount % 100 != 0) {
+                return
+            }
 
-        runCatching {
-            filterCountFile.writeText(filterHolder.toString())
-        }.onSuccess {
-            logD(TAG, "Filter count synced")
-        }.onFailure {
-            return@onFailure
+            runCatching {
+                filterCountFile.writeText(filterHolder.toString())
+            }.onSuccess {
+                logD(TAG, "Filter count synced")
+            }.onFailure {
+                return@onFailure
+            }
         }
     }
 
@@ -615,7 +605,10 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     override fun getDetailedFilterStats() = filterHolder.toString()
 
     override fun clearFilterStats() {
-        filterHolder.filterCounts.clear()
+        synchronized(configLock) {
+            filterHolder.filterCounts.clear()
+        }
+
         writeFilterCount(true)
     }
 }
