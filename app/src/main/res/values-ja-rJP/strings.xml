@@ -77,7 +77,7 @@
     <string name="template_name_invalid">名前が無効です</string>
     <string name="template_delete_title">テンプレートを削除</string>
     <string name="template_name_already_exist">このテンプレート名は既に存在します</string>
-    <string name="template_applied_count">%d 個のアプリに適用されました</string>
+    <string name="template_applied_count">%d 個のアプリに適用しています</string>
     <string name="template_setting_count">%d 個の設定が追加されました</string>
     <string name="template_apps_visible_count">%d 個のアプリが表示されます</string>
     <string name="template_apps_invisible_count">%d 個のアプリが表示されません</string>
