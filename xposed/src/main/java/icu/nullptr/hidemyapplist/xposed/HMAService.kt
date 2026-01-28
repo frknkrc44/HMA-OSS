@@ -464,13 +464,14 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
                 // remove filter counts for apps if they are not in config
                 filterHolder.filterCounts.removeIf { key, _ -> !config.scope.containsKey(key) }
-                writeFilterCount(true)
             }.onSuccess {
                 logD(TAG, "Config synced")
             }.onFailure {
                 return@synchronized
             }
         }
+
+        writeFilterCount(true)
     }
 
     fun writePresetCache() {
