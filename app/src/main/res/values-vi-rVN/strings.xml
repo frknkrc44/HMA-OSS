@@ -5,7 +5,7 @@
     <string name="title_settings">Cài đặt</string>
     <string name="title_template_manage">Quản lý mẫu</string>
     <string name="title_template_settings">Cài đặt mẫu</string>
-    <string name="title_settings_template_conf">Cài đặt mẫu tùy chỉnh</string>
+    <string name="title_settings_template_conf">Cấu hình mẫu cài đặt</string>
     <string name="title_app_manage">Quản lý ứng dụng</string>
     <string name="title_app_select">Chọn ứng dụng</string>
     <string name="title_app_settings">Cài đặt ứng dụng</string>
@@ -111,17 +111,17 @@
     <string name="app_launch">Khởi chạy</string>
     <string name="app_launch_failed">Ứng dụng khởi chạy thất bại, kiểm tra nhật ký để biết chi tiết</string>
     <string name="app_restrict_zygote_permissions">Hạn chế quyền Zygote</string>
-    <string name="app_restrict_zygote_permissions_desc">Lựa chọn này có thể gây lỗi hoặc báo giả, hãy lựa chọn cho chính xác.</string>
+    <string name="app_restrict_zygote_permissions_desc">Tùy chọn này có thể gây ra lỗi hoặc kết quả sai, hãy lựa chọn cẩn thận.</string>
     <!-- Presets -->
     <string name="title_preset">Thiết lập trước</string>
     <string name="title_settings_preset">Cài đặt thiết lập trước</string>
     <string name="title_preset_manage">Hiển thị các thiết lập trước</string>
-    <string name="preset_xposed">Các mô-đun LSPosed/Xposed</string>
-    <string name="preset_root_apps">Ứng dụng quản lý Root/Ứng dụng được cấp Root</string>
+    <string name="preset_xposed">Các mô-đun LSPosed / Xposed</string>
+    <string name="preset_root_apps">Trình quản lý Root / Ứng dụng có Root</string>
     <string name="preset_custom_rom">Ứng dụng ROM Tùy chỉnh</string>
     <string name="preset_sus_apps">Ứng dụng đáng ngờ</string>
-    <string name="preset_detector_apps">Ứng dụng Trình phát hiện/Trình k.tra</string>
-    <string name="preset_shizuku_dhizuku">Ứng dụng Shizuku/Dhizuku</string>
+    <string name="preset_detector_apps">Ứng dụng Trình phát hiện / Trình kiểm tra</string>
+    <string name="preset_shizuku_dhizuku">Ứng dụng Shizuku / Dhizuku</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Trợ năng</string>
     <string name="settings_preset_dev_options">Tùy chọn nhà phát triển</string>
@@ -143,7 +143,7 @@
     <!-- Settings -->
     <string name="settings_module">Mô-đun</string>
     <string name="settings_overwrite">Ghi đè</string>
-    <string name="settings_overwritten">Bị ghi đè</string>
+    <string name="settings_overwritten">Đã ghi đè</string>
     <string name="settings_overwrite_summary">Các mục trong danh mục này sẽ bị buộc phải bật nếu các công tắc được chọn</string>
     <string name="settings_default_value">Giá trị mặc định: %s</string>
     <string name="settings_data_isolation">Cách ly dữ liệu</string>
@@ -158,7 +158,7 @@
     <string name="settings_permission_denied">Quyền bị từ chối</string>
     <string name="settings_force_mount_data">Thực thi cách ly dữ liệu cho tất cả các ứng dụng</string>
     <string name="settings_force_mount_data_summary">Tính năng cô lập dữ liệu bị vô hiệu hóa đối với các ứng dụng mục tiêu có API thấp hơn 30 theo mặc định</string>
-    <string name="settings_detail_log">Nhật ký chi tiết gỡ lỗi</string>
+    <string name="settings_detail_log">Nhật ký chi tiết cho gỡ lỗi</string>
     <string name="settings_max_log_size">Kích cỡ bộ đệm nhật ký</string>
     <string name="settings_hide_icon">Ẩn hình biểu tượng mô-đun trong trình khởi chạy</string>
     <string name="settings_hide_icon_summary">Bạn vẫn có thể mở ứng dụng trong Xposed</string>
@@ -168,7 +168,7 @@
     <string name="settings_disable_activity_launch_protection_summary">Nút chuyển đổi này sẽ gỡ bỏ mọi chế độ bảo vệ khởi động. Nếu bạn không chắc chắn, đừng bật nó.</string>
     <string name="settings_system_wallpaper">Sử dụng hình nền của hệ thống</string>
     <string name="settings_clear_uninstalled_app_configs">Xóa những thiết lập của những Ứ.D đã xóa</string>
-    <string name="settings_clear_uninstalled_app_configs_summary">Lựa chọn này cho phép bạn tạo cấu hình đã loại bỏ những cấu hình Ứ.D đã xóa, bạn phải thiết lập lại khi cài lại những Ư.D đó</string>
+    <string name="settings_clear_uninstalled_app_configs_summary">Tùy chọn này cho phép bạn tạo một cấu hình mà không để lại dư lượng, nhưng bạn sẽ phải cấu hình lại các ứng dụng khi bạn cài đặt chúng lần nữa.</string>
     <string name="settings_no_undone_warning">Thao tác không thể hoàn tác.</string>
     <string name="settings_package_query_workaround">Tìm gói cài đặt thay thế</string>
     <string name="settings_package_query_workaround_summary">Đừng bật lựa chọn này nếu bạn thấy danh sách tên gói ứng dụng trong ứng dụng này đúng cách.</string>
