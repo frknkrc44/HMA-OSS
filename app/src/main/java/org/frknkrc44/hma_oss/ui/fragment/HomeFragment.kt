@@ -345,10 +345,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                                 )
                             )
                         }
-                        .setNegativeButton("Telegram") { _, _ ->
-                            startActivity(Intent(Intent.ACTION_VIEW, "https://t.me/aerathfuns".toUri()))
-                        }
-                        .setNeutralButton(android.R.string.cancel, null)
+                        .setNegativeButton(android.R.string.cancel, null)
                         .show()
                 }
             }
