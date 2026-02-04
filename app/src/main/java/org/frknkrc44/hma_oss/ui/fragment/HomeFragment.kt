@@ -13,8 +13,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.data.fetchLatestUpdate
 import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.service.PrefManager
@@ -45,7 +45,7 @@ import java.util.Locale
  * create an instance of this fragment.
  */
 class HomeFragment : Fragment(R.layout.fragment_home) {
-    private val binding by viewBinding<FragmentHomeBinding>()
+    private val binding by viewBinding(FragmentHomeBinding::bind)
 
     private val backupSAFLauncher =
         registerForActivityResult(ActivityResultContracts.CreateDocument("application/json")) backup@{ uri ->

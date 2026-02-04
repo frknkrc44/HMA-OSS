@@ -4,8 +4,8 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.LinearLayout
 import androidx.core.view.isVisible
-import by.kirich1409.viewbindingdelegate.CreateMethod
-import by.kirich1409.viewbindingdelegate.viewBinding
+import dev.androidbroadcast.vbpd.CreateMethod
+import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.util.PackageHelper
 import org.frknkrc44.hma_oss.databinding.AppItemViewBinding
 
@@ -39,7 +39,7 @@ class AppItemView @JvmOverloads constructor(
         try {
             binding.label.text = PackageHelper.loadAppLabel(packageName)
             binding.icon.setImageDrawable(PackageHelper.loadAppIcon(packageName))
-        } catch (e: Throwable) {
+        } catch (_: Throwable) {
             binding.label.text = packageName
             binding.icon.setImageResource(android.R.drawable.sym_def_app_icon)
         }

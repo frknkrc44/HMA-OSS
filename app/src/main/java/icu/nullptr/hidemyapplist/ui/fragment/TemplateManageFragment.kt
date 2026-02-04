@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.clearFragmentResultListener
 import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
-import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.ui.adapter.TemplateAdapter
@@ -22,7 +22,7 @@ import org.frknkrc44.hma_oss.ui.util.toTargetSettingList
 
 class TemplateManageFragment : Fragment(R.layout.fragment_template_manage) {
 
-    private val binding by viewBinding<FragmentTemplateManageBinding>()
+    private val binding by viewBinding(FragmentTemplateManageBinding::bind)
     private val adapter = TemplateAdapter(this::navigateToSettings)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

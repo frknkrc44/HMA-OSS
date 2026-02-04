@@ -1,9 +1,11 @@
 [versions]
+#noinspection AndroidGradlePluginVersion
 agp = "8.13.2"
 kotlin = "2.3.0"
 material = "1.13.0"
 hidden-api = "4.4.0"
-androidx-navigation = "2.9.6"
+androidx-navigation = "2.9.7"
+vbpd = "2.0.4"
 
 [plugins]
 agp-app = { id = "com.android.application", version.ref = "agp" }
@@ -23,13 +25,14 @@ androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx",
 androidx-preference-ktx = { module = "androidx.preference:preference-ktx", version = "1.2.1" }
 androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version = "1.2.0" }
 com-github-bumptech-glide = { module = "com.github.bumptech.glide:glide", version = "5.0.5" }
-com-github-kirich1409-viewbindingpropertydelegate = { module = "com.github.kirich1409:viewbindingpropertydelegate", version = "1.5.9" }
+dev-androidbroadcast-vbpd = { module = "dev.androidbroadcast.vbpd:vbpd", version.ref = "vbpd" }
+dev-androidbroadcast-vbpd-reflection = { module = "dev.androidbroadcast.vbpd:vbpd-reflection", version.ref = "vbpd" }
 #noinspection NewerVersionAvailable
 com-github-kyuubiran-ezxhelper = { module = "com.github.kyuubiran:EzXHelper", version = "1.0.3" }
 com-github-topjohnwu-libsu-core = { module = "com.github.topjohnwu.libsu:core", version = "6.0.0" }
 de-robv-android-xposed-api = { module = "de.robv.android.xposed:api", version = "82" }
 dev-rikka-hidden-compat = { module = "dev.rikka.hidden:compat", version.ref = "hidden-api" }
 dev-rikka-hidden-stub = { module = "dev.rikka.hidden:stub", version.ref = "hidden-api" }
-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.9.0" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.10.0" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
 me-zhanghai-android-appiconloader = { module = "me.zhanghai.android.appiconloader:appiconloader", version = "1.5.0" }

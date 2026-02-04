@@ -5,8 +5,8 @@ import android.view.View
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.hmaApp
 import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.service.ServiceClient
@@ -21,7 +21,7 @@ import org.frknkrc44.hma_oss.ui.adapter.AppPresetListAdapter
 
 class PresetManageFragment : Fragment(R.layout.fragment_preset_manage) {
 
-    private val binding by viewBinding<FragmentPresetManageBinding>()
+    private val binding by viewBinding(FragmentPresetManageBinding::bind)
     private val adapter by lazy {
         AppPresetListAdapter(requireContext(), this::navigateToPreset)
     }

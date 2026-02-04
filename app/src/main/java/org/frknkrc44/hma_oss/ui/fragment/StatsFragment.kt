@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import by.kirich1409.viewbindingdelegate.viewBinding
+import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.common.FilterHolder
 import icu.nullptr.hidemyapplist.hmaApp
 import icu.nullptr.hidemyapplist.service.ServiceClient
@@ -29,7 +29,7 @@ import kotlin.concurrent.thread
 
 class StatsFragment : Fragment(R.layout.fragment_logs) {
 
-    private val binding by viewBinding<FragmentLogsBinding>()
+    private val binding by viewBinding(FragmentLogsBinding::bind)
     private val adapter by lazy { StatAdapter() }
     private var statCache: String? = null
 
