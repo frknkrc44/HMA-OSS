@@ -132,7 +132,7 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                 name == "getPackageInfoInternal"
             }.hookBefore { param ->
                 val targetApp = param.args.firstOrNull { it is String } as? String ?: return@hookBefore
-                val callingUid = Binder.getCallingUid()
+                val callingUid = param.args.firstOrNull { it is Int } as? Int ?: Binder.getCallingUid()
                 if (callingUid == Constants.UID_SYSTEM) return@hookBefore
                 logV(TAG, "@${param.method.name} incoming query: $callingUid => $targetApp")
                 if (service.shouldHideFromUid(callingUid, targetApp) == true) {
@@ -155,7 +155,7 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                 name == "getApplicationInfoInternal"
             }.hookBefore { param ->
                 val targetApp = param.args.firstOrNull { it is String } as? String ?: return@hookBefore
-                val callingUid = Binder.getCallingUid()
+                val callingUid = param.args.firstOrNull { it is Int } as? Int ?: Binder.getCallingUid()
                 if (callingUid == Constants.UID_SYSTEM) return@hookBefore
                 logV(TAG, "@${param.method.name} incoming query: $callingUid => $targetApp")
                 if (service.shouldHideFromUid(callingUid, targetApp) == true) {
