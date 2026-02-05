@@ -36,7 +36,7 @@
     <!-- Home -->
     <string name="home_xposed_activated">Modul Activat [%s]</string>
     <string name="home_xposed_not_activated">Modul Dezactivat</string>
-    <string name="home_xposed_service_on">Serviciul de sistem rulează [%s]</string>
+    <string name="home_xposed_service_on">Serviciul de sistem rulează [%d]</string>
     <string name="home_xposed_service_off">Serviciul de sistem nu funcționează</string>
     <string name="home_xposed_service_old">Modul actualizat, trebuie repornire</string>
     <string name="home_xposed_filter_count">Ascunde Lista de Aplicații a filtrat in total %d cereri</string>
