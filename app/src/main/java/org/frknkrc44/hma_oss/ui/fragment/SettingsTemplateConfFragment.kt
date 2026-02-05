@@ -12,8 +12,8 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
-import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
 import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.ui.fragment.ScopeFragmentArgs
@@ -28,7 +28,7 @@ import org.frknkrc44.hma_oss.ui.util.toTargetSettingList
 import org.frknkrc44.hma_oss.ui.viewmodel.SettingsTemplateConfViewModel
 
 class SettingsTemplateConfFragment : Fragment(R.layout.fragment_template_settings) {
-    private val binding by viewBinding<FragmentTemplateSettingsBinding>()
+    private val binding by viewBinding(FragmentTemplateSettingsBinding::bind)
     private val viewModel by viewModels<SettingsTemplateConfViewModel> {
         val args by navArgs<SettingsTemplateConfFragmentArgs>()
         SettingsTemplateConfViewModel.Factory(args)

@@ -6,8 +6,8 @@ import android.util.AttributeSet
 import android.widget.LinearLayout
 import androidx.annotation.DrawableRes
 import androidx.core.view.isVisible
-import by.kirich1409.viewbindingdelegate.CreateMethod
-import by.kirich1409.viewbindingdelegate.viewBinding
+import dev.androidbroadcast.vbpd.CreateMethod
+import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.themeColor
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.ListItemViewBinding

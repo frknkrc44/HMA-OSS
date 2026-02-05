@@ -17,8 +17,8 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceDataStore
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
-import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.common.AppPresets
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.JsonConfig
@@ -46,7 +46,7 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
         private const val TAG = "AppSettingsV2Fragment"
     }
 
-    private val binding by viewBinding<FragmentSettingsBinding>()
+    private val binding by viewBinding(FragmentSettingsBinding::bind)
     private val viewModel by viewModels<AppSettingsViewModel>() {
         val args by navArgs<AppSettingsV2FragmentArgs>()
         val cfg: JsonConfig.AppConfig? = if (args.bulkConfigMode) {

@@ -11,7 +11,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import by.kirich1409.viewbindingdelegate.viewBinding
+import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.ui.adapter.AppSelectAdapter
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.homeItemBackgroundColor
@@ -27,7 +27,7 @@ import org.frknkrc44.hma_oss.ui.fragment.AppPresetFragment
 
 abstract class AppSelectFragment : Fragment(R.layout.fragment_app_select) {
 
-    protected val binding by viewBinding<FragmentAppSelectBinding>()
+    protected val binding by viewBinding(FragmentAppSelectBinding::bind)
 
     protected abstract val firstComparator: Comparator<String>
     protected abstract val adapter: AppSelectAdapter

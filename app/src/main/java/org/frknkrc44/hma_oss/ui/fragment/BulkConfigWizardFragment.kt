@@ -7,7 +7,7 @@ import androidx.fragment.app.clearFragmentResultListener
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import by.kirich1409.viewbindingdelegate.viewBinding
+import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.service.PrefManager
@@ -24,7 +24,7 @@ import org.frknkrc44.hma_oss.ui.viewmodel.BulkConfigWizardViewModel
 
 class BulkConfigWizardFragment : Fragment(R.layout.fragment_bulk_config_wizard) {
 
-    private val binding by viewBinding<FragmentBulkConfigWizardBinding>()
+    private val binding by viewBinding(FragmentBulkConfigWizardBinding::bind)
     private val viewModel by viewModels<BulkConfigWizardViewModel> {
         BulkConfigWizardViewModel.Factory()
     }

@@ -1,35 +1,27 @@
 package org.frknkrc44.hma_oss.ui.fragment
 
-import android.animation.Animator
-import android.animation.AnimatorInflater
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.view.animation.Animation
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import by.kirich1409.viewbindingdelegate.viewBinding
+import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.common.FilterHolder
-import icu.nullptr.hidemyapplist.hmaApp
 import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import icu.nullptr.hidemyapplist.ui.util.showToast
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentLogsBinding
 import org.frknkrc44.hma_oss.ui.adapter.StatAdapter
-import kotlin.concurrent.thread
 
 class StatsFragment : Fragment(R.layout.fragment_logs) {
 
-    private val binding by viewBinding<FragmentLogsBinding>()
+    private val binding by viewBinding(FragmentLogsBinding::bind)
     private val adapter by lazy { StatAdapter() }
     private var statCache: String? = null
 

@@ -6,10 +6,10 @@ import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.navArgs
-import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.google.android.material.textfield.TextInputLayout
+import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.util.get
@@ -21,7 +21,7 @@ import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentEditSettingBinding
 
 class EditSettingFragment : Fragment(R.layout.fragment_edit_setting) {
-    private val binding by viewBinding<FragmentEditSettingBinding>()
+    private val binding by viewBinding(FragmentEditSettingBinding::bind)
 
     private val args by navArgs<EditSettingFragmentArgs>()
 

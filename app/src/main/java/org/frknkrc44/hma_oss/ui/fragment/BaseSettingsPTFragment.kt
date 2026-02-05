@@ -6,7 +6,7 @@ import android.view.View
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import by.kirich1409.viewbindingdelegate.viewBinding
+import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
@@ -15,7 +15,7 @@ import org.frknkrc44.hma_oss.databinding.FragmentSettingsPtBaseBinding
 import org.frknkrc44.hma_oss.ui.adapter.BaseSettingsPTAdapter
 
 abstract class BaseSettingsPTFragment : Fragment(R.layout.fragment_settings_pt_base) {
-    val binding by viewBinding<FragmentSettingsPtBaseBinding>()
+    val binding by viewBinding(FragmentSettingsPtBaseBinding::bind)
 
     abstract val adapter: BaseSettingsPTAdapter
 

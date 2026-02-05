@@ -16,9 +16,9 @@ import androidx.preference.PreferenceDataStore
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreferenceCompat
-import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.PropertyUtils
 import icu.nullptr.hidemyapplist.hmaApp
@@ -46,7 +46,7 @@ import java.util.Locale
 
 class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 
-    private val binding by viewBinding<FragmentSettingsBinding>()
+    private val binding by viewBinding(FragmentSettingsBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         with(binding.toolbar) {
