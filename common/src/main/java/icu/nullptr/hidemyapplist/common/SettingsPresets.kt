@@ -12,7 +12,7 @@ class SettingsPresets private constructor() {
         val instance by lazy { SettingsPresets() }
     }
 
-    fun getAllPresetNames() = presetList.map { it.name }.toTypedArray()
+    val presetNames by lazy { presetList.map { it.name }.toTypedArray() }
     fun getPresetByName(name: String) = presetList.firstOrNull { it.name == name }
 
     init {

@@ -391,7 +391,7 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
                 true
             }
             findPreference<Preference>("applyPresets")?.setOnPreferenceClickListener {
-                val presetNames = AppPresets.Companion.instance.getAllPresetNames()
+                val presetNames = AppPresets.instance.presetNames
                 val presetTranslations = presetNames.map { name ->
                     try {
                         val id = resources.getIdentifier(
@@ -456,7 +456,7 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
                 }
             }
             findPreference<Preference>("applySettingsPresets")?.setOnPreferenceClickListener {
-                val presetNames = SettingsPresets.Companion.instance.getAllPresetNames()
+                val presetNames = SettingsPresets.instance.presetNames
                 val presetTranslations = presetNames.map { name ->
                     try {
                         val id = resources.getIdentifier(

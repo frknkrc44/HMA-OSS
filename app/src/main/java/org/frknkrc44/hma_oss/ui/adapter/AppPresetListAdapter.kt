@@ -64,7 +64,7 @@ class AppPresetListAdapter(
     private fun updateList(context: Context) {
         list.clear()
 
-        val appPresetNames = AppPresets.instance.getAllPresetNames()
+        val appPresetNames = AppPresets.instance.presetNames
         val appPresetTranslations = appPresetNames.map { name ->
             try {
                 val id = context.resources.getIdentifier(
@@ -99,7 +99,7 @@ class AppPresetListAdapter(
             context.getString(R.string.title_settings_preset),
         )
 
-        val settingsPresetNames = SettingsPresets.instance.getAllPresetNames()
+        val settingsPresetNames = SettingsPresets.instance.presetNames
         val settingsPresetTranslations = settingsPresetNames.map { name ->
             try {
                 val id = context.resources.getIdentifier(

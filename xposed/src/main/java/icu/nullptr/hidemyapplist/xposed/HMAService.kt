@@ -198,9 +198,9 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     private fun cleanRemnants(config: JsonConfig) {
         for (app in config.scope) {
             app.value.applyTemplates.removeIf { !config.templates.containsKey(it) }
-            app.value.applyPresets.removeIf { !AppPresets.instance.getAllPresetNames().contains(it) }
+            app.value.applyPresets.removeIf { !AppPresets.instance.presetNames.contains(it) }
             app.value.applySettingTemplates.removeIf { !config.settingsTemplates.containsKey(it) }
-            app.value.applySettingsPresets.removeIf { !SettingsPresets.instance.getAllPresetNames().contains(it) }
+            app.value.applySettingsPresets.removeIf { !SettingsPresets.instance.presetNames.contains(it) }
         }
     }
 
