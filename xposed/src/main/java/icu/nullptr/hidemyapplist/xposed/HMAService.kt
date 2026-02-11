@@ -352,7 +352,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         if (query in appConfig.extraOppositeAppList) return appConfig.useWhitelist
 
         for (tplName in appConfig.applyTemplates) {
-            val tpl = config.templates[tplName]!!
+            val tpl = config.templates[tplName] ?: continue
             if (query in tpl.appList) {
                 if (isAppInGMSIgnoredPackages(caller, query)) return false
 
