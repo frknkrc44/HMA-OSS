@@ -40,6 +40,7 @@ import rikka.hidden.compat.ActivityManagerApis
 import java.io.File
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import kotlin.collections.iterator
 import kotlin.concurrent.thread
 
 class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
@@ -157,6 +158,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
             logW(TAG, "Config version mismatch, need to reload")
             return
         }
+        cleanRemnants(loading)
         config = loading
         logI(TAG, "Config loaded")
     }
@@ -191,6 +193,15 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         }
         filterHolder = loading
         logI(TAG, "Filter counts loaded")
+    }
+
+    private fun cleanRemnants(config: JsonConfig) {
+        for (app in config.scope) {
+            app.value.applyTemplates.removeIf { !config.templates.containsKey(it) }
+            app.value.applyPresets.removeIf { !AppPresets.instance.getAllPresetNames().contains(it) }
+            app.value.applySettingTemplates.removeIf { !config.settingsTemplates.containsKey(it) }
+            app.value.applySettingsPresets.removeIf { !SettingsPresets.instance.getAllPresetNames().contains(it) }
+        }
     }
 
     private fun installHooks() {
@@ -453,6 +464,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         synchronized(configLock) {
             runCatching {
                 val newConfig = JsonConfig.parse(json)
+                cleanRemnants(newConfig)
                 if (newConfig.configVersion != BuildConfig.CONFIG_VERSION) {
                     logW(TAG, "Sync config: version mismatch, need reboot")
                     return
