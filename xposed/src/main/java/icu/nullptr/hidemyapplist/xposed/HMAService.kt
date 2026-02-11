@@ -40,7 +40,6 @@ import rikka.hidden.compat.ActivityManagerApis
 import java.io.File
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
-import kotlin.collections.iterator
 import kotlin.concurrent.thread
 
 class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
@@ -196,11 +195,11 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     }
 
     private fun cleanRemnants(config: JsonConfig) {
-        for (app in config.scope) {
-            app.value.applyTemplates.removeIf { !config.templates.containsKey(it) }
-            app.value.applyPresets.removeIf { !AppPresets.instance.presetNames.contains(it) }
-            app.value.applySettingTemplates.removeIf { !config.settingsTemplates.containsKey(it) }
-            app.value.applySettingsPresets.removeIf { !SettingsPresets.instance.presetNames.contains(it) }
+        for (app in config.scope.values) {
+            app.applyTemplates.removeIf { !config.templates.containsKey(it) }
+            app.applyPresets.removeIf { !AppPresets.instance.presetNames.contains(it) }
+            app.applySettingTemplates.removeIf { !config.settingsTemplates.containsKey(it) }
+            app.applySettingsPresets.removeIf { !SettingsPresets.instance.presetNames.contains(it) }
         }
     }
 
