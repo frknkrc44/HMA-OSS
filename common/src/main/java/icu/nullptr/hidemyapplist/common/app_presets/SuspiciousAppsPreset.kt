@@ -104,9 +104,9 @@ class SuspiciousAppsPreset : BasePreset(NAME) {
         }
 
         // MT Manager Termex
-        if (packageName.startsWith("bin.mt.plus.termex")) {
+        if (packageName.startsWith("bin.mt.termex")) {
             return true
-        }
+        } 
 
         // All StrAI apps
         if (packageName.startsWith("com.x0.strai.")) {
