@@ -98,6 +98,16 @@ class SuspiciousAppsPreset : BasePreset(NAME) {
             return true
         }
 
+        // MT Manager Canary
+        if (packageName.startsWith("bin.mt.plus.canary")) {
+            return true
+        }
+
+        // MT Manager Termex
+        if (packageName.startsWith("bin.mt.plus.termex")) {
+            return true
+        }
+
         // All StrAI apps
         if (packageName.startsWith("com.x0.strai.")) {
             return true
