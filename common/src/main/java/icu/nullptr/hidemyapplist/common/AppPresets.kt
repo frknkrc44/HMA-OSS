@@ -53,7 +53,7 @@ class AppPresets private constructor() {
         return cache
     }
 
-    fun getAllPresetNames() = presetList.map { it.name }.toTypedArray()
+    val presetNames by lazy { presetList.map { it.name }.toTypedArray() }
     // fun filterPresetsByName(names: Array<String>) = presetList.filter { names.contains(it.name) }
     fun getPresetByName(name: String) = presetList.firstOrNull { it.name == name }
 

@@ -157,6 +157,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
             logW(TAG, "Config version mismatch, need to reload")
             return
         }
+        cleanRemnants(loading)
         config = loading
         logI(TAG, "Config loaded")
     }
@@ -191,6 +192,15 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         }
         filterHolder = loading
         logI(TAG, "Filter counts loaded")
+    }
+
+    private fun cleanRemnants(config: JsonConfig) {
+        for (app in config.scope.values) {
+            app.applyTemplates.removeIf { !config.templates.containsKey(it) }
+            app.applyPresets.removeIf { !AppPresets.instance.presetNames.contains(it) }
+            app.applySettingTemplates.removeIf { !config.settingsTemplates.containsKey(it) }
+            app.applySettingsPresets.removeIf { !SettingsPresets.instance.presetNames.contains(it) }
+        }
     }
 
     private fun installHooks() {
@@ -352,7 +362,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         if (query in appConfig.extraOppositeAppList) return appConfig.useWhitelist
 
         for (tplName in appConfig.applyTemplates) {
-            val tpl = config.templates[tplName]!!
+            val tpl = config.templates[tplName] ?: continue
             if (query in tpl.appList) {
                 if (isAppInGMSIgnoredPackages(caller, query)) return false
 
@@ -453,6 +463,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         synchronized(configLock) {
             runCatching {
                 val newConfig = JsonConfig.parse(json)
+                cleanRemnants(newConfig)
                 if (newConfig.configVersion != BuildConfig.CONFIG_VERSION) {
                     logW(TAG, "Sync config: version mismatch, need reboot")
                     return
