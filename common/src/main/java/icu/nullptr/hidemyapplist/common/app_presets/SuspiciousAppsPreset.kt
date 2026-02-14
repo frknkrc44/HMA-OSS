@@ -93,8 +93,8 @@ class SuspiciousAppsPreset : BasePreset(NAME) {
             return true
         }
 
-        // MT Manager
-        if (packageName.startsWith("bin.mt.plus")) {
+        // All MT Manager apps
+        if (packageName.startsWith("bin.mt.")) {
             return true
         }
 
