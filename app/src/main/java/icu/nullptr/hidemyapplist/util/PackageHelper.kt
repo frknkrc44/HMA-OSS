@@ -6,6 +6,8 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
+import android.os.UserHandle
+import android.os.UserManager
 import android.util.Log
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toDrawable
@@ -92,27 +94,32 @@ object PackageHelper {
                 val pm = hmaApp.packageManager
 
                 if (ConfigManager.packageQueryWorkaround) {
-                    val packages = ServiceClient.getPackageNames(0) ?: arrayOf<String>()
-                    mutableMapOf<String, PackageCache>().also {
-                        for (packageName in packages) {
-                            val packageInfo = ServiceClient.getPackageInfo(packageName, 0)!!
-                            if (packageInfo.packageName in Constants.packagesShouldNotHide) continue
-                            packageInfo.applicationInfo?.let { appInfo ->
-                                val label = pm.getApplicationLabel(appInfo).toString()
-                                val icon = loadAppIconFromAppInfo(appInfo)
-                                it[packageInfo.packageName] = PackageCache(packageInfo, label, icon)
+                    val um = hmaApp.getSystemService(Context.USER_SERVICE) as UserManager
+                    mutableMapOf<String, PackageCache>().also { cacheMap ->
+                        for (userProfile: UserHandle in um.userProfiles) {
+                            val packages = ServiceClient.getPackageNames(userProfile.hashCode()) ?: arrayOf<String>()
+                            for (packageName in packages) {
+                                val packageInfo = ServiceClient.getPackageInfo(packageName, userProfile.hashCode())!!
+                                if (packageInfo.packageName in Constants.packagesShouldNotHide) continue
+                                packageInfo.applicationInfo?.let { appInfo ->
+                                    val label = pm.getApplicationLabel(appInfo).toString()
+                                    val icon = loadAppIconFromAppInfo(appInfo)
+                                    if (!cacheMap.containsKey(packageInfo.packageName)) {
+                                        cacheMap[packageInfo.packageName] = PackageCache(packageInfo, label, icon);
+                                    }
+                                }
                             }
                         }
                     }
                 } else {
                     val packages = pm.getInstalledPackages(0)
-                    mutableMapOf<String, PackageCache>().also {
+                    mutableMapOf<String, PackageCache>().also { cacheMap ->
                         for (packageInfo in packages) {
                             if (packageInfo.packageName in Constants.packagesShouldNotHide) continue
                             packageInfo.applicationInfo?.let { appInfo ->
                                 val label = pm.getApplicationLabel(appInfo).toString()
                                 val icon = loadAppIconFromAppInfo(appInfo)
-                                it[packageInfo.packageName] = PackageCache(packageInfo, label, icon)
+                                cacheMap[packageInfo.packageName] = PackageCache(packageInfo, label, icon)
                             }
                         }
                     }
