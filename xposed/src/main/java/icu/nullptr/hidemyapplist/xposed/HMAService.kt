@@ -601,17 +601,16 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     override fun getLogFileLocation(): String = logFile.absolutePath
 
     fun reloadPresets(clearPresets: Boolean) {
-        presetCache = AppPresets.instance.reloadPresets(pms, presetCache, clearPresets)
+        presetCache = AppPresets.instance.reloadPresets(
+            Utils.getInstalledApplicationsCompat(pms, 0L, -1),
+            presetCache,
+            clearPresets,
+        )
         writePresetCache()
         logI(TAG, "All presets are loaded")
     }
 
-    override fun reloadPresetsFromScratch() {
-        presetCache.presetPackageNames.clear()
-        presetCache.gmsDependentApps.clear()
-
-        reloadPresets(true)
-    }
+    override fun reloadPresetsFromScratch() = reloadPresets(true)
 
     override fun getDetailedFilterStats() = filterHolder.toString()
 
