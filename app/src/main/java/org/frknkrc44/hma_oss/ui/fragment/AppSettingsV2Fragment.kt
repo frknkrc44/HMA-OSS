@@ -163,7 +163,12 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
         private val parent get() = requireParentFragment() as AppSettingsV2Fragment
         private val pack get() = parent.viewModel.pack
 
-        private fun launchMainActivity(packageName: String) {
+        private fun launchMainActivity(packageName: String, userId: Int) {
+            if (userId != 0) {
+                // TODO: Try to find a method to launch apps across user profiles
+                return
+            }
+
             try {
                 val pkgMgr = requireContext().packageManager
                 val pkgInfo = pkgMgr.getPackageInfo(packageName, 0)
@@ -171,6 +176,8 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
                     val resolvedIntent = pkgMgr.getLaunchIntentForPackage(packageName)
                     if (resolvedIntent != null) {
                         startActivity(resolvedIntent)
+                    } else {
+                        throw RuntimeException("No main activity found to launch this app")
                     }
                 } else {
                     throw RuntimeException("Package is disabled")
@@ -204,14 +211,15 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
                                 R.array.app_action_texts,
                             ) { _, which ->
                                 parent.saveConfig()
+                                val userId = PackageHelper.loadUserId(pack.app)
 
                                 when (which) {
                                     0 -> {
-                                        ServiceClient.forceStop(pack.app, 0)
-                                        launchMainActivity(pack.app)
+                                        ServiceClient.forceStop(pack.app, userId)
+                                        launchMainActivity(pack.app, userId)
                                     }
                                     1 -> {
-                                        launchMainActivity(pack.app)
+                                        launchMainActivity(pack.app, userId)
                                     }
                                 }
                             }

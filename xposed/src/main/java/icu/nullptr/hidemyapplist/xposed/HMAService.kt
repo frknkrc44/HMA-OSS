@@ -204,7 +204,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     }
 
     private fun installHooks() {
-        Utils.getInstalledApplicationsCompat(pms, 0, 0).mapNotNullTo(systemApps) {
+        Utils.getInstalledApplicationsCompat(pms, 0, -1).mapNotNullTo(systemApps) {
             if (it.flags and ApplicationInfo.FLAG_SYSTEM != 0) it.packageName else null
         }
 

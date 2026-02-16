@@ -36,7 +36,8 @@ object PackageHelper {
     class PackageCache(
         val info: PackageInfo,
         val label: String,
-        val icon: Drawable
+        val icon: Drawable,
+        val userId: Int,
     )
 
     object Comparators {
@@ -106,7 +107,7 @@ object PackageHelper {
                                     val label = pm.getApplicationLabel(appInfo).toString()
                                     val icon = loadAppIconFromAppInfo(appInfo)
                                     if (!cacheMap.containsKey(packageInfo.packageName)) {
-                                        cacheMap[packageInfo.packageName] = PackageCache(packageInfo, label, icon);
+                                        cacheMap[packageInfo.packageName] = PackageCache(packageInfo, label, icon, userProfile.hashCode())
                                     }
                                 }
                             }
@@ -122,7 +123,7 @@ object PackageHelper {
                                     val label = pm.getApplicationLabel(appInfo).toString()
                                     val icon = loadAppIconFromAppInfo(appInfo)
                                     if (!cacheMap.containsKey(packageInfo.packageName)) {
-                                        cacheMap[packageInfo.packageName] = PackageCache(packageInfo, label, icon)
+                                        cacheMap[packageInfo.packageName] = PackageCache(packageInfo, label, icon, userProfile.hashCode())
                                     }
                                 }
                             }
@@ -173,6 +174,10 @@ object PackageHelper {
     fun loadAppIcon(packageName: String): Drawable = runBlocking {
         getCacheNoThrow()[packageName]?.icon ?:
             android.R.drawable.sym_def_app_icon.asDrawable(hmaApp)
+    }
+
+    fun loadUserId(packageName: String): Int = runBlocking {
+        getCacheNoThrow()[packageName]?.userId ?: 0
     }
 
     fun isSystem(packageName: String): Boolean = runBlocking {
