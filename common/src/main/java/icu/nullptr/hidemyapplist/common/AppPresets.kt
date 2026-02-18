@@ -5,7 +5,6 @@ import android.content.pm.IPackageManager
 import android.util.Log
 import icu.nullptr.hidemyapplist.common.RiskyPackageUtils.ignoredForRiskyPackagesList
 import icu.nullptr.hidemyapplist.common.RiskyPackageUtils.tryToAddIntoGMSConnectionList
-import icu.nullptr.hidemyapplist.common.Utils.getInstalledApplicationsCompat
 import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
 import icu.nullptr.hidemyapplist.common.app_presets.BasePreset
 import icu.nullptr.hidemyapplist.common.app_presets.CustomROMPreset
@@ -54,10 +53,9 @@ class AppPresets private constructor() {
     }
 
     val presetNames by lazy { presetList.map { it.name }.toTypedArray() }
-    // fun filterPresetsByName(names: Array<String>) = presetList.filter { names.contains(it.name) }
     fun getPresetByName(name: String) = presetList.firstOrNull { it.name == name }
 
-    fun reloadPresets(pms: IPackageManager, holder: PresetCacheHolder, clearPresets: Boolean): PresetCacheHolder {
+    fun reloadPresets(appsList: List<ApplicationInfo>, holder: PresetCacheHolder, clearPresets: Boolean): PresetCacheHolder {
         if (holder.cacheVersion == BuildConfig.APP_VERSION_CODE && !clearPresets) {
             ignoredForRiskyPackagesList.addAll(holder.gmsDependentApps)
 
@@ -68,14 +66,12 @@ class AppPresets private constructor() {
             return holder
         }
 
-        return reloadPresetsFromScratch(pms)
+        return reloadPresetsFromScratch(appsList)
     }
 
-    private fun reloadPresetsFromScratch(pms: IPackageManager): PresetCacheHolder {
+    private fun reloadPresetsFromScratch(appsList: List<ApplicationInfo>): PresetCacheHolder {
         ignoredForRiskyPackagesList.clear()
         presetList.forEach { it.clearPackageList() }
-
-        val appsList = getInstalledApplicationsCompat(pms, 0, 0)
 
         for (appInfo in appsList) {
             runCatching {

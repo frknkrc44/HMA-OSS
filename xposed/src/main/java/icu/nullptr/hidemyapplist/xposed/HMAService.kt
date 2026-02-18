@@ -18,7 +18,12 @@ import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.common.PresetCacheHolder
 import icu.nullptr.hidemyapplist.common.RiskyPackageUtils.appHasGMSConnection
 import icu.nullptr.hidemyapplist.common.SettingsPresets
-import icu.nullptr.hidemyapplist.common.Utils
+import icu.nullptr.hidemyapplist.common.Utils.binderLocalScope
+import icu.nullptr.hidemyapplist.common.Utils.generateRandomString
+import icu.nullptr.hidemyapplist.common.Utils.getInstalledApplicationsCompat
+import icu.nullptr.hidemyapplist.common.Utils.getInstalledPackagesCompat
+import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
+import icu.nullptr.hidemyapplist.common.Utils.getPackageUidCompat
 import icu.nullptr.hidemyapplist.common.app_presets.DetectorAppsPreset
 import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
 import icu.nullptr.hidemyapplist.xposed.hook.AccessibilityHook
@@ -37,6 +42,7 @@ import icu.nullptr.hidemyapplist.xposed.hook.PmsPackageEventsHook
 import icu.nullptr.hidemyapplist.xposed.hook.ZygoteHook
 import org.frknkrc44.hma_oss.common.BuildConfig
 import rikka.hidden.compat.ActivityManagerApis
+import rikka.hidden.compat.UserManagerApis
 import java.io.File
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -117,7 +123,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
             }
         }
         if (!this::dataDir.isInitialized) {
-            dataDir = "/data/misc/hide_my_applist_" + Utils.generateRandomString(16)
+            dataDir = "/data/misc/hide_my_applist_" + generateRandomString(16)
         }
 
         File("$dataDir/log").mkdirs()
@@ -204,7 +210,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     }
 
     private fun installHooks() {
-        Utils.getInstalledApplicationsCompat(pms, 0, 0).mapNotNullTo(systemApps) {
+        getInstalledApplicationsCompat(pms, 0, 0).mapNotNullTo(systemApps) {
             if (it.flags and ApplicationInfo.FLAG_SYSTEM != 0) it.packageName else null
         }
 
@@ -415,7 +421,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         if (caller == query && appConfig.excludeTargetInstallationSource) return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
 
         try {
-            val uid = Utils.getPackageUidCompat(pms, query, 0L, callingHandle.hashCode())
+            val uid = getPackageUidCompat(pms, query, 0L, callingHandle.hashCode())
             logD(TAG, "@shouldHideInstallationSource UID for $caller, ${callingHandle.hashCode()}: $query, $uid")
             if (uid < 0) return Constants.FAKE_INSTALLATION_SOURCE_DISABLED // invalid package installation source request
         } catch (e: Throwable) {
@@ -559,7 +565,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     override fun readConfig() = config.toString()
 
     override fun forceStop(packageName: String?, userId: Int) {
-        Utils.binderLocalScope {
+        binderLocalScope {
             runCatching {
                 ActivityManagerApis.forceStopPackage(packageName, userId)
             }.onFailure { error ->
@@ -572,15 +578,15 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         logWithLevel(level, tag, message)
     }
 
-    override fun getPackageNames(userId: Int) = Utils.binderLocalScope {
-        Utils.getInstalledPackagesCompat(pms, 0L, userId).map { it.packageName }.toTypedArray()
+    override fun getPackageNames(userId: Int) = binderLocalScope {
+        getInstalledPackagesCompat(pms, 0L, userId).map { it.packageName }.toTypedArray()
     }
 
     override fun getPackageInfo(
         packageName: String,
         userId: Int
-    ) = Utils.binderLocalScope {
-        Utils.getPackageInfoCompat(pms, packageName, 0L, userId)
+    ) = binderLocalScope {
+        getPackageInfoCompat(pms, packageName, 0L, userId)
     }
 
     override fun listAllSettings(databaseName: String): Array<String> {
@@ -601,17 +607,24 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     override fun getLogFileLocation(): String = logFile.absolutePath
 
     fun reloadPresets(clearPresets: Boolean) {
-        presetCache = AppPresets.instance.reloadPresets(pms, presetCache, clearPresets)
+        val apps = mutableListOf<ApplicationInfo>().apply {
+            binderLocalScope {
+                UserManagerApis.getUserIdsNoThrow().forEach { id ->
+                    addAll(getInstalledApplicationsCompat(pms, 0L, id))
+                }
+            }
+        }
+
+        presetCache = AppPresets.instance.reloadPresets(
+            apps,
+            presetCache,
+            clearPresets,
+        )
         writePresetCache()
         logI(TAG, "All presets are loaded")
     }
 
-    override fun reloadPresetsFromScratch() {
-        presetCache.presetPackageNames.clear()
-        presetCache.gmsDependentApps.clear()
-
-        reloadPresets(true)
-    }
+    override fun reloadPresetsFromScratch() = reloadPresets(true)
 
     override fun getDetailedFilterStats() = filterHolder.toString()
 
