@@ -1,4 +1,4 @@
-package icu.nullptr.hidemyapplist.xposed.hook
+package top.secret.hma.v1.xposed.hook
 
 import android.content.Intent
 import android.content.pm.ResolveInfo
@@ -12,19 +12,19 @@ import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers.findClass
 import de.robv.android.xposed.XposedHelpers.getObjectField
 import de.robv.android.xposed.XposedHelpers.getStaticIntField
-import icu.nullptr.hidemyapplist.common.Constants
-import icu.nullptr.hidemyapplist.common.Utils
-import icu.nullptr.hidemyapplist.xposed.HMAService
-import icu.nullptr.hidemyapplist.xposed.Utils4Xposed
-import icu.nullptr.hidemyapplist.xposed.XposedConstants.ACTIVITY_STACK_SUPERVISOR_CLASS
-import icu.nullptr.hidemyapplist.xposed.XposedConstants.ACTIVITY_STARTER_CLASS
-import icu.nullptr.hidemyapplist.xposed.XposedConstants.ACTIVITY_TASK_SUPERVISOR_CLASS
-import icu.nullptr.hidemyapplist.xposed.XposedConstants.COMPUTER_ENGINE_CLASS
-import icu.nullptr.hidemyapplist.xposed.XposedConstants.PACKAGE_MANAGER_SERVICE_CLASS
-import icu.nullptr.hidemyapplist.xposed.logD
-import icu.nullptr.hidemyapplist.xposed.logE
-import icu.nullptr.hidemyapplist.xposed.logI
-import icu.nullptr.hidemyapplist.xposed.logV
+import top.secret.hma.v1.common.Constants
+import top.secret.hma.v1.common.Utils
+import top.secret.hma.v1.xposed.HMAService
+import top.secret.hma.v1.xposed.Utils4Xposed
+import top.secret.hma.v1.xposed.XposedConstants.ACTIVITY_STACK_SUPERVISOR_CLASS
+import top.secret.hma.v1.xposed.XposedConstants.ACTIVITY_STARTER_CLASS
+import top.secret.hma.v1.xposed.XposedConstants.ACTIVITY_TASK_SUPERVISOR_CLASS
+import top.secret.hma.v1.xposed.XposedConstants.COMPUTER_ENGINE_CLASS
+import top.secret.hma.v1.xposed.XposedConstants.PACKAGE_MANAGER_SERVICE_CLASS
+import top.secret.hma.v1.xposed.logD
+import top.secret.hma.v1.xposed.logE
+import top.secret.hma.v1.xposed.logI
+import top.secret.hma.v1.xposed.logV
 
 class ActivityHook(private val service: HMAService) : IFrameworkHook {
     companion object {

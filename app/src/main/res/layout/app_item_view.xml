@@ -7,7 +7,7 @@
     android:orientation="horizontal"
     android:paddingHorizontal="@dimen/item_padding_horizontal"
     android:paddingVertical="@dimen/item_padding_vertical"
-    tools:context="icu.nullptr.hidemyapplist.ui.view.AppItemView">
+    tools:context="top.secret.hma.v1.ui.view.AppItemView">
 
     <ImageView
         android:id="@+id/icon"

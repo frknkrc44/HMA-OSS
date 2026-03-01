@@ -1,4 +1,4 @@
-package icu.nullptr.hidemyapplist.xposed
+package top.secret.hma.v1.xposed
 
 import android.content.pm.IPackageManager
 import com.github.kyuubiran.ezxhelper.init.EzXHelperInit
@@ -8,7 +8,7 @@ import de.robv.android.xposed.IXposedHookLoadPackage
 import de.robv.android.xposed.IXposedHookZygoteInit
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.callbacks.XC_LoadPackage
-import icu.nullptr.hidemyapplist.common.Constants
+import top.secret.hma.v1.common.Constants
 import kotlin.concurrent.thread
 
 private const val TAG = "HMA-XposedEntry"

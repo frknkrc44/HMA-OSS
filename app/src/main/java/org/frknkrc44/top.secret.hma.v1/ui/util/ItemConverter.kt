@@ -1,8 +1,8 @@
-package org.frknkrc44.hma_oss.ui.util
+package top.secret.hma.v1.ui.util
 
 import android.os.Bundle
-import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
-import org.frknkrc44.hma_oss.ui.fragment.EditSettingFragmentArgs
+import top.secret.hma.v1.common.settings_presets.ReplacementItem
+import top.secret.hma.v1.ui.fragment.EditSettingFragmentArgs
 
 fun ReplacementItem.toEditSettingFragmentArgs() = EditSettingFragmentArgs(
     database = database,

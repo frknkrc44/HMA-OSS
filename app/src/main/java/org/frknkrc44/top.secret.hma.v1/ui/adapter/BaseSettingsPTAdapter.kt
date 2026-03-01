@@ -1,10 +1,10 @@
-package org.frknkrc44.hma_oss.ui.adapter
+package top.secret.hma.v1.ui.adapter
 
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
-import icu.nullptr.hidemyapplist.ui.view.AppItemView
+import top.secret.hma.v1.common.settings_presets.ReplacementItem
+import top.secret.hma.v1.ui.view.AppItemView
 
 abstract class BaseSettingsPTAdapter() : RecyclerView.Adapter<BaseSettingsPTAdapter.ViewHolder>() {
     abstract val items: List<ReplacementItem>

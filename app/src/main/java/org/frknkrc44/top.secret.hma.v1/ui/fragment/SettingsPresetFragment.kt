@@ -1,9 +1,9 @@
-package org.frknkrc44.hma_oss.ui.fragment
+package top.secret.hma.v1.ui.fragment
 
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.fragment.navArgs
-import org.frknkrc44.hma_oss.ui.adapter.SettingsPresetListAdapter
+import top.secret.hma.v1.ui.adapter.SettingsPresetListAdapter
 
 /**
  * Use the [SettingsPresetFragment.newInstance] factory method to

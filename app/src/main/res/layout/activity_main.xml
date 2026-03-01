@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="false"
-    tools:context="org.frknkrc44.hma_oss.ui.activity.MainActivity">
+    tools:context="top.secret.hma.v1.ui.activity.MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"

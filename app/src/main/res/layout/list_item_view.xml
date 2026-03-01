@@ -6,7 +6,7 @@
     android:background="?selectableItemBackground"
     android:orientation="horizontal"
     android:paddingHorizontal="@dimen/item_padding_horizontal"
-    tools:context="icu.nullptr.hidemyapplist.ui.view.ListItemView">
+    tools:context="top.secret.hma.v1.ui.view.ListItemView">
 
     <ImageView
         android:id="@+id/icon"

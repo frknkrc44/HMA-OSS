@@ -1,9 +1,9 @@
-package org.frknkrc44.hma_oss.ui.adapter
+package top.secret.hma.v1.ui.adapter
 
 import android.os.Bundle
-import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
-import org.frknkrc44.hma_oss.ui.util.targetSettingListToBundle
-import org.frknkrc44.hma_oss.ui.util.toTargetSettingList
+import top.secret.hma.v1.common.settings_presets.ReplacementItem
+import top.secret.hma.v1.ui.util.targetSettingListToBundle
+import top.secret.hma.v1.ui.util.toTargetSettingList
 
 class SettingsTemplateListAdapter(
     items: Bundle,

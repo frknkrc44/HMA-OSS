@@ -1,11 +1,11 @@
-package icu.nullptr.hidemyapplist.receiver
+package top.secret.hma.v1.receiver
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.util.Log
-import icu.nullptr.hidemyapplist.util.PackageHelper
+import top.secret.hma.v1.util.PackageHelper
 
 class AppChangeReceiver : BroadcastReceiver() {
 

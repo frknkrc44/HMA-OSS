@@ -1,4 +1,4 @@
-package icu.nullptr.hidemyapplist.ui.view
+package top.secret.hma.v1.ui.view
 
 import android.content.Context
 import android.util.AttributeSet
@@ -6,8 +6,8 @@ import android.widget.LinearLayout
 import androidx.core.view.isVisible
 import dev.androidbroadcast.vbpd.CreateMethod
 import dev.androidbroadcast.vbpd.viewBinding
-import icu.nullptr.hidemyapplist.util.PackageHelper
-import org.frknkrc44.hma_oss.databinding.AppItemViewBinding
+import top.secret.hma.v1.util.PackageHelper
+import top.secret.hma.v1.databinding.AppItemViewBinding
 
 class AppItemView @JvmOverloads constructor(
     context: Context,

@@ -1,4 +1,4 @@
-package icu.nullptr.hidemyapplist.xposed.hook
+package top.secret.hma.v1.xposed.hook
 
 import android.content.AttributionSource
 import android.database.Cursor
@@ -11,10 +11,10 @@ import com.github.kyuubiran.ezxhelper.utils.findMethod
 import com.github.kyuubiran.ezxhelper.utils.hookAfter
 import com.github.kyuubiran.ezxhelper.utils.hookBefore
 import de.robv.android.xposed.XC_MethodHook
-import icu.nullptr.hidemyapplist.xposed.HMAService
-import icu.nullptr.hidemyapplist.xposed.Utils4Xposed
-import icu.nullptr.hidemyapplist.xposed.XposedConstants.CONTENT_PROVIDER_TRANSPORT_CLASS
-import icu.nullptr.hidemyapplist.xposed.logD
+import top.secret.hma.v1.xposed.HMAService
+import top.secret.hma.v1.xposed.Utils4Xposed
+import top.secret.hma.v1.xposed.XposedConstants.CONTENT_PROVIDER_TRANSPORT_CLASS
+import top.secret.hma.v1.xposed.logD
 
 class ContentProviderHook(private val service: HMAService): IFrameworkHook {
     companion object {

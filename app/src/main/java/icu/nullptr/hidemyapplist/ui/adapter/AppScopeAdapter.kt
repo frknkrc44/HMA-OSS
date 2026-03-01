@@ -1,7 +1,7 @@
-package icu.nullptr.hidemyapplist.ui.adapter
+package top.secret.hma.v1.ui.adapter
 
 import android.view.ViewGroup
-import icu.nullptr.hidemyapplist.ui.view.AppItemView
+import top.secret.hma.v1.ui.view.AppItemView
 
 class AppScopeAdapter(
     private val checked: MutableSet<String>,

@@ -1,4 +1,4 @@
-package icu.nullptr.hidemyapplist.common.settings_presets
+package top.secret.hma.v1.common.settings_presets
 
 abstract class BasePreset(val name: String) {
     abstract val settingsKVPairs: List<ReplacementItem>

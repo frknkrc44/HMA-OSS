@@ -1,13 +1,13 @@
-package icu.nullptr.hidemyapplist.xposed.hook
+package top.secret.hma.v1.xposed.hook
 
 import com.github.kyuubiran.ezxhelper.utils.findMethodOrNull
 import com.github.kyuubiran.ezxhelper.utils.hookBefore
 import de.robv.android.xposed.XC_MethodHook
-import icu.nullptr.hidemyapplist.common.Constants
-import icu.nullptr.hidemyapplist.xposed.HMAService
-import icu.nullptr.hidemyapplist.xposed.XposedConstants.ZYGOTE_PROCESS_CLASS
-import icu.nullptr.hidemyapplist.xposed.logD
-import icu.nullptr.hidemyapplist.xposed.logV
+import top.secret.hma.v1.common.Constants
+import top.secret.hma.v1.xposed.HMAService
+import top.secret.hma.v1.xposed.XposedConstants.ZYGOTE_PROCESS_CLASS
+import top.secret.hma.v1.xposed.logD
+import top.secret.hma.v1.xposed.logV
 
 class ZygoteHook(private val service: HMAService): IFrameworkHook {
     companion object {

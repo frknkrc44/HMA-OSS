@@ -1,4 +1,4 @@
-package icu.nullptr.hidemyapplist.xposed.hook
+package top.secret.hma.v1.xposed.hook
 
 import android.content.pm.ApplicationInfo
 import android.os.Build
@@ -6,13 +6,13 @@ import androidx.annotation.RequiresApi
 import com.github.kyuubiran.ezxhelper.utils.findMethod
 import com.github.kyuubiran.ezxhelper.utils.hookBefore
 import de.robv.android.xposed.XC_MethodHook
-import icu.nullptr.hidemyapplist.common.PropertyUtils
-import icu.nullptr.hidemyapplist.xposed.HMAService
-import icu.nullptr.hidemyapplist.xposed.XposedConstants.PLATFORM_COMPAT_CLASS
-import icu.nullptr.hidemyapplist.xposed.logD
-import icu.nullptr.hidemyapplist.xposed.logE
-import icu.nullptr.hidemyapplist.xposed.logI
-import org.frknkrc44.hma_oss.common.BuildConfig
+import top.secret.hma.v1.common.PropertyUtils
+import top.secret.hma.v1.xposed.HMAService
+import top.secret.hma.v1.xposed.XposedConstants.PLATFORM_COMPAT_CLASS
+import top.secret.hma.v1.xposed.logD
+import top.secret.hma.v1.xposed.logE
+import top.secret.hma.v1.xposed.logI
+import top.secret.hma.v1.common.BuildConfig
 
 @RequiresApi(Build.VERSION_CODES.R)
 class PlatformCompatHook(private val service: HMAService) : IFrameworkHook {

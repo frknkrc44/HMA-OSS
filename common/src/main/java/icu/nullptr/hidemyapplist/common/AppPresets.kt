@@ -1,19 +1,19 @@
-package icu.nullptr.hidemyapplist.common
+package top.secret.hma.v1.common
 
 import android.content.pm.ApplicationInfo
 import android.content.pm.IPackageManager
 import android.util.Log
-import icu.nullptr.hidemyapplist.common.RiskyPackageUtils.ignoredForRiskyPackagesList
-import icu.nullptr.hidemyapplist.common.RiskyPackageUtils.tryToAddIntoGMSConnectionList
-import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
-import icu.nullptr.hidemyapplist.common.app_presets.BasePreset
-import icu.nullptr.hidemyapplist.common.app_presets.CustomROMPreset
-import icu.nullptr.hidemyapplist.common.app_presets.DetectorAppsPreset
-import icu.nullptr.hidemyapplist.common.app_presets.RootAppsPreset
-import icu.nullptr.hidemyapplist.common.app_presets.SDhizukuAppsPreset
-import icu.nullptr.hidemyapplist.common.app_presets.SuspiciousAppsPreset
-import icu.nullptr.hidemyapplist.common.app_presets.XposedModulesPreset
-import org.frknkrc44.hma_oss.common.BuildConfig
+import top.secret.hma.v1.common.RiskyPackageUtils.ignoredForRiskyPackagesList
+import top.secret.hma.v1.common.RiskyPackageUtils.tryToAddIntoGMSConnectionList
+import top.secret.hma.v1.common.Utils.getPackageInfoCompat
+import top.secret.hma.v1.common.app_presets.BasePreset
+import top.secret.hma.v1.common.app_presets.CustomROMPreset
+import top.secret.hma.v1.common.app_presets.DetectorAppsPreset
+import top.secret.hma.v1.common.app_presets.RootAppsPreset
+import top.secret.hma.v1.common.app_presets.SDhizukuAppsPreset
+import top.secret.hma.v1.common.app_presets.SuspiciousAppsPreset
+import top.secret.hma.v1.common.app_presets.XposedModulesPreset
+import top.secret.hma.v1.common.BuildConfig
 import java.util.zip.ZipFile
 
 class AppPresets private constructor() {

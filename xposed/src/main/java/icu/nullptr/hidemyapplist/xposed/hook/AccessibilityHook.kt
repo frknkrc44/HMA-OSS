@@ -1,17 +1,17 @@
-package icu.nullptr.hidemyapplist.xposed.hook
+package top.secret.hma.v1.xposed.hook
 
 import android.accessibilityservice.AccessibilityServiceInfo
 import android.content.pm.ParceledListSlice
 import com.github.kyuubiran.ezxhelper.utils.findMethod
 import com.github.kyuubiran.ezxhelper.utils.hookBefore
 import de.robv.android.xposed.XC_MethodHook
-import icu.nullptr.hidemyapplist.common.settings_presets.AccessibilityPreset
-import icu.nullptr.hidemyapplist.xposed.HMAService
-import icu.nullptr.hidemyapplist.xposed.Utils4Xposed
-import icu.nullptr.hidemyapplist.xposed.XposedConstants.ACCESSIBILITY_SERVICE_CLASS
-import icu.nullptr.hidemyapplist.xposed.logD
-import icu.nullptr.hidemyapplist.xposed.logE
-import icu.nullptr.hidemyapplist.xposed.logI
+import top.secret.hma.v1.common.settings_presets.AccessibilityPreset
+import top.secret.hma.v1.xposed.HMAService
+import top.secret.hma.v1.xposed.Utils4Xposed
+import top.secret.hma.v1.xposed.XposedConstants.ACCESSIBILITY_SERVICE_CLASS
+import top.secret.hma.v1.xposed.logD
+import top.secret.hma.v1.xposed.logE
+import top.secret.hma.v1.xposed.logI
 
 // Big credits: https://github.com/Nitsuya/DoNotTryAccessibility/blob/main/app/src/main/java/io/github/nitsuya/donottryaccessibility/hook/AndroidFrameworkHooker.kt
 class AccessibilityHook(private val service: HMAService) : IFrameworkHook {

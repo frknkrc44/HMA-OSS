@@ -1,10 +1,10 @@
-package icu.nullptr.hidemyapplist.ui.util
+package top.secret.hma.v1.ui.util
 
 import android.content.ComponentName
 import android.content.pm.ActivityInfo
 import android.content.res.Resources
 import kotlinx.coroutines.flow.MutableSharedFlow
-import org.frknkrc44.hma_oss.R
+import top.secret.hma.v1.R
 
 fun Boolean.enabledString(resources: Resources, lower: Boolean = false): String {
     val returnedStr = if (this) resources.getString(R.string.enabled)

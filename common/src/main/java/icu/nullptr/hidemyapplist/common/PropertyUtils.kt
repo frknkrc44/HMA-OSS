@@ -1,4 +1,4 @@
-package icu.nullptr.hidemyapplist.common
+package top.secret.hma.v1.common
 
 import android.os.SystemProperties
 

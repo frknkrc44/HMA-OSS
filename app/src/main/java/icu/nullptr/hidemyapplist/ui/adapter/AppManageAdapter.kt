@@ -1,12 +1,12 @@
-package icu.nullptr.hidemyapplist.ui.adapter
+package top.secret.hma.v1.ui.adapter
 
 import android.view.ViewGroup
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import icu.nullptr.hidemyapplist.common.Constants
-import icu.nullptr.hidemyapplist.service.ConfigManager
-import icu.nullptr.hidemyapplist.service.PrefManager
-import icu.nullptr.hidemyapplist.ui.view.AppItemView
-import org.frknkrc44.hma_oss.R
+import top.secret.hma.v1.common.Constants
+import top.secret.hma.v1.service.ConfigManager
+import top.secret.hma.v1.service.PrefManager
+import top.secret.hma.v1.ui.view.AppItemView
+import top.secret.hma.v1.R
 
 class AppManageAdapter(
     private val onItemClickListener: (String) -> Unit

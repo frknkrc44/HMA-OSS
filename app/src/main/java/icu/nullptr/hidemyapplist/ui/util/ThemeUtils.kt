@@ -1,4 +1,4 @@
-package icu.nullptr.hidemyapplist.ui.util
+package top.secret.hma.v1.ui.util
 
 import android.content.Context
 import android.content.res.Configuration
@@ -11,8 +11,8 @@ import androidx.annotation.StyleRes
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.color.DynamicColors
-import icu.nullptr.hidemyapplist.service.PrefManager
-import org.frknkrc44.hma_oss.R
+import top.secret.hma.v1.service.PrefManager
+import top.secret.hma.v1.R
 
 object ThemeUtils {
     private val colorThemeMap = mapOf(

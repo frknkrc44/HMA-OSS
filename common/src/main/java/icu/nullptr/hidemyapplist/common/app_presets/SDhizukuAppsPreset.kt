@@ -1,9 +1,9 @@
-package icu.nullptr.hidemyapplist.common.app_presets
+package top.secret.hma.v1.common.app_presets
 
 import android.content.pm.ApplicationInfo
-import icu.nullptr.hidemyapplist.common.AppPresets
-import icu.nullptr.hidemyapplist.common.Utils
-import icu.nullptr.hidemyapplist.common.Utils.checkSplitPackages
+import top.secret.hma.v1.common.AppPresets
+import top.secret.hma.v1.common.Utils
+import top.secret.hma.v1.common.Utils.checkSplitPackages
 
 class SDhizukuAppsPreset(private val appPresets: AppPresets) : BasePreset(NAME) {
     companion object {

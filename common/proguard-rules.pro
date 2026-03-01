@@ -25,4 +25,4 @@
 # @Serializable and @Polymorphic are used at runtime for polymorphic serialization.
 -keepattributes RuntimeVisibleAnnotations,AnnotationDefault
 
--keep class icu.nullptr.hidemyapplist.common.** { *; }
+-keep class top.secret.hma.v1.common.** { *; }

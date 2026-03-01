@@ -1,7 +1,7 @@
-package icu.nullptr.hidemyapplist.util
+package top.secret.hma.v1.util
 
 import android.content.res.Resources
-import icu.nullptr.hidemyapplist.service.PrefManager
+import top.secret.hma.v1.service.PrefManager
 import java.util.Locale
 
 class ConfigUtils private constructor() {

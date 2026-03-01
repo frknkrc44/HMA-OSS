@@ -1,4 +1,4 @@
-package icu.nullptr.hidemyapplist.ui.view
+package top.secret.hma.v1.ui.view
 
 import android.content.Context
 import android.graphics.Typeface
@@ -8,9 +8,9 @@ import androidx.annotation.DrawableRes
 import androidx.core.view.isVisible
 import dev.androidbroadcast.vbpd.CreateMethod
 import dev.androidbroadcast.vbpd.viewBinding
-import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.themeColor
-import org.frknkrc44.hma_oss.R
-import org.frknkrc44.hma_oss.databinding.ListItemViewBinding
+import top.secret.hma.v1.ui.util.ThemeUtils.themeColor
+import top.secret.hma.v1.R
+import top.secret.hma.v1.databinding.ListItemViewBinding
 
 class ListItemView @JvmOverloads constructor(
     context: Context,

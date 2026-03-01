@@ -110,7 +110,7 @@
             android:summary="@string/settings_hide_icon_summary"
             app:singleLineTitle="false"
             android:title="@string/settings_hide_icon" />
-        <org.frknkrc44.hma_oss.ui.preference.AppIconPreference
+        <top.secret.hma.v1.ui.preference.AppIconPreference
             android:key="launcherIcon"
             android:title="@string/settings_launcher_icon"/>
         <Preference

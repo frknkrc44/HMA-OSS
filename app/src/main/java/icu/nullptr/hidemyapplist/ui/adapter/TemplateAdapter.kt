@@ -1,11 +1,11 @@
-package icu.nullptr.hidemyapplist.ui.adapter
+package top.secret.hma.v1.ui.adapter
 
 import android.annotation.SuppressLint
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import icu.nullptr.hidemyapplist.service.ConfigManager
-import icu.nullptr.hidemyapplist.ui.view.ListItemView
-import org.frknkrc44.hma_oss.R
+import top.secret.hma.v1.service.ConfigManager
+import top.secret.hma.v1.ui.view.ListItemView
+import top.secret.hma.v1.R
 import java.text.Collator
 import java.util.Locale
 

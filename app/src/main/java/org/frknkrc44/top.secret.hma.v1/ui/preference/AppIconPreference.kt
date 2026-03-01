@@ -1,4 +1,4 @@
-package org.frknkrc44.hma_oss.ui.preference
+package top.secret.hma.v1.ui.preference
 
 import android.annotation.SuppressLint
 import android.content.ComponentName
@@ -14,12 +14,12 @@ import android.widget.RelativeLayout
 import androidx.appcompat.widget.AppCompatRadioButton
 import androidx.preference.Preference
 import androidx.preference.PreferenceViewHolder
-import icu.nullptr.hidemyapplist.data.AppConstants.allAppIcons
-import icu.nullptr.hidemyapplist.service.PrefManager
-import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.asDrawable
-import icu.nullptr.hidemyapplist.util.PackageHelper.findEnabledAppComponent
-import org.frknkrc44.hma_oss.BuildConfig
-import org.frknkrc44.hma_oss.R
+import top.secret.hma.v1.data.AppConstants.allAppIcons
+import top.secret.hma.v1.service.PrefManager
+import top.secret.hma.v1.ui.util.ThemeUtils.asDrawable
+import top.secret.hma.v1.util.PackageHelper.findEnabledAppComponent
+import top.secret.hma.v1.BuildConfig
+import top.secret.hma.v1.R
 
 
 @Suppress("deprecation")

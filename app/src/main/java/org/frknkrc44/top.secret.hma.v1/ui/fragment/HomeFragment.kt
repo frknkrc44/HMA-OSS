@@ -1,4 +1,4 @@
-package org.frknkrc44.hma_oss.ui.fragment
+package top.secret.hma.v1.ui.fragment
 
 import android.content.Intent
 import android.graphics.drawable.GradientDrawable
@@ -15,25 +15,25 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dev.androidbroadcast.vbpd.viewBinding
-import icu.nullptr.hidemyapplist.data.fetchLatestUpdate
-import icu.nullptr.hidemyapplist.service.ConfigManager
-import icu.nullptr.hidemyapplist.service.PrefManager
-import icu.nullptr.hidemyapplist.service.ServiceClient
-import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.attrDrawable
-import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.getColor
-import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.homeItemBackgroundColor
-import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.themeColor
-import icu.nullptr.hidemyapplist.ui.util.contentResolver
-import icu.nullptr.hidemyapplist.ui.util.navigate
-import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
-import icu.nullptr.hidemyapplist.ui.util.setupToolbar
-import icu.nullptr.hidemyapplist.ui.util.showToast
+import top.secret.hma.v1.data.fetchLatestUpdate
+import top.secret.hma.v1.service.ConfigManager
+import top.secret.hma.v1.service.PrefManager
+import top.secret.hma.v1.service.ServiceClient
+import top.secret.hma.v1.ui.util.ThemeUtils.attrDrawable
+import top.secret.hma.v1.ui.util.ThemeUtils.getColor
+import top.secret.hma.v1.ui.util.ThemeUtils.homeItemBackgroundColor
+import top.secret.hma.v1.ui.util.ThemeUtils.themeColor
+import top.secret.hma.v1.ui.util.contentResolver
+import top.secret.hma.v1.ui.util.navigate
+import top.secret.hma.v1.ui.util.setEdge2EdgeFlags
+import top.secret.hma.v1.ui.util.setupToolbar
+import top.secret.hma.v1.ui.util.showToast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.frknkrc44.hma_oss.BuildConfig
-import org.frknkrc44.hma_oss.R
-import org.frknkrc44.hma_oss.databinding.FragmentHomeBinding
+import top.secret.hma.v1.BuildConfig
+import top.secret.hma.v1.R
+import top.secret.hma.v1.databinding.FragmentHomeBinding
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -132,7 +132,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
 
             if (serviceVersion != 0) {
-                if (serviceVersion < org.frknkrc44.hma_oss.common.BuildConfig.SERVICE_VERSION) {
+                if (serviceVersion < top.secret.hma.v1.common.BuildConfig.SERVICE_VERSION) {
                     serviceStatus.text =
                         getString(R.string.home_xposed_service_old)
                 } else {

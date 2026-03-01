@@ -1,4 +1,4 @@
-package icu.nullptr.hidemyapplist.ui.fragment
+package top.secret.hma.v1.ui.fragment
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -12,18 +12,18 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dev.androidbroadcast.vbpd.viewBinding
-import icu.nullptr.hidemyapplist.service.PrefManager
-import icu.nullptr.hidemyapplist.ui.adapter.AppSelectAdapter
-import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.homeItemBackgroundColor
-import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.themeColor
-import icu.nullptr.hidemyapplist.ui.util.navController
-import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
-import icu.nullptr.hidemyapplist.ui.util.setupToolbar
-import icu.nullptr.hidemyapplist.util.PackageHelper
+import top.secret.hma.v1.service.PrefManager
+import top.secret.hma.v1.ui.adapter.AppSelectAdapter
+import top.secret.hma.v1.ui.util.ThemeUtils.homeItemBackgroundColor
+import top.secret.hma.v1.ui.util.ThemeUtils.themeColor
+import top.secret.hma.v1.ui.util.navController
+import top.secret.hma.v1.ui.util.setEdge2EdgeFlags
+import top.secret.hma.v1.ui.util.setupToolbar
+import top.secret.hma.v1.util.PackageHelper
 import kotlinx.coroutines.launch
-import org.frknkrc44.hma_oss.R
-import org.frknkrc44.hma_oss.databinding.FragmentAppSelectBinding
-import org.frknkrc44.hma_oss.ui.fragment.AppPresetFragment
+import top.secret.hma.v1.R
+import top.secret.hma.v1.databinding.FragmentAppSelectBinding
+import top.secret.hma.v1.ui.fragment.AppPresetFragment
 
 abstract class AppSelectFragment : Fragment(R.layout.fragment_app_select) {
 

@@ -1,9 +1,9 @@
-package icu.nullptr.hidemyapplist.common
+package top.secret.hma.v1.common
 
-import icu.nullptr.hidemyapplist.common.settings_presets.AccessibilityPreset
-import icu.nullptr.hidemyapplist.common.settings_presets.BasePreset
-import icu.nullptr.hidemyapplist.common.settings_presets.DeveloperOptionsPreset
-import icu.nullptr.hidemyapplist.common.settings_presets.InputMethodPreset
+import top.secret.hma.v1.common.settings_presets.AccessibilityPreset
+import top.secret.hma.v1.common.settings_presets.BasePreset
+import top.secret.hma.v1.common.settings_presets.DeveloperOptionsPreset
+import top.secret.hma.v1.common.settings_presets.InputMethodPreset
 
 class SettingsPresets private constructor() {
     private val presetList = mutableListOf<BasePreset>()

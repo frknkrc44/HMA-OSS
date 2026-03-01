@@ -1,4 +1,4 @@
-package org.frknkrc44.hma_oss.ui.fragment
+package top.secret.hma.v1.ui.fragment
 
 import android.os.Bundle
 import android.view.View
@@ -10,15 +10,15 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.google.android.material.textfield.TextInputLayout
 import dev.androidbroadcast.vbpd.viewBinding
-import icu.nullptr.hidemyapplist.common.Constants
-import icu.nullptr.hidemyapplist.service.ServiceClient
-import icu.nullptr.hidemyapplist.ui.util.get
-import icu.nullptr.hidemyapplist.ui.util.navController
-import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
-import icu.nullptr.hidemyapplist.ui.util.setupToolbar
+import top.secret.hma.v1.common.Constants
+import top.secret.hma.v1.service.ServiceClient
+import top.secret.hma.v1.ui.util.get
+import top.secret.hma.v1.ui.util.navController
+import top.secret.hma.v1.ui.util.setEdge2EdgeFlags
+import top.secret.hma.v1.ui.util.setupToolbar
 import kotlinx.coroutines.flow.MutableSharedFlow
-import org.frknkrc44.hma_oss.R
-import org.frknkrc44.hma_oss.databinding.FragmentEditSettingBinding
+import top.secret.hma.v1.R
+import top.secret.hma.v1.databinding.FragmentEditSettingBinding
 
 class EditSettingFragment : Fragment(R.layout.fragment_edit_setting) {
     private val binding by viewBinding(FragmentEditSettingBinding::bind)

@@ -1,6 +1,6 @@
-package icu.nullptr.hidemyapplist.common
+package top.secret.hma.v1.common
 
-import org.frknkrc44.hma_oss.common.BuildConfig
+import top.secret.hma.v1.common.BuildConfig
 
 object Constants {
     const val PROVIDER_AUTHORITY = "${BuildConfig.APP_PACKAGE_NAME}.ServiceProvider"

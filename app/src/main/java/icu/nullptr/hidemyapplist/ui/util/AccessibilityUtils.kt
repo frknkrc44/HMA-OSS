@@ -1,4 +1,4 @@
-package icu.nullptr.hidemyapplist.ui.util
+package top.secret.hma.v1.ui.util
 
 import android.content.ContentResolver
 import android.provider.Settings.Global.ANIMATOR_DURATION_SCALE

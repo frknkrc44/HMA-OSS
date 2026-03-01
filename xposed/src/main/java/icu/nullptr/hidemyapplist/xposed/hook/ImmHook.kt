@@ -1,4 +1,4 @@
-package icu.nullptr.hidemyapplist.xposed.hook
+package top.secret.hma.v1.xposed.hook
 
 import android.content.ComponentName
 import android.os.Build
@@ -8,15 +8,15 @@ import android.view.inputmethod.InputMethodSubtype
 import com.github.kyuubiran.ezxhelper.utils.findMethodOrNull
 import com.github.kyuubiran.ezxhelper.utils.hookBefore
 import de.robv.android.xposed.XC_MethodHook
-import icu.nullptr.hidemyapplist.common.Constants
-import icu.nullptr.hidemyapplist.common.Utils
-import icu.nullptr.hidemyapplist.common.settings_presets.InputMethodPreset
-import icu.nullptr.hidemyapplist.xposed.HMAService
-import icu.nullptr.hidemyapplist.xposed.Utils4Xposed
-import icu.nullptr.hidemyapplist.xposed.XposedConstants.IMM_SERVICE_CLASS
-import icu.nullptr.hidemyapplist.xposed.logD
-import icu.nullptr.hidemyapplist.xposed.logE
-import icu.nullptr.hidemyapplist.xposed.logI
+import top.secret.hma.v1.common.Constants
+import top.secret.hma.v1.common.Utils
+import top.secret.hma.v1.common.settings_presets.InputMethodPreset
+import top.secret.hma.v1.xposed.HMAService
+import top.secret.hma.v1.xposed.Utils4Xposed
+import top.secret.hma.v1.xposed.XposedConstants.IMM_SERVICE_CLASS
+import top.secret.hma.v1.xposed.logD
+import top.secret.hma.v1.xposed.logE
+import top.secret.hma.v1.xposed.logI
 import java.util.Collections
 
 class ImmHook(private val service: HMAService) : IFrameworkHook {

@@ -1,11 +1,11 @@
-package org.frknkrc44.hma_oss.ui.adapter
+package top.secret.hma.v1.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import icu.nullptr.hidemyapplist.common.FilterHolder
-import icu.nullptr.hidemyapplist.util.PackageHelper
-import org.frknkrc44.hma_oss.databinding.StatItemViewBinding
+import top.secret.hma.v1.common.FilterHolder
+import top.secret.hma.v1.util.PackageHelper
+import top.secret.hma.v1.databinding.StatItemViewBinding
 
 class StatAdapter() : RecyclerView.Adapter<StatAdapter.ViewHolder>() {
 

@@ -1,7 +1,7 @@
-package icu.nullptr.hidemyapplist.common.settings_presets
+package top.secret.hma.v1.common.settings_presets
 
 import android.provider.Settings
-import icu.nullptr.hidemyapplist.common.Constants
+import top.secret.hma.v1.common.Constants
 
 class AccessibilityPreset : BasePreset(NAME) {
     companion object {

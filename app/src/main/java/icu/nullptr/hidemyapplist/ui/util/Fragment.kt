@@ -1,4 +1,4 @@
-package icu.nullptr.hidemyapplist.ui.util
+package top.secret.hma.v1.ui.util
 
 import android.content.ContentResolver
 import android.content.Intent
@@ -18,8 +18,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
-import org.frknkrc44.hma_oss.R
-import org.frknkrc44.hma_oss.ui.activity.MainActivity
+import top.secret.hma.v1.R
+import top.secret.hma.v1.ui.activity.MainActivity
 
 val Fragment.navController get() = NavHostFragment.findNavController(this)
 

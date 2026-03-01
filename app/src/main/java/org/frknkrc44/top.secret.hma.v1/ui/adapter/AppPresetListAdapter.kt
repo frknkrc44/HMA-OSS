@@ -1,15 +1,15 @@
-package org.frknkrc44.hma_oss.ui.adapter
+package top.secret.hma.v1.ui.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import icu.nullptr.hidemyapplist.common.AppPresets
-import icu.nullptr.hidemyapplist.common.SettingsPresets
-import icu.nullptr.hidemyapplist.service.ConfigManager
-import icu.nullptr.hidemyapplist.ui.view.ListItemView
-import org.frknkrc44.hma_oss.BuildConfig
-import org.frknkrc44.hma_oss.R
+import top.secret.hma.v1.common.AppPresets
+import top.secret.hma.v1.common.SettingsPresets
+import top.secret.hma.v1.service.ConfigManager
+import top.secret.hma.v1.ui.view.ListItemView
+import top.secret.hma.v1.BuildConfig
+import top.secret.hma.v1.R
 
 class AppPresetListAdapter(
     context: Context,

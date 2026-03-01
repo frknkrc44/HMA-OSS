@@ -1,4 +1,4 @@
-package org.frknkrc44.hma_oss.ui.fragment
+package top.secret.hma.v1.ui.fragment
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -7,12 +7,12 @@ import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.androidbroadcast.vbpd.viewBinding
-import icu.nullptr.hidemyapplist.ui.util.navController
-import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
-import icu.nullptr.hidemyapplist.ui.util.setupToolbar
-import org.frknkrc44.hma_oss.R
-import org.frknkrc44.hma_oss.databinding.FragmentSettingsPtBaseBinding
-import org.frknkrc44.hma_oss.ui.adapter.BaseSettingsPTAdapter
+import top.secret.hma.v1.ui.util.navController
+import top.secret.hma.v1.ui.util.setEdge2EdgeFlags
+import top.secret.hma.v1.ui.util.setupToolbar
+import top.secret.hma.v1.R
+import top.secret.hma.v1.databinding.FragmentSettingsPtBaseBinding
+import top.secret.hma.v1.ui.adapter.BaseSettingsPTAdapter
 
 abstract class BaseSettingsPTFragment : Fragment(R.layout.fragment_settings_pt_base) {
     val binding by viewBinding(FragmentSettingsPtBaseBinding::bind)

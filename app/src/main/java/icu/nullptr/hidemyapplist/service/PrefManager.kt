@@ -1,14 +1,14 @@
-package icu.nullptr.hidemyapplist.service
+package top.secret.hma.v1.service
 
 import android.content.ComponentName
 import android.content.Context.MODE_PRIVATE
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
-import icu.nullptr.hidemyapplist.data.AppConstants
-import icu.nullptr.hidemyapplist.hmaApp
-import icu.nullptr.hidemyapplist.ui.util.get
-import icu.nullptr.hidemyapplist.util.PackageHelper.findEnabledAppComponent
+import top.secret.hma.v1.data.AppConstants
+import top.secret.hma.v1.hmaApp
+import top.secret.hma.v1.ui.util.get
+import top.secret.hma.v1.util.PackageHelper.findEnabledAppComponent
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.runBlocking
 

@@ -1,4 +1,4 @@
-package icu.nullptr.hidemyapplist.ui.fragment
+package top.secret.hma.v1.ui.fragment
 
 import android.content.Intent
 import android.os.Build
@@ -19,29 +19,29 @@ import androidx.preference.SwitchPreferenceCompat
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dev.androidbroadcast.vbpd.viewBinding
-import icu.nullptr.hidemyapplist.common.Constants
-import icu.nullptr.hidemyapplist.common.PropertyUtils
-import icu.nullptr.hidemyapplist.hmaApp
-import icu.nullptr.hidemyapplist.service.ConfigManager
-import icu.nullptr.hidemyapplist.service.PrefManager
-import icu.nullptr.hidemyapplist.service.ServiceClient
-import icu.nullptr.hidemyapplist.ui.util.enabledString
-import icu.nullptr.hidemyapplist.ui.util.navController
-import icu.nullptr.hidemyapplist.ui.util.recreateMainActivity
-import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
-import icu.nullptr.hidemyapplist.ui.util.setupToolbar
-import icu.nullptr.hidemyapplist.ui.util.showToast
-import icu.nullptr.hidemyapplist.ui.util.withAnimations
-import icu.nullptr.hidemyapplist.util.ConfigUtils.Companion.getLocale
-import icu.nullptr.hidemyapplist.util.LangList
-import icu.nullptr.hidemyapplist.util.PackageHelper.findEnabledAppComponent
-import icu.nullptr.hidemyapplist.util.SuUtils
+import top.secret.hma.v1.common.Constants
+import top.secret.hma.v1.common.PropertyUtils
+import top.secret.hma.v1.hmaApp
+import top.secret.hma.v1.service.ConfigManager
+import top.secret.hma.v1.service.PrefManager
+import top.secret.hma.v1.service.ServiceClient
+import top.secret.hma.v1.ui.util.enabledString
+import top.secret.hma.v1.ui.util.navController
+import top.secret.hma.v1.ui.util.recreateMainActivity
+import top.secret.hma.v1.ui.util.setEdge2EdgeFlags
+import top.secret.hma.v1.ui.util.setupToolbar
+import top.secret.hma.v1.ui.util.showToast
+import top.secret.hma.v1.ui.util.withAnimations
+import top.secret.hma.v1.util.ConfigUtils.Companion.getLocale
+import top.secret.hma.v1.util.LangList
+import top.secret.hma.v1.util.PackageHelper.findEnabledAppComponent
+import top.secret.hma.v1.util.SuUtils
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import org.frknkrc44.hma_oss.R
-import org.frknkrc44.hma_oss.databinding.FragmentSettingsBinding
-import org.frknkrc44.hma_oss.ui.activity.MainActivity
-import org.frknkrc44.hma_oss.ui.preference.AppIconPreference
+import top.secret.hma.v1.R
+import top.secret.hma.v1.databinding.FragmentSettingsBinding
+import top.secret.hma.v1.ui.activity.MainActivity
+import top.secret.hma.v1.ui.preference.AppIconPreference
 import java.util.Locale
 
 class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {

@@ -1,4 +1,4 @@
-package org.frknkrc44.hma_oss.ui.fragment
+package top.secret.hma.v1.ui.fragment
 
 import android.os.Bundle
 import android.view.View
@@ -8,19 +8,19 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import dev.androidbroadcast.vbpd.viewBinding
-import icu.nullptr.hidemyapplist.common.JsonConfig
-import icu.nullptr.hidemyapplist.service.ConfigManager
-import icu.nullptr.hidemyapplist.service.PrefManager
-import icu.nullptr.hidemyapplist.ui.fragment.ScopeFragmentArgs
-import icu.nullptr.hidemyapplist.ui.util.navController
-import icu.nullptr.hidemyapplist.ui.util.navigate
-import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
-import icu.nullptr.hidemyapplist.ui.util.setupToolbar
-import icu.nullptr.hidemyapplist.ui.util.showToast
+import top.secret.hma.v1.common.JsonConfig
+import top.secret.hma.v1.service.ConfigManager
+import top.secret.hma.v1.service.PrefManager
+import top.secret.hma.v1.ui.fragment.ScopeFragmentArgs
+import top.secret.hma.v1.ui.util.navController
+import top.secret.hma.v1.ui.util.navigate
+import top.secret.hma.v1.ui.util.setEdge2EdgeFlags
+import top.secret.hma.v1.ui.util.setupToolbar
+import top.secret.hma.v1.ui.util.showToast
 import kotlinx.coroutines.launch
-import org.frknkrc44.hma_oss.R
-import org.frknkrc44.hma_oss.databinding.FragmentBulkConfigWizardBinding
-import org.frknkrc44.hma_oss.ui.viewmodel.BulkConfigWizardViewModel
+import top.secret.hma.v1.R
+import top.secret.hma.v1.databinding.FragmentBulkConfigWizardBinding
+import top.secret.hma.v1.ui.viewmodel.BulkConfigWizardViewModel
 
 class BulkConfigWizardFragment : Fragment(R.layout.fragment_bulk_config_wizard) {
 

@@ -1,14 +1,14 @@
-package icu.nullptr.hidemyapplist.ui.adapter
+package top.secret.hma.v1.ui.adapter
 
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
-import icu.nullptr.hidemyapplist.service.PrefManager
-import icu.nullptr.hidemyapplist.ui.view.AppItemView
-import icu.nullptr.hidemyapplist.util.PackageHelper
+import top.secret.hma.v1.service.PrefManager
+import top.secret.hma.v1.ui.view.AppItemView
+import top.secret.hma.v1.util.PackageHelper
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
-import org.frknkrc44.hma_oss.BuildConfig
+import top.secret.hma.v1.BuildConfig
 
 abstract class AppSelectAdapter(
     private val firstFilter: ((String) -> Boolean)? = null

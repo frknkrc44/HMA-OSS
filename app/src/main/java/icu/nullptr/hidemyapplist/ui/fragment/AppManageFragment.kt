@@ -1,11 +1,11 @@
-package icu.nullptr.hidemyapplist.ui.fragment
+package top.secret.hma.v1.ui.fragment
 
-import icu.nullptr.hidemyapplist.service.ConfigManager
-import icu.nullptr.hidemyapplist.ui.adapter.AppManageAdapter
-import icu.nullptr.hidemyapplist.ui.util.navigate
-import icu.nullptr.hidemyapplist.util.PackageHelper
-import org.frknkrc44.hma_oss.R
-import org.frknkrc44.hma_oss.ui.fragment.AppSettingsV2FragmentArgs
+import top.secret.hma.v1.service.ConfigManager
+import top.secret.hma.v1.ui.adapter.AppManageAdapter
+import top.secret.hma.v1.ui.util.navigate
+import top.secret.hma.v1.util.PackageHelper
+import top.secret.hma.v1.R
+import top.secret.hma.v1.ui.fragment.AppSettingsV2FragmentArgs
 
 class AppManageFragment : AppSelectFragment() {
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:transitionGroup="true"
-    tools:context="icu.nullptr.hidemyapplist.ui.fragment.AppSelectFragment">
+    tools:context="top.secret.hma.v1.ui.fragment.AppSelectFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:background="@android:color/transparent"

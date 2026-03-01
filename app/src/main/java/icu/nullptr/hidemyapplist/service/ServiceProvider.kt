@@ -1,4 +1,4 @@
-package icu.nullptr.hidemyapplist.service
+package top.secret.hma.v1.service
 
 import android.content.ContentProvider
 import android.content.ContentValues

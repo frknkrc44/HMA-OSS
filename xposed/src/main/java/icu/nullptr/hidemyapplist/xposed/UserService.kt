@@ -1,4 +1,4 @@
-package icu.nullptr.hidemyapplist.xposed
+package top.secret.hma.v1.xposed
 
 import android.app.ActivityManagerHidden
 import android.content.AttributionSource
@@ -7,9 +7,9 @@ import android.os.Build
 import android.os.Bundle
 import android.os.ServiceManager
 import de.robv.android.xposed.XposedHelpers
-import icu.nullptr.hidemyapplist.common.Constants
-import icu.nullptr.hidemyapplist.common.Utils
-import org.frknkrc44.hma_oss.common.BuildConfig
+import top.secret.hma.v1.common.Constants
+import top.secret.hma.v1.common.Utils
+import top.secret.hma.v1.common.BuildConfig
 import rikka.hidden.compat.ActivityManagerApis
 import rikka.hidden.compat.adapter.UidObserverAdapter
 

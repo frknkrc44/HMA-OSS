@@ -1,4 +1,4 @@
-package icu.nullptr.hidemyapplist.ui.fragment
+package top.secret.hma.v1.ui.fragment
 
 import android.os.Bundle
 import android.view.View
@@ -8,17 +8,17 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dev.androidbroadcast.vbpd.viewBinding
-import icu.nullptr.hidemyapplist.common.JsonConfig
-import icu.nullptr.hidemyapplist.service.ConfigManager
-import icu.nullptr.hidemyapplist.ui.adapter.TemplateAdapter
-import icu.nullptr.hidemyapplist.ui.util.navController
-import icu.nullptr.hidemyapplist.ui.util.navigate
-import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
-import icu.nullptr.hidemyapplist.ui.util.setupToolbar
-import org.frknkrc44.hma_oss.R
-import org.frknkrc44.hma_oss.databinding.FragmentTemplateManageBinding
-import org.frknkrc44.hma_oss.ui.fragment.SettingsTemplateConfFragmentArgs
-import org.frknkrc44.hma_oss.ui.util.toTargetSettingList
+import top.secret.hma.v1.common.JsonConfig
+import top.secret.hma.v1.service.ConfigManager
+import top.secret.hma.v1.ui.adapter.TemplateAdapter
+import top.secret.hma.v1.ui.util.navController
+import top.secret.hma.v1.ui.util.navigate
+import top.secret.hma.v1.ui.util.setEdge2EdgeFlags
+import top.secret.hma.v1.ui.util.setupToolbar
+import top.secret.hma.v1.R
+import top.secret.hma.v1.databinding.FragmentTemplateManageBinding
+import top.secret.hma.v1.ui.fragment.SettingsTemplateConfFragmentArgs
+import top.secret.hma.v1.ui.util.toTargetSettingList
 
 class TemplateManageFragment : Fragment(R.layout.fragment_template_manage) {
 

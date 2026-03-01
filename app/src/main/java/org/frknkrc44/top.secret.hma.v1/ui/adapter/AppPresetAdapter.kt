@@ -1,11 +1,11 @@
-package org.frknkrc44.hma_oss.ui.adapter
+package top.secret.hma.v1.ui.adapter
 
 import android.view.ViewGroup
 import android.widget.Filter
-import icu.nullptr.hidemyapplist.service.ServiceClient
-import icu.nullptr.hidemyapplist.ui.adapter.AppSelectAdapter
-import icu.nullptr.hidemyapplist.ui.view.AppItemView
-import icu.nullptr.hidemyapplist.util.PackageHelper
+import top.secret.hma.v1.service.ServiceClient
+import top.secret.hma.v1.ui.adapter.AppSelectAdapter
+import top.secret.hma.v1.ui.view.AppItemView
+import top.secret.hma.v1.util.PackageHelper
 import kotlinx.coroutines.runBlocking
 
 class AppPresetAdapter(

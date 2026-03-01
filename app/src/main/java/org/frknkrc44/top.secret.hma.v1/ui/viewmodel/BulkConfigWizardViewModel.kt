@@ -1,8 +1,8 @@
-package org.frknkrc44.hma_oss.ui.viewmodel
+package top.secret.hma.v1.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import icu.nullptr.hidemyapplist.common.JsonConfig
+import top.secret.hma.v1.common.JsonConfig
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class BulkConfigWizardViewModel() : ViewModel() {

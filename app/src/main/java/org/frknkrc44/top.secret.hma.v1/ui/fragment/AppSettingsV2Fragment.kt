@@ -1,4 +1,4 @@
-package org.frknkrc44.hma_oss.ui.fragment
+package top.secret.hma.v1.ui.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -19,27 +19,27 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dev.androidbroadcast.vbpd.viewBinding
-import icu.nullptr.hidemyapplist.common.AppPresets
-import icu.nullptr.hidemyapplist.common.Constants
-import icu.nullptr.hidemyapplist.common.JsonConfig
-import icu.nullptr.hidemyapplist.common.SettingsPresets
-import icu.nullptr.hidemyapplist.service.ConfigManager
-import icu.nullptr.hidemyapplist.service.ServiceClient
-import icu.nullptr.hidemyapplist.ui.fragment.ScopeFragmentArgs
-import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.asDrawable
-import icu.nullptr.hidemyapplist.ui.util.enabledString
-import icu.nullptr.hidemyapplist.ui.util.navController
-import icu.nullptr.hidemyapplist.ui.util.navigate
-import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
-import icu.nullptr.hidemyapplist.ui.util.setupToolbar
-import icu.nullptr.hidemyapplist.ui.util.showToast
-import icu.nullptr.hidemyapplist.ui.util.withAnimations
-import icu.nullptr.hidemyapplist.ui.viewmodel.AppSettingsViewModel
-import icu.nullptr.hidemyapplist.util.PackageHelper
-import org.frknkrc44.hma_oss.BuildConfig
-import org.frknkrc44.hma_oss.R
-import org.frknkrc44.hma_oss.databinding.FragmentSettingsBinding
-import org.frknkrc44.hma_oss.databinding.LayoutListEmptyBinding
+import top.secret.hma.v1.common.AppPresets
+import top.secret.hma.v1.common.Constants
+import top.secret.hma.v1.common.JsonConfig
+import top.secret.hma.v1.common.SettingsPresets
+import top.secret.hma.v1.service.ConfigManager
+import top.secret.hma.v1.service.ServiceClient
+import top.secret.hma.v1.ui.fragment.ScopeFragmentArgs
+import top.secret.hma.v1.ui.util.ThemeUtils.asDrawable
+import top.secret.hma.v1.ui.util.enabledString
+import top.secret.hma.v1.ui.util.navController
+import top.secret.hma.v1.ui.util.navigate
+import top.secret.hma.v1.ui.util.setEdge2EdgeFlags
+import top.secret.hma.v1.ui.util.setupToolbar
+import top.secret.hma.v1.ui.util.showToast
+import top.secret.hma.v1.ui.util.withAnimations
+import top.secret.hma.v1.ui.viewmodel.AppSettingsViewModel
+import top.secret.hma.v1.util.PackageHelper
+import top.secret.hma.v1.BuildConfig
+import top.secret.hma.v1.R
+import top.secret.hma.v1.databinding.FragmentSettingsBinding
+import top.secret.hma.v1.databinding.LayoutListEmptyBinding
 
 class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
     companion object {

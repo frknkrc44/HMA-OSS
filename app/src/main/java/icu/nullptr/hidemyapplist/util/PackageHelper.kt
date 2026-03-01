@@ -1,4 +1,4 @@
-package icu.nullptr.hidemyapplist.util
+package top.secret.hma.v1.util
 
 import android.content.ComponentName
 import android.content.Context
@@ -11,22 +11,22 @@ import android.os.UserManager
 import android.util.Log
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toDrawable
-import icu.nullptr.hidemyapplist.common.Constants
-import icu.nullptr.hidemyapplist.hmaApp
-import icu.nullptr.hidemyapplist.service.ConfigManager
-import icu.nullptr.hidemyapplist.service.PrefManager
-import icu.nullptr.hidemyapplist.service.ServiceClient
-import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.asDrawable
-import icu.nullptr.hidemyapplist.ui.util.asComponentName
-import icu.nullptr.hidemyapplist.ui.util.get
+import top.secret.hma.v1.common.Constants
+import top.secret.hma.v1.hmaApp
+import top.secret.hma.v1.service.ConfigManager
+import top.secret.hma.v1.service.PrefManager
+import top.secret.hma.v1.service.ServiceClient
+import top.secret.hma.v1.ui.util.ThemeUtils.asDrawable
+import top.secret.hma.v1.ui.util.asComponentName
+import top.secret.hma.v1.ui.util.get
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
-import org.frknkrc44.hma_oss.BuildConfig
-import org.frknkrc44.hma_oss.R
+import top.secret.hma.v1.BuildConfig
+import top.secret.hma.v1.R
 import java.text.Collator
 import java.util.Locale
 

@@ -1,5 +1,5 @@
 -keep class com.github.kyuubiran.ezxhelper.utils.** { *; }
--keep class icu.nullptr.hidemyapplist.xposed.XposedEntry { *; }
+-keep class top.secret.hma.v1.xposed.XposedEntry { *; }
 -dontwarn java.lang.invoke.StringConcatFactory
 -dontwarn android.content.res.XModuleResources
 -dontwarn android.content.res.XResources

@@ -1,4 +1,4 @@
-package icu.nullptr.hidemyapplist.data
+package top.secret.hma.v1.data
 
 import kotlinx.coroutines.runBlocking
 import org.json.JSONObject

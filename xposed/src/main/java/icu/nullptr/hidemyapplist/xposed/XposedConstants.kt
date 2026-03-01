@@ -1,4 +1,4 @@
-package icu.nullptr.hidemyapplist.xposed
+package top.secret.hma.v1.xposed
 
 object XposedConstants {
     const val COMPUTER_ENGINE_CLASS = "com.android.server.pm.ComputerEngine"

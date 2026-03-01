@@ -1,7 +1,7 @@
-package icu.nullptr.hidemyapplist.data
+package top.secret.hma.v1.data
 
-import org.frknkrc44.hma_oss.BuildConfig
-import org.frknkrc44.hma_oss.R
+import top.secret.hma.v1.BuildConfig
+import top.secret.hma.v1.R
 
 object AppConstants {
     const val COMPONENT_NAME_DEFAULT         = "${BuildConfig.APPLICATION_ID}.MainActivityLauncher"

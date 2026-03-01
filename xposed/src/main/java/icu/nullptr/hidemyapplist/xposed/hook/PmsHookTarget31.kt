@@ -1,4 +1,4 @@
-package icu.nullptr.hidemyapplist.xposed.hook
+package top.secret.hma.v1.xposed.hook
 
 import android.os.Binder
 import android.os.Build
@@ -8,17 +8,17 @@ import com.github.kyuubiran.ezxhelper.utils.findMethod
 import com.github.kyuubiran.ezxhelper.utils.findMethodOrNull
 import com.github.kyuubiran.ezxhelper.utils.hookBefore
 import com.github.kyuubiran.ezxhelper.utils.paramCount
-import icu.nullptr.hidemyapplist.common.Constants
-import icu.nullptr.hidemyapplist.common.Constants.VENDING_PACKAGE_NAME
-import icu.nullptr.hidemyapplist.common.Utils
-import icu.nullptr.hidemyapplist.xposed.HMAService
-import icu.nullptr.hidemyapplist.xposed.Utils4Xposed
-import icu.nullptr.hidemyapplist.xposed.XposedConstants.APPS_FILTER_CLASS
-import icu.nullptr.hidemyapplist.xposed.XposedConstants.PMS_COMPUTER_TRACKER_CLASS
-import icu.nullptr.hidemyapplist.xposed.logD
-import icu.nullptr.hidemyapplist.xposed.logE
-import icu.nullptr.hidemyapplist.xposed.logI
-import icu.nullptr.hidemyapplist.xposed.logV
+import top.secret.hma.v1.common.Constants
+import top.secret.hma.v1.common.Constants.VENDING_PACKAGE_NAME
+import top.secret.hma.v1.common.Utils
+import top.secret.hma.v1.xposed.HMAService
+import top.secret.hma.v1.xposed.Utils4Xposed
+import top.secret.hma.v1.xposed.XposedConstants.APPS_FILTER_CLASS
+import top.secret.hma.v1.xposed.XposedConstants.PMS_COMPUTER_TRACKER_CLASS
+import top.secret.hma.v1.xposed.logD
+import top.secret.hma.v1.xposed.logE
+import top.secret.hma.v1.xposed.logI
+import top.secret.hma.v1.xposed.logV
 
 @RequiresApi(Build.VERSION_CODES.S)
 class PmsHookTarget31(service: HMAService) : PmsHookTargetBase(service) {

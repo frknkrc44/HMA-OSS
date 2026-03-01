@@ -1,4 +1,4 @@
-package icu.nullptr.hidemyapplist.common.app_presets
+package top.secret.hma.v1.common.app_presets
 
 import android.content.pm.ApplicationInfo
 

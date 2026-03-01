@@ -1,4 +1,4 @@
-package org.frknkrc44.hma_oss.ui.fragment
+package top.secret.hma.v1.ui.fragment
 
 import android.content.Intent
 import android.content.res.ColorStateList
@@ -15,16 +15,16 @@ import androidx.transition.AutoTransition
 import androidx.transition.TransitionManager
 import com.bumptech.glide.Glide
 import dev.androidbroadcast.vbpd.viewBinding
-import icu.nullptr.hidemyapplist.service.PrefManager
-import icu.nullptr.hidemyapplist.ui.util.AccessibilityUtils
-import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.homeItemBackgroundColor
-import icu.nullptr.hidemyapplist.ui.util.navController
-import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
-import icu.nullptr.hidemyapplist.util.PackageHelper.findEnabledAppComponent
-import org.frknkrc44.hma_oss.R
-import org.frknkrc44.hma_oss.common.BuildConfig
-import org.frknkrc44.hma_oss.databinding.FragmentAboutBinding
-import org.frknkrc44.hma_oss.databinding.FragmentAboutListItemBinding
+import top.secret.hma.v1.service.PrefManager
+import top.secret.hma.v1.ui.util.AccessibilityUtils
+import top.secret.hma.v1.ui.util.ThemeUtils.homeItemBackgroundColor
+import top.secret.hma.v1.ui.util.navController
+import top.secret.hma.v1.ui.util.setEdge2EdgeFlags
+import top.secret.hma.v1.util.PackageHelper.findEnabledAppComponent
+import top.secret.hma.v1.R
+import top.secret.hma.v1.common.BuildConfig
+import top.secret.hma.v1.databinding.FragmentAboutBinding
+import top.secret.hma.v1.databinding.FragmentAboutListItemBinding
 import org.json.JSONObject
 
 @Suppress("deprecation")

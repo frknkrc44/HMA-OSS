@@ -1,14 +1,14 @@
-package icu.nullptr.hidemyapplist.ui.adapter
+package top.secret.hma.v1.ui.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import icu.nullptr.hidemyapplist.service.PrefManager
-import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.themeColor
-import org.frknkrc44.hma_oss.R
-import org.frknkrc44.hma_oss.databinding.LogItemViewBinding
+import top.secret.hma.v1.service.PrefManager
+import top.secret.hma.v1.ui.util.ThemeUtils.themeColor
+import top.secret.hma.v1.R
+import top.secret.hma.v1.databinding.LogItemViewBinding
 import java.util.regex.Pattern
 
 class LogAdapter(context: Context) : RecyclerView.Adapter<LogAdapter.ViewHolder>() {

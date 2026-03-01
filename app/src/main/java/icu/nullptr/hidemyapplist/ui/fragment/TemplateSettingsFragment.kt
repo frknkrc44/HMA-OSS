@@ -1,4 +1,4 @@
-package icu.nullptr.hidemyapplist.ui.fragment
+package top.secret.hma.v1.ui.fragment
 
 import android.os.Bundle
 import android.view.View
@@ -13,15 +13,15 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dev.androidbroadcast.vbpd.viewBinding
-import icu.nullptr.hidemyapplist.service.ConfigManager
-import icu.nullptr.hidemyapplist.ui.util.navController
-import icu.nullptr.hidemyapplist.ui.util.navigate
-import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
-import icu.nullptr.hidemyapplist.ui.util.setupToolbar
-import icu.nullptr.hidemyapplist.ui.viewmodel.TemplateSettingsViewModel
+import top.secret.hma.v1.service.ConfigManager
+import top.secret.hma.v1.ui.util.navController
+import top.secret.hma.v1.ui.util.navigate
+import top.secret.hma.v1.ui.util.setEdge2EdgeFlags
+import top.secret.hma.v1.ui.util.setupToolbar
+import top.secret.hma.v1.ui.viewmodel.TemplateSettingsViewModel
 import kotlinx.coroutines.launch
-import org.frknkrc44.hma_oss.R
-import org.frknkrc44.hma_oss.databinding.FragmentTemplateSettingsBinding
+import top.secret.hma.v1.R
+import top.secret.hma.v1.databinding.FragmentTemplateSettingsBinding
 
 class TemplateSettingsFragment : Fragment(R.layout.fragment_template_settings) {
 

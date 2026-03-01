@@ -1,6 +1,6 @@
-package icu.nullptr.hidemyapplist.common.settings_presets
+package top.secret.hma.v1.common.settings_presets
 
-import icu.nullptr.hidemyapplist.common.Constants
+import top.secret.hma.v1.common.Constants
 import kotlinx.serialization.Serializable
 
 @Serializable

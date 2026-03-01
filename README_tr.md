@@ -13,11 +13,11 @@
     <a href="https://github.com/frknkrc44/HMA-OSS/releases/latest" style="text-decoration:none">
       <img src="https://img.shields.io/github/v/release/frknkrc44/HMA-OSS?label=Release">
     </a>
-    <a href="https://apt.izzysoft.de/fdroid/index/apk/org.frknkrc44.hma_oss" style="text-decoration:none">
-      <img src="https://img.shields.io/endpoint?url=https://apt.izzysoft.de/fdroid/api/v1/shield/org.frknkrc44.hma_oss&label=IzzyOnDroid">
+    <a href="https://apt.izzysoft.de/fdroid/index/apk/top.secret.hma.v1" style="text-decoration:none">
+      <img src="https://img.shields.io/endpoint?url=https://apt.izzysoft.de/fdroid/api/v1/shield/top.secret.hma.v1&label=IzzyOnDroid">
     </a>
-    <a href="https://shields.rbtlog.dev/org.frknkrc44.hma_oss" style="text-decoration:none">
-      <img src="https://shields.rbtlog.dev/simple/org.frknkrc44.hma_oss">
+    <a href="https://shields.rbtlog.dev/top.secret.hma.v1" style="text-decoration:none">
+      <img src="https://shields.rbtlog.dev/simple/top.secret.hma.v1">
     </a>
     <a href="https://github.com/frknkrc44/HMA-OSS/releases/latest" style="text-decoration:none">
       <img src="https://img.shields.io/github/downloads/frknkrc44/HMA-OSS/total">

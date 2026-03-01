@@ -1,4 +1,4 @@
-package org.frknkrc44.hma_oss.ui.fragment
+package top.secret.hma.v1.ui.fragment
 
 import android.content.ComponentName
 import android.content.Context
@@ -10,14 +10,14 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import icu.nullptr.hidemyapplist.common.Constants
-import icu.nullptr.hidemyapplist.common.Utils.generateRandomHex
-import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
-import icu.nullptr.hidemyapplist.ui.util.navigate
-import org.frknkrc44.hma_oss.R
-import org.frknkrc44.hma_oss.ui.adapter.SettingsTemplateListAdapter
-import org.frknkrc44.hma_oss.ui.util.toEditSettingFragmentArgs
-import org.frknkrc44.hma_oss.ui.util.toTargetSettingList
+import top.secret.hma.v1.common.Constants
+import top.secret.hma.v1.common.Utils.generateRandomHex
+import top.secret.hma.v1.common.settings_presets.ReplacementItem
+import top.secret.hma.v1.ui.util.navigate
+import top.secret.hma.v1.R
+import top.secret.hma.v1.ui.adapter.SettingsTemplateListAdapter
+import top.secret.hma.v1.ui.util.toEditSettingFragmentArgs
+import top.secret.hma.v1.ui.util.toTargetSettingList
 
 class SettingsTemplateInnerFragment : BaseSettingsPTFragment() {
     private val args by lazy { navArgs<SettingsTemplateInnerFragmentArgs>() }

@@ -1,19 +1,19 @@
-package icu.nullptr.hidemyapplist
+package top.secret.hma.v1
 
 import android.annotation.SuppressLint
 import android.app.Application
 import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
-import icu.nullptr.hidemyapplist.receiver.AppChangeReceiver
-import icu.nullptr.hidemyapplist.service.ConfigManager
-import icu.nullptr.hidemyapplist.service.PrefManager
-import icu.nullptr.hidemyapplist.service.ServiceClient
-import icu.nullptr.hidemyapplist.ui.util.showToast
-import icu.nullptr.hidemyapplist.util.ConfigUtils.Companion.getLocale
+import top.secret.hma.v1.receiver.AppChangeReceiver
+import top.secret.hma.v1.service.ConfigManager
+import top.secret.hma.v1.service.PrefManager
+import top.secret.hma.v1.service.ServiceClient
+import top.secret.hma.v1.ui.util.showToast
+import top.secret.hma.v1.util.ConfigUtils.Companion.getLocale
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import me.zhanghai.android.appiconloader.AppIconLoader
-import org.frknkrc44.hma_oss.R
+import top.secret.hma.v1.R
 import kotlin.system.exitProcess
 
 lateinit var hmaApp: MyApp

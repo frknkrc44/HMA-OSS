@@ -1,9 +1,9 @@
-package icu.nullptr.hidemyapplist.common
+package top.secret.hma.v1.common
 
-import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
+import top.secret.hma.v1.common.settings_presets.ReplacementItem
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-import org.frknkrc44.hma_oss.common.BuildConfig
+import top.secret.hma.v1.common.BuildConfig
 
 @Serializable
 data class JsonConfig(

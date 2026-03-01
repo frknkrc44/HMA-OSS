@@ -1,7 +1,7 @@
-package org.frknkrc44.hma_oss.ui.adapter
+package top.secret.hma.v1.ui.adapter
 
-import icu.nullptr.hidemyapplist.common.SettingsPresets
-import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
+import top.secret.hma.v1.common.SettingsPresets
+import top.secret.hma.v1.common.settings_presets.ReplacementItem
 
 class SettingsPresetListAdapter(name: String) : BaseSettingsPTAdapter() {
     override val items by lazy {

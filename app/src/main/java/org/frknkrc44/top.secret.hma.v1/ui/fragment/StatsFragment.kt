@@ -1,4 +1,4 @@
-package org.frknkrc44.hma_oss.ui.fragment
+package top.secret.hma.v1.ui.fragment
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -8,16 +8,16 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.androidbroadcast.vbpd.viewBinding
-import icu.nullptr.hidemyapplist.common.FilterHolder
-import icu.nullptr.hidemyapplist.service.ServiceClient
-import icu.nullptr.hidemyapplist.ui.util.navController
-import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
-import icu.nullptr.hidemyapplist.ui.util.setupToolbar
-import icu.nullptr.hidemyapplist.ui.util.showToast
+import top.secret.hma.v1.common.FilterHolder
+import top.secret.hma.v1.service.ServiceClient
+import top.secret.hma.v1.ui.util.navController
+import top.secret.hma.v1.ui.util.setEdge2EdgeFlags
+import top.secret.hma.v1.ui.util.setupToolbar
+import top.secret.hma.v1.ui.util.showToast
 import kotlinx.coroutines.launch
-import org.frknkrc44.hma_oss.R
-import org.frknkrc44.hma_oss.databinding.FragmentLogsBinding
-import org.frknkrc44.hma_oss.ui.adapter.StatAdapter
+import top.secret.hma.v1.R
+import top.secret.hma.v1.databinding.FragmentLogsBinding
+import top.secret.hma.v1.ui.adapter.StatAdapter
 
 class StatsFragment : Fragment(R.layout.fragment_logs) {
 

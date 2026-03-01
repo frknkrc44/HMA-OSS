@@ -1,16 +1,16 @@
-package icu.nullptr.hidemyapplist.service
+package top.secret.hma.v1.service
 
 import android.os.Build
 import android.util.Log
-import icu.nullptr.hidemyapplist.common.JsonConfig
-import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
-import icu.nullptr.hidemyapplist.hmaApp
-import icu.nullptr.hidemyapplist.service.ConfigManager.PTType.APP
-import icu.nullptr.hidemyapplist.service.ConfigManager.PTType.SETTINGS
-import icu.nullptr.hidemyapplist.ui.util.showToast
-import icu.nullptr.hidemyapplist.util.PackageHelper
-import org.frknkrc44.hma_oss.R
-import org.frknkrc44.hma_oss.common.BuildConfig
+import top.secret.hma.v1.common.JsonConfig
+import top.secret.hma.v1.common.settings_presets.ReplacementItem
+import top.secret.hma.v1.hmaApp
+import top.secret.hma.v1.service.ConfigManager.PTType.APP
+import top.secret.hma.v1.service.ConfigManager.PTType.SETTINGS
+import top.secret.hma.v1.ui.util.showToast
+import top.secret.hma.v1.util.PackageHelper
+import top.secret.hma.v1.R
+import top.secret.hma.v1.common.BuildConfig
 import java.io.File
 
 object ConfigManager {

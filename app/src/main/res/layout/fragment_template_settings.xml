@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="icu.nullptr.hidemyapplist.ui.fragment.TemplateSettingsFragment">
+    tools:context="top.secret.hma.v1.ui.fragment.TemplateSettingsFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:background="@android:color/transparent"
@@ -62,14 +62,14 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
-        <icu.nullptr.hidemyapplist.ui.view.ListItemView
+        <top.secret.hma.v1.ui.view.ListItemView
             android:id="@+id/target_apps"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:buttonText="@string/edit_list"
             app:icon="@drawable/baseline_apps_24" />
 
-        <icu.nullptr.hidemyapplist.ui.view.ListItemView
+        <top.secret.hma.v1.ui.view.ListItemView
             android:id="@+id/applied_apps"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

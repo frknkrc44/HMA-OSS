@@ -1,11 +1,11 @@
-package icu.nullptr.hidemyapplist.xposed
+package top.secret.hma.v1.xposed
 
 import android.app.ActivityThread
 import android.os.Binder
 import android.os.Build
 import com.github.kyuubiran.ezxhelper.utils.findField
-import icu.nullptr.hidemyapplist.common.Constants
-import icu.nullptr.hidemyapplist.common.Utils
+import top.secret.hma.v1.common.Constants
+import top.secret.hma.v1.common.Utils
 
 object Utils4Xposed {
     fun getPackageNameFromPackageSettings(packageSettings: Any): String? {

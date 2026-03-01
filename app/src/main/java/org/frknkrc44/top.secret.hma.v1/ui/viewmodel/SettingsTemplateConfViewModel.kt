@@ -1,12 +1,12 @@
-package org.frknkrc44.hma_oss.ui.viewmodel
+package top.secret.hma.v1.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
-import icu.nullptr.hidemyapplist.service.ConfigManager
+import top.secret.hma.v1.common.settings_presets.ReplacementItem
+import top.secret.hma.v1.service.ConfigManager
 import kotlinx.coroutines.flow.MutableStateFlow
-import org.frknkrc44.hma_oss.ui.fragment.SettingsTemplateConfFragmentArgs
-import org.frknkrc44.hma_oss.ui.util.targetSettingListToBundle
+import top.secret.hma.v1.ui.fragment.SettingsTemplateConfFragmentArgs
+import top.secret.hma.v1.ui.util.targetSettingListToBundle
 
 class SettingsTemplateConfViewModel(
     @Suppress("unused")

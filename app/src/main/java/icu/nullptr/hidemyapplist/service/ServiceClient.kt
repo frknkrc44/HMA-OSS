@@ -1,9 +1,9 @@
-package icu.nullptr.hidemyapplist.service
+package top.secret.hma.v1.service
 
 import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
-import icu.nullptr.hidemyapplist.common.IHMAService
+import top.secret.hma.v1.common.IHMAService
 import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
 import java.lang.reflect.Proxy

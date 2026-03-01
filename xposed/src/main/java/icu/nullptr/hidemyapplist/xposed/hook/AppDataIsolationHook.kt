@@ -1,4 +1,4 @@
-package icu.nullptr.hidemyapplist.xposed.hook
+package top.secret.hma.v1.xposed.hook
 
 import android.os.Build
 import android.os.SystemProperties
@@ -8,13 +8,13 @@ import com.github.kyuubiran.ezxhelper.utils.hookAfter
 import com.github.kyuubiran.ezxhelper.utils.hookBefore
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers
-import icu.nullptr.hidemyapplist.common.Utils
-import icu.nullptr.hidemyapplist.xposed.HMAService
-import icu.nullptr.hidemyapplist.xposed.XposedConstants.STORAGE_MANAGER_SERVICE_CLASS
-import icu.nullptr.hidemyapplist.xposed.logD
-import icu.nullptr.hidemyapplist.xposed.logE
-import icu.nullptr.hidemyapplist.xposed.logI
-import org.frknkrc44.hma_oss.common.BuildConfig
+import top.secret.hma.v1.common.Utils
+import top.secret.hma.v1.xposed.HMAService
+import top.secret.hma.v1.xposed.XposedConstants.STORAGE_MANAGER_SERVICE_CLASS
+import top.secret.hma.v1.xposed.logD
+import top.secret.hma.v1.xposed.logE
+import top.secret.hma.v1.xposed.logI
+import top.secret.hma.v1.common.BuildConfig
 
 @RequiresApi(Build.VERSION_CODES.R)
 class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {

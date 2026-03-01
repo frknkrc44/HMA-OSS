@@ -142,7 +142,7 @@ kotlin {
 autoResConfig {
     generateClass.set(true)
     generateRes.set(false)
-    generatedClassFullName.set("icu.nullptr.hidemyapplist.util.LangList")
+    generatedClassFullName.set("top.secret.hma.v1.util.LangList")
     generatedArrayFirstItem.set("SYSTEM")
 }
 

@@ -1,8 +1,8 @@
-package icu.nullptr.hidemyapplist.xposed
+package top.secret.hma.v1.xposed
 
 import android.util.Log
 import de.robv.android.xposed.XposedBridge
-import org.frknkrc44.hma_oss.common.BuildConfig
+import top.secret.hma.v1.common.BuildConfig
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

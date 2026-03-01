@@ -6,42 +6,42 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="org.frknkrc44.hma_oss.ui.fragment.HomeFragment"
+        android:name="top.secret.hma.v1.ui.fragment.HomeFragment"
         android:label="@string/title_home" />
 
     <fragment
         android:id="@+id/nav_logs"
-        android:name="icu.nullptr.hidemyapplist.ui.fragment.LogsFragment"
+        android:name="top.secret.hma.v1.ui.fragment.LogsFragment"
         android:label="@string/title_logs" />
 
     <fragment
         android:id="@+id/nav_stats"
-        android:name="org.frknkrc44.hma_oss.ui.fragment.StatsFragment"
+        android:name="top.secret.hma.v1.ui.fragment.StatsFragment"
         android:label="@string/title_filter_logs" />
 
     <fragment
         android:id="@+id/nav_settings"
-        android:name="icu.nullptr.hidemyapplist.ui.fragment.SettingsFragment"
+        android:name="top.secret.hma.v1.ui.fragment.SettingsFragment"
         android:label="@string/title_settings" />
 
     <fragment
         android:id="@+id/nav_about"
-        android:name="org.frknkrc44.hma_oss.ui.fragment.AboutFragment"
+        android:name="top.secret.hma.v1.ui.fragment.AboutFragment"
         android:label="@string/title_about" />
 
     <fragment
         android:id="@+id/nav_template_manage"
-        android:name="icu.nullptr.hidemyapplist.ui.fragment.TemplateManageFragment"
+        android:name="top.secret.hma.v1.ui.fragment.TemplateManageFragment"
         android:label="@string/title_template_manage" />
 
     <fragment
         android:id="@+id/nav_presets"
-        android:name="org.frknkrc44.hma_oss.ui.fragment.PresetManageFragment"
+        android:name="top.secret.hma.v1.ui.fragment.PresetManageFragment"
         android:label="@string/title_preset_manage" />
 
     <fragment
         android:id="@+id/nav_template_settings"
-        android:name="icu.nullptr.hidemyapplist.ui.fragment.TemplateSettingsFragment"
+        android:name="top.secret.hma.v1.ui.fragment.TemplateSettingsFragment"
         android:label="@string/title_template_settings">
 
         <argument
@@ -57,7 +57,7 @@
 
     <fragment
         android:id="@+id/nav_bulk_config_wizard"
-        android:name="org.frknkrc44.hma_oss.ui.fragment.BulkConfigWizardFragment"
+        android:name="top.secret.hma.v1.ui.fragment.BulkConfigWizardFragment"
         android:label="@string/title_template_settings">
 
         <argument
@@ -73,7 +73,7 @@
 
     <fragment
         android:id="@+id/nav_setting_template_conf"
-        android:name="org.frknkrc44.hma_oss.ui.fragment.SettingsTemplateConfFragment"
+        android:name="top.secret.hma.v1.ui.fragment.SettingsTemplateConfFragment"
         android:label="@string/title_settings_template_conf">
 
         <argument
@@ -85,12 +85,12 @@
 
     <fragment
         android:id="@+id/nav_app_manage"
-        android:name="icu.nullptr.hidemyapplist.ui.fragment.AppManageFragment"
+        android:name="top.secret.hma.v1.ui.fragment.AppManageFragment"
         android:label="@string/title_app_manage" />
 
     <fragment
         android:id="@+id/nav_preset_inner_manage"
-        android:name="org.frknkrc44.hma_oss.ui.fragment.AppPresetFragment">
+        android:name="top.secret.hma.v1.ui.fragment.AppPresetFragment">
 
         <argument
             android:name="name"
@@ -104,7 +104,7 @@
 
     <fragment
         android:id="@+id/nav_settings_templates_edit_setting"
-        android:name="org.frknkrc44.hma_oss.ui.fragment.EditSettingFragment">
+        android:name="top.secret.hma.v1.ui.fragment.EditSettingFragment">
 
         <argument
             android:name="database"
@@ -124,7 +124,7 @@
 
     <fragment
         android:id="@+id/nav_settings_preset_inner_manage"
-        android:name="org.frknkrc44.hma_oss.ui.fragment.SettingsPresetFragment">
+        android:name="top.secret.hma.v1.ui.fragment.SettingsPresetFragment">
 
         <argument
             android:name="name"
@@ -138,7 +138,7 @@
 
     <fragment
         android:id="@+id/nav_settings_template_inner_manage"
-        android:name="org.frknkrc44.hma_oss.ui.fragment.SettingsTemplateInnerFragment">
+        android:name="top.secret.hma.v1.ui.fragment.SettingsTemplateInnerFragment">
 
         <argument
             android:name="items"
@@ -148,7 +148,7 @@
 
     <fragment
         android:id="@+id/nav_app_settings"
-        android:name="org.frknkrc44.hma_oss.ui.fragment.AppSettingsV2Fragment"
+        android:name="top.secret.hma.v1.ui.fragment.AppSettingsV2Fragment"
         android:label="@string/title_app_settings">
 
         <argument
@@ -176,7 +176,7 @@
 
     <fragment
         android:id="@+id/nav_scope"
-        android:name="icu.nullptr.hidemyapplist.ui.fragment.ScopeFragment"
+        android:name="top.secret.hma.v1.ui.fragment.ScopeFragment"
         android:label="@string/title_app_select">
 
         <argument

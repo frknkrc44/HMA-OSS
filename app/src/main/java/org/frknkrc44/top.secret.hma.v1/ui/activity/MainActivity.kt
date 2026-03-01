@@ -1,4 +1,4 @@
-package org.frknkrc44.hma_oss.ui.activity
+package top.secret.hma.v1.ui.activity
 
 import android.content.Context
 import android.content.res.Configuration
@@ -10,14 +10,14 @@ import androidx.core.graphics.drawable.toDrawable
 import androidx.navigation.findNavController
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.color.DynamicColorsOptions
-import icu.nullptr.hidemyapplist.hmaApp
-import icu.nullptr.hidemyapplist.service.PrefManager
-import icu.nullptr.hidemyapplist.service.ServiceClient
-import icu.nullptr.hidemyapplist.ui.util.ThemeUtils
-import icu.nullptr.hidemyapplist.util.ConfigUtils
-import org.frknkrc44.hma_oss.BuildConfig
-import org.frknkrc44.hma_oss.R
-import org.frknkrc44.hma_oss.databinding.ActivityMainBinding
+import top.secret.hma.v1.hmaApp
+import top.secret.hma.v1.service.PrefManager
+import top.secret.hma.v1.service.ServiceClient
+import top.secret.hma.v1.ui.util.ThemeUtils
+import top.secret.hma.v1.util.ConfigUtils
+import top.secret.hma.v1.BuildConfig
+import top.secret.hma.v1.R
+import top.secret.hma.v1.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     var readyToKill: Boolean = true

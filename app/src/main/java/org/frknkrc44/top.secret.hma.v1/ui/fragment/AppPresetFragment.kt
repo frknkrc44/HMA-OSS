@@ -1,16 +1,16 @@
-package org.frknkrc44.hma_oss.ui.fragment
+package top.secret.hma.v1.ui.fragment
 
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
-import icu.nullptr.hidemyapplist.hmaApp
-import icu.nullptr.hidemyapplist.service.PrefManager
-import icu.nullptr.hidemyapplist.ui.fragment.AppSelectFragment
-import icu.nullptr.hidemyapplist.util.PackageHelper
-import icu.nullptr.hidemyapplist.util.PackageHelper.Comparators
+import top.secret.hma.v1.hmaApp
+import top.secret.hma.v1.service.PrefManager
+import top.secret.hma.v1.ui.fragment.AppSelectFragment
+import top.secret.hma.v1.util.PackageHelper
+import top.secret.hma.v1.util.PackageHelper.Comparators
 import kotlinx.coroutines.launch
-import org.frknkrc44.hma_oss.ui.adapter.AppPresetAdapter
+import top.secret.hma.v1.ui.adapter.AppPresetAdapter
 
 class AppPresetFragment() : AppSelectFragment() {
 
