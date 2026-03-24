@@ -27,6 +27,7 @@
     </a>
     <a href="https://choosealicense.com/licenses/gpl-3.0/" style="text-decoration:none">
       <img src="https://img.shields.io/github/license/frknkrc44/HMA-OSS?label=License">
+[![Hypercommit](https://img.shields.io/badge/Hypercommit-DB2475)](https://hypercommit.com/hma-oss)
     </a>
   </p>
 </div>
