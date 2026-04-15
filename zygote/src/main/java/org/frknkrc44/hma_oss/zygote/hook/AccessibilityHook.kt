@@ -82,7 +82,7 @@ class AccessibilityHook(private val service: HMAService) : IFrameworkHook {
     ): List<AccessibilityServiceInfo> {
         logV(TAG) { "@getInstalledAccessibilityServiceList*calculator: $callingApps - Current: $inList" }
 
-        val caller = callingApps.firstOrNull { callerIsSpoofed(it) } ?: return inList
+        val caller = callingApps.firstOrNull { service.isHookEnabled(it) } ?: return inList
 
         val calculatedList = inList.filter { asInfo ->
             !service.shouldHide(caller, Utils.getPackageNameFromResolveInfo(asInfo.resolveInfo))
