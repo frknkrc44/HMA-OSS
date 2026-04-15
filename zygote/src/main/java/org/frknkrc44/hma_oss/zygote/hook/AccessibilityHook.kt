@@ -33,7 +33,14 @@ class AccessibilityHook(private val service: HMAService) : IFrameworkHook {
                     currentResult as List<AccessibilityServiceInfo>
                 }
 
-                val calculatedList = calculateReturnedAccessibilityList(caller, inList)
+                logV(TAG) { "@getInstalledAccessibilityServiceList*calculator: $caller - Current: $inList" }
+
+                val calculatedList = inList.filter { asInfo ->
+                    !service.shouldHide(caller, Utils.getPackageNameFromResolveInfo(asInfo.resolveInfo))
+                }
+
+                logV(TAG) { "@getInstalledAccessibilityServiceList*calculator: $caller - Calculated: $calculatedList" }
+
                 param.result = if (returnsParcel) {
                     ParceledListSlice(calculatedList)
                 } else {
@@ -75,21 +82,6 @@ class AccessibilityHook(private val service: HMAService) : IFrameworkHook {
                 }
             }
         }
-    }
-
-    private fun calculateReturnedAccessibilityList(
-        caller: String,
-        inList: List<AccessibilityServiceInfo>,
-    ): List<AccessibilityServiceInfo> {
-        logV(TAG) { "@getInstalledAccessibilityServiceList*calculator: $caller - Current: $inList" }
-
-        val calculatedList = inList.filter { asInfo ->
-            !service.shouldHide(caller, Utils.getPackageNameFromResolveInfo(asInfo.resolveInfo))
-        }
-
-        logV(TAG) { "@getInstalledAccessibilityServiceList*calculator: $caller - Calculated: $calculatedList" }
-
-        return calculatedList
     }
 
     private fun callerIsSpoofed(caller: String) =
