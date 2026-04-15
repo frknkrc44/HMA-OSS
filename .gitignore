@@ -80,3 +80,5 @@ lint/tmp/
 
 updates/
 translators.json
+
+.kotlin/

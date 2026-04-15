@@ -2,12 +2,10 @@ package org.frknkrc44.hma_oss.zygote.hook
 
 import android.accessibilityservice.AccessibilityServiceInfo
 import android.content.pm.ParceledListSlice
-import icu.nullptr.hidemyapplist.common.Utils
 import icu.nullptr.hidemyapplist.common.settings_presets.AccessibilityPreset
 import org.frknkrc44.hma_oss.zygote.service.BulkHooker
 import org.frknkrc44.hma_oss.zygote.service.HMAService
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
-import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
 import org.frknkrc44.hma_oss.zygote.util.Utils4Zygote
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.ACCESSIBILITY_SERVICE_CLASS
 
@@ -16,38 +14,6 @@ class AccessibilityHook(private val service: HMAService) : IFrameworkHook {
 
     override fun load() {
         BulkHooker.instance.apply {
-            @Suppress("UNCHECKED_CAST")
-            hookAfter(
-                ACCESSIBILITY_SERVICE_CLASS,
-                "getInstalledAccessibilityServiceList",
-            ) { param ->
-                val callingApps = Utils4Zygote.getCallingApps(service)
-                if (callingApps.isEmpty()) return@hookAfter
-                val caller = callingApps.firstOrNull { service.isHookEnabled(it) } ?: return@hookAfter
-
-                val currentResult = param.result ?: return@hookAfter
-                val returnsParcel = "Parcel" in  param.returnType.simpleName
-                val inList = if (returnsParcel) {
-                    (currentResult as ParceledListSlice<AccessibilityServiceInfo>).list
-                } else {
-                    currentResult as List<AccessibilityServiceInfo>
-                }
-
-                logV(TAG) { "@getInstalledAccessibilityServiceList*calculator: $caller - Current: $inList" }
-
-                val calculatedList = inList.filter { asInfo ->
-                    !service.shouldHide(caller, Utils.getPackageNameFromResolveInfo(asInfo.resolveInfo))
-                }
-
-                logV(TAG) { "@getInstalledAccessibilityServiceList*calculator: $caller - Calculated: $calculatedList" }
-
-                param.result = if (returnsParcel) {
-                    ParceledListSlice(calculatedList)
-                } else {
-                    calculatedList
-                }
-            }
-
             hookBefore(
                 ACCESSIBILITY_SERVICE_CLASS,
                 "getEnabledAccessibilityServiceList",
@@ -78,7 +44,6 @@ class AccessibilityHook(private val service: HMAService) : IFrameworkHook {
                 val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
                 if (caller != null) {
                     param.result = 0L
-                    // service.increasePMFilterCount(caller)
                 }
             }
         }
