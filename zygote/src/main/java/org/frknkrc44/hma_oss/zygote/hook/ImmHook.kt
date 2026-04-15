@@ -140,10 +140,10 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
             findAltMethod(
                 listOf(IMM_SERVICE_CLASS),
                 listOf("getEnabledInputMethodList", "getEnabledInputMethodListInternal"),
-            )?.let {
+            )?.let { method ->
                 hookBefore(
-                    it.declaringClass.name,
-                    it.name,
+                    method.declaringClass.name,
+                    method.name,
                 ) { param ->
                     val callingApps = Utils4Zygote.getCallingApps(service)
 
@@ -259,9 +259,11 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
         logV(TAG) { "@getInputMethodList*calculator: $callingUid - Calculated: ${calculatedList.map { it.component }}" }
 
         val fakeIMInfo = getFakeInputMethodInfo(caller)
-
-        if (!(isIMExists(fakeIMInfo.packageName) && calculatedList.any { it.packageName == fakeIMInfo.packageName })) {
-            warnNotInstalledKeyboard("getInputMethodList*calculator", fakeIMInfo.packageName)
+        val imExists = isIMExists(fakeIMInfo.packageName)
+        if (!(imExists && calculatedList.any { it.packageName == fakeIMInfo.packageName })) {
+            if (!imExists) {
+                warnNotInstalledKeyboard("getInputMethodList*calculator", fakeIMInfo.packageName)
+            }
 
             if (!calculatedList.any { it.packageName == fakeIMInfo.packageName }) {
                 return (calculatedList + fakeIMInfo).sortedWith { info1, info2 ->
@@ -274,6 +276,8 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
     }
 
     private fun isIMExists(packageName: String, inUserId: Int? = null): Boolean {
+        if (packageName in service.systemApps) return true
+
         val userId = inUserId ?: Binder.getCallingUserHandle().hashCode()
         return Utils.binderLocalScope {
             Utils.getPackageUidCompat(service.pms, packageName, PackageManager.MATCH_ALL.toLong(), userId) >= 0

@@ -3,6 +3,7 @@ package org.frknkrc44.hma_oss.zygote.service
 import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.content.pm.IPackageManager
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.UserHandle
@@ -191,8 +192,12 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     }
 
     private fun installHooks() {
-        getInstalledApplicationsCompat(pms, 0, 0).mapNotNullTo(systemApps) { appInfo ->
-            if (appInfo.flags and ApplicationInfo.FLAG_SYSTEM != 0) appInfo.packageName else null
+        getInstalledApplicationsCompat(pms, PackageManager.MATCH_ALL.toLong(), 0)
+            .mapNotNullTo(systemApps) { appInfo ->
+                val isSystemApp = appInfo.flags and ApplicationInfo.FLAG_SYSTEM != 0 ||
+                        appInfo.flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP != 0
+
+                if (isSystemApp) appInfo.packageName else null
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
