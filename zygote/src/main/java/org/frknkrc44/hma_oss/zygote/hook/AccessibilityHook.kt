@@ -23,6 +23,7 @@ class AccessibilityHook(private val service: HMAService) : IFrameworkHook {
             ) { param ->
                 val callingApps = Utils4Zygote.getCallingApps(service)
                 if (callingApps.isEmpty()) return@hookAfter
+                val caller = callingApps.firstOrNull { service.isHookEnabled(it) } ?: return@hookAfter
 
                 val currentResult = param.result ?: return@hookAfter
                 val returnsParcel = "Parcel" in  param.returnType.simpleName
@@ -32,7 +33,7 @@ class AccessibilityHook(private val service: HMAService) : IFrameworkHook {
                     currentResult as List<AccessibilityServiceInfo>
                 }
 
-                val calculatedList = calculateReturnedAccessibilityList(callingApps, inList)
+                val calculatedList = calculateReturnedAccessibilityList(caller, inList)
                 param.result = if (returnsParcel) {
                     ParceledListSlice(calculatedList)
                 } else {
@@ -77,12 +78,10 @@ class AccessibilityHook(private val service: HMAService) : IFrameworkHook {
     }
 
     private fun calculateReturnedAccessibilityList(
-        callingApps: Array<String>,
+        caller: String,
         inList: List<AccessibilityServiceInfo>,
     ): List<AccessibilityServiceInfo> {
-        logV(TAG) { "@getInstalledAccessibilityServiceList*calculator: $callingApps - Current: $inList" }
-
-        val caller = callingApps.firstOrNull { service.isHookEnabled(it) } ?: return inList
+        logV(TAG) { "@getInstalledAccessibilityServiceList*calculator: $caller - Current: $inList" }
 
         val calculatedList = inList.filter { asInfo ->
             !service.shouldHide(caller, Utils.getPackageNameFromResolveInfo(asInfo.resolveInfo))
