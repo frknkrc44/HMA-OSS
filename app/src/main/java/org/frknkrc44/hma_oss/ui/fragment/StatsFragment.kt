@@ -38,7 +38,7 @@ class StatsFragment : Fragment(R.layout.fragment_logs) {
                 fun getTotalCount(key: String) = stats.filterCounts[key]!!.totalCount
 
                 val countsKeys = stats.filterCounts.keys.sortedWith { key1, key2 ->
-                    if (getTotalCount(key1) > getTotalCount(key2)) -1 else 0
+                    if (getTotalCount(key1) > getTotalCount(key2)) -1 else 1
                 }
 
                 for (key in countsKeys) {

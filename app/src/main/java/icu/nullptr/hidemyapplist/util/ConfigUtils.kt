@@ -8,8 +8,7 @@ class ConfigUtils private constructor() {
     companion object {
         fun getSystemLocale(): Locale = Resources.getSystem().configuration.getLocales().get(0)
 
-        fun getLocale(): Locale {
-            val tag = PrefManager.locale
+        fun getLocale(tag: String = PrefManager.locale): Locale {
             return if (tag == "SYSTEM") getSystemLocale()
             else Locale.forLanguageTag(tag)
         }

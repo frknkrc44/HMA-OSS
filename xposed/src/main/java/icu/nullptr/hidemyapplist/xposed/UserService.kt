@@ -9,6 +9,9 @@ import android.os.ServiceManager
 import de.robv.android.xposed.XposedHelpers
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.Utils
+import icu.nullptr.hidemyapplist.xposed.Logcat.logD
+import icu.nullptr.hidemyapplist.xposed.Logcat.logE
+import icu.nullptr.hidemyapplist.xposed.Logcat.logI
 import org.frknkrc44.hma_oss.common.BuildConfig
 import rikka.hidden.compat.ActivityManagerApis
 import rikka.hidden.compat.adapter.UidObserverAdapter
@@ -22,7 +25,7 @@ object UserService {
     private val uidObserver = object : UidObserverAdapter() {
         override fun onUidActive(uid: Int) {
             if (HMAService.instance == null) {
-                logE(TAG, "HMAService instance is not available, maybe stopped")
+                logE(TAG) { "HMAService instance is not available, maybe stopped" }
                 return
             }
 
@@ -43,18 +46,18 @@ object UserService {
                     provider?.call("android", Constants.PROVIDER_AUTHORITY, "", null, extras)
                 }
                 if (reply == null) {
-                    logE(TAG, "Failed to send binder to app")
+                    logE(TAG) { "Failed to send binder to app" }
                     return
                 }
-                logI(TAG, "Send binder to app")
+                logI(TAG) { "Send binder to app" }
             } catch (e: Throwable) {
-                logE(TAG, "onUidActive", e)
+                logE(TAG, e) { "onUidActive" }
             }
         }
     }
 
     fun register(pms: IPackageManager, pmn: Any?) {
-        logI(TAG, "Initialize HMAService - Version ${BuildConfig.APP_VERSION_NAME}")
+        logI(TAG) { "Initialize HMAService - Version ${BuildConfig.APP_VERSION_NAME}" }
         val service = HMAService(pms, pmn)
 
         try {
@@ -63,11 +66,11 @@ object UserService {
                 "App UID cannot be -1 or lower"
             }
         } catch (e: Throwable) {
-            logE(TAG, "Fatal: Cannot get package details\nCompile this app from source with your changes", e)
+            logE(TAG, e) { "Fatal: Cannot get package details\nCompile this app from source with your changes" }
             return
         }
 
-        logD(TAG, "Client uid: $appUid")
+        logD(TAG) { "Client uid: $appUid" }
 
         waitActivityService()
         ActivityManagerApis.registerUidObserver(
@@ -77,7 +80,7 @@ object UserService {
             null
         )
 
-        logI(TAG, "Registered observer")
+        logI(TAG) { "Registered observer" }
     }
 
     private fun waitActivityService() {

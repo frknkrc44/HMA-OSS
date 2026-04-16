@@ -5,8 +5,9 @@ import icu.nullptr.hidemyapplist.ui.view.AppItemView
 
 class AppScopeAdapter(
     private val checked: MutableSet<String>,
+    hideMyself: Boolean,
     firstFilter: ((String) -> Boolean)?,
-) : AppSelectAdapter(firstFilter) {
+) : AppSelectAdapter(hideMyself, firstFilter) {
 
     private inline var String.isChecked
         get() = checked.contains(this)

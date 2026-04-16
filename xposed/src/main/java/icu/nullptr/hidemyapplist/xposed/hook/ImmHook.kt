@@ -12,11 +12,11 @@ import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.Utils
 import icu.nullptr.hidemyapplist.common.settings_presets.InputMethodPreset
 import icu.nullptr.hidemyapplist.xposed.HMAService
+import icu.nullptr.hidemyapplist.xposed.Logcat.logD
+import icu.nullptr.hidemyapplist.xposed.Logcat.logE
+import icu.nullptr.hidemyapplist.xposed.Logcat.logI
 import icu.nullptr.hidemyapplist.xposed.Utils4Xposed
 import icu.nullptr.hidemyapplist.xposed.XposedConstants.IMM_SERVICE_CLASS
-import icu.nullptr.hidemyapplist.xposed.logD
-import icu.nullptr.hidemyapplist.xposed.logE
-import icu.nullptr.hidemyapplist.xposed.logI
 import java.util.Collections
 
 class ImmHook(private val service: HMAService) : IFrameworkHook {
@@ -37,7 +37,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
         if (defaultInputMethod?.value != null) {
             try {
                 val component = ComponentName.unflattenFromString(defaultInputMethod.value!!)!!
-                logD(TAG, "Package component: \"$component\"")
+                logD(TAG) { "Package component: \"$component\"" }
 
                 val pkgManager = Utils4Xposed.getPackageManager()
                 val kbdPackage = Utils.binderLocalScope {
@@ -51,7 +51,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
                     null,
                 )
             } catch (e: Throwable) {
-                logE(TAG, e.message ?: "", e)
+                logE(TAG, e) { e.message ?: "" }
             }
         }
 
@@ -64,7 +64,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
     }
 
     override fun load() {
-        logI(TAG, "Load hook")
+        logI(TAG) { "Load hook" }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             findMethodOrNull(IMM_SERVICE_CLASS) {
@@ -74,13 +74,13 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
 
                 val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
                 if (caller != null) {
-                    logD(TAG, "@${param.method.name} spoofed input method for $caller")
+                    logD(TAG) { "@${param.method.name} spoofed input method for $caller" }
 
                     param.result = getFakeInputMethodInfo(caller)
                     service.increaseSettingsFilterCount(caller)
                 }
             }?.let {
-                logD(TAG, "@${it.hookedMethod.name} is hooked!")
+                logD(TAG) { "@${it.hookedMethod.name} is hooked!" }
                 hooks += it
             }
         }
@@ -92,7 +92,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
         })?.hookBefore { param ->
             listHook(param)
         }?.let {
-            logD(TAG, "@${it.hookedMethod.name} is hooked!")
+            logD(TAG) { "@${it.hookedMethod.name} is hooked!" }
             hooks += it
         }
 
@@ -103,7 +103,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
         })?.hookBefore { param ->
             listHook(param)
         }?.let {
-            logD(TAG, "@${it.hookedMethod.name} is hooked!")
+            logD(TAG) { "@${it.hookedMethod.name} is hooked!" }
             hooks += it
         }
 
@@ -112,7 +112,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
         }?.hookBefore { param ->
             subtypeHook(param)
         }?.let {
-            logD(TAG, "@${it.hookedMethod.name} is hooked!")
+            logD(TAG) { "@${it.hookedMethod.name} is hooked!" }
             hooks += it
         }
 
@@ -121,7 +121,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
         }?.hookBefore { param ->
             subtypeHook(param)
         }?.let {
-            logD(TAG, "@${it.hookedMethod.name} is hooked!")
+            logD(TAG) { "@${it.hookedMethod.name} is hooked!" }
             hooks += it
         }
 
@@ -132,7 +132,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
         })?.hookBefore { param ->
             subtypeListHook(param)
         }?.let {
-            logD(TAG, "@${it.hookedMethod.name} is hooked!")
+            logD(TAG) { "@${it.hookedMethod.name} is hooked!" }
             hooks += it
         }
     }
@@ -147,7 +147,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
 
         val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
         if (caller != null) {
-            logD(TAG, "@${param.method.name} spoofed input method for $caller")
+            logD(TAG) { "@${param.method.name} spoofed input method for $caller" }
 
             param.result = listOf(getFakeInputMethodInfo(caller))
             service.increaseSettingsFilterCount(caller)
@@ -159,7 +159,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
 
         val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
         if (caller != null) {
-            logD(TAG, "@${param.method.name} spoofed input method subtype for ${callingApps.contentToString()}")
+            logD(TAG) { "@${param.method.name} spoofed input method subtype for ${callingApps.contentToString()}" }
 
             // TODO: Find a method to get exact value for spoofed input method
             param.result = null
@@ -172,7 +172,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
 
         val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
         if (caller != null) {
-            logD(TAG, "@${param.method.name} spoofed input method subtype for ${callingApps.contentToString()}")
+            logD(TAG) { "@${param.method.name} spoofed input method subtype for ${callingApps.contentToString()}" }
 
             // TODO: Find a method to get exact list for spoofed input method
             param.result = Collections.emptyList<InputMethodSubtype>()

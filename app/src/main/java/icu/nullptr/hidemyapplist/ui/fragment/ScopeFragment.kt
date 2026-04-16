@@ -21,8 +21,10 @@ class ScopeFragment : AppSelectFragment() {
     override val adapter by lazy {
         val args by navArgs<ScopeFragmentArgs>()
         checked = args.checked.toMutableSet()
-        if (!args.filterOnlyEnabled) AppScopeAdapter(checked, null)
-        else AppScopeAdapter(checked) { ConfigManager.getAppConfig(it)?.useWhitelist == args.isWhiteList }
+        if (!args.filterOnlyEnabled) AppScopeAdapter(checked, args.hideMyself, null)
+        else AppScopeAdapter(checked, args.hideMyself) {
+            ConfigManager.getAppConfig(it)?.useWhitelist == args.isWhiteList
+        }
     }
 
     override fun onBack() {

@@ -8,10 +8,10 @@ import com.github.kyuubiran.ezxhelper.utils.hookBefore
 import de.robv.android.xposed.XC_MethodHook
 import icu.nullptr.hidemyapplist.common.PropertyUtils
 import icu.nullptr.hidemyapplist.xposed.HMAService
+import icu.nullptr.hidemyapplist.xposed.Logcat.logD
+import icu.nullptr.hidemyapplist.xposed.Logcat.logE
+import icu.nullptr.hidemyapplist.xposed.Logcat.logI
 import icu.nullptr.hidemyapplist.xposed.XposedConstants.PLATFORM_COMPAT_CLASS
-import icu.nullptr.hidemyapplist.xposed.logD
-import icu.nullptr.hidemyapplist.xposed.logE
-import icu.nullptr.hidemyapplist.xposed.logI
 import org.frknkrc44.hma_oss.common.BuildConfig
 
 @RequiresApi(Build.VERSION_CODES.R)
@@ -29,8 +29,8 @@ class PlatformCompatHook(private val service: HMAService) : IFrameworkHook {
 
     override fun load() {
         if (!service.config.forceMountData) return
-        logI(TAG, "Load hook")
-        logI(TAG, "App data isolation enabled: $sAppDataIsolationEnabled")
+        logI(TAG) { "Load hook" }
+        logI(TAG) { "App data isolation enabled: $sAppDataIsolationEnabled" }
         hook = findMethod(PLATFORM_COMPAT_CLASS) {
             name == "isChangeEnabled"
         }.hookBefore { param ->
@@ -45,10 +45,10 @@ class PlatformCompatHook(private val service: HMAService) : IFrameworkHook {
                 if (app == BuildConfig.APP_PACKAGE_NAME || app in service.systemApps) return@hookBefore
                 if (service.isHookEnabled(app)) {
                     param.result = true
-                    logD(TAG, "force mount data: ${appInfo.uid} $app")
+                    logD(TAG) { "force mount data: ${appInfo.uid} $app" }
                 }
             }.onFailure {
-                logE(TAG, "Fatal error occurred, disable hooks", it)
+                logE(TAG, it) { "Fatal error occurred, disable hooks" }
                 unload()
             }
         }

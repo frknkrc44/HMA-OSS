@@ -16,14 +16,17 @@ import me.zhanghai.android.appiconloader.AppIconLoader
 import org.frknkrc44.hma_oss.R
 import kotlin.system.exitProcess
 
-lateinit var hmaApp: MyApp
-
 class MyApp : Application() {
+    companion object {
+        lateinit var hmaApp: MyApp
+    }
+
     val globalScope = CoroutineScope(Dispatchers.Default)
     val appIconLoader by lazy {
         val iconSize = resources.getDimensionPixelSize(R.dimen.app_icon_size)
         AppIconLoader(iconSize, false, this)
     }
+    var updateDialogSkipped: Boolean = false
 
     @Suppress("DEPRECATION")
     @SuppressLint("SdCardPath")

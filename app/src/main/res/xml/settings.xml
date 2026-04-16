@@ -135,6 +135,14 @@
 
     <PreferenceCategory android:title="@string/settings_update">
         <SwitchPreferenceCompat
+            android:icon="@drawable/plug_connect_24px"
+            android:key="enableInternet"
+            android:defaultValue="false"
+            app:singleLineTitle="false"
+            android:title="@string/settings_enable_internet"
+            android:summary="@string/settings_enable_internet_summary" />
+        <SwitchPreferenceCompat
+            android:dependency="enableInternet"
             android:disableDependentsState="true"
             android:icon="@drawable/outline_update_disabled_24"
             android:key="disableUpdate"

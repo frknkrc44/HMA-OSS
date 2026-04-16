@@ -23,6 +23,10 @@ object Constants {
     const val FAKE_INSTALLATION_SOURCE_USER = 1
     const val FAKE_INSTALLATION_SOURCE_SYSTEM = 2
 
+    const val ENABLE_INTERNET_UNKNOWN = 0
+    const val ENABLE_INTERNET_OFF = 1
+    const val ENABLE_INTERNET_ON = 2
+
     /**
      * Defines the GID for the group that allows write access to the internal media storage.
      */

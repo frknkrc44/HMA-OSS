@@ -5,8 +5,8 @@ import android.content.Context.MODE_PRIVATE
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
+import icu.nullptr.hidemyapplist.MyApp.Companion.hmaApp
 import icu.nullptr.hidemyapplist.data.AppConstants
-import icu.nullptr.hidemyapplist.hmaApp
 import icu.nullptr.hidemyapplist.ui.util.get
 import icu.nullptr.hidemyapplist.util.PackageHelper.findEnabledAppComponent
 import kotlinx.coroutines.flow.MutableSharedFlow

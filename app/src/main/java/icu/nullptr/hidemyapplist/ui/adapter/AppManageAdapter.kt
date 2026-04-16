@@ -10,7 +10,7 @@ import org.frknkrc44.hma_oss.R
 
 class AppManageAdapter(
     private val onItemClickListener: (String) -> Unit
-) : AppSelectAdapter() {
+) : AppSelectAdapter(true) {
 
     inner class ViewHolder(view: AppItemView) : AppSelectAdapter.ViewHolder(view) {
         init {

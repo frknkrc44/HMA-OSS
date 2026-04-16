@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.androidbroadcast.vbpd.viewBinding
+import icu.nullptr.hidemyapplist.common.OSUtils
 import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.adapter.LogAdapter
@@ -40,7 +41,16 @@ class LogsFragment : Fragment(R.layout.fragment_logs) {
             }
             contentResolver.openOutputStream(uri).use { output ->
                 if (output == null) showToast(R.string.home_export_failed)
-                else output.write(logCache!!.toByteArray())
+                else {
+                    output.write(
+                        OSUtils.collectOSInfo(
+                            requireContext(),
+                            ServiceClient.serviceVersionName,
+                        ).toByteArray()
+                    )
+                    output.write("\n\n".toByteArray())
+                    output.write(logCache!!.toByteArray())
+                }
             }
             showToast(R.string.logs_saved)
         }

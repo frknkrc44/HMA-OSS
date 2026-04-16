@@ -9,6 +9,9 @@ import de.robv.android.xposed.IXposedHookZygoteInit
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import icu.nullptr.hidemyapplist.common.Constants
+import icu.nullptr.hidemyapplist.xposed.Logcat.logD
+import icu.nullptr.hidemyapplist.xposed.Logcat.logE
+import icu.nullptr.hidemyapplist.xposed.Logcat.logI
 import kotlin.concurrent.thread
 
 private const val TAG = "HMA-XposedEntry"
@@ -25,7 +28,7 @@ class XposedEntry : IXposedHookZygoteInit, IXposedHookLoadPackage {
     override fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
         if (lpparam.packageName == Constants.ANDROID_PACKAGE_NAME) {
             EzXHelperInit.initHandleLoadPackage(lpparam)
-            logI(TAG, "Hook entry")
+            logI(TAG) { "Hook entry" }
 
             var serviceManagerHook: XC_MethodHook.Unhook? = null
             serviceManagerHook = findMethod("android.os.ServiceManager") {
@@ -51,14 +54,14 @@ class XposedEntry : IXposedHookZygoteInit, IXposedHookLoadPackage {
                     serviceManagerHook?.unhook()
                     val pms = targetStorage["package"] as IPackageManager
                     val pmn = targetStorage["package_native"]
-                    logD(TAG, "Got pms: $pms, $pmn")
+                    logD(TAG) { "Got pms: $pms, $pmn" }
                     thread {
                         runCatching {
                             UserService.register(pms, pmn)
                             targetStorage.clear()
-                            logI(TAG, "User service started")
+                            logI(TAG) { "User service started" }
                         }.onFailure {
-                            logE(TAG, "System service crashed", it)
+                            logE(TAG, it) { "System service crashed" }
                         }
                     }
                 }

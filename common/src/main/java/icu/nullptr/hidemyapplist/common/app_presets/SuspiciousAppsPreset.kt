@@ -13,6 +13,7 @@ class SuspiciousAppsPreset : BasePreset(NAME) {
         "berserker.android.apps.sshdroid",
         "com.iamaner.oneclickfreeze",
         "com.shamanland.privatescreenshots",
+        "org.connectbot",
 
         // Remote desktop apps
         "com.devolutions.remotedesktopmanager",

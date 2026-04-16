@@ -15,6 +15,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dev.androidbroadcast.vbpd.viewBinding
+import icu.nullptr.hidemyapplist.MyApp.Companion.hmaApp
+import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.data.fetchLatestUpdate
 import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.service.PrefManager
@@ -24,6 +26,8 @@ import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.getColor
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.homeItemBackgroundColor
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.themeColor
 import icu.nullptr.hidemyapplist.ui.util.contentResolver
+import icu.nullptr.hidemyapplist.ui.util.dp2Px
+import icu.nullptr.hidemyapplist.ui.util.isTestBuild
 import icu.nullptr.hidemyapplist.ui.util.navigate
 import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
@@ -38,6 +42,7 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import kotlin.concurrent.thread
 
 /**
  * A simple [Fragment] subclass.
@@ -90,8 +95,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         with(binding.toolbar) {
             setupToolbar(
-                toolbar = binding.toolbar,
+                toolbar = this,
                 title = getString(R.string.app_name),
+                isHomeToolbar = true,
             )
             // isTitleCentered = true
         }
@@ -102,58 +108,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onStart() {
         super.onStart()
 
-        val serviceVersion = ServiceClient.serviceVersion
-        var color = when {
-            serviceVersion == 0 -> getColor(R.color.invalid)
-            else -> themeColor(android.R.attr.colorPrimary)
-        }
-
-        if (PrefManager.systemWallpaper) color -= 0x55000000
-
-        with(binding.statusCard) {
-            root.setCardBackgroundColor(color)
-            root.outlineAmbientShadowColor = color
-            root.outlineSpotShadowColor = color
-
-            if (serviceVersion > 0) {
-                moduleStatusIcon.setImageResource(R.drawable.sentiment_calm_24px)
-                val versionNameSimple = BuildConfig.VERSION_NAME.substringBefore(".r")
-                moduleStatus.text =
-                    getString(R.string.home_xposed_activated, versionNameSimple)
-                root.setOnLongClickListener {
-                    ConfigManager.saveConfig()
-                    showToast(android.R.string.ok)
-
-                    true
-                }
-            } else {
-                moduleStatusIcon.setImageResource(R.drawable.sentiment_very_dissatisfied_24px)
-                moduleStatus.setText(R.string.home_xposed_not_activated)
-            }
-
-            if (serviceVersion != 0) {
-                if (serviceVersion < org.frknkrc44.hma_oss.common.BuildConfig.SERVICE_VERSION) {
-                    serviceStatus.text =
-                        getString(R.string.home_xposed_service_old)
-                } else {
-                    serviceStatus.text =
-                        getString(R.string.home_xposed_service_on, serviceVersion)
-                }
-                filterCount.visibility = View.VISIBLE
-                filterCount.text =
-                    getString(R.string.home_xposed_filter_count, ServiceClient.filterCount)
-            } else {
-                serviceStatus.setText(R.string.home_xposed_service_off)
-                filterCount.visibility = View.GONE
-            }
-        }
+        waitForService()
 
         with(binding.howToUse.root.parent as ViewGroup) {
             val childCount = childCount
 
-            val softCorner: Float = resources.displayMetrics.density * 24
-            val squareCorner: Float = resources.displayMetrics.density * 8
-            val pad = (resources.displayMetrics.density * 16).toInt()
+            val softCorner: Float = dp2Px(resources, 24)
+            val squareCorner: Float = dp2Px(resources, 8)
+            val pad = dp2Px(resources, 16).toInt()
 
             for (i in 0..< childCount) {
                 getChildAt(i).apply {
@@ -324,12 +286,108 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
 
         lifecycleScope.launch {
-            loadUpdateDialog()
+            loadDialogs()
         }
     }
 
+    fun waitForService() {
+        var serviceVersion = ServiceClient.serviceVersion
+        loadEnabledIndicator(serviceVersion)
+        if (serviceVersion > 0) {
+            return
+        }
+
+        thread {
+            var count = 0
+
+            while (ServiceClient.serviceVersion.also { serviceVersion = it } <= 0 && count++ < 100) {
+                Thread.sleep(100)
+            }
+
+            if (serviceVersion > 0) {
+                lifecycleScope.launch {
+                    loadEnabledIndicator(serviceVersion)
+                }
+            }
+        }
+    }
+
+    fun loadEnabledIndicator(serviceVersion: Int) {
+        var color = when {
+            serviceVersion == 0 -> getColor(R.color.invalid)
+            else -> themeColor(android.R.attr.colorPrimary)
+        }
+
+        if (PrefManager.systemWallpaper) {
+            color -= 0x55000000
+        }
+
+        with(binding.statusCard) {
+            root.setCardBackgroundColor(color)
+            root.outlineAmbientShadowColor = color
+            root.outlineSpotShadowColor = color
+
+            if (serviceVersion > 0) {
+                moduleStatusIcon.setImageResource(R.drawable.sentiment_calm_24px)
+                val versionNameSimple = ServiceClient.serviceVersionName ?: BuildConfig.VERSION_NAME
+                moduleStatus.text =
+                    getString(R.string.home_xposed_activated, versionNameSimple)
+                root.setOnLongClickListener {
+                    ConfigManager.saveConfig()
+                    showToast(android.R.string.ok)
+
+                    true
+                }
+
+                if (serviceVersion < org.frknkrc44.hma_oss.common.BuildConfig.SERVICE_VERSION) {
+                    serviceStatus.text =
+                        getString(R.string.home_xposed_service_old)
+                } else {
+                    serviceStatus.text =
+                        getString(R.string.home_xposed_service_on, serviceVersion)
+                }
+                filterCount.visibility = View.VISIBLE
+                filterCount.text =
+                    getString(R.string.home_xposed_filter_count, ServiceClient.filterCount)
+            } else {
+                moduleStatusIcon.setImageResource(R.drawable.sentiment_very_dissatisfied_24px)
+                moduleStatus.setText(R.string.home_xposed_not_activated)
+                serviceStatus.setText(R.string.home_xposed_service_off)
+                filterCount.visibility = View.GONE
+            }
+        }
+    }
+
+    private fun loadDialogs() {
+        if (ConfigManager.enableInternet == Constants.ENABLE_INTERNET_UNKNOWN) {
+            loadEnableInternetDialog()
+            return
+        }
+
+        loadUpdateDialog()
+    }
+
+    private fun loadEnableInternetDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setCancelable(false)
+            .setTitle(R.string.settings_enable_internet)
+            .setMessage(R.string.settings_enable_internet_summary)
+            .setPositiveButton(R.string.yes) { _, _ ->
+                ConfigManager.enableInternet = Constants.ENABLE_INTERNET_ON
+                loadUpdateDialog()
+            }
+            .setNegativeButton(R.string.no) { _, _ ->
+                ConfigManager.enableInternet = Constants.ENABLE_INTERNET_OFF
+            }
+            .show()
+    }
+
     private fun loadUpdateDialog() {
-        if (PrefManager.disableUpdate || BuildConfig.VERSION_NAME.count { it == '-' } != 1) return
+        if (ConfigManager.enableInternet != Constants.ENABLE_INTERNET_ON ||
+            hmaApp.updateDialogSkipped || PrefManager.disableUpdate || isTestBuild) {
+            return
+        }
+
         fetchLatestUpdate { updateInfo ->
             if (updateInfo.versionName != BuildConfig.VERSION_NAME) {
                 withContext(Dispatchers.Main) {
@@ -346,6 +404,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                             )
                         }
                         .setNegativeButton(android.R.string.cancel, null)
+                        .setOnDismissListener {
+                            hmaApp.updateDialogSkipped = true
+                        }
                         .show()
                 }
             }

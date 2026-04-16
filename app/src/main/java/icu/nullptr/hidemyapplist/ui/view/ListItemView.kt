@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import dev.androidbroadcast.vbpd.CreateMethod
 import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.themeColor
+import icu.nullptr.hidemyapplist.ui.util.dp2Px
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.ListItemViewBinding
 
@@ -72,7 +73,7 @@ class ListItemView @JvmOverloads constructor(
             )
             setTextColor(textColor)
 
-            val padding = (resources.displayMetrics.density * 8f).toInt()
+            val padding = dp2Px(resources, 8).toInt()
             setPaddingRelative(paddingStart, padding, paddingEnd, padding)
         }
     }

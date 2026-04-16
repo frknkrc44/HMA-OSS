@@ -10,7 +10,7 @@ import androidx.core.graphics.drawable.toDrawable
 import androidx.navigation.findNavController
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.color.DynamicColorsOptions
-import icu.nullptr.hidemyapplist.hmaApp
+import icu.nullptr.hidemyapplist.MyApp.Companion.hmaApp
 import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils

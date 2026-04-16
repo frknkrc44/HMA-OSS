@@ -2,11 +2,10 @@ package icu.nullptr.hidemyapplist.service
 
 import android.os.Build
 import android.util.Log
+import icu.nullptr.hidemyapplist.MyApp.Companion.hmaApp
+import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
-import icu.nullptr.hidemyapplist.hmaApp
-import icu.nullptr.hidemyapplist.service.ConfigManager.PTType.APP
-import icu.nullptr.hidemyapplist.service.ConfigManager.PTType.SETTINGS
 import icu.nullptr.hidemyapplist.ui.util.showToast
 import icu.nullptr.hidemyapplist.util.PackageHelper
 import org.frknkrc44.hma_oss.R
@@ -138,6 +137,21 @@ object ConfigManager {
             PackageHelper.invalidateCache()
         }
 
+    var enableInternet: Int
+        get() = config.enableInternet
+        set(value) {
+            config.enableInternet = value
+            saveConfig()
+        }
+
+    fun setEnableInternet(value: Boolean) {
+        enableInternet = if (value) {
+            Constants.ENABLE_INTERNET_ON
+        } else {
+            Constants.ENABLE_INTERNET_OFF
+        }
+    }
+
     fun importConfig(json: String) {
         config = JsonConfig.parse(json)
         config.configVersion = BuildConfig.CONFIG_VERSION
@@ -184,13 +198,13 @@ object ConfigManager {
     }
 
     fun updateTemplate(name: String, template: JsonConfig.Template) {
-        Log.d(TAG, "updateTemplate: $name list = ${template.appList}")
+        ServiceClient.log(Log.DEBUG, TAG, "updateTemplate: $name list = ${template.appList}")
         config.templates[name] = template
         saveConfig()
     }
 
     fun updateTemplateAppliedApps(name: String, appliedList: List<String>) {
-        Log.d(TAG, "updateTemplateAppliedApps: $name list = $appliedList")
+        ServiceClient.log(Log.DEBUG, TAG, "updateTemplateAppliedApps: $name list = $appliedList")
         config.scope.forEach { (app, appInfo) ->
             if (appliedList.contains(app)) appInfo.applyTemplates.add(name)
             else appInfo.applyTemplates.remove(name)
@@ -234,13 +248,13 @@ object ConfigManager {
     }
 
     fun updateSettingTemplate(name: String, template: JsonConfig.SettingsTemplate) {
-        Log.d(TAG, "updateSettingTemplate: $name list = ${template.settingsList}")
+        ServiceClient.log(Log.DEBUG, TAG, "updateSettingTemplate: $name list = ${template.settingsList}")
         config.settingsTemplates[name] = template
         saveConfig()
     }
 
     fun updateSettingTemplateAppliedApps(name: String, appliedList: List<String>) {
-        Log.d(TAG, "updateSettingTemplateAppliedApps: $name list = $appliedList")
+        ServiceClient.log(Log.DEBUG, TAG, "updateSettingTemplateAppliedApps: $name list = $appliedList")
         config.scope.forEach { (app, appInfo) ->
             if (appliedList.contains(app)) appInfo.applySettingTemplates.add(name)
             else appInfo.applySettingTemplates.remove(name)

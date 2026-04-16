@@ -4,16 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceCategory
         android:title="@string/app_template_config">
-        <SwitchPreferenceCompat
+        <ListPreference
             android:icon="@drawable/outline_settings_24"
             android:key="useWhiteList"
-            android:summaryOff="@string/blacklist"
-            android:summaryOn="@string/whitelist"
-            app:singleLineTitle="false"
+            app:summary="%s"
             android:title="@string/work_mode" />
         <SwitchPreferenceCompat
-            android:dependency="useWhiteList"
-            android:disableDependentsState="true"
             android:icon="@drawable/baseline_call_split_24"
             android:key="excludeSystemApps"
             android:summary="@string/app_exclude_system_apps_summary"

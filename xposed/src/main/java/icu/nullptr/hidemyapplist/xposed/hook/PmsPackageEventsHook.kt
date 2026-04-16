@@ -28,7 +28,7 @@ class PmsPackageEventsHook(private val service: HMAService) : IFrameworkHook {
                 hook = findMethod("com.android.internal.content.PackageMonitor") {
                     name == "onReceive"
                 }.hookBefore { param ->
-                    val intent = param.args[1] as Intent? ?: return@hookBefore
+                    val intent = param.args[1] as? Intent ?: return@hookBefore
 
                     service.handlePackageEvent(
                         intent.action,

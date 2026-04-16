@@ -10,7 +10,7 @@ import kotlinx.coroutines.runBlocking
 
 class AppPresetAdapter(
     private val presetName: String
-) : AppSelectAdapter() {
+) : AppSelectAdapter(hideMyself = false) {
     var packages = mutableListOf<String>()
 
     fun updateList() {

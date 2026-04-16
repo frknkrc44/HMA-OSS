@@ -6,7 +6,6 @@ import android.content.pm.PackageInfo
 import android.content.pm.ResolveInfo
 import android.os.Binder
 import android.os.Build
-import java.lang.reflect.Field
 import java.util.Random
 import java.util.zip.ZipFile
 
@@ -29,14 +28,6 @@ object Utils {
         val result = block()
         Binder.restoreCallingIdentity(identity)
         return result
-    }
-
-    fun getInstalledPackagesCompat(pms: IPackageManager, flags: Long, userId: Int): List<PackageInfo> {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            pms.getInstalledPackages(flags, userId)
-        } else {
-            pms.getInstalledPackages(flags.toInt(), userId)
-        }.list
     }
 
     fun getInstalledApplicationsCompat(pms: IPackageManager, flags: Long, userId: Int): List<ApplicationInfo> {
@@ -107,17 +98,6 @@ object Utils {
                 }
             }
 
-            return false
-        }
-    }
-
-    fun isSamsung(): Boolean {
-        try {
-            val semPlatformIntField: Field =
-                Build.VERSION::class.java.getDeclaredField("SEM_PLATFORM_INT")
-            semPlatformIntField.isAccessible = true
-            return semPlatformIntField.getInt(null) >= 0
-        } catch (_: Throwable) {
             return false
         }
     }

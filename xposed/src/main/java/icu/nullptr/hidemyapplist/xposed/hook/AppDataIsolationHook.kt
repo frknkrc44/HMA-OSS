@@ -10,10 +10,10 @@ import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers
 import icu.nullptr.hidemyapplist.common.Utils
 import icu.nullptr.hidemyapplist.xposed.HMAService
+import icu.nullptr.hidemyapplist.xposed.Logcat.logD
+import icu.nullptr.hidemyapplist.xposed.Logcat.logE
+import icu.nullptr.hidemyapplist.xposed.Logcat.logI
 import icu.nullptr.hidemyapplist.xposed.XposedConstants.STORAGE_MANAGER_SERVICE_CLASS
-import icu.nullptr.hidemyapplist.xposed.logD
-import icu.nullptr.hidemyapplist.xposed.logE
-import icu.nullptr.hidemyapplist.xposed.logI
 import org.frknkrc44.hma_oss.common.BuildConfig
 
 @RequiresApi(Build.VERSION_CODES.R)
@@ -31,7 +31,7 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
 
     override fun load() {
         if (!(service.config.altAppDataIsolation || service.config.altVoldAppDataIsolation)) return
-        logI(TAG, "Load hook")
+        logI(TAG) { "Load hook" }
 
         findMethodOrNull(
             "com.android.server.am.ProcessList"
@@ -51,7 +51,7 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
                         true
                     )
 
-                    logI(TAG, "ProcessList - App data isolation is forced")
+                    logI(TAG) { "ProcessList - App data isolation is forced" }
                 }
             }
 
@@ -60,7 +60,7 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
 
                 if (!fuseEnabled) {
                     voldHookSkipped = true
-                    logE(TAG, "ProcessList - FUSE storage is not enabled, skip vold hook")
+                    logE(TAG) { "ProcessList - FUSE storage is not enabled, skip vold hook" }
                 } else {
                     val isolationEnabled = XposedHelpers.getBooleanField(
                         param.thisObject,
@@ -74,7 +74,7 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
                             true
                         )
 
-                        logI(TAG, "ProcessList - Vold app data isolation is forced")
+                        logI(TAG) { "ProcessList - Vold app data isolation is forced" }
                     }
                 }
             }
@@ -107,10 +107,9 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
                     service.pms.getPackagesForUid(uid)
                 } ?: return@hookAfter
 
-                logD(
-                    TAG,
+                logD(TAG) {
                     "@needsStorageDataIsolation $uid and ${apps.contentToString()} - $processName value without override: ${param.result}, mount node: $mountNode, isolated: $isolated, appZygote: $appZygote"
-                )
+                }
 
                 // Do not isolate this module for safety
                 if (apps.contains(BuildConfig.APP_PACKAGE_NAME)) {
@@ -124,10 +123,9 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
 
                 if (service.config.skipSystemAppDataIsolation) {
                     val isSystemApp = service.systemApps.any { apps.contains(it) }
-                    logD(
-                        TAG,
+                    logD(TAG) {
                         "@needsStorageDataIsolation $uid and ${apps.contentToString()} - isSystemApp: $isSystemApp"
-                    )
+                    }
 
                     if (isSystemApp) {
                         param.result = false
@@ -147,7 +145,7 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
                     val fuseEnabled = SystemProperties.getBoolean(FUSE_PROP, false)
 
                     if (!fuseEnabled) {
-                        logE(TAG, "StorageManagerService - FUSE storage is not enabled, disable hooks")
+                        logE(TAG) { "StorageManagerService - FUSE storage is not enabled, disable hooks" }
                         unload()
                         return@hookBefore
                     }
@@ -164,11 +162,11 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
                             true
                         )
 
-                        logI(TAG, "StorageManagerService - Vold app data isolation is forced")
+                        logI(TAG) { "StorageManagerService - Vold app data isolation is forced" }
                     }
                 }
             }.onFailure {
-                logE(TAG, "Fatal error occurred, disable hooks", it)
+                logE(TAG, it) { "Fatal error occurred, disable hooks" }
                 unload()
             }
         }?.let {
@@ -196,10 +194,9 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
 
                     for (app in apps) {
                         if (app in service.systemApps || app == BuildConfig.APP_PACKAGE_NAME) {
-                            logD(
-                                TAG,
+                            logD(TAG) {
                                 "@remountAppStorageDirs SYSTEM $pid - $packageName is marked to remove"
-                            )
+                            }
                             keysToRemove += pid
                             break
                         }

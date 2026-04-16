@@ -2,13 +2,18 @@ package icu.nullptr.hidemyapplist.ui.util
 
 import android.content.ContentResolver
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
+import android.os.SystemClock.elapsedRealtime
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import android.view.WindowInsets
+import android.widget.Chronometer
 import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import androidx.annotation.MenuRes
@@ -18,6 +23,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.ui.activity.MainActivity
 
@@ -48,8 +54,40 @@ fun Fragment.setupToolbar(
     @DrawableRes navigationIcon: Int? = null,
     navigationOnClick: View.OnClickListener? = null,
     @MenuRes menuRes: Int? = null,
-    onMenuOptionSelected: ((MenuItem) -> Unit)? = null
+    onMenuOptionSelected: ((MenuItem) -> Unit)? = null,
+    isHomeToolbar: Boolean = false,
 ) {
+    if (isHomeToolbar) {
+        toolbar.setOnLongClickListener {
+            val dialog = MaterialAlertDialogBuilder(toolbar.context)
+                .setTitle(R.string.app_name)
+                .create()
+
+            dialog.setView(Chronometer(toolbar.context).apply {
+                layoutParams = ViewGroup.LayoutParams(-1, -2)
+                base = elapsedRealtime() + 3000
+                textSize = dp2Px(toolbar.resources, 24)
+                gravity = Gravity.CENTER
+                typeface = Typeface.SERIF
+                onChronometerTickListener = {
+                    if (elapsedRealtime() >= base) {
+                        stop()
+                        dialog.dismiss()
+
+                        // is it really final countdown?
+                        isTheFinalCountDown
+                    }
+                }
+                isCountDown = true
+                start()
+            })
+
+            dialog.show()
+
+            true
+        }
+    }
+
     navigationOnClick?.let { toolbar.setNavigationOnClickListener(it) }
     navigationIcon?.let { toolbar.setNavigationIcon(navigationIcon) }
     toolbar.title = title

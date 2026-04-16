@@ -79,7 +79,8 @@ class TemplateSettingsFragment : Fragment(R.layout.fragment_template_settings) {
             }
             val args = ScopeFragmentArgs(
                 filterOnlyEnabled = false,
-                checked = viewModel.targetAppList.value.toTypedArray()
+                checked = viewModel.targetAppList.value.toTypedArray(),
+                hideMyself = false,
             )
             navigate(R.id.nav_scope, args.toBundle())
         }

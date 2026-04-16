@@ -15,8 +15,8 @@ object ServiceClient : IHMAService, IBinder.DeathRecipient {
     private class ServiceProxy(private val obj: IHMAService) : InvocationHandler {
         override fun invoke(proxy: Any?, method: Method, args: Array<out Any?>?): Any? {
             val result = method.invoke(obj, *args.orEmpty())
-            if (result == null) Log.i(TAG, "Call service method ${method.name}")
-            else Log.i(TAG, "Call service method ${method.name} with result " + result.toString().take(20))
+            if (result == null) Log.d(TAG, "Call service method ${method.name}")
+            else Log.d(TAG, "Call service method ${method.name} with result " + result.toString().take(20))
             return result
         }
     }
@@ -99,4 +99,12 @@ object ServiceClient : IHMAService, IBinder.DeathRecipient {
     override fun clearFilterStats() {
         service?.clearFilterStats()
     }
+
+    /**
+     * Get the current service `BuildConfig.APP_VERSION_NAME`.
+     * Returns `null` if there is no service connection or an old version is installed.
+     */
+    override fun getServiceVersionName() = try {
+        service?.serviceVersionName
+    } catch (_: Throwable) { null }
 }

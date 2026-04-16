@@ -9,16 +9,14 @@ import com.github.kyuubiran.ezxhelper.utils.findMethod
 import com.github.kyuubiran.ezxhelper.utils.findMethodOrNull
 import com.github.kyuubiran.ezxhelper.utils.hookBefore
 import com.github.kyuubiran.ezxhelper.utils.paramCount
-import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.Constants.VENDING_PACKAGE_NAME
 import icu.nullptr.hidemyapplist.common.Utils
 import icu.nullptr.hidemyapplist.xposed.HMAService
-import icu.nullptr.hidemyapplist.xposed.Utils4Xposed
+import icu.nullptr.hidemyapplist.xposed.Logcat.logI
+import icu.nullptr.hidemyapplist.xposed.Utils4Xposed.getCallingApps
+import icu.nullptr.hidemyapplist.xposed.Utils4Xposed.getPackageNameFromPackageSettings
 import icu.nullptr.hidemyapplist.xposed.XposedConstants.APPS_FILTER_IMPL_CLASS
 import icu.nullptr.hidemyapplist.xposed.XposedConstants.PACKAGE_MANAGER_SERVICE_CLASS
-import icu.nullptr.hidemyapplist.xposed.logD
-import icu.nullptr.hidemyapplist.xposed.logE
-import icu.nullptr.hidemyapplist.xposed.logI
 
 @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 class PmsHookTarget34(service: HMAService) : PmsHookTargetBase(service) {
@@ -63,69 +61,36 @@ class PmsHookTarget34(service: HMAService) : PmsHookTargetBase(service) {
 
     @Suppress("UNCHECKED_CAST")
     override fun load() {
-        logI(TAG, "Load hook")
+        logI(TAG) { "Load hook" }
+
         hooks += findMethod(APPS_FILTER_IMPL_CLASS, findSuper = true) {
             name == "shouldFilterApplication"
         }.hookBefore { param ->
-            runCatching {
-                val callingUid = param.args[1] as Int
-                if (callingUid == Constants.UID_SYSTEM) return@hookBefore
-                val targetApp = Utils4Xposed.getPackageNameFromPackageSettings(param.args[3]) // PackageSettings <- PackageStateInternal
-                if (service.shouldHideFromUid(callingUid, targetApp) == true) {
-                    param.result = true
-                    service.increasePMFilterCount(callingUid)
-                    logD(TAG, "@shouldFilterApplication caller cache: $callingUid, target: $targetApp")
-                    return@hookBefore
-                }
-                val snapshot = param.args[0]
-                val callingApps = Utils.binderLocalScope {
-                    getPackagesForUidMethod.invoke(snapshot, callingUid) as Array<String>?
-                } ?: return@hookBefore
-                val caller = callingApps.firstOrNull { service.shouldHide(it, targetApp) }
-                if (caller != null) {
-                    param.result = true
-                    service.putShouldHideUidCache(callingUid, caller, targetApp!!)
-                    service.increasePMFilterCount(caller)
-                    val last = lastFilteredApp.getAndSet(caller)
-                    if (last != caller) logI(TAG, "@shouldFilterApplication: query from $caller")
-                    logD(TAG, "@shouldFilterApplication caller: $callingUid $caller, target: $targetApp")
-                }
-            }.onFailure {
-                logE(TAG, "Fatal error occurred, disable hooks", it)
-                unload()
-            }
+            applyPackageHiding(
+                param.method.name,
+                { param.args[1] as Int? },
+                { getPackageNameFromPackageSettings(param.args[3]) },
+                {
+                    Utils.binderLocalScope {
+                        getPackagesForUidMethod.invoke(param.args[0], it) as Array<String>?
+                    }
+                },
+                { param.result = true },
+            )
         }
+
         // AOSP exploit - https://github.com/aosp-mirror/platform_frameworks_base/commit/5bc482bd99ea18fe0b4064d486b29d5ae2d65139
         // Only 14 QPR2+ has this method
         findMethodOrNull(PACKAGE_MANAGER_SERVICE_CLASS, findSuper = true) {
             name == "getArchivedPackageInternal"
         }?.hookBefore { param ->
-            runCatching {
-                val callingUid = Binder.getCallingUid()
-                if (callingUid == Constants.UID_SYSTEM) return@hookBefore
-                val targetApp = param.args[0].toString()
-                if (service.shouldHideFromUid(callingUid, targetApp) == true) {
-                    param.result = true
-                    service.increasePMFilterCount(callingUid)
-                    logD(TAG, "@getArchivedPackageInternal caller cache: $callingUid, target: $targetApp")
-                    return@hookBefore
-                }
-                val callingApps = Utils.binderLocalScope {
-                    service.pms.getPackagesForUid(callingUid)
-                } ?: return@hookBefore
-                val caller = callingApps.firstOrNull { service.shouldHide(it, targetApp) }
-                if (caller != null) {
-                    param.result = null
-                    service.putShouldHideUidCache(callingUid, caller, targetApp)
-                    service.increasePMFilterCount(caller)
-                    val last = lastFilteredApp.getAndSet(caller)
-                    if (last != caller) logI(TAG, "@getArchivedPackageInternal: query from $caller")
-                    logD(TAG, "@getArchivedPackageInternal caller: $callingUid $caller, target: $targetApp")
-                }
-            }.onFailure {
-                logE(TAG, "Fatal error occurred, disable hooks", it)
-                unload()
-            }
+            applyPackageHiding(
+                param.method.name,
+                { Binder.getCallingUid() },
+                { param.args[0].toString() },
+                { getCallingApps(service, it) },
+                { param.result = null },
+            )
         }?.let {
             hooks.add(it)
         }
