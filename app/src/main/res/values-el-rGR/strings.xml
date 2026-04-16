@@ -122,7 +122,7 @@
     <string name="preset_sus_apps">Ύποπτες εφαρμογές</string>
     <string name="preset_detector_apps">Εφαρμογές Ανίχνευσης/Ελέγχου</string>
     <string name="preset_shizuku_dhizuku">Εφαρμογές Shizuku/Dhizuku</string>
-    <string name="preset_accessibility_apps">Accessibility apps</string>
+    <string name="preset_accessibility_apps">Εφαρμογές προσβασιμότητας</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Προσβασιμότητα</string>
     <string name="settings_preset_dev_options">Επιλογές προγραμματιστή</string>
@@ -175,8 +175,8 @@
     <string name="settings_package_query_workaround_summary">Μην ενεργοποιήσετε αυτήν την επιλογή εάν βλέπετε σωστά τη λίστα πακέτων σε αυτήν την εφαρμογή.</string>
     <string name="settings_launcher_icon">Εικονίδιο εκκίνησης</string>
     <string name="settings_error_only_log">Αρχείο καταγραφής μόνο για σφάλματα</string>
-    <string name="settings_enable_internet">Enable Internet connection</string>
-    <string name="settings_enable_internet_summary">This app will lose all of Internet-related functionality when you disabled this option.</string>
+    <string name="settings_enable_internet">Ενεργοποίηση σύνδεσης στο Διαδίκτυο</string>
+    <string name="settings_enable_internet_summary">Αυτή η εφαρμογή θα χάσει όλες τις λειτουργίες που σχετίζονται με το Διαδίκτυο όταν απενεργοποιήσετε αυτήν την επιλογή.</string>
     <string name="settings_language">Γλώσσα</string>
     <string name="settings_translate">Συμμετοχή στη μετάφραση</string>
     <string name="settings_translate_summary">Βοηθήστε μας να μεταφράσουμε το %s στη γλώσσα σας</string>
