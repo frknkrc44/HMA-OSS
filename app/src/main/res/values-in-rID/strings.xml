@@ -32,10 +32,10 @@
     <string name="add">Tambahkan</string>
     <string name="edit">Ubah</string>
     <string name="apply">Terapkan</string>
-    <string name="follow_system">Ikut sistem</string>
+    <string name="follow_system">Sistem</string>
     <!-- Home -->
-    <string name="home_xposed_activated">Modul Diaktifkan [%s]</string>
-    <string name="home_xposed_not_activated">Modul Tidak Diaktifkan</string>
+    <string name="home_xposed_activated">Modul Aktif [%s]</string>
+    <string name="home_xposed_not_activated">Modul Tidak Aktif</string>
     <string name="home_xposed_service_on">Layanan sistem sedang berjalan [%d]</string>
     <string name="home_xposed_service_off">Layanan sistem tidak berjalan</string>
     <string name="home_xposed_service_old">Modul diperbarui, perlu mulai ulang</string>
@@ -106,7 +106,7 @@
     <string name="app_force_stop_warning">Jangan lupa untuk menghentikan paksa target apl setelah menyimpan konfigurasi</string>
     <string name="app_invert_activity_launch_protection">Ubah proteksi peluncuran aktivitas</string>
     <string name="app_invert_activity_launch_protection_desc">Opsi ini akan mengubah pilihan \"Nonaktifkan proteksi peluncuran aktivitas\" di setelan.</string>
-    <string name="app_global_activity_launch_protection_state">Proteksi %s secara universal</string>
+    <string name="app_global_activity_launch_protection_state">Proteksi %s secara global</string>
     <string name="app_force_stop_launch">Paksa berhenti dan luncurkan</string>
     <string name="app_launch">Luncurkan</string>
     <string name="app_launch_failed">Peluncuran apl gagal, periksa log untuk detail lebih lanjut</string>
@@ -122,7 +122,7 @@
     <string name="preset_sus_apps">Apl mencurigakan</string>
     <string name="preset_detector_apps">Apl Detektor/Checker</string>
     <string name="preset_shizuku_dhizuku">Shizuku</string>
-    <string name="preset_accessibility_apps">Accessibility apps</string>
+    <string name="preset_accessibility_apps">Aplikasi aksesibilitas</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Aksesibilitas</string>
     <string name="settings_preset_dev_options">Opsi pengembang</string>
@@ -146,7 +146,7 @@
     <string name="settings_overwrite">Timpa</string>
     <string name="settings_overwritten">Ditimpa</string>
     <string name="settings_overwrite_summary">Item kategori ini akan dipaksa aktif jika tombol diaktifkan</string>
-    <string name="settings_default_value">Nilai default: %s</string>
+    <string name="settings_default_value">Nilai bawaan: %s</string>
     <string name="settings_data_isolation">Isolasi data</string>
     <string name="settings_data_isolation_summary">Data apl: %s\nVold data apl: %s\nPaksa mount: %s</string>
     <string name="settings_data_isolation_unsupported">Opsi ini hanya tersedia di Android 11 dan di atasnya</string>
@@ -158,7 +158,7 @@
     <string name="settings_need_reboot">Perubahan diperlukan mulai ulang</string>
     <string name="settings_permission_denied">Izin ditolak</string>
     <string name="settings_force_mount_data">Paksa isolasi data untuk semua apl</string>
-    <string name="settings_force_mount_data_summary">Isolasi data dinonaktifkan untuk apl target API yang lebih rendah dari 30 secara default</string>
+    <string name="settings_force_mount_data_summary">Isolasi data dinonaktifkan untuk apl target API yang lebih rendah dari 30 secara bawaan</string>
     <string name="settings_detail_log">Log detail untuk debugging</string>
     <string name="settings_max_log_size">Ukuran buffer log</string>
     <string name="settings_hide_icon">Sembunyikan ikon modul di launcher</string>
@@ -175,8 +175,8 @@
     <string name="settings_package_query_workaround_summary">Jangan aktifkan opsi ini jika daftar paket sudah tampil dengan benar.</string>
     <string name="settings_launcher_icon">Ikon aplikasi</string>
     <string name="settings_error_only_log">Log khusus error</string>
-    <string name="settings_enable_internet">Enable Internet connection</string>
-    <string name="settings_enable_internet_summary">This app will lose all of Internet-related functionality when you disabled this option.</string>
+    <string name="settings_enable_internet">Aktifkan koneksi internet</string>
+    <string name="settings_enable_internet_summary">Aplikasi ini akan kehilangan semua fungsi yang berhubungan dengan internet jika Anda menonaktifkan opsi ini.</string>
     <string name="settings_language">Bahasa</string>
     <string name="settings_translate">Berpartisipasi dalam terjemahan</string>
     <string name="settings_translate_summary">Bantu kami menerjemahkan %s ke bahasa Anda</string>
