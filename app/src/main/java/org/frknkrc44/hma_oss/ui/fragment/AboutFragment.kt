@@ -139,7 +139,7 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
             backgroundTintList = tint
             clipToOutline = true
 
-            addLibraryItem(this, "ZygoteLoader (fork)", "MIT License", "https://github.com/aerath-stuff/ZygoteLoader")
+            addLibraryItem(this, "EzXHelper", "Apache Software License 2.0", "https://github.com/KyuubiRan/EzXHelper")
             addLibraryItem(this, "Glide", "Simplified BSD License", "https://github.com/bumptech/glide")
         }
     }
