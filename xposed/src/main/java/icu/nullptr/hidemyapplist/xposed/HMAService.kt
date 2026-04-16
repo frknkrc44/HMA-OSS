@@ -3,6 +3,7 @@ package icu.nullptr.hidemyapplist.xposed
 import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.content.pm.IPackageManager
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.UserHandle
@@ -203,9 +204,13 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     }
 
     private fun installHooks() {
-        getInstalledApplicationsCompat(pms, 0, 0).mapNotNullTo(systemApps) {
-            if (it.flags and ApplicationInfo.FLAG_SYSTEM != 0) it.packageName else null
-        }
+        getInstalledApplicationsCompat(pms, PackageManager.MATCH_ALL.toLong(), 0)
+            .mapNotNullTo(systemApps) { appInfo ->
+                val isSystemApp = appInfo.flags and ApplicationInfo.FLAG_SYSTEM != 0 ||
+                        appInfo.flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP != 0
+
+                if (isSystemApp) appInfo.packageName else null
+            }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             frameworkHooks.add(PmsHookTarget34(this))
@@ -484,7 +489,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         writeFilterCount(true)
     }
 
-    fun writeFilterCount(force: Boolean = false) {
+    private fun writeFilterCount(force: Boolean = false) {
         synchronized(configLock) {
             if (!force && totalFilterCount % 100 != 0) {
                 return
