@@ -122,6 +122,7 @@
     <string name="preset_sus_apps">Applications suspectes</string>
     <string name="preset_detector_apps">Applications de détection/vérification</string>
     <string name="preset_shizuku_dhizuku">Applications Shizuku/Dhizuku</string>
+    <string name="preset_accessibility_apps">Accessibility apps</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Accessibilité</string>
     <string name="settings_preset_dev_options">Options de développeur</string>
@@ -174,6 +175,8 @@
     <string name="settings_package_query_workaround_summary">N\'activez pas cette option si la liste des paquets s\'affiche correctement dans cette application.</string>
     <string name="settings_launcher_icon">Icône du lanceur</string>
     <string name="settings_error_only_log">Journal d\'erreurs uniquement</string>
+    <string name="settings_enable_internet">Enable Internet connection</string>
+    <string name="settings_enable_internet_summary">This app will lose all of Internet-related functionality when you disabled this option.</string>
     <string name="settings_language">Langue</string>
     <string name="settings_translate">Participer à la traduction</string>
     <string name="settings_translate_summary">Aidez nous à traduire %s dans votre language</string>
