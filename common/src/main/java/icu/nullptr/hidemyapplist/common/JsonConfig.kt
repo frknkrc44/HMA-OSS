@@ -71,16 +71,6 @@ data class JsonConfig(
      */
     var packageQueryWorkaround: Boolean = false,
 
-    /**
-     * Enable/disable the Internet connection in the manager app
-     *
-     * States:
-     * - ENABLE_INTERNET_UNKNOWN - The user didn't pass the dialog yet
-     * - ENABLE_INTERNET_ON - The user granted the Internet permission
-     * - ENABLE_INTERNET_OFF - The user rejected the Internet permission
-     */
-    var enableInternet: Int = ENABLE_INTERNET_UNKNOWN,
-
     val templates: MutableMap<String, Template> = mutableMapOf(),
     val settingsTemplates: MutableMap<String, SettingsTemplate> = mutableMapOf(),
 

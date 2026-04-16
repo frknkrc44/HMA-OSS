@@ -137,21 +137,6 @@ object ConfigManager {
             PackageHelper.invalidateCache()
         }
 
-    var enableInternet: Int
-        get() = config.enableInternet
-        set(value) {
-            config.enableInternet = value
-            saveConfig()
-        }
-
-    fun setEnableInternet(value: Boolean) {
-        enableInternet = if (value) {
-            Constants.ENABLE_INTERNET_ON
-        } else {
-            Constants.ENABLE_INTERNET_OFF
-        }
-    }
-
     fun importConfig(json: String) {
         config = JsonConfig.parse(json)
         config.configVersion = BuildConfig.CONFIG_VERSION

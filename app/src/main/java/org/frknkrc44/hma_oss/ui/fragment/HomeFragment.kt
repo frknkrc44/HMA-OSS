@@ -359,7 +359,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun loadDialogs() {
-        if (ConfigManager.enableInternet == Constants.ENABLE_INTERNET_UNKNOWN) {
+        if (PrefManager.enableInternet == Constants.ENABLE_INTERNET_UNKNOWN) {
             loadEnableInternetDialog()
             return
         }
@@ -373,17 +373,17 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             .setTitle(R.string.settings_enable_internet)
             .setMessage(R.string.settings_enable_internet_summary)
             .setPositiveButton(R.string.yes) { _, _ ->
-                ConfigManager.enableInternet = Constants.ENABLE_INTERNET_ON
+                PrefManager.enableInternet = Constants.ENABLE_INTERNET_ON
                 loadUpdateDialog()
             }
             .setNegativeButton(R.string.no) { _, _ ->
-                ConfigManager.enableInternet = Constants.ENABLE_INTERNET_OFF
+                PrefManager.enableInternet = Constants.ENABLE_INTERNET_OFF
             }
             .show()
     }
 
     private fun loadUpdateDialog() {
-        if (ConfigManager.enableInternet != Constants.ENABLE_INTERNET_ON ||
+        if (PrefManager.enableInternet != Constants.ENABLE_INTERNET_ON ||
             hmaApp.updateDialogSkipped || PrefManager.disableUpdate || isTestBuild) {
             return
         }

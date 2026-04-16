@@ -173,7 +173,7 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
     fun addTranslatorItem(layout: LinearLayout, avatarUrl: String, name: String) {
         val newLayout = FragmentAboutListItemBinding.inflate(layoutInflater)
 
-        if (ConfigManager.enableInternet == Constants.ENABLE_INTERNET_ON) {
+        if (PrefManager.enableInternet == Constants.ENABLE_INTERNET_ON) {
             Glide.with(this)
                 .load(avatarUrl)
                 .placeholder(R.drawable.outline_info_24)
