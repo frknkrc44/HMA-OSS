@@ -98,11 +98,11 @@
     <string name="app_warning_risky_package_desc">Gói này được đánh dấu là rủi ro và bạn có thể gây ra lỗi cho các ứng dụng được ẩn. Bạn có muốn tiếp tục không?</string>
     <string name="app_spoof">Giả mạo</string>
     <string name="app_hide_installation_source">Giả mạo các nguồn cài đặt</string>
-    <string name="app_hide_installation_source_desc">Tất cả các ứng dụng của người dùng sẽ được giả mạo là đã cài đặt trên CH Play cho ứng dụng này</string>
+    <string name="app_hide_installation_source_desc">Tất cả các ứng dụng của người dùng sẽ được giả mạo là đã cài đặt trên Cửa hàng Play cho ứng dụng này</string>
     <string name="app_hide_installation_source_system">Giả mạo các ứng dụng hệ thống luôn</string>
     <string name="app_hide_installation_source_system_desc">Tất cả các ứng dụng hệ thống sẽ được giả mạo là đã cài đặt qua không gì cả cho ứng dụng này</string>
     <string name="app_exclude_target_installation_source">Loại trừ ứng dụng mục tiêu</string>
-    <string name="app_exclude_target_installation_source_desc">Bạn có thể bật nó nếu ứng dụng này không có sẵn trên CH Play</string>
+    <string name="app_exclude_target_installation_source_desc">Bạn có thể bật nó nếu ứng dụng này không có sẵn trên Cửa hàng Play</string>
     <string name="app_force_stop_warning">Đừng quên buộc dừng ứng dụng mục tiêu sau khi lưu cấu hình</string>
     <string name="app_invert_activity_launch_protection">Đảo ngược lựa chọn Tắt bảo vệ khởi chạy hoạt động</string>
     <string name="app_invert_activity_launch_protection_desc">Tùy chọn này sẽ đảo ngược lựa chọn \"Tắt bảo vệ khởi chạy hoạt động\" trong Cài đặt.</string>
@@ -122,6 +122,7 @@
     <string name="preset_sus_apps">Ứng dụng đáng ngờ</string>
     <string name="preset_detector_apps">Ứng dụng Trình phát hiện / Trình kiểm tra</string>
     <string name="preset_shizuku_dhizuku">Ứng dụng Shizuku / Dhizuku</string>
+    <string name="preset_accessibility_apps">Accessibility apps</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Trợ năng</string>
     <string name="settings_preset_dev_options">Tùy chọn nhà phát triển</string>
@@ -174,6 +175,8 @@
     <string name="settings_package_query_workaround_summary">Đừng bật lựa chọn này nếu bạn thấy danh sách tên gói ứng dụng trong ứng dụng này đúng cách.</string>
     <string name="settings_launcher_icon">Biểu tượng khởi động</string>
     <string name="settings_error_only_log">Chỉ lổi được lưu nhật ký</string>
+    <string name="settings_enable_internet">Enable Internet connection</string>
+    <string name="settings_enable_internet_summary">This app will lose all of Internet-related functionality when you disabled this option.</string>
     <string name="settings_language">Ngôn ngữ</string>
     <string name="settings_translate">Giúp chúng tôi dịch</string>
     <string name="settings_translate_summary">Giúp chúng tôi dịch %s sang ngôn ngữ của bạn</string>
