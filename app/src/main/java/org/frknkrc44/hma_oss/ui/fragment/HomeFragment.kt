@@ -135,45 +135,49 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     val backgroundDrawable = GradientDrawable()
                     backgroundDrawable.setColor(homeItemBackgroundColor())
 
-                    if (i == 0) {
-                        backgroundDrawable.setCornerRadii(
-                            floatArrayOf(
-                                softCorner,
-                                softCorner,
-                                softCorner,
-                                softCorner,
-                                squareCorner,
-                                squareCorner,
-                                squareCorner,
-                                squareCorner
+                    when (i) {
+                        0 -> {
+                            backgroundDrawable.setCornerRadii(
+                                floatArrayOf(
+                                    softCorner,
+                                    softCorner,
+                                    softCorner,
+                                    softCorner,
+                                    squareCorner,
+                                    squareCorner,
+                                    squareCorner,
+                                    squareCorner
+                                )
                             )
-                        )
-                    } else if (i == childCount - 1) {
-                        backgroundDrawable.setCornerRadii(
-                            floatArrayOf(
-                                squareCorner,
-                                squareCorner,
-                                squareCorner,
-                                squareCorner,
-                                softCorner,
-                                softCorner,
-                                softCorner,
-                                softCorner
+                        }
+                        childCount - 1 -> {
+                            backgroundDrawable.setCornerRadii(
+                                floatArrayOf(
+                                    squareCorner,
+                                    squareCorner,
+                                    squareCorner,
+                                    squareCorner,
+                                    softCorner,
+                                    softCorner,
+                                    softCorner,
+                                    softCorner
+                                )
                             )
-                        )
-                    } else {
-                        backgroundDrawable.setCornerRadii(
-                            floatArrayOf(
-                                squareCorner,
-                                squareCorner,
-                                squareCorner,
-                                squareCorner,
-                                squareCorner,
-                                squareCorner,
-                                squareCorner,
-                                squareCorner
+                        }
+                        else -> {
+                            backgroundDrawable.setCornerRadii(
+                                floatArrayOf(
+                                    squareCorner,
+                                    squareCorner,
+                                    squareCorner,
+                                    squareCorner,
+                                    squareCorner,
+                                    squareCorner,
+                                    squareCorner,
+                                    squareCorner
+                                )
                             )
-                        )
+                        }
                     }
 
                     val ripple = attrDrawable(android.R.attr.selectableItemBackground)
