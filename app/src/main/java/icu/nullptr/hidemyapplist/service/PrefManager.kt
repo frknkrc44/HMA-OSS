@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
 import icu.nullptr.hidemyapplist.MyApp.Companion.hmaApp
+import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.data.AppConstants
 import icu.nullptr.hidemyapplist.ui.util.get
 import icu.nullptr.hidemyapplist.util.PackageHelper.findEnabledAppComponent
@@ -25,6 +26,7 @@ object PrefManager {
 
     private const val PREF_BYPASS_RISKY_PACKAGE_WARNING = "bypass_risky_package_warning"
 
+    private const val PREF_ENABLE_INTERNET = "enable_internet"
     private const val PREF_DISABLE_UPDATE = "disable_update"
 
     private const val PREF_APP_FILTER_SHOW_SYSTEM = "app_filter_show_system"
@@ -92,6 +94,26 @@ object PrefManager {
     var bypassRiskyPackageWarning: Boolean
         get() = pref.getBoolean(PREF_BYPASS_RISKY_PACKAGE_WARNING, false)
         set(value) = pref.edit { putBoolean(PREF_BYPASS_RISKY_PACKAGE_WARNING, value) }
+
+    /**
+     * Enable/disable the Internet connection in the manager app
+     *
+     * States:
+     * - ENABLE_INTERNET_UNKNOWN - The user didn't pass the dialog yet
+     * - ENABLE_INTERNET_ON - The user granted the Internet permission
+     * - ENABLE_INTERNET_OFF - The user rejected the Internet permission
+     */
+    var enableInternet: Int
+        get() = pref.getInt(PREF_ENABLE_INTERNET, Constants.ENABLE_INTERNET_UNKNOWN)
+        set(value) = pref.edit { putInt(PREF_ENABLE_INTERNET, value) }
+
+    fun setEnableInternet(value: Boolean) {
+            enableInternet = if (value) {
+                    Constants.ENABLE_INTERNET_ON
+                } else {
+                    Constants.ENABLE_INTERNET_OFF
+                }
+        }
 
     var disableUpdate: Boolean
         get() = pref.getBoolean(PREF_DISABLE_UPDATE, false)
