@@ -53,7 +53,7 @@ object Logcat {
             else        -> "?WTF?"
         }
         val date = SimpleDateFormat("MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
-        append("[$levelStr] $date ($tag) $msg")
+        append("[$levelStr] <$date> ($tag) $msg")
         if (!endsWith('\n')) append('\n')
         if (cause != null) append(Log.getStackTraceString(cause))
         if (!endsWith('\n')) append('\n')
