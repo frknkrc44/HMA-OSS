@@ -32,6 +32,8 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
     @Suppress("PropertyName")
     abstract val TAG: String
 
+    private val androidPkgClazzNames = arrayOf("AndroidPackage", "PackageImpl")
+
     protected val hooks = mutableListOf<XC_MethodHook.Unhook>()
     protected var lastFilteredApp: AtomicReference<String?> = AtomicReference(null)
 
@@ -123,7 +125,9 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                 val callingUid = param.args.last() as Int
                 if (callingUid == Constants.UID_SYSTEM) return@hookBefore
 
-                val pkg = param.args[1] ?: return@hookBefore
+                val pkg = param.args.lastOrNull {
+                    it?.javaClass?.simpleName in androidPkgClazzNames
+                } ?: return@hookBefore
                 val query = callMethod(
                     pkg,
                     if (pkg.javaClass.simpleName == "PackageImpl") {
