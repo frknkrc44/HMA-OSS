@@ -23,6 +23,8 @@ import java.util.concurrent.atomic.AtomicReference
 
 abstract class PmsHookTargetBase(protected val service: HMAService) : IFrameworkHook {
 
+    private val androidPkgClazzNames = arrayOf("AndroidPackage", "PackageImpl")
+
     protected var lastFilteredApp: AtomicReference<String?> = AtomicReference(null)
 
     protected val psPackageInfo by lazy {
@@ -115,7 +117,9 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                     val callingUid = param.args.last { it is Int } as Int
                     if (callingUid == Constants.UID_SYSTEM) return@hookBefore
 
-                    val pkg = param.args[1] ?: return@hookBefore
+                    val pkg = param.args.lastOrNull {
+                        it?.javaClass?.simpleName in androidPkgClazzNames
+                    } ?: return@hookBefore
                     val query = callMethod(
                         pkg,
                         if (pkg.javaClass.simpleName == "PackageImpl") {
