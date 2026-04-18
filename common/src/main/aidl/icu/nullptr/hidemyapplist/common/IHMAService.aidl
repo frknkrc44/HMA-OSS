@@ -43,4 +43,8 @@ interface IHMAService {
     String getServiceVersionName() = 18;
 
     String[] getLoadedHooks() = 19;
+
+    ParcelFileDescriptor readFD(int type) = 20;
+
+    void writeFD(int type, in ParcelFileDescriptor fd) = 21;
 }

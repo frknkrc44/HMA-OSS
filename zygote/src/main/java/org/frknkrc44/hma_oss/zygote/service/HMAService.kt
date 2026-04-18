@@ -6,11 +6,15 @@ import android.content.pm.IPackageManager
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.os.ParcelFileDescriptor
+import android.os.RemoteException
 import android.os.UserHandle
 import android.provider.Settings
 import android.util.Log
 import icu.nullptr.hidemyapplist.common.AppPresets
 import icu.nullptr.hidemyapplist.common.Constants
+import icu.nullptr.hidemyapplist.common.Constants.PARCEL_TYPE_CONFIG
+import icu.nullptr.hidemyapplist.common.Constants.PARCEL_TYPE_LOG
 import icu.nullptr.hidemyapplist.common.FilterHolder
 import icu.nullptr.hidemyapplist.common.IHMAService
 import icu.nullptr.hidemyapplist.common.JsonConfig
@@ -48,6 +52,7 @@ import org.frknkrc44.hma_oss.zygote.util.Utils4Zygote.verifyAppSignature
 import rikka.hidden.compat.ActivityManagerApis
 import rikka.hidden.compat.UserManagerApis
 import java.io.File
+import java.io.FileInputStream
 import java.lang.reflect.Modifier
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -612,5 +617,31 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         }
 
         return hookList.toTypedArray()
+    }
+
+    override fun readFD(type: Int): ParcelFileDescriptor {
+        return when (type) {
+            PARCEL_TYPE_LOG -> {
+                ParcelFileDescriptor.open(logFile, ParcelFileDescriptor.MODE_READ_ONLY)
+            }
+            PARCEL_TYPE_CONFIG -> {
+                ParcelFileDescriptor.open(configFile, ParcelFileDescriptor.MODE_READ_ONLY)
+            }
+            else -> throw RemoteException("Invalid type for read: $type")
+        }
+    }
+
+    override fun writeFD(type: Int, fd: ParcelFileDescriptor) {
+        val receiveStream = FileInputStream(fd.fileDescriptor)
+
+        when (type) {
+            PARCEL_TYPE_CONFIG -> {
+                writeConfig(receiveStream.readBytes().decodeToString())
+            }
+            else -> throw RemoteException("Invalid type for write: $type")
+        }
+
+        receiveStream.close()
+        fd.close()
     }
 }

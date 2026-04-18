@@ -1,8 +1,10 @@
 package icu.nullptr.hidemyapplist.service
 
 import android.os.Build
+import android.os.ParcelFileDescriptor
 import android.util.Log
 import icu.nullptr.hidemyapplist.MyApp.Companion.hmaApp
+import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
 import icu.nullptr.hidemyapplist.ui.util.showToast
@@ -71,8 +73,14 @@ object ConfigManager {
 
     fun saveConfig() {
         val text = config.toString()
-        ServiceClient.writeConfig(text)
         configFile.writeText(text)
+
+        try {
+            ServiceClient.writeConfig(text)
+        } catch (_: Throwable) {
+            val parcelFD = ParcelFileDescriptor.open(configFile, ParcelFileDescriptor.MODE_READ_ONLY)
+            ServiceClient.writeFD(Constants.PARCEL_TYPE_CONFIG, parcelFD)
+        }
     }
 
     var detailLog: Boolean

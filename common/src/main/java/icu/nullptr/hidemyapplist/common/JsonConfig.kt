@@ -1,6 +1,5 @@
 package icu.nullptr.hidemyapplist.common
 
-import icu.nullptr.hidemyapplist.common.Constants.ENABLE_INTERNET_UNKNOWN
 import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json

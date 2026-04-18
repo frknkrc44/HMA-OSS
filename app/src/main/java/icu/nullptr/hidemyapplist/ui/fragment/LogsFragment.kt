@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.androidbroadcast.vbpd.viewBinding
+import icu.nullptr.hidemyapplist.MyApp
 import icu.nullptr.hidemyapplist.common.OSUtils
 import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.service.ServiceClient
@@ -56,18 +58,22 @@ class LogsFragment : Fragment(R.layout.fragment_logs) {
         }
 
     private fun updateLogs() {
-        lifecycleScope.launch {
+        binding.serviceOff.isVisible = ServiceClient.serviceVersion <= 0
+
+        if (binding.serviceOff.isVisible) return
+
+        binding.loadingIndicator.isVisible = true
+
+        MyApp.hmaApp.globalScope.launch {
             logCache = try {
                 ServiceClient.logs
             } catch (_: Throwable) {
-                "[ERROR] 01-01 01:01:01 (${getString(R.string.app_name)}) Cannot read logs due to Binder issues, try reading ${ServiceClient.logFileLocation} manually"
+                "[ERROR] <01-01 01:01:01> (${getString(R.string.app_name)}) Cannot read logs due to Binder issues, try reading ${ServiceClient.logFileLocation} manually"
             }
+
             val raw = logCache?.split("\n")
-            if (raw == null) {
-                binding.serviceOff.visibility = View.VISIBLE
-            } else {
-                binding.serviceOff.visibility = View.GONE
-                adapter.logs = buildList {
+            if (raw != null) {
+                val logList = buildList {
                     val cur = StringBuilder()
                     for (line in raw) {
                         if (line.startsWith('[')) {
@@ -85,11 +91,18 @@ class LogsFragment : Fragment(R.layout.fragment_logs) {
                     }
                     if (!PrefManager.logFilter_reverseOrder) reverse()
                 }
+
+                lifecycleScope.launch {
+                    binding.loadingIndicator.visibility = View.INVISIBLE
+                    adapter.logs = logList
+                }
             }
         }
     }
 
     private fun onMenuOptionSelected(item: MenuItem) {
+        if (binding.loadingIndicator.isVisible) return
+
         when (item.itemId) {
             R.id.menu_refresh -> updateLogs()
             R.id.menu_save -> {
