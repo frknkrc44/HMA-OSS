@@ -73,7 +73,6 @@ object ConfigManager {
 
     fun saveConfig() {
         val text = config.toString()
-        configFile.writeText(text)
 
         try {
             ServiceClient.writeConfig(text)
@@ -81,6 +80,8 @@ object ConfigManager {
             val parcelFD = ParcelFileDescriptor.open(configFile, ParcelFileDescriptor.MODE_READ_ONLY)
             ServiceClient.writeFD(Constants.PARCEL_TYPE_CONFIG, parcelFD)
         }
+
+        configFile.writeText(text)
     }
 
     var detailLog: Boolean
