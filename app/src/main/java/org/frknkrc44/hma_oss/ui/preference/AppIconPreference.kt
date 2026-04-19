@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.LayerDrawable
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -16,6 +18,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceViewHolder
 import icu.nullptr.hidemyapplist.data.AppConstants.allAppIcons
 import icu.nullptr.hidemyapplist.service.PrefManager
+import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.asColor
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.asDrawable
 import icu.nullptr.hidemyapplist.util.PackageHelper.findEnabledAppComponent
 import org.frknkrc44.hma_oss.BuildConfig
@@ -54,12 +57,22 @@ class AppIconPreference(context: Context, attrs: AttributeSet?) : Preference(con
                 val radioButton = object : AppCompatRadioButton(context) {
                     override fun setChecked(checked: Boolean) {
                         if (PrefManager.hideIcon) {
+                            foreground = null
                             alpha = 0.4f
                             return
                         }
 
                         super.setChecked(checked)
 
+                        foreground = if (checked) LayerDrawable(
+                            arrayOf(
+                                GradientDrawable().apply {
+                                    setColor(R.color.gray.asColor(context) - 0x44000000)
+                                    cornerRadius = 96.0f
+                                },
+                                R.drawable.check_24px.asDrawable(context)
+                            )
+                        ) else null
                         alpha = if (checked) 1.0f else 0.4f
                     }
                 }

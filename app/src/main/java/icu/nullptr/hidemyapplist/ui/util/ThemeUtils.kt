@@ -132,4 +132,6 @@ object ThemeUtils {
     fun Fragment.homeItemBackgroundColor(forceNoTrans: Boolean = false) = requireContext().homeItemBackgroundColor(forceNoTrans)
 
     fun Int.asDrawable(context: Context) = ResourcesCompat.getDrawable(context.resources, this, context.theme)!!
+
+    fun Int.asColor(context: Context) = ResourcesCompat.getColor(context.resources, this, context.theme)
 }
