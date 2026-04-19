@@ -11,6 +11,7 @@
     <color name="ic_launcher_alt_background">#000000</color>
     <color name="ic_launcher_alt_2_background">#000000</color>
     <color name="ic_launcher_alt_3_background">#000000</color>
+    <color name="ic_launcher_alt_5_background">#005F78</color>
 
     <color name="switch_accent_enabled">?colorPrimary</color>
     <color name="switch_accent_disabled">?colorOnSurfaceInverse</color>
