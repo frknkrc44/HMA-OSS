@@ -125,6 +125,7 @@
     <string name="preset_sus_apps">แอปที่น่าสงสัย</string>
     <string name="preset_detector_apps">แอปตรวจจับ / ตรวจสอบ</string>
     <string name="preset_shizuku_dhizuku">แอป Shizuku / Dhizuku</string>
+    <string name="preset_accessibility_apps">Accessibility apps</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">การช่วยการเข้าถึง</string>
     <string name="settings_preset_dev_options">ตัวเลือกสำหรับนักพัฒนา</string>
@@ -179,6 +180,8 @@ Vold ข้อมูลแอป: %s
     <string name="settings_package_query_workaround_summary">อย่าเปิดใช้งานตัวเลือกนี้หากคุณเห็นรายการแพ็กเกจในแอปนี้ถูกต้องอยู่แล้ว</string>
     <string name="settings_launcher_icon">ไอคอนตัวเรียกใช้งาน</string>
     <string name="settings_error_only_log">บันทึกเฉพาะข้อผิดพลาด</string>
+    <string name="settings_enable_internet">Enable Internet connection</string>
+    <string name="settings_enable_internet_summary">This app will lose all of Internet-related functionality when you disabled this option.</string>
     <string name="settings_language">ภาษา</string>
     <string name="settings_translate">เข้าร่วมการแปลภาษา</string>
     <string name="settings_translate_summary">ช่วยเราแปล %s เป็นภาษาของคุณ</string>

@@ -122,6 +122,7 @@
     <string name="preset_sus_apps">برنامه‌های مشکوک</string>
     <string name="preset_detector_apps">تشخیص/برنامه‌های بررسی</string>
     <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku apps</string>
+    <string name="preset_accessibility_apps">Accessibility apps</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">دسترسی‌پذیری</string>
     <string name="settings_preset_dev_options">گزینه‌های برنامه‌نویس</string>
@@ -174,6 +175,8 @@
     <string name="settings_package_query_workaround_summary">Don\'t enable this option if you see the package list in this app correctly.</string>
     <string name="settings_launcher_icon">Launcher icon</string>
     <string name="settings_error_only_log">Error-only log</string>
+    <string name="settings_enable_internet">Enable Internet connection</string>
+    <string name="settings_enable_internet_summary">This app will lose all of Internet-related functionality when you disabled this option.</string>
     <string name="settings_language">Language</string>
     <string name="settings_translate">Participate in translation</string>
     <string name="settings_translate_summary">Help us translate %s into your language</string>

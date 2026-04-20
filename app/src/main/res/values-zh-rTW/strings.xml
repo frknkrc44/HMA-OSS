@@ -31,7 +31,7 @@
     <string name="system">系統</string>
     <string name="add">添加</string>
     <string name="edit">編輯</string>
-    <string name="apply">Apply</string>
+    <string name="apply">套用設定</string>
     <string name="follow_system">依據系統設定</string>
     <!-- Home -->
     <string name="home_xposed_activated">模組已啟用 [%s]</string>
@@ -110,8 +110,8 @@
     <string name="app_force_stop_launch">強制停止並啟動</string>
     <string name="app_launch">啟動</string>
     <string name="app_launch_failed">應用程式啟動失敗，請檢查日誌以取得詳細資訊</string>
-    <string name="app_restrict_zygote_permissions">Restrict Zygote permissions</string>
-    <string name="app_restrict_zygote_permissions_desc">This option can cause crashes or false positives, choose wisely.</string>
+    <string name="app_restrict_zygote_permissions">限制Zygote權限</string>
+    <string name="app_restrict_zygote_permissions_desc">此選項可能導致程式崩潰或產生誤判，請謹慎選擇。</string>
     <!-- Presets -->
     <string name="title_preset">預設模板</string>
     <string name="title_settings_preset">設定預設模板</string>
@@ -122,6 +122,7 @@
     <string name="preset_sus_apps">可疑應用程式</string>
     <string name="preset_detector_apps">偵測/檢查應用程式</string>
     <string name="preset_shizuku_dhizuku">使用 Shizuku/Dhizuku 的應用程式</string>
+    <string name="preset_accessibility_apps">Accessibility apps</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">輔助功能</string>
     <string name="settings_preset_dev_options">開發人員選項</string>
@@ -139,7 +140,7 @@
     <string name="logs_empty">沒有日誌可保存</string>
     <string name="logs_saved">日誌已儲存</string>
     <!-- Filter logs -->
-    <string name="title_filter_logs">Filter logs</string>
+    <string name="title_filter_logs">過濾日誌</string>
     <!-- Settings -->
     <string name="settings_module">模組</string>
     <string name="settings_overwrite">覆蓋</string>
@@ -173,7 +174,9 @@
     <string name="settings_package_query_workaround">備選應用程式查詢</string>
     <string name="settings_package_query_workaround_summary">如果應用程式列表正常顯示，請勿開啟此選項</string>
     <string name="settings_launcher_icon">啟動器圖示</string>
-    <string name="settings_error_only_log">Error-only log</string>
+    <string name="settings_error_only_log">只記錄錯誤日誌</string>
+    <string name="settings_enable_internet">Enable Internet connection</string>
+    <string name="settings_enable_internet_summary">This app will lose all of Internet-related functionality when you disabled this option.</string>
     <string name="settings_language">語言</string>
     <string name="settings_translate">參與翻譯</string>
     <string name="settings_translate_summary">幫助我們翻譯 %s 到您的語言</string>
@@ -196,7 +199,7 @@
     <string name="settings_receive_beta_update">接收 Beta 版更新</string>
     <string name="settings_receive_beta_update_summary">注意：Beta 版可能會相當不穩定</string>
     <!-- Bulk config wizard -->
-    <string name="title_bulk_config_wizard">Bulk config wizard</string>
+    <string name="title_bulk_config_wizard">批量配置精靈</string>
     <!-- About -->
     <string name="about_description">        雖然檢測特定的應用程式安裝來判斷使否有使用 root 是不正卻也不應該的，但並不是每個使用 root 的應用程式都提供隨機包名的功能。\n在這種情況下，檢測到的使用 root 的應用程式（例如 Fake Location 和儲存隔離）就等於檢測到了 root 本身。\n\n同時，一些應用會利用各種漏洞來獲取你的應用列表，並預設你是使用 root 的使用者。\n\n這個模組提供了一些方法來測試你是否已經很好地隱藏了你的應用列表。\n同時它可以作為一個 Xposed 模塊來隱藏一些應用程式或拒絕應用程式列表請求，以保護你的隱私。
     </string>

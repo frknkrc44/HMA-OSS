@@ -10,7 +10,7 @@
     <string name="title_app_select">Wybierz aplikacje</string>
     <string name="title_app_settings">Ustawienia aplikacji</string>
     <string name="title_about">O</string>
-    <string name="title_about_fork"></string>
+    <string name="title_about_fork">O tym forku</string>
     <string name="do_not_dual">Nie instaluj HMA na drugim użytkowniku</string>
     <string name="show_crash_log">Pokaż dziennik awarii</string>
     <string name="config_damaged">Plik konfiguracyjny uszkodzony. Proszę wyczyścić dane aplikacji</string>
@@ -122,6 +122,7 @@
     <string name="preset_sus_apps">Podejrzane aplikacje</string>
     <string name="preset_detector_apps">Detectory/Checkery aplikacji</string>
     <string name="preset_shizuku_dhizuku">Aplikacje Shizuku/Dhizuku</string>
+    <string name="preset_accessibility_apps">Aplikacje korzystające z ułatwień dostępu</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Ułatwienia dostępu</string>
     <string name="settings_preset_dev_options">Opcje deweloperskie</string>
@@ -174,6 +175,8 @@
     <string name="settings_package_query_workaround_summary">Nie włączaj tej opcji, jeżeli widzisz listę paczek w tej aplikacji poprawnie.</string>
     <string name="settings_launcher_icon">Ikona w launcherze</string>
     <string name="settings_error_only_log">Tylko logi typu error</string>
+    <string name="settings_enable_internet">Włącz połączenie z Internetem</string>
+    <string name="settings_enable_internet_summary">Ta aplikacja straci wszystkie internetowe i powiązane z tym funkcje, kiedy wyłączysz tę opcję.</string>
     <string name="settings_language">Język</string>
     <string name="settings_translate">Weź udział w tłumaczeniu</string>
     <string name="settings_translate_summary">Pomóż nam przetłumaczyć %s na Twój język</string>

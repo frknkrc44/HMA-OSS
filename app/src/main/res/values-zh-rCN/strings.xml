@@ -122,6 +122,7 @@
     <string name="preset_sus_apps">可疑应用</string>
     <string name="preset_detector_apps">检测类应用</string>
     <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku应用</string>
+    <string name="preset_accessibility_apps">辅助功能应用</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">无障碍功能</string>
     <string name="settings_preset_dev_options">开发者选项</string>
@@ -174,6 +175,8 @@
     <string name="settings_package_query_workaround_summary">如果本应用能正常显示已安装的应用列表，请勿开启此项</string>
     <string name="settings_launcher_icon">桌面图标</string>
     <string name="settings_error_only_log">错误日志</string>
+    <string name="settings_enable_internet">启用互联网连接</string>
+    <string name="settings_enable_internet_summary">如果您关闭了此选项，该应用将失去所有与互联网相关的功能</string>
     <string name="settings_language">语言</string>
     <string name="settings_translate">参与翻译</string>
     <string name="settings_translate_summary">帮助我们把 %s 翻译到您的语言</string>

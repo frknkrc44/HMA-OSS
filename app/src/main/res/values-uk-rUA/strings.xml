@@ -122,6 +122,7 @@
     <string name="preset_sus_apps">Підозрілі програми</string>
     <string name="preset_detector_apps">Програми Детектори/Перевірки</string>
     <string name="preset_shizuku_dhizuku">Програми Shizuku/Dhizuku</string>
+    <string name="preset_accessibility_apps">Accessibility apps</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Спеціальні можливості</string>
     <string name="settings_preset_dev_options">Параметри розробника</string>
@@ -174,6 +175,8 @@
     <string name="settings_package_query_workaround_summary">Не вмикати дану опцію, якщо ви бачите в цій програмі перелік пакетів.</string>
     <string name="settings_launcher_icon">Іконка лаунчера</string>
     <string name="settings_error_only_log">Лишень помилки</string>
+    <string name="settings_enable_internet">Enable Internet connection</string>
+    <string name="settings_enable_internet_summary">This app will lose all of Internet-related functionality when you disabled this option.</string>
     <string name="settings_language">Мова</string>
     <string name="settings_translate">Участь у перекладі</string>
     <string name="settings_translate_summary">Допоможіть нам перекласти %s вашою мовою</string>

@@ -8,22 +8,22 @@
     <string name="title_settings_template_conf">تهيئة قالب الإعدادات</string>
     <string name="title_app_manage">إدارة التطبيقات</string>
     <string name="title_app_select">اختر التطبيقات</string>
-    <string name="title_app_settings">إعـدادات التطبيـق</string>
+    <string name="title_app_settings">إعدادات التطبيـق</string>
     <string name="title_about">حول</string>
     <string name="title_about_fork">حول هذه النسخة</string>
     <string name="do_not_dual">لا تقم بتثبيت HMA للمستخدم الثانوي</string>
-    <string name="show_crash_log">أظهار سجل التعطيل</string>
-    <string name="config_damaged">مِلف التكوين تآلف. رجاءًا قـم بحذف بيانات التطبيق</string>
-    <string name="edit_list">تعديـل القائـمة</string>
-    <string name="delete">حـذف</string>
-    <string name="enabled">مفعّـل</string>
+    <string name="show_crash_log">إظهار سجل الأعطال</string>
+    <string name="config_damaged">مِلف التكوين تآلف. الرجاء القيام بحذف بيانات التطبيق</string>
+    <string name="edit_list">تعديل القائمة</string>
+    <string name="delete">حذف</string>
+    <string name="enabled">مفعّل</string>
     <string name="disabled">معطل</string>
-    <string name="work_mode">نـظام العـمل</string>
-    <string name="blacklist">القائـمة السوداء</string>
+    <string name="work_mode">نظام العمل</string>
+    <string name="blacklist">القائمة السوداء</string>
     <string name="whitelist">القائمة البيضاء</string>
-    <string name="application">التطبيـق</string>
-    <string name="preferences">التفضيـلات</string>
-    <string name="refresh">إعادة تحميـل</string>
+    <string name="application">التطبيق</string>
+    <string name="preferences">التفضيلات</string>
+    <string name="refresh">إعادة تحميل</string>
     <string name="filter">تصفية</string>
     <string name="yes">نعم</string>
     <string name="no">لا</string>
@@ -52,7 +52,7 @@
     <string name="home_import_app_version_too_old">إصدار الوحدة أقل من النسخة</string>
     <string name="home_import_backup_version_too_old">النسخة الاحتياطية قديمة للغاية</string>
     <string name="home_import_file_damaged">مِلف النسخة الاحتياطية متضرر</string>
-    <string name="home_export_failed">فشـل التصدير</string>
+    <string name="home_export_failed">فشل التصدير</string>
     <string name="home_exported">تم النسخ الاحتياطي للإعدادات</string>
     <string name="home_new_update">تحديث جديد متوفر: %s</string>
     <string name="home_update">تحديث: %s</string>
@@ -103,7 +103,7 @@
     <string name="app_hide_installation_source_system_desc">سيتم خداع جميع تطبيقات النظام كما لو انه لم يتم تثبيتها من تطبيق معين</string>
     <string name="app_exclude_target_installation_source">استبعاد التطبيقات المستهدفة</string>
     <string name="app_exclude_target_installation_source_desc">يمكنك تفعيلها إذا لم يكن هذا التطبيق متوفرا في متجر التطبيقات</string>
-    <string name="app_force_stop_warning">لا تنس عمل إيقاف أجباري للتطبيق المستهدف بعد حفظ إعدادات التكوين</string>
+    <string name="app_force_stop_warning">لا تنس عمل إيقاف إجباري للتطبيق المستهدف بعد حفظ إعدادات التكوين</string>
     <string name="app_invert_activity_launch_protection">عكس حماية تشغيل نشاط التطبيق</string>
     <string name="app_invert_activity_launch_protection_desc">هذا الخِيار سيقلب خِيار \'\'تعطيل حماية تشغيل نشاط التطبيق\'\' في الإعدادات.</string>
     <string name="app_global_activity_launch_protection_state">حالة الحماية المطبقة عمومًا: %s</string>
@@ -122,6 +122,7 @@
     <string name="preset_sus_apps">تطبيقات مشبوهة</string>
     <string name="preset_detector_apps">تطبيقات الكشف/التحقق</string>
     <string name="preset_shizuku_dhizuku">تطبيقات Shizuku/Dhizuku</string>
+    <string name="preset_accessibility_apps">تطبيقات إمكانية الوصول</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">إمكانية الوصول</string>
     <string name="settings_preset_dev_options">خيارات المطور</string>
@@ -165,8 +166,8 @@
     <string name="settings_hide_icon_summary">لا يزال بإمكانك فتح التطبيق في مدير Xposed</string>
     <string name="settings_bypass_risky_package_warning">تجاوز تحذيرات الحزم الخطرة</string>
     <string name="settings_bypass_risky_package_warning_summary">أعلم أن خيارات المطور ليست مسؤولة عن مشكلات متعلقة بالحزمة الخطيرة قبل او بعد تفعيلك لهذه المِيزة</string>
-    <string name="settings_disable_activity_launch_protection">تعطيل حماية تشغيل الفعالية</string>
-    <string name="settings_disable_activity_launch_protection_summary">هذه الوصلة سترفع جميع حمايات بَدْء الفعالية. إذا كنت في شك، فلا تفعلها.</string>
+    <string name="settings_disable_activity_launch_protection">تعطيل حماية تشغيل نشاط التطبيق</string>
+    <string name="settings_disable_activity_launch_protection_summary">هذا سيرفع جميع حمايات بَدْء نشاط التطبيق. إذا كنت في شك، فلا تفعلها.</string>
     <string name="settings_system_wallpaper">استخدام خلفية النظام</string>
     <string name="settings_clear_uninstalled_app_configs">حذف إعدادات التطبيقات المحذوفة</string>
     <string name="settings_clear_uninstalled_app_configs_summary">هذا الخِيار يسمح لك بإنشاء ملف اعداد بدون تلك الإعدادات لكن سيتعين عليك إعادة ضبطهم حينما تقوم بتثبيت تلك التطبيقات مرة أخرى.</string>
@@ -175,6 +176,8 @@
     <string name="settings_package_query_workaround_summary">لا تقم بتمكين هذا الخيار إذا كنت ترى قائمة الحزم في هذا التطبيق بشكل صحيح.</string>
     <string name="settings_launcher_icon">أيقونة التطبيق</string>
     <string name="settings_error_only_log">تسجيل الأخطاء فقط</string>
+    <string name="settings_enable_internet">تفعيل الوصول إلى الإنترنت</string>
+    <string name="settings_enable_internet_summary">سيفقد هذا التطبيق جميع وظائفه المتعلقة بالإنترنت عند تعطيل هذا الخيار.</string>
     <string name="settings_language">اللغة</string>
     <string name="settings_translate">المشاركة في التَّرْجَمَة</string>
     <string name="settings_translate_summary">ساعدنا في ترجمة %s إلى لغتك</string>
@@ -200,7 +203,7 @@
     <string name="title_bulk_config_wizard">معالج الإعدادات الجماعية</string>
     <!-- About -->
     <string name="about_description">على الرغم من أنه من غير الصحيح اكتشاف تثبيت تطبيق معين ، إلا أنه لا يوفر كل تطبيق يستخدم الجذر دعمًا عشوائيًا لاسم الحزمة. في هذه الحالة ، فإن التطبيقات المكتشفة التي تستخدم الجذر (مثل الموقع المزيف وعزل التخزين) تساوي الجذر المكتشف نفسه.\n\n في نفس الوقت ، تستخدم بعض التطبيقات الذكية ثغرات مختلفة للحصول على قائمة التطبيقات الخاصة بك ، بحيث يمكنها رسم شخصية لك.\n\n توفر هذه الإضافة بعض الطرق لاختبار ما إذا كنت قد أخفيت التطبيق الخاص بك بشكل جيد. أيضًا ، يمكن أن يعمل كإضافة Xposed لإخفاء بعض التطبيقات أو رفض طلبات قائمة التطبيقات لحماية خصوصيتك.    </string>
-    <string name="about_fork_description">مشروع تطبيق HMA الأصلي اصبح مغلق المصدر والشفرات الأخيرة الخاصة بها لا تحتوي على بعض التغييرات الأخيرة،لذا قمتُ بصناعة هذه النسخة من جديد للاستمرار بها على أنها مفتوحة المصدر                            </string>
+    <string name="about_fork_description">مشروع تطبيق HMA الأصلي اصبح مغلق المصدر والشفرات الأخيرة الخاصة بها لا تحتوي على بعض التغييرات الأخيرة،لذا قمتُ بصناعة هذه النسخة من جديد للاستمرار بها على أنها مفتوحة المصدر</string>
     <string name="about_how_to_use_title">كيفية استخدام هذه الإضافة</string>
     <string name="about_how_to_use_description_1">يمكنك إنشاء قوالب من \"إدارة القوالب\".\nثم تطبيق هذه القوالب على التطبيقات من \"إدارة التطبيقات\".(يمكنك أيضا اختيار تطبيقات إضافية للتطبيقات المستهدفة.)\n ينبغي فقط فحص \"إطار النظام\" من نطاق وحدة إكسبوسد/القائمة البيضاء.    </string>
     <string name="about_how_to_use_description_2">تعديل التكوين يطبق في الوقت الفعلى.    </string>

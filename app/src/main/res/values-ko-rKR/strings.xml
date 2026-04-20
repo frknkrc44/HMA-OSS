@@ -122,6 +122,7 @@
     <string name="preset_sus_apps">의심스러운 앱</string>
     <string name="preset_detector_apps">탐지기/검사기 앱</string>
     <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku 앱</string>
+    <string name="preset_accessibility_apps">Accessibility apps</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">접근성</string>
     <string name="settings_preset_dev_options">개발자 옵션</string>
@@ -174,6 +175,8 @@
     <string name="settings_package_query_workaround_summary">이 앱에서 패키지 목록이 정상적으로 보인다면 이 옵션을 활성화하지 마세요.</string>
     <string name="settings_launcher_icon">런처 아이콘</string>
     <string name="settings_error_only_log">오류 로그만 기록</string>
+    <string name="settings_enable_internet">Enable Internet connection</string>
+    <string name="settings_enable_internet_summary">This app will lose all of Internet-related functionality when you disabled this option.</string>
     <string name="settings_language">언어</string>
     <string name="settings_translate">번역 참여하기</string>
     <string name="settings_translate_summary">%s(을)를 당신의 언어로 번역하는 것을 도와주세요.</string>

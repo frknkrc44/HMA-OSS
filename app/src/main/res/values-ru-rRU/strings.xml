@@ -122,6 +122,7 @@
     <string name="preset_sus_apps">Подозрительные приложения</string>
     <string name="preset_detector_apps">Детекторы/Чекеры приложений</string>
     <string name="preset_shizuku_dhizuku">Приложения Shizuku/Dhizuku</string>
+    <string name="preset_accessibility_apps">Приложения для обеспечения доступа</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Доступность</string>
     <string name="settings_preset_dev_options">Параметры разработчика</string>
@@ -174,6 +175,8 @@
     <string name="settings_package_query_workaround_summary">Не включайте эту опцию, если вы видите список пакетов в этом приложении корректно.</string>
     <string name="settings_launcher_icon">Значок запуска</string>
     <string name="settings_error_only_log">Журнал только ошибок</string>
+    <string name="settings_enable_internet">Активировать интернет соединения</string>
+    <string name="settings_enable_internet_summary">Отключив эту опцию, вы потеряете все функции, связанные с доступом в интернет.</string>
     <string name="settings_language">Язык</string>
     <string name="settings_translate">Принять участие в переводе</string>
     <string name="settings_translate_summary">Помогите нам перевести %s на ваш язык</string>
