@@ -9,6 +9,7 @@ vbpd = "2.0.4"
 r8_annotations = "v1.0.1"
 androidvmtools = "22206a0"
 zygoteloader = "bf5078e182"
+coil = "3.4.0"
 
 [plugins]
 agp-app = { id = "com.android.application", version.ref = "agp" }
@@ -29,7 +30,6 @@ androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx",
 androidx-preference-ktx = { module = "androidx.preference:preference-ktx", version = "1.2.1" }
 androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version = "1.2.0" }
 com-android-tools-build-apksig = { module = "com.android.tools.build:apksig", version.ref = "agp" }
-com-github-bumptech-glide = { module = "com.github.bumptech.glide:glide", version = "5.0.5" }
 dev-androidbroadcast-vbpd = { module = "dev.androidbroadcast.vbpd:vbpd", version.ref = "vbpd" }
 dev-androidbroadcast-vbpd-reflection = { module = "dev.androidbroadcast.vbpd:vbpd-reflection", version.ref = "vbpd" }
 com-github-topjohnwu-libsu-core = { module = "com.github.topjohnwu.libsu:core", version = "6.0.0" }
@@ -40,3 +40,5 @@ material = { module = "com.google.android.material:material", version.ref = "mat
 me-zhanghai-android-appiconloader = { module = "me.zhanghai.android.appiconloader:appiconloader", version = "1.5.0" }
 io-github-vova7878-androidvmtools = { module = "com.github.aerath-stuff:AndroidVMTools", version.ref = "androidvmtools" }
 io-github-vova7878-r8annotations = { module = "io.github.vova7878:R8Annotations", version.ref = "r8_annotations" }
+io-coilkt-coil3-coil = { module = "io.coil-kt.coil3:coil", version.ref = "coil" }
+io-coilkt-coil3-coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coil" }
