@@ -176,7 +176,7 @@
     <string name="settings_launcher_icon">Startbildschirm Symbol</string>
     <string name="settings_error_only_log">Nur Fehlerprotokoll</string>
     <string name="settings_enable_internet">Internetverbindung aktivieren</string>
-    <string name="settings_enable_internet_summary">This app will lose all of Internet-related functionality when you disabled this option.</string>
+    <string name="settings_enable_internet_summary">Diese App verliert alle Internetfunktionen, wenn Sie diese Option deaktiviert haben.</string>
     <string name="settings_language">Sprache</string>
     <string name="settings_translate">Beim Übersetzen mitmachen</string>
     <string name="settings_translate_summary">Helfe uns, %s in deine Sprache zu übersetzen</string>
