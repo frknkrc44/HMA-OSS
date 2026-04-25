@@ -1,9 +1,11 @@
 package org.frknkrc44.hma_oss.ui.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +16,7 @@ import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import icu.nullptr.hidemyapplist.ui.util.showToast
+import icu.nullptr.hidemyapplist.util.PackageHelper
 import kotlinx.coroutines.launch
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentLogsBinding
@@ -22,7 +25,19 @@ import org.frknkrc44.hma_oss.ui.adapter.StatAdapter
 class StatsFragment : Fragment(R.layout.fragment_logs) {
 
     private val binding by viewBinding(FragmentLogsBinding::bind)
-    private val adapter by lazy { StatAdapter() }
+    private val adapter by lazy { StatAdapter {
+        lifecycleScope.launch {
+            PackageHelper.isRefreshing
+                .flowWithLifecycle(lifecycle)
+                .collect { isRefreshing ->
+                    if (!isRefreshing && it.wasRefreshing) {
+                        it.wasRefreshing = false
+
+                        updateLogs()
+                    }
+                }
+        }
+    } }
     private var statCache: String? = null
 
     private fun updateLogs() {
