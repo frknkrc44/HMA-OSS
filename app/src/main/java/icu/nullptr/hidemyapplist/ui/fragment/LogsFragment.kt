@@ -16,9 +16,6 @@ import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.adapter.LogAdapter
 import icu.nullptr.hidemyapplist.ui.util.contentResolver
-import icu.nullptr.hidemyapplist.ui.util.navController
-import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
-import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import icu.nullptr.hidemyapplist.ui.util.showToast
 import kotlinx.coroutines.launch
 import org.frknkrc44.hma_oss.R
@@ -28,7 +25,7 @@ import java.util.Date
 import java.util.Locale
 
 
-class LogsFragment : Fragment(R.layout.fragment_logs) {
+class LogsFragment(private val loadingIndicator: View) : Fragment(R.layout.fragment_logs) {
 
     private val binding by viewBinding(FragmentLogsBinding::bind)
     private val adapter by lazy { LogAdapter(requireContext()) }
@@ -62,7 +59,7 @@ class LogsFragment : Fragment(R.layout.fragment_logs) {
 
         if (binding.serviceOff.isVisible) return
 
-        binding.loadingIndicator.isVisible = true
+        loadingIndicator.isVisible = true
 
         MyApp.hmaApp.globalScope.launch {
             logCache = try {
@@ -93,15 +90,15 @@ class LogsFragment : Fragment(R.layout.fragment_logs) {
                 }
 
                 lifecycleScope.launch {
-                    binding.loadingIndicator.visibility = View.INVISIBLE
+                    loadingIndicator.visibility = View.INVISIBLE
                     adapter.logs = logList
                 }
             }
         }
     }
 
-    private fun onMenuOptionSelected(item: MenuItem) {
-        if (binding.loadingIndicator.isVisible) return
+    fun onMenuOptionSelected(item: MenuItem) {
+        if (loadingIndicator.isVisible) return
 
         when (item.itemId) {
             R.id.menu_refresh -> updateLogs()
@@ -142,33 +139,9 @@ class LogsFragment : Fragment(R.layout.fragment_logs) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        with(binding.toolbar) {
-            setupToolbar(
-                toolbar = this,
-                title = getString(R.string.title_logs),
-                menuRes = R.menu.menu_logs,
-                onMenuOptionSelected = this@LogsFragment::onMenuOptionSelected
-            )
-            setNavigationIcon(R.drawable.baseline_arrow_back_24)
-            setNavigationOnClickListener { navController.popBackStack() }
-            // isTitleCentered = true
-        }
-
-        with(binding.toolbar.menu) {
-            when (PrefManager.logFilter_level) {
-                0 -> findItem(R.id.menu_filter_debug).isChecked = true
-                1 -> findItem(R.id.menu_filter_info).isChecked = true
-                2 -> findItem(R.id.menu_filter_warn).isChecked = true
-                3 -> findItem(R.id.menu_filter_error).isChecked = true
-            }
-            findItem(R.id.menu_reverse_order).isChecked = PrefManager.logFilter_reverseOrder
-        }
-
         binding.list.layoutManager = LinearLayoutManager(context)
         binding.list.adapter = adapter
         binding.list.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
         updateLogs()
-
-        setEdge2EdgeFlags(binding.root)
     }
 }
