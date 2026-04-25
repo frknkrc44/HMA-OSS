@@ -30,7 +30,7 @@ class StatAdapter() : RecyclerView.Adapter<StatAdapter.ViewHolder>() {
 
             logs[position] = StatItem(packageName, filterCount, PackageHelper.refreshing)
 
-            val resort = logs.sortedWith { it1, it2 -> if (it1.totalCount > it2.totalCount) -1 else 0 }
+            val resort = logs.sortedWith { it1, it2 -> it1.totalCount.compareTo(it2.totalCount) }.asReversed()
             val newIndex = resort.indexOfFirst { it.packageName == packageName }
 
             logs.clear()
