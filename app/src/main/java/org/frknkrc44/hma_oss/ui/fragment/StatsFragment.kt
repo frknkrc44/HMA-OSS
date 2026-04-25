@@ -1,6 +1,5 @@
 package org.frknkrc44.hma_oss.ui.fragment
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -12,9 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.common.FilterHolder
 import icu.nullptr.hidemyapplist.service.ServiceClient
-import icu.nullptr.hidemyapplist.ui.util.navController
-import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
-import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import icu.nullptr.hidemyapplist.ui.util.showToast
 import icu.nullptr.hidemyapplist.util.PackageHelper
 import kotlinx.coroutines.launch
@@ -68,7 +64,7 @@ class StatsFragment : Fragment(R.layout.fragment_logs) {
         }
     }
 
-    private fun onMenuOptionSelected(item: MenuItem) {
+    fun onMenuOptionSelected(item: MenuItem) {
         when (item.itemId) {
             R.id.menu_refresh -> updateLogs()
             R.id.menu_delete -> {
@@ -81,22 +77,9 @@ class StatsFragment : Fragment(R.layout.fragment_logs) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        with(binding.toolbar) {
-            setupToolbar(
-                toolbar = this,
-                title = getString(R.string.title_filter_logs),
-                menuRes = R.menu.menu_stats,
-                onMenuOptionSelected = this@StatsFragment::onMenuOptionSelected,
-            )
-            setNavigationIcon(R.drawable.baseline_arrow_back_24)
-            setNavigationOnClickListener { navController.popBackStack() }
-        }
-
         binding.list.layoutManager = LinearLayoutManager(context)
         binding.list.adapter = adapter
         binding.list.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
-
-        setEdge2EdgeFlags(binding.root)
 
         updateLogs()
     }
