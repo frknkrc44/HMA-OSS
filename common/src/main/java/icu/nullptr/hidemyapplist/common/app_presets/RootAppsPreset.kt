@@ -180,6 +180,10 @@ class RootAppsPreset(private val appPresets: AppPresets) : BasePreset(NAME) {
         }
 
         return checkSplitPackages(appInfo) { key, zipFile ->
+            if (findAppsFromLibs(zipFile, libNames) || findAppsFromAssets(zipFile, assetNames)) {
+                return@checkSplitPackages true
+            }
+
             val manifestStr = appPresets.readManifest(key, zipFile)
 
             // Check for whitelists
@@ -191,10 +195,6 @@ class RootAppsPreset(private val appPresets: AppPresets) : BasePreset(NAME) {
             // It is not used anymore, but can be good to use it as rooted app indicator
             // Thanks to @F640 for giving this idea
             if (manifestStr.contains(ACCESS_SUPERUSER_PERM)) {
-                return@checkSplitPackages true
-            }
-
-            if (findAppsFromLibs(zipFile, libNames) || findAppsFromAssets(zipFile, assetNames)) {
                 return@checkSplitPackages true
             }
 
