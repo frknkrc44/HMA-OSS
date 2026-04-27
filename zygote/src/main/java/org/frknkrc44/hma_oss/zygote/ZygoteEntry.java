@@ -9,6 +9,7 @@ import com.v7878.r8.annotations.DoNotShrink;
 import com.v7878.r8.annotations.DoNotShrinkType;
 import com.v7878.zygisk.ZygoteLoader;
 
+import org.frknkrc44.hma_oss.common.BuildConfig;
 import org.frknkrc44.hma_oss.zygote.service.SystemServerHook;
 
 @SuppressWarnings("all")
@@ -26,7 +27,7 @@ public class ZygoteEntry {
     @DoNotObfuscate
     @DoNotShrink
     public static void main() throws Throwable {
-        logILegacy(TAG, "Injected into " + ZygoteLoader.getPackageName(), null);
+        logILegacy(TAG, String.format("Injected into %s - %s", ZygoteLoader.getPackageName(), BuildConfig.APP_VERSION_NAME), null);
 
         try {
             SystemServerHook.init();
