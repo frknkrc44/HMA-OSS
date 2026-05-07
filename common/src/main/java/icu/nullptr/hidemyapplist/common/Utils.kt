@@ -105,4 +105,13 @@ object Utils {
     inline fun <K, V> MutableMap<K, V>.removeIf(predicate: (K, V) -> Boolean) {
         this.filter { (key, value) -> predicate(key, value) }.forEach { this.remove(it.key) }
     }
+
+    fun cleanRemnantsFromConfig(config: JsonConfig) {
+        for (app in config.scope.values) {
+            app.applyTemplates.removeIf { !config.templates.containsKey(it) }
+            app.applyPresets.removeIf { !AppPresets.instance.presetNames.contains(it) }
+            app.applySettingTemplates.removeIf { !config.settingsTemplates.containsKey(it) }
+            app.applySettingsPresets.removeIf { !SettingsPresets.instance.presetNames.contains(it) }
+        }
+    }
 }

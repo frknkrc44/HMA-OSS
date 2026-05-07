@@ -30,6 +30,8 @@ object Constants {
     const val PARCEL_TYPE_LOG = 0
     const val PARCEL_TYPE_CONFIG = 1
 
+    const val CONFIG_VERSION_NO_SETTINGS = -100
+
     /**
      * Defines the GID for the group that allows write access to the internal media storage.
      */

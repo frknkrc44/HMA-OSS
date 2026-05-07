@@ -61,6 +61,14 @@
     <string name="home_new_update">New update available: %s</string>
     <string name="home_update">Update: %s</string>
 
+    <!-- Backup & Restore -->
+    <string name="backup_restore_backup_settings">Backup settings</string>
+    <string name="backup_restore_restore_settings">Restore settings</string>
+    <string name="backup_restore_apps">App configs</string>
+    <string name="backup_restore_templates">Templates</string>
+    <string name="backup_restore_settings_templates">Settings templates</string>
+    <string name="backup_restore_append">Append</string>
+
     <!-- App select -->
     <string name="list_show_system">Show system apps</string>
     <string name="list_sorting">Sorting</string>

@@ -52,46 +52,6 @@ import kotlin.concurrent.thread
 class HomeFragment : Fragment(R.layout.fragment_home) {
     private val binding by viewBinding(FragmentHomeBinding::bind)
 
-    private val backupSAFLauncher =
-        registerForActivityResult(ActivityResultContracts.CreateDocument("application/json")) backup@{ uri ->
-            if (uri == null) return@backup
-            ConfigManager.configFile.inputStream().use { input ->
-                contentResolver.openOutputStream(uri).use { output ->
-                    if (output == null) showToast(R.string.home_export_failed)
-                    else input.copyTo(output)
-                }
-            }
-            showToast(R.string.home_exported)
-        }
-
-    private val restoreSAFLauncher =
-        registerForActivityResult(ActivityResultContracts.GetContent()) restore@{ uri ->
-            if (uri == null) return@restore
-            runCatching {
-                val backup = contentResolver
-                    .openInputStream(uri)?.reader().use { it?.readText() }
-                    ?: throw IOException(getString(R.string.home_import_file_damaged))
-                ConfigManager.importConfig(backup)
-                showToast(R.string.home_import_successful)
-            }.onFailure {
-                it.printStackTrace()
-                MaterialAlertDialogBuilder(requireContext())
-                    .setCancelable(false)
-                    .setTitle(R.string.home_import_failed)
-                    .setMessage(it.message)
-                    .setPositiveButton(android.R.string.ok, null)
-                    .setNegativeButton(R.string.show_crash_log) { _, _ ->
-                        MaterialAlertDialogBuilder(requireActivity())
-                            .setCancelable(false)
-                            .setTitle(R.string.home_import_failed)
-                            .setMessage(it.stackTraceToString())
-                            .setPositiveButton(android.R.string.ok, null)
-                            .show()
-                    }
-                    .show()
-            }
-        }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         with(binding.toolbar) {
             setupToolbar(
@@ -270,8 +230,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             if (PrefManager.systemWallpaper) background.alpha = 0xAA
 
             setOnClickListener {
-                val date = SimpleDateFormat("yyyy-MM-dd_HH.mm.ss", Locale.getDefault()).format(Date())
-                backupSAFLauncher.launch("HMA-OSS_config_$date.json")
+                navigate(
+                    R.id.nav_backup_restore,
+                    BackupRestoreFragmentArgs(true).toBundle()
+                )
             }
         }
 
@@ -279,7 +241,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             if (PrefManager.systemWallpaper) background.alpha = 0xAA
 
             setOnClickListener {
-                restoreSAFLauncher.launch("application/json")
+                navigate(
+                    R.id.nav_backup_restore,
+                    BackupRestoreFragmentArgs(false).toBundle()
+                )
             }
         }
 

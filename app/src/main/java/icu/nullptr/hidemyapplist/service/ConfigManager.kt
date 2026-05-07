@@ -9,6 +9,7 @@ import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
 import icu.nullptr.hidemyapplist.ui.util.showToast
 import icu.nullptr.hidemyapplist.util.PackageHelper
+import kotlinx.serialization.json.Json
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.common.BuildConfig
 import java.io.File
@@ -323,5 +324,21 @@ object ConfigManager {
                 onFinish(false)
             }
         }
+    }
+
+    fun getRawConfig(deepCopy: Boolean): JsonConfig {
+        if (deepCopy) {
+            val scopeCopy = config.scope.toMutableMap()
+            val templateCopy = config.templates.toMutableMap()
+            val settingsTemplateCopy = config.settingsTemplates.toMutableMap()
+
+            return config.copy(
+                scope = scopeCopy,
+                templates = templateCopy,
+                settingsTemplates = settingsTemplateCopy,
+            )
+        }
+
+        return config
     }
 }

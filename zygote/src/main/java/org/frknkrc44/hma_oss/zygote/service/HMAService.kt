@@ -21,6 +21,7 @@ import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.common.RiskyPackageUtils.appHasGMSConnection
 import icu.nullptr.hidemyapplist.common.SettingsPresets
 import icu.nullptr.hidemyapplist.common.Utils.binderLocalScope
+import icu.nullptr.hidemyapplist.common.Utils.cleanRemnantsFromConfig
 import icu.nullptr.hidemyapplist.common.Utils.generateRandomString
 import icu.nullptr.hidemyapplist.common.Utils.getInstalledApplicationsCompat
 import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
@@ -465,15 +466,6 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
             }.onFailure {
                 return@onFailure
             }
-        }
-    }
-
-    private fun cleanRemnantsFromConfig(config: JsonConfig) {
-        for (app in config.scope.values) {
-            app.applyTemplates.removeIf { !config.templates.containsKey(it) }
-            app.applyPresets.removeIf { !AppPresets.instance.presetNames.contains(it) }
-            app.applySettingTemplates.removeIf { !config.settingsTemplates.containsKey(it) }
-            app.applySettingsPresets.removeIf { !SettingsPresets.instance.presetNames.contains(it) }
         }
     }
 
