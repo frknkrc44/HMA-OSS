@@ -1,5 +1,7 @@
 package org.frknkrc44.hma_oss.ui.fragment
 
+import android.annotation.SuppressLint
+import android.icu.text.NumberFormat
 import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.view.MenuItem
@@ -10,6 +12,7 @@ import androidx.core.view.isVisible
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dev.androidbroadcast.vbpd.viewBinding
+import icu.nullptr.hidemyapplist.MyApp
 import icu.nullptr.hidemyapplist.common.Constants.CONFIG_VERSION_NO_SETTINGS
 import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.common.Utils.cleanRemnantsFromConfig
@@ -133,10 +136,14 @@ class BackupRestoreFragment : Fragment(R.layout.fragment_backup_restore) {
         setEdge2EdgeFlags(binding.root)
     }
 
+    @SuppressLint("DefaultLocale")
+    @Suppress("deprecation")
     private fun reloadScreenContents() {
-        binding.manageApps.subText = markedForBackup[BRCategory.APP]!!.size.toString()
-        binding.templateList.subText = markedForBackup[BRCategory.TEMPLATE]!!.size.toString()
-        binding.settingsTemplateList.subText = markedForBackup[BRCategory.SETTINGS_TEMPLATE]!!.size.toString()
+        val numberFormat = NumberFormat.getInstance(MyApp.hmaApp.resources.configuration.locale)
+
+        binding.manageApps.subText = numberFormat.format(markedForBackup[BRCategory.APP]!!.size)
+        binding.templateList.subText = numberFormat.format(markedForBackup[BRCategory.TEMPLATE]!!.size)
+        binding.settingsTemplateList.subText = numberFormat.format(markedForBackup[BRCategory.SETTINGS_TEMPLATE]!!.size)
     }
 
     private fun loadScreenContents() {
