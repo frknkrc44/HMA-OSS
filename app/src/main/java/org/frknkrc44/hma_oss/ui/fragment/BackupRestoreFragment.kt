@@ -177,6 +177,10 @@ class BackupRestoreFragment : Fragment(R.layout.fragment_backup_restore) {
             isEnabled = isChecked
         }
 
+        with(binding.switchTrimConfig) {
+            isVisible = isBackupMode
+        }
+
         with(binding.switchOverwriteApps) {
             isVisible = !isBackupMode
             isChecked = true
@@ -339,7 +343,7 @@ class BackupRestoreFragment : Fragment(R.layout.fragment_backup_restore) {
             !markedForBackup[BRCategory.SETTINGS_TEMPLATE]!!.contains(template)
         }
 
-        if (trimConfig) {
+        if (trimConfig && isBackupMode) {
             cleanRemnantsFromConfig(config)
         }
     }
