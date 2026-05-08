@@ -1,7 +1,6 @@
 package org.frknkrc44.hma_oss.ui.fragment
 
 import android.annotation.SuppressLint
-import android.icu.text.NumberFormat
 import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.view.MenuItem
@@ -9,10 +8,10 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dev.androidbroadcast.vbpd.viewBinding
-import icu.nullptr.hidemyapplist.MyApp
 import icu.nullptr.hidemyapplist.common.Constants.CONFIG_VERSION_NO_SETTINGS
 import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.common.Utils.cleanRemnantsFromConfig
@@ -24,6 +23,7 @@ import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import icu.nullptr.hidemyapplist.ui.util.showToast
 import icu.nullptr.hidemyapplist.util.PackageHelper.loadAppLabel
+import kotlinx.coroutines.launch
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentBackupRestoreBinding
 import org.frknkrc44.hma_oss.databinding.LayoutListEmptyBinding
@@ -36,6 +36,8 @@ class BackupRestoreFragment : Fragment(R.layout.fragment_backup_restore) {
     private val binding by viewBinding(FragmentBackupRestoreBinding::bind)
 
     private val args by lazy { navArgs<BackupRestoreFragmentArgs>() }
+
+    private lateinit var importedConfig: JsonConfig
 
     private val isBackupMode by lazy { args.value.isBackupMode }
     private val includeSettings get() = binding.switchSettings.isChecked
@@ -56,29 +58,25 @@ class BackupRestoreFragment : Fragment(R.layout.fragment_backup_restore) {
         registerForActivityResult(ActivityResultContracts.CreateDocument("application/json")) backup@{ uri ->
             if (uri == null) return@backup
             contentResolver.openOutputStream(uri).use { output ->
-                importedConfig?.let { config ->
-                    clearNotImportedItems(config)
-
-                    if (!includeSettings) {
-                        val newConfig = JsonConfig(CONFIG_VERSION_NO_SETTINGS)
-                        newConfig.templates.putAll(config.templates)
-                        newConfig.settingsTemplates.putAll(config.settingsTemplates)
-                        newConfig.scope.putAll(config.scope)
-                        importedConfig = newConfig
-                    }
-                }
-
                 if (output == null) showToast(R.string.home_export_failed)
                 else {
-                    showToast(R.string.home_exported)
-                    output.write(importedConfig.toString().toByteArray())
-                }
+                    clearNotImportedItems {
+                        if (!includeSettings) {
+                            val newConfig = JsonConfig(CONFIG_VERSION_NO_SETTINGS)
+                            newConfig.templates.putAll(importedConfig.templates)
+                            newConfig.settingsTemplates.putAll(importedConfig.settingsTemplates)
+                            newConfig.scope.putAll(importedConfig.scope)
+                            importedConfig = newConfig
+                        }
 
-                navController.navigateUp()
+                        showToast(R.string.home_exported)
+                        output.write(importedConfig.toString().toByteArray())
+
+                        navController.navigateUp()
+                    }
+                }
             }
         }
-
-    private var importedConfig: JsonConfig? = null
 
     private val restoreSAFLauncher =
         registerForActivityResult(ActivityResultContracts.GetContent()) restore@{ uri ->
@@ -158,9 +156,9 @@ class BackupRestoreFragment : Fragment(R.layout.fragment_backup_restore) {
     private fun loadScreenContents() {
         binding.root.isVisible = true
 
-        markedForBackup[BRCategory.APP]!!.addAll(importedConfig!!.scope.keys)
-        markedForBackup[BRCategory.TEMPLATE]!!.addAll(importedConfig!!.templates.keys)
-        markedForBackup[BRCategory.SETTINGS_TEMPLATE]!!.addAll(importedConfig!!.settingsTemplates.keys)
+        markedForBackup[BRCategory.APP]!!.addAll(importedConfig.scope.keys)
+        markedForBackup[BRCategory.TEMPLATE]!!.addAll(importedConfig.templates.keys)
+        markedForBackup[BRCategory.SETTINGS_TEMPLATE]!!.addAll(importedConfig.settingsTemplates.keys)
 
         with(binding.manageApps) {
             text = getString(R.string.backup_restore_apps)
@@ -184,7 +182,7 @@ class BackupRestoreFragment : Fragment(R.layout.fragment_backup_restore) {
         }
 
         with(binding.switchSettings) {
-            isChecked = importedConfig!!.configVersion != CONFIG_VERSION_NO_SETTINGS
+            isChecked = importedConfig.configVersion != CONFIG_VERSION_NO_SETTINGS
             isEnabled = isChecked
         }
 
@@ -242,9 +240,9 @@ class BackupRestoreFragment : Fragment(R.layout.fragment_backup_restore) {
 
     private fun showDialogToSelect(category: BRCategory) {
         val items = when (category) {
-            BRCategory.APP -> importedConfig!!.scope.keys
-            BRCategory.TEMPLATE -> importedConfig!!.templates.keys
-            BRCategory.SETTINGS_TEMPLATE -> importedConfig!!.settingsTemplates.keys
+            BRCategory.APP -> importedConfig.scope.keys
+            BRCategory.TEMPLATE -> importedConfig.templates.keys
+            BRCategory.SETTINGS_TEMPLATE -> importedConfig.settingsTemplates.keys
         }
 
         val labels = when (category) {
@@ -289,73 +287,91 @@ class BackupRestoreFragment : Fragment(R.layout.fragment_backup_restore) {
         dialog.show()
     }
 
-    private fun onRestore() {
-        clearNotImportedItems(importedConfig!!)
-
+    private fun onRestore() = clearNotImportedItems {
         if (!overwriteApps || !overwriteTemplates) {
             val config = ConfigManager.getRawConfig(false)
 
             if (!overwriteApps) {
                 config.scope.map {
-                    importedConfig!!.scope.putIfAbsent(it.key, it.value)
+                    importedConfig.scope.putIfAbsent(it.key, it.value)
                 }
             }
 
             if (!overwriteTemplates) {
                 config.templates.map {
-                    importedConfig!!.templates.putIfAbsent(it.key, it.value)
+                    importedConfig.templates.putIfAbsent(it.key, it.value)
                 }
             }
 
             if (!overwriteSettingsTemplates) {
                 config.settingsTemplates.map {
-                    importedConfig!!.settingsTemplates.putIfAbsent(it.key, it.value)
+                    importedConfig.settingsTemplates.putIfAbsent(it.key, it.value)
                 }
             }
         }
 
-        if (!includeSettings || importedConfig!!.configVersion == CONFIG_VERSION_NO_SETTINGS) {
+        if (!includeSettings || importedConfig.configVersion == CONFIG_VERSION_NO_SETTINGS) {
             val currentConfig = ConfigManager.getRawConfig(true)
 
             with(currentConfig.scope) {
                 clear()
-                putAll(importedConfig!!.scope)
+                putAll(importedConfig.scope)
             }
 
             with(currentConfig.templates) {
                 clear()
-                putAll(importedConfig!!.templates)
+                putAll(importedConfig.templates)
             }
 
             with(currentConfig.settingsTemplates) {
                 clear()
-                putAll(importedConfig!!.settingsTemplates)
+                putAll(importedConfig.settingsTemplates)
             }
 
             ConfigManager.importConfig(currentConfig.toString())
         } else {
-            ConfigManager.importConfig(importedConfig!!.toString())
+            ConfigManager.importConfig(importedConfig.toString())
         }
 
         showToast(android.R.string.ok)
         navController.navigateUp()
     }
 
-    private fun clearNotImportedItems(config: JsonConfig) {
-        config.scope.removeIf { pkg, _ ->
+    private fun clearNotImportedItems(onFinish: () -> Unit) {
+        importedConfig.scope.removeIf { pkg, _ ->
             !markedForBackup[BRCategory.APP]!!.contains(pkg)
         }
 
-        config.templates.removeIf { template, _ ->
+        importedConfig.templates.removeIf { template, _ ->
             !markedForBackup[BRCategory.TEMPLATE]!!.contains(template)
         }
 
-        config.settingsTemplates.removeIf { template, _ ->
+        importedConfig.settingsTemplates.removeIf { template, _ ->
             !markedForBackup[BRCategory.SETTINGS_TEMPLATE]!!.contains(template)
         }
 
-        if (trimConfig && isBackupMode) {
-            cleanRemnantsFromConfig(config)
+        if (isBackupMode) {
+            cleanRemnantsFromConfig(importedConfig)
+
+            if (trimConfig) {
+                val progressDialog = MaterialAlertDialogBuilder(requireContext())
+                    .setTitle(R.string.settings_clear_uninstalled_app_configs)
+                    .setView(R.layout.dialog_loading)
+                    .setCancelable(false)
+                    .create()
+
+                ConfigManager.clearUninstalledAppConfigs(importedConfig) {
+                    lifecycleScope.launch {
+                        progressDialog.dismiss()
+
+                        onFinish()
+                    }
+                }
+            } else {
+                onFinish()
+            }
+        } else {
+            onFinish()
         }
     }
 

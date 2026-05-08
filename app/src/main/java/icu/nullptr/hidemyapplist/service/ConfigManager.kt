@@ -284,38 +284,38 @@ object ConfigManager {
         saveConfig()
     }
 
-    fun clearUninstalledAppConfigs(onFinish: (success: Boolean) -> Unit) {
+    fun clearUninstalledAppConfigs(inConfig: JsonConfig = config, onFinish: (success: Boolean) -> Unit) {
         PackageHelper.invalidateCache { throwable ->
             if (throwable == null) {
                 // --- STEP 1: Clear uninstalled app configs ---
                 val scopeMarkedToRemove = mutableListOf<String>()
-                config.scope.keys.forEach { packageName ->
+                inConfig.scope.keys.forEach { packageName ->
                     if (!PackageHelper.exists(packageName)) {
                         scopeMarkedToRemove.add(packageName)
                     }
                 }
 
                 if (scopeMarkedToRemove.isNotEmpty()) {
-                    scopeMarkedToRemove.forEach { config.scope.remove(it) }
+                    scopeMarkedToRemove.forEach { inConfig.scope.remove(it) }
                 }
 
                 // --- STEP 2: Clear uninstalled apps from templates ---
                 var cleanedAppCount = 0
-                config.templates.forEach { (key, value) ->
+                inConfig.templates.forEach { (key, value) ->
                     val newList = value.appList.mapNotNull { if (PackageHelper.exists(it)) it else null }.toSet()
                     val count = value.appList.size - newList.size
 
                     if (count > 0) {
                         cleanedAppCount += count
-                        config.templates[key] = JsonConfig.Template(
+                        inConfig.templates[key] = JsonConfig.Template(
                             isWhitelist = value.isWhitelist,
                             appList = newList
                         )
                     }
                 }
 
-                ServiceClient.log(Log.INFO, TAG, "Pruned ${scopeMarkedToRemove.size} app config(s) and $cleanedAppCount app(s) from template(s)")
-                if (scopeMarkedToRemove.isNotEmpty() || cleanedAppCount > 0) {
+                if ((scopeMarkedToRemove.isNotEmpty() || cleanedAppCount > 0) && inConfig == config) {
+                    ServiceClient.log(Log.INFO, TAG, "Pruned ${scopeMarkedToRemove.size} app config(s) and $cleanedAppCount app(s) from template(s)")
                     saveConfig()
                 }
 
