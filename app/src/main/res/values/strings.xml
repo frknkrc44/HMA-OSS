@@ -68,6 +68,7 @@
     <string name="backup_restore_templates">Templates</string>
     <string name="backup_restore_settings_templates">Settings templates</string>
     <string name="backup_restore_append">Append</string>
+    <string name="backup_restore_items_count">%d items</string>
 
     <!-- App select -->
     <string name="list_show_system">Show system apps</string>

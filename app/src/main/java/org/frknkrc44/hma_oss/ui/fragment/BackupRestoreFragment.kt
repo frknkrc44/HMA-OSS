@@ -141,11 +141,18 @@ class BackupRestoreFragment : Fragment(R.layout.fragment_backup_restore) {
     @SuppressLint("DefaultLocale")
     @Suppress("deprecation")
     private fun reloadScreenContents() {
-        val numberFormat = NumberFormat.getInstance(MyApp.hmaApp.resources.configuration.locale)
-
-        binding.manageApps.subText = numberFormat.format(markedForBackup[BRCategory.APP]!!.size)
-        binding.templateList.subText = numberFormat.format(markedForBackup[BRCategory.TEMPLATE]!!.size)
-        binding.settingsTemplateList.subText = numberFormat.format(markedForBackup[BRCategory.SETTINGS_TEMPLATE]!!.size)
+        binding.manageApps.subText = getString(
+            R.string.backup_restore_items_count,
+            markedForBackup[BRCategory.APP]!!.size,
+        )
+        binding.templateList.subText = getString(
+            R.string.backup_restore_items_count,
+            markedForBackup[BRCategory.TEMPLATE]!!.size,
+        )
+        binding.settingsTemplateList.subText = getString(
+            R.string.backup_restore_items_count,
+            markedForBackup[BRCategory.SETTINGS_TEMPLATE]!!.size,
+        )
     }
 
     private fun loadScreenContents() {
