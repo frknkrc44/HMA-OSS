@@ -113,8 +113,6 @@ class BackupRestoreFragment : Fragment(R.layout.fragment_backup_restore) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.root.isVisible = false
-
         setupToolbar(
             binding.toolbar,
             title = getString(R.string.home_backup_and_restore),
@@ -130,6 +128,7 @@ class BackupRestoreFragment : Fragment(R.layout.fragment_backup_restore) {
             importedConfig = ConfigManager.getRawConfig(true)
             loadScreenContents()
         } else {
+            binding.mainLayout.isVisible = false
             restoreSAFLauncher.launch("application/json")
         }
 
@@ -154,7 +153,7 @@ class BackupRestoreFragment : Fragment(R.layout.fragment_backup_restore) {
     }
 
     private fun loadScreenContents() {
-        binding.root.isVisible = true
+        binding.mainLayout.isVisible = true
 
         markedForBackup[BRCategory.APP]!!.addAll(importedConfig.scope.keys)
         markedForBackup[BRCategory.TEMPLATE]!!.addAll(importedConfig.templates.keys)
