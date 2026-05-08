@@ -57,23 +57,24 @@ class BackupRestoreFragment : Fragment(R.layout.fragment_backup_restore) {
     private val backupSAFLauncher =
         registerForActivityResult(ActivityResultContracts.CreateDocument("application/json")) backup@{ uri ->
             if (uri == null) return@backup
-            contentResolver.openOutputStream(uri).use { output ->
-                if (output == null) showToast(R.string.home_export_failed)
-                else {
-                    clearNotImportedItems {
-                        if (!includeSettings) {
-                            val newConfig = JsonConfig(CONFIG_VERSION_NO_SETTINGS)
-                            newConfig.templates.putAll(importedConfig.templates)
-                            newConfig.settingsTemplates.putAll(importedConfig.settingsTemplates)
-                            newConfig.scope.putAll(importedConfig.scope)
-                            importedConfig = newConfig
-                        }
+            val output = contentResolver.openOutputStream(uri)
 
-                        showToast(R.string.home_exported)
-                        output.write(importedConfig.toString().toByteArray())
-
-                        navController.navigateUp()
+            if (output == null) showToast(R.string.home_export_failed)
+            else {
+                clearNotImportedItems {
+                    if (!includeSettings) {
+                        val newConfig = JsonConfig(CONFIG_VERSION_NO_SETTINGS)
+                        newConfig.templates.putAll(importedConfig.templates)
+                        newConfig.settingsTemplates.putAll(importedConfig.settingsTemplates)
+                        newConfig.scope.putAll(importedConfig.scope)
+                        importedConfig = newConfig
                     }
+
+                    showToast(R.string.home_exported)
+                    output.write(importedConfig.toString().toByteArray())
+                    output.close()
+
+                    navController.navigateUp()
                 }
             }
         }
