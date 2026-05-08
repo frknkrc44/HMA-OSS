@@ -11,17 +11,16 @@ import java.util.zip.ZipFile
 
 object Utils {
 
-    fun generateRandomString(length: Int): String {
-        val leftLimit = 97   // letter 'a'
-        val rightLimit = 122 // letter 'z'
-        val random = Random()
-        val buffer = StringBuilder(length)
-        for (i in 0 until length) {
-            val randomLimitedInt = leftLimit + (random.nextFloat() * (rightLimit - leftLimit + 1)).toInt()
-            buffer.append(randomLimitedInt.toChar())
-        }
-        return buffer.toString()
+    fun generateRandomString(length: Int, allowedChars: List<Char>): String {
+        return (0 until length)
+            .map { allowedChars.random() }
+            .joinToString("")
     }
+
+    fun generateRandomHex(length: Int) = generateRandomString(
+        length,
+        ('a' .. 'f') + ('0' .. '9'),
+    )
 
     fun <T> binderLocalScope(block: () -> T): T {
         val identity = Binder.clearCallingIdentity()
@@ -70,13 +69,6 @@ object Utils {
         assert(source.isNotEmpty() && targets.isNotEmpty())
 
         return targets.any { source.contains(it) }
-    }
-
-    fun generateRandomHex(length: Int): String {
-        val allowedChars = ('a'..'f') + ('0'..'9')
-        return (1..length)
-            .map { allowedChars.random() }
-            .joinToString("")
     }
 
     fun getPackageNameFromResolveInfo(resolveInfo: ResolveInfo): String {
