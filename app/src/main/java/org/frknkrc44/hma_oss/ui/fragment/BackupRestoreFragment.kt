@@ -4,10 +4,10 @@ import android.annotation.SuppressLint
 import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -29,7 +29,6 @@ import org.frknkrc44.hma_oss.databinding.FragmentBackupRestoreBinding
 import org.frknkrc44.hma_oss.databinding.LayoutListEmptyBinding
 import java.util.Date
 import java.util.Locale
-import kotlin.getValue
 
 class BackupRestoreFragment : Fragment(R.layout.fragment_backup_restore) {
 

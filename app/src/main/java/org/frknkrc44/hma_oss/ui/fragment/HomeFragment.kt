@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -25,7 +24,6 @@ import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.attrDrawable
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.getColor
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.homeItemBackgroundColor
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.themeColor
-import icu.nullptr.hidemyapplist.ui.util.contentResolver
 import icu.nullptr.hidemyapplist.ui.util.dp2Px
 import icu.nullptr.hidemyapplist.ui.util.isTestBuild
 import icu.nullptr.hidemyapplist.ui.util.navigate
@@ -38,10 +36,6 @@ import kotlinx.coroutines.withContext
 import org.frknkrc44.hma_oss.BuildConfig
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentHomeBinding
-import java.io.IOException
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 import kotlin.concurrent.thread
 
 /**
