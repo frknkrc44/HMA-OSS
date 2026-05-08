@@ -107,11 +107,16 @@ object Utils {
     }
 
     fun cleanRemnantsFromConfig(config: JsonConfig) {
+        // STEP 1: Remove empty app and settings templates
+        config.templates.removeIf { _, template -> template.appList.isEmpty() }
+        config.settingsTemplates.removeIf { _, template -> template.settingsList.isEmpty() }
+
+        // STEP 2: Remove mismatching items
         for (app in config.scope.values) {
             app.applyTemplates.removeIf { !config.templates.containsKey(it) }
-            app.applyPresets.removeIf { !AppPresets.instance.presetNames.contains(it) }
+            app.applyPresets.removeIf { it !in AppPresets.instance.presetNames }
             app.applySettingTemplates.removeIf { !config.settingsTemplates.containsKey(it) }
-            app.applySettingsPresets.removeIf { !SettingsPresets.instance.presetNames.contains(it) }
+            app.applySettingsPresets.removeIf { it !in SettingsPresets.instance.presetNames }
         }
     }
 }
