@@ -186,10 +186,6 @@ class BackupRestoreFragment : Fragment(R.layout.fragment_backup_restore) {
             isEnabled = isChecked
         }
 
-        with(binding.switchTrimConfig) {
-            isVisible = isBackupMode
-        }
-
         with(binding.switchOverwriteApps) {
             isVisible = !isBackupMode
             isChecked = true
@@ -352,23 +348,23 @@ class BackupRestoreFragment : Fragment(R.layout.fragment_backup_restore) {
 
         if (isBackupMode) {
             cleanRemnantsFromConfig(importedConfig)
+        }
 
-            if (trimConfig) {
-                val progressDialog = MaterialAlertDialogBuilder(requireContext())
-                    .setTitle(R.string.settings_clear_uninstalled_app_configs)
-                    .setView(R.layout.dialog_loading)
-                    .setCancelable(false)
-                    .create()
+        if (trimConfig) {
+            val progressDialog = MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.settings_clear_uninstalled_app_configs)
+                .setView(R.layout.dialog_loading)
+                .setCancelable(false)
+                .create()
 
-                ConfigManager.clearUninstalledAppConfigs(importedConfig) {
-                    lifecycleScope.launch {
-                        progressDialog.dismiss()
+            progressDialog.show()
 
-                        onFinish()
-                    }
+            ConfigManager.clearUninstalledAppConfigs(importedConfig) {
+                lifecycleScope.launch {
+                    progressDialog.dismiss()
+
+                    onFinish()
                 }
-            } else {
-                onFinish()
             }
         } else {
             onFinish()
