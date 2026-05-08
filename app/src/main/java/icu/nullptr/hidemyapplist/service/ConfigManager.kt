@@ -6,6 +6,8 @@ import android.util.Log
 import icu.nullptr.hidemyapplist.MyApp.Companion.hmaApp
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.JsonConfig
+import icu.nullptr.hidemyapplist.common.Utils.removeIf
+import icu.nullptr.hidemyapplist.common.Utils.removeIfWithCount
 import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
 import icu.nullptr.hidemyapplist.ui.util.showToast
 import icu.nullptr.hidemyapplist.util.PackageHelper
@@ -288,15 +290,8 @@ object ConfigManager {
         PackageHelper.invalidateCache { throwable ->
             if (throwable == null) {
                 // --- STEP 1: Clear uninstalled app configs ---
-                val scopeMarkedToRemove = mutableListOf<String>()
-                inConfig.scope.keys.forEach { packageName ->
-                    if (!PackageHelper.exists(packageName)) {
-                        scopeMarkedToRemove.add(packageName)
-                    }
-                }
-
-                if (scopeMarkedToRemove.isNotEmpty()) {
-                    scopeMarkedToRemove.forEach { inConfig.scope.remove(it) }
+                val scopeRemoveCount = inConfig.scope.removeIfWithCount { pkg, _ ->
+                    !PackageHelper.exists(pkg)
                 }
 
                 // --- STEP 2: Clear uninstalled apps from templates ---
@@ -314,8 +309,8 @@ object ConfigManager {
                     }
                 }
 
-                if ((scopeMarkedToRemove.isNotEmpty() || cleanedAppCount > 0) && inConfig == config) {
-                    ServiceClient.log(Log.INFO, TAG, "Pruned ${scopeMarkedToRemove.size} app config(s) and $cleanedAppCount app(s) from template(s)")
+                if ((scopeRemoveCount > 0 || cleanedAppCount > 0) && inConfig == config) {
+                    ServiceClient.log(Log.INFO, TAG, "Pruned $scopeRemoveCount app config(s) and $cleanedAppCount app(s) from template(s)")
                     saveConfig()
                 }
 

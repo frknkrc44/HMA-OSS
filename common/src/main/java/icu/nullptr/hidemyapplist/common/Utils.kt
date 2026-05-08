@@ -6,7 +6,6 @@ import android.content.pm.PackageInfo
 import android.content.pm.ResolveInfo
 import android.os.Binder
 import android.os.Build
-import java.util.Random
 import java.util.zip.ZipFile
 
 object Utils {
@@ -96,6 +95,10 @@ object Utils {
 
     inline fun <K, V> MutableMap<K, V>.removeIf(predicate: (K, V) -> Boolean) {
         this.filter { (key, value) -> predicate(key, value) }.forEach { this.remove(it.key) }
+    }
+
+    inline fun <K, V> MutableMap<K, V>.removeIfWithCount(predicate: (K, V) -> Boolean): Int {
+        return this.filter { (key, value) -> predicate(key, value) }.count { this.remove(it.key) != null }
     }
 
     fun cleanRemnantsFromConfig(config: JsonConfig) {
