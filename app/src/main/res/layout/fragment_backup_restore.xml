@@ -61,7 +61,6 @@
         <Switch
             android:id="@+id/switch_overwrite_apps"
             android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-            android:layout_marginVertical="@dimen/item_padding_mini2x"
             android:layout_marginHorizontal="@dimen/item_padding_horizontal"
             android:paddingStart="@dimen/app_icon_size"
             android:layout_width="match_parent"
@@ -82,7 +81,6 @@
         <Switch
             android:id="@+id/switch_overwrite_templates"
             android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-            android:layout_marginTop="@dimen/item_padding_mini2x"
             android:layout_marginHorizontal="@dimen/item_padding_horizontal"
             android:paddingStart="@dimen/app_icon_size"
             android:layout_width="match_parent"
@@ -103,7 +101,6 @@
         <Switch
             android:id="@+id/switch_overwrite_settings_templates"
             android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-            android:layout_marginTop="@dimen/item_padding_mini2x"
             android:layout_marginHorizontal="@dimen/item_padding_horizontal"
             android:paddingStart="@dimen/app_icon_size"
             android:layout_width="match_parent"
