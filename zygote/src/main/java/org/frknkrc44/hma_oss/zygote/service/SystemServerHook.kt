@@ -11,7 +11,8 @@ import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
-import org.frknkrc44.hma_oss.zygote.util.Utils4Zygote
+import org.frknkrc44.hma_oss.zygote.util.Utils4Zygote.callStaticMethod
+import org.frknkrc44.hma_oss.zygote.util.Utils4Zygote.waitForService
 import kotlin.concurrent.thread
 
 @SuppressLint("PrivateApi")
@@ -34,8 +35,8 @@ object SystemServerHook {
             initialized = true
 
             thread {
-                val pms = Utils4Zygote.waitForService("package") as IPackageManager
-                val pmn = Utils4Zygote.waitForService("package_native")
+                val pms = waitForService("package") as IPackageManager
+                val pmn = waitForService("package_native")
                 logD(TAG) { "Got pms: $pms, $pmn" }
 
                 runCatching {
@@ -56,13 +57,12 @@ object SystemServerHook {
             logI(TAG) { "Trying to invoke 12+ mode" }
 
             runCatching {
-                val method = getDeclaredMethod(
+                val loader = callStaticMethod(
                     Class.forName(ZYGOTE_INIT),
                     "getOrCreateSystemServerClassLoader"
                 )
 
-                val loader = method.invoke(null) as? ClassLoader
-                onSystemServer(loader)
+                onSystemServer(loader as? ClassLoader)
             }.onSuccess {
                 return
             }.onFailure {
