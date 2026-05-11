@@ -226,13 +226,13 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                 service.pms.javaClass.name,
                 "getInstallerPackageName",
             ) { param ->
-                val query = param.getArgument(1) as? String ?: return@hookBefore
-
                 val callingUid = Binder.getCallingUid()
                 if (callingUid == Constants.UID_SYSTEM) return@hookBefore
 
                 val callingApps = getCallingApps(service, callingUid)
                 val callingHandle = UserHandle.getUserHandleForUid(callingUid)
+
+                val query = param.getArgument(1) as? String ?: return@hookBefore
 
                 for (caller in callingApps) {
                     when (service.shouldHideInstallationSource(caller, query, callingHandle)) {
