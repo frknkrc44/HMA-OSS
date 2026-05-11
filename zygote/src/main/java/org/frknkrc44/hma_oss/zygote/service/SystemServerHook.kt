@@ -2,6 +2,7 @@ package org.frknkrc44.hma_oss.zygote.service
 
 import android.annotation.SuppressLint
 import android.content.pm.IPackageManager
+import android.os.Build
 import com.v7878.r8.annotations.DoNotShrink
 import com.v7878.unsafe.Reflection.getDeclaredMethod
 import com.v7878.unsafe.invoke.EmulatedStackFrame
@@ -12,6 +13,7 @@ import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
 import org.frknkrc44.hma_oss.zygote.util.Utils4Zygote
+import org.frknkrc44.hma_oss.zygote.util.Utils4Zygote.isSystemBootCompleted
 import kotlin.concurrent.thread
 
 @SuppressLint("PrivateApi")
@@ -19,6 +21,7 @@ object SystemServerHook {
     private const val TAG = "SystemServerHook"
     private const val SYSTEM_SERVER: String = "com.android.server.SystemServer"
     private const val RUNTIME_INIT: String = "com.android.internal.os.RuntimeInit"
+    private const val ZYGOTE_INIT: String = "com.android.internal.os.ZygoteInit"
 
     var classLoader: ClassLoader? = null
     var initialized = false
@@ -60,18 +63,36 @@ object SystemServerHook {
     @Throws(Throwable::class)
     @JvmStatic
     fun init() {
-        val method = getDeclaredMethod(
-            Class.forName(RUNTIME_INIT), "findStaticMain",
-            String::class.java, Array<String>::class.java, ClassLoader::class.java
-        )
+        // This module was loaded after boot or not
+        if (isSystemBootCompleted()) {
+            logI(TAG) { "Trying to invoke late-load mode" }
 
-        Hooks.hook(method, Hooks.EntryPointType.CURRENT, { original, frame ->
-            try {
-                checkSystemServer(frame)
-            } catch (th: Throwable) {
-                logE(TAG, th) { "An exception occurred while checkSystemServer" }
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+                throw UnsupportedOperationException("This Android version isn't support late-load")
             }
-            Transformers.invokeExact(original, frame)
-        }, Hooks.EntryPointType.DIRECT)
+
+            val method = getDeclaredMethod(
+                Class.forName(ZYGOTE_INIT),
+                "getOrCreateSystemServerClassLoader"
+            )
+
+            onSystemServer(method.invoke(null) as? ClassLoader)
+        } else {
+            logI(TAG) { "Trying to invoke boot-load mode" }
+
+            val method = getDeclaredMethod(
+                Class.forName(RUNTIME_INIT), "findStaticMain",
+                String::class.java, Array<String>::class.java, ClassLoader::class.java
+            )
+
+            Hooks.hook(method, Hooks.EntryPointType.CURRENT, { original, frame ->
+                try {
+                    checkSystemServer(frame)
+                } catch (th: Throwable) {
+                    logE(TAG, th) { "An exception occurred while checkSystemServer" }
+                }
+                Transformers.invokeExact(original, frame)
+            }, Hooks.EntryPointType.DIRECT)
+        }
     }
 }

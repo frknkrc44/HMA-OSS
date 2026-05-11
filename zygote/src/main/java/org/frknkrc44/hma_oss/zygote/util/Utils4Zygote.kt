@@ -5,6 +5,7 @@ import android.os.Binder
 import android.os.Build
 import android.os.IBinder
 import android.os.ServiceManager
+import android.os.SystemProperties
 import com.android.apksig.ApkVerifier
 import com.v7878.unsafe.Reflection.getDeclaredField
 import com.v7878.unsafe.Reflection.getDeclaredMethod
@@ -223,5 +224,9 @@ object Utils4Zygote {
 
             throwable = throwable.cause
         }
+    }
+
+    fun isSystemBootCompleted(): Boolean {
+        return SystemProperties.get("sys.boot_completed", "0") == "1"
     }
 }
