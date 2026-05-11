@@ -5,7 +5,6 @@ import android.content.pm.IPackageManager
 import android.os.Build
 import com.v7878.r8.annotations.DoNotShrink
 import com.v7878.unsafe.Reflection.getDeclaredMethod
-import com.v7878.unsafe.invoke.EmulatedStackFrame
 import com.v7878.unsafe.invoke.Transformers
 import com.v7878.vmtools.Hooks
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
@@ -13,7 +12,6 @@ import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
 import org.frknkrc44.hma_oss.zygote.util.Utils4Zygote
-import org.frknkrc44.hma_oss.zygote.util.Utils4Zygote.isSystemBootCompleted
 import kotlin.concurrent.thread
 
 @SuppressLint("PrivateApi")
@@ -50,35 +48,22 @@ object SystemServerHook {
         }
     }
 
-    @Throws(Throwable::class)
-    private fun checkSystemServer(frame: EmulatedStackFrame) {
-        val accessor = frame.accessor()
-        if (SYSTEM_SERVER == accessor.getReference(0)) {
-            val loader: ClassLoader? = accessor.getReference(2)
-            onSystemServer(loader)
-        }
-    }
-
     @DoNotShrink
     @Throws(Throwable::class)
     @JvmStatic
     fun init() {
-        // This module was loaded after boot or not
-        if (isSystemBootCompleted()) {
-            logI(TAG) { "Trying to invoke late-load mode" }
-
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
-                throw UnsupportedOperationException("This Android version isn't support late-load")
-            }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            logI(TAG) { "Trying to invoke 12+ mode" }
 
             val method = getDeclaredMethod(
                 Class.forName(ZYGOTE_INIT),
                 "getOrCreateSystemServerClassLoader"
             )
 
-            onSystemServer(method.invoke(null) as? ClassLoader)
+            val loader = method.invoke(null) as? ClassLoader
+            onSystemServer(loader)
         } else {
-            logI(TAG) { "Trying to invoke boot-load mode" }
+            logI(TAG) { "Trying to invoke 11- mode" }
 
             val method = getDeclaredMethod(
                 Class.forName(RUNTIME_INIT), "findStaticMain",
@@ -87,7 +72,11 @@ object SystemServerHook {
 
             Hooks.hook(method, Hooks.EntryPointType.CURRENT, { original, frame ->
                 try {
-                    checkSystemServer(frame)
+                    val accessor = frame.accessor()
+                    if (SYSTEM_SERVER == accessor.getReference(0)) {
+                        val loader: ClassLoader? = accessor.getReference(2)
+                        onSystemServer(loader)
+                    }
                 } catch (th: Throwable) {
                     logE(TAG, th) { "An exception occurred while checkSystemServer" }
                 }

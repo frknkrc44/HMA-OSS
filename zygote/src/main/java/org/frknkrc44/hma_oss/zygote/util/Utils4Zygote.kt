@@ -225,8 +225,4 @@ object Utils4Zygote {
             throwable = throwable.cause
         }
     }
-
-    fun isSystemBootCompleted(): Boolean {
-        return SystemProperties.get("sys.boot_completed", "0") == "1"
-    }
 }
