@@ -105,28 +105,31 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
                     }.getOrElse {
                         getIntField(app, "uid", processRecordIntClass)
                     }
-                    val processName = runCatching {
-                        getObjectField(app, "processName")
-                    }.getOrElse {
-                        getObjectField(app, "processName", processRecordIntClass)
-                    }
-                    val mountNode = runCatching {
-                        getIntField(app, "mMountMode")
-                    }.getOrDefault(0)
-                    val isolated = runCatching {
-                        getBooleanField(app, "isolated")
-                    }.getOrElse {
-                        getBooleanField(app, "isolated", processRecordIntClass)
-                    }
-                    val appZygote = runCatching {
-                        getBooleanField(app, "appZygote")
-                    }.getOrElse {
-                        getBooleanField(app, "appZygote", processRecordIntClass)
-                    }
 
                     val apps = Utils4Zygote.getCallingApps(service, uid)
 
-                    logD(TAG) { "@needsStorageDataIsolation $uid and ${apps.contentToString()} - $processName value without override: ${param.result}, mount node: $mountNode, isolated: $isolated, appZygote: $appZygote" }
+                    if (HMAService.instance?.config?.detailLog == true) {
+                        val processName = runCatching {
+                            getObjectField(app, "processName")
+                        }.getOrElse {
+                            getObjectField(app, "processName", processRecordIntClass)
+                        }
+                        val mountNode = runCatching {
+                            getIntField(app, "mMountMode")
+                        }.getOrDefault(0)
+                        val isolated = runCatching {
+                            getBooleanField(app, "isolated")
+                        }.getOrElse {
+                            getBooleanField(app, "isolated", processRecordIntClass)
+                        }
+                        val appZygote = runCatching {
+                            getBooleanField(app, "appZygote")
+                        }.getOrElse {
+                            getBooleanField(app, "appZygote", processRecordIntClass)
+                        }
+
+                        logD(TAG) { "@needsStorageDataIsolation $uid and ${apps.contentToString()} - $processName value without override: ${param.result}, mount node: $mountNode, isolated: $isolated, appZygote: $appZygote" }
+                    }
 
                     // Do not isolate this module for safety
                     if (apps.contains(BuildConfig.APP_PACKAGE_NAME)) {
