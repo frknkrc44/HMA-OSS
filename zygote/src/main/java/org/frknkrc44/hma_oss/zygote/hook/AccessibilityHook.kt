@@ -6,7 +6,7 @@ import icu.nullptr.hidemyapplist.common.settings_presets.AccessibilityPreset
 import org.frknkrc44.hma_oss.zygote.service.BulkHooker
 import org.frknkrc44.hma_oss.zygote.service.HMAService
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
-import org.frknkrc44.hma_oss.zygote.util.Utils4Zygote
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.ACCESSIBILITY_SERVICE_CLASS
 
 class AccessibilityHook(private val service: HMAService) : IFrameworkHook {
@@ -18,7 +18,7 @@ class AccessibilityHook(private val service: HMAService) : IFrameworkHook {
                 ACCESSIBILITY_SERVICE_CLASS,
                 "getEnabledAccessibilityServiceList",
             ) { param ->
-                val callingApps = Utils4Zygote.getCallingApps(service)
+                val callingApps = ServiceUtils.getCallingApps(service)
                 if (callingApps.isEmpty()) return@hookBefore
 
                 val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
@@ -38,7 +38,7 @@ class AccessibilityHook(private val service: HMAService) : IFrameworkHook {
                 ACCESSIBILITY_SERVICE_CLASS,
                 "addClient",
             ) { param ->
-                val callingApps = Utils4Zygote.getCallingApps(service)
+                val callingApps = ServiceUtils.getCallingApps(service)
                 if (callingApps.isEmpty()) return@hookBefore
 
                 val caller = callingApps.firstOrNull { callerIsSpoofed(it) }

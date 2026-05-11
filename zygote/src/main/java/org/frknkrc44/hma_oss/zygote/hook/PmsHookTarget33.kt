@@ -8,9 +8,9 @@ import icu.nullptr.hidemyapplist.common.Utils
 import org.frknkrc44.hma_oss.zygote.service.BulkHooker
 import org.frknkrc44.hma_oss.zygote.service.HMAService
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
-import org.frknkrc44.hma_oss.zygote.util.Utils4Zygote.findConstructor
-import org.frknkrc44.hma_oss.zygote.util.Utils4Zygote.findMethod
-import org.frknkrc44.hma_oss.zygote.util.Utils4Zygote.getPackageNameFromPackageSettings
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackageNameFromPackageSettings
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.findConstructor
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.findMethod
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.APPS_FILTER_IMPL_CLASS
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)

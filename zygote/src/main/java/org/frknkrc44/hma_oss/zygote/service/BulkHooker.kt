@@ -13,7 +13,8 @@ import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
-import org.frknkrc44.hma_oss.zygote.util.Utils4Zygote
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils
 import java.lang.invoke.MethodHandle
 import java.lang.reflect.Executable
 import java.lang.reflect.Method
@@ -82,13 +83,13 @@ class BulkHooker private constructor() {
             }
 
             value.throwable?.let {
-                Utils4Zygote.clearStackTraces(it)
+                ServiceUtils.clearStackTraces(it)
 
                 throw it
             }
 
             if (value.replace) {
-                Utils4Zygote.setReturnValue(frame, value.result)
+                ZLUtils.setReturnValue(frame, value.result)
             }
         }
     }
@@ -121,12 +122,12 @@ class BulkHooker private constructor() {
             }
 
             value.throwable?.let {
-                Utils4Zygote.clearStackTraces(it)
+                ServiceUtils.clearStackTraces(it)
 
                 throw it
             }
 
-            Utils4Zygote.setReturnValue(frame, value.result)
+            ZLUtils.setReturnValue(frame, value.result)
         }
     }
 
@@ -202,8 +203,8 @@ class BulkHooker private constructor() {
                 element.memoryAddresses?.second!!
             )
 
-            val thisObject = Utils4Zygote.getArgument(frame, 0)
-            val args = Utils4Zygote.dumpArgs(frame, true)
+            val thisObject = ZLUtils.getArgument(frame, 0)
+            val args = ZLUtils.dumpArgs(frame, true)
 
             value.result = (element.method as Method).invoke(thisObject, *args)
 

@@ -11,9 +11,9 @@ import org.frknkrc44.hma_oss.zygote.service.HMAService
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
-import org.frknkrc44.hma_oss.zygote.util.Utils4Zygote
-import org.frknkrc44.hma_oss.zygote.util.Utils4Zygote.getObjectField
-import org.frknkrc44.hma_oss.zygote.util.Utils4Zygote.getStaticIntField
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getObjectField
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getStaticIntField
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.ACTIVITY_STACK_SUPERVISOR_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.ACTIVITY_STARTER_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.ACTIVITY_TASK_SUPERVISOR_CLASS
@@ -81,7 +81,7 @@ class ActivityHook(private val service: HMAService) : IFrameworkHook {
                     val callingUid = param.args.first { it is Int } as Int
                     if (callingUid == Constants.UID_SYSTEM) return@hookBefore
 
-                    val callingApps = Utils4Zygote.getCallingApps(service, callingUid)
+                    val callingApps = getCallingApps(service, callingUid)
                     val caller = callingApps.firstOrNull { service.isHookEnabled(it) }
                     if (caller != null) {
                         logV(TAG) { "@${param.methodName}: $caller requested a resolve info" }

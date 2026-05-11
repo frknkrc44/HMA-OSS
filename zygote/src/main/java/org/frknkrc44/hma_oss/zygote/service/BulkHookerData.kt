@@ -3,7 +3,7 @@ package org.frknkrc44.hma_oss.zygote.service
 import android.util.Pair
 import com.v7878.unsafe.invoke.EmulatedStackFrame
 import com.v7878.vmtools.HookTransformer
-import org.frknkrc44.hma_oss.zygote.util.Utils4Zygote
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils
 import java.lang.invoke.MethodHandle
 import java.lang.reflect.Executable
 
@@ -39,17 +39,17 @@ data class HookParam(
     /**
      * Returns the first argument
      */
-    val thisObject by lazy { Utils4Zygote.getArgument(frame, 0) }
+    val thisObject by lazy { ZLUtils.getArgument(frame, 0) }
 
-    fun getArgument(index: Int) = Utils4Zygote.getArgument(frame, index)
+    fun getArgument(index: Int) = ZLUtils.getArgument(frame, index)
 
-    fun setArgument(index: Int, value: Any) = Utils4Zygote.setArgument(frame, index, value)
+    fun setArgument(index: Int, value: Any) = ZLUtils.setArgument(frame, index, value)
 
     /**
      * - `args[0] == thisObject`
      * - `args[1:] == function args`
      */
-    val args by lazy { Utils4Zygote.dumpArgs(frame) }
+    val args by lazy { ZLUtils.dumpArgs(frame) }
 
     var throwable: Throwable?
         get() = returnValue.throwable

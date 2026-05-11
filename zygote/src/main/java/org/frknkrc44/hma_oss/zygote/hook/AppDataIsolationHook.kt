@@ -11,11 +11,11 @@ import org.frknkrc44.hma_oss.zygote.service.SystemServerHook
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
-import org.frknkrc44.hma_oss.zygote.util.Utils4Zygote
-import org.frknkrc44.hma_oss.zygote.util.Utils4Zygote.getBooleanField
-import org.frknkrc44.hma_oss.zygote.util.Utils4Zygote.getIntField
-import org.frknkrc44.hma_oss.zygote.util.Utils4Zygote.getObjectField
-import org.frknkrc44.hma_oss.zygote.util.Utils4Zygote.setBooleanField
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getBooleanField
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getIntField
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getObjectField
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.setBooleanField
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.PROCESS_LIST_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.PROCESS_RECORD_INTERNAL_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.STORAGE_MANAGER_SERVICE_CLASS
@@ -106,7 +106,7 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
                         getIntField(app, "uid", processRecordIntClass)
                     }
 
-                    val apps = Utils4Zygote.getCallingApps(service, uid)
+                    val apps = getCallingApps(service, uid)
 
                     if (HMAService.instance?.config?.detailLog == true) {
                         val processName = runCatching {

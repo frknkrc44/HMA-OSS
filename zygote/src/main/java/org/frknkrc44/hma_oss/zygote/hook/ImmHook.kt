@@ -16,8 +16,9 @@ import org.frknkrc44.hma_oss.zygote.service.HookParam
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logW
-import org.frknkrc44.hma_oss.zygote.util.Utils4Zygote
-import org.frknkrc44.hma_oss.zygote.util.Utils4Zygote.callStaticMethod
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackageManager
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.callStaticMethod
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.IMM_IMPL_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.IMM_SERVICE_CLASS
 import java.util.Collections
@@ -38,7 +39,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
                 val component = ComponentName.unflattenFromString(defaultInputMethod.value!!)!!
                 logD(TAG) { "Package component: \"$component\"" }
 
-                val pkgManager = Utils4Zygote.getPackageManager()
+                val pkgManager = getPackageManager()
                 val kbdPackage = Utils.binderLocalScope {
                     pkgManager.getApplicationInfo(component.packageName, 0)
                 }
@@ -76,7 +77,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
                         method.declaringClass.name,
                         method.name,
                     ) { param ->
-                        val callingApps = Utils4Zygote.getCallingApps(service)
+                        val callingApps = getCallingApps(service)
 
                         val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
                         if (caller != null) {
@@ -145,7 +146,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
                     method.declaringClass.name,
                     method.name,
                 ) { param ->
-                    val callingApps = Utils4Zygote.getCallingApps(service)
+                    val callingApps = getCallingApps(service)
 
                     val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
                     if (caller != null) {
@@ -210,7 +211,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
     }
 
     private fun subtypeHook(param: HookParam) {
-        val callingApps = Utils4Zygote.getCallingApps(service)
+        val callingApps = getCallingApps(service)
 
         val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
         if (caller != null) {
@@ -223,7 +224,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
     }
 
     private fun subtypeListHook(param: HookParam) {
-        val callingApps = Utils4Zygote.getCallingApps(service)
+        val callingApps = getCallingApps(service)
 
         val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
         if (caller != null) {
@@ -247,7 +248,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
     fun calculateReturnedInputMethodList(callingUid: Int, inList: List<InputMethodInfo>): List<InputMethodInfo> {
         logV(TAG) { "@getInputMethodList*calculator: $callingUid - Current: ${inList.map { it.component }}" }
 
-        val caller = Utils4Zygote.getCallingApps(service, callingUid)
+        val caller = getCallingApps(service, callingUid)
             .firstOrNull { callerIsSpoofed(it) } ?: return inList
 
         logD(TAG) { "@getInputMethodList: spoofed input method for $caller" }

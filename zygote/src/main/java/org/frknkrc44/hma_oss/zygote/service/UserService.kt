@@ -10,9 +10,9 @@ import org.frknkrc44.hma_oss.common.BuildConfig
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
-import org.frknkrc44.hma_oss.zygote.util.Utils4Zygote
-import org.frknkrc44.hma_oss.zygote.util.Utils4Zygote.getStaticIntField
-import org.frknkrc44.hma_oss.zygote.util.Utils4Zygote.verifyAppSignature
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.verifyAppSignature
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getStaticIntField
 import rikka.hidden.compat.ActivityManagerApis
 import rikka.hidden.compat.adapter.UidObserverAdapter
 
@@ -80,7 +80,7 @@ object UserService {
             logE(TAG, e) { "Fatal: Cannot get package details\nCompile this app from source with your changes" }
         }
 
-        Utils4Zygote.waitForService("activity")
+        ServiceUtils.waitForService("activity")
         ActivityManagerApis.registerUidObserver(
             uidObserver,
             getActMgrField("UID_OBSERVER_ACTIVE"),

@@ -11,7 +11,7 @@ import org.frknkrc44.hma_oss.zygote.service.BulkHooker
 import org.frknkrc44.hma_oss.zygote.service.HMAService
 import org.frknkrc44.hma_oss.zygote.service.HookParam
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
-import org.frknkrc44.hma_oss.zygote.util.Utils4Zygote
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.CONTENT_PROVIDER_TRANSPORT_CLASS
 
 class ContentProviderHook(private val service: HMAService): IFrameworkHook {
@@ -164,6 +164,6 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
             arrayOf(param.args.first { it is String } as String)
         }
     } catch (_: Throwable) {
-        Utils4Zygote.getCallingApps(service)
+        ServiceUtils.getCallingApps(service)
     }
 }
