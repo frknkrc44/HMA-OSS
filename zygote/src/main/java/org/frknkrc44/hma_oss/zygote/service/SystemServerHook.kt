@@ -27,6 +27,8 @@ object SystemServerHook {
 
     @Throws(Throwable::class)
     fun onSystemServer(loader: ClassLoader?) {
+        assert(loader != null) { "Class loader is null, aborting!" }
+
         logV(TAG) { "Class loader found: $loader" }
 
         classLoader = loader
