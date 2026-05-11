@@ -5,7 +5,6 @@ import android.os.Binder
 import android.os.Build
 import android.os.IBinder
 import android.os.ServiceManager
-import android.os.SystemProperties
 import com.android.apksig.ApkVerifier
 import com.v7878.unsafe.Reflection.getDeclaredField
 import com.v7878.unsafe.Reflection.getDeclaredMethod
@@ -17,6 +16,7 @@ import org.frknkrc44.hma_oss.common.BuildConfig
 import org.frknkrc44.hma_oss.zygote.Magic
 import org.frknkrc44.hma_oss.zygote.service.HMAService
 import org.frknkrc44.hma_oss.zygote.service.SystemServerHook
+import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
 import java.io.File
 import java.lang.reflect.Constructor
@@ -132,11 +132,11 @@ object Utils4Zygote {
         name,
     ).getInt(null)
 
-    fun getIntField(obj: Any, name: String) = getDeclaredField(obj.javaClass, name).getInt(obj)
+    fun getIntField(obj: Any, name: String, clazz: Class<*>? = null) = getDeclaredField(clazz ?: obj.javaClass, name).getInt(obj)
 
-    fun getBooleanField(obj: Any, name: String) = getDeclaredField(obj.javaClass, name).getBoolean(obj)
+    fun getBooleanField(obj: Any, name: String, clazz: Class<*>? = null) = getDeclaredField(clazz ?: obj.javaClass, name).getBoolean(obj)
 
-    fun getObjectField(obj: Any, name: String): Any? = getDeclaredField(obj.javaClass, name).get(obj)
+    fun getObjectField(obj: Any, name: String, clazz: Class<*>? = null): Any? = getDeclaredField(clazz ?: obj.javaClass, name).get(obj)
 
     fun setBooleanField(obj: Any, name: String, value: Boolean) {
         val field = getDeclaredField(obj.javaClass, name).apply { isAccessible = true }

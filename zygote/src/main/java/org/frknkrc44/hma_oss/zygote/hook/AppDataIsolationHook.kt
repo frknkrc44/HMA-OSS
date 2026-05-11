@@ -1,11 +1,13 @@
 package org.frknkrc44.hma_oss.zygote.hook
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.SystemProperties
 import androidx.annotation.RequiresApi
 import org.frknkrc44.hma_oss.common.BuildConfig
 import org.frknkrc44.hma_oss.zygote.service.BulkHooker
 import org.frknkrc44.hma_oss.zygote.service.HMAService
+import org.frknkrc44.hma_oss.zygote.service.SystemServerHook
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
@@ -15,9 +17,11 @@ import org.frknkrc44.hma_oss.zygote.util.Utils4Zygote.getIntField
 import org.frknkrc44.hma_oss.zygote.util.Utils4Zygote.getObjectField
 import org.frknkrc44.hma_oss.zygote.util.Utils4Zygote.setBooleanField
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.PROCESS_LIST_CLASS
+import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.PROCESS_RECORD_INTERNAL_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.STORAGE_MANAGER_SERVICE_CLASS
 import java.util.Map
 
+@SuppressLint("PrivateApi")
 @RequiresApi(Build.VERSION_CODES.R)
 class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
     override val TAG = "AppDataIsolationHook"
@@ -30,6 +34,15 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
 
     private var voldHookSkipped = false
 
+    private val processRecordIntClass: Class<*> by lazy {
+        Class.forName(
+            PROCESS_RECORD_INTERNAL_CLASS,
+            true,
+            SystemServerHook.classLoader,
+        )
+    }
+
+    @SuppressLint("PrivateApi")
     override fun load() {
         if (!(service.config.altAppDataIsolation || service.config.altVoldAppDataIsolation)) return
         logI(TAG) { "Load hook" }
@@ -87,19 +100,29 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
             ) { param ->
                 if (service.config.altVoldAppDataIsolation) {
                     val app = param.args.find { it?.javaClass?.simpleName == "ProcessRecord" }!!
-                    val uid = getIntField(app, "uid")
+                    val uid = runCatching {
+                        getIntField(app, "uid")
+                    }.getOrElse {
+                        getIntField(app, "uid", processRecordIntClass)
+                    }
                     val processName = runCatching {
                         getObjectField(app, "processName")
-                    }.getOrDefault("<unknown>")
+                    }.getOrElse {
+                        getObjectField(app, "processName", processRecordIntClass)
+                    }
                     val mountNode = runCatching {
                         getIntField(app, "mMountMode")
                     }.getOrDefault(0)
                     val isolated = runCatching {
                         getBooleanField(app, "isolated")
-                    }.getOrDefault(false)
+                    }.getOrElse {
+                        getBooleanField(app, "isolated", processRecordIntClass)
+                    }
                     val appZygote = runCatching {
                         getBooleanField(app, "appZygote")
-                    }.getOrDefault(false)
+                    }.getOrElse {
+                        getBooleanField(app, "appZygote", processRecordIntClass)
+                    }
 
                     val apps = Utils4Zygote.getCallingApps(service, uid)
 

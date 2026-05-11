@@ -17,4 +17,5 @@ object ZygoteConstants {
     const val ACTIVITY_STACK_SUPERVISOR_CLASS = "com.android.server.wm.ActivityStackSupervisor"
     const val ZYGOTE_PROCESS_CLASS = "android.os.ZygoteProcess"
     const val PROCESS_LIST_CLASS = "com.android.server.am.ProcessList"
+    const val PROCESS_RECORD_INTERNAL_CLASS = "com.android.server.am.psc.ProcessRecordInternal"
 }
