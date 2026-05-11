@@ -16,7 +16,6 @@ import org.frknkrc44.hma_oss.common.BuildConfig
 import org.frknkrc44.hma_oss.zygote.Magic
 import org.frknkrc44.hma_oss.zygote.service.HMAService
 import org.frknkrc44.hma_oss.zygote.service.SystemServerHook
-import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
 import java.io.File
 import java.lang.reflect.Constructor

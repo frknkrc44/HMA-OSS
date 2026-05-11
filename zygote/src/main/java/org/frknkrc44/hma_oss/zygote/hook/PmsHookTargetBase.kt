@@ -115,31 +115,27 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                     "isCallerInstallerOfRecord",
                 ) { param ->
                     val callingUid = param.args.last { it is Int } as Int
-                    if (callingUid == Constants.UID_SYSTEM) return@hookBefore
 
-                    val pkg = param.args.lastOrNull {
-                        it?.javaClass?.simpleName in androidPkgClazzNames
-                    } ?: return@hookBefore
-                    val query = callMethod(
-                        pkg,
-                        if (pkg.javaClass.simpleName == "PackageImpl") {
-                        "getManifestPackageName"
-                    } else {
-                        "getPackageName"
-                    }) as? String ?: return@hookBefore
-
-                    val callingApps = getCallingApps(service, callingUid)
-                    val callingHandle = UserHandle.getUserHandleForUid(callingUid)
-
-                    for (caller in callingApps) {
-                        when (service.shouldHideInstallationSource(caller, query, callingHandle)) {
+                    applyInstallerHiding(
+                        param.methodName,
+                        { callingUid },
+                        fta@{
+                            val pkg = param.args.lastOrNull {
+                                it?.javaClass?.simpleName in androidPkgClazzNames
+                            } ?: return@fta null
+                            callMethod(pkg,
+                                if (pkg.javaClass.simpleName == "PackageImpl") {
+                                    "getManifestPackageName"
+                                } else {
+                                    "getPackageName"
+                                }
+                            ) as? String
+                        }
+                    ) {
+                        when (it) {
                             Constants.FAKE_INSTALLATION_SOURCE_USER -> param.result = callingUid == psPackageInfo?.applicationInfo?.uid
                             Constants.FAKE_INSTALLATION_SOURCE_SYSTEM -> param.result = false
-                            else -> continue
                         }
-
-                        service.increaseInstallerFilterCount(caller)
-                        break
                     }
                 }
 
@@ -173,23 +169,15 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                     COMPUTER_ENGINE_CLASS,
                     "getInstallerPackageName",
                 ) { param ->
-                    val callingUid = param.args.firstOrNull { it is Int } as? Int ?: Binder.getCallingUid()
-                    if (callingUid == Constants.UID_SYSTEM) return@hookBefore
-
-                    val callingApps = getCallingApps(service, callingUid)
-                    val callingHandle = UserHandle.getUserHandleForUid(callingUid)
-
-                    val query = param.args.firstOrNull { it is String } as? String ?: return@hookBefore
-
-                    for (caller in callingApps) {
-                        when (service.shouldHideInstallationSource(caller, query, callingHandle)) {
+                    applyInstallerHiding(
+                        param.methodName,
+                        { param.args.firstOrNull { it is Int } as? Int ?: Binder.getCallingUid() },
+                        { param.args.firstOrNull { it is String } as? String },
+                    ) {
+                        when (it) {
                             Constants.FAKE_INSTALLATION_SOURCE_USER -> param.result = VENDING_PACKAGE_NAME
                             Constants.FAKE_INSTALLATION_SOURCE_SYSTEM -> param.result = null
-                            else -> continue
                         }
-
-                        service.increaseInstallerFilterCount(caller)
-                        break
                     }
                 }
             } else {
@@ -197,23 +185,15 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                     service.pms.javaClass.name,
                     "getInstallerPackageName",
                 ) { param ->
-                    val callingUid = Binder.getCallingUid()
-                    if (callingUid == Constants.UID_SYSTEM) return@hookBefore
-
-                    val callingApps = getCallingApps(service, callingUid)
-                    val callingHandle = UserHandle.getUserHandleForUid(callingUid)
-
-                    val query = param.getArgument(1) as? String ?: return@hookBefore
-
-                    for (caller in callingApps) {
-                        when (service.shouldHideInstallationSource(caller, query, callingHandle)) {
+                    applyInstallerHiding(
+                        param.methodName,
+                        { Binder.getCallingUid() },
+                        { param.getArgument(1) as? String },
+                    ) {
+                        when (it) {
                             Constants.FAKE_INSTALLATION_SOURCE_USER -> param.result = VENDING_PACKAGE_NAME
                             Constants.FAKE_INSTALLATION_SOURCE_SYSTEM -> param.result = null
-                            else -> continue
                         }
-
-                        service.increaseInstallerFilterCount(caller)
-                        break
                     }
                 }
             }
@@ -223,23 +203,15 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                     service.pmn.javaClass.name,
                     "getInstallerForPackage",
                 ) { param ->
-                    val query = param.getArgument(1) as? String ?: return@hookBefore
-
-                    val callingUid = Binder.getCallingUid()
-                    if (callingUid == Constants.UID_SYSTEM) return@hookBefore
-
-                    val callingApps = getCallingApps(service, callingUid)
-                    val callingHandle = UserHandle.getUserHandleForUid(callingUid)
-
-                    for (caller in callingApps) {
-                        when (service.shouldHideInstallationSource(caller, query, callingHandle)) {
+                    applyInstallerHiding(
+                        param.methodName,
+                        { Binder.getCallingUid() },
+                        { param.getArgument(1) as? String },
+                    ) {
+                        when (it) {
                             Constants.FAKE_INSTALLATION_SOURCE_USER -> param.result = VENDING_PACKAGE_NAME
                             Constants.FAKE_INSTALLATION_SOURCE_SYSTEM -> param.result = "preload"
-                            else -> continue
                         }
-
-                        service.increaseInstallerFilterCount(caller)
-                        break
                     }
                 }
             }
@@ -249,23 +221,15 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                     service.pms.javaClass.name,
                     "getInstallSourceInfo",
                 ) { param ->
-                    val query = param.getArgument(1) as? String ?: return@hookBefore
-
-                    val callingUid = Binder.getCallingUid()
-                    if (callingUid == Constants.UID_SYSTEM) return@hookBefore
-
-                    val callingApps = getCallingApps(service, callingUid)
-                    val callingHandle = UserHandle.getUserHandleForUid(callingUid)
-
-                    for (caller in callingApps) {
-                        when (service.shouldHideInstallationSource(caller, query, callingHandle)) {
+                    applyInstallerHiding(
+                        param.methodName,
+                        { Binder.getCallingUid() },
+                        { param.getArgument(1) as? String }
+                    ) {
+                        when (it) {
                             Constants.FAKE_INSTALLATION_SOURCE_USER -> param.result = fakeUserPackageInstallSourceInfo
                             Constants.FAKE_INSTALLATION_SOURCE_SYSTEM -> param.result = fakeSystemPackageInstallSourceInfo
-                            else -> continue
                         }
-
-                        service.increaseInstallerFilterCount(caller)
-                        break
                     }
                 }
             }
@@ -298,6 +262,33 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
             if (last != caller) logI(TAG) { "@${methodName}: query from $caller" }
             HMAServiceCache.instance.putShouldHideUidCache(callingUid, caller, targetApp)
             service.increasePMFilterCount(caller)
+        }
+    }
+
+    fun applyInstallerHiding(
+        methodName: String,
+        findCallingUid: () -> Int?,
+        findTargetApp: () -> String?,
+        applyReturnValue: (Int) -> Unit,
+    ) {
+        val callingUid = findCallingUid() ?: return
+        if (callingUid == Constants.UID_SYSTEM) return
+
+        val callingApps = getCallingApps(service, callingUid)
+        val callingHandle = UserHandle.getUserHandleForUid(callingUid)
+
+        val query = findTargetApp() ?: return
+
+        for (caller in callingApps) {
+            val isHide = service.shouldHideInstallationSource(caller, query, callingHandle)
+            if (isHide == Constants.FAKE_INSTALLATION_SOURCE_DISABLED) continue
+
+            logD(TAG) { "@$methodName: Applied installer hiding for $caller - $callingUid => $isHide" }
+
+            applyReturnValue(isHide)
+
+            service.increaseInstallerFilterCount(caller)
+            break
         }
     }
 }
