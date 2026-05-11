@@ -55,33 +55,40 @@ object SystemServerHook {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             logI(TAG) { "Trying to invoke 12+ mode" }
 
-            val method = getDeclaredMethod(
-                Class.forName(ZYGOTE_INIT),
-                "getOrCreateSystemServerClassLoader"
-            )
+            runCatching {
+                val method = getDeclaredMethod(
+                    Class.forName(ZYGOTE_INIT),
+                    "getOrCreateSystemServerClassLoader"
+                )
 
-            val loader = method.invoke(null) as? ClassLoader
-            onSystemServer(loader)
-        } else {
-            logI(TAG) { "Trying to invoke 11- mode" }
-
-            val method = getDeclaredMethod(
-                Class.forName(RUNTIME_INIT), "findStaticMain",
-                String::class.java, Array<String>::class.java, ClassLoader::class.java
-            )
-
-            Hooks.hook(method, Hooks.EntryPointType.CURRENT, { original, frame ->
-                try {
-                    val accessor = frame.accessor()
-                    if (SYSTEM_SERVER == accessor.getReference(0)) {
-                        val loader: ClassLoader? = accessor.getReference(2)
-                        onSystemServer(loader)
-                    }
-                } catch (th: Throwable) {
-                    logE(TAG, th) { "An exception occurred while checkSystemServer" }
-                }
-                Transformers.invokeExact(original, frame)
-            }, Hooks.EntryPointType.DIRECT)
+                val loader = method.invoke(null) as? ClassLoader
+                onSystemServer(loader)
+            }.onSuccess {
+                return
+            }.onFailure {
+                logE(TAG, it) { "An exception occurred while trying 12+ mode" }
+                // falls back to 11- mode
+            }
         }
+
+        logI(TAG) { "Trying to invoke 11- mode" }
+
+        val method = getDeclaredMethod(
+            Class.forName(RUNTIME_INIT), "findStaticMain",
+            String::class.java, Array<String>::class.java, ClassLoader::class.java
+        )
+
+        Hooks.hook(method, Hooks.EntryPointType.CURRENT, { original, frame ->
+            try {
+                val accessor = frame.accessor()
+                if (SYSTEM_SERVER == accessor.getReference(0)) {
+                    val loader: ClassLoader? = accessor.getReference(2)
+                    onSystemServer(loader)
+                }
+            } catch (th: Throwable) {
+                logE(TAG, th) { "An exception occurred while checkSystemServer" }
+            }
+            Transformers.invokeExact(original, frame)
+        }, Hooks.EntryPointType.DIRECT)
     }
 }
