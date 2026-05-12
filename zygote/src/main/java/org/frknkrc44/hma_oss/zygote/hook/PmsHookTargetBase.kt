@@ -112,6 +112,32 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
 
                 hookBefore(
                     COMPUTER_ENGINE_CLASS,
+                    "getPackageInfoInternal",
+                ) { param ->
+                    applyPackageHiding(
+                        param.methodName,
+                        { param.args.firstOrNull { it is Int } as? Int },
+                        { param.args.firstOrNull { it is String } as? String },
+                        { getCallingApps(service, it) },
+                        { param.result = null },
+                    )
+                }
+
+                hookBefore(
+                    COMPUTER_ENGINE_CLASS,
+                    "getApplicationInfoInternal",
+                ) { param ->
+                    applyPackageHiding(
+                        param.methodName,
+                        { param.args.firstOrNull { it is Int } as? Int },
+                        { param.args.firstOrNull { it is String } as? String },
+                        { getCallingApps(service, it) },
+                        { param.result = null },
+                    )
+                }
+
+                hookBefore(
+                    COMPUTER_ENGINE_CLASS,
                     "isCallerInstallerOfRecord",
                 ) { param ->
                     val callingUid = param.args.last { it is Int } as Int
@@ -137,32 +163,6 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                             Constants.FAKE_INSTALLATION_SOURCE_SYSTEM -> param.result = false
                         }
                     }
-                }
-
-                hookBefore(
-                    COMPUTER_ENGINE_CLASS,
-                    "getPackageInfoInternal",
-                ) { param ->
-                    applyPackageHiding(
-                        param.methodName,
-                        { param.args.firstOrNull { it is Int } as? Int },
-                        { param.args.firstOrNull { it is String } as? String },
-                        { getCallingApps(service, it) },
-                        { param.result = null },
-                    )
-                }
-
-                hookBefore(
-                    COMPUTER_ENGINE_CLASS,
-                    "getApplicationInfoInternal",
-                ) { param ->
-                    applyPackageHiding(
-                        param.methodName,
-                        { param.args.firstOrNull { it is Int } as? Int },
-                        { param.args.firstOrNull { it is String } as? String },
-                        { getCallingApps(service, it) },
-                        { param.result = null },
-                    )
                 }
 
                 hookBefore(
