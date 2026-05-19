@@ -261,12 +261,13 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
 
         val fakeIMInfo = getFakeInputMethodInfo(caller)
         val imExists = isIMExists(fakeIMInfo.packageName)
-        if (!(imExists && calculatedList.any { it.packageName == fakeIMInfo.packageName })) {
+        val calcListHasIM = calculatedList.any { it.packageName == fakeIMInfo.packageName }
+        if (!(imExists && calcListHasIM)) {
             if (!imExists) {
                 warnNotInstalledKeyboard("getInputMethodList*calculator", fakeIMInfo.packageName)
             }
 
-            if (!calculatedList.any { it.packageName == fakeIMInfo.packageName }) {
+            if (!calcListHasIM) {
                 return (calculatedList + fakeIMInfo).sortedWith { info1, info2 ->
                     info1.packageName.compareTo(info2.packageName)
                 }
