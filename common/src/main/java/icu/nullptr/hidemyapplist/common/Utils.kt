@@ -6,6 +6,7 @@ import android.content.pm.PackageInfo
 import android.content.pm.ResolveInfo
 import android.os.Binder
 import android.os.Build
+import icu.nullptr.hidemyapplist.common.CollectionUtils.removeIf
 import java.util.zip.ZipFile
 
 object Utils {
@@ -91,14 +92,6 @@ object Utils {
 
             return false
         }
-    }
-
-    inline fun <K, V> MutableMap<K, V>.removeIf(predicate: (K, V) -> Boolean) {
-        this.filter { (key, value) -> predicate(key, value) }.forEach { this.remove(it.key) }
-    }
-
-    inline fun <K, V> MutableMap<K, V>.removeIfWithCount(predicate: (K, V) -> Boolean): Int {
-        return this.filter { (key, value) -> predicate(key, value) }.count { this.remove(it.key) != null }
     }
 
     fun cleanRemnantsFromConfig(config: JsonConfig) {

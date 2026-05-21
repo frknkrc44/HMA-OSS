@@ -6,6 +6,7 @@ import android.os.Build
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.OSUtils
 import icu.nullptr.hidemyapplist.common.Utils
+import icu.nullptr.hidemyapplist.common.CollectionUtils.firstWithType
 import org.frknkrc44.hma_oss.zygote.service.BulkHooker
 import org.frknkrc44.hma_oss.zygote.service.HMAService
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
@@ -78,7 +79,7 @@ class ActivityHook(private val service: HMAService) : IFrameworkHook {
                     val list = param.args[1] as List<ResolveInfo>?
                     if (list.isNullOrEmpty()) return@hookBefore
 
-                    val callingUid = param.args.first { it is Int } as Int
+                    val callingUid = param.args.firstWithType<Int>()
                     if (callingUid == Constants.UID_SYSTEM) return@hookBefore
 
                     val callingApps = getCallingApps(service, callingUid)

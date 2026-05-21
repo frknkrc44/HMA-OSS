@@ -9,6 +9,8 @@ import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.Constants.VENDING_PACKAGE_NAME
 import icu.nullptr.hidemyapplist.common.OSUtils
 import icu.nullptr.hidemyapplist.common.Utils
+import icu.nullptr.hidemyapplist.common.CollectionUtils.firstOrNullWithType
+import icu.nullptr.hidemyapplist.common.CollectionUtils.lastWithType
 import org.frknkrc44.hma_oss.zygote.service.BulkHooker
 import org.frknkrc44.hma_oss.zygote.service.HMAService
 import org.frknkrc44.hma_oss.zygote.service.HMAServiceCache
@@ -116,8 +118,8 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                 ) { param ->
                     applyPackageHiding(
                         param.methodName,
-                        { param.args.firstOrNull { it is Int } as? Int },
-                        { param.args.firstOrNull { it is String } as? String },
+                        { param.args.firstOrNullWithType() },
+                        { param.args.firstOrNullWithType() },
                         { getCallingApps(service, it) },
                         { param.result = null },
                     )
@@ -129,8 +131,8 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                 ) { param ->
                     applyPackageHiding(
                         param.methodName,
-                        { param.args.firstOrNull { it is Int } as? Int },
-                        { param.args.firstOrNull { it is String } as? String },
+                        { param.args.firstOrNullWithType() },
+                        { param.args.firstOrNullWithType() },
                         { getCallingApps(service, it) },
                         { param.result = null },
                     )
@@ -140,7 +142,7 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                     COMPUTER_ENGINE_CLASS,
                     "isCallerInstallerOfRecord",
                 ) { param ->
-                    val callingUid = param.args.last { it is Int } as Int
+                    val callingUid = param.args.lastWithType<Int>()
 
                     applyInstallerHiding(
                         param.methodName,
@@ -171,8 +173,8 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                 ) { param ->
                     applyInstallerHiding(
                         param.methodName,
-                        { param.args.firstOrNull { it is Int } as? Int ?: Binder.getCallingUid() },
-                        { param.args.firstOrNull { it is String } as? String },
+                        { param.args.firstOrNullWithType() ?: Binder.getCallingUid() },
+                        { param.args.firstOrNullWithType() },
                     ) {
                         when (it) {
                             Constants.FAKE_INSTALLATION_SOURCE_USER -> param.result = VENDING_PACKAGE_NAME

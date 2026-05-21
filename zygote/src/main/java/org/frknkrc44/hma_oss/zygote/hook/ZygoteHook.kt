@@ -1,6 +1,7 @@
 package org.frknkrc44.hma_oss.zygote.hook
 
 import icu.nullptr.hidemyapplist.common.Constants
+import icu.nullptr.hidemyapplist.common.CollectionUtils.lastOrNullWithType
 import org.frknkrc44.hma_oss.zygote.service.BulkHooker
 import org.frknkrc44.hma_oss.zygote.service.HMAService
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
@@ -20,7 +21,7 @@ class ZygoteHook(private val service: HMAService) : IFrameworkHook {
             val gIDsIndex = param.args.indexOfFirst { it is IntArray }
             if (gIDsIndex < 0) return@hookBefore
 
-            val caller = param.args.lastOrNull { it is String } as? String? ?: return@hookBefore
+            val caller = param.args.lastOrNullWithType<String>() ?: return@hookBefore
             var perms = service.getRestrictedZygotePermissions(caller) ?: return@hookBefore
             if (perms.isNotEmpty()) {
                 val gIDs = param.args[gIDsIndex] as IntArray

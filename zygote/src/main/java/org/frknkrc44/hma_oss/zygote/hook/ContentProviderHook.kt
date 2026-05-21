@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import icu.nullptr.hidemyapplist.common.CollectionUtils.firstWithType
 import org.frknkrc44.hma_oss.zygote.service.BulkHooker
 import org.frknkrc44.hma_oss.zygote.service.HMAService
 import org.frknkrc44.hma_oss.zygote.service.HookParam
@@ -156,12 +157,12 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
         }
     }
 
-    private fun getCallingPackages(param: HookParam) = try {
+    private fun getCallingPackages(param: HookParam): Array<String> = try {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            val attrSource = param.args.first { it is AttributionSource } as AttributionSource
-            arrayOf(attrSource.packageName)
+            val attrSource = param.args.firstWithType<AttributionSource>()
+            arrayOf(attrSource.packageName!!)
         } else {
-            arrayOf(param.args.first { it is String } as String)
+            arrayOf(param.args.firstWithType<String>())
         }
     } catch (_: Throwable) {
         ServiceUtils.getCallingApps(service)
