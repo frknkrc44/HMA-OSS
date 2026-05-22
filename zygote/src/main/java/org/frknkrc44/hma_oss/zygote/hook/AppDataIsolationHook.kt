@@ -139,6 +139,7 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
 
                     if (apps.any { service.isAppDataIsolationExcluded(it) }) {
                         param.result = false
+                        return@hookAfter
                     }
 
                     if (service.config.skipSystemAppDataIsolation) {
