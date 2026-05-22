@@ -295,6 +295,12 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
     fun isHookEnabled(packageName: String?) = config.scope.containsKey(packageName)
 
+    fun isAnySettingsReplacementsEnabled(packageName: String?): Boolean {
+        return config.scope[packageName]?.let {
+            it.applySettingsPresets.isNotEmpty() || it.applySettingTemplates.isNotEmpty()
+        } ?: false
+    }
+
     fun isAppDataIsolationExcluded(packageName: String?): Boolean {
         if (packageName.isNullOrBlank()) return false
 

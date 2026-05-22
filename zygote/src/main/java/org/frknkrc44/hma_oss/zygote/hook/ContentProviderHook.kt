@@ -31,7 +31,7 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
             ) { param ->
                 val callingApps = getCallingPackages(param)
 
-                val caller = callingApps.firstOrNull { service.isHookEnabled(it) }
+                val caller = callingApps.firstOrNull { service.isAnySettingsReplacementsEnabled(it) }
                 if (caller == null) return@hookAfter
 
                 val uriIdx = param.args.indexOfFirst { it is Uri }
@@ -86,6 +86,8 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
                         return@hookAfter
                     }
 
+                    var filteredEntryCount = 0
+
                     while (result.moveToNext()) {
                         val name = result.getString(columns.keys.indexOf("name"))
                         keyColumn.add(name)
@@ -94,7 +96,7 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
                         val value = if (replacement != null) {
                             logD(TAG) { "@spoofSettings QUERY $name in $database replaced for $caller" }
 
-                            service.increaseSettingsFilterCount(caller)
+                            filteredEntryCount++
 
                             replacement.value
                         } else {
@@ -111,6 +113,8 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
                             }
                         }
                     }
+
+                    service.increaseSettingsFilterCount(caller, filteredEntryCount)
 
                     param.result = MatrixCursor(columns.keys.toTypedArray(), columns.size).apply {
                         val size = columns.values.first().size
@@ -132,7 +136,7 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
                 "call",
             ) { param ->
                 val callingApps = getCallingPackages(param)
-                val caller = callingApps.firstOrNull { service.isHookEnabled(it) }
+                val caller = callingApps.firstOrNull { service.isAnySettingsReplacementsEnabled(it) }
                 if (caller == null) return@hookBefore
 
                 val nameIdx = param.args.indexOfLast { it is String }
