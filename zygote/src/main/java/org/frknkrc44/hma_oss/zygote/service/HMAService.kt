@@ -295,17 +295,12 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
     fun isHookEnabled(packageName: String?) = config.scope.containsKey(packageName)
 
-    fun isAnySettingsReplacementsEnabled(packageName: String?): Boolean {
-        return config.scope[packageName]?.let {
-            it.applySettingsPresets.isNotEmpty() || it.applySettingTemplates.isNotEmpty()
-        } ?: false
-    }
+    fun isAnySettingsReplacementsEnabled(packageName: String?) = config.scope[packageName]?.let {
+        it.applySettingsPresets.isNotEmpty() || it.applySettingTemplates.isNotEmpty()
+    } ?: false
 
-    fun isAppDataIsolationExcluded(packageName: String?): Boolean {
-        if (packageName.isNullOrBlank()) return false
-
-        return config.scope[packageName]?.excludeVoldIsolation ?: false
-    }
+    fun isAppDataIsolationExcluded(packageName: String?) =
+        config.scope[packageName]?.excludeVoldIsolation ?: false
 
     fun getSpoofedSetting(caller: String?, name: String?, database: String): ReplacementItem? {
         if (caller == null || name == null) return null
@@ -329,12 +324,10 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     }
 
     fun getEnabledSettingsTemplates(caller: String?): Set<String> {
-        if (caller == null) return setOf()
         return config.scope[caller]?.applySettingTemplates ?: return setOf()
     }
 
     fun getEnabledSettingsPresets(caller: String?): Set<String> {
-        if (caller == null) return setOf()
         return config.scope[caller]?.applySettingsPresets ?: return setOf()
     }
 
