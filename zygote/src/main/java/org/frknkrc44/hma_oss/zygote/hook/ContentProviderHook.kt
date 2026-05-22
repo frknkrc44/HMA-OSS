@@ -36,15 +36,18 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
 
                 val uriIdx = param.args.indexOfFirst { it is Uri }
                 val uri = param.args[uriIdx] as Uri
-                val projection = param.args[uriIdx + 1] as Array<String>?
-                val args = param.args[uriIdx + 2] as Bundle?
 
                 if (uri.authority != "settings") return@hookAfter
 
                 val segments = uri.pathSegments
                 if (segments.isEmpty()) return@hookAfter
 
-                logD(TAG) { "@spoofSettings QUERY in ${callingApps.contentToString()}: $uri, ${projection?.contentToString()}, $args" }
+                logD(TAG) {
+                    val projection = param.args[uriIdx + 1] as Array<String>?
+                    val args = param.args[uriIdx + 2] as Bundle?
+
+                    "@spoofSettings QUERY in ${callingApps.contentToString()}: $uri, ${projection?.contentToString()}, $args"
+                }
 
                 val database = segments[0]
 
