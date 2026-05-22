@@ -12,10 +12,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dev.androidbroadcast.vbpd.viewBinding
+import icu.nullptr.hidemyapplist.common.CollectionUtils.removeIf
 import icu.nullptr.hidemyapplist.common.Constants.CONFIG_VERSION_NO_SETTINGS
 import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.common.Utils.cleanRemnantsFromConfig
-import icu.nullptr.hidemyapplist.common.CollectionUtils.removeIf
 import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.ui.util.contentResolver
 import icu.nullptr.hidemyapplist.ui.util.navController

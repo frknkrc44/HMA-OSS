@@ -1,20 +1,28 @@
 package org.frknkrc44.hma_oss.zygote.util
 
 import android.app.ActivityThread
+import android.content.Context.USER_SERVICE
+import android.content.pm.IPackageManager
 import android.os.Binder
 import android.os.Build
 import android.os.IBinder
+import android.os.IUserManager
 import android.os.ServiceManager
 import com.android.apksig.ApkVerifier
 import com.v7878.unsafe.Reflection.getDeclaredMethod
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.Utils
+import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
 import org.frknkrc44.hma_oss.common.BuildConfig
 import org.frknkrc44.hma_oss.zygote.Magic
 import org.frknkrc44.hma_oss.zygote.service.HMAService
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
+import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
+import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.callMethod
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.callMethodWithTypes
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.findField
+import rikka.hidden.compat.UserManagerApis
 import java.io.File
 
 
@@ -70,7 +78,61 @@ object ServiceUtils {
         } ?: arrayOf()
     }
 
-    fun verifyAppSignature(path: String?): Boolean {
+    fun findAndVerifyAppSignature(pms: IPackageManager): Int {
+        val userService = waitForService(USER_SERVICE)
+
+        try {
+            val userManager = IUserManager.Stub.asInterface(userService)
+            val profiles = mutableSetOf<Int>().also { set ->
+                val userIds = UserManagerApis.getUserIdsNoThrow()
+
+                runCatching {
+                    userIds.forEach {
+                        val profiles = callMethodWithTypes(
+                            userManager,
+                            "getProfileIds",
+                            arrayOf(Int::class.javaPrimitiveType!!, Boolean::class.javaPrimitiveType!!),
+                            arrayOf(it, false),
+                        ) ?: return@forEach
+
+                        (profiles as IntArray).forEach { pId -> set.add(pId) }
+                    }
+                }.onFailure {
+                    set.addAll(userIds)
+                }
+            }
+
+            for (uid in profiles) {
+                logV(TAG) { "@findAndVerifyAppSignature: checking for uid $uid" }
+
+                val pkgInfo = runCatching {
+                    getPackageInfoCompat(pms, BuildConfig.APP_PACKAGE_NAME, 0L, uid)
+                }.getOrNull()
+
+                if (pkgInfo != null) {
+                    if (verifyAppSignature(pkgInfo.applicationInfo?.sourceDir)) {
+                        val appUid = pkgInfo.applicationInfo!!.uid
+
+                        logI(TAG) { "The manager app signature is verified successfully, uid: $appUid" }
+
+                        return appUid
+                    } else {
+                        throw AssertionError("The manager app is modified, skipping")
+                    }
+                }
+            }
+        } catch (e: Throwable) {
+            logE(TAG, e) { "Fatal: Cannot get package details\nCompile this app from source with your changes" }
+
+            return -1
+        }
+
+        logE(TAG) { "The manager app is not found, skipping" }
+
+        return -1
+    }
+
+    private fun verifyAppSignature(path: String?): Boolean {
         if (path == null) return false
 
         val verifier = ApkVerifier.Builder(File(path))

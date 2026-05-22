@@ -77,6 +77,14 @@ object ZLUtils {
         field.setBoolean(obj, value)
     }
 
+    fun callMethodWithTypes(obj: Any, name: String, types: Array<Class<*>>, args: Array<Any>): Any? {
+        return getDeclaredMethod(
+            obj.javaClass,
+            name,
+            *types,
+        ).apply { isAccessible = true }.invoke(obj, *args)
+    }
+
     fun callMethod(obj: Any, name: String, vararg args: Any): Any? {
         return getDeclaredMethod(
             obj.javaClass,

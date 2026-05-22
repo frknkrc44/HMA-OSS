@@ -5,12 +5,12 @@ import android.os.Binder
 import android.os.Build
 import android.os.UserHandle
 import android.util.ArrayMap
+import icu.nullptr.hidemyapplist.common.CollectionUtils.firstOrNullWithType
+import icu.nullptr.hidemyapplist.common.CollectionUtils.lastWithType
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.Constants.VENDING_PACKAGE_NAME
 import icu.nullptr.hidemyapplist.common.OSUtils
 import icu.nullptr.hidemyapplist.common.Utils
-import icu.nullptr.hidemyapplist.common.CollectionUtils.firstOrNullWithType
-import icu.nullptr.hidemyapplist.common.CollectionUtils.lastWithType
 import org.frknkrc44.hma_oss.zygote.service.BulkHooker
 import org.frknkrc44.hma_oss.zygote.service.HMAService
 import org.frknkrc44.hma_oss.zygote.service.HMAServiceCache

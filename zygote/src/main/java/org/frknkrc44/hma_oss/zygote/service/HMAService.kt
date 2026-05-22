@@ -12,6 +12,7 @@ import android.os.UserHandle
 import android.provider.Settings
 import android.util.Log
 import icu.nullptr.hidemyapplist.common.AppPresets
+import icu.nullptr.hidemyapplist.common.CollectionUtils.removeIf
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.Constants.PARCEL_TYPE_CONFIG
 import icu.nullptr.hidemyapplist.common.Constants.PARCEL_TYPE_LOG
@@ -26,7 +27,6 @@ import icu.nullptr.hidemyapplist.common.Utils.generateRandomString
 import icu.nullptr.hidemyapplist.common.Utils.getInstalledApplicationsCompat
 import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
 import icu.nullptr.hidemyapplist.common.Utils.getPackageUidCompat
-import icu.nullptr.hidemyapplist.common.CollectionUtils.removeIf
 import icu.nullptr.hidemyapplist.common.app_presets.DetectorAppsPreset
 import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
 import org.frknkrc44.hma_oss.common.BuildConfig
@@ -49,7 +49,7 @@ import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logW
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logWithLevel
-import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.verifyAppSignature
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.findAndVerifyAppSignature
 import rikka.hidden.compat.ActivityManagerApis
 import rikka.hidden.compat.UserManagerApis
 import java.io.File
@@ -495,14 +495,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
             when (eventType) {
                 Intent.ACTION_PACKAGE_ADDED -> {
                     if (packageName == BuildConfig.APP_PACKAGE_NAME && appUid < 0) {
-                        val pkgInfo = getPackageInfoCompat(pms, packageName, 0L, 0)
-                        if (verifyAppSignature(pkgInfo?.applicationInfo?.sourceDir)) {
-                            logI(TAG) { "The manager app signature is verified successfully" }
-                            appUid = pkgInfo!!.applicationInfo!!.uid
-                        } else {
-                            logE(TAG) { "The manager app itself is modified, skipping" }
-                            appUid = -1
-                        }
+                        appUid = findAndVerifyAppSignature(pms)
                     }
 
                     handlePackageAdded(pms, packageName)
@@ -514,8 +507,9 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
                     }
 
                     if (packageName == BuildConfig.APP_PACKAGE_NAME && appUid >= 0) {
-                        logI(TAG) { "The manager app is uninstalled" }
-                        appUid = -1
+                        logI(TAG) { "The manager app is uninstalled, looking for alternatives" }
+
+                        appUid = findAndVerifyAppSignature(pms)
                     }
 
                     handlePackageRemoved(packageName)

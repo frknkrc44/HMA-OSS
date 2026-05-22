@@ -5,13 +5,12 @@ import android.content.pm.IPackageManager
 import android.os.Build
 import android.os.Bundle
 import icu.nullptr.hidemyapplist.common.Constants
-import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
 import org.frknkrc44.hma_oss.common.BuildConfig
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
-import org.frknkrc44.hma_oss.zygote.util.ServiceUtils
-import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.verifyAppSignature
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.findAndVerifyAppSignature
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.waitForService
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getStaticIntField
 import rikka.hidden.compat.ActivityManagerApis
 import rikka.hidden.compat.adapter.UidObserverAdapter
@@ -32,7 +31,11 @@ object UserService {
             }
 
             try {
-                val provider = ActivityManagerApis.getContentProviderExternal(Constants.PROVIDER_AUTHORITY, 0, null, null)
+                val userId = uid / 100000
+
+                logD(TAG) { "Calculated user id: $userId" }
+
+                val provider = ActivityManagerApis.getContentProviderExternal(Constants.PROVIDER_AUTHORITY, userId, null, null)
                 assert (provider != null) {
                     "Failed to get provider"
                 }
@@ -60,27 +63,9 @@ object UserService {
     fun register(pms: IPackageManager, pmn: Any?) {
         logI(TAG) { "Initialize HMAService - Version ${BuildConfig.APP_VERSION_NAME}" }
 
-        var appUid = -1
+        val appUid = findAndVerifyAppSignature(pms)
 
-        try {
-            val pkgInfo = getPackageInfoCompat(pms, BuildConfig.APP_PACKAGE_NAME, 0L, 0)
-            if (pkgInfo != null) {
-                if (verifyAppSignature(pkgInfo.applicationInfo?.sourceDir)) {
-                    logI(TAG) { "The manager app signature is verified successfully" }
-                    appUid = pkgInfo.applicationInfo!!.uid
-                } else {
-                    throw AssertionError("The manager app is modified, skipping")
-                }
-            }
-            assert(appUid >= 0) {
-                "App UID cannot be -1 or lower"
-            }
-            logD(TAG) { "Client uid: $appUid" }
-        } catch (e: Throwable) {
-            logE(TAG, e) { "Fatal: Cannot get package details\nCompile this app from source with your changes" }
-        }
-
-        ServiceUtils.waitForService("activity")
+        waitForService("activity")
         ActivityManagerApis.registerUidObserver(
             uidObserver,
             getActMgrField("UID_OBSERVER_ACTIVE"),

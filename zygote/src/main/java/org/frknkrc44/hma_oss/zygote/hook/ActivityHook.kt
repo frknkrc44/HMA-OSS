@@ -3,10 +3,10 @@ package org.frknkrc44.hma_oss.zygote.hook
 import android.content.Intent
 import android.content.pm.ResolveInfo
 import android.os.Build
+import icu.nullptr.hidemyapplist.common.CollectionUtils.firstWithType
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.OSUtils
 import icu.nullptr.hidemyapplist.common.Utils
-import icu.nullptr.hidemyapplist.common.CollectionUtils.firstWithType
 import org.frknkrc44.hma_oss.zygote.service.BulkHooker
 import org.frknkrc44.hma_oss.zygote.service.HMAService
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
