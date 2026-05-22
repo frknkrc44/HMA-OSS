@@ -81,6 +81,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     private val frameworkHooks = mutableSetOf<IFrameworkHook>()
     val executor: ExecutorService = Executors.newSingleThreadExecutor()
     internal var appUid = 0
+        private set
 
     var config = JsonConfig().apply { detailLog = true }
         private set
@@ -102,6 +103,8 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
             logWithLevel(level, "AppPresets") { msg }
         }
         reloadPresetsFromScratch()
+
+        appUid = findAndVerifyAppSignature(pms)
     }
 
     private fun searchDataDir() {

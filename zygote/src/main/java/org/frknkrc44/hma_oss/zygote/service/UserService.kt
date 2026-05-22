@@ -9,7 +9,6 @@ import org.frknkrc44.hma_oss.common.BuildConfig
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
-import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.findAndVerifyAppSignature
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.waitForService
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getStaticIntField
 import rikka.hidden.compat.ActivityManagerApis
@@ -63,8 +62,6 @@ object UserService {
     fun register(pms: IPackageManager, pmn: Any?) {
         logI(TAG) { "Initialize HMAService - Version ${BuildConfig.APP_VERSION_NAME}" }
 
-        val appUid = findAndVerifyAppSignature(pms)
-
         waitForService("activity")
         ActivityManagerApis.registerUidObserver(
             uidObserver,
@@ -75,8 +72,8 @@ object UserService {
 
         logI(TAG) { "Registered observer" }
 
-        val service = HMAService(pms, pmn)
-        service.appUid = appUid
+        // no need to put in a variable
+        HMAService(pms, pmn)
     }
 
     private fun getActMgrField(name: String) = getStaticIntField(
