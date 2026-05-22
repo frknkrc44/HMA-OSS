@@ -18,14 +18,11 @@ object UserService {
 
     private const val TAG = "HMA-UserService"
 
+    private val managerAppUid get() = HMAService.instance?.appUid ?: -1
+
     private val uidObserver = object : UidObserverAdapter() {
         override fun onUidActive(uid: Int) {
-            if (HMAService.instance == null) {
-                logE(TAG) { "HMAService instance is not available, maybe stopped" }
-                return
-            }
-
-            if (HMAService.instance!!.appUid < 0 || uid != HMAService.instance?.appUid) {
+            if (managerAppUid < 0 || uid != managerAppUid) {
                 return
             }
 
