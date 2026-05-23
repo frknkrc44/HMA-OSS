@@ -35,11 +35,11 @@ import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import icu.nullptr.hidemyapplist.ui.util.showToast
 import icu.nullptr.hidemyapplist.ui.util.withAnimations
 import icu.nullptr.hidemyapplist.util.ConfigUtils.Companion.getLocale
-import icu.nullptr.hidemyapplist.util.LangList
 import icu.nullptr.hidemyapplist.util.PackageHelper.findEnabledAppComponent
 import icu.nullptr.hidemyapplist.util.SuUtils
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import org.frknkrc44.hma_oss.BuildConfig
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentSettingsBinding
 import org.frknkrc44.hma_oss.ui.activity.MainActivity
@@ -257,7 +257,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
             findPreference<ListPreference>("language")?.let {
                 val userLocale = getLocale()
                 val entries = buildList {
-                    for (lang in LangList.LOCALES) {
+                    for (lang in BuildConfig.SUPPORTED_LOCALES) {
                         if (lang == "SYSTEM") add(getString(R.string.follow_system))
                         else {
                             val locale = Locale.forLanguageTag(lang)
@@ -266,7 +266,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                     }
                 }
                 it.entries = entries.toTypedArray()
-                it.entryValues = LangList.LOCALES
+                it.entryValues = BuildConfig.SUPPORTED_LOCALES
                 if (it.value == "SYSTEM") {
                     it.summary = getString(R.string.follow_system)
                 } else {

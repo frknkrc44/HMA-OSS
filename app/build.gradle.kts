@@ -6,7 +6,6 @@ import java.net.URL
 
 plugins {
     alias(libs.plugins.agp.app)
-    alias(libs.plugins.autoresconfig)
     alias(libs.plugins.refine)
     alias(libs.plugins.kotlin)
     alias(libs.plugins.kotlin.serialization)
@@ -116,6 +115,10 @@ afterEvaluate {
 android {
     namespace = appPackageName
 
+    defaultConfig {
+        buildConfigField("String[]", "SUPPORTED_LOCALES", generateSupportedLocales())
+    }
+
     buildFeatures {
         buildConfig = true
         viewBinding = true
@@ -142,11 +145,34 @@ kotlin {
     jvmToolchain(21)
 }
 
-autoResConfig {
-    generateClass.set(true)
-    generateRes.set(false)
-    generatedClassFullName.set("icu.nullptr.hidemyapplist.util.LangList")
-    generatedArrayFirstItem.set("SYSTEM")
+// Inspired from https://github.com/XayahSuSuSu/Android-DataBackup/pull/260
+fun generateSupportedLocales(): String {
+    val foundLocales = StringBuilder()
+    foundLocales.append("new String[]{")
+
+    fun appendLangCode(code: String) {
+        foundLocales.append("\"").append(code).append("\"").append(",")
+    }
+
+    appendLangCode("SYSTEM")
+
+    fileTree(android.sourceSets["main"].res.srcDirs.first()).files.mapNotNull {
+        if (it.name == "strings.xml") {
+            val baseName = it.parent.substringAfterLast(File.separator)
+            if (baseName == "values") {
+                "en"
+            } else {
+                baseName.substringAfter('-')
+                    .replace("-r", "-")
+            }
+        } else {
+            null
+        }
+    }.sortedWith { file1, file2 ->
+        file1.compareTo(file2)
+    }.forEach { appendLangCode(it) }
+
+    return "${foundLocales.removeSuffix(",")}}"
 }
 
 dependencies {
