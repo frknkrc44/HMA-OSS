@@ -52,17 +52,23 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
                 PROCESS_LIST_CLASS,
                 "startProcess",
             ) { param ->
+                val processListClazz = runCatching {
+                    Class.forName(PROCESS_LIST_CLASS, true, SystemServerHook.classLoader)
+                }.getOrNull()
+
                 if (service.config.altAppDataIsolation) {
                     val isEnabled = getBooleanField(
                         param.thisObject,
                         APPDATA_ISOLATION_ENABLED,
+                        processListClazz,
                     )
 
                     if (!isEnabled) {
                         setBooleanField(
                             param.thisObject,
                             APPDATA_ISOLATION_ENABLED,
-                            true
+                            true,
+                            processListClazz,
                         )
 
                         logI(TAG) { "ProcessList - App data isolation is forced" }
@@ -78,14 +84,16 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
                     } else {
                         val isolationEnabled = getBooleanField(
                             param.thisObject,
-                            VOLD_APPDATA_ISOLATION_ENABLED
+                            VOLD_APPDATA_ISOLATION_ENABLED,
+                            processListClazz,
                         )
 
                         if (!isolationEnabled) {
                             setBooleanField(
                                 param.thisObject,
                                 VOLD_APPDATA_ISOLATION_ENABLED,
-                                true
+                                true,
+                                processListClazz,
                             )
 
                             logI(TAG) { "ProcessList - Vold app data isolation is forced" }
@@ -169,14 +177,14 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
 
                     val isolationEnabled = getBooleanField(
                         param.thisObject,
-                        VOLD_APPDATA_ISOLATION_ENABLED
+                        VOLD_APPDATA_ISOLATION_ENABLED,
                     )
 
                     if (!isolationEnabled) {
                         setBooleanField(
                             param.thisObject,
                             VOLD_APPDATA_ISOLATION_ENABLED,
-                            true
+                            true,
                         )
 
                         logI(TAG) { "StorageManagerService - Vold app data isolation is forced" }

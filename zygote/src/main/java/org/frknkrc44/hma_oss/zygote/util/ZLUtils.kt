@@ -72,8 +72,8 @@ object ZLUtils {
 
     fun getObjectField(obj: Any, name: String, clazz: Class<*>? = null): Any? = getDeclaredField(clazz ?: obj.javaClass, name).get(obj)
 
-    fun setBooleanField(obj: Any, name: String, value: Boolean) {
-        val field = getDeclaredField(obj.javaClass, name).apply { isAccessible = true }
+    fun setBooleanField(obj: Any, name: String, value: Boolean, clazz: Class<*>? = null) {
+        val field = getDeclaredField(clazz ?: obj.javaClass, name).apply { isAccessible = true }
         field.setBoolean(obj, value)
     }
 
