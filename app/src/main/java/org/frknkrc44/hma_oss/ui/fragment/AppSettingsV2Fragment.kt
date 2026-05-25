@@ -177,7 +177,7 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
         private val pack get() = parent.viewModel.pack
 
         private fun launchMainActivity(packageName: String, userId: Int) {
-            if (userId != 0) {
+            if (userId != PackageHelper.currentUserID) {
                 // TODO: Try to find a method to launch apps across user profiles
                 return
             }
