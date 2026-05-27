@@ -18,6 +18,9 @@ class RootAppsPreset(private val appPresets: AppPresets) : BasePreset(NAME) {
             "\u0000h\u0000k\u0000.\u0000a\u0000l\u0000i\u0000p\u0000a\u0000y\u0000.\u0000w\u0000a\u0000l\u0000l\u0000e\u0000t",
             "\u0000c\u0000o\u0000m\u0000.\u0000t\u0000e\u0000n\u0000c\u0000e\u0000n\u0000t\u0000.\u0000m\u0000m",
             "\u0000c\u0000o\u0000m\u0000.\u0000h\u0000e\u0000y\u0000t\u0000a\u0000p\u0000.",
+
+            // Whitelist the Netmera included Turkish apps
+            "\u0000c\u0000o\u0000m\u0000.\u0000n\u0000e\u0000t\u0000m\u0000e\u0000r\u0000a\u0000.\u0000N\u0000e\u0000t\u0000m\u0000e\u0000r\u0000a",
         )
     }
 
