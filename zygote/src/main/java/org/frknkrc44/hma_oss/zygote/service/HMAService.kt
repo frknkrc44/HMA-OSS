@@ -27,7 +27,6 @@ import icu.nullptr.hidemyapplist.common.Utils.generateRandomString
 import icu.nullptr.hidemyapplist.common.Utils.getInstalledApplicationsCompat
 import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
 import icu.nullptr.hidemyapplist.common.Utils.getPackageUidCompat
-import icu.nullptr.hidemyapplist.common.app_presets.DetectorAppsPreset
 import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
 import org.frknkrc44.hma_oss.common.BuildConfig
 import org.frknkrc44.hma_oss.zygote.hook.AccessibilityHook
@@ -357,8 +356,8 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
             val preset = AppPresets.instance.getPresetByName(presetName) ?: continue
 
             if (preset.containsPackage(query)) {
-                // Do not hide detector apps from Play Store if they are connected to GMS
-                val overriddenCaller = if (presetName == DetectorAppsPreset.NAME && caller == Constants.VENDING_PACKAGE_NAME) {
+                // Do not hide apps from Play Store if they are connected to GMS
+                val overriddenCaller = if (caller == Constants.VENDING_PACKAGE_NAME) {
                     Constants.GMS_PACKAGE_NAME
                 } else {
                     caller
