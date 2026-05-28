@@ -3,7 +3,6 @@ package icu.nullptr.hidemyapplist.common
 import android.content.pm.ApplicationInfo
 import android.content.pm.IPackageManager
 import android.util.Log
-import icu.nullptr.hidemyapplist.common.RiskyPackageUtils.ignoredForRiskyPackagesList
 import icu.nullptr.hidemyapplist.common.RiskyPackageUtils.tryToAddIntoGMSConnectionList
 import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
 import icu.nullptr.hidemyapplist.common.app_presets.AccessibilityAppsPreset
@@ -56,7 +55,7 @@ class AppPresets private constructor() {
     fun getPresetByName(name: String) = presetList.firstOrNull { it.name == name }
 
     fun reloadPresets(appsList: List<ApplicationInfo>) {
-        ignoredForRiskyPackagesList.clear()
+        RiskyPackageUtils.clearAppList()
         presetList.forEach { it.clearPackageList() }
 
         for (appInfo in appsList) {
@@ -135,7 +134,7 @@ class AppPresets private constructor() {
             }
         }
 
-        if (ignoredForRiskyPackagesList.remove(packageName))
+        if (RiskyPackageUtils.removeAppFromList(packageName))
             itWasInAList = true
 
         if (itWasInAList)
