@@ -5,6 +5,7 @@ import android.content.pm.IPackageManager
 import android.os.Build
 import android.os.Bundle
 import icu.nullptr.hidemyapplist.common.Constants
+import icu.nullptr.hidemyapplist.common.Utils.getUserFromCallingUid
 import org.frknkrc44.hma_oss.common.BuildConfig
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
@@ -27,7 +28,7 @@ object UserService {
             }
 
             try {
-                val userId = uid / 100000
+                val userId = getUserFromCallingUid(uid)
 
                 logD(TAG) { "Calculated user id: $userId" }
 

@@ -3,7 +3,6 @@ package org.frknkrc44.hma_oss.zygote.hook
 import android.content.pm.PackageManager
 import android.os.Binder
 import android.os.Build
-import android.os.UserHandle
 import android.util.ArrayMap
 import icu.nullptr.hidemyapplist.common.CollectionUtils.firstOrNullWithType
 import icu.nullptr.hidemyapplist.common.CollectionUtils.lastWithType
@@ -11,6 +10,7 @@ import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.Constants.VENDING_PACKAGE_NAME
 import icu.nullptr.hidemyapplist.common.OSUtils
 import icu.nullptr.hidemyapplist.common.Utils
+import icu.nullptr.hidemyapplist.common.Utils.getUserFromCallingUid
 import org.frknkrc44.hma_oss.zygote.service.BulkHooker
 import org.frknkrc44.hma_oss.zygote.service.HMAService
 import org.frknkrc44.hma_oss.zygote.service.HMAServiceCache
@@ -277,12 +277,12 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
         if (callingUid == Constants.UID_SYSTEM) return
 
         val callingApps = getCallingApps(service, callingUid)
-        val callingHandle = UserHandle.getUserHandleForUid(callingUid)
+        val callingUser = getUserFromCallingUid(callingUid)
 
         val query = findTargetApp() ?: return
 
         for (caller in callingApps) {
-            val isHide = service.shouldHideInstallationSource(caller, query, callingHandle)
+            val isHide = service.shouldHideInstallationSource(caller, query, callingUser)
             if (isHide == Constants.FAKE_INSTALLATION_SOURCE_DISABLED) continue
 
             logD(TAG) { "@$methodName: Applied installer hiding for $caller - $callingUid => $isHide" }

@@ -107,4 +107,6 @@ object Utils {
             app.applySettingsPresets.removeIf { it !in SettingsPresets.instance.presetNames }
         }
     }
+
+    fun getUserFromCallingUid(uid: Int) = uid / 100000
 }

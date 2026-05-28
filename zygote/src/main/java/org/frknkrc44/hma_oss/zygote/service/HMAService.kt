@@ -8,7 +8,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.ParcelFileDescriptor
 import android.os.RemoteException
-import android.os.UserHandle
 import android.provider.Settings
 import android.util.Log
 import icu.nullptr.hidemyapplist.common.AppPresets
@@ -388,7 +387,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         return false
     }
 
-    fun shouldHideInstallationSource(caller: String?, query: String?, callingHandle: UserHandle): Int {
+    fun shouldHideInstallationSource(caller: String?, query: String?, callingUser: Int): Int {
         if (caller == null || query == null) return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
         if (caller == BuildConfig.APP_PACKAGE_NAME) return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
         val appConfig = config.scope[caller] ?: return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
@@ -397,11 +396,11 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         if (caller == query && appConfig.excludeTargetInstallationSource) return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
 
         try {
-            val uid = getPackageUidCompat(pms, query, 0L, callingHandle.hashCode())
-            logD(TAG) { "@shouldHideInstallationSource UID for $caller, ${callingHandle.hashCode()}: $query, $uid" }
+            val uid = getPackageUidCompat(pms, query, 0L, callingUser)
+            logD(TAG) { "@shouldHideInstallationSource UID for $caller, ${callingUser}: $query, $uid" }
             if (uid < 0) return Constants.FAKE_INSTALLATION_SOURCE_DISABLED // invalid package installation source request
         } catch (e: Throwable) {
-            logD(TAG, e) { "@shouldHideInstallationSource UID error for $caller, ${callingHandle.hashCode()}" }
+            logD(TAG, e) { "@shouldHideInstallationSource UID error for $caller, $callingUser" }
             return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
         }
 
