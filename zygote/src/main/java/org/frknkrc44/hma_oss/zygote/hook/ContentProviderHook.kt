@@ -86,13 +86,16 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
                         return@hookAfter
                     }
 
+                    val allSpoofed = service.getAllSpoofedSettings(caller, database) ?: return@hookAfter
+                    if (allSpoofed.isEmpty()) return@hookAfter
+
                     var filteredEntryCount = 0
 
                     while (result.moveToNext()) {
                         val name = result.getString(columns.keys.indexOf("name"))
                         keyColumn.add(name)
 
-                        val replacement = service.getSpoofedSetting(caller, name, database)
+                        val replacement = allSpoofed.firstOrNull { it.name == name }
                         val value = if (replacement != null) {
                             logD(TAG) { "@spoofSettings QUERY $name in $database replaced for $caller" }
 
@@ -105,11 +108,30 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
 
                         valueColumn.add(value)
 
-                        if (columns.keys.size > 2) {
+                        if (columns.size > 2) {
                             for (otherCol in columns.keys.filter { it !in NV_PAIR }) {
                                 val other = result.getString(columns.keys.indexOf(otherCol))
 
                                 columns[otherCol]!!.add(other)
+                            }
+                        }
+                    }
+
+                    // we cannot provide info about other columns for non-existent items
+                    if (columns.size == 2) {
+                        allSpoofed.forEach { item ->
+                            if (item.name !in keyColumn) {
+                                val putIndex = keyColumn.indexOfFirst { key ->
+                                    key?.let { it > item.name } ?: false
+                                }
+
+                                if (putIndex < 0) {
+                                    keyColumn.add(item.name)
+                                    valueColumn.add(item.value)
+                                } else {
+                                    keyColumn.add(putIndex, item.name)
+                                    valueColumn.add(putIndex, item.value)
+                                }
                             }
                         }
                     }

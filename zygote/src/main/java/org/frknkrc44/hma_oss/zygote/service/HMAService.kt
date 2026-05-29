@@ -321,6 +321,46 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         return null
     }
 
+    fun getAllSpoofedSettings(caller: String?, database: String): List<ReplacementItem>? {
+        if (caller == null) return null
+
+        val returnedSet = mutableListOf<ReplacementItem>()
+
+        fun overwriteExistingItem(newItem: ReplacementItem) {
+            val indexOf = returnedSet.indexOfFirst { it.name == newItem.name }
+            if (indexOf < 0) {
+                returnedSet.add(newItem)
+            } else {
+                returnedSet[indexOf] = newItem
+            }
+        }
+
+        val presets = getEnabledSettingsPresets(caller)
+        if (presets.isNotEmpty()) {
+            presets.forEach { name ->
+                val preset = SettingsPresets.instance.getPresetByName(name)
+                preset?.settingsKVPairs?.forEach {
+                    if (database == it.database) {
+                        overwriteExistingItem(it)
+                    }
+                }
+            }
+        }
+
+        val templates = getEnabledSettingsTemplates(caller)
+        if (templates.isNotEmpty()) {
+            templates.forEach { name ->
+                config.settingsTemplates[name]?.settingsList?.forEach {
+                    if (database == it.database) {
+                        overwriteExistingItem(it)
+                    }
+                }
+            }
+        }
+
+        return returnedSet
+    }
+
     fun getEnabledSettingsTemplates(caller: String?): Set<String> {
         return config.scope[caller]?.applySettingTemplates ?: return setOf()
     }
