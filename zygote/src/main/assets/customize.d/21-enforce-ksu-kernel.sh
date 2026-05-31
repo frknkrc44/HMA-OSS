@@ -1,14 +1,13 @@
 #!/system/bin/sh
 
-# Enforce kernelsu kernel and manager version matched
-
+# Enforce kernelsu kernel and manager version matched and zygisk framework is installed
 
 if [ "$KSU" ]; then
     # get language
     [ -z "$SYSTEM_LANG" ] && SYSTEM_LANG=$(getprop persist.sys.locale)
     [ -z "$SYSTEM_LANG" ] && SYSTEM_LANG=$(getprop persist.sys.language)
     [ -z "$SYSTEM_LANG" ] && SYSTEM_LANG=$(settings get system system_locales)
-    
+
     # language pack
     if echo "$SYSTEM_LANG" | grep -q "zh"; then
         KSU_DETECTED_MSG="- 正在通过 KernelSU 安装..."
