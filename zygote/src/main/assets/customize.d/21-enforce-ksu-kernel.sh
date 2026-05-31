@@ -18,6 +18,9 @@ if [ "$KSU" ]; then
         ZYGISK_DISABLED_ERR(){
             echo "! $1 已禁用, 此模块需要 Zygisk 才能正常运行, 安装程序已退出"
         }
+        ZYGISK_REMOVED_ERR(){
+            echo "! $1 已卸载, 此模块需要 Zygisk 才能正常运行, 安装程序已退出"
+        }
         ZYGISK_MULTI_ERR="! 检测到多个 Zygisk 框架, 为了避免冲突, 安装程序已退出"
         ZYGISK_NOT_FOUND_ERR="! 未找到已知的 Zygisk 框架 (例如 ZygiskNext), 此模块需要 Zygisk 才能正常运行, 安装程序已退出"
     else
@@ -28,6 +31,9 @@ if [ "$KSU" ]; then
         }
         ZYGISK_DISABLED_ERR(){
             echo "! $1 disabled, this module requires Zygisk to work. Installation aborted."
+        }
+        ZYGISK_REMOVED_ERR(){
+            echo "! $1 removed, this module requires Zygisk to work. Installation aborted."
         }
         ZYGISK_MULTI_ERR="! Multiple Zygisk frameworks detected. Aborting installation to prevent conflicts."
         ZYGISK_NOT_FOUND_ERR="! No known Zygisk frameworks (such as ZygiskNext) is found, this module requires Zygisk to work. Installation aborted."
@@ -41,7 +47,9 @@ if [ "$KSU" ]; then
         if [ -d "/data/adb/modules/$1" ] || [ -d "/data/adb/modules_update/$1" ]; then
             if ! [ -z "$ZYGISK_ID" ]; then
                 [ -f "/data/adb/modules/$1/disable" ] && return
+                [ -f "/data/adb/modules/$1/remove" ] && return
                 ! [ -f "/data/adb/modules/$ZYGISK_ID/disable" ] && abort "$ZYGISK_MULTI_ERR"
+                ! [ -f "/data/adb/modules/$ZYGISK_ID/remove" ] && abort "$ZYGISK_MULTI_ERR"
             fi
             ZYGISK_ID="$1"
             ZYGISK_NAME="$2"
@@ -58,6 +66,8 @@ if [ "$KSU" ]; then
         abort "$ZYGISK_NOT_FOUND_ERR"
     elif [ -f "/data/adb/modules/$ZYGISK_ID/disable" ]; then
         abort "$(ZYGISK_DISABLED_ERR "$ZYGISK_NAME")"
+    elif [ -f "/data/adb/modules/$ZYGISK_ID/remove" ]; then
+        abort "$(ZYGISK_REMOVED_ERR "$ZYGISK_NAME")"
     else
         ui_print "$(ZYGISK_DETECTED_MSG "$ZYGISK_NAME")"
     fi
