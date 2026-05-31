@@ -4,22 +4,22 @@
 
 if [ "$KSU" ]; then
     # get language
-    [ -z "$SYSTEM_LANG" ] && SYSTEM_LANG=$(getprop persist.sys.locale)
-    [ -z "$SYSTEM_LANG" ] && SYSTEM_LANG=$(getprop persist.sys.language)
-    [ -z "$SYSTEM_LANG" ] && SYSTEM_LANG=$(settings get system system_locales)
+    [ -z "$SYSTEM_LANG" ] && SYSTEM_LANG=$(getprop persist.sys.locale 2>/dev/null)
+    [ -z "$SYSTEM_LANG" ] && SYSTEM_LANG=$(getprop persist.sys.language 2>/dev/null)
+    [ -z "$SYSTEM_LANG" ] && SYSTEM_LANG=$(settings get system system_locales 2>/dev/null)
 
     # language pack
     if echo "$SYSTEM_LANG" | grep -q "zh"; then
         KSU_DETECTED_MSG="- 检测到 KernelSU"
         KSU_VERSION_MISMATCH_ERR="! KernelSU 管理器版本 ($KSU_VER_CODE) 与 内核版本 ($KSU_KERNEL_VER_CODE) 不匹配"
         ZYGISK_DETECTED_MSG(){
-            ui_print "- 检测到 $1 框架"
+            echo "- 检测到 $1 框架"
         }
         ZYGISK_DISABLED_ERR(){
-            ui_print "! $1 已禁用, 此模块需要 Zygisk 才能正常运行, 安装程序已退出"
+            echo "! $1 已禁用, 此模块需要 Zygisk 才能正常运行, 安装程序已退出"
         }
         ZYGISK_REMOVED_ERR(){
-            ui_print "! $1 已卸载, 此模块需要 Zygisk 才能正常运行, 安装程序已退出"
+            echo "! $1 已卸载, 此模块需要 Zygisk 才能正常运行, 安装程序已退出"
         }
         ZYGISK_MULTI_ERR="! 检测到多个 Zygisk 框架, 为了避免冲突, 安装程序已退出"
         ZYGISK_NOT_FOUND_ERR="! 未找到已知的 Zygisk 框架 (例如 ZygiskNext), 此模块需要 Zygisk 才能正常运行, 安装程序已退出"
@@ -27,15 +27,15 @@ if [ "$KSU" ]; then
         KSU_DETECTED_MSG="- KernelSU found."
         KSU_VERSION_MISMATCH_ERR="! KernelSU manager version ($KSU_VER_CODE) and kernel version ($KSU_KERNEL_VER_CODE) mismatch."
         ZYGISK_DETECTED_MSG(){
-            ui_print "- Found $1 framework."
+            echo "- Found $1 framework."
         }
         ZYGISK_DISABLED_ERR(){
-            ui_print "! $1 has been disabled, this module requires Zygisk to work."
-            ui_print "Installation aborted."
+            echo "! $1 has been disabled, this module requires Zygisk to work."
+            echo "Installation aborted."
         }
         ZYGISK_REMOVED_ERR(){
-            ui_print "! $1 has been removed, this module requires Zygisk to work."
-            ui_print "Installation aborted."
+            echo "! $1 has been removed, this module requires Zygisk to work."
+            echo "Installation aborted."
         }
         ZYGISK_MULTI_ERR="! Multiple Zygisk frameworks were found. Aborting installation to prevent conflicts."
         ZYGISK_NOT_FOUND_ERR="! No known Zygisk frameworks (such as ZygiskNext) is found, this module requires Zygisk to work. Installation aborted."
