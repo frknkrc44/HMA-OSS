@@ -31,11 +31,9 @@ if [ "$KSU" ]; then
         }
         ZYGISK_DISABLED_ERR(){
             echo "! $1 has been disabled, this module requires Zygisk to work."
-            echo "Installation aborted."
         }
         ZYGISK_REMOVED_ERR(){
             echo "! $1 has been removed, this module requires Zygisk to work."
-            echo "Installation aborted."
         }
         ZYGISK_MULTI_ERR="! Multiple Zygisk frameworks were found. Aborting installation to prevent conflicts."
         ZYGISK_NOT_FOUND_ERR="! No known Zygisk frameworks (such as ZygiskNext) is found, this module requires Zygisk to work. Installation aborted."
