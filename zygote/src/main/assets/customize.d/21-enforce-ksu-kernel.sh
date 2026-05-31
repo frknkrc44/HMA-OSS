@@ -30,13 +30,13 @@ if [ "$KSU" ]; then
             echo "- Found $1 framework."
         }
         ZYGISK_DISABLED_ERR(){
-            echo "! $1 has been disabled, this module requires Zygisk to work."
+            echo "! $1 is disabled, this module requires Zygisk to work."
         }
         ZYGISK_REMOVED_ERR(){
-            echo "! $1 has been removed, this module requires Zygisk to work."
+            echo "! $1 is removed, this module requires Zygisk to work."
         }
         ZYGISK_MULTI_ERR="! Multiple Zygisk frameworks were found. Aborting installation to prevent conflicts."
-        ZYGISK_NOT_FOUND_ERR="! No known Zygisk frameworks (such as ZygiskNext) is found, this module requires Zygisk to work. Installation aborted."
+        ZYGISK_NOT_FOUND_ERR="! No known Zygisk frameworks (e.g. ZygiskNext) is found, this module requires Zygisk to work. Installation aborted."
     fi
     ui_print "$KSU_DETECTED_MSG"
     # kernel and manager version mismatch
