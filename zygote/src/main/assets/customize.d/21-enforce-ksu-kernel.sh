@@ -5,13 +5,10 @@
 
 if [ "$KSU" ]; then
     # get language
-    SYSTEM_LANG=$(getprop persist.sys.locale)
-    if [ -z "$SYSTEM_LANG" ]; then
-        SYSTEM_LANG=$(getprop persist.sys.language)
-    fi
-    if [ -z "$SYSTEM_LANG" ]; then
-        SYSTEM_LANG=$(settings get system system_locales)
-    fi
+    [ -z "$SYSTEM_LANG" ] && SYSTEM_LANG=$(getprop persist.sys.locale)
+    [ -z "$SYSTEM_LANG" ] && SYSTEM_LANG=$(getprop persist.sys.language)
+    [ -z "$SYSTEM_LANG" ] && SYSTEM_LANG=$(settings get system system_locales)
+    
     # language pack
     if echo "$SYSTEM_LANG" | grep -q "zh"; then
         KSU_DETECTED_MSG="- 正在通过 KernelSU 安装..."
