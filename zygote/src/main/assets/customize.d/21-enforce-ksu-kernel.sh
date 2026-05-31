@@ -48,9 +48,12 @@ if [ "$KSU" ]; then
             ZYGISK_NAME="$2"
         fi
     }
+    # add known zygisk frameworks here...
     find_zygisk "zygisksu" "ZygiskNext / NeoZygisk"
     find_zygisk "rezygisk" "ReZygisk"
     find_zygisk "admirepowered" "Zygisk Mod"
+    find_zygisk "zygisk_on_ksu" "Zygisk on KernelSU"
+
     # not installed zygisk
     if [ -z "$ZYGISK_ID" ]; then
         abort "$ZYGISK_NOT_FOUND_ERR"
