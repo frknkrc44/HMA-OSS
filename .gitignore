@@ -20,6 +20,7 @@ app/debug
 
 # Gradle files
 .gradle/
+gradle/gradle-daemon-jvm.properties
 build/
 
 # Local configuration file (sdk path, etc)
