@@ -19,4 +19,5 @@ object ZygoteConstants {
     const val PROCESS_LIST_CLASS = "com.android.server.am.ProcessList"
     const val PROCESS_RECORD_INTERNAL_CLASS = "com.android.server.am.psc.ProcessRecordInternal"
     const val BROADCAST_CONTROLLER_CLASS = "com.android.server.am.BroadcastController"
+    const val ACTIVITY_MANAGER_SERVICE_CLASS = "com.android.server.am.ActivityManagerService"
 }
