@@ -37,19 +37,36 @@ class ActivityHook(private val service: HMAService) : IFrameworkHook {
         logI(TAG) { "Load hook" }
 
         BulkHooker.instance.apply {
-            hookBefore(
-                ACTIVITY_STARTER_CLASS,
-                "execute",
-            ) { param ->
-                val request = getObjectField(param.thisObject, "mRequest") ?: return@hookBefore
-                val caller = getObjectField(request, "callingPackage") as String?
-                val intent = getObjectField(request, "intent") as Intent?
-                val targetApp = intent?.component?.packageName
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                hookBefore(
+                    ACTIVITY_STARTER_CLASS,
+                    "executeRequest",
+                ) { param ->
+                    val request = param.getArgument(1)
+                    val caller = getObjectField(request, "callingPackage") as String?
+                    val intent = getObjectField(request, "intent") as Intent?
+                    val targetApp = intent?.component?.packageName
 
-                if (service.shouldHideActivityLaunch(caller, targetApp)) {
-                    logD(TAG) { "@executeRequest: insecure query from $caller, target: ${intent?.component}" }
-                    param.result = fakeReturnCode
-                    service.increaseALFilterCount(caller)
+                    if (service.shouldHideActivityLaunch(caller, targetApp)) {
+                        logD(TAG) { "@executeRequest: insecure query from $caller, target: ${intent?.component}" }
+                        param.result = fakeReturnCode
+                        service.increaseALFilterCount(caller)
+                    }
+                }
+            } else {
+                hookBefore(
+                    ACTIVITY_STARTER_CLASS,
+                    "startActivity",
+                ) { param ->
+                    val caller = param.args.firstWithType<String?>() ?: return@hookBefore
+                    val intent = param.args.firstWithType<Intent?>() ?: return@hookBefore
+                    val targetApp = intent.component?.packageName
+
+                    if (service.shouldHideActivityLaunch(caller, targetApp)) {
+                        logD(TAG) { "@executeRequest: insecure query from $caller, target: ${intent.component}" }
+                        param.result = fakeReturnCode
+                        service.increaseALFilterCount(caller)
+                    }
                 }
             }
 
