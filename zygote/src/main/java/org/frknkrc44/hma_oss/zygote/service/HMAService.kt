@@ -31,6 +31,7 @@ import org.frknkrc44.hma_oss.common.BuildConfig
 import org.frknkrc44.hma_oss.zygote.hook.AccessibilityHook
 import org.frknkrc44.hma_oss.zygote.hook.ActivityHook
 import org.frknkrc44.hma_oss.zygote.hook.AppDataIsolationHook
+import org.frknkrc44.hma_oss.zygote.hook.BroadcastHook
 import org.frknkrc44.hma_oss.zygote.hook.ContentProviderHook
 import org.frknkrc44.hma_oss.zygote.hook.IFrameworkHook
 import org.frknkrc44.hma_oss.zygote.hook.ImmHook
@@ -228,6 +229,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         }
 
         frameworkHooks.add(ActivityHook(this))
+        frameworkHooks.add(BroadcastHook(this))
         frameworkHooks.add(PmsPackageEventsHook(this))
         frameworkHooks.add(AccessibilityHook(this))
         frameworkHooks.add(ContentProviderHook(this))
