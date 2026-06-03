@@ -53,12 +53,14 @@ if [ "$KSU" ]; then
     fi
     find_zygisk(){
         if [ -d "/data/adb/modules/$1" ] || [ -d "/data/adb/modules_update/$1" ]; then
-            if ! [ -z "$ZYGISK_ID" ]; then
-                [ -f "/data/adb/modules/$1/disable" ] && return
-                [ -f "/data/adb/modules/$1/remove" ] && return
-                ! [ -f "/data/adb/modules/$ZYGISK_ID/disable" ] && abort "$ZYGISK_MULTI_ERR"
-                ! [ -f "/data/adb/modules/$ZYGISK_ID/remove" ] && abort "$ZYGISK_MULTI_ERR"
+            [ -f "/data/adb/modules/$1/disable" ] && return
+            [ -f "/data/adb/modules/$1/remove" ] && return
+
+            if [ ! -z "$ZYGISK_ID" ]; then
+                [ ! -f "/data/adb/modules/$ZYGISK_ID/disable" ] && abort "$ZYGISK_MULTI_ERR"
+                [ ! -f "/data/adb/modules/$ZYGISK_ID/remove" ] && abort "$ZYGISK_MULTI_ERR"
             fi
+
             ZYGISK_ID="$1"
             ZYGISK_NAME="$2"
         fi
