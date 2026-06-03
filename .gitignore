@@ -84,3 +84,6 @@ translators.json
 
 .kotlin/
 xposed/
+
+# ide files
+.vscode/
