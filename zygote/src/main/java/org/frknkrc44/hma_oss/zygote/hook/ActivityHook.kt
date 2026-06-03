@@ -43,12 +43,12 @@ class ActivityHook(private val service: HMAService) : IFrameworkHook {
                     "executeRequest",
                 ) { param ->
                     val request = param.getArgument(1)
-                    val caller = getObjectField(request, "callingPackage") as String?
-                    val intent = getObjectField(request, "intent") as Intent?
-                    val targetApp = intent?.component?.packageName
+                    val caller = getObjectField(request, "callingPackage") as? String ?: return@hookBefore
+                    val intent = getObjectField(request, "intent") as? Intent ?: return@hookBefore
+                    val targetApp = intent.component?.packageName
 
                     if (service.shouldHideActivityLaunch(caller, targetApp)) {
-                        logD(TAG) { "@executeRequest: insecure query from $caller, target: ${intent?.component}" }
+                        logD(TAG) { "@executeRequest: insecure query from $caller, target: ${intent.component}" }
                         param.result = fakeReturnCode
                         service.increaseALFilterCount(caller)
                     }
@@ -63,7 +63,7 @@ class ActivityHook(private val service: HMAService) : IFrameworkHook {
                     val targetApp = intent.component?.packageName
 
                     if (service.shouldHideActivityLaunch(caller, targetApp)) {
-                        logD(TAG) { "@executeRequest: insecure query from $caller, target: ${intent.component}" }
+                        logD(TAG) { "@startActivity: insecure query from $caller, target: ${intent.component}" }
                         param.result = fakeReturnCode
                         service.increaseALFilterCount(caller)
                     }
