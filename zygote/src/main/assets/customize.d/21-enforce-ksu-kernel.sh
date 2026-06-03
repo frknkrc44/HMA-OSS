@@ -41,7 +41,8 @@ if [ "$KSU" ]; then
     ui_print "$KSU_DETECTED_MSG"
     # kernel and manager version mismatch
     if [ "$KSU_VER_CODE" != "$KSU_KERNEL_VER_CODE" ]; then
-        abort "$KSU_VERSION_MISMATCH_ERR"
+        ui_print "$KSU_VERSION_MISMATCH_ERR"
+        sleep 5
     fi
     find_zygisk(){
         if [ -d "/data/adb/modules/$1" ] || [ -d "/data/adb/modules_update/$1" ]; then
