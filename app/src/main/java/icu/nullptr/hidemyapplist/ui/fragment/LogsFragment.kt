@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -16,6 +17,7 @@ import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.adapter.LogAdapter
 import icu.nullptr.hidemyapplist.ui.util.contentResolver
+import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import icu.nullptr.hidemyapplist.ui.util.showToast
 import kotlinx.coroutines.launch
 import org.frknkrc44.hma_oss.R
@@ -25,7 +27,10 @@ import java.util.Date
 import java.util.Locale
 
 
-class LogsFragment(private val loadingIndicator: View) : Fragment(R.layout.fragment_logs) {
+class LogsFragment(
+    private val loadingIndicator: View,
+    private val toolbar: Toolbar,
+) : Fragment(R.layout.fragment_logs) {
 
     private val binding by viewBinding(FragmentLogsBinding::bind)
     private val adapter by lazy { LogAdapter(requireContext()) }
@@ -90,14 +95,14 @@ class LogsFragment(private val loadingIndicator: View) : Fragment(R.layout.fragm
                 }
 
                 lifecycleScope.launch {
-                    loadingIndicator.visibility = View.INVISIBLE
+                    loadingIndicator.isVisible = false
                     adapter.logs = logList
                 }
             }
         }
     }
 
-    fun onMenuOptionSelected(item: MenuItem) {
+    private fun onMenuOptionSelected(item: MenuItem) {
         if (loadingIndicator.isVisible) return
 
         when (item.itemId) {
@@ -143,5 +148,26 @@ class LogsFragment(private val loadingIndicator: View) : Fragment(R.layout.fragm
         binding.list.adapter = adapter
         binding.list.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
         updateLogs()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        setupToolbar(
+            toolbar,
+            title = getString(R.string.title_logs),
+            menuRes = R.menu.menu_logs,
+            onMenuOptionSelected = this::onMenuOptionSelected,
+        )
+
+        with(toolbar.menu) {
+            when (PrefManager.logFilter_level) {
+                0 -> findItem(R.id.menu_filter_debug).isChecked = true
+                1 -> findItem(R.id.menu_filter_info).isChecked = true
+                2 -> findItem(R.id.menu_filter_warn).isChecked = true
+                3 -> findItem(R.id.menu_filter_error).isChecked = true
+            }
+            findItem(R.id.menu_reverse_order).isChecked = PrefManager.logFilter_reverseOrder
+        }
     }
 }

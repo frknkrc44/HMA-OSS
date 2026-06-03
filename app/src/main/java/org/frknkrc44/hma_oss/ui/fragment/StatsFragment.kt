@@ -3,6 +3,8 @@ package org.frknkrc44.hma_oss.ui.fragment
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.common.FilterHolder
 import icu.nullptr.hidemyapplist.service.ServiceClient
+import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import icu.nullptr.hidemyapplist.ui.util.showToast
 import icu.nullptr.hidemyapplist.util.PackageHelper
 import kotlinx.coroutines.launch
@@ -18,7 +21,10 @@ import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentLogsBinding
 import org.frknkrc44.hma_oss.ui.adapter.StatAdapter
 
-class StatsFragment : Fragment(R.layout.fragment_logs) {
+class StatsFragment(
+    private val loadingIndicator: View,
+    private val toolbar: Toolbar,
+) : Fragment(R.layout.fragment_logs) {
 
     private val binding by viewBinding(FragmentLogsBinding::bind)
     private val adapter by lazy { StatAdapter {
@@ -37,6 +43,8 @@ class StatsFragment : Fragment(R.layout.fragment_logs) {
     private var statCache: String? = null
 
     private fun updateLogs() {
+        loadingIndicator.isVisible = PackageHelper.refreshing
+
         lifecycleScope.launch {
             statCache = runCatching { ServiceClient.detailedFilterStats }.getOrNull()
             if (statCache == null) {
@@ -64,7 +72,7 @@ class StatsFragment : Fragment(R.layout.fragment_logs) {
         }
     }
 
-    fun onMenuOptionSelected(item: MenuItem) {
+    private fun onMenuOptionSelected(item: MenuItem) {
         when (item.itemId) {
             R.id.menu_refresh -> updateLogs()
             R.id.menu_delete -> {
@@ -82,5 +90,16 @@ class StatsFragment : Fragment(R.layout.fragment_logs) {
         binding.list.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
 
         updateLogs()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        setupToolbar(
+            toolbar,
+            title = getString(R.string.title_filter_logs),
+            menuRes = R.menu.menu_stats,
+            onMenuOptionSelected = this::onMenuOptionSelected,
+        )
     }
 }
