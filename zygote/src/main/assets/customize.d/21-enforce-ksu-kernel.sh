@@ -56,10 +56,7 @@ if [ "$KSU" ]; then
             [ -f "/data/adb/modules/$1/disable" ] && return
             [ -f "/data/adb/modules/$1/remove" ] && return
 
-            if [ ! -z "$ZYGISK_ID" ]; then
-                [ ! -f "/data/adb/modules/$ZYGISK_ID/disable" ] && abort "$ZYGISK_MULTI_ERR"
-                [ ! -f "/data/adb/modules/$ZYGISK_ID/remove" ] && abort "$ZYGISK_MULTI_ERR"
-            fi
+            [ ! -z "$ZYGISK_ID" ] && abort "$ZYGISK_MULTI_ERR"
 
             ZYGISK_ID="$1"
             ZYGISK_NAME="$2"

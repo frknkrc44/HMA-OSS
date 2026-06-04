@@ -2,7 +2,7 @@ package org.frknkrc44.hma_oss.zygote.hook
 
 import android.content.Intent
 import android.os.Build
-import icu.nullptr.hidemyapplist.common.CollectionUtils.firstWithType
+import icu.nullptr.hidemyapplist.common.CollectionUtils.firstOrNullWithType
 import org.frknkrc44.hma_oss.zygote.service.BulkHooker
 import org.frknkrc44.hma_oss.zygote.service.HMAService
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
@@ -35,8 +35,8 @@ class BroadcastHook(private val service: HMAService) : IFrameworkHook {
                 },
                 "broadcastIntentLocked",
             ) { param ->
-                val caller = param.args.firstWithType<String?>() ?: return@hookBefore
-                val intent = param.args.firstWithType<Intent?>() ?: return@hookBefore
+                val caller = param.args.firstOrNullWithType<String>() ?: return@hookBefore
+                val intent = param.args.firstOrNullWithType<Intent>() ?: return@hookBefore
                 val targetApp = intent.component?.packageName
 
                 if (service.shouldHideActivityLaunch(caller, targetApp)) {

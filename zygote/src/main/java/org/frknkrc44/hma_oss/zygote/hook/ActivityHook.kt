@@ -3,6 +3,7 @@ package org.frknkrc44.hma_oss.zygote.hook
 import android.content.Intent
 import android.content.pm.ResolveInfo
 import android.os.Build
+import icu.nullptr.hidemyapplist.common.CollectionUtils.firstOrNullWithType
 import icu.nullptr.hidemyapplist.common.CollectionUtils.firstWithType
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.OSUtils
@@ -58,8 +59,8 @@ class ActivityHook(private val service: HMAService) : IFrameworkHook {
                     ACTIVITY_STARTER_CLASS,
                     "startActivity",
                 ) { param ->
-                    val caller = param.args.firstWithType<String?>() ?: return@hookBefore
-                    val intent = param.args.firstWithType<Intent?>() ?: return@hookBefore
+                    val caller = param.args.firstOrNullWithType<String>() ?: return@hookBefore
+                    val intent = param.args.firstOrNullWithType<Intent>() ?: return@hookBefore
                     val targetApp = intent.component?.packageName
 
                     if (service.shouldHideActivityLaunch(caller, targetApp)) {
