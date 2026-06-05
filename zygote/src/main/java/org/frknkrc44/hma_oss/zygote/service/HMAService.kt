@@ -49,6 +49,7 @@ import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logW
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logWithLevel
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.findAndVerifyAppSignature
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getWebviewProvider
 import rikka.hidden.compat.ActivityManagerApis
 import rikka.hidden.compat.UserManagerApis
 import java.io.File
@@ -340,6 +341,10 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         if (caller in Constants.packagesShouldNotHide || query in Constants.packagesShouldNotHide) return false
         if (caller == query) return false
         val appConfig = config.scope[caller] ?: return false
+
+        // check for current webview
+        val webviewProvider = getWebviewProvider()
+        if (webviewProvider == caller || webviewProvider == query) return false
 
         if (query in appConfig.extraAppList) return !appConfig.useWhitelist
         if (query in appConfig.extraOppositeAppList) return appConfig.useWhitelist

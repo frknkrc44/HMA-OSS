@@ -8,10 +8,12 @@ import android.os.Build
 import android.os.IBinder
 import android.os.IUserManager
 import android.os.ServiceManager
+import android.provider.Settings
 import com.android.apksig.ApkVerifier
 import com.v7878.unsafe.Reflection.getDeclaredMethod
 import icu.nullptr.hidemyapplist.common.Constants
-import icu.nullptr.hidemyapplist.common.Utils
+import icu.nullptr.hidemyapplist.common.Utils.binderLocalScope
+import icu.nullptr.hidemyapplist.common.Utils.containsMultiple
 import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
 import org.frknkrc44.hma_oss.common.BuildConfig
 import org.frknkrc44.hma_oss.zygote.Magic
@@ -65,7 +67,9 @@ object ServiceUtils {
         }
     }
 
-    fun getPackageManager() = ActivityThread.currentActivityThread().application.packageManager!!
+    val packageManager get() = ActivityThread.currentActivityThread().application.packageManager!!
+
+    val contentResolver get() = ActivityThread.currentActivityThread().application.contentResolver!!
 
     fun getCallingApps(service: HMAService): Array<String> {
         return getCallingApps(service, Binder.getCallingUid())
@@ -73,7 +77,7 @@ object ServiceUtils {
 
     fun getCallingApps(service: HMAService, callingUid: Int): Array<String> {
         if (callingUid == Constants.UID_SYSTEM) return arrayOf()
-        return Utils.binderLocalScope {
+        return binderLocalScope {
             service.pms.getPackagesForUid(callingUid)
         } ?: arrayOf()
     }
@@ -149,13 +153,13 @@ object ServiceUtils {
 
         while (throwable != null) {
             val newTrace = throwable.stackTrace.filter { item ->
-                !Utils.containsMultiple(
+                !containsMultiple(
                     item.className,
                     "BulkHooker",
                     "com.v7878",
                     "MethodHandle",
                     BuildConfig.APP_PACKAGE_NAME,
-                ) && !Utils.containsMultiple(
+                ) && !containsMultiple(
                     item.fileName,
                     "r8-map-id-",
                     "dex-id-",
@@ -168,5 +172,12 @@ object ServiceUtils {
 
             throwable = throwable.cause
         }
+    }
+
+    fun getWebviewProvider(): String? = binderLocalScope {
+        Settings.Global.getString(
+            contentResolver,
+            "webview_provider",
+        )
     }
 }

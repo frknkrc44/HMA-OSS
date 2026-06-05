@@ -17,7 +17,7 @@ import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logW
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
-import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackageManager
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.packageManager
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.callStaticMethod
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.IMM_IMPL_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.IMM_SERVICE_CLASS
@@ -39,15 +39,14 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
                 val component = ComponentName.unflattenFromString(defaultInputMethod.value!!)!!
                 logD(TAG) { "Package component: \"$component\"" }
 
-                val pkgManager = getPackageManager()
                 val kbdPackage = Utils.binderLocalScope {
-                    pkgManager.getApplicationInfo(component.packageName, 0)
+                    packageManager.getApplicationInfo(component.packageName, 0)
                 }
 
                 return InputMethodInfo(
                     component.packageName,
                     component.className,
-                    kbdPackage.loadLabel(pkgManager),
+                    kbdPackage.loadLabel(packageManager),
                     null,
                 )
             } catch (e: Throwable) {
