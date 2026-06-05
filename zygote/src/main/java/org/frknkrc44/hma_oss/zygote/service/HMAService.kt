@@ -49,7 +49,7 @@ import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logW
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logWithLevel
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.findAndVerifyAppSignature
-import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getWebviewProvider
+import org.frknkrc44.hma_oss.zygote.util.WebViewUtils.getWebviewProvider
 import rikka.hidden.compat.ActivityManagerApis
 import rikka.hidden.compat.UserManagerApis
 import java.io.File

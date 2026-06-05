@@ -29,7 +29,7 @@ import java.io.File
 
 
 object ServiceUtils {
-    const val TAG = "ServiceUtils"
+    private const val TAG = "ServiceUtils"
 
     @Throws(InterruptedException::class)
     fun waitForService(name: String?): IBinder? {
@@ -172,12 +172,5 @@ object ServiceUtils {
 
             throwable = throwable.cause
         }
-    }
-
-    fun getWebviewProvider(): String? = binderLocalScope {
-        Settings.Global.getString(
-            contentResolver,
-            "webview_provider",
-        )
     }
 }

@@ -13,14 +13,14 @@ import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.waitForService
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.callStaticMethod
+import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.RUNTIME_INIT_CLASS
+import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.SYSTEM_SERVER_CLASS
+import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.ZYGOTE_INIT_CLASS
 import kotlin.concurrent.thread
 
 @SuppressLint("PrivateApi")
 object SystemServerHook {
     private const val TAG = "SystemServerHook"
-    private const val SYSTEM_SERVER: String = "com.android.server.SystemServer"
-    private const val RUNTIME_INIT: String = "com.android.internal.os.RuntimeInit"
-    private const val ZYGOTE_INIT: String = "com.android.internal.os.ZygoteInit"
 
     var classLoader: ClassLoader? = null
     var initialized = false
@@ -60,7 +60,7 @@ object SystemServerHook {
 
             runCatching {
                 val loader = callStaticMethod(
-                    Class.forName(ZYGOTE_INIT),
+                    Class.forName(ZYGOTE_INIT_CLASS),
                     "getOrCreateSystemServerClassLoader"
                 )
 
@@ -76,14 +76,14 @@ object SystemServerHook {
         logI(TAG) { "Trying to invoke 11- mode" }
 
         val method = getDeclaredMethod(
-            Class.forName(RUNTIME_INIT), "findStaticMain",
+            Class.forName(RUNTIME_INIT_CLASS), "findStaticMain",
             String::class.java, Array<String>::class.java, ClassLoader::class.java
         )
 
         Hooks.hook(method, Hooks.EntryPointType.CURRENT, { original, frame ->
             try {
                 val accessor = frame.accessor()
-                if (SYSTEM_SERVER == accessor.getReference(0)) {
+                if (SYSTEM_SERVER_CLASS == accessor.getReference(0)) {
                     val loader: ClassLoader? = accessor.getReference(2)
                     onSystemServer(loader)
                 }
