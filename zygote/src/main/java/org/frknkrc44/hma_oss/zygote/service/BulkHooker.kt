@@ -27,6 +27,10 @@ class BulkHooker private constructor() {
 
     internal val hooks: MutableMap<String, MutableList<HookElement>> = HashMap()
 
+    fun isHookAvailable(clazz: String, methodName: String): Boolean {
+        return hooks[clazz]?.any { it.methodName == methodName } ?: false
+    }
+
     private fun addHook(clazz: String, methodName: String, hookOnce: Boolean, paramCount: Int, impl: HookTransformer) {
         val inDisabledHooks = HMAService.instance?.config?.disabledHooks?.any {
             clazz == it.className &&
