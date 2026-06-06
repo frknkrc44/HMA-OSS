@@ -37,39 +37,17 @@ object ConfigManager {
     data class PresetInfo(val name: String, val type: PTType?, val translation: String)
 
     private const val TAG = "ConfigManager"
-    private lateinit var config: JsonConfig
-    val configFile = File("${hmaApp.filesDir.absolutePath}/config.json")
+    private var config = JsonConfig()
 
     fun init() {
-        val configFileIsNew = !configFile.exists()
-        if (configFileIsNew) {
-            runCatching {
-                val rawConfig = ServiceClient.readConfig()!!
-                config = JsonConfig.parse(rawConfig)
-            }.onFailure {
-                config = JsonConfig()
-                configFile.writeText(config.toString())
-            }
+        try {
+            val rawConfig = ServiceClient.readConfig()!!
+            config = JsonConfig.parse(rawConfig)
+        } catch (_: Throwable) {
+            // ignore the issues
         }
-        runCatching {
-            if (!configFileIsNew) config = JsonConfig.parse(configFile.readText())
-            val configVersion = config.configVersion
-            if (configVersion < BuildConfig.MIN_BACKUP_VERSION) throw RuntimeException("Config version too old")
-            config.configVersion = BuildConfig.CONFIG_VERSION
-        }.onSuccess {
-            saveConfig()
-        }.onFailure { catch ->
-            runCatching {
-                config = JsonConfig.parse(ServiceClient.readConfig() ?: throw RuntimeException("Service config is unavailable"))
-                config.configVersion = BuildConfig.CONFIG_VERSION
-                showToast(R.string.home_restore_config)
-            }.onSuccess {
-                saveConfig()
-            }.onFailure {
-                showToast(R.string.config_damaged)
-                throw RuntimeException("Config file too old or damaged", catch)
-            }
-        }
+
+        config.configVersion = BuildConfig.CONFIG_VERSION
     }
 
     fun saveConfig() {
@@ -78,11 +56,12 @@ object ConfigManager {
         try {
             ServiceClient.writeConfig(text)
         } catch (_: Throwable) {
+            val configFile = File("${hmaApp.filesDir.absolutePath}/temp_config.json")
+            configFile.writeText(text)
+
             val parcelFD = ParcelFileDescriptor.open(configFile, ParcelFileDescriptor.MODE_READ_ONLY)
             ServiceClient.writeFD(Constants.PARCEL_TYPE_CONFIG, parcelFD)
         }
-
-        configFile.writeText(text)
     }
 
     var detailLog: Boolean

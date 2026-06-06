@@ -8,7 +8,6 @@ import android.os.Build
 import android.os.IBinder
 import android.os.IUserManager
 import android.os.ServiceManager
-import android.provider.Settings
 import com.android.apksig.ApkVerifier
 import com.v7878.unsafe.Reflection.getDeclaredMethod
 import icu.nullptr.hidemyapplist.common.Constants

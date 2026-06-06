@@ -270,6 +270,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     fun loadEnabledIndicator(serviceVersion: Int) {
+        hmaApp.loadConfiguration()
+
         var color = when {
             serviceVersion == 0 -> getColor(R.color.invalid)
             else -> themeColor(android.R.attr.colorPrimary)

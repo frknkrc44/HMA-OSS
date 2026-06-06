@@ -1,6 +1,5 @@
 package icu.nullptr.hidemyapplist
 
-import android.annotation.SuppressLint
 import android.app.Application
 import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
@@ -27,17 +26,21 @@ class MyApp : Application() {
     var updateDialogSkipped: Boolean = false
 
     @Suppress("DEPRECATION")
-    @SuppressLint("SdCardPath")
+    fun loadConfiguration() {
+        if (ServiceClient.serviceVersion > 0) {
+            ConfigManager.init()
+
+            AppCompatDelegate.setDefaultNightMode(PrefManager.darkTheme)
+            val config = resources.configuration
+            config.setLocale(getLocale())
+            resources.updateConfiguration(config, resources.displayMetrics)
+        }
+    }
+
     override fun onCreate() {
         super.onCreate()
         hmaApp = this
         AppChangeReceiver.register(this)
-        ConfigManager.init()
-
-        AppCompatDelegate.setDefaultNightMode(PrefManager.darkTheme)
-        val config = resources.configuration
-        config.setLocale(getLocale())
-        resources.updateConfiguration(config, resources.displayMetrics)
 
         val handler = Thread.getDefaultUncaughtExceptionHandler()
         Thread.setDefaultUncaughtExceptionHandler { t, e ->
