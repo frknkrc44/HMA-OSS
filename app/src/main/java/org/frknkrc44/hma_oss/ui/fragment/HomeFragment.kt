@@ -51,7 +51,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             setupToolbar(
                 toolbar = this,
                 title = getString(R.string.app_name),
-                isHomeToolbar = true,
             )
             // isTitleCentered = true
         }

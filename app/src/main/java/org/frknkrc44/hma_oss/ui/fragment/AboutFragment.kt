@@ -3,8 +3,13 @@ package org.frknkrc44.hma_oss.ui.fragment
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.BitmapFactory
+import android.graphics.Typeface
 import android.os.Bundle
+import android.os.SystemClock.elapsedRealtime
+import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
+import android.widget.Chronometer
 import android.widget.LinearLayout
 import androidx.annotation.DrawableRes
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
@@ -18,12 +23,14 @@ import coil3.request.crossfade
 import coil3.request.placeholder
 import coil3.request.transformations
 import coil3.transform.CircleCropTransformation
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.data.AppConstants.allAppIcons
 import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.ui.util.AccessibilityUtils
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.homeItemBackgroundColor
+import icu.nullptr.hidemyapplist.ui.util.dp2Px
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
 import icu.nullptr.hidemyapplist.util.PackageHelper.findEnabledAppComponent
@@ -58,12 +65,44 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
                 backgroundTintList = tint
             }
 
-            val activityName = findEnabledAppComponent(requireContext())
-            appIcon.setImageResource(
-                activityName?.let {
-                    allAppIcons.firstOrNull { it.second == activityName.className }?.first
-                } ?: R.mipmap.ic_launcher
-            )
+            with(appIcon) {
+                val activityName = findEnabledAppComponent(requireContext())
+
+                setImageResource(
+                    activityName?.let {
+                        allAppIcons.firstOrNull { it.second == activityName.className }?.first
+                    } ?: R.mipmap.ic_launcher
+                )
+
+                setOnLongClickListener {
+                    val dialog = MaterialAlertDialogBuilder(requireContext())
+                        .setTitle(R.string.app_name)
+                        .create()
+
+                    dialog.setView(Chronometer(requireContext()).apply {
+                        layoutParams = ViewGroup.LayoutParams(-1, -2)
+                        base = elapsedRealtime() + 3000
+                        textSize = dp2Px(resources, 24)
+                        gravity = Gravity.CENTER
+                        typeface = Typeface.SERIF
+                        onChronometerTickListener = Chronometer.OnChronometerTickListener {
+                            if (elapsedRealtime() >= base) {
+                                stop()
+                                dialog.dismiss()
+
+                                // is it really final countdown?
+                                isTheFinalCountDown
+                            }
+                        }
+                        isCountDown = true
+                        start()
+                    })
+
+                    dialog.show()
+
+                    true
+                }
+            }
 
             appName.setText(R.string.app_name)
             appVersion.text = BuildConfig.APP_VERSION_NAME

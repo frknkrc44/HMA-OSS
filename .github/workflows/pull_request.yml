@@ -46,6 +46,14 @@ jobs:
 
       - name: Gradle prebuild
         run: |
+          # Build MaterialThemeBuilder from source
+          git clone --recurse-submodules https://github.com/LSPosed/MaterialThemeBuilder -b agp9.0 ~/MaterialThemeBuilder
+          CURRENT_DIR=$(pwd)
+          cd ~/MaterialThemeBuilder
+          chmod +x gradlew
+          ./gradlew -xtest assemble publishToMavenLocal
+          cd $CURRENT_DIR
+          
           echo 'org.gradle.jvmargs=-Xmx2048m' >> gradle.properties
           ./gradlew prebuild
 

@@ -1,3 +1,5 @@
+import com.android.build.api.dsl.ApplicationExtension
+import com.android.build.api.variant.ApplicationAndroidComponentsExtension
 import com.android.ide.common.signing.KeystoreHelper
 import com.v7878.zygisk.gradle.ZygoteLoader
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -6,13 +8,12 @@ import java.util.Locale
 
 plugins {
     alias(libs.plugins.agp.app)
-    alias(libs.plugins.kotlin)
     alias(libs.plugins.com.github.aerathstuff.zygoteloader)
 }
 
 val appPackageName: String by rootProject.extra
 
-android {
+configure<ApplicationExtension> {
     namespace = "$appPackageName.zygote"
 
     defaultConfig {
@@ -20,14 +21,23 @@ android {
     }
 }
 
+val androidExt get() = extensions.findByType(ApplicationExtension::class)!!
+
+fun getAssetDir(sourceSet: String) = File(
+    project.projectDir,
+    "${File.separator}${androidExt.sourceSets[sourceSet].assets.directories.first()}"
+)
+
+fun getManagerApk(sourceSet: String) = File(getAssetDir(sourceSet), "manager.apk")
+
 tasks.clean {
-    for (item in arrayOf("debug", "release")) {
-        delete(File(android.sourceSets[item].assets.srcDirs.first(), "manager.apk"))
+    for (sourceSet in arrayOf("debug", "release")) {
+        delete(getManagerApk(sourceSet))
     }
 }
 
-afterEvaluate {
-    android.applicationVariants.forEach { variant ->
+extensions.findByType(ApplicationAndroidComponentsExtension::class)?.run {
+    onVariants(selector().all()) { variant ->
         val variantCapped = variant.name.replaceFirstChar { it.titlecase(Locale.ROOT) }
         val variantLowered = variant.name.lowercase(Locale.ROOT)
 
@@ -38,7 +48,7 @@ afterEvaluate {
             doLast {
                 addManagerApp(variantLowered)
 
-                val sign = android.buildTypes[variantLowered].signingConfig
+                val sign = androidExt.buildTypes[variantLowered].signingConfig
                 outSrc.asFile.parentFile.mkdirs()
                 val certificateInfo = KeystoreHelper.getCertificateInfo(
                     sign?.storeType,
@@ -58,19 +68,24 @@ afterEvaluate {
                 }
             }
         }
-        variant.registerJavaGeneratingTask(signInfoTask, outSrcDir.get().asFile)
 
-        val kotlinCompileTask = tasks.findByName("compile${variantCapped}Kotlin") as KotlinCompile
-        kotlinCompileTask.dependsOn(signInfoTask)
-        val srcSet = objects.sourceDirectorySet("magic", "magic").srcDir(outSrcDir)
-        kotlinCompileTask.source(srcSet)
+        variant.sources.java?.addStaticSourceDirectory(outSrcDir.get().asFile.toString())
+
+        tasks.whenTaskAdded {
+            if (name == "compile${variantCapped}Kotlin") {
+                val kotlinCompileTask = tasks.findByName("compile${variantCapped}Kotlin") as KotlinCompile
+                kotlinCompileTask.dependsOn(signInfoTask)
+                val srcSet = objects.sourceDirectorySet("magic", "magic").srcDir(outSrcDir)
+                kotlinCompileTask.source(srcSet)
+            }
+        }
     }
 }
 
 fun addManagerApp(variant: String) {
     val builtFile = File(
         layout.buildDirectory.get().asFile.toString().replace(project.name, "app"),
-        "outputs/apk/$variant/${rootProject.name}-${android.defaultConfig.versionName}-${variant}.apk",
+        "outputs/apk/$variant/${rootProject.name}-${androidExt.defaultConfig.versionName}-${variant}.apk",
     )
 
     if (!builtFile.exists()) {
@@ -78,7 +93,7 @@ fun addManagerApp(variant: String) {
     }
 
     builtFile.copyTo(
-        File(android.sourceSets[variant].assets.srcDirs.first(), "manager.apk"),
+        getManagerApk(variant),
         overwrite = true,
     )
 }
@@ -93,7 +108,7 @@ zygisk {
     author = "frknkrc44"
     description = "A Zygisk backend for HMA-OSS"
     entrypoint = "org.frknkrc44.hma_oss.zygote.ZygoteEntry"
-    archiveName = "${rootProject.name}-ZYGISK-${android.defaultConfig.versionName}"
+    archiveName = "${rootProject.name}-ZYGISK-${androidExt.defaultConfig.versionName}"
     isAddVariantToArchiveName = true
 }
 

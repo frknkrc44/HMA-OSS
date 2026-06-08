@@ -1,9 +1,8 @@
 import com.android.build.api.dsl.ApplicationExtension
-import com.android.build.gradle.BaseExtension
+import com.android.build.api.dsl.LibraryExtension
 import java.util.Properties
 
 plugins {
-    alias(libs.plugins.kotlin) apply false
     alias(libs.plugins.agp.app) apply false
     alias(libs.plugins.agp.lib) apply false
     alias(libs.plugins.nav.safeargs.kotlin) apply false
@@ -105,65 +104,92 @@ tasks.register("clean", Delete::class) {
     delete(rootProject.layout.buildDirectory)
 }
 
-fun Project.configureBaseExtension() {
-    extensions.findByType<BaseExtension>()?.run {
-        compileSdkVersion(targetSdkVer)
-
-        defaultConfig {
-            minSdk = minSdkVer
-            targetSdk = targetSdkVer
-            versionCode = appVerCode
-            versionName = appVerName
-
-            consumerProguardFiles("proguard-rules.pro")
-        }
-
-        val config = localProperties.getProperty("fileDir")?.let {
-            signingConfigs.create("config") {
-                storeFile = file(it)
-                storePassword = localProperties.getProperty("storePassword")
-                keyAlias = localProperties.getProperty("keyAlias")
-                keyPassword = localProperties.getProperty("keyPassword")
-            }
-        }
-
-        buildTypes {
-            all {
-                signingConfig = config ?: signingConfigs["debug"]
-            }
-            named("release") {
-                isMinifyEnabled = true
-                proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            }
-        }
-
-        compileOptions {
-            sourceCompatibility = androidSourceCompatibility
-            targetCompatibility = androidTargetCompatibility
-        }
-    }
-
-    extensions.findByType<ApplicationExtension>()?.run {
-        buildTypes {
-            named("release") {
-                isShrinkResources = true
-            }
-        }
-
-        dependenciesInfo {
-            // Disables dependency metadata when building APKs (for IzzyOnDroid/F-Droid)
-            includeInApk = false
-            // Disables dependency metadata when building Android App Bundles (for Google Play)
-            includeInBundle = false
-        }
-    }
-}
-
 subprojects {
     plugins.withId("com.android.application") {
-        configureBaseExtension()
+        extensions.findByType(ApplicationExtension::class)?.run {
+            compileSdk = targetSdkVer
+
+            defaultConfig {
+                minSdk = minSdkVer
+                targetSdk = targetSdkVer
+                versionCode = appVerCode
+                versionName = appVerName
+
+                proguardFiles("proguard-rules.pro")
+            }
+
+            val config = localProperties.getProperty("fileDir")?.let {
+                signingConfigs.create("config") {
+                    storeFile = file(it)
+                    storePassword = localProperties.getProperty("storePassword")
+                    keyAlias = localProperties.getProperty("keyAlias")
+                    keyPassword = localProperties.getProperty("keyPassword")
+                }
+            }
+
+            buildTypes {
+                all {
+                    signingConfig = config ?: signingConfigs["debug"]
+                }
+                named("release") {
+                    isMinifyEnabled = true
+                    proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+                }
+            }
+
+            compileOptions {
+                sourceCompatibility = androidSourceCompatibility
+                targetCompatibility = androidTargetCompatibility
+            }
+
+            buildTypes {
+                named("release") {
+                    isShrinkResources = true
+                }
+            }
+
+            dependenciesInfo {
+                // Disables dependency metadata when building APKs (for IzzyOnDroid/F-Droid)
+                includeInApk = false
+                // Disables dependency metadata when building Android App Bundles (for Google Play)
+                includeInBundle = false
+            }
+        }
     }
+
     plugins.withId("com.android.library") {
-        configureBaseExtension()
+        extensions.findByType(LibraryExtension::class)?.run {
+            compileSdk = targetSdkVer
+
+            defaultConfig {
+                minSdk = minSdkVer
+
+                proguardFiles("proguard-rules.pro")
+            }
+
+            val config = localProperties.getProperty("fileDir")?.let {
+                signingConfigs.create("config") {
+                    storeFile = file(it)
+                    storePassword = localProperties.getProperty("storePassword")
+                    keyAlias = localProperties.getProperty("keyAlias")
+                    keyPassword = localProperties.getProperty("keyPassword")
+                }
+            }
+
+            buildTypes {
+                all {
+                    signingConfig = config ?: signingConfigs["debug"]
+                }
+                named("release") {
+                    isMinifyEnabled = true
+                    proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+                }
+            }
+
+            compileOptions {
+                sourceCompatibility = androidSourceCompatibility
+                targetCompatibility = androidTargetCompatibility
+            }
+        }
     }
 }
