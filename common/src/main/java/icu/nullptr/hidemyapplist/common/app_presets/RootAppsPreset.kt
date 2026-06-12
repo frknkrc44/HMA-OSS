@@ -67,6 +67,8 @@ class RootAppsPreset(private val appPresets: AppPresets) : BasePreset(NAME) {
         "com.jhc.detach",
         "com.sunilpaulmathew.debloater",
         "com.rk.taskmanager",
+        "be.mygod.vpnhotspot",
+        "com.emanuelef.remote_capture",
 
         // NetHunter related apps
         "com.mayank.rucky",
