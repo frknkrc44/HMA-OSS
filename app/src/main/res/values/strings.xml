@@ -279,4 +279,8 @@
     <string name="dark_theme">Dark theme</string>
     <string name="dark_theme_off">Always off</string>
     <string name="dark_theme_on">Always on</string>
+
+    <string name="sick_mode_title">Sick mode is activated</string>
+    <string name="sick_mode_description">HMA-OSS detected possibly conflictable modules and limited its functionality</string>
+    <string name="sick_mode_notice">HMA/HMAL configs are compatible with HMA-OSS and you can begin to use with your existing config but you need to uninstall HMA/HMAL then reboot at first</string>
 </resources>

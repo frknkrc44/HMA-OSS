@@ -292,33 +292,41 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
             if (serviceVersion > 0) {
                 if (workMode == Constants.MANAGER_WORK_MODE_NO_HOOKS) {
-                    val colorError = getColor(R.color.md_theme_material_amber_dark_error)
-                    moduleStatusIcon.imageTintList = ColorStateList.valueOf(colorError)
+                    val colorError = ColorStateList.valueOf(
+                        getColor(R.color.md_theme_material_amber_dark_error))
+                    moduleStatusIcon.imageTintList = colorError
                     moduleStatusIcon.setImageResource(R.drawable.sick_24px)
+
+                    moduleStatus.setText(R.string.sick_mode_title)
+                    moduleStatus.setTextColor(colorError)
+                    serviceStatus.setText(R.string.sick_mode_description)
+                    serviceStatus.setTextColor(colorError)
+                    filterCount.setText(R.string.sick_mode_notice)
+                    filterCount.setTextColor(colorError)
                 } else {
                     moduleStatusIcon.setImageResource(R.drawable.sentiment_calm_24px)
-                }
 
-                val versionNameSimple = ServiceClient.serviceVersionName ?: BuildConfig.VERSION_NAME
-                moduleStatus.text =
-                    getString(R.string.home_xposed_activated, versionNameSimple)
-                root.setOnLongClickListener {
-                    ConfigManager.saveConfig()
-                    showToast(android.R.string.ok)
+                    val versionNameSimple = ServiceClient.serviceVersionName ?: BuildConfig.VERSION_NAME
+                    moduleStatus.text =
+                        getString(R.string.home_xposed_activated, versionNameSimple)
+                    root.setOnLongClickListener {
+                        ConfigManager.saveConfig()
+                        showToast(android.R.string.ok)
 
-                    true
-                }
+                        true
+                    }
 
-                if (serviceVersion < org.frknkrc44.hma_oss.common.BuildConfig.SERVICE_VERSION) {
-                    serviceStatus.text =
-                        getString(R.string.home_xposed_service_old)
-                } else {
-                    serviceStatus.text =
-                        getString(R.string.home_xposed_service_on, serviceVersion)
+                    if (serviceVersion < org.frknkrc44.hma_oss.common.BuildConfig.SERVICE_VERSION) {
+                        serviceStatus.text =
+                            getString(R.string.home_xposed_service_old)
+                    } else {
+                        serviceStatus.text =
+                            getString(R.string.home_xposed_service_on, serviceVersion)
+                    }
+                    filterCount.visibility = View.VISIBLE
+                    filterCount.text =
+                        getString(R.string.home_xposed_filter_count, ServiceClient.filterCount)
                 }
-                filterCount.visibility = View.VISIBLE
-                filterCount.text =
-                    getString(R.string.home_xposed_filter_count, ServiceClient.filterCount)
             } else {
                 val colorError = getColor(android.R.color.black)
                 moduleStatusIcon.imageTintList = ColorStateList.valueOf(colorError)
