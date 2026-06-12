@@ -7,9 +7,11 @@ import android.os.Bundle
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.Utils.getUserFromCallingUid
 import org.frknkrc44.hma_oss.common.BuildConfig
+import org.frknkrc44.hma_oss.zygote.ZygoteEntry
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.isConflictingModuleInstalled
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.waitForService
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getStaticIntField
 import rikka.hidden.compat.ActivityManagerApis
@@ -60,6 +62,13 @@ object UserService {
     fun register(pms: IPackageManager, pmn: Any?) {
         logI(TAG) { "Initialize HMAService - Version ${BuildConfig.APP_VERSION_NAME}" }
 
+        val managerWorkMode = if (isConflictingModuleInstalled(pms)) {
+            logE(ZygoteEntry.TAG) { "Conflicting module detected, skipping hook" }
+            Constants.MANAGER_WORK_MODE_NO_HOOKS
+        } else {
+            Constants.MANAGER_WORK_MODE_OK
+        }
+
         waitForService("activity")
         ActivityManagerApis.registerUidObserver(
             uidObserver,
@@ -71,7 +80,7 @@ object UserService {
         logI(TAG) { "Registered observer" }
 
         // no need to put in a variable
-        HMAService(pms, pmn)
+        HMAService(pms, pmn, managerWorkMode)
     }
 
     private fun getActMgrField(name: String) = getStaticIntField(

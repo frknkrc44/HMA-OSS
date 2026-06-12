@@ -26,6 +26,10 @@ object Constants {
     const val ENABLE_INTERNET_OFF = 1
     const val ENABLE_INTERNET_ON = 2
 
+    const val MANAGER_WORK_MODE_UNKNOWN = 0
+    const val MANAGER_WORK_MODE_OK = 1
+    const val MANAGER_WORK_MODE_NO_HOOKS = 2
+
     const val PARCEL_TYPE_LOG = 0
     const val PARCEL_TYPE_CONFIG = 1
 

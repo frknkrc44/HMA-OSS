@@ -1,6 +1,7 @@
 package org.frknkrc44.hma_oss.ui.fragment
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
@@ -248,7 +249,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     fun waitForService() {
         var serviceVersion = ServiceClient.serviceVersion
-        loadEnabledIndicator(serviceVersion)
+        var workMode = ServiceClient.managerWorkMode
+        loadEnabledIndicator(serviceVersion, workMode)
         if (serviceVersion > 0) {
             return
         }
@@ -261,18 +263,21 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
 
             if (serviceVersion > 0) {
+                workMode = ServiceClient.managerWorkMode
+
                 lifecycleScope.launch {
-                    loadEnabledIndicator(serviceVersion)
+                    loadEnabledIndicator(serviceVersion, workMode)
                 }
             }
         }
     }
 
-    fun loadEnabledIndicator(serviceVersion: Int) {
+    fun loadEnabledIndicator(serviceVersion: Int, workMode: Int) {
         hmaApp.loadConfiguration()
 
         var color = when {
-            serviceVersion == 0 -> getColor(R.color.invalid)
+            serviceVersion == 0 || workMode == Constants.MANAGER_WORK_MODE_UNKNOWN -> getColor(R.color.invalid)
+            workMode == Constants.MANAGER_WORK_MODE_NO_HOOKS -> getColor(R.color.md_theme_material_amber_light_error)
             else -> themeColor(android.R.attr.colorPrimary)
         }
 
@@ -286,7 +291,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             root.outlineSpotShadowColor = color
 
             if (serviceVersion > 0) {
-                moduleStatusIcon.setImageResource(R.drawable.sentiment_calm_24px)
+                if (workMode == Constants.MANAGER_WORK_MODE_NO_HOOKS) {
+                    val colorError = getColor(R.color.md_theme_material_amber_dark_error)
+                    moduleStatusIcon.imageTintList = ColorStateList.valueOf(colorError)
+                    moduleStatusIcon.setImageResource(R.drawable.sick_24px)
+                } else {
+                    moduleStatusIcon.setImageResource(R.drawable.sentiment_calm_24px)
+                }
+
                 val versionNameSimple = ServiceClient.serviceVersionName ?: BuildConfig.VERSION_NAME
                 moduleStatus.text =
                     getString(R.string.home_xposed_activated, versionNameSimple)
@@ -308,6 +320,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 filterCount.text =
                     getString(R.string.home_xposed_filter_count, ServiceClient.filterCount)
             } else {
+                val colorError = getColor(android.R.color.black)
+                moduleStatusIcon.imageTintList = ColorStateList.valueOf(colorError)
                 moduleStatusIcon.setImageResource(R.drawable.sentiment_very_dissatisfied_24px)
                 moduleStatus.setText(R.string.home_xposed_not_activated)
                 serviceStatus.setText(R.string.home_xposed_service_off)

@@ -47,4 +47,6 @@ interface IHMAService {
     ParcelFileDescriptor readFD(int type) = 20;
 
     void writeFD(int type, in ParcelFileDescriptor fd) = 21;
+
+    int getManagerWorkMode() = 22;
 }

@@ -14,6 +14,7 @@ import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.Utils.binderLocalScope
 import icu.nullptr.hidemyapplist.common.Utils.containsMultiple
 import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
+import icu.nullptr.hidemyapplist.common.Utils.isAppInstalled
 import org.frknkrc44.hma_oss.common.BuildConfig
 import org.frknkrc44.hma_oss.zygote.Magic
 import org.frknkrc44.hma_oss.zygote.service.HMAService
@@ -147,7 +148,7 @@ object ServiceUtils {
         return mainCert.encoded.contentEquals(Magic.magicNumbers)
     }
 
-    fun clearStackTraces(throwableIn: Throwable) {
+    fun clearStackTraces(throwableIn: Throwable?) {
         var throwable: Throwable? = throwableIn
 
         while (throwable != null) {
@@ -171,5 +172,18 @@ object ServiceUtils {
 
             throwable = throwable.cause
         }
+    }
+
+    fun isConflictingModuleInstalled(pms: IPackageManager): Boolean {
+        // none of these can be installed into other profiles
+        fun isInstalled(packageName: String) =
+            isAppInstalled(pms, packageName, 0)
+
+        // TODO: Find a way for enabled status of modules
+        //  (cannot reach into /data/adb/lspd while in system server)
+
+        // we shouldn't apply hooks when the HMA/HMAL detected
+        return isInstalled("com.tsng.hidemyapplist") ||
+                isInstalled("com.google.android.hmal")
     }
 }

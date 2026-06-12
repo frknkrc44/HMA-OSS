@@ -132,4 +132,6 @@ object ServiceClient : IHMAService, IBinder.DeathRecipient {
     override fun writeFD(type: Int, fd: ParcelFileDescriptor) {
         service?.writeFD(type, fd)
     }
+
+    override fun getManagerWorkMode() = service?.managerWorkMode ?: Constants.MANAGER_WORK_MODE_UNKNOWN
 }

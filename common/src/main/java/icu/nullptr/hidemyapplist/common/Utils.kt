@@ -109,4 +109,7 @@ object Utils {
     }
 
     fun getUserFromCallingUid(uid: Int) = uid / 100000
+
+    fun isAppInstalled(pms: IPackageManager, packageName: String, userId: Int) =
+        getPackageUidCompat(pms, packageName, 0, userId) >= 0
 }

@@ -58,7 +58,7 @@ import java.lang.reflect.Modifier
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
+class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWorkMode: Int) : IHMAService.Stub() {
 
     companion object {
         private const val TAG = "HMA-Service"
@@ -96,8 +96,12 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         instance = this
         loadFilterCount()
         loadConfig()
-        installHooks()
-        logI(TAG) { "HMA service initialized" }
+
+        if (managerWorkMode == Constants.MANAGER_WORK_MODE_OK) {
+            installHooks()
+        }
+
+        logI(TAG) { "HMA service initialized in mode $managerWorkMode" }
 
         AppPresets.instance.loggerFunction = { level, msg ->
             logWithLevel(level, "AppPresets") { msg }
@@ -429,7 +433,18 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         File(dataDir).deleteRecursively()
     }
 
+    fun ensureManagerWorkModeOK(silent: Boolean = false): Boolean {
+        if (managerWorkMode == Constants.MANAGER_WORK_MODE_NO_HOOKS) {
+            if (!silent) logW(TAG) { "Cannot write while in no hooks mode" }
+            return false
+        }
+
+        return true
+    }
+
     fun addLog(parsedMsg: String) {
+        if (!ensureManagerWorkModeOK(true)) return
+
         synchronized(loggerLock) {
             if (!logcatAvailable) return
             if (logFile.length() / 1024 > config.maxLogSize) clearLogs()
@@ -438,6 +453,8 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     }
 
     override fun writeConfig(json: String) {
+        if (!ensureManagerWorkModeOK()) return
+
         synchronized(configLock) {
             runCatching {
                 val newConfig = JsonConfig.parse(json)
@@ -464,6 +481,8 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     }
 
     private fun writeFilterCount(force: Boolean = false) {
+        if (!ensureManagerWorkModeOK()) return
+
         synchronized(configLock) {
             if (!force && totalFilterCount % 100 != 0) {
                 return
@@ -488,6 +507,8 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     }
 
     override fun clearLogs() {
+        if (!ensureManagerWorkModeOK()) return
+
         synchronized(loggerLock) {
             oldLogFile.delete()
             logFile.renameTo(oldLogFile)
@@ -640,4 +661,6 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         receiveStream.close()
         fd.close()
     }
+
+    override fun getManagerWorkMode() = managerWorkMode
 }

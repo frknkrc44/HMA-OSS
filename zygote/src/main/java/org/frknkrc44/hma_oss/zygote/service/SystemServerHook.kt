@@ -58,17 +58,17 @@ object SystemServerHook {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             logI(TAG) { "Trying to invoke 12+ mode" }
 
-            runCatching {
+            try {
                 val loader = callStaticMethod(
                     Class.forName(ZYGOTE_INIT_CLASS),
                     "getOrCreateSystemServerClassLoader"
                 )
 
                 onSystemServer(loader as? ClassLoader)
-            }.onSuccess {
+
                 return
-            }.onFailure {
-                logE(TAG, it) { "An exception occurred while trying 12+ mode" }
+            } catch (cause: Throwable) {
+                logE(TAG, cause) { "An exception occurred while trying 12+ mode" }
                 // falls back to 11- mode
             }
         }
