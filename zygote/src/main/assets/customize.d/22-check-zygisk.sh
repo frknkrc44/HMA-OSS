@@ -19,7 +19,7 @@ else
     ZYGISK_DETECTED_MSG(){
         echo "- Found $1 framework"
     }
-    MAGISK_ZYGISK_ERR="! Magisk built-in Zygisk can't enabled with Zygisk frameworks at the same times"
+    MAGISK_ZYGISK_ERR="! Magisk built-in Zygisk can't be enabled with Zygisk frameworks at the same time"
     ZYGISK_MULTI_ERR="! Multiple Zygisk frameworks were found. Aborting installation to prevent conflicts"
     ZYGISK_NOT_FOUND_ERR="! No known Zygisk frameworks (e.g. ZygiskNext) is found, HMA-OSS requires Zygisk to work. Installation aborted"
 fi
