@@ -12,24 +12,14 @@ if echo "$SYSTEM_LANG" | grep -q "zh"; then
     ZYGISK_DETECTED_MSG(){
         echo "- 检测到 $1 框架"
     }
-    ZYGISK_DISABLED_ERR(){
-        echo "! $1 已禁用, HMA-OSS 需要 Zygisk 才能正常运行, 安装程序已退出"
-    }
-    ZYGISK_REMOVED_ERR(){
-        echo "! $1 已卸载, HMA-OSS 需要 Zygisk 才能正常运行, 安装程序已退出"
-    }
+    MAGISK_ZYGISK_ERR="! Magisk 内置 Zygisk 不能与 Zygisk 框架同时启用"
     ZYGISK_MULTI_ERR="! 检测到多个 Zygisk 框架, 为了避免冲突, 安装程序已退出"
     ZYGISK_NOT_FOUND_ERR="! 未找到已知的 Zygisk 框架 (例如 ZygiskNext), HMA-OSS 需要 Zygisk 才能正常运行, 安装程序已退出"
 else
     ZYGISK_DETECTED_MSG(){
         echo "- Found $1 framework"
     }
-    ZYGISK_DISABLED_ERR(){
-        echo "! $1 is disabled, HMA-OSS requires Zygisk to work"
-    }
-    ZYGISK_REMOVED_ERR(){
-        echo "! $1 is removed, HMA-OSS requires Zygisk to work"
-    }
+    MAGISK_ZYGISK_ERR="! Magisk built-in Zygisk can't be enabled with Zygisk frameworks at the same time"
     ZYGISK_MULTI_ERR="! Multiple Zygisk frameworks were found. Aborting installation to prevent conflicts"
     ZYGISK_NOT_FOUND_ERR="! No known Zygisk frameworks (e.g. ZygiskNext) is found, HMA-OSS requires Zygisk to work. Installation aborted"
 fi
@@ -39,6 +29,7 @@ find_zygisk(){
         [ -f "/data/adb/modules/$1/disable" ] && return
         [ -f "/data/adb/modules/$1/remove" ] && return
 
+        [ ! -z "$MAGISK_ZYGISK" ] && ui_print "$MAGISK_ZYGISK_ERR"
         [ ! -z "$ZYGISK_ID" ] && abort "$ZYGISK_MULTI_ERR"
 
         ZYGISK_ID="$1"
@@ -66,10 +57,6 @@ find_zygisk "zygisk_on_ksu" "Zygisk on KernelSU"
 # not installed zygisk
 if [ -z "$ZYGISK_ID" ]; then
     abort "$ZYGISK_NOT_FOUND_ERR"
-elif [ -f "/data/adb/modules/$ZYGISK_ID/disable" ]; then
-    abort "$(ZYGISK_DISABLED_ERR "$ZYGISK_NAME")"
-elif [ -f "/data/adb/modules/$ZYGISK_ID/remove" ]; then
-    abort "$(ZYGISK_REMOVED_ERR "$ZYGISK_NAME")"
 else
     ui_print "$(ZYGISK_DETECTED_MSG "$ZYGISK_NAME")"
 fi
