@@ -4,10 +4,13 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.clearFragmentResultListener
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.ListPreference
@@ -24,11 +27,13 @@ import icu.nullptr.hidemyapplist.MyApp.Companion.hmaApp
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.common.PropertyUtils
+import icu.nullptr.hidemyapplist.data.AppConstants
 import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.util.enabledString
 import icu.nullptr.hidemyapplist.ui.util.navController
+import icu.nullptr.hidemyapplist.ui.util.navigate
 import icu.nullptr.hidemyapplist.ui.util.recreateMainActivity
 import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
@@ -43,6 +48,8 @@ import org.frknkrc44.hma_oss.BuildConfig
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentSettingsBinding
 import org.frknkrc44.hma_oss.ui.activity.MainActivity
+import org.frknkrc44.hma_oss.ui.fragment.AppSettingsV2Fragment
+import org.frknkrc44.hma_oss.ui.fragment.AppSettingsV2FragmentArgs
 import org.frknkrc44.hma_oss.ui.preference.AppIconPreference
 import java.util.Locale
 
@@ -56,7 +63,11 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                 toolbar = this,
                 title = getString(R.string.title_settings),
                 navigationIcon = R.drawable.baseline_arrow_back_24,
-                navigationOnClick = { navController.navigateUp() }
+                navigationOnClick = {
+                    if (!parentFragmentManager.popBackStackImmediate()) {
+                        navController.navigateUp()
+                    }
+                }
             )
             // isTitleCentered = true
         }
@@ -403,6 +414,20 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                 isEnabled = findPreference<SwitchPreferenceCompat>("systemWallpaper")?.isChecked != true
                 setOnPreferenceChangeListener { _, _ ->
                     recreateMainActivity()
+                    true
+                }
+            }
+
+            findPreference<Preference>("defaultConfig")?.apply {
+                setOnPreferenceClickListener {
+                    val args = AppSettingsV2FragmentArgs(
+                        packageName = "bulk_config",
+                        inputConfig = ConfigManager.defaultConfig?.toString(),
+                        mode = AppConstants.APP_CONFIG_MODE_DEFAULT_CONFIG,
+                        customSubtitle = getString(R.string.settings_default_config),
+                    )
+                    navigate(R.id.nav_app_settings, args.toBundle())
+
                     true
                 }
             }

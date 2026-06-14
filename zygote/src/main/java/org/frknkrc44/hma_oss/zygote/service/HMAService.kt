@@ -526,6 +526,22 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
                         appUid = findAndVerifyAppSignature(pms)
                     }
 
+                    /**
+                     * - Ignore when the default config was not available
+                     * - Ignore for the manager app
+                     * - Ignore for the package updates
+                     * - Ignore when the target app had a config
+                     */
+                    val isDefConfigApplied = config.defaultConfig != null &&
+                            packageName != BuildConfig.APP_PACKAGE_NAME &&
+                            extras?.getBoolean(Intent.EXTRA_REPLACING) != true &&
+                            config.scope.putIfAbsent(packageName, config.defaultConfig!!) == null
+
+                    if (isDefConfigApplied) {
+                        writeConfig(config.toString())
+                    }
+
+                    // Handle app presets
                     handlePackageAdded(pms, packageName)
                 }
                 Intent.ACTION_PACKAGE_REMOVED -> {

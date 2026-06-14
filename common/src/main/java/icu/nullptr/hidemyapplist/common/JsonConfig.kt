@@ -70,6 +70,13 @@ data class JsonConfig(
      */
     var packageQueryWorkaround: Boolean = false,
 
+    /**
+     * This config will be applied for ALL of new apps when enabled
+     *
+     * null means do not apply a default config
+     */
+    var defaultConfig: AppConfig? = null,
+
     val templates: MutableMap<String, Template> = mutableMapOf(),
     val settingsTemplates: MutableMap<String, SettingsTemplate> = mutableMapOf(),
 

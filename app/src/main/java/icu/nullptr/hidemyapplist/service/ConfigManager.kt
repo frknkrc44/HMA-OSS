@@ -130,6 +130,13 @@ object ConfigManager {
             PackageHelper.invalidateCache()
         }
 
+    var defaultConfig: JsonConfig.AppConfig?
+        get() = config.defaultConfig
+        set(value) {
+            config.defaultConfig = value
+            saveConfig()
+        }
+
     var disabledHooks: List<JsonConfig.HookItem>
         get() = config.disabledHooks
         set(elements) {

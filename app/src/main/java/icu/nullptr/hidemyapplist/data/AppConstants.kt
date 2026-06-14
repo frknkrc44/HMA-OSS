@@ -19,4 +19,8 @@ object AppConstants {
     )
 
     const val UPDATE_CHECK_URL = "https://api.github.com/repos/frknkrc44/HMA-OSS/releases/latest"
+
+    const val APP_CONFIG_MODE_SINGLE = 0
+    const val APP_CONFIG_MODE_BULK_CONFIG = 1
+    const val APP_CONFIG_MODE_DEFAULT_CONFIG = 2
 }

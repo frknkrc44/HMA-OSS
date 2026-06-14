@@ -63,6 +63,11 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/settings_module">
+        <Preference
+            android:icon="@drawable/add_moderator_24px"
+            android:key="defaultConfig"
+            android:title="@string/settings_default_config"
+            android:summary="@string/settings_default_config_summary" />
         <SwitchPreferenceCompat
             android:icon="@drawable/outline_bug_report_24"
             android:key="bypassRiskyPackageWarning"

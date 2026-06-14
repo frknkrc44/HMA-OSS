@@ -151,7 +151,7 @@
             app:argType="string" />
 
         <argument
-            android:name="bulkConfig"
+            android:name="inputConfig"
             app:argType="string"
             app:nullable="true"
             android:defaultValue="@null" />
@@ -163,9 +163,15 @@
             android:defaultValue="@null" />
 
         <argument
-            android:name="bulkConfigMode"
-            app:argType="boolean"
-            android:defaultValue="false" />
+            android:name="mode"
+            app:argType="integer"
+            android:defaultValue="0" />
+
+        <argument
+            android:name="customSubtitle"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
 
     </fragment>
 
