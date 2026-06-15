@@ -191,11 +191,19 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
         }
     }
 
-    class AppPreferenceFragment : PreferenceFragmentCompat() {
+    abstract class BaseAppSettingsPreferenceFragment : PreferenceFragmentCompat() {
+        internal val parent get() = requireParentFragment() as AppSettingsV2Fragment
+        internal val pack get() = parent.viewModel.pack
 
-        private val parent get() = requireParentFragment() as AppSettingsV2Fragment
-        private val pack get() = parent.viewModel.pack
+        fun showForceStopWarning() {
+            if (pack.mode == AppConstants.APP_CONFIG_MODE_SINGLE) {
+                Toast.makeText(requireContext(),
+                    R.string.app_force_stop_warning, Toast.LENGTH_LONG).show()
+            }
+        }
+    }
 
+    class AppPreferenceFragment : BaseAppSettingsPreferenceFragment() {
         private fun launchMainActivity(packageName: String, userId: Int) {
             if (userId != PackageHelper.currentUserID) {
                 // TODO: Try to find a method to launch apps across user profiles
@@ -311,8 +319,7 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
                         pack.config.restrictedZygotePermissions = Constants.GID_PAIRS.values.mapIndexedNotNullTo(mutableSetOf()) { i, value ->
                             if (checked[i]) value else null
                         }.toList()
-                        Toast.makeText(requireContext(),
-                            R.string.app_force_stop_warning, Toast.LENGTH_LONG).show()
+                        showForceStopWarning()
                     }.setMultiChoiceItems(Constants.GID_PAIRS.keys.toTypedArray(), checked) { _, i, value ->
                         checked[i] = value
                     }.show()
@@ -322,33 +329,27 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
         }
     }
 
-    class AppSpoofingPreferenceFragment(private val preferenceDataStore: PreferenceDataStore) : PreferenceFragmentCompat() {
+    class AppSpoofingPreferenceFragment(private val preferenceDataStore: PreferenceDataStore) : BaseAppSettingsPreferenceFragment() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             preferenceManager.preferenceDataStore = preferenceDataStore
             setPreferencesFromResource(R.xml.app_settings_spoofing_v2, rootKey)
 
             findPreference<SwitchPreferenceCompat>("hideInstallationSource")?.setOnPreferenceChangeListener { _, _ ->
-                Toast.makeText(requireContext(),
-                    R.string.app_force_stop_warning, Toast.LENGTH_LONG).show()
+                showForceStopWarning()
                 true
             }
             findPreference<SwitchPreferenceCompat>("hideSystemInstallationSource")?.setOnPreferenceChangeListener { _, _ ->
-                Toast.makeText(requireContext(),
-                    R.string.app_force_stop_warning, Toast.LENGTH_LONG).show()
+                showForceStopWarning()
                 true
             }
             findPreference<SwitchPreferenceCompat>("excludeTargetInstallationSource")?.setOnPreferenceChangeListener { _, _ ->
-                Toast.makeText(requireContext(),
-                    R.string.app_force_stop_warning, Toast.LENGTH_LONG).show()
+                showForceStopWarning()
                 true
             }
         }
     }
 
-    class TemplateConfigPreferenceFragment(private val preferenceDataStore: PreferenceDataStore) : PreferenceFragmentCompat() {
-        private val parent get() = requireParentFragment() as AppSettingsV2Fragment
-        private val pack get() = parent.viewModel.pack
-
+    class TemplateConfigPreferenceFragment(private val preferenceDataStore: PreferenceDataStore) : BaseAppSettingsPreferenceFragment() {
         private fun updateApplyTemplates() {
             findPreference<Preference>("applyTemplates")?.title =
                 getString(R.string.app_template_using, pack.config.applyTemplates.size)

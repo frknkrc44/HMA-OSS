@@ -4,13 +4,10 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.clearFragmentResultListener
-import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.ListPreference
@@ -48,7 +45,6 @@ import org.frknkrc44.hma_oss.BuildConfig
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentSettingsBinding
 import org.frknkrc44.hma_oss.ui.activity.MainActivity
-import org.frknkrc44.hma_oss.ui.fragment.AppSettingsV2Fragment
 import org.frknkrc44.hma_oss.ui.fragment.AppSettingsV2FragmentArgs
 import org.frknkrc44.hma_oss.ui.preference.AppIconPreference
 import java.util.Locale
