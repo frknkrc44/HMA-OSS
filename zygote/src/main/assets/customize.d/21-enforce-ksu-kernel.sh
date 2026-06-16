@@ -23,8 +23,13 @@ if [ "$KSU" ]; then
 
     # kernel and manager version mismatch
     if [ "$KSU_VER_CODE" != "$KSU_KERNEL_VER_CODE" ]; then
-        ui_print "$KSU_VERSION_MISMATCH_WARN"
-        ui_print "$(INSTALLER_CONTINUE_MSG 5)"
-        sleep 5
+        if lsmod 2>/dev/null | grep -q kernelsu
+        then
+            abort "$KSU_VERSION_MISMATCH_WARN"
+        else
+            ui_print "$KSU_VERSION_MISMATCH_WARN"
+            ui_print "$(INSTALLER_CONTINUE_MSG 5)"
+            sleep 5
+        fi
     fi
 fi
