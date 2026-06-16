@@ -134,4 +134,8 @@ object ServiceClient : IHMAService, IBinder.DeathRecipient {
     }
 
     override fun getManagerWorkMode() = service?.managerWorkMode ?: Constants.MANAGER_WORK_MODE_UNKNOWN
+
+    override fun startMainActivityAsUser(packageName: String, userId: Int) {
+        service?.startMainActivityAsUser(packageName, userId)
+    }
 }

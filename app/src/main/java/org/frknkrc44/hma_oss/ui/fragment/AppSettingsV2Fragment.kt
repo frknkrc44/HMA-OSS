@@ -204,9 +204,14 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
     }
 
     class AppPreferenceFragment : BaseAppSettingsPreferenceFragment() {
-        private fun launchMainActivity(packageName: String, userId: Int) {
+        private fun startMainActivity(packageName: String, userId: Int) {
             if (userId != PackageHelper.currentUserID) {
-                // TODO: Try to find a method to launch apps across user profiles
+                try {
+                    ServiceClient.startMainActivityAsUser(packageName, userId)
+                } catch (e: Throwable) {
+                    showToast(R.string.app_launch_failed)
+                    ServiceClient.log(Log.ERROR, TAG, e.stackTraceToString())
+                }
                 return
             }
 
@@ -256,10 +261,10 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
                                 when (which) {
                                     0 -> {
                                         ServiceClient.forceStop(pack.app, userId)
-                                        launchMainActivity(pack.app, userId)
+                                        startMainActivity(pack.app, userId)
                                     }
                                     1 -> {
-                                        launchMainActivity(pack.app, userId)
+                                        startMainActivity(pack.app, userId)
                                     }
                                 }
                             }

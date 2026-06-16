@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.content.pm.IPackageManager
 import android.content.pm.PackageManager
+import android.content.pm.ResolveInfo
 import android.os.Build
 import android.os.Bundle
 import android.os.ParcelFileDescriptor
@@ -49,7 +50,9 @@ import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logW
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logWithLevel
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.findAndVerifyAppSignature
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.packageManager
 import org.frknkrc44.hma_oss.zygote.util.WebViewUtils.getWebviewProvider
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.callMethodWithTypes
 import rikka.hidden.compat.ActivityManagerApis
 import rikka.hidden.compat.UserManagerApis
 import java.io.File
@@ -679,4 +682,64 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
     }
 
     override fun getManagerWorkMode() = managerWorkMode
+
+    override fun startMainActivityAsUser(packageName: String, userId: Int) = binderLocalScope {
+        val pkgInfo = getPackageInfoCompat(pms, packageName, 0, userId)
+                ?: throw RemoteException("Cannot find package info for $packageName")
+
+        if (pkgInfo.applicationInfo?.enabled == true) {
+            val intentToLaunch = getLaunchIntentForPackageAsUser(packageName, userId)
+            if (intentToLaunch != null) {
+                ActivityManagerApis.startActivity(intentToLaunch, null, userId)
+            } else {
+                throw RemoteException("No main activity found to launch this app")
+            }
+        } else {
+            throw RemoteException("Package is disabled")
+        }
+    }
+
+    // This part is a copy of Android code
+    fun getLaunchIntentForPackageAsUser(packageName: String, userId: Int): Intent? {
+        // I am lazy to call IPackageManager
+        @Suppress("UNCHECKED_CAST")
+        fun queryIntentActivitiesAsUser(intent: Intent, userId: Int) = callMethodWithTypes(
+            packageManager,
+            "queryIntentActivitiesAsUser",
+            arrayOf(
+                Intent::class.java,
+                Int::class.javaPrimitiveType!!,
+                Int::class.javaPrimitiveType!!,
+            ),
+            arrayOf(intent, /* flags */ 0, userId)
+        ) as List<ResolveInfo>?
+
+        val intentToResolve = Intent(Intent.ACTION_MAIN).apply {
+            addCategory(Intent.CATEGORY_INFO)
+            setPackage(packageName)
+        }
+
+        var resolveInfos = queryIntentActivitiesAsUser(intentToResolve, userId)
+        if (resolveInfos.isNullOrEmpty()) {
+            intentToResolve.apply {
+                removeCategory(Intent.CATEGORY_INFO)
+                addCategory(Intent.CATEGORY_LAUNCHER)
+                setPackage(packageName)
+            }
+
+            resolveInfos = queryIntentActivitiesAsUser(intentToResolve, userId)
+        }
+
+        return if (resolveInfos.isNullOrEmpty()) {
+            null
+        } else {
+            Intent(intentToResolve).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+
+                resolveInfos.first().activityInfo.let {
+                    setClassName(it.packageName, it.name)
+                }
+            }
+        }
+    }
 }

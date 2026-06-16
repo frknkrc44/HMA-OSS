@@ -49,4 +49,6 @@ interface IHMAService {
     void writeFD(int type, in ParcelFileDescriptor fd) = 21;
 
     int getManagerWorkMode() = 22;
+
+    void startMainActivityAsUser(String packageName, int userId) = 23;
 }
