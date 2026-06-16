@@ -197,8 +197,7 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
 
         fun showForceStopWarning() {
             if (pack.mode == AppConstants.APP_CONFIG_MODE_SINGLE) {
-                Toast.makeText(requireContext(),
-                    R.string.app_force_stop_warning, Toast.LENGTH_LONG).show()
+                showToast(R.string.app_force_stop_warning, Toast.LENGTH_LONG)
             }
         }
     }
