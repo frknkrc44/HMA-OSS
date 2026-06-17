@@ -1,5 +1,6 @@
 package org.frknkrc44.hma_oss.ui.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -37,10 +38,10 @@ import icu.nullptr.hidemyapplist.ui.util.showToast
 import icu.nullptr.hidemyapplist.ui.util.withAnimations
 import icu.nullptr.hidemyapplist.ui.viewmodel.AppSettingsViewModel
 import icu.nullptr.hidemyapplist.util.PackageHelper
+import org.frknkrc44.hma_oss.BuildConfig
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentSettingsBinding
 import org.frknkrc44.hma_oss.databinding.LayoutListEmptyBinding
-import org.frknkrc44.hma_oss.ui.util.PresetUtils
 
 class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
     companion object {
@@ -233,6 +234,7 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
             }
         }
 
+        @SuppressLint("DiscouragedApi")
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             preferenceManager.preferenceDataStore = AppPreferenceDataStore(pack)
             setPreferencesFromResource(R.xml.app_settings_v2, rootKey)
@@ -386,6 +388,7 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
                 else getString(R.string.app_extra_apps_invisible_count, pack.config.extraOppositeAppList.size)
         }
 
+        @SuppressLint("DiscouragedApi")
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             preferenceManager.preferenceDataStore = preferenceDataStore
             setPreferencesFromResource(R.xml.app_settings_template_config_v2, rootKey)
@@ -453,7 +456,11 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
                 val presetNames = AppPresets.instance.presetNames
                 val presetTranslations = presetNames.map { name ->
                     try {
-                        val id = PresetUtils.presetMap[name]!!
+                        val id = resources.getIdentifier(
+                            "preset_${name}",
+                            "string",
+                            BuildConfig.APPLICATION_ID
+                        )
 
                         return@map if (id != 0) { getString(id) } else { name }
                     } catch (_: Throwable) {}
@@ -514,7 +521,11 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
                 val presetNames = SettingsPresets.instance.presetNames
                 val presetTranslations = presetNames.map { name ->
                     try {
-                        val id = PresetUtils.settingsPresetMap[name]!!
+                        val id = resources.getIdentifier(
+                            "settings_preset_${name}",
+                            "string",
+                            BuildConfig.APPLICATION_ID
+                        )
 
                         return@map if (id != 0) { getString(id) } else { name }
                     } catch (_: Throwable) {}

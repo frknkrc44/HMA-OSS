@@ -1,4 +1,3 @@
-import com.android.build.api.dsl.ApplicationExtension
 import com.google.gson.JsonParser
 import org.jose4j.json.internal.json_simple.JSONObject
 import java.io.DataInputStream
@@ -8,6 +7,7 @@ import java.net.URL
 plugins {
     alias(libs.plugins.agp.app)
     alias(libs.plugins.refine)
+    alias(libs.plugins.kotlin)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.nav.safeargs.kotlin)
     alias(libs.plugins.materialthemebuilder)
@@ -54,16 +54,10 @@ val crowdinApiKey: String by rootProject.extra
 val localBuild: Boolean by rootProject.extra
 val officialBuild: Boolean by rootProject.extra
 
-val androidExt get() = extensions.findByType(ApplicationExtension::class)!!
-
-fun getAssetDir(sourceSet: String) = File(
-    project.projectDir,
-    "${File.separator}${androidExt.sourceSets[sourceSet].assets.directories.first()}"
-)
-
 @Suppress("deprecation")
 afterEvaluate {
-    val srcDir = getAssetDir("main")
+    val srcDir = android.sourceSets["main"].assets.srcDirs.first()
+    logger.lifecycle("Asset dir: $srcDir")
     if (!srcDir.exists()) srcDir.mkdirs()
 
     val translatorsMap = mutableMapOf(
@@ -118,11 +112,7 @@ afterEvaluate {
     File(srcDir, "translators.json").writeText(translatorJson)
 }
 
-base {
-    archivesName = "${rootProject.name}-${androidExt.defaultConfig.versionName!!.replace("/", "_")}"
-}
-
-configure<ApplicationExtension> {
+android {
     namespace = appPackageName
 
     defaultConfig {
@@ -132,6 +122,10 @@ configure<ApplicationExtension> {
     buildFeatures {
         buildConfig = true
         viewBinding = true
+    }
+
+    base {
+        archivesName = "${rootProject.name}-${defaultConfig.versionName!!.replace("/", "_")}"
     }
 
     packaging {
@@ -162,7 +156,7 @@ fun generateSupportedLocales(): String {
 
     appendLangCode("SYSTEM")
 
-    fileTree(androidExt.sourceSets["main"].res.directories.first()).files.mapNotNull {
+    fileTree(android.sourceSets["main"].res.srcDirs.first()).files.mapNotNull {
         if (it.name == "strings.xml") {
             val baseName = it.parent.substringAfterLast(File.separator)
             if (baseName == "values") {
