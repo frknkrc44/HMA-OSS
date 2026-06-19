@@ -18,6 +18,8 @@ import org.frknkrc44.hma_oss.zygote.util.ZLUtils
 import java.lang.invoke.MethodHandle
 import java.lang.reflect.Executable
 import java.lang.reflect.Method
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.CopyOnWriteArrayList
 
 class BulkHooker private constructor() {
     companion object {
@@ -25,7 +27,7 @@ class BulkHooker private constructor() {
         const val PARAMETER_COUNT_UNKNOWN = -1
     }
 
-    internal val hooks: MutableMap<String, MutableList<HookElement>> = HashMap()
+    internal val hooks: ConcurrentHashMap<String, CopyOnWriteArrayList<HookElement>> = ConcurrentHashMap()
 
     fun isHookAvailable(clazz: String, methodName: String): Boolean {
         return hooks[clazz]?.any { it.methodName == methodName } ?: false
@@ -51,11 +53,7 @@ class BulkHooker private constructor() {
         )
 
         if (applyHook(clazz, element)) {
-            if (clazz !in hooks) {
-                hooks[clazz] = mutableListOf()
-            }
-
-            hooks[clazz]!!.add(element)
+            hooks.computeIfAbsent(clazz) { CopyOnWriteArrayList() }.add(element)
         } else {
             logI(ZygoteEntry.TAG) { "Invalid hook removed: $clazz -> $methodName($paramCount)" }
         }

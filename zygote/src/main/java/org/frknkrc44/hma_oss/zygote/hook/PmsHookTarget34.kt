@@ -96,7 +96,7 @@ class PmsHookTarget34(service: HMAService) : PmsHookTargetBase(service) {
                 applyPackageHiding(
                     param.methodName,
                     { Binder.getCallingUid() },
-                    { param.getArgument(1).toString() },
+                    { param.getArgument(1) as? String },
                     { getCallingApps(service, it) },
                     { param.result = null },
                 )
