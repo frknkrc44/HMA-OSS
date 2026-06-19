@@ -8,6 +8,7 @@ if [ "$KSU" ]; then
     [ -z "$SYSTEM_LANG" ] && SYSTEM_LANG=$(getprop persist.sys.language 2>/dev/null)
     [ -z "$SYSTEM_LANG" ] && SYSTEM_LANG=$(settings get system system_locales 2>/dev/null)
 
+    # default language
     KSU_VERSION_MISMATCH_WARN="! KernelSU manager version ($KSU_VER_CODE) does not match kernel version ($KSU_KERNEL_VER_CODE). HMA-OSS not take any responsibilities for incompatibilities!"
     KSU_VERSION_MISMATCH_ERR="! KernelSU manager version ($KSU_VER_CODE) does not match kernel version ($KSU_KERNEL_VER_CODE). Aborting..."
     INSTALLER_CONTINUE_MSG(){
