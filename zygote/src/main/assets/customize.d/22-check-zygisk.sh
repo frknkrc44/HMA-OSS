@@ -7,10 +7,10 @@
 [ -z "$SYSTEM_LANG" ] && SYSTEM_LANG=$(getprop persist.sys.language 2>/dev/null)
 [ -z "$SYSTEM_LANG" ] && SYSTEM_LANG=$(settings get system system_locales 2>/dev/null)
 
+# default language
 ZYGISK_DETECTED_MSG(){
     echo "- Found $1 framework"
 }
-
 MAGISK_ZYGISK_ERR="! Magisk built-in Zygisk can't be enabled with Zygisk frameworks at the same time"
 MAGISK_ZYGISK_NAME="Magisk Built-in Zygisk"
 ZYGISK_MULTI_ERR="! Multiple Zygisk frameworks were found. Aborting installation to prevent conflicts"
