@@ -33,7 +33,7 @@ class BulkHooker private constructor() {
         return hooks[clazz]?.any { it.methodName == methodName } ?: false
     }
 
-    private fun addHook(clazz: String, methodName: String, hookOnce: Boolean, paramCount: Int, impl: HookTransformer) {
+    private fun addHook(clazz: String, methodName: String, paramCount: Int, impl: HookTransformer) {
         val inDisabledHooks = HMAService.instance?.config?.disabledHooks?.any {
             clazz == it.className &&
                     methodName == it.methodName &&
@@ -48,7 +48,6 @@ class BulkHooker private constructor() {
         val element = HookElement(
             impl = impl,
             methodName = methodName,
-            hookOnce = hookOnce,
             paramCount = paramCount,
         )
 
@@ -62,10 +61,9 @@ class BulkHooker private constructor() {
     internal fun hookBefore(
         clazz: String,
         methodName: String,
-        hookOnce: Boolean = true,
         paramCount: Int = PARAMETER_COUNT_UNKNOWN,
         hook: (methodName: String, frame: EmulatedStackFrame, returnValue: ReturnValue) -> Unit,
-    ) = addHook(clazz, methodName, hookOnce, paramCount) { original, frame ->
+    ) = addHook(clazz, methodName, paramCount) { original, frame ->
         val value = ReturnValue()
 
         try {
@@ -97,10 +95,9 @@ class BulkHooker private constructor() {
     internal fun hookAfter(
         clazz: String,
         methodName: String,
-        hookOnce: Boolean = true,
         paramCount: Int = PARAMETER_COUNT_UNKNOWN,
         hook: (methodName: String, frame: EmulatedStackFrame, returnValue: ReturnValue) -> Unit,
-    ) = addHook(clazz, methodName, hookOnce, paramCount) { original, frame ->
+    ) = addHook(clazz, methodName, paramCount) { original, frame ->
         val value = ReturnValue()
 
         try {
@@ -166,12 +163,8 @@ class BulkHooker private constructor() {
                         element.method = executable
                     }
 
-                    element.applyCount++
-
-                    if (element.hookOnce) {
-                        element.hookFinished = true
-                        break
-                    }
+                    element.hookFinished = true
+                    break
                 }
             }
         }
@@ -183,10 +176,6 @@ class BulkHooker private constructor() {
         ) {
             applyForClass(curClazz)
             curClazz = curClazz.superclass
-        }
-
-        if (!element.hookOnce && element.applyCount >= 1) {
-            element.hookFinished = true
         }
 
         return element.hookFinished
