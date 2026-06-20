@@ -65,34 +65,32 @@ class BulkHooker private constructor() {
         hookOnce: Boolean = true,
         paramCount: Int = PARAMETER_COUNT_UNKNOWN,
         hook: (methodName: String, frame: EmulatedStackFrame, returnValue: ReturnValue) -> Unit,
-    ) {
-        addHook(clazz, methodName, hookOnce, paramCount) { original, frame ->
-            val value = ReturnValue()
+    ) = addHook(clazz, methodName, hookOnce, paramCount) { original, frame ->
+        val value = ReturnValue()
 
+        try {
+            hook(methodName, frame, value)
+        } catch (it: Throwable) {
+            logE(ZygoteEntry.TAG, it) { it.message ?: "Unknown error on hook" }
+        }
+
+        if (!value.replace) {
             try {
-                hook(methodName, frame, value)
+                invokeExactCompat(clazz, methodName, original, frame, value)
             } catch (it: Throwable) {
-                logE(ZygoteEntry.TAG, it) { it.message ?: "Unknown error on hook" }
+                logD(ZygoteEntry.TAG, it) { it.message ?: "Unknown error on original function" }
+                value.throwable = it
             }
+        }
 
-            if (!value.replace) {
-                try {
-                    invokeExactCompat(clazz, methodName, original, frame, value)
-                } catch (it: Throwable) {
-                    logD(ZygoteEntry.TAG, it) { it.message ?: "Unknown error on original function" }
-                    value.throwable = it
-                }
-            }
+        value.throwable?.let {
+            ServiceUtils.clearStackTraces(it)
 
-            value.throwable?.let {
-                ServiceUtils.clearStackTraces(it)
+            throw it
+        }
 
-                throw it
-            }
-
-            if (value.replace) {
-                ZLUtils.setReturnValue(frame, value.result)
-            }
+        if (value.replace) {
+            ZLUtils.setReturnValue(frame, value.result)
         }
     }
 
@@ -102,35 +100,33 @@ class BulkHooker private constructor() {
         hookOnce: Boolean = true,
         paramCount: Int = PARAMETER_COUNT_UNKNOWN,
         hook: (methodName: String, frame: EmulatedStackFrame, returnValue: ReturnValue) -> Unit,
-    ) {
-        addHook(clazz, methodName, hookOnce, paramCount) { original, frame ->
-            val value = ReturnValue()
+    ) = addHook(clazz, methodName, hookOnce, paramCount) { original, frame ->
+        val value = ReturnValue()
 
-            try {
-                invokeExactCompat(clazz, methodName, original, frame, value)
-            } catch (it: Throwable) {
-                logD(ZygoteEntry.TAG, it) { it.message ?: "Unknown error on original function" }
-                value.throwable = it
-            }
-
-            if (value.throwable == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                value.result = frame.accessor().getValue(RETURN_VALUE_IDX)
-            }
-
-            try {
-                hook(methodName, frame, value)
-            } catch (it: Throwable) {
-                logE(ZygoteEntry.TAG, it) { it.message ?: "Unknown error on hook" }
-            }
-
-            value.throwable?.let {
-                ServiceUtils.clearStackTraces(it)
-
-                throw it
-            }
-
-            ZLUtils.setReturnValue(frame, value.result)
+        try {
+            invokeExactCompat(clazz, methodName, original, frame, value)
+        } catch (it: Throwable) {
+            logD(ZygoteEntry.TAG, it) { it.message ?: "Unknown error on original function" }
+            value.throwable = it
         }
+
+        if (value.throwable == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            value.result = frame.accessor().getValue(RETURN_VALUE_IDX)
+        }
+
+        try {
+            hook(methodName, frame, value)
+        } catch (it: Throwable) {
+            logE(ZygoteEntry.TAG, it) { it.message ?: "Unknown error on hook" }
+        }
+
+        value.throwable?.let {
+            ServiceUtils.clearStackTraces(it)
+
+            throw it
+        }
+
+        ZLUtils.setReturnValue(frame, value.result)
     }
 
     internal fun applyHook(
