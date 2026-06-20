@@ -7,22 +7,26 @@
 [ -z "$SYSTEM_LANG" ] && SYSTEM_LANG=$(getprop persist.sys.language 2>/dev/null)
 [ -z "$SYSTEM_LANG" ] && SYSTEM_LANG=$(settings get system system_locales 2>/dev/null)
 
+# default language
+ZYGISK_DETECTED_MSG(){
+    echo "- Found $1 framework"
+}
+MAGISK_ZYGISK_ERR="! Magisk built-in Zygisk can't be enabled with Zygisk frameworks at the same time"
+MAGISK_ZYGISK_NAME="Magisk Built-in Zygisk"
+ZYGISK_MULTI_ERR="! Multiple Zygisk frameworks were found. Aborting installation to prevent conflicts"
+ZYGISK_NOT_FOUND_ERR="! No known Zygisk frameworks (e.g. ZygiskNext) is found, HMA-OSS requires Zygisk to work. Installation aborted"
+
 # language pack
 if echo "$SYSTEM_LANG" | grep -q "zh"; then
     ZYGISK_DETECTED_MSG(){
         echo "- 检测到 $1 框架"
     }
     MAGISK_ZYGISK_ERR="! Magisk 内置 Zygisk 不能与 Zygisk 框架同时启用"
+    MAGISK_ZYGISK_NAME="Magisk 内置 Zygisk"
     ZYGISK_MULTI_ERR="! 检测到多个 Zygisk 框架, 为了避免冲突, 安装程序已退出"
     ZYGISK_NOT_FOUND_ERR="! 未找到已知的 Zygisk 框架 (例如 ZygiskNext), HMA-OSS 需要 Zygisk 才能正常运行, 安装程序已退出"
-else
-    ZYGISK_DETECTED_MSG(){
-        echo "- Found $1 framework"
-    }
-    MAGISK_ZYGISK_ERR="! Magisk built-in Zygisk can't be enabled with Zygisk frameworks at the same time"
-    ZYGISK_MULTI_ERR="! Multiple Zygisk frameworks were found. Aborting installation to prevent conflicts"
-    ZYGISK_NOT_FOUND_ERR="! No known Zygisk frameworks (e.g. ZygiskNext) is found, HMA-OSS requires Zygisk to work. Installation aborted"
 fi
+
 
 find_zygisk(){
     if [ -d "/data/adb/modules/$1" ] || [ -d "/data/adb/modules_update/$1" ]; then
@@ -44,7 +48,7 @@ then
     if [ "$MAGISK_ZYGISK" == "1" ]
     then
         ZYGISK_ID="magisk"
-        ZYGISK_NAME="Magisk Built-in Zygisk"
+        ZYGISK_NAME="$MAGISK_ZYGISK_NAME"
     fi
 fi
 
