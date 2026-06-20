@@ -49,7 +49,7 @@ class ActivityHook(private val service: HMAService) : IFrameworkHook {
                     ACTIVITY_STACK_SUPERVISOR_CLASS
                 },
                 "checkStartAnyActivityPermission",
-            ) { _, methodName, frame, _ ->
+            ) { methodName, frame, _ ->
                 logV(TAG) { "$methodName: ${frame.args.contentToString()}" }
 
                 // just an empty hook that does nothing
@@ -63,7 +63,7 @@ class ActivityHook(private val service: HMAService) : IFrameworkHook {
                         PACKAGE_MANAGER_SERVICE_CLASS
                     },
                     "applyPostResolutionFilter",
-                ) { _, methodName, frame, _ ->
+                ) { methodName, frame, _ ->
                     @Suppress("UNCHECKED_CAST") // I know what I do
                     val list = frame.args[1] as List<ResolveInfo>?
                     if (list.isNullOrEmpty()) return@hookBefore
@@ -114,7 +114,7 @@ class ActivityHook(private val service: HMAService) : IFrameworkHook {
                         hookBefore(
                             ACTIVITY_STARTER_CLASS,
                             "executeRequest",
-                        ) { _, _, frame, returnValue ->
+                        ) { _, frame, returnValue ->
                             val request = frame.getArg(1)
                             val caller = getObjectField(request, "callingPackage") as? String ?: return@hookBefore
                             val intent = getObjectField(request, "intent") as? Intent ?: return@hookBefore
@@ -130,7 +130,7 @@ class ActivityHook(private val service: HMAService) : IFrameworkHook {
                         hookBefore(
                             ACTIVITY_STARTER_CLASS,
                             "startActivity",
-                        ) { _, _, frame, returnValue ->
+                        ) { _, frame, returnValue ->
                             val caller = frame.args.firstOrNullWithType<String>() ?: return@hookBefore
                             val intent = frame.args.firstOrNullWithType<Intent>() ?: return@hookBefore
                             val targetApp = intent.component?.packageName
@@ -146,7 +146,7 @@ class ActivityHook(private val service: HMAService) : IFrameworkHook {
                     hookBefore(
                         ACTIVITY_STARTER_CLASS,
                         "execute",
-                    ) { _, _, frame, returnValue ->
+                    ) { _, frame, returnValue ->
                         val request = getObjectField(frame.thisObject, "mRequest") ?: return@hookBefore
                         val caller = getObjectField(request, "callingPackage") as? String ?: return@hookBefore
                         val intent = getObjectField(request, "intent") as? Intent ?: return@hookBefore

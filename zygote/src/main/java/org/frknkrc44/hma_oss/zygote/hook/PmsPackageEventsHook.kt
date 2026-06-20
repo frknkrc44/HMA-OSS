@@ -20,7 +20,7 @@ class PmsPackageEventsHook(private val service: HMAService) : IFrameworkHook {
                 hookBefore(
                     "com.android.server.pm.BroadcastHelper",
                     "sendPackageBroadcastAndNotify",
-                ) { _, _, frame, _ ->
+                ) { _, frame, _ ->
                     service.handlePackageEvent(
                         frame.getArg(1) as String?,
                         frame.getArg(2) as String?,
@@ -31,7 +31,7 @@ class PmsPackageEventsHook(private val service: HMAService) : IFrameworkHook {
                 hookBefore(
                     "com.android.internal.content.PackageMonitor",
                     "onReceive",
-                ) { _, _, frame, _ ->
+                ) { _, frame, _ ->
                     val intent = frame.getArg(2) as? Intent? ?: return@hookBefore
 
                     service.handlePackageEvent(
@@ -44,7 +44,7 @@ class PmsPackageEventsHook(private val service: HMAService) : IFrameworkHook {
                 hookBefore(
                     PACKAGE_MANAGER_SERVICE_CLASS,
                     "sendPackageBroadcast",
-                ) { _, _, frame, _ ->
+                ) { _, frame, _ ->
                     service.handlePackageEvent(
                         frame.getArg(1) as String?,
                         frame.getArg(2) as String?,

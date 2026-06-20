@@ -25,7 +25,7 @@ class PmsHookTarget29(service: HMAService) : PmsHookTargetBase(service) {
                 service.pms::class.java.name,
                 "filterAppAccessLPr",
                 paramCount = 5,
-            ) { _, methodName, frame, returnValue ->
+            ) { methodName, frame, returnValue ->
                 applyPackageHiding(
                     methodName,
                     { frame.getArg(2) as Int? },
@@ -38,7 +38,7 @@ class PmsHookTarget29(service: HMAService) : PmsHookTargetBase(service) {
             hookBefore(
                 PACKAGE_MANAGER_SERVICE_CLASS,
                 "getPackageInfoInternal",
-            ) { _, methodName, frame, returnValue ->
+            ) { methodName, frame, returnValue ->
                 applyPackageHiding(
                     methodName,
                     { frame.getArg(4) as Int? },
@@ -51,7 +51,7 @@ class PmsHookTarget29(service: HMAService) : PmsHookTargetBase(service) {
             hookBefore(
                 PACKAGE_MANAGER_SERVICE_CLASS,
                 "getApplicationInfoInternal",
-            ) { _, methodName, frame, returnValue ->
+            ) { methodName, frame, returnValue ->
                 applyPackageHiding(
                     methodName,
                     { frame.getArg(3) as Int? },

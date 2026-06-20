@@ -50,7 +50,7 @@ class PmsHookTarget31(service: HMAService) : PmsHookTargetBase(service) {
             hookBefore(
                 PMS_COMPUTER_TRACKER_CLASS,
                 "getPackageSetting",
-            ) { _, methodName, frame, returnValue ->
+            ) { methodName, frame, returnValue ->
                 applyPackageHiding(
                     methodName,
                     { Binder.getCallingUid() },
@@ -63,7 +63,7 @@ class PmsHookTarget31(service: HMAService) : PmsHookTargetBase(service) {
             hookBefore(
                 PMS_COMPUTER_TRACKER_CLASS,
                 "getPackageSettingInternal",
-            ) { _, methodName, frame, returnValue ->
+            ) { methodName, frame, returnValue ->
                 applyPackageHiding(
                     methodName,
                     { frame.getArg(2) as Int? },
@@ -76,7 +76,7 @@ class PmsHookTarget31(service: HMAService) : PmsHookTargetBase(service) {
             hookBefore(
                 PMS_COMPUTER_TRACKER_CLASS,
                 "getPackageInfoInternal",
-            ) { _, methodName, frame, returnValue ->
+            ) { methodName, frame, returnValue ->
                 applyPackageHiding(
                     methodName,
                     { frame.getArg(4) as Int? },
@@ -89,7 +89,7 @@ class PmsHookTarget31(service: HMAService) : PmsHookTargetBase(service) {
             hookBefore(
                 PMS_COMPUTER_TRACKER_CLASS,
                 "getApplicationInfoInternal",
-            ) { _, methodName, frame, returnValue ->
+            ) { methodName, frame, returnValue ->
                 applyPackageHiding(
                     methodName,
                     { frame.getArg(3) as Int? },
@@ -102,7 +102,7 @@ class PmsHookTarget31(service: HMAService) : PmsHookTargetBase(service) {
             hookBefore(
                 APPS_FILTER_CLASS,
                 "shouldFilterApplication",
-            ) { _, methodName, frame, returnValue ->
+            ) { methodName, frame, returnValue ->
                 applyPackageHiding(
                     methodName,
                     { frame.getArg(1) as Int? },

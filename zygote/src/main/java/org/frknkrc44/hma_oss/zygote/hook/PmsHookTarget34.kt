@@ -68,7 +68,7 @@ class PmsHookTarget34(service: HMAService) : PmsHookTargetBase(service) {
             hookBefore(
                 APPS_FILTER_IMPL_CLASS,
                 "shouldFilterApplication",
-            ) { _, methodName, frame, returnValue ->
+            ) { methodName, frame, returnValue ->
                 applyPackageHiding(
                     methodName,
                     { frame.getArg(2) as Int? },
@@ -93,7 +93,7 @@ class PmsHookTarget34(service: HMAService) : PmsHookTargetBase(service) {
             hookBefore(
                 altNames.declaringClass.name,
                 altNames.name,
-            ) { _, methodName, frame, returnValue ->
+            ) { methodName, frame, returnValue ->
                 applyPackageHiding(
                     methodName,
                     { Binder.getCallingUid() },

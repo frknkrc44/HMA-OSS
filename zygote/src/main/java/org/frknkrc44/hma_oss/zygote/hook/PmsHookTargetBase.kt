@@ -53,7 +53,7 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                 hookAfter(
                     COMPUTER_ENGINE_CLASS,
                     "getPackageStates",
-                ) { _, _, _, returnValue ->
+                ) { _, _, returnValue ->
                     val callingUid = Binder.getCallingUid()
                     if (callingUid == Constants.UID_SYSTEM) return@hookAfter
 
@@ -88,7 +88,7 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                     hookBefore(
                         COMPUTER_ENGINE_CLASS,
                         "generatePackageInfo",
-                    ) { _, methodName, frame, returnValue ->
+                    ) { methodName, frame, returnValue ->
                         applyPackageHiding(
                             methodName,
                             { Binder.getCallingUid() },
@@ -104,7 +104,7 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                 hookBefore(
                     COMPUTER_ENGINE_CLASS,
                     "addPackageHoldingPermissions",
-                ) { _, methodName, frame, returnValue ->
+                ) { methodName, frame, returnValue ->
                     applyPackageHiding(
                         methodName,
                         { Binder.getCallingUid() },
@@ -117,7 +117,7 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                 hookBefore(
                     COMPUTER_ENGINE_CLASS,
                     "getPackageInfoInternal",
-                ) { _, methodName, frame, returnValue ->
+                ) { methodName, frame, returnValue ->
                     applyPackageHiding(
                         methodName,
                         { frame.args.firstOrNullWithType() },
@@ -130,7 +130,7 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                 hookBefore(
                     COMPUTER_ENGINE_CLASS,
                     "getApplicationInfoInternal",
-                ) { _, methodName, frame, returnValue ->
+                ) { methodName, frame, returnValue ->
                     applyPackageHiding(
                         methodName,
                         { frame.args.firstOrNullWithType() },
@@ -143,7 +143,7 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                 hookBefore(
                     COMPUTER_ENGINE_CLASS,
                     "isCallerInstallerOfRecord",
-                ) { _, methodName, frame, returnValue ->
+                ) { methodName, frame, returnValue ->
                     val callingUid = frame.args.lastWithType<Int>()
 
                     applyInstallerHiding(
@@ -172,7 +172,7 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                 hookBefore(
                     COMPUTER_ENGINE_CLASS,
                     "getInstallerPackageName",
-                ) { _, methodName, frame, returnValue ->
+                ) { methodName, frame, returnValue ->
                     applyInstallerHiding(
                         methodName,
                         { frame.args.firstOrNullWithType() ?: Binder.getCallingUid() },
@@ -188,7 +188,7 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                 hookBefore(
                     service.pms.javaClass.name,
                     "getInstallerPackageName",
-                ) { _, methodName, frame, returnValue ->
+                ) { methodName, frame, returnValue ->
                     applyInstallerHiding(
                         methodName,
                         { Binder.getCallingUid() },
@@ -206,7 +206,7 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                 hookBefore(
                     service.pmn.javaClass.name,
                     "getInstallerForPackage",
-                ) { _, methodName, frame, returnValue ->
+                ) { methodName, frame, returnValue ->
                     applyInstallerHiding(
                         methodName,
                         { Binder.getCallingUid() },
@@ -224,7 +224,7 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                 hookBefore(
                     service.pms.javaClass.name,
                     "getInstallSourceInfo",
-                ) { _, methodName, frame, returnValue ->
+                ) { methodName, frame, returnValue ->
                     applyInstallerHiding(
                         methodName,
                         { Binder.getCallingUid() },

@@ -29,7 +29,7 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
             hookAfter(
                 CONTENT_PROVIDER_TRANSPORT_CLASS,
                 "query",
-            ) { _, _, frame, returnValue ->
+            ) { _, frame, returnValue ->
                 val callingApps = getCallingPackages(frame)
 
                 val caller = callingApps.firstOrNull { service.isAnySettingsReplacementsEnabled(it) }
@@ -135,7 +135,7 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
             hookBefore(
                 CONTENT_PROVIDER_TRANSPORT_CLASS,
                 "call",
-            ) { _, _, frame, returnValue ->
+            ) { _, frame, returnValue ->
                 val callingApps = getCallingPackages(frame)
                 val caller = callingApps.firstOrNull { service.isAnySettingsReplacementsEnabled(it) }
                 if (caller == null) return@hookBefore

@@ -50,7 +50,7 @@ class PmsHookTarget30(service: HMAService) : PmsHookTargetBase(service) {
             hookBefore(
                 PACKAGE_MANAGER_SERVICE_CLASS,
                 "getPackageSetting",
-            ) { _, methodName, frame, returnValue ->
+            ) { methodName, frame, returnValue ->
                 applyPackageHiding(
                     methodName,
                     { Binder.getCallingUid() },
@@ -63,7 +63,7 @@ class PmsHookTarget30(service: HMAService) : PmsHookTargetBase(service) {
             hookBefore(
                 APPS_FILTER_CLASS,
                 "shouldFilterApplication",
-            ) { _, methodName, frame, returnValue ->
+            ) { methodName, frame, returnValue ->
                 applyPackageHiding(
                     methodName,
                     { frame.getArg(1) as Int },
@@ -76,7 +76,7 @@ class PmsHookTarget30(service: HMAService) : PmsHookTargetBase(service) {
             hookBefore(
                 PACKAGE_MANAGER_SERVICE_CLASS,
                 "getPackageInfoInternal",
-            ) { _, methodName, frame, returnValue ->
+            ) { methodName, frame, returnValue ->
                 applyPackageHiding(
                     methodName,
                     { frame.getArg(4) as? Int },
@@ -89,7 +89,7 @@ class PmsHookTarget30(service: HMAService) : PmsHookTargetBase(service) {
             hookBefore(
                 PACKAGE_MANAGER_SERVICE_CLASS,
                 "getApplicationInfoInternal",
-            ) { _, methodName, frame, returnValue ->
+            ) { methodName, frame, returnValue ->
                 applyPackageHiding(
                     methodName,
                     { frame.getArg(3) as? Int },

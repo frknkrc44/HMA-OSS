@@ -18,7 +18,7 @@ class AccessibilityHook(private val service: HMAService) : IFrameworkHook {
             hookBefore(
                 ACCESSIBILITY_SERVICE_CLASS,
                 "getEnabledAccessibilityServiceList",
-            ) { _, methodName, frame, returnValue ->
+            ) { methodName, frame, returnValue ->
                 val callingApps = ServiceUtils.getCallingApps(service)
                 if (callingApps.isEmpty()) return@hookBefore
 
@@ -38,7 +38,7 @@ class AccessibilityHook(private val service: HMAService) : IFrameworkHook {
             hookBefore(
                 ACCESSIBILITY_SERVICE_CLASS,
                 "addClient",
-            ) { _, _, _, returnValue ->
+            ) { _, _, returnValue ->
                 val callingApps = ServiceUtils.getCallingApps(service)
                 if (callingApps.isEmpty()) return@hookBefore
 

@@ -16,7 +16,7 @@ class ZygoteHook(private val service: HMAService) : IFrameworkHook {
         BulkHooker.instance.hookBefore(
             ZYGOTE_PROCESS_CLASS,
             "start",
-        ) { _, _, frame, _ ->
+        ) { _, frame, _ ->
             logD(TAG) { "@startZygoteProcess: Starting ${frame.args.contentToString()}" }
 
             // ignore if the GIDs array is null

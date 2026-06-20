@@ -54,7 +54,7 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
             hookBefore(
                 PROCESS_LIST_CLASS,
                 "startProcess",
-            ) { _, _, frame, _ ->
+            ) { _, frame, _ ->
                 val processListClazz = runCatching {
                     Class.forName(PROCESS_LIST_CLASS, true, SystemServerHook.classLoader)
                 }.getOrNull()
@@ -108,7 +108,7 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
             hookAfter(
                 PROCESS_LIST_CLASS,
                 "needsStorageDataIsolation",
-            ) { _, _, frame, returnValue ->
+            ) { _, frame, returnValue ->
                 if (service.config.altVoldAppDataIsolation) {
                     val app = frame.args.find { it?.javaClass?.simpleName == "ProcessRecord" }!!
                     val uid = runCatching {
@@ -168,7 +168,7 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
             hookBefore(
                 STORAGE_MANAGER_SERVICE_CLASS,
                 "onVolumeStateChangedLocked",
-            ) { _, _, frame, _ ->
+            ) { _, frame, _ ->
                 if (service.config.altVoldAppDataIsolation && !voldHookSkipped) {
                     val fuseEnabled = SystemProperties.getBoolean(FUSE_PROP, false)
 
@@ -198,7 +198,7 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
             hookBefore(
                 STORAGE_MANAGER_SERVICE_CLASS,
                 "remountAppStorageDirs",
-            ) { _, _, frame, _ ->
+            ) { _, frame, _ ->
                 if (!voldHookSkipped && service.config.altVoldAppDataIsolation && service.config.skipSystemAppDataIsolation) {
                     @Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN")
                     val pidPkgMap = frame.getArg(1) as Map<*, *>

@@ -64,18 +64,13 @@ class BulkHooker private constructor() {
         methodName: String,
         hookOnce: Boolean = true,
         paramCount: Int = PARAMETER_COUNT_UNKNOWN,
-        hook: (
-            clazz: String,
-            methodName: String,
-            frame: EmulatedStackFrame,
-            returnValue: ReturnValue,
-        ) -> Unit,
+        hook: (methodName: String, frame: EmulatedStackFrame, returnValue: ReturnValue) -> Unit,
     ) {
         addHook(clazz, methodName, hookOnce, paramCount) { original, frame ->
             val value = ReturnValue()
 
             try {
-                hook(clazz, methodName, frame, value)
+                hook(methodName, frame, value)
             } catch (it: Throwable) {
                 logE(ZygoteEntry.TAG, it) { it.message ?: "Unknown error on hook" }
             }
@@ -106,12 +101,7 @@ class BulkHooker private constructor() {
         methodName: String,
         hookOnce: Boolean = true,
         paramCount: Int = PARAMETER_COUNT_UNKNOWN,
-        hook: (
-            clazz: String,
-            methodName: String,
-            frame: EmulatedStackFrame,
-            returnValue: ReturnValue,
-        ) -> Unit,
+        hook: (methodName: String, frame: EmulatedStackFrame, returnValue: ReturnValue) -> Unit,
     ) {
         addHook(clazz, methodName, hookOnce, paramCount) { original, frame ->
             val value = ReturnValue()
@@ -128,7 +118,7 @@ class BulkHooker private constructor() {
             }
 
             try {
-                hook(clazz, methodName, frame, value)
+                hook(methodName, frame, value)
             } catch (it: Throwable) {
                 logE(ZygoteEntry.TAG, it) { it.message ?: "Unknown error on hook" }
             }

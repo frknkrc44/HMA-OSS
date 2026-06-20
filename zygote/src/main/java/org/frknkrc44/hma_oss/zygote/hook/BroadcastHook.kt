@@ -35,7 +35,7 @@ class BroadcastHook(private val service: HMAService) : IFrameworkHook {
                     ACTIVITY_MANAGER_SERVICE_CLASS
                 },
                 "broadcastIntentLocked",
-            ) { _, _, frame, returnValue ->
+            ) { _, frame, returnValue ->
                 val caller = frame.args.firstOrNullWithType<String>() ?: return@hookBefore
                 val intent = frame.args.firstOrNullWithType<Intent>() ?: return@hookBefore
                 val targetApp = intent.component?.packageName

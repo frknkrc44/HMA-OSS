@@ -29,7 +29,7 @@ class PlatformCompatHook(private val service: HMAService) : IFrameworkHook {
         BulkHooker.instance.hookBefore(
             PLATFORM_COMPAT_CLASS,
             "isChangeEnabled",
-        ) { _, _, frame, returnValue ->
+        ) { _, frame, returnValue ->
             runCatching {
                 if (!sAppDataIsolationEnabled) return@hookBefore
 

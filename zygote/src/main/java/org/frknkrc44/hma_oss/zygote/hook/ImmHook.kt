@@ -79,7 +79,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
                     hookBefore(
                         method.declaringClass.name,
                         method.name,
-                    ) { _, methodName, frame, returnValue ->
+                    ) { methodName, frame, returnValue ->
                         val callingApps = getCallingApps(service)
 
                         val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
@@ -106,7 +106,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
                 hookAfter(
                     method.declaringClass.name,
                     method.name,
-                ) { _, methodName, frame, returnValue ->
+                ) { methodName, frame, returnValue ->
                     logD(TAG) { "@$methodName: hook init" }
 
                     val currentResult = returnValue.result ?: return@hookAfter
@@ -148,7 +148,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
                 hookBefore(
                     method.declaringClass.name,
                     method.name,
-                ) { _, methodName, frame, returnValue ->
+                ) { methodName, frame, returnValue ->
                     val callingApps = getCallingApps(service)
 
                     val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
@@ -182,7 +182,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
                 hookBefore(
                     it.declaringClass.name,
                     it.name,
-                ) { _, methodName, _, returnValue ->
+                ) { methodName, _, returnValue ->
                     subtypeHook(methodName, returnValue)
                 }
             }
@@ -194,7 +194,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
                 hookBefore(
                     it.declaringClass.name,
                     it.name,
-                ) { _, methodName, _, returnValue ->
+                ) { methodName, _, returnValue ->
                     subtypeHook(methodName, returnValue)
                 }
             }
@@ -206,7 +206,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
                 hookBefore(
                     it.declaringClass.name,
                     it.name,
-                ) { _, methodName, frame, returnValue ->
+                ) { methodName, frame, returnValue ->
                     subtypeListHook(methodName, frame, returnValue)
                 }
             }
