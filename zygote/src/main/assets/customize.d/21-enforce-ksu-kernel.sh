@@ -17,8 +17,8 @@ if [ "$KSU" ]; then
 
     # language pack
     if echo "$SYSTEM_LANG" | grep -q "zh"; then
-        KSU_VERSION_MISMATCH_WARN="! 警告: KernelSU 管理器 ($KSU_VER_CODE) 与驱动 ($KSU_KERNEL_VER_CODE) 版本不匹配! HMA-OSS 不对由此引发的系统异常负责，且模块可能无法激活!"
-        KSU_VERSION_MISMATCH_ERR="! 错误: KernelSU 管理器 ($KSU_VER_CODE) 与驱动 ($KSU_KERNEL_VER_CODE) 版本不匹配! 请升级LKM驱动版本以继续安装HMA-OSS"
+        KSU_VERSION_MISMATCH_WARN="! 警告: KernelSU 管理器版本 ($KSU_VER_CODE) 与驱动版本 ($KSU_KERNEL_VER_CODE) 不匹配! HMA-OSS 不对由此引发的系统异常负责，且模块可能无法激活!"
+        KSU_VERSION_MISMATCH_ERR="! 错误: KernelSU 管理器版本 ($KSU_VER_CODE) 与驱动版本 ($KSU_KERNEL_VER_CODE) 不匹配! 请升级LKM驱动版本以继续安装HMA-OSS"
         INSTALLER_CONTINUE_MSG(){
             echo "- 安装将在 $1 秒后继续"
         }
