@@ -10,7 +10,7 @@ if [ "$KSU" ]; then
 
     # default language
     KSU_VERSION_MISMATCH_WARN="! KernelSU manager version ($KSU_VER_CODE) does not match kernel driver version ($KSU_KERNEL_VER_CODE). HMA-OSS will not take any responsibilities for incompatibilities!"
-    KSU_VERSION_MISMATCH_ERR="! KernelSU manager version ($KSU_VER_CODE) does not match kernel driver version ($KSU_KERNEL_VER_CODE). Aborting..."
+    KSU_VERSION_MISMATCH_ERR="! KernelSU manager version ($KSU_VER_CODE) does not match kernel driver version ($KSU_KERNEL_VER_CODE). Please upgrade the LKM driver version to continue installation, Aborting..."
     INSTALLER_CONTINUE_MSG(){
         echo "- The installer will continue in $1 seconds"
     }
