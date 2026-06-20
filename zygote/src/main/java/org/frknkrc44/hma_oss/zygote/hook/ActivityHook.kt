@@ -14,8 +14,12 @@ import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArg
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getObjectField
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getStaticIntField
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.setArg
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.thisObject
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.ACTIVITY_STACK_SUPERVISOR_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.ACTIVITY_STARTER_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.ACTIVITY_TASK_SUPERVISOR_CLASS
@@ -45,8 +49,8 @@ class ActivityHook(private val service: HMAService) : IFrameworkHook {
                     ACTIVITY_STACK_SUPERVISOR_CLASS
                 },
                 "checkStartAnyActivityPermission",
-            ) { param ->
-                logV(TAG) { "${param.methodName}: ${param.args.contentToString()}" }
+            ) { _, methodName, frame, _ ->
+                logV(TAG) { "$methodName: ${frame.args.contentToString()}" }
 
                 // just an empty hook that does nothing
             }
@@ -59,33 +63,33 @@ class ActivityHook(private val service: HMAService) : IFrameworkHook {
                         PACKAGE_MANAGER_SERVICE_CLASS
                     },
                     "applyPostResolutionFilter",
-                ) { param ->
+                ) { _, methodName, frame, _ ->
                     @Suppress("UNCHECKED_CAST") // I know what I do
-                    val list = param.args[1] as List<ResolveInfo>?
+                    val list = frame.args[1] as List<ResolveInfo>?
                     if (list.isNullOrEmpty()) return@hookBefore
 
-                    val callingUid = param.args.firstWithType<Int>()
+                    val callingUid = frame.args.firstWithType<Int>()
                     if (callingUid == Constants.UID_SYSTEM) return@hookBefore
 
                     val callingApps = getCallingApps(service, callingUid)
                     val caller = callingApps.firstOrNull { service.isHookEnabled(it) }
                     if (caller != null) {
-                        logV(TAG) { "@${param.methodName}: $caller requested a resolve info" }
+                        logV(TAG) { "@$methodName: $caller requested a resolve info" }
 
                         val filteredList = list.filter { resolveInfo ->
                             val targetApp = Utils.getPackageNameFromResolveInfo(resolveInfo)
 
-                            logV(TAG) { "@${param.methodName}: Checking $targetApp for $caller" }
+                            logV(TAG) { "@$methodName: Checking $targetApp for $caller" }
 
                             (!service.shouldHideActivityLaunch(caller, targetApp)).apply {
                                 if (!this) {
-                                    logD(TAG) { "@${param.methodName}: insecure query from $caller, target: $targetApp" }
+                                    logD(TAG) { "@$methodName: insecure query from $caller, target: $targetApp" }
                                 }
                             }
                         }
 
                         if (filteredList.size != list.size) {
-                            param.setArgument(1, filteredList.toList())
+                            frame.setArg(1, filteredList.toList())
 
                             service.increasePMFilterCount(caller, list.size - filteredList.size)
                         }
@@ -110,15 +114,15 @@ class ActivityHook(private val service: HMAService) : IFrameworkHook {
                         hookBefore(
                             ACTIVITY_STARTER_CLASS,
                             "executeRequest",
-                        ) { param ->
-                            val request = param.getArgument(1)
+                        ) { _, _, frame, returnValue ->
+                            val request = frame.getArg(1)
                             val caller = getObjectField(request, "callingPackage") as? String ?: return@hookBefore
                             val intent = getObjectField(request, "intent") as? Intent ?: return@hookBefore
                             val targetApp = intent.component?.packageName
 
                             if (service.shouldHideActivityLaunch(caller, targetApp)) {
                                 logD(TAG) { "@executeRequest: insecure query from $caller, target: ${intent.component}" }
-                                param.result = fakeReturnCode
+                                returnValue.result = fakeReturnCode
                                 service.increaseALFilterCount(caller)
                             }
                         }
@@ -126,14 +130,14 @@ class ActivityHook(private val service: HMAService) : IFrameworkHook {
                         hookBefore(
                             ACTIVITY_STARTER_CLASS,
                             "startActivity",
-                        ) { param ->
-                            val caller = param.args.firstOrNullWithType<String>() ?: return@hookBefore
-                            val intent = param.args.firstOrNullWithType<Intent>() ?: return@hookBefore
+                        ) { _, _, frame, returnValue ->
+                            val caller = frame.args.firstOrNullWithType<String>() ?: return@hookBefore
+                            val intent = frame.args.firstOrNullWithType<Intent>() ?: return@hookBefore
                             val targetApp = intent.component?.packageName
 
                             if (service.shouldHideActivityLaunch(caller, targetApp)) {
                                 logD(TAG) { "@startActivity: insecure query from $caller, target: ${intent.component}" }
-                                param.result = fakeReturnCode
+                                returnValue.result = fakeReturnCode
                                 service.increaseALFilterCount(caller)
                             }
                         }
@@ -142,15 +146,15 @@ class ActivityHook(private val service: HMAService) : IFrameworkHook {
                     hookBefore(
                         ACTIVITY_STARTER_CLASS,
                         "execute",
-                    ) { param ->
-                        val request = getObjectField(param.thisObject, "mRequest") ?: return@hookBefore
+                    ) { _, _, frame, returnValue ->
+                        val request = getObjectField(frame.thisObject, "mRequest") ?: return@hookBefore
                         val caller = getObjectField(request, "callingPackage") as? String ?: return@hookBefore
                         val intent = getObjectField(request, "intent") as? Intent ?: return@hookBefore
                         val targetApp = intent.component?.packageName
 
                         if (service.shouldHideActivityLaunch(caller, targetApp)) {
                             logD(TAG) { "@executeRequest: insecure query from $caller, target: ${intent.component}" }
-                            param.result = fakeReturnCode
+                            returnValue.result = fakeReturnCode
                             service.increaseALFilterCount(caller)
                         }
                     }

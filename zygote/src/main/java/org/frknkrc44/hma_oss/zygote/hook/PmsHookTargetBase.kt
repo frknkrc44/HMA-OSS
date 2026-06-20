@@ -19,7 +19,9 @@ import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackageNameFromPackageSettings
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.callMethod
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArg
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.COMPUTER_ENGINE_CLASS
 import java.util.concurrent.atomic.AtomicReference
 
@@ -51,7 +53,7 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                 hookAfter(
                     COMPUTER_ENGINE_CLASS,
                     "getPackageStates",
-                ) { param ->
+                ) { _, _, _, returnValue ->
                     val callingUid = Binder.getCallingUid()
                     if (callingUid == Constants.UID_SYSTEM) return@hookAfter
 
@@ -60,7 +62,7 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                     if (caller != null) {
                         logD(TAG) { "@getPackageStates: incoming query from $caller" }
 
-                        val result = param.result as ArrayMap<*, *>
+                        val result = returnValue.result as ArrayMap<*, *>
                         val markedToRemove = mutableListOf<Any>()
 
                         for (pair in result.entries) {
@@ -75,7 +77,7 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                             val copyResult = ArrayMap(result)
                             copyResult.removeAll(markedToRemove)
                             logD(TAG) { "@getPackageStates: removed ${markedToRemove.size} entries from $caller" }
-                            param.result = copyResult
+                            returnValue.result = copyResult
                             service.increasePMFilterCount(caller)
                         }
                     }
@@ -86,13 +88,13 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                     hookBefore(
                         COMPUTER_ENGINE_CLASS,
                         "generatePackageInfo",
-                    ) { param ->
+                    ) { _, methodName, frame, returnValue ->
                         applyPackageHiding(
-                            param.methodName,
+                            methodName,
                             { Binder.getCallingUid() },
-                            { getPackageNameFromPackageSettings(param.getArgument(1)) },
+                            { getPackageNameFromPackageSettings(frame.getArg(1)) },
                             { getCallingApps(service, it) },
-                            { param.result = null },
+                            { returnValue.result = null },
                         )
                     }
                 }
@@ -102,53 +104,53 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                 hookBefore(
                     COMPUTER_ENGINE_CLASS,
                     "addPackageHoldingPermissions",
-                ) { param ->
+                ) { _, methodName, frame, returnValue ->
                     applyPackageHiding(
-                        param.methodName,
+                        methodName,
                         { Binder.getCallingUid() },
-                        { getPackageNameFromPackageSettings(param.getArgument(2)) },
+                        { getPackageNameFromPackageSettings(frame.getArg(2)) },
                         { getCallingApps(service, it) },
-                        { param.result = null },
+                        { returnValue.result = null },
                     )
                 }
 
                 hookBefore(
                     COMPUTER_ENGINE_CLASS,
                     "getPackageInfoInternal",
-                ) { param ->
+                ) { _, methodName, frame, returnValue ->
                     applyPackageHiding(
-                        param.methodName,
-                        { param.args.firstOrNullWithType() },
-                        { param.args.firstOrNullWithType() },
+                        methodName,
+                        { frame.args.firstOrNullWithType() },
+                        { frame.args.firstOrNullWithType() },
                         { getCallingApps(service, it) },
-                        { param.result = null },
+                        { returnValue.result = null },
                     )
                 }
 
                 hookBefore(
                     COMPUTER_ENGINE_CLASS,
                     "getApplicationInfoInternal",
-                ) { param ->
+                ) { _, methodName, frame, returnValue ->
                     applyPackageHiding(
-                        param.methodName,
-                        { param.args.firstOrNullWithType() },
-                        { param.args.firstOrNullWithType() },
+                        methodName,
+                        { frame.args.firstOrNullWithType() },
+                        { frame.args.firstOrNullWithType() },
                         { getCallingApps(service, it) },
-                        { param.result = null },
+                        { returnValue.result = null },
                     )
                 }
 
                 hookBefore(
                     COMPUTER_ENGINE_CLASS,
                     "isCallerInstallerOfRecord",
-                ) { param ->
-                    val callingUid = param.args.lastWithType<Int>()
+                ) { _, methodName, frame, returnValue ->
+                    val callingUid = frame.args.lastWithType<Int>()
 
                     applyInstallerHiding(
-                        param.methodName,
+                        methodName,
                         { callingUid },
                         fta@{
-                            val pkg = param.args.lastOrNull {
+                            val pkg = frame.args.lastOrNull {
                                 it?.javaClass?.simpleName in androidPkgClazzNames
                             } ?: return@fta null
                             callMethod(pkg,
@@ -161,8 +163,8 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                         }
                     ) {
                         when (it) {
-                            Constants.FAKE_INSTALLATION_SOURCE_USER -> param.result = callingUid == psPackageInfo?.applicationInfo?.uid
-                            Constants.FAKE_INSTALLATION_SOURCE_SYSTEM -> param.result = false
+                            Constants.FAKE_INSTALLATION_SOURCE_USER -> returnValue.result = callingUid == psPackageInfo?.applicationInfo?.uid
+                            Constants.FAKE_INSTALLATION_SOURCE_SYSTEM -> returnValue.result = false
                         }
                     }
                 }
@@ -170,15 +172,15 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                 hookBefore(
                     COMPUTER_ENGINE_CLASS,
                     "getInstallerPackageName",
-                ) { param ->
+                ) { _, methodName, frame, returnValue ->
                     applyInstallerHiding(
-                        param.methodName,
-                        { param.args.firstOrNullWithType() ?: Binder.getCallingUid() },
-                        { param.args.firstOrNullWithType() },
+                        methodName,
+                        { frame.args.firstOrNullWithType() ?: Binder.getCallingUid() },
+                        { frame.args.firstOrNullWithType() },
                     ) {
                         when (it) {
-                            Constants.FAKE_INSTALLATION_SOURCE_USER -> param.result = VENDING_PACKAGE_NAME
-                            Constants.FAKE_INSTALLATION_SOURCE_SYSTEM -> param.result = null
+                            Constants.FAKE_INSTALLATION_SOURCE_USER -> returnValue.result = VENDING_PACKAGE_NAME
+                            Constants.FAKE_INSTALLATION_SOURCE_SYSTEM -> returnValue.result = null
                         }
                     }
                 }
@@ -186,15 +188,15 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                 hookBefore(
                     service.pms.javaClass.name,
                     "getInstallerPackageName",
-                ) { param ->
+                ) { _, methodName, frame, returnValue ->
                     applyInstallerHiding(
-                        param.methodName,
+                        methodName,
                         { Binder.getCallingUid() },
-                        { param.getArgument(1) as? String },
+                        { frame.getArg(1) as? String },
                     ) {
                         when (it) {
-                            Constants.FAKE_INSTALLATION_SOURCE_USER -> param.result = VENDING_PACKAGE_NAME
-                            Constants.FAKE_INSTALLATION_SOURCE_SYSTEM -> param.result = null
+                            Constants.FAKE_INSTALLATION_SOURCE_USER -> returnValue.result = VENDING_PACKAGE_NAME
+                            Constants.FAKE_INSTALLATION_SOURCE_SYSTEM -> returnValue.result = null
                         }
                     }
                 }
@@ -204,15 +206,15 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                 hookBefore(
                     service.pmn.javaClass.name,
                     "getInstallerForPackage",
-                ) { param ->
+                ) { _, methodName, frame, returnValue ->
                     applyInstallerHiding(
-                        param.methodName,
+                        methodName,
                         { Binder.getCallingUid() },
-                        { param.getArgument(1) as? String },
+                        { frame.getArg(1) as? String },
                     ) {
                         when (it) {
-                            Constants.FAKE_INSTALLATION_SOURCE_USER -> param.result = VENDING_PACKAGE_NAME
-                            Constants.FAKE_INSTALLATION_SOURCE_SYSTEM -> param.result = "preload"
+                            Constants.FAKE_INSTALLATION_SOURCE_USER -> returnValue.result = VENDING_PACKAGE_NAME
+                            Constants.FAKE_INSTALLATION_SOURCE_SYSTEM -> returnValue.result = "preload"
                         }
                     }
                 }
@@ -222,15 +224,15 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
                 hookBefore(
                     service.pms.javaClass.name,
                     "getInstallSourceInfo",
-                ) { param ->
+                ) { _, methodName, frame, returnValue ->
                     applyInstallerHiding(
-                        param.methodName,
+                        methodName,
                         { Binder.getCallingUid() },
-                        { param.getArgument(1) as? String }
+                        { frame.getArg(1) as? String }
                     ) {
                         when (it) {
-                            Constants.FAKE_INSTALLATION_SOURCE_USER -> param.result = fakeUserPackageInstallSourceInfo
-                            Constants.FAKE_INSTALLATION_SOURCE_SYSTEM -> param.result = fakeSystemPackageInstallSourceInfo
+                            Constants.FAKE_INSTALLATION_SOURCE_USER -> returnValue.result = fakeUserPackageInstallSourceInfo
+                            Constants.FAKE_INSTALLATION_SOURCE_SYSTEM -> returnValue.result = fakeSystemPackageInstallSourceInfo
                         }
                     }
                 }
@@ -261,7 +263,7 @@ abstract class PmsHookTargetBase(protected val service: HMAService) : IFramework
             logD(TAG) { "@$methodName caller: $callingUid $caller, target: $targetApp" }
             applyReturnValue()
             val last = lastFilteredApp.getAndSet(caller)
-            if (last != caller) logI(TAG) { "@${methodName}: query from $caller" }
+            if (last != caller) logI(TAG) { "@$methodName: query from $caller" }
             HMAServiceCache.instance.putShouldHideUidCache(callingUid, caller, targetApp)
             service.increasePMFilterCount(caller)
         }

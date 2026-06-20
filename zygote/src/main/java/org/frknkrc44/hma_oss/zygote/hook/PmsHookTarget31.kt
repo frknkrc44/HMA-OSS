@@ -10,6 +10,7 @@ import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackageNameFromPackageSettings
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.findConstructor
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArg
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.APPS_FILTER_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.PMS_COMPUTER_TRACKER_CLASS
 
@@ -49,65 +50,65 @@ class PmsHookTarget31(service: HMAService) : PmsHookTargetBase(service) {
             hookBefore(
                 PMS_COMPUTER_TRACKER_CLASS,
                 "getPackageSetting",
-            ) { param ->
+            ) { _, methodName, frame, returnValue ->
                 applyPackageHiding(
-                    param.methodName,
+                    methodName,
                     { Binder.getCallingUid() },
-                    { param.getArgument(1) as String? },
+                    { frame.getArg(1) as String? },
                     { getCallingApps(service, it) },
-                    { param.result = null },
+                    { returnValue.result = null },
                 )
             }
 
             hookBefore(
                 PMS_COMPUTER_TRACKER_CLASS,
                 "getPackageSettingInternal",
-            ) { param ->
+            ) { _, methodName, frame, returnValue ->
                 applyPackageHiding(
-                    param.methodName,
-                    { param.getArgument(2) as Int? },
-                    { param.getArgument(1) as String? },
+                    methodName,
+                    { frame.getArg(2) as Int? },
+                    { frame.getArg(1) as String? },
                     { getCallingApps(service, it) },
-                    { param.result = null },
+                    { returnValue.result = null },
                 )
             }
 
             hookBefore(
                 PMS_COMPUTER_TRACKER_CLASS,
                 "getPackageInfoInternal",
-            ) { param ->
+            ) { _, methodName, frame, returnValue ->
                 applyPackageHiding(
-                    param.methodName,
-                    { param.getArgument(4) as Int? },
-                    { param.getArgument(1) as String? },
+                    methodName,
+                    { frame.getArg(4) as Int? },
+                    { frame.getArg(1) as String? },
                     { getCallingApps(service, it) },
-                    { param.result = null },
+                    { returnValue.result = null },
                 )
             }
 
             hookBefore(
                 PMS_COMPUTER_TRACKER_CLASS,
                 "getApplicationInfoInternal",
-            ) { param ->
+            ) { _, methodName, frame, returnValue ->
                 applyPackageHiding(
-                    param.methodName,
-                    { param.getArgument(3) as Int? },
-                    { param.getArgument(1) as String? },
+                    methodName,
+                    { frame.getArg(3) as Int? },
+                    { frame.getArg(1) as String? },
                     { getCallingApps(service, it) },
-                    { param.result = null },
+                    { returnValue.result = null },
                 )
             }
 
             hookBefore(
                 APPS_FILTER_CLASS,
                 "shouldFilterApplication",
-            ) { param ->
+            ) { _, methodName, frame, returnValue ->
                 applyPackageHiding(
-                    param.methodName,
-                    { param.getArgument(1) as Int? },
-                    { getPackageNameFromPackageSettings(param.getArgument(3)) },
+                    methodName,
+                    { frame.getArg(1) as Int? },
+                    { getPackageNameFromPackageSettings(frame.getArg(3)) },
                     { getCallingApps(service, it) },
-                    { param.result = true },
+                    { returnValue.result = true },
                 )
             }
         }

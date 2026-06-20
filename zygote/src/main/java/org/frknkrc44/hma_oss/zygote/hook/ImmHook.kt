@@ -7,18 +7,22 @@ import android.os.Build
 import android.provider.Settings
 import android.view.inputmethod.InputMethodInfo
 import android.view.inputmethod.InputMethodSubtype
+import com.v7878.unsafe.invoke.EmulatedStackFrame
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.Utils
 import icu.nullptr.hidemyapplist.common.settings_presets.InputMethodPreset
 import org.frknkrc44.hma_oss.zygote.service.BulkHooker
 import org.frknkrc44.hma_oss.zygote.service.HMAService
-import org.frknkrc44.hma_oss.zygote.service.HookParam
+import org.frknkrc44.hma_oss.zygote.service.ReturnValue
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logW
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.packageManager
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.callStaticMethod
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArg
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.returnType
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.IMM_IMPL_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.IMM_SERVICE_CLASS
 import java.util.Collections
@@ -75,20 +79,20 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
                     hookBefore(
                         method.declaringClass.name,
                         method.name,
-                    ) { param ->
+                    ) { _, methodName, frame, returnValue ->
                         val callingApps = getCallingApps(service)
 
                         val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
                         if (caller != null) {
-                            logD(TAG) { "@${param.methodName} spoofed input method for $caller" }
+                            logD(TAG) { "@$methodName spoofed input method for $caller" }
 
                             val fakeIMInfo = getFakeInputMethodInfo(caller)
-                            val userHandle = param.getArgument(1) as Int
+                            val userHandle = frame.getArg(1) as Int
                             if (!isIMExists(fakeIMInfo.packageName, userHandle)) {
-                                warnNotInstalledKeyboard(param.methodName, fakeIMInfo.packageName)
+                                warnNotInstalledKeyboard(methodName, fakeIMInfo.packageName)
                             }
 
-                            param.result = fakeIMInfo
+                            returnValue.result = fakeIMInfo
                             service.increaseSettingsFilterCount(caller)
                         }
                     }
@@ -102,21 +106,21 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
                 hookAfter(
                     method.declaringClass.name,
                     method.name,
-                ) { param ->
-                    logD(TAG) { "@${param.methodName}: hook init" }
+                ) { _, methodName, frame, returnValue ->
+                    logD(TAG) { "@$methodName: hook init" }
 
-                    val currentResult = param.result ?: return@hookAfter
-                    logD(TAG) { "@${param.methodName}: Result: $currentResult Args: ${param.args.contentToString()}" }
+                    val currentResult = returnValue.result ?: return@hookAfter
+                    logD(TAG) { "@$methodName: Result: $currentResult Args: ${frame.args.contentToString()}" }
 
-                    val callingUid = if (param.args.count { it is Int } > 2) {
-                        param.args.lastOrNull { it is Int && it > 999 } as? Int ?: return@hookAfter
+                    val callingUid = if (frame.args.count { it is Int } > 2) {
+                        frame.args.lastOrNull { it is Int && it > 999 } as? Int ?: return@hookAfter
                     } else {
                         Binder.getCallingUid()
                     }
 
-                    logD(TAG) { "@${param.methodName}: Caller ID: $callingUid" }
+                    logD(TAG) { "@$methodName: Caller ID: $callingUid" }
 
-                    val returnType = param.returnType
+                    val returnType = frame.returnType
                     if (returnType.simpleName == "InputMethodInfoSafeList") {
                         val inList = callStaticMethod(
                             currentResult.javaClass,
@@ -126,12 +130,12 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
 
                         val newImmList = calculateReturnedInputMethodList(callingUid, inList)
 
-                        param.result = returnType.getDeclaredMethod(
+                        returnValue.result = returnType.getDeclaredMethod(
                             "create",
                             List::class.java,
                         ).apply { isAccessible = true }.invoke(null, newImmList)
                     } else {
-                        param.result = calculateReturnedInputMethodList(
+                        returnValue.result = calculateReturnedInputMethodList(
                             callingUid, currentResult as List<InputMethodInfo>)
                     }
                 }
@@ -144,21 +148,21 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
                 hookBefore(
                     method.declaringClass.name,
                     method.name,
-                ) { param ->
+                ) { _, methodName, frame, returnValue ->
                     val callingApps = getCallingApps(service)
 
                     val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
                     if (caller != null) {
-                        logD(TAG) { "@${param.methodName}: spoofed input method for $caller" }
+                        logD(TAG) { "@$methodName: spoofed input method for $caller" }
 
                         val fakeIMInfo = getFakeInputMethodInfo(caller)
                         if (!isIMExists(fakeIMInfo.packageName)) {
-                            warnNotInstalledKeyboard(param.methodName, fakeIMInfo.packageName)
+                            warnNotInstalledKeyboard(methodName, fakeIMInfo.packageName)
                         }
 
                         listOf(fakeIMInfo).let { list ->
-                            val returnType = param.returnType
-                            param.result = if (returnType.simpleName == "InputMethodInfoSafeList") {
+                            val returnType = frame.returnType
+                            returnValue.result = if (returnType.simpleName == "InputMethodInfoSafeList") {
                                 returnType.getDeclaredMethod(
                                     "create",
                                     List::class.java,
@@ -178,8 +182,8 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
                 hookBefore(
                     it.declaringClass.name,
                     it.name,
-                ) { param ->
-                    subtypeHook(param)
+                ) { _, methodName, _, returnValue ->
+                    subtypeHook(methodName, returnValue)
                 }
             }
 
@@ -190,8 +194,8 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
                 hookBefore(
                     it.declaringClass.name,
                     it.name,
-                ) { param ->
-                    subtypeHook(param)
+                ) { _, methodName, _, returnValue ->
+                    subtypeHook(methodName, returnValue)
                 }
             }
 
@@ -202,37 +206,37 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
                 hookBefore(
                     it.declaringClass.name,
                     it.name,
-                ) { param ->
-                    subtypeListHook(param)
+                ) { _, methodName, frame, returnValue ->
+                    subtypeListHook(methodName, frame, returnValue)
                 }
             }
         }
     }
 
-    private fun subtypeHook(param: HookParam) {
+    private fun subtypeHook(methodName: String, returnValue: ReturnValue) {
         val callingApps = getCallingApps(service)
 
         val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
         if (caller != null) {
-            logD(TAG) { "@${param.methodName}: spoofed input method subtype for ${callingApps.contentToString()}" }
+            logD(TAG) { "@$methodName: spoofed input method subtype for ${callingApps.contentToString()}" }
 
             // TODO: Find a method to get exact value for spoofed input method
-            param.result = null
+            returnValue.result = null
             service.increaseSettingsFilterCount(caller)
         }
     }
 
-    private fun subtypeListHook(param: HookParam) {
+    private fun subtypeListHook(methodName: String, frame: EmulatedStackFrame, returnValue: ReturnValue) {
         val callingApps = getCallingApps(service)
 
         val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
         if (caller != null) {
-            logD(TAG) { "@${param.methodName}: spoofed input method subtype for ${callingApps.contentToString()}" }
+            logD(TAG) { "@$methodName: spoofed input method subtype for ${callingApps.contentToString()}" }
 
             // TODO: Find a method to get exact list for spoofed input method
             Collections.emptyList<InputMethodSubtype>().let { list ->
-                val returnType = param.returnType
-                param.result = if (returnType.simpleName == "InputMethodSubtypeSafeList") {
+                val returnType = frame.returnType
+                returnValue.result = if (returnType.simpleName == "InputMethodSubtypeSafeList") {
                     returnType.getDeclaredMethod(
                         "create",
                         List::class.java,

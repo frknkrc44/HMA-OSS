@@ -7,6 +7,7 @@ import org.frknkrc44.hma_oss.zygote.service.BulkHooker
 import org.frknkrc44.hma_oss.zygote.service.HMAService
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getStaticIntField
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.ACTIVITY_MANAGER_SERVICE_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.BROADCAST_CONTROLLER_CLASS
@@ -34,14 +35,14 @@ class BroadcastHook(private val service: HMAService) : IFrameworkHook {
                     ACTIVITY_MANAGER_SERVICE_CLASS
                 },
                 "broadcastIntentLocked",
-            ) { param ->
-                val caller = param.args.firstOrNullWithType<String>() ?: return@hookBefore
-                val intent = param.args.firstOrNullWithType<Intent>() ?: return@hookBefore
+            ) { _, _, frame, returnValue ->
+                val caller = frame.args.firstOrNullWithType<String>() ?: return@hookBefore
+                val intent = frame.args.firstOrNullWithType<Intent>() ?: return@hookBefore
                 val targetApp = intent.component?.packageName
 
                 if (service.shouldHideActivityLaunch(caller, targetApp)) {
                     logD(TAG) { "@broadcastIntent: insecure query from $caller, target: ${intent.component}" }
-                    param.result = fakeReturnCode
+                    returnValue.result = fakeReturnCode
                     service.increaseALFilterCount(caller)
                 }
             }

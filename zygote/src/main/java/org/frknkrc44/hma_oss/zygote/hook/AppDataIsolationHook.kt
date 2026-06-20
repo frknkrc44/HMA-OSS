@@ -12,10 +12,13 @@ import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArg
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getBooleanField
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getIntField
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getObjectField
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.setBooleanField
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.thisObject
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.PROCESS_LIST_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.PROCESS_RECORD_INTERNAL_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.STORAGE_MANAGER_SERVICE_CLASS
@@ -51,21 +54,21 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
             hookBefore(
                 PROCESS_LIST_CLASS,
                 "startProcess",
-            ) { param ->
+            ) { _, _, frame, _ ->
                 val processListClazz = runCatching {
                     Class.forName(PROCESS_LIST_CLASS, true, SystemServerHook.classLoader)
                 }.getOrNull()
 
                 if (service.config.altAppDataIsolation) {
                     val isEnabled = getBooleanField(
-                        param.thisObject,
+                        frame.thisObject,
                         APPDATA_ISOLATION_ENABLED,
                         processListClazz,
                     )
 
                     if (!isEnabled) {
                         setBooleanField(
-                            param.thisObject,
+                            frame.thisObject,
                             APPDATA_ISOLATION_ENABLED,
                             true,
                             processListClazz,
@@ -83,14 +86,14 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
                         logE(TAG) { "ProcessList - FUSE storage is not enabled, skip vold hook" }
                     } else {
                         val isolationEnabled = getBooleanField(
-                            param.thisObject,
+                            frame.thisObject,
                             VOLD_APPDATA_ISOLATION_ENABLED,
                             processListClazz,
                         )
 
                         if (!isolationEnabled) {
                             setBooleanField(
-                                param.thisObject,
+                                frame.thisObject,
                                 VOLD_APPDATA_ISOLATION_ENABLED,
                                 true,
                                 processListClazz,
@@ -105,9 +108,9 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
             hookAfter(
                 PROCESS_LIST_CLASS,
                 "needsStorageDataIsolation",
-            ) { param ->
+            ) { _, _, frame, returnValue ->
                 if (service.config.altVoldAppDataIsolation) {
-                    val app = param.args.find { it?.javaClass?.simpleName == "ProcessRecord" }!!
+                    val app = frame.args.find { it?.javaClass?.simpleName == "ProcessRecord" }!!
                     val uid = runCatching {
                         getIntField(app, "uid")
                     }.getOrElse {
@@ -136,17 +139,17 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
                             getBooleanField(app, "appZygote", processRecordIntClass)
                         }
 
-                        logD(TAG) { "@needsStorageDataIsolation $uid and ${apps.contentToString()} - $processName value without override: ${param.result}, mount node: $mountNode, isolated: $isolated, appZygote: $appZygote" }
+                        logD(TAG) { "@needsStorageDataIsolation $uid and ${apps.contentToString()} - $processName value without override: ${returnValue.result}, mount node: $mountNode, isolated: $isolated, appZygote: $appZygote" }
                     }
 
                     // Do not isolate this module for safety
                     if (apps.contains(BuildConfig.APP_PACKAGE_NAME)) {
-                        param.result = false
+                        returnValue.result = false
                         return@hookAfter
                     }
 
                     if (apps.any { service.isAppDataIsolationExcluded(it) }) {
-                        param.result = false
+                        returnValue.result = false
                         return@hookAfter
                     }
 
@@ -155,7 +158,7 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
                         logD(TAG) { "@needsStorageDataIsolation $uid and ${apps.contentToString()} - isSystemApp: $isSystemApp" }
 
                         if (isSystemApp) {
-                            param.result = false
+                            returnValue.result = false
                             return@hookAfter
                         }
                     }
@@ -165,7 +168,7 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
             hookBefore(
                 STORAGE_MANAGER_SERVICE_CLASS,
                 "onVolumeStateChangedLocked",
-            ) { param ->
+            ) { _, _, frame, _ ->
                 if (service.config.altVoldAppDataIsolation && !voldHookSkipped) {
                     val fuseEnabled = SystemProperties.getBoolean(FUSE_PROP, false)
 
@@ -176,13 +179,13 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
                     }
 
                     val isolationEnabled = getBooleanField(
-                        param.thisObject,
+                        frame.thisObject,
                         VOLD_APPDATA_ISOLATION_ENABLED,
                     )
 
                     if (!isolationEnabled) {
                         setBooleanField(
-                            param.thisObject,
+                            frame.thisObject,
                             VOLD_APPDATA_ISOLATION_ENABLED,
                             true,
                         )
@@ -195,10 +198,10 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
             hookBefore(
                 STORAGE_MANAGER_SERVICE_CLASS,
                 "remountAppStorageDirs",
-            ) { param ->
+            ) { _, _, frame, _ ->
                 if (!voldHookSkipped && service.config.altVoldAppDataIsolation && service.config.skipSystemAppDataIsolation) {
                     @Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN")
-                    val pidPkgMap = param.getArgument(1) as Map<*, *>
+                    val pidPkgMap = frame.getArg(1) as Map<*, *>
                     val keysToRemove = mutableSetOf<Any>()
 
                     for (entry in pidPkgMap.entrySet()) {

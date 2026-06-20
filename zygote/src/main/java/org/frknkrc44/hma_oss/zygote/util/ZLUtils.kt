@@ -4,6 +4,7 @@ import com.v7878.unsafe.Reflection.getDeclaredField
 import com.v7878.unsafe.Reflection.getDeclaredMethod
 import com.v7878.unsafe.invoke.EmulatedStackFrame
 import com.v7878.unsafe.invoke.EmulatedStackFrame.RETURN_VALUE_IDX
+import icu.nullptr.hidemyapplist.common.lazyWithReceiver
 import org.frknkrc44.hma_oss.zygote.service.SystemServerHook
 import java.lang.reflect.Constructor
 import java.lang.reflect.Field
@@ -129,4 +130,24 @@ object ZLUtils {
 
         return field
     }
+
+    /**
+     * @return Class of the return type
+     */
+    val EmulatedStackFrame.returnType: Class<*> get() = type().returnType()
+
+    /**
+     * @return The first argument
+     */
+    val EmulatedStackFrame.thisObject by lazyWithReceiver { getArgument(this, 0) }
+
+    /**
+     * - `args[0] == thisObject`
+     * - `args[1:] == function args`
+     */
+    val EmulatedStackFrame.args by lazyWithReceiver { dumpArgs(this) }
+
+    fun EmulatedStackFrame.getArg(index: Int) = getArgument(this, index)
+
+    fun EmulatedStackFrame.setArg(index: Int, value: Any) = setArgument(this, index, value)
 }

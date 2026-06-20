@@ -7,12 +7,13 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import com.v7878.unsafe.invoke.EmulatedStackFrame
 import icu.nullptr.hidemyapplist.common.CollectionUtils.firstWithType
 import org.frknkrc44.hma_oss.zygote.service.BulkHooker
 import org.frknkrc44.hma_oss.zygote.service.HMAService
-import org.frknkrc44.hma_oss.zygote.service.HookParam
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.CONTENT_PROVIDER_TRANSPORT_CLASS
 
 class ContentProviderHook(private val service: HMAService): IFrameworkHook {
@@ -28,14 +29,14 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
             hookAfter(
                 CONTENT_PROVIDER_TRANSPORT_CLASS,
                 "query",
-            ) { param ->
-                val callingApps = getCallingPackages(param)
+            ) { _, _, frame, returnValue ->
+                val callingApps = getCallingPackages(frame)
 
                 val caller = callingApps.firstOrNull { service.isAnySettingsReplacementsEnabled(it) }
                 if (caller == null) return@hookAfter
 
-                val uriIdx = param.args.indexOfFirst { it is Uri }
-                val uri = param.args[uriIdx] as Uri
+                val uriIdx = frame.args.indexOfFirst { it is Uri }
+                val uri = frame.args[uriIdx] as Uri
 
                 if (uri.authority != "settings") return@hookAfter
 
@@ -43,8 +44,8 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
                 if (segments.isEmpty()) return@hookAfter
 
                 logD(TAG) {
-                    val projection = param.args[uriIdx + 1] as Array<String>?
-                    val args = param.args[uriIdx + 2] as Bundle?
+                    val projection = frame.args[uriIdx + 1] as Array<String>?
+                    val args = frame.args[uriIdx + 2] as Bundle?
 
                     "@spoofSettings QUERY in ${callingApps.contentToString()}: $uri, ${projection?.contentToString()}, $args"
                 }
@@ -59,7 +60,7 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
                     val replacement = service.getSpoofedSetting(caller, name, database)
                     if (replacement != null) {
                         logD(TAG) { "@spoofSettings QUERY $name in $database replaced for $caller" }
-                        param.result = MatrixCursor(arrayOf("name", "value"), 1).apply {
+                        returnValue.result = MatrixCursor(arrayOf("name", "value"), 1).apply {
                             addRow(arrayOf(replacement.name, replacement.value))
                         }
 
@@ -68,7 +69,7 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
                 } else {
                     logD(TAG) { "@spoofSettings LIST_QUERY received caller: $caller, database: $database" }
 
-                    val result = param.result as? Cursor? ?: return@hookAfter
+                    val result = returnValue.result as? Cursor? ?: return@hookAfter
 
                     val columns = mutableMapOf<String, MutableList<String?>>().apply {
                         for (i in 0 ..< result.columnCount) {
@@ -116,7 +117,7 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
 
                     service.increaseSettingsFilterCount(caller, filteredEntryCount)
 
-                    param.result = MatrixCursor(columns.keys.toTypedArray(), columns.size).apply {
+                    returnValue.result = MatrixCursor(columns.keys.toTypedArray(), columns.size).apply {
                         val size = columns.values.first().size
                         for (i in 0 ..< size) {
                             val innerList = mutableListOf<String?>()
@@ -134,14 +135,14 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
             hookBefore(
                 CONTENT_PROVIDER_TRANSPORT_CLASS,
                 "call",
-            ) { param ->
-                val callingApps = getCallingPackages(param)
+            ) { _, _, frame, returnValue ->
+                val callingApps = getCallingPackages(frame)
                 val caller = callingApps.firstOrNull { service.isAnySettingsReplacementsEnabled(it) }
                 if (caller == null) return@hookBefore
 
-                val nameIdx = param.args.indexOfLast { it is String }
-                val name = param.args[nameIdx] as String?
-                val method = param.args[nameIdx - 1] as String?
+                val nameIdx = frame.args.indexOfLast { it is String }
+                val name = frame.args[nameIdx] as String?
+                val method = frame.args[nameIdx - 1] as String?
 
                 logD(TAG) { "@spoofSettings CALL received caller: ${callingApps.contentToString()}, method: $method, name: $name" }
 
@@ -151,7 +152,7 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
                         val replacement = service.getSpoofedSetting(caller, name, database)
                         if (replacement != null) {
                             logD(TAG) { "@spoofSettings CALL $name in $database replaced for $caller" }
-                            param.result = Bundle().apply {
+                            returnValue.result = Bundle().apply {
                                 putString(Settings.NameValueTable.VALUE, replacement.value)
                                 putInt("_generation_index", -1)
                             }
@@ -164,12 +165,12 @@ class ContentProviderHook(private val service: HMAService): IFrameworkHook {
         }
     }
 
-    private fun getCallingPackages(param: HookParam): Array<String> = try {
+    private fun getCallingPackages(frame: EmulatedStackFrame): Array<String> = try {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            val attrSource = param.args.firstWithType<AttributionSource>()
+            val attrSource = frame.args.firstWithType<AttributionSource>()
             arrayOf(attrSource.packageName!!)
         } else {
-            arrayOf(param.args.firstWithType<String>())
+            arrayOf(frame.args.firstWithType<String>())
         }
     } catch (_: Throwable) {
         ServiceUtils.getCallingApps(service)

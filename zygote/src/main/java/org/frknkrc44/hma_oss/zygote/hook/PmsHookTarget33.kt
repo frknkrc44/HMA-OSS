@@ -11,6 +11,7 @@ import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackageNameFromPackageSettings
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.findConstructor
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.findMethod
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArg
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.APPS_FILTER_IMPL_CLASS
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
@@ -62,17 +63,17 @@ class PmsHookTarget33(service: HMAService) : PmsHookTargetBase(service) {
             hookBefore(
                 APPS_FILTER_IMPL_CLASS,
                 "shouldFilterApplication",
-            ) { param ->
+            ) { _, methodName, frame, returnValue ->
                 applyPackageHiding(
-                    param.methodName,
-                    { param.getArgument(2) as Int? },
-                    { getPackageNameFromPackageSettings(param.getArgument(4)) },
+                    methodName,
+                    { frame.getArg(2) as Int? },
+                    { getPackageNameFromPackageSettings(frame.getArg(4)) },
                     {
                         Utils.binderLocalScope {
-                            getPackagesForUidMethod.invoke(param.getArgument(1), it) as Array<String>?
+                            getPackagesForUidMethod.invoke(frame.getArg(1), it) as Array<String>?
                         }
                     },
-                    { param.result = true },
+                    { returnValue.result = true },
                 )
             }
         }

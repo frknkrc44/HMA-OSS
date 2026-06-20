@@ -5,6 +5,7 @@ import org.frknkrc44.hma_oss.zygote.service.HMAService
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackageNameFromPackageSettings
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArg
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.PACKAGE_MANAGER_SERVICE_CLASS
 
 class PmsHookTarget29(service: HMAService) : PmsHookTargetBase(service) {
@@ -24,39 +25,39 @@ class PmsHookTarget29(service: HMAService) : PmsHookTargetBase(service) {
                 service.pms::class.java.name,
                 "filterAppAccessLPr",
                 paramCount = 5,
-            ) { param ->
+            ) { _, methodName, frame, returnValue ->
                 applyPackageHiding(
-                    param.methodName,
-                    { param.getArgument(2) as Int? },
-                    { getPackageNameFromPackageSettings(param.getArgument(1)) },
+                    methodName,
+                    { frame.getArg(2) as Int? },
+                    { getPackageNameFromPackageSettings(frame.getArg(1)) },
                     { getCallingApps(service, it) },
-                    { param.result = true },
+                    { returnValue.result = true },
                 )
             }
 
             hookBefore(
                 PACKAGE_MANAGER_SERVICE_CLASS,
                 "getPackageInfoInternal",
-            ) { param ->
+            ) { _, methodName, frame, returnValue ->
                 applyPackageHiding(
-                    param.methodName,
-                    { param.getArgument(4) as Int? },
-                    { param.getArgument(1) as String? },
+                    methodName,
+                    { frame.getArg(4) as Int? },
+                    { frame.getArg(1) as String? },
                     { getCallingApps(service, it) },
-                    { param.result = null },
+                    { returnValue.result = null },
                 )
             }
 
             hookBefore(
                 PACKAGE_MANAGER_SERVICE_CLASS,
                 "getApplicationInfoInternal",
-            ) { param ->
+            ) { _, methodName, frame, returnValue ->
                 applyPackageHiding(
-                    param.methodName,
-                    { param.getArgument(3) as Int? },
-                    { param.getArgument(1) as String? },
+                    methodName,
+                    { frame.getArg(3) as Int? },
+                    { frame.getArg(1) as String? },
                     { getCallingApps(service, it) },
-                    { param.result = null },
+                    { returnValue.result = null },
                 )
             }
         }

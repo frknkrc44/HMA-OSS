@@ -7,6 +7,7 @@ import org.frknkrc44.hma_oss.zygote.service.BulkHooker
 import org.frknkrc44.hma_oss.zygote.service.HMAService
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.returnType
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.ACCESSIBILITY_SERVICE_CLASS
 
 class AccessibilityHook(private val service: HMAService) : IFrameworkHook {
@@ -17,16 +18,16 @@ class AccessibilityHook(private val service: HMAService) : IFrameworkHook {
             hookBefore(
                 ACCESSIBILITY_SERVICE_CLASS,
                 "getEnabledAccessibilityServiceList",
-            ) { param ->
+            ) { _, methodName, frame, returnValue ->
                 val callingApps = ServiceUtils.getCallingApps(service)
                 if (callingApps.isEmpty()) return@hookBefore
 
                 val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
                 if (caller != null) {
-                    logD(TAG) { "@${param.methodName} returning empty list for ${callingApps.contentToString()}" }
+                    logD(TAG) { "@$methodName returning empty list for ${callingApps.contentToString()}" }
 
                     val returnedList = java.util.ArrayList<AccessibilityServiceInfo>()
-                    param.result = if ("Parcel" in param.returnType.simpleName) {
+                    returnValue.result = if ("Parcel" in frame.returnType.simpleName) {
                         ParceledListSlice(returnedList)
                     } else {
                         returnedList
@@ -37,13 +38,13 @@ class AccessibilityHook(private val service: HMAService) : IFrameworkHook {
             hookBefore(
                 ACCESSIBILITY_SERVICE_CLASS,
                 "addClient",
-            ) { param ->
+            ) { _, _, _, returnValue ->
                 val callingApps = ServiceUtils.getCallingApps(service)
                 if (callingApps.isEmpty()) return@hookBefore
 
                 val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
                 if (caller != null) {
-                    param.result = 0L
+                    returnValue.result = 0L
                 }
             }
         }
