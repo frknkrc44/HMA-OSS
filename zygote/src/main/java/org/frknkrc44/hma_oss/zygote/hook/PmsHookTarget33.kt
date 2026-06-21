@@ -6,7 +6,6 @@ import androidx.annotation.RequiresApi
 import icu.nullptr.hidemyapplist.common.Constants.VENDING_PACKAGE_NAME
 import icu.nullptr.hidemyapplist.common.Utils
 import org.frknkrc44.hma_oss.zygote.service.BulkHooker
-import org.frknkrc44.hma_oss.zygote.service.HMAService
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackageNameFromPackageSettings
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.findConstructor
@@ -15,7 +14,7 @@ import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArg
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.APPS_FILTER_IMPL_CLASS
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-class PmsHookTarget33(service: HMAService) : PmsHookTargetBase(service) {
+class PmsHookTarget33 : PmsHookTargetBase() {
 
     override val TAG = "PmsHookTarget33"
 

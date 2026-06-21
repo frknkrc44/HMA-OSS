@@ -17,7 +17,7 @@ import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
 import icu.nullptr.hidemyapplist.common.Utils.isAppInstalled
 import org.frknkrc44.hma_oss.common.BuildConfig
 import org.frknkrc44.hma_oss.zygote.Magic
-import org.frknkrc44.hma_oss.zygote.service.HMAService
+import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
@@ -71,14 +71,14 @@ object ServiceUtils {
 
     val contentResolver get() = ActivityThread.currentActivityThread().application.contentResolver!!
 
-    fun getCallingApps(service: HMAService): Array<String> {
-        return getCallingApps(service, Binder.getCallingUid())
+    fun getCallingApps(): Array<String> {
+        return getCallingApps(Binder.getCallingUid())
     }
 
-    fun getCallingApps(service: HMAService, callingUid: Int): Array<String> {
+    fun getCallingApps(callingUid: Int): Array<String> {
         if (callingUid == Constants.UID_SYSTEM) return arrayOf()
         return binderLocalScope {
-            service.pms.getPackagesForUid(callingUid)
+            service?.pms?.getPackagesForUid(callingUid)
         } ?: arrayOf()
     }
 

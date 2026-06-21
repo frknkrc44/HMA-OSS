@@ -6,7 +6,7 @@ import androidx.annotation.RequiresApi
 import icu.nullptr.hidemyapplist.common.PropertyUtils
 import org.frknkrc44.hma_oss.common.BuildConfig
 import org.frknkrc44.hma_oss.zygote.service.BulkHooker
-import org.frknkrc44.hma_oss.zygote.service.HMAService
+import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
@@ -14,15 +14,15 @@ import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArg
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.PLATFORM_COMPAT_CLASS
 
 @RequiresApi(Build.VERSION_CODES.R)
-class PlatformCompatHook(private val service: HMAService) : IFrameworkHook {
+class PlatformCompatHook : IFrameworkHook {
     override val TAG = "PlatformCompatHook"
 
     private val sAppDataIsolationEnabled by lazy {
-        PropertyUtils.isAppDataIsolationEnabled || service.config.altAppDataIsolation
+        PropertyUtils.isAppDataIsolationEnabled || service?.config?.altAppDataIsolation == true
     }
 
     override fun load() {
-        if (!service.config.forceMountData) return
+        if (service?.config?.forceMountData ?: false) return
         logI(TAG) { "Load hook" }
         logI(TAG) { "App data isolation enabled: $sAppDataIsolationEnabled" }
 
@@ -38,8 +38,8 @@ class PlatformCompatHook(private val service: HMAService) : IFrameworkHook {
 
                 val appInfo = frame.getArg(2) as ApplicationInfo
                 val app = appInfo.packageName
-                if (app == BuildConfig.APP_PACKAGE_NAME || app in service.systemApps) return@hookBefore
-                if (service.isHookEnabled(app)) {
+                if (app == BuildConfig.APP_PACKAGE_NAME) return@hookBefore
+                if (service?.isHookEnabled(app) ?: false) {
                     returnValue.result = true
                     logD(TAG) { "force mount data: ${appInfo.uid} $app" }
                 }

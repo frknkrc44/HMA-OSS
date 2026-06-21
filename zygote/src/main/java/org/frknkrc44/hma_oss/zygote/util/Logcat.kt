@@ -3,7 +3,7 @@ package org.frknkrc44.hma_oss.zygote.util
 import android.os.SystemProperties
 import android.util.Log
 import org.frknkrc44.hma_oss.common.BuildConfig
-import org.frknkrc44.hma_oss.zygote.service.HMAService
+import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -29,13 +29,13 @@ object Logcat {
     fun logELegacy(tag: String, msg: String, cause: Throwable?) = logE(tag, cause) { msg }
 
     fun logWithLevel(level: Int, tag: String, cause: Throwable? = null, msg: () -> String) {
-        if (level != Log.ERROR && HMAService.instance?.config?.errorOnlyLog == true) return
-        if (level <= Log.DEBUG && HMAService.instance?.config?.detailLog == false) return
+        if (level != Log.ERROR && service?.config?.errorOnlyLog == true) return
+        if (level <= Log.DEBUG && service?.config?.detailLog == false) return
         if (level == Log.VERBOSE && !BuildConfig.DEBUG) return
 
         val parsedMsg = parseLog(level, tag, msg(), cause)
 
-        HMAService.instance?.apply {
+        service?.apply {
             executor.execute {
                 addLog(parsedMsg)
                 println(parsedMsg)

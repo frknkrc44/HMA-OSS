@@ -6,7 +6,7 @@ import android.os.SystemProperties
 import androidx.annotation.RequiresApi
 import org.frknkrc44.hma_oss.common.BuildConfig
 import org.frknkrc44.hma_oss.zygote.service.BulkHooker
-import org.frknkrc44.hma_oss.zygote.service.HMAService
+import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
 import org.frknkrc44.hma_oss.zygote.service.SystemServerHook
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
@@ -26,7 +26,7 @@ import java.util.Map
 
 @SuppressLint("PrivateApi")
 @RequiresApi(Build.VERSION_CODES.R)
-class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
+class AppDataIsolationHook : IFrameworkHook {
     override val TAG = "AppDataIsolationHook"
 
     companion object {
@@ -45,9 +45,15 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
         )
     }
 
+    private val isAltIsolationEnabled get() = config?.let {
+        it.altAppDataIsolation || it.altVoldAppDataIsolation
+    } ?: false
+
+    private val config get() = service?.config
+
     @SuppressLint("PrivateApi")
     override fun load() {
-        if (!(service.config.altAppDataIsolation || service.config.altVoldAppDataIsolation)) return
+        if (!isAltIsolationEnabled) return
         logI(TAG) { "Load hook" }
 
         BulkHooker.instance.apply {
@@ -59,7 +65,7 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
                     Class.forName(PROCESS_LIST_CLASS, true, SystemServerHook.classLoader)
                 }.getOrNull()
 
-                if (service.config.altAppDataIsolation) {
+                if (config?.altAppDataIsolation ?: false) {
                     val isEnabled = getBooleanField(
                         frame.thisObject,
                         APPDATA_ISOLATION_ENABLED,
@@ -78,7 +84,7 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
                     }
                 }
 
-                if (service.config.altVoldAppDataIsolation && !voldHookSkipped) {
+                if (config?.altVoldAppDataIsolation ?: false && !voldHookSkipped) {
                     val fuseEnabled = SystemProperties.getBoolean(FUSE_PROP, false)
 
                     if (!fuseEnabled) {
@@ -109,7 +115,7 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
                 PROCESS_LIST_CLASS,
                 "needsStorageDataIsolation",
             ) { _, frame, returnValue ->
-                if (service.config.altVoldAppDataIsolation) {
+                if (config?.altVoldAppDataIsolation ?: false) {
                     val app = frame.args.find { it?.javaClass?.simpleName == "ProcessRecord" }!!
                     val uid = runCatching {
                         getIntField(app, "uid")
@@ -117,9 +123,9 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
                         getIntField(app, "uid", processRecordIntClass)
                     }
 
-                    val apps = getCallingApps(service, uid)
+                    val apps = getCallingApps(uid)
 
-                    if (HMAService.instance?.config?.detailLog == true) {
+                    if (config?.detailLog ?: false) {
                         val processName = runCatching {
                             getObjectField(app, "processName")
                         }.getOrElse {
@@ -148,13 +154,13 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
                         return@hookAfter
                     }
 
-                    if (apps.any { service.isAppDataIsolationExcluded(it) }) {
+                    if (apps.any { service?.isAppDataIsolationExcluded(it) ?: false }) {
                         returnValue.result = false
                         return@hookAfter
                     }
 
-                    if (service.config.skipSystemAppDataIsolation) {
-                        val isSystemApp = service.systemApps.any { apps.contains(it) }
+                    if (config?.skipSystemAppDataIsolation ?: false) {
+                        val isSystemApp = service?.systemApps?.any { apps.contains(it) } ?: false
                         logD(TAG) { "@needsStorageDataIsolation $uid and ${apps.contentToString()} - isSystemApp: $isSystemApp" }
 
                         if (isSystemApp) {
@@ -169,7 +175,7 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
                 STORAGE_MANAGER_SERVICE_CLASS,
                 "onVolumeStateChangedLocked",
             ) { _, frame, _ ->
-                if (service.config.altVoldAppDataIsolation && !voldHookSkipped) {
+                if (config?.altVoldAppDataIsolation ?: false && !voldHookSkipped) {
                     val fuseEnabled = SystemProperties.getBoolean(FUSE_PROP, false)
 
                     if (!fuseEnabled) {
@@ -199,7 +205,7 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
                 STORAGE_MANAGER_SERVICE_CLASS,
                 "remountAppStorageDirs",
             ) { _, frame, _ ->
-                if (!voldHookSkipped && service.config.altVoldAppDataIsolation && service.config.skipSystemAppDataIsolation) {
+                if (!voldHookSkipped && config?.altVoldAppDataIsolation ?: false && config?.skipSystemAppDataIsolation ?: false) {
                     @Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN")
                     val pidPkgMap = frame.getArg(1) as Map<*, *>
                     val keysToRemove = mutableSetOf<Any>()
@@ -208,7 +214,7 @@ class AppDataIsolationHook(private val service: HMAService): IFrameworkHook {
                         val pid = entry.key
                         val packageName = entry.value as String
 
-                        if (packageName in service.systemApps || packageName == BuildConfig.APP_PACKAGE_NAME) {
+                        if (packageName in service!!.systemApps || packageName == BuildConfig.APP_PACKAGE_NAME) {
                             logD(TAG) { "@remountAppStorageDirs SYSTEM $pid - $packageName is marked to remove" }
                             keysToRemove += pid
                             break

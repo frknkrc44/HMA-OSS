@@ -9,6 +9,7 @@ import com.v7878.unsafe.invoke.Transformers
 import com.v7878.vmtools.HookTransformer
 import com.v7878.vmtools.Hooks
 import org.frknkrc44.hma_oss.zygote.ZygoteEntry
+import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
@@ -34,7 +35,7 @@ class BulkHooker private constructor() {
     }
 
     private fun addHook(clazz: String, methodName: String, paramCount: Int, impl: HookTransformer) {
-        val inDisabledHooks = HMAService.instance?.config?.disabledHooks?.any {
+        val inDisabledHooks = service?.config?.disabledHooks?.any {
             clazz == it.className &&
                     methodName == it.methodName &&
                     paramCount == it.argumentCount

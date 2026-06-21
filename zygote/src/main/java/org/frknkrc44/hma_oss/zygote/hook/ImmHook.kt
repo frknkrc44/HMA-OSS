@@ -12,7 +12,7 @@ import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.Utils
 import icu.nullptr.hidemyapplist.common.settings_presets.InputMethodPreset
 import org.frknkrc44.hma_oss.zygote.service.BulkHooker
-import org.frknkrc44.hma_oss.zygote.service.HMAService
+import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
 import org.frknkrc44.hma_oss.zygote.service.ReturnValue
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
@@ -27,12 +27,12 @@ import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.IMM_IMPL_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.IMM_SERVICE_CLASS
 import java.util.Collections
 
-class ImmHook(private val service: HMAService) : IFrameworkHook {
+class ImmHook : IFrameworkHook {
     override val TAG = "ImmHook"
 
     // TODO: Find a method to get settings activity
     fun getFakeInputMethodInfo(packageName: String): InputMethodInfo {
-        val defaultInputMethod = service.getSpoofedSetting(
+        val defaultInputMethod = service?.getSpoofedSetting(
             packageName,
             Settings.Secure.DEFAULT_INPUT_METHOD,
             Constants.SETTINGS_SECURE,
@@ -80,7 +80,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
                         method.declaringClass.name,
                         method.name,
                     ) { methodName, frame, returnValue ->
-                        val callingApps = getCallingApps(service)
+                        val callingApps = getCallingApps()
 
                         val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
                         if (caller != null) {
@@ -93,7 +93,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
                             }
 
                             returnValue.result = fakeIMInfo
-                            service.increaseSettingsFilterCount(caller)
+                            service?.increaseSettingsFilterCount(caller)
                         }
                     }
                 }
@@ -149,7 +149,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
                     method.declaringClass.name,
                     method.name,
                 ) { methodName, frame, returnValue ->
-                    val callingApps = getCallingApps(service)
+                    val callingApps = getCallingApps()
 
                     val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
                     if (caller != null) {
@@ -170,7 +170,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
                             } else { list }
                         }
 
-                        service.increaseSettingsFilterCount(caller)
+                        service?.increaseSettingsFilterCount(caller)
                     }
                 }
             }
@@ -214,7 +214,7 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
     }
 
     private fun subtypeHook(methodName: String, returnValue: ReturnValue) {
-        val callingApps = getCallingApps(service)
+        val callingApps = getCallingApps()
 
         val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
         if (caller != null) {
@@ -222,12 +222,12 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
 
             // TODO: Find a method to get exact value for spoofed input method
             returnValue.result = null
-            service.increaseSettingsFilterCount(caller)
+            service?.increaseSettingsFilterCount(caller)
         }
     }
 
     private fun subtypeListHook(methodName: String, frame: EmulatedStackFrame, returnValue: ReturnValue) {
-        val callingApps = getCallingApps(service)
+        val callingApps = getCallingApps()
 
         val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
         if (caller != null) {
@@ -244,20 +244,20 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
                 } else { list }
             }
 
-            service.increaseSettingsFilterCount(caller)
+            service?.increaseSettingsFilterCount(caller)
         }
     }
 
     fun calculateReturnedInputMethodList(callingUid: Int, inList: List<InputMethodInfo>): List<InputMethodInfo> {
         logV(TAG) { "@getInputMethodList*calculator: $callingUid - Current: ${inList.map { it.component }}" }
 
-        val caller = getCallingApps(service, callingUid)
+        val caller = getCallingApps(callingUid)
             .firstOrNull { callerIsSpoofed(it) } ?: return inList
 
         logD(TAG) { "@getInputMethodList: spoofed input method for $caller" }
 
         val calculatedList = inList.filter { imInfo ->
-            !service.shouldHide(caller, imInfo.packageName)
+            service?.shouldHide(caller, imInfo.packageName) != true
         }
 
         logV(TAG) { "@getInputMethodList*calculator: $callingUid - Calculated: ${calculatedList.map { it.component }}" }
@@ -281,11 +281,11 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
     }
 
     private fun isIMExists(packageName: String, inUserId: Int? = null): Boolean {
-        if (packageName in service.systemApps) return true
+        if (packageName in service!!.systemApps) return true
 
         val userId = inUserId ?: Binder.getCallingUserHandle().hashCode()
         return Utils.binderLocalScope {
-            Utils.getPackageUidCompat(service.pms, packageName, PackageManager.MATCH_ALL.toLong(), userId) >= 0
+            Utils.getPackageUidCompat(service!!.pms, packageName, PackageManager.MATCH_ALL.toLong(), userId) >= 0
         }
     }
 
@@ -294,5 +294,5 @@ class ImmHook(private val service: HMAService) : IFrameworkHook {
     }
 
     private fun callerIsSpoofed(caller: String) =
-        service.getEnabledSettingsPresets(caller).contains(InputMethodPreset.NAME)
+        service?.getEnabledSettingsPresets(caller)?.contains(InputMethodPreset.NAME) ?: false
 }

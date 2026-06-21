@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Build
 import icu.nullptr.hidemyapplist.common.CollectionUtils.firstOrNullWithType
 import org.frknkrc44.hma_oss.zygote.service.BulkHooker
-import org.frknkrc44.hma_oss.zygote.service.HMAService
+import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
@@ -12,7 +12,7 @@ import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getStaticIntField
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.ACTIVITY_MANAGER_SERVICE_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.BROADCAST_CONTROLLER_CLASS
 
-class BroadcastHook(private val service: HMAService) : IFrameworkHook {
+class BroadcastHook : IFrameworkHook {
     override val TAG = "BroadcastHook"
 
     companion object {
@@ -40,10 +40,10 @@ class BroadcastHook(private val service: HMAService) : IFrameworkHook {
                 val intent = frame.args.firstOrNullWithType<Intent>() ?: return@hookBefore
                 val targetApp = intent.component?.packageName
 
-                if (service.shouldHideActivityLaunch(caller, targetApp)) {
+                if (service?.shouldHideActivityLaunch(caller, targetApp) ?: false) {
                     logD(TAG) { "@broadcastIntent: insecure query from $caller, target: ${intent.component}" }
                     returnValue.result = fakeReturnCode
-                    service.increaseALFilterCount(caller)
+                    service?.increaseALFilterCount(caller)
                 }
             }
         }

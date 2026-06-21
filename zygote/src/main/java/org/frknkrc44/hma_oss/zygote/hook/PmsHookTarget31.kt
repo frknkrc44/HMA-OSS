@@ -5,7 +5,6 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import icu.nullptr.hidemyapplist.common.Constants.VENDING_PACKAGE_NAME
 import org.frknkrc44.hma_oss.zygote.service.BulkHooker
-import org.frknkrc44.hma_oss.zygote.service.HMAService
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackageNameFromPackageSettings
@@ -15,7 +14,7 @@ import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.APPS_FILTER_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.PMS_COMPUTER_TRACKER_CLASS
 
 @RequiresApi(Build.VERSION_CODES.S)
-class PmsHookTarget31(service: HMAService) : PmsHookTargetBase(service) {
+class PmsHookTarget31 : PmsHookTargetBase() {
 
     override val TAG = "PmsHookTarget31"
 
@@ -55,7 +54,7 @@ class PmsHookTarget31(service: HMAService) : PmsHookTargetBase(service) {
                     methodName,
                     { Binder.getCallingUid() },
                     { frame.getArg(1) as String? },
-                    { getCallingApps(service, it) },
+                    ::getCallingApps,
                     { returnValue.result = null },
                 )
             }
@@ -68,7 +67,7 @@ class PmsHookTarget31(service: HMAService) : PmsHookTargetBase(service) {
                     methodName,
                     { frame.getArg(2) as Int? },
                     { frame.getArg(1) as String? },
-                    { getCallingApps(service, it) },
+                    ::getCallingApps,
                     { returnValue.result = null },
                 )
             }
@@ -81,7 +80,7 @@ class PmsHookTarget31(service: HMAService) : PmsHookTargetBase(service) {
                     methodName,
                     { frame.getArg(4) as Int? },
                     { frame.getArg(1) as String? },
-                    { getCallingApps(service, it) },
+                    ::getCallingApps,
                     { returnValue.result = null },
                 )
             }
@@ -94,7 +93,7 @@ class PmsHookTarget31(service: HMAService) : PmsHookTargetBase(service) {
                     methodName,
                     { frame.getArg(3) as Int? },
                     { frame.getArg(1) as String? },
-                    { getCallingApps(service, it) },
+                    ::getCallingApps,
                     { returnValue.result = null },
                 )
             }
@@ -107,7 +106,7 @@ class PmsHookTarget31(service: HMAService) : PmsHookTargetBase(service) {
                     methodName,
                     { frame.getArg(1) as Int? },
                     { getPackageNameFromPackageSettings(frame.getArg(3)) },
-                    { getCallingApps(service, it) },
+                    ::getCallingApps,
                     { returnValue.result = true },
                 )
             }

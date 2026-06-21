@@ -4,12 +4,12 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import org.frknkrc44.hma_oss.zygote.service.BulkHooker
-import org.frknkrc44.hma_oss.zygote.service.HMAService
+import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArg
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.PACKAGE_MANAGER_SERVICE_CLASS
 
-class PmsPackageEventsHook(private val service: HMAService) : IFrameworkHook {
+class PmsPackageEventsHook : IFrameworkHook {
     override val TAG = "PmsPackageEventsHook"
 
     override fun load() {
@@ -21,7 +21,7 @@ class PmsPackageEventsHook(private val service: HMAService) : IFrameworkHook {
                     "com.android.server.pm.BroadcastHelper",
                     "sendPackageBroadcastAndNotify",
                 ) { _, frame, _ ->
-                    service.handlePackageEvent(
+                    service?.handlePackageEvent(
                         frame.getArg(1) as String?,
                         frame.getArg(2) as String?,
                         frame.getArg(3) as Bundle?,
@@ -34,7 +34,7 @@ class PmsPackageEventsHook(private val service: HMAService) : IFrameworkHook {
                 ) { _, frame, _ ->
                     val intent = frame.getArg(2) as? Intent? ?: return@hookBefore
 
-                    service.handlePackageEvent(
+                    service?.handlePackageEvent(
                         intent.action,
                         intent.data?.encodedSchemeSpecificPart,
                         intent.extras,
@@ -45,7 +45,7 @@ class PmsPackageEventsHook(private val service: HMAService) : IFrameworkHook {
                     PACKAGE_MANAGER_SERVICE_CLASS,
                     "sendPackageBroadcast",
                 ) { _, frame, _ ->
-                    service.handlePackageEvent(
+                    service?.handlePackageEvent(
                         frame.getArg(1) as String?,
                         frame.getArg(2) as String?,
                         frame.getArg(3) as Bundle?,

@@ -8,6 +8,7 @@ import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.Utils.getUserFromCallingUid
 import org.frknkrc44.hma_oss.common.BuildConfig
 import org.frknkrc44.hma_oss.zygote.ZygoteEntry
+import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
@@ -21,7 +22,7 @@ object UserService {
 
     private const val TAG = "HMA-UserService"
 
-    private val managerAppUid get() = HMAService.instance?.appUid ?: -1
+    private val managerAppUid get() = service?.appUid ?: -1
 
     private val uidObserver = object : UidObserverAdapter() {
         override fun onUidActive(uid: Int) {
@@ -39,7 +40,7 @@ object UserService {
                     "Failed to get provider"
                 }
                 val extras = Bundle()
-                extras.putBinder("binder", HMAService.instance)
+                extras.putBinder("binder", service)
                 val reply = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                     val attr = AttributionSource.Builder(1000).setPackageName("android").build()
                     provider?.call(attr, Constants.PROVIDER_AUTHORITY, "", null, extras)

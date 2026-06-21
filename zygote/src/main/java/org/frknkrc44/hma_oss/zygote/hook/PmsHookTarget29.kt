@@ -1,14 +1,14 @@
 package org.frknkrc44.hma_oss.zygote.hook
 
 import org.frknkrc44.hma_oss.zygote.service.BulkHooker
-import org.frknkrc44.hma_oss.zygote.service.HMAService
+import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackageNameFromPackageSettings
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArg
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.PACKAGE_MANAGER_SERVICE_CLASS
 
-class PmsHookTarget29(service: HMAService) : PmsHookTargetBase(service) {
+class PmsHookTarget29 : PmsHookTargetBase() {
 
     override val TAG = "PmsHookTarget29"
 
@@ -22,7 +22,7 @@ class PmsHookTarget29(service: HMAService) : PmsHookTargetBase(service) {
 
         BulkHooker.instance.apply {
             hookBefore(
-                service.pms::class.java.name,
+                service!!.pms::class.java.name,
                 "filterAppAccessLPr",
                 paramCount = 5,
             ) { methodName, frame, returnValue ->
@@ -30,7 +30,7 @@ class PmsHookTarget29(service: HMAService) : PmsHookTargetBase(service) {
                     methodName,
                     { frame.getArg(2) as Int? },
                     { getPackageNameFromPackageSettings(frame.getArg(1)) },
-                    { getCallingApps(service, it) },
+                    ::getCallingApps,
                     { returnValue.result = true },
                 )
             }
@@ -43,7 +43,7 @@ class PmsHookTarget29(service: HMAService) : PmsHookTargetBase(service) {
                     methodName,
                     { frame.getArg(4) as Int? },
                     { frame.getArg(1) as String? },
-                    { getCallingApps(service, it) },
+                    ::getCallingApps,
                     { returnValue.result = null },
                 )
             }
@@ -56,7 +56,7 @@ class PmsHookTarget29(service: HMAService) : PmsHookTargetBase(service) {
                     methodName,
                     { frame.getArg(3) as Int? },
                     { frame.getArg(1) as String? },
-                    { getCallingApps(service, it) },
+                    ::getCallingApps,
                     { returnValue.result = null },
                 )
             }

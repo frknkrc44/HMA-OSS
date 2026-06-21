@@ -65,7 +65,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
 
     companion object {
         private const val TAG = "HMA-Service"
-        var instance: HMAService? = null
+        var service: HMAService? = null
     }
 
     @Volatile
@@ -94,7 +94,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
 
     init {
         searchDataDir()
-        instance = this
+        service = this
         loadFilterCount()
         loadConfig()
 
@@ -218,29 +218,29 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            frameworkHooks.add(PmsHookTarget34(this))
+            frameworkHooks.add(PmsHookTarget34())
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            frameworkHooks.add(PmsHookTarget33(this))
+            frameworkHooks.add(PmsHookTarget33())
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            frameworkHooks.add(PmsHookTarget31(this))
+            frameworkHooks.add(PmsHookTarget31())
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            frameworkHooks.add(PmsHookTarget30(this))
+            frameworkHooks.add(PmsHookTarget30())
         } else {
-            frameworkHooks.add(PmsHookTarget29(this))
+            frameworkHooks.add(PmsHookTarget29())
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            frameworkHooks.add(PlatformCompatHook(this))
-            frameworkHooks.add(AppDataIsolationHook(this))
+            frameworkHooks.add(PlatformCompatHook())
+            frameworkHooks.add(AppDataIsolationHook())
         }
 
-        frameworkHooks.add(ActivityHook(this))
-        frameworkHooks.add(BroadcastHook(this))
-        frameworkHooks.add(PmsPackageEventsHook(this))
-        frameworkHooks.add(AccessibilityHook(this))
-        frameworkHooks.add(ContentProviderHook(this))
-        frameworkHooks.add(ImmHook(this))
-        frameworkHooks.add(ZygoteHook(this))
+        frameworkHooks.add(ActivityHook())
+        frameworkHooks.add(BroadcastHook())
+        frameworkHooks.add(PmsPackageEventsHook())
+        frameworkHooks.add(AccessibilityHook())
+        frameworkHooks.add(ContentProviderHook())
+        frameworkHooks.add(ImmHook())
+        frameworkHooks.add(ZygoteHook())
 
         frameworkHooks.forEach(IFrameworkHook::load)
         logI(TAG) { "Hooks installed" }

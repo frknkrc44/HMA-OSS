@@ -7,7 +7,6 @@ import androidx.annotation.RequiresApi
 import icu.nullptr.hidemyapplist.common.Constants.VENDING_PACKAGE_NAME
 import icu.nullptr.hidemyapplist.common.Utils
 import org.frknkrc44.hma_oss.zygote.service.BulkHooker
-import org.frknkrc44.hma_oss.zygote.service.HMAService
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackageNameFromPackageSettings
@@ -18,7 +17,7 @@ import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.APPS_FILTER_IMPL_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.PACKAGE_MANAGER_SERVICE_CLASS
 
 @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
-class PmsHookTarget34(service: HMAService) : PmsHookTargetBase(service) {
+class PmsHookTarget34 : PmsHookTargetBase() {
 
     override val TAG = "PmsHookTarget34"
 
@@ -98,7 +97,7 @@ class PmsHookTarget34(service: HMAService) : PmsHookTargetBase(service) {
                     methodName,
                     { Binder.getCallingUid() },
                     { frame.getArg(1) as? String },
-                    { getCallingApps(service, it) },
+                    ::getCallingApps,
                     { returnValue.result = null },
                 )
             }
