@@ -141,8 +141,15 @@ class BulkHooker private constructor() {
 
         fun applyForClass(clazz: Class<*>?) {
             val executables = Reflection.getHiddenExecutables(clazz).filter { executable ->
-                element.methodName == executable.name &&
-                    (element.paramCount in listOf(PARAMETER_COUNT_UNKNOWN, executable.parameterCount))
+                if (element.methodName == executable.name) {
+                    if (element.paramCount >= 0) {
+                        return@filter element.paramCount == executable.parameterCount
+                    }
+
+                    return@filter true
+                }
+
+                return@filter false
             }.sortedWith { v1, v2 ->
                 v1.parameterCount.compareTo(v2.parameterCount)
             }
@@ -231,8 +238,15 @@ class BulkHooker private constructor() {
 
             fun findMethods(clazz: Class<*>): List<Executable> {
                 return Reflection.getHiddenExecutables(clazz).filter { executable ->
-                    executable.name in methodNames &&
-                            (paramCount in listOf(PARAMETER_COUNT_UNKNOWN, executable.parameterCount))
+                    if (executable.name in methodNames) {
+                        if (paramCount >= 0) {
+                            return@filter paramCount == executable.parameterCount
+                        }
+
+                        return@filter true
+                    }
+
+                    return@filter false
                 }.sortedWith { v1, v2 ->
                     v1.parameterCount.compareTo(v2.parameterCount)
                 }
