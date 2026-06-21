@@ -92,8 +92,6 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
     var filterHolder = FilterHolder()
         private set
 
-    val totalFilterCount: Int get() = runCatching { filterHolder.totalCount }.getOrElse { 1 }
-
     init {
         searchDataDir()
         instance = this
@@ -487,7 +485,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
         if (!ensureManagerWorkModeOK()) return
 
         synchronized(configLock) {
-            if (!force && totalFilterCount % 100 != 0) {
+            if (!force && filterHolder.totalCount % 100 != 0) {
                 return
             }
 
@@ -503,7 +501,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
 
     override fun getServiceVersion() = BuildConfig.SERVICE_VERSION
 
-    override fun getFilterCount() = totalFilterCount
+    override fun getFilterCount() = filterHolder.totalCount
 
     override fun getLogs() = synchronized(loggerLock) {
         logFile.readText()
