@@ -109,6 +109,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                 "enableInternet" -> PrefManager.enableInternet == Constants.ENABLE_INTERNET_ON
                 "disableUpdate" -> PrefManager.disableUpdate
                 "packageQueryWorkaround" -> ConfigManager.packageQueryWorkaround
+                "webViewProtection" -> ConfigManager.webViewProtection
                 else -> throw IllegalArgumentException("Invalid key: $key")
             }
         }
@@ -154,6 +155,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                 "voldAppDataIsolation" -> ConfigManager.altVoldAppDataIsolation = value
                 "skipSystemAppDataIsolation" -> ConfigManager.skipSystemAppDataIsolation = value
                 "packageQueryWorkaround" -> ConfigManager.packageQueryWorkaround = value
+                "webViewProtection" -> ConfigManager.webViewProtection = value
                 else -> throw IllegalArgumentException("Invalid key: $key")
             }
         }

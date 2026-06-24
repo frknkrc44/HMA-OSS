@@ -57,6 +57,8 @@ abstract class PmsHookTargetBase : IFrameworkHook {
                     val callingUid = Binder.getCallingUid()
                     if (callingUid == Constants.UID_SYSTEM) return@hookAfter
 
+                    val callingUserId = getUserFromCallingUid(callingUid)
+
                     val callingApps = getCallingApps(callingUid)
                     val caller = callingApps.firstOrNull { service?.isHookEnabled(it) ?: false }
                     if (caller != null) {
@@ -68,7 +70,7 @@ abstract class PmsHookTargetBase : IFrameworkHook {
                         for (pair in result.entries) {
                             val packageSettings = pair.value
                             val packageName = getPackageNameFromPackageSettings(packageSettings)
-                            if (service?.shouldHide(caller, packageName) ?: false) {
+                            if (service?.shouldHide(caller, packageName, callingUserId) ?: false) {
                                 markedToRemove.add(pair.key)
                             }
                         }
@@ -257,8 +259,9 @@ abstract class PmsHookTargetBase : IFrameworkHook {
             logD(TAG) { "@$methodName caller cache: $callingUid, target: $targetApp" }
             return
         }
+        val callingUserId = getUserFromCallingUid(callingUid)
         val callingApps = findCallingApps(callingUid)
-        val caller = callingApps?.firstOrNull { service?.shouldHide(it, targetApp) ?: false }
+        val caller = callingApps?.firstOrNull { service?.shouldHide(it, targetApp, callingUserId) ?: false }
         if (caller != null) {
             logD(TAG) { "@$methodName caller: $callingUid $caller, target: $targetApp" }
             applyReturnValue()

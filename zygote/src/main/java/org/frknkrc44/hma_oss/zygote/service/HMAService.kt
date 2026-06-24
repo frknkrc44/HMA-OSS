@@ -44,6 +44,7 @@ import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget33
 import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget34
 import org.frknkrc44.hma_oss.zygote.hook.PmsPackageEventsHook
 import org.frknkrc44.hma_oss.zygote.hook.ZygoteHook
+import org.frknkrc44.hma_oss.zygote.util.BrowserUtils.getDefaultBrowser
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
@@ -340,16 +341,22 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
     fun isAppInGMSIgnoredPackages(caller: String, query: String) =
         (caller in Constants.gmsPackages) && appHasGMSConnection(query)
 
-    fun shouldHide(caller: String?, query: String?): Boolean {
+    fun shouldHide(caller: String?, query: String?, userId: Int): Boolean {
         if (caller == null || query == null) return false
         if (caller == BuildConfig.APP_PACKAGE_NAME) return false
         if (caller in Constants.packagesShouldNotHide || query in Constants.packagesShouldNotHide) return false
         if (caller == query) return false
         val appConfig = config.scope[caller] ?: return false
 
-        // check for current webview
-        val webviewProvider = getWebviewProvider()
-        if (webviewProvider == caller || webviewProvider == query) return false
+        if (config.webViewProtection) {
+            // check for current webview
+            val webviewProvider = getWebviewProvider()
+            if (webviewProvider == caller || webviewProvider == query) return false
+
+            // check for current browser
+            val currentBrowser = getDefaultBrowser(userId)
+            if (currentBrowser == caller || currentBrowser == query) return false
+        }
 
         if (query in appConfig.extraAppList) return !appConfig.useWhitelist
         if (query in appConfig.extraOppositeAppList) return appConfig.useWhitelist
@@ -386,9 +393,9 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
     fun getRestrictedZygotePermissions(caller: String?) =
         config.scope[caller]?.restrictedZygotePermissions
 
-    fun shouldHideActivityLaunch(caller: String?, query: String?): Boolean {
+    fun shouldHideActivityLaunch(caller: String?, query: String?, userId: Int): Boolean {
         val appConfig = config.scope[caller]
-        if (appConfig != null && shouldHide(caller, query)) {
+        if (appConfig != null && shouldHide(caller, query, userId)) {
             return if (appConfig.invertActivityLaunchProtection) {
                 config.disableActivityLaunchProtection
             } else {

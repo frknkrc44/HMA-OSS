@@ -142,11 +142,15 @@ object ZLUtils {
     val EmulatedStackFrame.thisObject by lazyWithReceiver { getArgument(this, 0) }
 
     /**
-     * - `args[0] == thisObject`
-     * - `args[1:] == function args`
+     * - `args[0]: thisObject`
+     * - `args[1:]: function args`
      */
     val EmulatedStackFrame.args by lazyWithReceiver { dumpArgs(this) }
 
+    /**
+     * - `index == 0: thisObject`
+     * - `index >= 1: function args`
+     */
     fun EmulatedStackFrame.getArg(index: Int) = getArgument(this, index)
 
     fun EmulatedStackFrame.setArg(index: Int, value: Any) = setArgument(this, index, value)

@@ -3,6 +3,7 @@ package org.frknkrc44.hma_oss.zygote.hook
 import android.content.Intent
 import android.os.Build
 import icu.nullptr.hidemyapplist.common.CollectionUtils.firstOrNullWithType
+import icu.nullptr.hidemyapplist.common.CollectionUtils.lastOrNullWithType
 import org.frknkrc44.hma_oss.zygote.service.BulkHooker
 import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
@@ -36,11 +37,12 @@ class BroadcastHook : IFrameworkHook {
                 },
                 "broadcastIntentLocked",
             ) { _, frame, returnValue ->
+                val userId = frame.args.lastOrNullWithType<Int>() ?: return@hookBefore
                 val caller = frame.args.firstOrNullWithType<String>() ?: return@hookBefore
                 val intent = frame.args.firstOrNullWithType<Intent>() ?: return@hookBefore
                 val targetApp = intent.component?.packageName
 
-                if (service?.shouldHideActivityLaunch(caller, targetApp) ?: false) {
+                if (service?.shouldHideActivityLaunch(caller, targetApp, userId) ?: false) {
                     logD(TAG) { "@broadcastIntent: insecure query from $caller, target: ${intent.component}" }
                     returnValue.result = fakeReturnCode
                     service?.increaseALFilterCount(caller)

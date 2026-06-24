@@ -10,6 +10,7 @@ import android.view.inputmethod.InputMethodSubtype
 import com.v7878.unsafe.invoke.EmulatedStackFrame
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.Utils
+import icu.nullptr.hidemyapplist.common.Utils.getUserFromCallingUid
 import icu.nullptr.hidemyapplist.common.settings_presets.InputMethodPreset
 import org.frknkrc44.hma_oss.zygote.service.BulkHooker
 import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
@@ -256,8 +257,10 @@ class ImmHook : IFrameworkHook {
 
         logD(TAG) { "@getInputMethodList: spoofed input method for $caller" }
 
+        val callingUserId = getUserFromCallingUid(callingUid)
+
         val calculatedList = inList.filter { imInfo ->
-            service?.shouldHide(caller, imInfo.packageName) != true
+            service?.shouldHide(caller, imInfo.packageName, callingUserId) ?: false
         }
 
         logV(TAG) { "@getInputMethodList*calculator: $callingUid - Calculated: ${calculatedList.map { it.component }}" }

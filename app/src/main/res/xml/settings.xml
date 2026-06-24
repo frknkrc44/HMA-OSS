@@ -86,6 +86,12 @@
             app:singleLineTitle="false"
             android:title="@string/settings_disable_activity_launch_protection"
             android:summary="@string/settings_disable_activity_launch_protection_summary" />
+        <SwitchPreferenceCompat
+            android:icon="@drawable/tab_close_inactive_24px"
+            android:key="webViewProtection"
+            app:singleLineTitle="false"
+            android:title="@string/settings_webview_protection"
+            android:summary="@string/settings_webview_protection_summary" />
         <MultiSelectListPreference
             android:icon="@drawable/syringe_24px"
             android:key="disableHooks"

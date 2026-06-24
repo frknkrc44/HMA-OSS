@@ -205,6 +205,8 @@
     <string name="settings_enable_internet_summary">This app will lose all of Internet-related functionality when you disabled this option.</string>
     <string name="settings_default_config">App config for new apps</string>
     <string name="settings_default_config_summary">This will apply the defined config to all of new apps but will keep the existing configuration for new apps if you applied something before.</string>
+    <string name="settings_webview_protection">WebView protection</string>
+    <string name="settings_webview_protection_summary">This will add extra protection for crashes caused by hiding/targeting WebView or browsers</string>
 
     <string name="settings_language">Language</string>
     <string name="settings_translate">Participate in translation</string>

@@ -71,6 +71,12 @@ data class JsonConfig(
     var packageQueryWorkaround: Boolean = false,
 
     /**
+     * Enable WebView protection to prevent some crashes caused by misconfigurations
+     * for WebView or Browser apps
+     */
+    var webViewProtection: Boolean = true,
+
+    /**
      * This config will be applied for ALL of new apps when enabled
      *
      * null means do not apply a default config
