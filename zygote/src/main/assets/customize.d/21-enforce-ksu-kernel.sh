@@ -26,7 +26,10 @@ if [ "$KSU" ]; then
 
     # kernel and manager version mismatch
     if [ "$KSU_VER_CODE" != "$KSU_KERNEL_VER_CODE" ]; then
-        if lsmod 2>/dev/null | grep -q kernelsu
+        UAPI_VERSION=$(ksud debug info 2>/dev/null | grep uapi_version | cut -f2 -d' ')
+        UAPI_VERSION="${UAPI_VERSION:-0}"
+
+        if lsmod 2>/dev/null | grep -q kernelsu && [ $UAPI_VERSION -lt 2 ]
         then
             abort "$KSU_VERSION_MISMATCH_ERR"
         else
