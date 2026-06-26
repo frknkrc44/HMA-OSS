@@ -153,5 +153,7 @@ object ZLUtils {
      */
     fun EmulatedStackFrame.getArg(index: Int) = getArgument(this, index)
 
+    fun EmulatedStackFrame.getArgShorty(index: Int) = accessor().getArgumentShorty(index)
+
     fun EmulatedStackFrame.setArg(index: Int, value: Any) = setArgument(this, index, value)
 }
