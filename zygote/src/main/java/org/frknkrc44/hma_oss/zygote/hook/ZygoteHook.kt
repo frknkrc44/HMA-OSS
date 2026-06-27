@@ -14,7 +14,8 @@ import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.ZYGOTE_PROCESS_CLASS
 class ZygoteHook : IFrameworkHook {
     override val TAG = "ZygoteHook"
 
-    private val forceMountData get() = service?.config?.forceMountData ?: false
+    private val forceMountData get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R &&
+            service?.config?.forceMountData ?: false
 
     override fun load() {
         BulkHooker.instance.hookBefore(
@@ -32,7 +33,7 @@ class ZygoteHook : IFrameworkHook {
             if (gIDsIndex < 0) return@hookBefore
 
             // another plan for PlatformCompatHook
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && forceMountData) {
+            if (forceMountData && !(service?.systemApps?.contains(caller) ?: false)) {
                 @Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN")
                 val lastMapIndex = frame.args.indexOfLast { it is java.util.Map<*, *> }
                 if (lastMapIndex >= 0) {
