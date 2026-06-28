@@ -5,5 +5,4 @@ interface IFrameworkHook {
     val TAG: String
 
     fun load()
-    fun onConfigChanged() {}
 }

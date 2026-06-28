@@ -471,7 +471,6 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
                 }
                 config = newConfig
                 configFile.writeText(json)
-                frameworkHooks.forEach(IFrameworkHook::onConfigChanged)
                 HMAServiceCache.instance.clearUidCache()
 
                 // remove filter counts for apps if they are not in config
