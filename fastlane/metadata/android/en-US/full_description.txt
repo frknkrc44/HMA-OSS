@@ -1,5 +1,7 @@
 A FOSS continuation of Hide My Applist project with bunch of new features.
 
+<b>NOTE: The LSPosed module will not be updated anymore, you should consider switching to the Zygisk module instead.</b>
+
 Features of HMA-OSS:
 
 * Hide your application list (similar to what Hide My Applist does)
