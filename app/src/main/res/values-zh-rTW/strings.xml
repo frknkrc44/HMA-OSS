@@ -122,7 +122,7 @@
     <string name="preset_sus_apps">可疑應用程式</string>
     <string name="preset_detector_apps">偵測/檢查應用程式</string>
     <string name="preset_shizuku_dhizuku">使用 Shizuku/Dhizuku 的應用程式</string>
-    <string name="preset_accessibility_apps">Accessibility apps</string>
+    <string name="preset_accessibility_apps">輔助功能應用</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">輔助功能</string>
     <string name="settings_preset_dev_options">開發人員選項</string>
@@ -175,8 +175,8 @@
     <string name="settings_package_query_workaround_summary">如果應用程式列表正常顯示，請勿開啟此選項</string>
     <string name="settings_launcher_icon">啟動器圖示</string>
     <string name="settings_error_only_log">只記錄錯誤日誌</string>
-    <string name="settings_enable_internet">Enable Internet connection</string>
-    <string name="settings_enable_internet_summary">This app will lose all of Internet-related functionality when you disabled this option.</string>
+    <string name="settings_enable_internet">啓用互聯網連接</string>
+    <string name="settings_enable_internet_summary">如果您关闭了此选项，该应用将失去所有与互联网相关的功能</string>
     <string name="settings_language">語言</string>
     <string name="settings_translate">參與翻譯</string>
     <string name="settings_translate_summary">幫助我們翻譯 %s 到您的語言</string>
