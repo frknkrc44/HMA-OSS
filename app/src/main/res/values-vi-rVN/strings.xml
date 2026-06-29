@@ -56,6 +56,14 @@
     <string name="home_exported">Sao lưu cấu hình</string>
     <string name="home_new_update">Bản cập nhật mới khả dụng: %s</string>
     <string name="home_update">Cập nhật: %s</string>
+    <!-- Backup & Restore -->
+    <string name="backup_restore_backup_settings">Backup settings</string>
+    <string name="backup_restore_restore_settings">Restore settings</string>
+    <string name="backup_restore_apps">App configs</string>
+    <string name="backup_restore_templates">Templates</string>
+    <string name="backup_restore_settings_templates">Settings templates</string>
+    <string name="backup_restore_append">Append</string>
+    <string name="backup_restore_items_count">%d items</string>
     <!-- App select -->
     <string name="list_show_system">Hiện ứng dụng hệ thống</string>
     <string name="list_sorting">Sắp xếp</string>
@@ -175,8 +183,14 @@
     <string name="settings_package_query_workaround_summary">Đừng bật lựa chọn này nếu bạn thấy danh sách tên gói ứng dụng trong ứng dụng này đúng cách.</string>
     <string name="settings_launcher_icon">Biểu tượng khởi động</string>
     <string name="settings_error_only_log">Chỉ lổi được lưu nhật ký</string>
+    <string name="settings_disable_hooks">Disable functions</string>
+    <string name="settings_disable_hooks_summary">You can disable some of the functions when they conflict with other modules</string>
     <string name="settings_enable_internet">Bật kết nối Internet</string>
     <string name="settings_enable_internet_summary">Ứng dụng này sẽ mất tất cả chức năng liên quan đến Internet khi bạn tắt tùy chọn này.</string>
+    <string name="settings_default_config">App config for new apps</string>
+    <string name="settings_default_config_summary">This will apply the defined config to all of new apps but will keep the existing configuration for new apps if you applied something before.</string>
+    <string name="settings_webview_protection">WebView protection</string>
+    <string name="settings_webview_protection_summary">This will add extra protection for crashes caused by hiding/targeting WebView or browsers</string>
     <string name="settings_language">Ngôn ngữ</string>
     <string name="settings_translate">Giúp chúng tôi dịch</string>
     <string name="settings_translate_summary">Giúp chúng tôi dịch %s sang ngôn ngữ của bạn</string>
@@ -207,6 +221,8 @@
     <string name="about_how_to_use_title">Làm sao để dùng mô-đun này</string>
     <string name="about_how_to_use_description_1">Bạn có thể tạo biểu mẫu trong \"Quản lý mẫu\". \nSau đó áp dụng cho các ứng dụng trong \"Quản lý ứng dụng\". (Bạn cũng có thể chọn các ứng dụng bổ sung cho các mục tiêu.) \nBạn nên và CHỈ nên chọn \"Khung Hệ thống\" trong scope của mô-đun Xposed / danh sách trắng.    </string>
     <string name="about_how_to_use_description_2">Sửa đổi cấu hình hiệu quả trong thời gian thực.</string>
+    <string name="about_how_to_use_description_3">        This application acts like a manager of the Zygisk module from now, so you need a separate Zygisk module to make this manager work.
+    </string>
     <string name="about_translator">Dịch giả</string>
     <string name="about_developer">Nhà phát triển</string>
     <string name="about_support">Giúp và phản hồi</string>
@@ -235,4 +251,7 @@
     <string name="dark_theme">Chủ đề tối</string>
     <string name="dark_theme_off">Luôn tắt</string>
     <string name="dark_theme_on">Luôn bật</string>
+    <string name="sick_mode_title">Sick mode is activated</string>
+    <string name="sick_mode_description">HMA-OSS detected possibly conflictable modules and limited its functionality</string>
+    <string name="sick_mode_notice">HMA/HMAL configs are compatible with HMA-OSS and you can begin to use with your existing config but you need to uninstall HMA/HMAL then reboot at first</string>
 </resources>
