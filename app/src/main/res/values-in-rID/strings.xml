@@ -189,8 +189,8 @@
     <string name="settings_enable_internet_summary">Aplikasi ini akan kehilangan semua fungsi yang berhubungan dengan internet jika Anda menonaktifkan opsi ini.</string>
     <string name="settings_default_config">Konfig aplikasi untuk aplikasi baru</string>
     <string name="settings_default_config_summary">Ini akan menerapkan konfigurasi yang telah ditentukan ke semua aplikasi baru, tetapi akan mempertahankan konfigurasi yang ada untuk aplikasi baru jika Anda telah menerapkan sesuatu sebelumnya.</string>
-    <string name="settings_webview_protection">WebView protection</string>
-    <string name="settings_webview_protection_summary">This will add extra protection for crashes caused by hiding/targeting WebView or browsers</string>
+    <string name="settings_webview_protection">Proteksi WebView</string>
+    <string name="settings_webview_protection_summary">Ini akan menambahkan proteksi ekstra terhadap kerusakan yang disebabkan oleh penyembunyian/penargetan WebView atau browser</string>
     <string name="settings_language">Bahasa</string>
     <string name="settings_translate">Berpartisipasi dalam terjemahan</string>
     <string name="settings_translate_summary">Bantu kami menerjemahkan %s ke bahasa Anda</string>
