@@ -56,6 +56,14 @@
     <string name="home_exported">備份完成</string>
     <string name="home_new_update">有新的版本更新：%s</string>
     <string name="home_update">更新：%s</string>
+    <!-- Backup & Restore -->
+    <string name="backup_restore_backup_settings">Backup settings</string>
+    <string name="backup_restore_restore_settings">Restore settings</string>
+    <string name="backup_restore_apps">App configs</string>
+    <string name="backup_restore_templates">Templates</string>
+    <string name="backup_restore_settings_templates">Settings templates</string>
+    <string name="backup_restore_append">Append</string>
+    <string name="backup_restore_items_count">%d items</string>
     <!-- App select -->
     <string name="list_show_system">顯示系統應用程式</string>
     <string name="list_sorting">排序</string>
@@ -175,8 +183,14 @@
     <string name="settings_package_query_workaround_summary">如果應用程式列表正常顯示，請勿開啟此選項</string>
     <string name="settings_launcher_icon">啟動器圖示</string>
     <string name="settings_error_only_log">只記錄錯誤日誌</string>
+    <string name="settings_disable_hooks">Disable functions</string>
+    <string name="settings_disable_hooks_summary">You can disable some of the functions when they conflict with other modules</string>
     <string name="settings_enable_internet">啓用互聯網連接</string>
     <string name="settings_enable_internet_summary">如果您关闭了此选项，该应用将失去所有与互联网相关的功能</string>
+    <string name="settings_default_config">App config for new apps</string>
+    <string name="settings_default_config_summary">This will apply the defined config to all of new apps but will keep the existing configuration for new apps if you applied something before.</string>
+    <string name="settings_webview_protection">WebView protection</string>
+    <string name="settings_webview_protection_summary">This will add extra protection for crashes caused by hiding/targeting WebView or browsers</string>
     <string name="settings_language">語言</string>
     <string name="settings_translate">參與翻譯</string>
     <string name="settings_translate_summary">幫助我們翻譯 %s 到您的語言</string>
@@ -210,6 +224,8 @@
     </string>
     <string name="about_how_to_use_description_2">        修改設定會立刻生效。
     </string>
+    <string name="about_how_to_use_description_3">        This application acts like a manager of the Zygisk module from now, so you need a separate Zygisk module to make this manager work.
+    </string>
     <string name="about_translator">譯者</string>
     <string name="about_developer">開發者</string>
     <string name="about_support">支援和反饋</string>
@@ -238,4 +254,7 @@
     <string name="dark_theme">深色主題</string>
     <string name="dark_theme_off">總是關閉</string>
     <string name="dark_theme_on">總是開啟</string>
+    <string name="sick_mode_title">Sick mode is activated</string>
+    <string name="sick_mode_description">HMA-OSS detected possibly conflictable modules and limited its functionality</string>
+    <string name="sick_mode_notice">HMA/HMAL configs are compatible with HMA-OSS and you can begin to use with your existing config but you need to uninstall HMA/HMAL then reboot at first</string>
 </resources>
