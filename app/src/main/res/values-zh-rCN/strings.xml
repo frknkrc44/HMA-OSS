@@ -56,6 +56,14 @@
     <string name="home_exported">备份完成</string>
     <string name="home_new_update">更新可用： %s</string>
     <string name="home_update">更新： %s</string>
+    <!-- Backup & Restore -->
+    <string name="backup_restore_backup_settings">备份配置</string>
+    <string name="backup_restore_restore_settings">还原配置</string>
+    <string name="backup_restore_apps">应用设置</string>
+    <string name="backup_restore_templates">应用模板</string>
+    <string name="backup_restore_settings_templates">设置模板</string>
+    <string name="backup_restore_append">增量还原</string>
+    <string name="backup_restore_items_count">%d 项</string>
     <!-- App select -->
     <string name="list_show_system">显示系统应用</string>
     <string name="list_sorting">排序</string>
@@ -175,8 +183,14 @@
     <string name="settings_package_query_workaround_summary">如果本应用能正常显示已安装的应用列表，请勿开启此项</string>
     <string name="settings_launcher_icon">桌面图标</string>
     <string name="settings_error_only_log">错误日志</string>
+    <string name="settings_disable_hooks">禁用注入点</string>
+    <string name="settings_disable_hooks_summary">您可以禁用部分注入点以避免与其它模块冲突</string>
     <string name="settings_enable_internet">启用互联网连接</string>
     <string name="settings_enable_internet_summary">如果您关闭了此选项，该应用将失去所有与互联网相关的功能</string>
+    <string name="settings_default_config">默认隐藏配置</string>
+    <string name="settings_default_config_summary">为新安装的应用自动套用的配置项，已有配置的应用不受影响（不会影响当前已安装的应用）</string>
+    <string name="settings_webview_protection">WebView protection</string>
+    <string name="settings_webview_protection_summary">This will add extra protection for crashes caused by hiding/targeting WebView or browsers</string>
     <string name="settings_language">语言</string>
     <string name="settings_translate">参与翻译</string>
     <string name="settings_translate_summary">帮助我们把 %s 翻译到您的语言</string>
@@ -206,6 +220,7 @@
     <string name="about_how_to_use_title">如何使用本模块</string>
     <string name="about_how_to_use_description_1">1. 在“模板管理”中创建模板。\n2. 在“应用管理”中将模板应用到目标APP上。（您也可以为目标APP额外单独选择可见/不可见的应用）。\n3. 注意：在 LSPosed 作用域中，您应该且只应该勾选“系统框架”。</string>
     <string name="about_how_to_use_description_2">配置修改即时生效</string>
+    <string name="about_how_to_use_description_3">此应用程序为HMA-OSS管理器应用，不提供实际功能。您需要安装Zygisk框架（如 ZygiskNext）与HMA-OSS后端模块，此应用程序才能正常运行。</string>
     <string name="about_translator">翻译者</string>
     <string name="about_developer">开发者</string>
     <string name="about_support">支持与反馈</string>
@@ -234,4 +249,7 @@
     <string name="dark_theme">深色主题</string>
     <string name="dark_theme_off">始终关闭</string>
     <string name="dark_theme_on">始终开启</string>
+    <string name="sick_mode_title">安全模式</string>
+    <string name="sick_mode_description">HMA-OSS 检测到冲突的模块，为避免冲突已禁用自身核心功能</string>
+    <string name="sick_mode_notice">提示: HMA/HMAL配置与HMA-OSS兼容，在HMA/HMAL中备份的配置文件可在HMA-OSS中恢复使用。卸载HMA/HMAL并重启手机后，HMA-OSS即可恢复运行</string>
 </resources>
