@@ -7,8 +7,6 @@ import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.contentResolver
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.callMethod
 
 object WebViewUtils {
-    private const val TAG = "WebViewUtils"
-
     private val webViewService by lazy { ServiceManager.getService("webviewupdate") }
 
     fun getWebviewProvider(): String? = binderLocalScope {

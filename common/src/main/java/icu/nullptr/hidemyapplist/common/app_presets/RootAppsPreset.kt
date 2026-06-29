@@ -2,8 +2,10 @@ package icu.nullptr.hidemyapplist.common.app_presets
 
 import android.content.pm.ApplicationInfo
 import icu.nullptr.hidemyapplist.common.AppPresets
-import icu.nullptr.hidemyapplist.common.Utils
 import icu.nullptr.hidemyapplist.common.Utils.checkSplitPackages
+import icu.nullptr.hidemyapplist.common.Utils.containsMultiple
+import icu.nullptr.hidemyapplist.common.Utils.endsWithMultiple
+import icu.nullptr.hidemyapplist.common.Utils.startsWithMultiple
 
 class RootAppsPreset(private val appPresets: AppPresets) : BasePreset(NAME) {
     companion object {
@@ -130,12 +132,12 @@ class RootAppsPreset(private val appPresets: AppPresets) : BasePreset(NAME) {
         }
 
         // All Viper4Android/ViperFX apps
-        if (Utils.endsWithMultiple(packageName, ".viper4android", ".viperfx")) {
+        if (packageName.endsWithMultiple(".viper4android", ".viperfx")) {
             return true
         }
 
         // All libxzr apps (konabess, hkf, ...)
-        if (Utils.startsWithMultiple(packageName, "xzr.", "moe.xzr.")) {
+        if (packageName.startsWithMultiple("xzr.", "moe.xzr.")) {
             return true
         }
 
@@ -192,7 +194,7 @@ class RootAppsPreset(private val appPresets: AppPresets) : BasePreset(NAME) {
             val manifestStr = appPresets.readManifest(key, zipFile)
 
             // Check for whitelists
-            if (Utils.containsMultiple(manifestStr, *WHITELISTS)) {
+            if (packageName.containsMultiple(*WHITELISTS)) {
                 return@checkSplitPackages false
             }
 

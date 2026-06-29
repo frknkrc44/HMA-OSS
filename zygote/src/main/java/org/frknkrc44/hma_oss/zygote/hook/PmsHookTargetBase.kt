@@ -9,7 +9,7 @@ import icu.nullptr.hidemyapplist.common.CollectionUtils.lastWithType
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.Constants.VENDING_PACKAGE_NAME
 import icu.nullptr.hidemyapplist.common.OSUtils
-import icu.nullptr.hidemyapplist.common.Utils
+import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
 import icu.nullptr.hidemyapplist.common.Utils.getUserFromCallingUid
 import org.frknkrc44.hma_oss.zygote.service.BulkHooker
 import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
@@ -32,9 +32,9 @@ abstract class PmsHookTargetBase : IFrameworkHook {
     protected var lastFilteredApp: AtomicReference<String?> = AtomicReference(null)
 
     protected val psPackageInfo by lazy {
+        val pms = service?.pms ?: return@lazy null
         try {
-            Utils.getPackageInfoCompat(
-                service?.pms ?: return@lazy null,
+            pms.getPackageInfoCompat(
                 VENDING_PACKAGE_NAME,
                 PackageManager.GET_SIGNING_CERTIFICATES.toLong(),
                 0

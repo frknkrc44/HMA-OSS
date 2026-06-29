@@ -7,7 +7,8 @@ import icu.nullptr.hidemyapplist.common.CollectionUtils.firstOrNullWithType
 import icu.nullptr.hidemyapplist.common.CollectionUtils.firstWithType
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.OSUtils
-import icu.nullptr.hidemyapplist.common.Utils
+import icu.nullptr.hidemyapplist.common.Utils.getPackageName
+import icu.nullptr.hidemyapplist.common.Utils.getPackageUidCompat
 import icu.nullptr.hidemyapplist.common.Utils.getUserFromCallingUid
 import org.frknkrc44.hma_oss.zygote.service.BulkHooker
 import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
@@ -80,7 +81,7 @@ class ActivityHook : IFrameworkHook {
                         logV(TAG) { "@$methodName: $caller requested a resolve info" }
 
                         val filteredList = list.filter { resolveInfo ->
-                            val targetApp = Utils.getPackageNameFromResolveInfo(resolveInfo)
+                            val targetApp = resolveInfo.getPackageName()
 
                             logV(TAG) { "@$methodName: Checking $targetApp for $caller" }
 
@@ -108,8 +109,8 @@ class ActivityHook : IFrameworkHook {
 
             if (!isHookAvailable(hookedClazz, "applyPostResolutionFilter")) {
                 // Try to keep compatibility when InxLocker detected
-                val isInxLockerAvailable = service != null && Utils.getPackageUidCompat(
-                    service!!.pms, "io.github.chimio.inxlocker", 0, 0
+                val isInxLockerAvailable = service != null && service!!.pms.getPackageUidCompat(
+                    "io.github.chimio.inxlocker", 0, 0
                 ) >= 0
 
                 if (isInxLockerAvailable) {

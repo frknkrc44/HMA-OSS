@@ -346,7 +346,7 @@ class BackupRestoreFragment : Fragment(R.layout.fragment_backup_restore) {
         }
 
         if (isBackupMode) {
-            cleanRemnantsFromConfig(importedConfig)
+            importedConfig.cleanRemnantsFromConfig()
         }
 
         if (trimConfig) {

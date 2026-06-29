@@ -110,7 +110,7 @@ object ServiceUtils {
                 logV(TAG) { "@findAndVerifyAppSignature: checking for uid $uid" }
 
                 val pkgInfo = runCatching {
-                    getPackageInfoCompat(pms, BuildConfig.APP_PACKAGE_NAME, 0L, uid)
+                    pms.getPackageInfoCompat(BuildConfig.APP_PACKAGE_NAME, 0L, uid)
                 }.getOrNull()
 
                 if (pkgInfo != null) {
@@ -153,14 +153,12 @@ object ServiceUtils {
 
         while (throwable != null) {
             val newTrace = throwable.stackTrace.filter { item ->
-                !containsMultiple(
-                    item.className,
+                !item.className.containsMultiple(
                     "BulkHooker",
                     "com.v7878",
                     "MethodHandle",
                     BuildConfig.APP_PACKAGE_NAME,
-                ) && !containsMultiple(
-                    item.fileName,
+                ) && !item.fileName.containsMultiple(
                     "r8-map-id-",
                     "dex-id-",
                 )
@@ -174,16 +172,9 @@ object ServiceUtils {
         }
     }
 
-    fun isConflictingModuleInstalled(pms: IPackageManager): Boolean {
-        // none of these can be installed into other profiles
-        fun isInstalled(packageName: String) =
-            isAppInstalled(pms, packageName, 0)
-
-        // TODO: Find a way for enabled status of modules
-        //  (cannot reach into /data/adb/lspd while in system server)
-
+    fun IPackageManager.isConflictingModuleInstalled(): Boolean {
         // we shouldn't apply hooks when the HMA/HMAL detected
-        return isInstalled("com.tsng.hidemyapplist") ||
-                isInstalled("com.google.android.hmal")
+        return isAppInstalled("com.tsng.hidemyapplist") ||
+                isAppInstalled("com.google.android.hmal")
     }
 }

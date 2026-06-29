@@ -101,7 +101,7 @@ class AppPresets private constructor() {
         presetList.forEach {
             if (!it.containsPackage(packageName)) {
                 if (appInfo == null)
-                    appInfo = getPackageInfoCompat(pms, packageName, 0, 0)?.applicationInfo
+                    appInfo = pms.getPackageInfoCompat(packageName, 0, 0)?.applicationInfo
 
                 if (appInfo != null) {
                     runCatching {
@@ -117,7 +117,7 @@ class AppPresets private constructor() {
         }
 
         if (appInfo == null)
-            appInfo = getPackageInfoCompat(pms, packageName, 0, 0)?.applicationInfo
+            appInfo = pms.getPackageInfoCompat(packageName, 0, 0)?.applicationInfo
 
         if (appInfo != null)
             addedInAList = tryToAddIntoGMSConnectionList(appInfo, packageName) {

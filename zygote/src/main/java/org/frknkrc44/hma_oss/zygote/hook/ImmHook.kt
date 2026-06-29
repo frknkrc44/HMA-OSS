@@ -10,6 +10,7 @@ import android.view.inputmethod.InputMethodSubtype
 import com.v7878.unsafe.invoke.EmulatedStackFrame
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.Utils
+import icu.nullptr.hidemyapplist.common.Utils.getPackageUidCompat
 import icu.nullptr.hidemyapplist.common.Utils.getUserFromCallingUid
 import icu.nullptr.hidemyapplist.common.settings_presets.InputMethodPreset
 import org.frknkrc44.hma_oss.zygote.service.BulkHooker
@@ -288,7 +289,7 @@ class ImmHook : IFrameworkHook {
 
         val userId = inUserId ?: Binder.getCallingUserHandle().hashCode()
         return Utils.binderLocalScope {
-            Utils.getPackageUidCompat(service!!.pms, packageName, PackageManager.MATCH_ALL.toLong(), userId) >= 0
+            service!!.pms.getPackageUidCompat(packageName, PackageManager.MATCH_ALL.toLong(), userId) >= 0
         }
     }
 

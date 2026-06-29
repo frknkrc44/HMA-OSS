@@ -63,7 +63,7 @@ object UserService {
     fun register(pms: IPackageManager, pmn: Any?) {
         logI(TAG) { "Initialize HMAService - Version ${BuildConfig.APP_VERSION_NAME}" }
 
-        val managerWorkMode = if (isConflictingModuleInstalled(pms)) {
+        val managerWorkMode = if (pms.isConflictingModuleInstalled()) {
             logE(ZygoteEntry.TAG) { "Conflicting module detected, skipping hook" }
             Constants.MANAGER_WORK_MODE_NO_HOOKS
         } else {

@@ -26,7 +26,7 @@ import icu.nullptr.hidemyapplist.common.Utils.cleanRemnantsFromConfig
 import icu.nullptr.hidemyapplist.common.Utils.generateRandomString
 import icu.nullptr.hidemyapplist.common.Utils.getInstalledApplicationsCompat
 import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
-import icu.nullptr.hidemyapplist.common.Utils.getPackageUidCompat
+import icu.nullptr.hidemyapplist.common.Utils.isAppInstalled
 import icu.nullptr.hidemyapplist.common.Utils.isSystemApp
 import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
 import org.frknkrc44.hma_oss.common.BuildConfig
@@ -188,7 +188,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
             logW(TAG) { "Config version mismatch, need to reload" }
             return
         }
-        cleanRemnantsFromConfig(loading)
+        loading.cleanRemnantsFromConfig()
         config = loading
         logI(TAG) { "Config loaded" }
     }
@@ -210,7 +210,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
     }
 
     private fun installHooks() {
-        getInstalledApplicationsCompat(pms, PackageManager.MATCH_ALL.toLong(), 0)
+        pms.getInstalledApplicationsCompat(PackageManager.MATCH_ALL.toLong(), 0)
             .mapNotNullTo(systemApps) { appInfo ->
                 if (appInfo.isSystemApp()) appInfo.packageName else null
         }
@@ -411,9 +411,9 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
         if (caller == query && appConfig.excludeTargetInstallationSource) return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
 
         try {
-            val uid = getPackageUidCompat(pms, query, 0L, callingUser)
-            logD(TAG) { "@shouldHideInstallationSource UID for $caller, ${callingUser}: $query, $uid" }
-            if (uid < 0) return Constants.FAKE_INSTALLATION_SOURCE_DISABLED // invalid package installation source request
+            val installed = pms.isAppInstalled(query, callingUser)
+            logD(TAG) { "@shouldHideInstallationSource UID for $caller, ${callingUser}: $query, $installed" }
+            if (!installed) return Constants.FAKE_INSTALLATION_SOURCE_DISABLED // invalid package installation source request
         } catch (e: Throwable) {
             logD(TAG, e) { "@shouldHideInstallationSource UID error for $caller, $callingUser" }
             return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
@@ -462,7 +462,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
         synchronized(configLock) {
             runCatching {
                 val newConfig = JsonConfig.parse(json)
-                cleanRemnantsFromConfig(newConfig)
+                newConfig.cleanRemnantsFromConfig()
                 if (newConfig.configVersion != BuildConfig.CONFIG_VERSION) {
                     logW(TAG) { "Sync config: version mismatch, need reboot" }
                     return
@@ -585,14 +585,14 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
     }
 
     override fun getPackageNames(userId: Int) = binderLocalScope {
-        getInstalledApplicationsCompat(pms, 0L, userId).map { it.packageName }.toTypedArray()
+        pms.getInstalledApplicationsCompat(0L, userId).map { it.packageName }.toTypedArray()
     }
 
     override fun getPackageInfo(
         packageName: String,
         userId: Int
     ) = binderLocalScope {
-        getPackageInfoCompat(pms, packageName, 0L, userId)
+        pms.getPackageInfoCompat(packageName, 0L, userId)
     }
 
     override fun listAllSettings(databaseName: String): Array<String> {
@@ -616,7 +616,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
         val apps = mutableListOf<ApplicationInfo>().apply {
             binderLocalScope {
                 UserManagerApis.getUserIdsNoThrow().forEach { id ->
-                    addAll(getInstalledApplicationsCompat(pms, 0L, id))
+                    addAll(pms.getInstalledApplicationsCompat(0L, id))
                 }
             }
         }
@@ -684,7 +684,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
     override fun getManagerWorkMode() = managerWorkMode
 
     override fun startMainActivityAsUser(packageName: String, userId: Int) = binderLocalScope {
-        val pkgInfo = getPackageInfoCompat(pms, packageName, 0, userId)
+        val pkgInfo = pms.getPackageInfoCompat(packageName, 0, userId)
                 ?: throw RemoteException("Cannot find package info for $packageName")
 
         if (pkgInfo.applicationInfo?.enabled == true) {

@@ -29,53 +29,53 @@ object Utils {
         return result
     }
 
-    fun getInstalledApplicationsCompat(pms: IPackageManager, flags: Long, userId: Int): List<ApplicationInfo> {
+    fun IPackageManager.getInstalledApplicationsCompat(flags: Long, userId: Int): List<ApplicationInfo> {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            pms.getInstalledApplications(flags, userId)
+            this.getInstalledApplications(flags, userId)
         } else {
-            pms.getInstalledApplications(flags.toInt(), userId)
+            this.getInstalledApplications(flags.toInt(), userId)
         }.list
     }
 
-    fun getPackageUidCompat(pms: IPackageManager, packageName: String, flags: Long, userId: Int): Int {
+    fun IPackageManager.getPackageUidCompat(packageName: String, flags: Long, userId: Int): Int {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            pms.getPackageUid(packageName, flags, userId)
+            this.getPackageUid(packageName, flags, userId)
         } else {
-            pms.getPackageUid(packageName, flags.toInt(), userId)
+            this.getPackageUid(packageName, flags.toInt(), userId)
         }
     }
 
-    fun getPackageInfoCompat(pms: IPackageManager, packageName: String, flags: Long, userId: Int): PackageInfo? {
+    fun IPackageManager.getPackageInfoCompat(packageName: String, flags: Long, userId: Int): PackageInfo? {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            pms.getPackageInfo(packageName, flags, userId)
+            this.getPackageInfo(packageName, flags, userId)
         } else {
-            pms.getPackageInfo(packageName, flags.toInt(), userId)
+            this.getPackageInfo(packageName, flags.toInt(), userId)
         }
     }
 
-    fun startsWithMultiple(source: String, vararg targets: String): Boolean {
-        assert(source.isNotEmpty() && targets.isNotEmpty())
+    fun String.startsWithMultiple(vararg targets: String): Boolean {
+        assert(isNotEmpty() && targets.isNotEmpty())
 
-        return targets.any { source.startsWith(it) }
+        return targets.any { startsWith(it) }
     }
 
-    fun endsWithMultiple(source: String, vararg targets: String): Boolean {
-        assert(source.isNotEmpty() && targets.isNotEmpty())
+    fun String.endsWithMultiple(vararg targets: String): Boolean {
+        assert(isNotEmpty() && targets.isNotEmpty())
 
-        return targets.any { source.endsWith(it) }
+        return targets.any { endsWith(it) }
     }
 
-    fun containsMultiple(source: String, vararg targets: String): Boolean {
-        assert(source.isNotEmpty() && targets.isNotEmpty())
+    fun String.containsMultiple(vararg targets: String): Boolean {
+        assert(isNotEmpty() && targets.isNotEmpty())
 
-        return targets.any { source.contains(it) }
+        return targets.any { contains(it) }
     }
 
-    fun getPackageNameFromResolveInfo(resolveInfo: ResolveInfo): String {
-        return resolveInfo.resolvePackageName ?:
-            resolveInfo.activityInfo?.packageName ?:
-            resolveInfo.serviceInfo?.packageName ?:
-            resolveInfo.providerInfo!!.packageName
+    fun ResolveInfo.getPackageName(): String {
+        return resolvePackageName ?:
+            activityInfo?.packageName ?:
+            serviceInfo?.packageName ?:
+            providerInfo!!.packageName
     }
 
     fun checkSplitPackages(appInfo: ApplicationInfo, onZipFile: (String, ZipFile) -> Boolean): Boolean {
@@ -94,24 +94,24 @@ object Utils {
         }
     }
 
-    fun cleanRemnantsFromConfig(config: JsonConfig) {
+    fun JsonConfig.cleanRemnantsFromConfig() {
         // STEP 1: Remove empty app and settings templates
-        config.templates.removeIf { _, template -> template.appList.isEmpty() }
-        config.settingsTemplates.removeIf { _, template -> template.settingsList.isEmpty() }
+        templates.removeIf { _, template -> template.appList.isEmpty() }
+        settingsTemplates.removeIf { _, template -> template.settingsList.isEmpty() }
 
         // STEP 2: Remove mismatching items
-        for (app in config.scope.values) {
-            app.applyTemplates.removeIf { !config.templates.containsKey(it) }
+        for (app in scope.values) {
+            app.applyTemplates.removeIf { !templates.containsKey(it) }
             app.applyPresets.removeIf { it !in AppPresets.instance.presetNames }
-            app.applySettingTemplates.removeIf { !config.settingsTemplates.containsKey(it) }
+            app.applySettingTemplates.removeIf { !settingsTemplates.containsKey(it) }
             app.applySettingsPresets.removeIf { it !in SettingsPresets.instance.presetNames }
         }
     }
 
     fun getUserFromCallingUid(uid: Int) = uid / 100000
 
-    fun isAppInstalled(pms: IPackageManager, packageName: String, userId: Int) =
-        getPackageUidCompat(pms, packageName, 0, userId) >= 0
+    fun IPackageManager.isAppInstalled(packageName: String, userId: Int = 0) =
+        getPackageUidCompat(packageName, 0, userId) >= 0
 
     fun ApplicationInfo.isSystemApp() = flags and ApplicationInfo.FLAG_SYSTEM != 0 ||
             flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP != 0
