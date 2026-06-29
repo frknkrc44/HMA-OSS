@@ -71,31 +71,36 @@ jobs:
         run: |
           ./gradlew :app:assemble
           ./gradlew :zygote:assemble
-          echo "releaseName=$(ls app/build/outputs/apk/release/*.apk | awk -F '(/|.apk)' '{print $6}')" >> $GITHUB_OUTPUT
-          echo "debugName=$(ls app/build/outputs/apk/debug/*.apk | awk -F '(/|.apk)' '{print $6}')" >> $GITHUB_OUTPUT
-          echo "releaseFile=$(ls app/build/outputs/apk/release/*.apk)" >> $GITHUB_OUTPUT
-          echo "debugFile=$(ls app/build/outputs/apk/debug/*.apk)" >> $GITHUB_OUTPUT
+          echo "releaseName=$(ls zygote/build/outputs/magisk/release/*.zip | awk -F '(/|.zip)' '{print $6}')" >> $GITHUB_OUTPUT
+          echo "debugName=$(ls zygote/build/outputs/magisk/debug/*.zip | awk -F '(/|.zip)' '{print $6}')" >> $GITHUB_OUTPUT
+          echo "releaseFile=$(ls zygote/build/outputs/magisk/release/*.zip)" >> $GITHUB_OUTPUT
+          echo "debugFile=$(ls zygote/build/outputs/magisk/debug/*.zip)" >> $GITHUB_OUTPUT
           echo "ossNum=$(ls app/build/outputs/apk/debug/*.apk | awk -F '(/|.apk)' '{print $6}' | cut -f4 -d'-')" >> $GITHUB_OUTPUT
 
       - name: Upload release
         if: success()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
+          archive: false
           name: ${{ steps.buildAll.outputs.releaseName }}
-          path: "app/build/outputs/apk/release/*.apk"
+          path: ${{ steps.buildAll.outputs.releaseFile }}
 
       - name: Upload debug
         if: success()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
+          archive: false
           name: ${{ steps.buildAll.outputs.debugName }}
-          path: "app/build/outputs/apk/debug/*.apk"
+          path: ${{ steps.buildAll.outputs.debugFile }}
 
       - name: Upload mappings
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
+          archive: true
           name: mappings
-          path: "app/build/outputs/mapping/release"
+          path: |
+            "app/build/outputs/mapping/release"
+            "zygote/build/outputs/mapping/release"
 
       - name: Upload to GitHub release
         uses: softprops/action-gh-release@v2
