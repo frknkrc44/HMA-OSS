@@ -5,6 +5,7 @@ import android.content.pm.IPackageManager
 import android.util.Log
 import icu.nullptr.hidemyapplist.common.RiskyPackageUtils.tryToAddIntoGMSConnectionList
 import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
+import icu.nullptr.hidemyapplist.common.Utils.isSystemApp
 import icu.nullptr.hidemyapplist.common.app_presets.AccessibilityAppsPreset
 import icu.nullptr.hidemyapplist.common.app_presets.BasePreset
 import icu.nullptr.hidemyapplist.common.app_presets.CustomROMPreset
@@ -71,7 +72,11 @@ class AppPresets private constructor() {
                 loggerFunction?.invoke(Log.ERROR, fail.toString())
             }
 
-            presetList.forEach {
+            presetList.forEach addToPreset@{
+                if (it.name == AccessibilityAppsPreset.NAME && appInfo.isSystemApp()) {
+                    return@addToPreset
+                }
+
                 runCatching {
                     it.addPackageInfoPreset(appInfo)
                 }.onFailure { fail ->

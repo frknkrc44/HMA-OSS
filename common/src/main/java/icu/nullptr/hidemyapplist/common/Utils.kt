@@ -112,4 +112,7 @@ object Utils {
 
     fun isAppInstalled(pms: IPackageManager, packageName: String, userId: Int) =
         getPackageUidCompat(pms, packageName, 0, userId) >= 0
+
+    fun ApplicationInfo.isSystemApp() = flags and ApplicationInfo.FLAG_SYSTEM != 0 ||
+            flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP != 0
 }

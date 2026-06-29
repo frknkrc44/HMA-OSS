@@ -27,6 +27,7 @@ import icu.nullptr.hidemyapplist.common.Utils.generateRandomString
 import icu.nullptr.hidemyapplist.common.Utils.getInstalledApplicationsCompat
 import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
 import icu.nullptr.hidemyapplist.common.Utils.getPackageUidCompat
+import icu.nullptr.hidemyapplist.common.Utils.isSystemApp
 import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
 import org.frknkrc44.hma_oss.common.BuildConfig
 import org.frknkrc44.hma_oss.zygote.hook.AccessibilityHook
@@ -211,10 +212,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
     private fun installHooks() {
         getInstalledApplicationsCompat(pms, PackageManager.MATCH_ALL.toLong(), 0)
             .mapNotNullTo(systemApps) { appInfo ->
-                val isSystemApp = appInfo.flags and ApplicationInfo.FLAG_SYSTEM != 0 ||
-                        appInfo.flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP != 0
-
-                if (isSystemApp) appInfo.packageName else null
+                if (appInfo.isSystemApp()) appInfo.packageName else null
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
