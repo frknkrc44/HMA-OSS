@@ -56,6 +56,14 @@
     <string name="home_exported">설정 백업 완료</string>
     <string name="home_new_update">새로운 업데이트: %s</string>
     <string name="home_update">업데이트: %s</string>
+    <!-- Backup & Restore -->
+    <string name="backup_restore_backup_settings">Backup settings</string>
+    <string name="backup_restore_restore_settings">Restore settings</string>
+    <string name="backup_restore_apps">App configs</string>
+    <string name="backup_restore_templates">Templates</string>
+    <string name="backup_restore_settings_templates">Settings templates</string>
+    <string name="backup_restore_append">Append</string>
+    <string name="backup_restore_items_count">%d items</string>
     <!-- App select -->
     <string name="list_show_system">시스템 앱 표시</string>
     <string name="list_sorting">정렬</string>
@@ -175,8 +183,14 @@
     <string name="settings_package_query_workaround_summary">이 앱에서 패키지 목록이 정상적으로 보인다면 이 옵션을 활성화하지 마세요.</string>
     <string name="settings_launcher_icon">런처 아이콘</string>
     <string name="settings_error_only_log">오류 로그만 기록</string>
+    <string name="settings_disable_hooks">Disable functions</string>
+    <string name="settings_disable_hooks_summary">You can disable some of the functions when they conflict with other modules</string>
     <string name="settings_enable_internet">인터넷 연결 활성화</string>
     <string name="settings_enable_internet_summary">이 옵션을 비활성화하면 인터넷 연결을 사용하는 모든 기능이 정지됩니다.</string>
+    <string name="settings_default_config">App config for new apps</string>
+    <string name="settings_default_config_summary">This will apply the defined config to all of new apps but will keep the existing configuration for new apps if you applied something before.</string>
+    <string name="settings_webview_protection">WebView protection</string>
+    <string name="settings_webview_protection_summary">This will add extra protection for crashes caused by hiding/targeting WebView or browsers</string>
     <string name="settings_language">언어</string>
     <string name="settings_translate">번역 참여하기</string>
     <string name="settings_translate_summary">%s(을)를 당신의 언어로 번역하는 것을 도와주세요.</string>
@@ -210,6 +224,8 @@
     </string>
     <string name="about_how_to_use_description_2">        설정 변경은 실시간으로 적용됩니다.
     </string>
+    <string name="about_how_to_use_description_3">        This application acts like a manager of the Zygisk module from now, so you need a separate Zygisk module to make this manager work.
+    </string>
     <string name="about_translator">번역가</string>
     <string name="about_developer">개발자</string>
     <string name="about_support">지원 및 피드백</string>
@@ -238,4 +254,7 @@
     <string name="dark_theme">다크 테마</string>
     <string name="dark_theme_off">항상 끄기</string>
     <string name="dark_theme_on">항상 켜기</string>
+    <string name="sick_mode_title">Sick mode is activated</string>
+    <string name="sick_mode_description">HMA-OSS detected possibly conflictable modules and limited its functionality</string>
+    <string name="sick_mode_notice">HMA/HMAL configs are compatible with HMA-OSS and you can begin to use with your existing config but you need to uninstall HMA/HMAL then reboot at first</string>
 </resources>
