@@ -56,6 +56,14 @@
     <string name="home_exported">تم النسخ الاحتياطي للإعدادات</string>
     <string name="home_new_update">تحديث جديد متوفر: %s</string>
     <string name="home_update">تحديث: %s</string>
+    <!-- Backup & Restore -->
+    <string name="backup_restore_backup_settings">Backup settings</string>
+    <string name="backup_restore_restore_settings">Restore settings</string>
+    <string name="backup_restore_apps">App configs</string>
+    <string name="backup_restore_templates">Templates</string>
+    <string name="backup_restore_settings_templates">Settings templates</string>
+    <string name="backup_restore_append">Append</string>
+    <string name="backup_restore_items_count">%d items</string>
     <!-- App select -->
     <string name="list_show_system">إظهار تطبيقات النظام</string>
     <string name="list_sorting">الترتيب حسب</string>
@@ -176,8 +184,14 @@
     <string name="settings_package_query_workaround_summary">لا تقم بتمكين هذا الخيار إذا كنت ترى قائمة الحزم في هذا التطبيق بشكل صحيح.</string>
     <string name="settings_launcher_icon">أيقونة التطبيق</string>
     <string name="settings_error_only_log">تسجيل الأخطاء فقط</string>
+    <string name="settings_disable_hooks">Disable functions</string>
+    <string name="settings_disable_hooks_summary">You can disable some of the functions when they conflict with other modules</string>
     <string name="settings_enable_internet">تفعيل الوصول إلى الإنترنت</string>
     <string name="settings_enable_internet_summary">سيفقد هذا التطبيق جميع وظائفه المتعلقة بالإنترنت عند تعطيل هذا الخيار.</string>
+    <string name="settings_default_config">App config for new apps</string>
+    <string name="settings_default_config_summary">This will apply the defined config to all of new apps but will keep the existing configuration for new apps if you applied something before.</string>
+    <string name="settings_webview_protection">WebView protection</string>
+    <string name="settings_webview_protection_summary">This will add extra protection for crashes caused by hiding/targeting WebView or browsers</string>
     <string name="settings_language">اللغة</string>
     <string name="settings_translate">المشاركة في التَّرْجَمَة</string>
     <string name="settings_translate_summary">ساعدنا في ترجمة %s إلى لغتك</string>
@@ -207,6 +221,8 @@
     <string name="about_how_to_use_title">كيفية استخدام هذه الإضافة</string>
     <string name="about_how_to_use_description_1">يمكنك إنشاء قوالب من \"إدارة القوالب\".\nثم تطبيق هذه القوالب على التطبيقات من \"إدارة التطبيقات\".(يمكنك أيضا اختيار تطبيقات إضافية للتطبيقات المستهدفة.)\n ينبغي فقط فحص \"إطار النظام\" من نطاق وحدة إكسبوسد/القائمة البيضاء.    </string>
     <string name="about_how_to_use_description_2">تعديل التكوين يطبق في الوقت الفعلى.    </string>
+    <string name="about_how_to_use_description_3">        This application acts like a manager of the Zygisk module from now, so you need a separate Zygisk module to make this manager work.
+    </string>
     <string name="about_translator">المترجم</string>
     <string name="about_developer">المطور</string>
     <string name="about_support">الدعم والمراجعات</string>
@@ -235,4 +251,7 @@
     <string name="dark_theme">سمة مظلمة</string>
     <string name="dark_theme_off">غلق دائما</string>
     <string name="dark_theme_on">تفعيل دائما</string>
+    <string name="sick_mode_title">Sick mode is activated</string>
+    <string name="sick_mode_description">HMA-OSS detected possibly conflictable modules and limited its functionality</string>
+    <string name="sick_mode_notice">HMA/HMAL configs are compatible with HMA-OSS and you can begin to use with your existing config but you need to uninstall HMA/HMAL then reboot at first</string>
 </resources>
