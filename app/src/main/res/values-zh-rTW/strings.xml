@@ -11,7 +11,7 @@
     <string name="title_app_settings">應用程式設定</string>
     <string name="title_about">關於</string>
     <string name="title_about_fork">關於HMA-OSS</string>
-    <string name="do_not_dual">不要多開或將 HMA 安裝給次要使用者</string>
+    <string name="do_not_dual">請勿將HMA-OSS安裝到分身或多使用者空間</string>
     <string name="show_crash_log">顯示崩潰日誌</string>
     <string name="config_damaged">配置檔損毀，請清理應用程式的資料</string>
     <string name="edit_list">編輯列表</string>
@@ -106,7 +106,7 @@
     <string name="app_warning_risky_package_desc">此應用程式被標記為高風險，可能會對被隱藏的應用程式造成問題。您要繼續嗎？</string>
     <string name="app_spoof">偽裝</string>
     <string name="app_hide_installation_source">偽裝安裝來源</string>
-    <string name="app_hide_installation_source_desc">對於此應用程式，所有使用者應用程式將被視為安裝自Play商店</string>
+    <string name="app_hide_installation_source_desc">對於此應用程式，所有使用者應用程式將被視為安裝自Play商店（不包括系統應用）</string>
     <string name="app_hide_installation_source_system">同時欺騙系統應用程式</string>
     <string name="app_hide_installation_source_system_desc">對於此應用程式，所有系統應用程式將被視為無安裝來源</string>
     <string name="app_exclude_target_installation_source">排除目標應用程式</string>
@@ -114,7 +114,7 @@
     <string name="app_force_stop_warning">儲存設定後，別忘了強制停止目標應用程式</string>
     <string name="app_invert_activity_launch_protection">反轉 Activity 啟動保護</string>
     <string name="app_invert_activity_launch_protection_desc">此選項將反轉設定中「停用 Activity 啟動保護」的選項。</string>
-    <string name="app_global_activity_launch_protection_state">保護範圍為 全域%s</string>
+    <string name="app_global_activity_launch_protection_state">\"停用Activity啟動保護\"全域性狀態： %s</string>
     <string name="app_force_stop_launch">強制停止並啟動</string>
     <string name="app_launch">啟動</string>
     <string name="app_launch_failed">應用程式啟動失敗，請檢查日誌以取得詳細資訊</string>
