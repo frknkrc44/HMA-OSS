@@ -42,7 +42,7 @@
     <string name="home_xposed_filter_count">隐藏应用列表已经执行了 %d 次拦截</string>
     <string name="home_manage">管理</string>
     <string name="home_detection_test">拦截测试</string>
-    <string name="home_download_test_app_title">下载拦截测试应用</string>
+    <string name="home_download_test_app_title">下载应用列表检测器</string>
     <string name="home_download_test_app_message">我们开发了一个独立的拦截测试应用，是否现在下载？</string>
     <string name="home_backup_and_restore">备份 &amp; 还原</string>
     <string name="home_backup_config">备份配置</string>
@@ -106,16 +106,16 @@
     <string name="app_warning_risky_package_desc">此应用被标记为风险应用，对其隐藏可能会导致问题。是否继续？</string>
     <string name="app_spoof">伪装功能</string>
     <string name="app_hide_installation_source">伪装安装来源</string>
-    <string name="app_hide_installation_source_desc">对此应用，将所有用户安装的应用伪装成是通过Play商店安装的</string>
+    <string name="app_hide_installation_source_desc">将所有应用伪装为通过Play商店安装（不会伪装系统应用）</string>
     <string name="app_hide_installation_source_system">同时伪装系统应用</string>
-    <string name="app_hide_installation_source_system_desc">对此应用，将所有系统应用伪装成无安装来源</string>
+    <string name="app_hide_installation_source_system_desc">将所有系统应用伪装为无安装来源</string>
     <string name="app_exclude_target_installation_source">排除此应用自身</string>
-    <string name="app_exclude_target_installation_source_desc">如果此应用不在Play商店上架，可以启用此项</string>
+    <string name="app_exclude_target_installation_source_desc">不为此应用伪装安装来源（如果此应用没有上架Play商店，可以启用此项）</string>
     <string name="app_force_stop_warning">保存配置后请强制停止目标应用以使配置生效</string>
     <string name="app_invert_activity_launch_protection">反转Activity启动保护</string>
-    <string name="app_invert_activity_launch_protection_desc">此选项会反转设置中\"禁用Activity启动保护\"的状态</string>
-    <string name="app_global_activity_launch_protection_state">全局保护状态： %s </string>
-    <string name="app_force_stop_launch">强制停止并启动</string>
+    <string name="app_invert_activity_launch_protection_desc">反转\"禁用Activity启动保护\"设置项</string>
+    <string name="app_global_activity_launch_protection_state">\"禁用Activity启动保护\"全局状态： %s</string>
+    <string name="app_force_stop_launch">强制停止并打开</string>
     <string name="app_launch">启动</string>
     <string name="app_launch_failed">应用启动失败，请检查日志获取更多详细信息</string>
     <string name="app_restrict_zygote_permissions">限制Zygote权限</string>
@@ -128,9 +128,9 @@
     <string name="preset_root_apps">Root 管理器/Root 应用</string>
     <string name="preset_custom_rom">自定义 ROM 应用</string>
     <string name="preset_sus_apps">可疑应用</string>
-    <string name="preset_detector_apps">检测类应用</string>
+    <string name="preset_detector_apps">检测器</string>
     <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku应用</string>
-    <string name="preset_accessibility_apps">辅助功能应用</string>
+    <string name="preset_accessibility_apps">无障碍应用</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">无障碍功能</string>
     <string name="settings_preset_dev_options">开发者选项</string>
@@ -161,7 +161,7 @@
     <string name="settings_app_data_isolation">App data 隔离</string>
     <string name="settings_vold_app_data_isolation">Vold app data 隔离</string>
     <string name="settings_warning">警告</string>
-    <string name="settings_vold_warning">这将启用 AOSP 中用于隔离应用外部私有存储目录的功能。这可以帮助改善隐藏效果，但可能会导致稳定性问题。此功能在 AOSP 中已被废弃，可能随时停止工作。</string>
+    <string name="settings_vold_warning">启用 AOSP 隔离应用私有存储目录的功能。这可以增强隐藏效果，但可能会导致稳定性问题。此功能在 AOSP 中已被废弃，可能无法正常工作。</string>
     <string name="settings_change_require_root">此更改需要 root 权限</string>
     <string name="settings_need_reboot">重启以应用更改</string>
     <string name="settings_permission_denied">权限被拒绝</string>
@@ -190,7 +190,7 @@
     <string name="settings_default_config">默认隐藏配置</string>
     <string name="settings_default_config_summary">为新安装的应用自动套用的配置项，已有配置的应用不受影响（不会影响当前已安装的应用）</string>
     <string name="settings_webview_protection">WebView 保护</string>
-    <string name="settings_webview_protection_summary">防止隐藏 WebView 或 浏览器 后导致崩溃</string>
+    <string name="settings_webview_protection_summary">防止为 WebView/浏览器 启用隐藏或对其它应用隐藏后导致的崩溃</string>
     <string name="settings_language">语言</string>
     <string name="settings_translate">参与翻译</string>
     <string name="settings_translate_summary">帮助我们把 %s 翻译到您的语言</string>
