@@ -224,7 +224,7 @@
     </string>
     <string name="about_how_to_use_description_2">        設定変更はリアルタイムで行われます。
     </string>
-    <string name="about_how_to_use_description_3">        This application acts like a manager of the Zygisk module from now, so you need a separate Zygisk module to make this manager work.
+    <string name="about_how_to_use_description_3">        このアプリは今後、Zygisk モジュールのマネージャーとして機能するため、このマネージャーを動作させるには別途 Zygisk モジュールが必要です。
     </string>
     <string name="about_translator">翻訳者</string>
     <string name="about_developer">開発者</string>
@@ -254,7 +254,7 @@
     <string name="dark_theme">ダークテーマ</string>
     <string name="dark_theme_off">常にオフ</string>
     <string name="dark_theme_on">常にオン</string>
-    <string name="sick_mode_title">Sick mode is activated</string>
-    <string name="sick_mode_description">HMA-OSS detected possibly conflictable modules and limited its functionality</string>
-    <string name="sick_mode_notice">HMA/HMAL configs are compatible with HMA-OSS and you can begin to use with your existing config but you need to uninstall HMA/HMAL then reboot at first</string>
+    <string name="sick_mode_title">セーフモードが有効になっています</string>
+    <string name="sick_mode_description">HMA-OSS は、競合の可能性があるモジュールを検出し、その機能を制限しました</string>
+    <string name="sick_mode_notice">HMA/HMAL の設定は HMA-OSS と互換性があり、既存の設定を維持して使用を開始できますが、最初に HMA/HMAL をアンインストールしてから再起動する必要があります</string>
 </resources>
