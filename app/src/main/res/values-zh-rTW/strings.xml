@@ -254,6 +254,6 @@
     <string name="dark_theme_off">總是關閉</string>
     <string name="dark_theme_on">總是開啟</string>
     <string name="sick_mode_title">安全模式</string>
-    <string name="sick_mode_description">HMA-OSS 檢測到衝突的模塊，爲避免衝突已禁用自身核心功能</string>
+    <string name="sick_mode_description">HMA-OSS 檢測到同類的模塊，爲避免衝突已禁用自身核心功能</string>
     <string name="sick_mode_notice">提示: HMA/HMAL配置與HMA-OSS相容，在HMA/HMAL中備份的配置檔案可在HMA-OSS中恢復使用。解除安裝HMA/HMAL並重啟手機後，HMA-OSS即可恢復執行</string>
 </resources>
