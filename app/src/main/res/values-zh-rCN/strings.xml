@@ -251,5 +251,5 @@
     <string name="dark_theme_on">始终开启</string>
     <string name="sick_mode_title">安全模式</string>
     <string name="sick_mode_description">HMA-OSS 检测到同类模块（原版隐藏应用列表或其分支），为避免冲突已禁用自身核心功能</string>
-    <string name="sick_mode_notice">提示：卸载对应模块并重启手机后，HMA-OSS 即可恢复运行（其配置文件可用于 HMA-OSS）</string>
+    <string name="sick_mode_notice">提示：卸载对应模块并重启手机后，HMA-OSS 即可恢复运行（其配置文件可用于 HMA-OSS，解决不了请卸载此模块）</string>
 </resources>
