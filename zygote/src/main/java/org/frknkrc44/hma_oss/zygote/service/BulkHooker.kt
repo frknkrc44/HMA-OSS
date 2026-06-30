@@ -15,7 +15,9 @@ import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.dumpArgs
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.setReturnValue
 import java.lang.invoke.MethodHandle
 import java.lang.reflect.Executable
 import java.lang.reflect.Method
@@ -28,7 +30,7 @@ class BulkHooker private constructor() {
         const val PARAMETER_COUNT_UNKNOWN = -1
     }
 
-    internal val hooks: ConcurrentHashMap<String, CopyOnWriteArrayList<HookElement>> = ConcurrentHashMap()
+    internal val hooks = ConcurrentHashMap<String, CopyOnWriteArrayList<HookElement>>()
 
     fun isHookAvailable(clazz: String, methodName: String): Boolean {
         return hooks[clazz]?.any { it.methodName == methodName } ?: false
@@ -89,7 +91,7 @@ class BulkHooker private constructor() {
         }
 
         if (value.replace) {
-            ZLUtils.setReturnValue(frame, value.result)
+            frame.setReturnValue(value.result)
         }
     }
 
@@ -124,10 +126,10 @@ class BulkHooker private constructor() {
             throw it
         }
 
-        ZLUtils.setReturnValue(frame, value.result)
+        frame.setReturnValue(value.result)
     }
 
-    internal fun applyHook(
+    private fun applyHook(
         clazz: String,
         element: HookElement,
         loader: ClassLoader? = SystemServerHook.classLoader,
@@ -189,7 +191,7 @@ class BulkHooker private constructor() {
         return element.hookFinished
     }
 
-    fun invokeExactCompat(clazz: String, methodName: String, original: MethodHandle, frame: EmulatedStackFrame, value: ReturnValue) {
+    private fun invokeExactCompat(clazz: String, methodName: String, original: MethodHandle, frame: EmulatedStackFrame, value: ReturnValue) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
             val element = findHookElement(clazz, methodName)!!
 
@@ -198,8 +200,8 @@ class BulkHooker private constructor() {
                 element.memoryAddresses?.second!!
             )
 
-            val thisObject = ZLUtils.getArgument(frame, 0)
-            val args = ZLUtils.dumpArgs(frame, true)
+            val thisObject = frame.getArgument(0)
+            val args = frame.dumpArgs(true)
 
             value.result = (element.method as Method).invoke(thisObject, *args)
 
@@ -212,7 +214,7 @@ class BulkHooker private constructor() {
         }
     }
 
-    fun findHookElement(clazz: String, methodName: String): HookElement? {
+    private fun findHookElement(clazz: String, methodName: String): HookElement? {
         hooks[clazz]?.forEach { element ->
             if (element.methodName == methodName) {
                 return element

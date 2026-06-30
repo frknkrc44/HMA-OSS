@@ -7,8 +7,7 @@ import org.frknkrc44.hma_oss.zygote.service.BulkHooker
 import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgShorty
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.setArg
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.setArgument
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.ZYGOTE_PROCESS_CLASS
 
 class ZygoteHook : IFrameworkHook {
@@ -39,9 +38,9 @@ class ZygoteHook : IFrameworkHook {
                 if (lastMapIndex >= 0) {
                     // enable bindMountAppsData after checks
                     val bindMountAppsDataIndex = lastMapIndex + 1
-                    if (frame.getArgShorty(bindMountAppsDataIndex) == 'Z') {
+                    if (frame.accessor().getArgumentShorty(bindMountAppsDataIndex) == 'Z') {
                         logD(TAG) { "@startZygoteProcess: Replacing bindMountAppsData flag" }
-                        frame.setArg(bindMountAppsDataIndex, true)
+                        frame.setArgument(bindMountAppsDataIndex, true)
                     }
                 }
             }
@@ -54,7 +53,7 @@ class ZygoteHook : IFrameworkHook {
                 perms = perms.filter { Constants.GID_PAIRS.containsValue(it) }
 
                 logD(TAG) { "@startZygoteProcess: GIDs are ${gIDs.contentToString()}, removing $perms now" }
-                frame.setArg(gIDsIndex, gIDs.filter { it !in perms }.toIntArray())
+                frame.setArgument(gIDsIndex, gIDs.filter { it !in perms }.toIntArray())
                 service?.increaseOthersFilterCount(caller)
             }
         }

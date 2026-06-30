@@ -21,7 +21,7 @@ import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackageNameFromPackageSettings
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.callMethod
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArg
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.COMPUTER_ENGINE_CLASS
 import java.util.concurrent.atomic.AtomicReference
 
@@ -94,7 +94,7 @@ abstract class PmsHookTargetBase : IFrameworkHook {
                         applyPackageHiding(
                             methodName,
                             { Binder.getCallingUid() },
-                            { getPackageNameFromPackageSettings(frame.getArg(1)) },
+                            { getPackageNameFromPackageSettings(frame.getArgument(1)) },
                             ::getCallingApps,
                             { returnValue.result = null },
                         )
@@ -110,7 +110,7 @@ abstract class PmsHookTargetBase : IFrameworkHook {
                     applyPackageHiding(
                         methodName,
                         { Binder.getCallingUid() },
-                        { getPackageNameFromPackageSettings(frame.getArg(2)) },
+                        { getPackageNameFromPackageSettings(frame.getArgument(2)) },
                         ::getCallingApps,
                         { returnValue.result = null },
                     )
@@ -194,7 +194,7 @@ abstract class PmsHookTargetBase : IFrameworkHook {
                     applyInstallerHiding(
                         methodName,
                         { Binder.getCallingUid() },
-                        { frame.getArg(1) as? String },
+                        { frame.getArgument(1) as? String },
                     ) {
                         when (it) {
                             Constants.FAKE_INSTALLATION_SOURCE_USER -> returnValue.result = VENDING_PACKAGE_NAME
@@ -212,7 +212,7 @@ abstract class PmsHookTargetBase : IFrameworkHook {
                     applyInstallerHiding(
                         methodName,
                         { Binder.getCallingUid() },
-                        { frame.getArg(1) as? String },
+                        { frame.getArgument(1) as? String },
                     ) {
                         when (it) {
                             Constants.FAKE_INSTALLATION_SOURCE_USER -> returnValue.result = VENDING_PACKAGE_NAME
@@ -230,7 +230,7 @@ abstract class PmsHookTargetBase : IFrameworkHook {
                     applyInstallerHiding(
                         methodName,
                         { Binder.getCallingUid() },
-                        { frame.getArg(1) as? String }
+                        { frame.getArgument(1) as? String }
                     ) {
                         when (it) {
                             Constants.FAKE_INSTALLATION_SOURCE_USER -> returnValue.result = fakeUserPackageInstallSourceInfo

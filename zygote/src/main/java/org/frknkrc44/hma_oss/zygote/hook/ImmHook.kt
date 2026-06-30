@@ -23,7 +23,7 @@ import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.packageManager
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.callStaticMethod
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArg
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.returnType
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.IMM_IMPL_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.IMM_SERVICE_CLASS
@@ -89,7 +89,7 @@ class ImmHook : IFrameworkHook {
                             logD(TAG) { "@$methodName spoofed input method for $caller" }
 
                             val fakeIMInfo = getFakeInputMethodInfo(caller)
-                            val userHandle = frame.getArg(1) as Int
+                            val userHandle = frame.getArgument(1) as Int
                             if (!isIMExists(fakeIMInfo.packageName, userHandle)) {
                                 warnNotInstalledKeyboard(methodName, fakeIMInfo.packageName)
                             }

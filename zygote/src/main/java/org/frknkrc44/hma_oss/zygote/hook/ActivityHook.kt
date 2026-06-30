@@ -17,11 +17,11 @@ import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArg
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getIntField
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getObjectField
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getStaticIntField
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.setArg
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.setArgument
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.thisObject
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.ACTIVITY_STACK_SUPERVISOR_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.ACTIVITY_STARTER_CLASS
@@ -93,7 +93,7 @@ class ActivityHook : IFrameworkHook {
                         }
 
                         if (filteredList.size != list.size) {
-                            frame.setArg(1, filteredList.toList())
+                            frame.setArgument(1, filteredList.toList())
 
                             service?.increasePMFilterCount(caller, list.size - filteredList.size)
                         }
@@ -119,7 +119,7 @@ class ActivityHook : IFrameworkHook {
                             ACTIVITY_STARTER_CLASS,
                             "executeRequest",
                         ) { _, frame, returnValue ->
-                            val request = frame.getArg(1)
+                            val request = frame.getArgument(1)
                             val callingUserId = getUserFromCallingUid(getIntField(request, "callingUid"))
                             val caller = getObjectField(request, "callingPackage") as? String ?: return@hookBefore
                             val intent = getObjectField(request, "intent") as? Intent ?: return@hookBefore
@@ -137,7 +137,7 @@ class ActivityHook : IFrameworkHook {
                             "startActivity",
                         ) { _, frame, returnValue ->
                             // we have no way other than hardcoding, it is 13th argument in AOSP code
-                            val callingUserId = getUserFromCallingUid(frame.getArg(13) as Int)
+                            val callingUserId = getUserFromCallingUid(frame.getArgument(13) as Int)
                             val caller = frame.args.firstOrNullWithType<String>() ?: return@hookBefore
                             val intent = frame.args.firstOrNullWithType<Intent>() ?: return@hookBefore
                             val targetApp = intent.component?.packageName

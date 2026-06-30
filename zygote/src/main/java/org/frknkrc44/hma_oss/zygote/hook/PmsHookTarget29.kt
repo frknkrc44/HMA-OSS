@@ -5,7 +5,7 @@ import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackageNameFromPackageSettings
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArg
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.PACKAGE_MANAGER_SERVICE_CLASS
 
 class PmsHookTarget29 : PmsHookTargetBase() {
@@ -28,8 +28,8 @@ class PmsHookTarget29 : PmsHookTargetBase() {
             ) { methodName, frame, returnValue ->
                 applyPackageHiding(
                     methodName,
-                    { frame.getArg(2) as Int? },
-                    { getPackageNameFromPackageSettings(frame.getArg(1)) },
+                    { frame.getArgument(2) as Int? },
+                    { getPackageNameFromPackageSettings(frame.getArgument(1)) },
                     ::getCallingApps,
                     { returnValue.result = true },
                 )
@@ -41,8 +41,8 @@ class PmsHookTarget29 : PmsHookTargetBase() {
             ) { methodName, frame, returnValue ->
                 applyPackageHiding(
                     methodName,
-                    { frame.getArg(4) as Int? },
-                    { frame.getArg(1) as String? },
+                    { frame.getArgument(4) as Int? },
+                    { frame.getArgument(1) as String? },
                     ::getCallingApps,
                     { returnValue.result = null },
                 )
@@ -54,8 +54,8 @@ class PmsHookTarget29 : PmsHookTargetBase() {
             ) { methodName, frame, returnValue ->
                 applyPackageHiding(
                     methodName,
-                    { frame.getArg(3) as Int? },
-                    { frame.getArg(1) as String? },
+                    { frame.getArgument(3) as Int? },
+                    { frame.getArgument(1) as String? },
                     ::getCallingApps,
                     { returnValue.result = null },
                 )

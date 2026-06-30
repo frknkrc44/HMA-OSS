@@ -12,7 +12,7 @@ import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackageNameFromPackageSettings
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.findConstructor
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.findMethod
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArg
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.APPS_FILTER_IMPL_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.PACKAGE_MANAGER_SERVICE_CLASS
 
@@ -70,11 +70,11 @@ class PmsHookTarget34 : PmsHookTargetBase() {
             ) { methodName, frame, returnValue ->
                 applyPackageHiding(
                     methodName,
-                    { frame.getArg(2) as Int? },
-                    { getPackageNameFromPackageSettings(frame.getArg(4)) },
+                    { frame.getArgument(2) as Int? },
+                    { getPackageNameFromPackageSettings(frame.getArgument(4)) },
                     {
                         Utils.binderLocalScope {
-                            getPackagesForUidMethod.invoke(frame.getArg(1), it) as Array<String>?
+                            getPackagesForUidMethod.invoke(frame.getArgument(1), it) as Array<String>?
                         }
                     },
                     { returnValue.result = true },
@@ -96,7 +96,7 @@ class PmsHookTarget34 : PmsHookTargetBase() {
                 applyPackageHiding(
                     methodName,
                     { Binder.getCallingUid() },
-                    { frame.getArg(1) as? String },
+                    { frame.getArgument(1) as? String },
                     ::getCallingApps,
                     { returnValue.result = null },
                 )

@@ -11,19 +11,39 @@ import java.lang.reflect.Field
 import java.lang.reflect.Method
 
 object ZLUtils {
-    fun dumpArgs(frame: EmulatedStackFrame, skipFirst: Boolean = false): Array<Any?> {
+    /**
+     * @return Class of the return type
+     */
+    val EmulatedStackFrame.returnType: Class<*> get() = type().returnType()
+
+    /**
+     * @return The first argument
+     */
+    val EmulatedStackFrame.thisObject by lazyWithReceiver { getArgument(0) }
+
+    /**
+     * - `args[0]: thisObject`
+     * - `args[1:]: function args`
+     */
+    val EmulatedStackFrame.args by lazyWithReceiver { dumpArgs() }
+
+    internal fun EmulatedStackFrame.dumpArgs(skipFirst: Boolean = false): Array<Any?> {
         return mutableListOf<Any?>().let {
             val begin = if (skipFirst) 1 else 0
-            for (index in begin ..< frame.type().parameterCount()) {
-                it.add(getArgument(frame, index))
+            for (index in begin ..< type().parameterCount()) {
+                it.add(getArgument(index))
             }
 
             it.toTypedArray()
         }
     }
 
-    fun getArgument(frame: EmulatedStackFrame, index: Int): Any {
-        val accessor = frame.accessor()
+    /**
+     * - `index == 0: thisObject`
+     * - `index >= 1: function args`
+     */
+    fun EmulatedStackFrame.getArgument(index: Int): Any {
+        val accessor = accessor()
 
         return when (accessor.getArgumentShorty(index)) {
             'L' -> accessor.getReference(index)
@@ -39,8 +59,8 @@ object ZLUtils {
         }
     }
 
-    fun setArgument(frame: EmulatedStackFrame, index: Int, value: Any) {
-        val accessor = frame.accessor()
+    fun EmulatedStackFrame.setArgument(index: Int, value: Any) {
+        val accessor = accessor()
 
         when (accessor.getArgumentShorty(index)) {
             'L' -> accessor.setReference(index, value)
@@ -56,9 +76,9 @@ object ZLUtils {
         }
     }
 
-    fun setReturnValue(frame: EmulatedStackFrame, value: Any?) {
-        if (frame.type().returnType() != Void::class.java) {
-            frame.accessor().setValue(RETURN_VALUE_IDX, value)
+    fun EmulatedStackFrame.setReturnValue(value: Any?) {
+        if (type().returnType() != Void::class.java) {
+            accessor().setValue(RETURN_VALUE_IDX, value)
         }
     }
 
@@ -130,30 +150,4 @@ object ZLUtils {
 
         return field
     }
-
-    /**
-     * @return Class of the return type
-     */
-    val EmulatedStackFrame.returnType: Class<*> get() = type().returnType()
-
-    /**
-     * @return The first argument
-     */
-    val EmulatedStackFrame.thisObject by lazyWithReceiver { getArgument(this, 0) }
-
-    /**
-     * - `args[0]: thisObject`
-     * - `args[1:]: function args`
-     */
-    val EmulatedStackFrame.args by lazyWithReceiver { dumpArgs(this) }
-
-    /**
-     * - `index == 0: thisObject`
-     * - `index >= 1: function args`
-     */
-    fun EmulatedStackFrame.getArg(index: Int) = getArgument(this, index)
-
-    fun EmulatedStackFrame.getArgShorty(index: Int) = accessor().getArgumentShorty(index)
-
-    fun EmulatedStackFrame.setArg(index: Int, value: Any) = setArgument(this, index, value)
 }

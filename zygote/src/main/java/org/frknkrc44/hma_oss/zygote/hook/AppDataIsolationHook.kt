@@ -13,7 +13,7 @@ import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArg
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getBooleanField
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getIntField
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getObjectField
@@ -207,7 +207,7 @@ class AppDataIsolationHook : IFrameworkHook {
             ) { _, frame, _ ->
                 if (!voldHookSkipped && config?.altVoldAppDataIsolation ?: false && config?.skipSystemAppDataIsolation ?: false) {
                     @Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN")
-                    val pidPkgMap = frame.getArg(1) as Map<*, *>
+                    val pidPkgMap = frame.getArgument(1) as Map<*, *>
                     val keysToRemove = mutableSetOf<Any>()
 
                     for (entry in pidPkgMap.entrySet()) {

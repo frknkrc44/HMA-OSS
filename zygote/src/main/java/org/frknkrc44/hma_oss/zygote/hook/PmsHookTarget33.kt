@@ -10,7 +10,7 @@ import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackageNameFromPackageSettings
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.findConstructor
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.findMethod
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArg
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.APPS_FILTER_IMPL_CLASS
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
@@ -65,11 +65,11 @@ class PmsHookTarget33 : PmsHookTargetBase() {
             ) { methodName, frame, returnValue ->
                 applyPackageHiding(
                     methodName,
-                    { frame.getArg(2) as Int? },
-                    { getPackageNameFromPackageSettings(frame.getArg(4)) },
+                    { frame.getArgument(2) as Int? },
+                    { getPackageNameFromPackageSettings(frame.getArgument(4)) },
                     {
                         Utils.binderLocalScope {
-                            getPackagesForUidMethod.invoke(frame.getArg(1), it) as Array<String>?
+                            getPackagesForUidMethod.invoke(frame.getArgument(1), it) as Array<String>?
                         }
                     },
                     { returnValue.result = true },
