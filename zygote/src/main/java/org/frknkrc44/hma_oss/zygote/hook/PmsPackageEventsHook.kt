@@ -7,7 +7,9 @@ import org.frknkrc44.hma_oss.zygote.service.BulkHooker
 import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArg
+import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.BROADCAST_HELPER_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.PACKAGE_MANAGER_SERVICE_CLASS
+import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.PACKAGE_MONITOR_CLASS
 
 class PmsPackageEventsHook : IFrameworkHook {
     override val TAG = "PmsPackageEventsHook"
@@ -18,21 +20,10 @@ class PmsPackageEventsHook : IFrameworkHook {
         BulkHooker.instance.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 hookBefore(
-                    "com.android.server.pm.BroadcastHelper",
-                    "sendPackageBroadcastAndNotify",
-                ) { _, frame, _ ->
-                    service?.handlePackageEvent(
-                        frame.getArg(1) as String?,
-                        frame.getArg(2) as String?,
-                        frame.getArg(3) as Bundle?,
-                    )
-                }
-
-                hookBefore(
-                    "com.android.internal.content.PackageMonitor",
+                    PACKAGE_MONITOR_CLASS,
                     "onReceive",
                 ) { _, frame, _ ->
-                    val intent = frame.getArg(2) as? Intent? ?: return@hookBefore
+                    val intent = frame.getArg(2) as? Intent ?: return@hookBefore
 
                     service?.handlePackageEvent(
                         intent.action,
@@ -40,15 +31,28 @@ class PmsPackageEventsHook : IFrameworkHook {
                         intent.extras,
                     )
                 }
+
+                if (!isHookAvailable(PACKAGE_MONITOR_CLASS, "onReceive")) {
+                    hookBefore(
+                        BROADCAST_HELPER_CLASS,
+                        "sendPackageBroadcastAndNotify",
+                    ) { _, frame, _ ->
+                        service?.handlePackageEvent(
+                            frame.getArg(1) as? String,
+                            frame.getArg(2) as? String,
+                            frame.getArg(3) as? Bundle,
+                        )
+                    }
+                }
             } else {
                 hookBefore(
                     PACKAGE_MANAGER_SERVICE_CLASS,
                     "sendPackageBroadcast",
                 ) { _, frame, _ ->
                     service?.handlePackageEvent(
-                        frame.getArg(1) as String?,
-                        frame.getArg(2) as String?,
-                        frame.getArg(3) as Bundle?,
+                        frame.getArg(1) as? String,
+                        frame.getArg(2) as? String,
+                        frame.getArg(3) as? Bundle,
                     )
                 }
             }
