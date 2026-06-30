@@ -57,13 +57,13 @@
     <string name="home_new_update">利用可能なアップデート: %s</string>
     <string name="home_update">アップデート: %s</string>
     <!-- Backup & Restore -->
-    <string name="backup_restore_backup_settings">Backup settings</string>
-    <string name="backup_restore_restore_settings">Restore settings</string>
-    <string name="backup_restore_apps">App configs</string>
-    <string name="backup_restore_templates">Templates</string>
-    <string name="backup_restore_settings_templates">Settings templates</string>
-    <string name="backup_restore_append">Append</string>
-    <string name="backup_restore_items_count">%d items</string>
+    <string name="backup_restore_backup_settings">設定をバックアップ</string>
+    <string name="backup_restore_restore_settings">設定を復元</string>
+    <string name="backup_restore_apps">アプリ設定</string>
+    <string name="backup_restore_templates">テンプレート</string>
+    <string name="backup_restore_settings_templates">設定テンプレート</string>
+    <string name="backup_restore_append">増分復元</string>
+    <string name="backup_restore_items_count">%d 個の項目</string>
     <!-- App select -->
     <string name="list_show_system">システムアプリを表示</string>
     <string name="list_sorting">並び替え</string>
@@ -183,14 +183,14 @@
     <string name="settings_package_query_workaround_summary">このアプリでパッケージリストが正しく表示されている場合は、このオプションを有効にしないでください。</string>
     <string name="settings_launcher_icon">ランチャーアイコン</string>
     <string name="settings_error_only_log">エラーのみのログ</string>
-    <string name="settings_disable_hooks">Disable functions</string>
-    <string name="settings_disable_hooks_summary">You can disable some of the functions when they conflict with other modules</string>
+    <string name="settings_disable_hooks">機能を無効化</string>
+    <string name="settings_disable_hooks_summary">他のモジュールと競合する場合、一部の機能を無効にすることができます</string>
     <string name="settings_enable_internet">インターネット接続を有効化</string>
     <string name="settings_enable_internet_summary">このオプションを無効にすると、このアプリはインターネット関連の機能をすべて失います。</string>
-    <string name="settings_default_config">App config for new apps</string>
-    <string name="settings_default_config_summary">This will apply the defined config to all of new apps but will keep the existing configuration for new apps if you applied something before.</string>
-    <string name="settings_webview_protection">WebView protection</string>
-    <string name="settings_webview_protection_summary">This will add extra protection for crashes caused by hiding/targeting WebView or browsers</string>
+    <string name="settings_default_config">新規アプリのアプリ設定</string>
+    <string name="settings_default_config_summary">これにより、定義された設定がすべての新しいアプリに適用されますが、以前に何らかの設定を適用していた場合は、新しいアプリでも既存の設定が維持されます。</string>
+    <string name="settings_webview_protection">WebView の保護</string>
+    <string name="settings_webview_protection_summary">これにより、WebView やブラウザを非表示にしたり、それらをターゲットにしたりすることによって引き起こされるクラッシュに対する保護が強化されます</string>
     <string name="settings_language">言語</string>
     <string name="settings_translate">翻訳に参加</string>
     <string name="settings_translate_summary">%s をあなたの言語に翻訳するのにご協力ください</string>
