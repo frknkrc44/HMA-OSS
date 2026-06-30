@@ -7,14 +7,14 @@
     <string name="title_template_settings">テンプレートの設定</string>
     <string name="title_settings_template_conf">設定テンプレートの構成</string>
     <string name="title_app_manage">アプリの管理</string>
-    <string name="title_app_select">アプリの選択</string>
+    <string name="title_app_select">アプリを選択</string>
     <string name="title_app_settings">アプリの設定</string>
     <string name="title_about">このアプリについて</string>
     <string name="title_about_fork">このフォークについて</string>
     <string name="do_not_dual">HMA をセカンダリユーザーにインストールしないでください</string>
-    <string name="show_crash_log">クラッシュログの表示</string>
+    <string name="show_crash_log">クラッシュログを表示</string>
     <string name="config_damaged">設定ファイルが破損しています。アプリデータを削除してください</string>
-    <string name="edit_list">リストの編集</string>
+    <string name="edit_list">リストを編集</string>
     <string name="delete">削除</string>
     <string name="enabled">有効</string>
     <string name="disabled">無効</string>
@@ -66,7 +66,7 @@
     <string name="backup_restore_items_count">%d 個の項目</string>
     <!-- App select -->
     <string name="list_show_system">システムアプリを表示</string>
-    <string name="list_sorting">並び替え</string>
+    <string name="list_sorting">並べ替え</string>
     <string name="list_reverse_order">逆順</string>
     <string name="list_sort_by_label">アプリ名</string>
     <string name="list_sort_by_package_name">パッケージ名</string>
@@ -143,8 +143,8 @@
     <string name="settings_templates_custom">カスタム設定</string>
     <string name="settings_templates_random_ssaid">ランダム SSAID</string>
     <!-- Logs -->
-    <string name="logs_save">ログの保存</string>
-    <string name="logs_clear">ログの消去</string>
+    <string name="logs_save">ログを保存</string>
+    <string name="logs_clear">ログを消去</string>
     <string name="logs_empty">保存するログがありません</string>
     <string name="logs_saved">ログを保存しました</string>
     <!-- Filter logs -->
@@ -157,7 +157,7 @@
     <string name="settings_default_value">デフォルト値: %s</string>
     <string name="settings_data_isolation">データ分離</string>
     <string name="settings_data_isolation_summary">アプリデータ: %s\nVold アプリデータ: %s\n強制マウント: %s</string>
-    <string name="settings_data_isolation_unsupported">このオプションは Android 11 以上で使用できます</string>
+    <string name="settings_data_isolation_unsupported">このオプションは Android 11 以降でのみ利用可能です</string>
     <string name="settings_app_data_isolation">アプリのデータ分離</string>
     <string name="settings_vold_app_data_isolation">Vold アプリのデータ分離</string>
     <string name="settings_warning">警告</string>
@@ -170,7 +170,7 @@
     <string name="settings_detail_log">デバッグ用詳細ログ</string>
     <string name="settings_max_log_size">ロガーのバッファサイズ</string>
     <string name="settings_hide_icon">ランチャー上のアイコンを非表示</string>
-    <string name="settings_hide_icon_summary">LSPosed マネージャーで引き続きアプリを開くことができます</string>
+    <string name="settings_hide_icon_summary">Root マネージャーからアプリを開くこともできます</string>
     <string name="settings_bypass_risky_package_warning">危険なパッケージの警告を無視</string>
     <string name="settings_bypass_risky_package_warning_summary">この機能を有効にする前後で、危険なパッケージに関する問題が発生した場合、開発者は一切責任を負わないことをご了承ください</string>
     <string name="settings_disable_activity_launch_protection">アクティビティ起動保護を無効化</string>
@@ -187,7 +187,7 @@
     <string name="settings_disable_hooks_summary">他のモジュールと競合する場合、一部の機能を無効にすることができます</string>
     <string name="settings_enable_internet">インターネット接続を有効化</string>
     <string name="settings_enable_internet_summary">このオプションを無効にすると、このアプリはインターネット関連の機能をすべて失います。</string>
-    <string name="settings_default_config">新規アプリのアプリ設定</string>
+    <string name="settings_default_config">新規アプリへの設定</string>
     <string name="settings_default_config_summary">これにより、定義された設定がすべての新しいアプリに適用されますが、以前に何らかの設定を適用していた場合は、新しいアプリでも既存の設定が維持されます。</string>
     <string name="settings_webview_protection">WebView の保護</string>
     <string name="settings_webview_protection_summary">これにより、WebView やブラウザを非表示にしたり、それらをターゲットにしたりすることによって引き起こされるクラッシュに対する保護が強化されます</string>
@@ -215,14 +215,14 @@
     <!-- Bulk config wizard -->
     <string name="title_bulk_config_wizard">一括設定ウィザード</string>
     <!-- About -->
-    <string name="about_description">        特定のアプリのインストールを検出することは正しくありませんが、root 権限を使用するすべてのアプリがランダムなパッケージ名に対応しているわけではありません。この場合、root 権限を使用しているアプリ (Fake Location や Storage Isolation など) の検出は、root 権限自体が検出されることと同等です。\n\n同時に、一部のスマートアプリは、さまざまな抜け穴を使用してアプリリストを取得して、ユーザーの行動特性を分析する場合があります。\n\nこのモジュールは、アプリリストを適切に非表示にしているかどうかを検証する方法をいくつか提供します。また、Xposed モジュールとして動作することで、特定のアプリを非表示にしたり、アプリリストの取得要求を拒否したりして、プライバシーを保護することも可能です。
+    <string name="about_description">        特定のアプリのインストールを検出することは好ましい方法ではありませんが、root 権限を使用するすべてのアプリがランダムなパッケージ名に対応しているとは限りません。このような場合、Fake Location や Storage Isolation などの root 権限に関連するアプリが検出されると、そのデバイスは root 化されているものとみなされます。\n\n一方で、一部のスマートアプリはさまざまな抜け穴を利用してアプリリストを取得し、それに基づいてユーザープロフィールを作成しています。\n\nこのモジュールは、アプリリストが適切に非表示になっているかどうかをテストするためのいくつかの方法を提供します。また、Zygisk モジュールとして動作することで、特定のアプリを非表示にしたり、アプリリストの取得要求を拒否したりすることで、プライバシーを保護することもできます。
     </string>
     <string name="about_fork_description">        オリジナルの HMA プロジェクトはクローズドソースになり、最新版のコードには一部の重要な変更点が反映されていませんでした。そこで、再びオープンソースとして継続していくために、このフォーク版を作成しました。
     </string>
     <string name="about_how_to_use_title">このモジュールの使用方法</string>
-    <string name="about_how_to_use_description_1">        「テンプレートの管理」でテンプレートを作成できます。\n作成したテンプレートは、「アプリの管理」でアプリに適用できます。(対象アプリを追加選択することもできます。)\nXposed モジュールのスコープ/ホワイトリストで「システム フレームワーク」のみにチェックを入れてください。
+    <string name="about_how_to_use_description_1">        「テンプレートの管理」でテンプレートを作成できます。\n作成したテンプレートは、「アプリの管理」でアプリに適用できます。（対象とするアプリを追加で選択することもできます。）
     </string>
-    <string name="about_how_to_use_description_2">        設定変更はリアルタイムで行われます。
+    <string name="about_how_to_use_description_2">        設定変更はリアルタイムで反映されます。
     </string>
     <string name="about_how_to_use_description_3">        このアプリは今後、Zygisk モジュールのマネージャーとして機能するため、このマネージャーを動作させるには別途 Zygisk モジュールが必要です。
     </string>
