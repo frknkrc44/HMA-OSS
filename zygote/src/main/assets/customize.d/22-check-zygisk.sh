@@ -11,7 +11,6 @@
 ZYGISK_DETECTED_MSG(){
     echo "- Found $1 framework"
 }
-MAGISK_ZYGISK_ERR="! Magisk built-in Zygisk can't be enabled with Zygisk frameworks at the same time"
 MAGISK_ZYGISK_NAME="Magisk Built-in Zygisk"
 ZYGISK_MULTI_ERR="! Multiple Zygisk frameworks were found. Aborting installation to prevent conflicts"
 ZYGISK_NOT_FOUND_ERR="! No known Zygisk frameworks (e.g. ZygiskNext) is found, HMA-OSS requires Zygisk to work. Installation aborted"
@@ -21,7 +20,6 @@ if echo "$SYSTEM_LANG" | grep -q "zh"; then
     ZYGISK_DETECTED_MSG(){
         echo "- 检测到 $1 框架"
     }
-    MAGISK_ZYGISK_ERR="! Magisk 内置 Zygisk 不能与 Zygisk 框架同时启用"
     MAGISK_ZYGISK_NAME="Magisk 内置 Zygisk"
     ZYGISK_MULTI_ERR="! 检测到多个 Zygisk 框架, 为了避免冲突, 安装程序已退出"
     ZYGISK_NOT_FOUND_ERR="! 未找到已知的 Zygisk 框架 (例如 ZygiskNext), HMA-OSS 需要 Zygisk 才能正常运行, 安装程序已退出"
@@ -33,7 +31,6 @@ find_zygisk(){
         [ -f "/data/adb/modules/$1/disable" ] && return
         [ -f "/data/adb/modules/$1/remove" ] && return
 
-        [ ! -z "$MAGISK_ZYGISK" ] && ui_print "$MAGISK_ZYGISK_ERR"
         [ ! -z "$ZYGISK_ID" ] && abort "$ZYGISK_MULTI_ERR"
 
         ZYGISK_ID="$1"
@@ -41,7 +38,13 @@ find_zygisk(){
     fi
 }
 
-if ! ([ "$KSU" ] || [ "$APATCH" ])
+# add known zygisk frameworks here...
+find_zygisk "zygisksu" "ZygiskNext / NeoZygisk"
+find_zygisk "rezygisk" "ReZygisk"
+find_zygisk "admirepowered" "Zygisk Mod"
+find_zygisk "zygisk_on_ksu" "Zygisk on KernelSU"
+
+if (! ([ "$KSU" ] || [ "$APATCH" ])) && [ -z "$ZYGISK_ID" ]
 then
     MAGISK_ZYGISK=$(magisk --sqlite "SELECT value FROM settings WHERE key = 'zygisk'" 2> /dev/null | cut -f2 -d=)
 
@@ -51,12 +54,6 @@ then
         ZYGISK_NAME="$MAGISK_ZYGISK_NAME"
     fi
 fi
-
-# add known zygisk frameworks here...
-find_zygisk "zygisksu" "ZygiskNext / NeoZygisk"
-find_zygisk "rezygisk" "ReZygisk"
-find_zygisk "admirepowered" "Zygisk Mod"
-find_zygisk "zygisk_on_ksu" "Zygisk on KernelSU"
 
 # not installed zygisk
 if [ -z "$ZYGISK_ID" ]; then
