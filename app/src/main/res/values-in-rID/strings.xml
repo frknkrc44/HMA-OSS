@@ -5,7 +5,7 @@
     <string name="title_settings">Setelan</string>
     <string name="title_template_manage">Kelola templat</string>
     <string name="title_template_settings">Setelan templat</string>
-    <string name="title_settings_template_conf">Konfigurasi setelan templat</string>
+    <string name="title_settings_template_conf">Konfigurasi templat setelan</string>
     <string name="title_app_manage">Kelola aplikasi</string>
     <string name="title_app_select">Pilih aplikasi</string>
     <string name="title_app_settings">Setelan aplikasi</string>
@@ -65,16 +65,16 @@
     <string name="backup_restore_append">Tambahkan</string>
     <string name="backup_restore_items_count">%d item</string>
     <!-- App select -->
-    <string name="list_show_system">Tampilkan apl sistem</string>
+    <string name="list_show_system">Tampilkan aplikasi sistem</string>
     <string name="list_sorting">Urutkan</string>
     <string name="list_reverse_order">Terbalik</string>
-    <string name="list_sort_by_label">Nama apl</string>
+    <string name="list_sort_by_label">Nama aplikasi</string>
     <string name="list_sort_by_package_name">Nama paket</string>
     <string name="list_sort_by_install_time">Waktu pemasangan</string>
     <string name="list_sort_by_update_time">Waktu pembaruan</string>
-    <string name="list_empty_no_enabled">Coba aktifkan penyembunyian untuk apl dengan mode kerja templat ini dan apl akan muncul di sini</string>
-    <string name="list_empty_no_apps">Tidak ada apl yang ditemukan, mungkin Anda tidak mengizinkan apl ini untuk mengakses semua paket</string>
-    <string name="list_empty_preset">Tidak ada apl yang ditambahkan dalam preset ini</string>
+    <string name="list_empty_no_enabled">Coba aktifkan penyembunyian untuk aplikasi dengan mode kerja templat ini dan aplikasi akan muncul di sini</string>
+    <string name="list_empty_no_apps">Tidak ada aplikasi yang ditemukan, mungkin Anda tidak mengizinkan aplikasi ini untuk mengakses semua paket</string>
+    <string name="list_empty_preset">Tidak ada aplikasi yang ditambahkan dalam preset ini</string>
     <!-- Manage templates -->
     <string name="template_usage_hint">Buat templat untuk aplikasi \"bermasalah\", guna mengontrol akses daftar aplikasi.\n\nDaftar hitam (disarankan): aplikasi yang dipilih dalam templat tidak akan terlihat dari aplikasi yang menerapkan templat tersebut.\nDaftar putih: aplikasi yang tidak dipilih dalam templat tidak akan terlihat oleh aplikasi yang menerapkan templat tersebut.</string>
     <string name="template_new_blacklist">Buat templat daftar hitam</string>
@@ -85,7 +85,7 @@
     <string name="template_name_invalid">Nama tidak valid</string>
     <string name="template_delete_title">Hapus Templat</string>
     <string name="template_name_already_exist">Nama templat sudah ada</string>
-    <string name="template_applied_count">Diterapkan ke %d apl</string>
+    <string name="template_applied_count">Diterapkan ke %d aplikasi</string>
     <string name="template_setting_count">%d setelan ditambahkan</string>
     <string name="template_apps_visible_count">%d aplikasi terlihat</string>
     <string name="template_apps_invisible_count">%d aplikasi tidak terlihat</string>
@@ -94,23 +94,23 @@
     <string name="app_template_config">Konfigurasi templat</string>
     <string name="app_choose_template">Pilih templat</string>
     <string name="app_choose_preset">Pilih preset</string>
-    <string name="app_exclude_system_apps">Kecualikan apl sistem</string>
+    <string name="app_exclude_system_apps">Kecualikan aplikasi sistem</string>
     <string name="app_exclude_system_apps_summary">Nonaktifkan opsi ini hanya jika benar-benar diperlukan. Kemungkinan menyebabkan kerusakan jika dinonaktifkan</string>
     <string name="app_template_using">Menggunakan %d templat</string>
     <string name="app_preset_using">Menggunakan %d preset</string>
     <string name="app_settings_preset_using">Menggunakan %d preset setelan</string>
-    <string name="app_settings_template_using">Menggunakan templat setelan %d</string>
+    <string name="app_settings_template_using">Menggunakan %d templat setelan</string>
     <string name="app_extra_apps_visible_count">%d aplikasi tambahan terlihat</string>
     <string name="app_extra_apps_invisible_count">%d aplikasi tambahan tidak terlihat</string>
     <string name="app_warning_risky_package_title">Paket berisiko</string>
     <string name="app_warning_risky_package_desc">Paket ini ditandai sebagai berisiko dan dapat menyebabkan masalah pada aplikasi tersembunyi. Apakah Anda ingin melanjutkan?</string>
     <string name="app_spoof">Spoofing</string>
     <string name="app_hide_installation_source">Spoof sumber pemasangan</string>
-    <string name="app_hide_installation_source_desc">Semua apl pengguna akan di-spoof seolah-olah terpasang di Play Store untuk apl ini</string>
+    <string name="app_hide_installation_source_desc">Semua aplikasi pengguna akan di-spoof seolah-olah terpasang di Play Store untuk aplikasi ini</string>
     <string name="app_hide_installation_source_system">Spoof aplikasi sistem juga</string>
-    <string name="app_hide_installation_source_system_desc">Semua apl sistem akan di-spoof seolah-olah terpasang tanpa alasan apa pun untuk apl ini</string>
+    <string name="app_hide_installation_source_system_desc">Semua aplikasi sistem akan di-spoof seolah-olah terpasang tanpa alasan apa pun untuk aplikasi ini</string>
     <string name="app_exclude_target_installation_source">Kecualikan target aplikasi</string>
-    <string name="app_exclude_target_installation_source_desc">Anda dapat mengaktifkannya jika apl ini tidak tersedia di Play Store</string>
+    <string name="app_exclude_target_installation_source_desc">Anda dapat mengaktifkannya jika aplikasi ini tidak tersedia di Play Store</string>
     <string name="app_force_stop_warning">Jangan lupa untuk menghentikan paksa target aplikasi setelah menyimpan konfigurasi</string>
     <string name="app_invert_activity_launch_protection">Ubah proteksi peluncuran aktivitas</string>
     <string name="app_invert_activity_launch_protection_desc">Opsi ini akan mengubah pilihan \"Nonaktifkan proteksi peluncuran aktivitas\" di setelan.</string>
@@ -125,9 +125,9 @@
     <string name="title_settings_preset">Preset setelan</string>
     <string name="title_preset_manage">Tampilan preset</string>
     <string name="preset_xposed">Modul LSPosed/Xposed</string>
-    <string name="preset_root_apps">Manajer root/Apl root</string>
-    <string name="preset_custom_rom">Apl ROM kustom</string>
-    <string name="preset_sus_apps">Apl mencurigakan</string>
+    <string name="preset_root_apps">Manajer root/Aplikasi root</string>
+    <string name="preset_custom_rom">Aplikasi ROM kustom</string>
+    <string name="preset_sus_apps">Aplikasi mencurigakan</string>
     <string name="preset_detector_apps">Aplikasi Detektor/Checker</string>
     <string name="preset_shizuku_dhizuku">Shizuku</string>
     <string name="preset_accessibility_apps">Aplikasi aksesibilitas</string>
@@ -136,7 +136,7 @@
     <string name="settings_preset_dev_options">Opsi pengembang</string>
     <string name="settings_preset_input_method">Alat input</string>
     <!-- Settings templates -->
-    <string name="settings_templates_database">Setelan database</string>
+    <string name="settings_templates_database">Basis data setelan</string>
     <string name="settings_templates_name">Nama setelan</string>
     <string name="settings_templates_value">Nilai setelan</string>
     <!-- Settings templates - basic configuration types -->
@@ -158,14 +158,14 @@
     <string name="settings_data_isolation">Isolasi data</string>
     <string name="settings_data_isolation_summary">Data aplikasi: %s\nData aplikasi vold: %s\nPaksa mount: %s</string>
     <string name="settings_data_isolation_unsupported">Opsi ini hanya tersedia di Android 11 dan di atasnya</string>
-    <string name="settings_app_data_isolation">Isolasi data apl</string>
+    <string name="settings_app_data_isolation">Isolasi data aplikasi</string>
     <string name="settings_vold_app_data_isolation">Isolasi data aplikasi vold</string>
     <string name="settings_warning">Peringatan</string>
-    <string name="settings_vold_warning">Ini akan mengaktifkan fitur AOSP yang membuat direktori penyimpanan eksternal pribadi apl terisolasi. Ini dapat membantu meningkatkan penyembunyian apl meskipun dapat menyebabkan masalah stabilitas. Fitur ini dapat berhenti berfungsi kapan saja karena ditinggalkan oleh AOSP.</string>
+    <string name="settings_vold_warning">Ini akan mengaktifkan fitur AOSP yang membuat direktori penyimpanan eksternal pribadi aplikasi terisolasi. Ini dapat membantu meningkatkan penyembunyian aplikasi meskipun dapat menyebabkan masalah stabilitas. Fitur ini dapat berhenti berfungsi kapan saja karena ditinggalkan oleh AOSP.</string>
     <string name="settings_change_require_root">Perubahan diperlukan izin root</string>
     <string name="settings_need_reboot">Perubahan diperlukan mulai ulang</string>
     <string name="settings_permission_denied">Izin ditolak</string>
-    <string name="settings_force_mount_data">Paksa isolasi data untuk semua apl</string>
+    <string name="settings_force_mount_data">Paksa isolasi data untuk semua aplikasi</string>
     <string name="settings_force_mount_data_summary">Isolasi data dinonaktifkan untuk aplikasi target API yang lebih rendah dari 30 secara bawaan</string>
     <string name="settings_detail_log">Log detail untuk debugging</string>
     <string name="settings_max_log_size">Ukuran buffer log</string>
@@ -204,7 +204,7 @@
     <string name="settings_stop_system_service">Hentikan layanan sistem</string>
     <string name="settings_stop_system_service_summary">Perlu mulai ulang untuk memulai kembali layanan</string>
     <string name="settings_is_clean_env">Bersihkan lingkungan runtime pada saat yang bersamaan?</string>
-    <string name="settings_is_clean_env_summary">Hapus cache layanan sistem di /data/misc/hide_my_applist_*. Setelah mulai ulang berikutnya, Diperlukan membuka apl modul sekali secara manual untuk mengaktifkan intersepsi, dan jumlah intersepsi juga akan dihapus.</string>
+    <string name="settings_is_clean_env_summary">Hapus cache layanan sistem di /data/misc/hide_my_applist_*. Setelah mulai ulang berikutnya, Diperlukan membuka aplikasi modul sekali secara manual untuk mengaktifkan intersepsi, dan jumlah intersepsi juga akan dihapus.</string>
     <string name="settings_force_clean_env">Paksa bersihkan lingkungan runtime (root)</string>
     <string name="settings_force_clean_env_summary">Hanya jika layanan sistem gagal untuk memulai, jika tidak, Anda harus mengetuk opsi di atas.</string>
     <string name="settings_force_clean_env_toast_successful">Lingkungan runtime dibersihkan</string>
