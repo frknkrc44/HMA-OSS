@@ -5,7 +5,7 @@
     <string name="title_settings">Setelan</string>
     <string name="title_template_manage">Kelola templat</string>
     <string name="title_template_settings">Setelan templat</string>
-    <string name="title_settings_template_conf">Konfigurasi setelan templat</string>
+    <string name="title_settings_template_conf">Konfigurasi templat setelan</string>
     <string name="title_app_manage">Kelola aplikasi</string>
     <string name="title_app_select">Pilih aplikasi</string>
     <string name="title_app_settings">Setelan aplikasi</string>
@@ -102,7 +102,7 @@
     <string name="app_template_using">Menggunakan %d templat</string>
     <string name="app_preset_using">Menggunakan %d preset</string>
     <string name="app_settings_preset_using">Menggunakan %d preset setelan</string>
-    <string name="app_settings_template_using">Menggunakan templat setelan %d</string>
+    <string name="app_settings_template_using">Menggunakan %d templat setelan</string>
     <string name="app_extra_apps_visible_count">%d aplikasi tambahan terlihat</string>
     <string name="app_extra_apps_invisible_count">%d aplikasi tambahan tidak terlihat</string>
     <string name="app_warning_risky_package_title">Paket berisiko</string>
@@ -139,7 +139,7 @@
     <string name="settings_preset_dev_options">Opsi pengembang</string>
     <string name="settings_preset_input_method">Alat input</string>
     <!-- Settings templates -->
-    <string name="settings_templates_database">Setelan database</string>
+    <string name="settings_templates_database">Basis data setelan</string>
     <string name="settings_templates_name">Nama setelan</string>
     <string name="settings_templates_value">Nilai setelan</string>
     <!-- Settings templates - basic configuration types -->
@@ -192,6 +192,8 @@
     <string name="settings_enable_internet_summary">Aplikasi ini akan kehilangan semua fungsi yang berhubungan dengan internet jika Anda menonaktifkan opsi ini.</string>
     <string name="settings_default_config">Konfig aplikasi untuk aplikasi baru</string>
     <string name="settings_default_config_summary">Ini akan menerapkan konfigurasi yang telah ditentukan ke semua aplikasi baru, tetapi akan mempertahankan konfigurasi yang ada untuk aplikasi baru jika Anda telah menerapkan sesuatu sebelumnya.</string>
+    <string name="settings_webview_protection">Proteksi WebView</string>
+    <string name="settings_webview_protection_summary">Ini akan menambahkan proteksi ekstra terhadap kerusakan yang disebabkan oleh penyembunyian/penargetan WebView atau browser</string>
     <string name="settings_language">Bahasa</string>
     <string name="settings_translate">Berpartisipasi dalam terjemahan</string>
     <string name="settings_translate_summary">Bantu kami menerjemahkan %s ke bahasa Anda</string>
