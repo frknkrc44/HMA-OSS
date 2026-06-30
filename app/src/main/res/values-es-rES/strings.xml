@@ -254,7 +254,7 @@
     <string name="dark_theme">Tema oscuro</string>
     <string name="dark_theme_off">Siempre apagado</string>
     <string name="dark_theme_on">Siempre encendido</string>
-    <string name="sick_mode_title">El modo enfermo está activado</string>
+    <string name="sick_mode_title">El modo seguro está activado</string>
     <string name="sick_mode_description">HMA-OSS detectó módulos posiblemente conflictivos y limitó su funcionalidad</string>
     <string name="sick_mode_notice">Las configuraciones HMA/HMAL son compatibles con HMA-OSS y puede comenzar a usar con su configuración existente, pero necesita desinstalar HMA/HMAL y luego reiniciar al principio</string>
 </resources>
