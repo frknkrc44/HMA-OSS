@@ -73,7 +73,7 @@
     <string name="list_sort_by_install_time">按安装时间</string>
     <string name="list_sort_by_update_time">按更新时间</string>
     <string name="list_empty_no_enabled">使用此模版的应用程序会显示在这里</string>
-    <string name="list_empty_no_apps">未找到应用，可能您未授权本应用查询所有已安装应用</string>
+    <string name="list_empty_no_apps">未找到任何应用，您可能未授权本应用查看应用列表</string>
     <string name="list_empty_preset">此预设中未添加任何应用程序</string>
     <!-- Manage templates -->
     <string name="template_usage_hint">为那些“不安分”的应用建立模板，控制它们能获取到的应用列表。\n\n黑名单（推荐）：在该模板中勾选的应用，对使用此模板的软件不可见（隐藏勾选的）。\n白名单：在该模板中未勾选的应用，对使用此模板的软件不可见（只显示勾选的）。</string>
@@ -106,7 +106,7 @@
     <string name="app_warning_risky_package_desc">此应用被标记为风险应用，对其隐藏可能会导致问题。是否继续？</string>
     <string name="app_spoof">伪装功能</string>
     <string name="app_hide_installation_source">伪装安装来源</string>
-    <string name="app_hide_installation_source_desc">将所有应用伪装为通过Play商店安装（不会伪装系统应用）</string>
+    <string name="app_hide_installation_source_desc">对此应用，将所有应用伪装为通过Play商店安装（不会伪装系统应用）</string>
     <string name="app_hide_installation_source_system">同时伪装系统应用</string>
     <string name="app_hide_installation_source_system_desc">将所有系统应用伪装为无安装来源</string>
     <string name="app_exclude_target_installation_source">排除此应用自身</string>
@@ -161,7 +161,7 @@
     <string name="settings_app_data_isolation">App data 隔离</string>
     <string name="settings_vold_app_data_isolation">Vold app data 隔离</string>
     <string name="settings_warning">警告</string>
-    <string name="settings_vold_warning">启用 AOSP 隔离应用私有存储目录的功能。这可以增强隐藏效果，但可能会导致稳定性问题。此功能在 AOSP 中已被废弃，可能无法正常工作。</string>
+    <string name="settings_vold_warning">启用 AOSP 隔离应用私有目录功能。这可以增强隐藏效果，但可能会导致稳定性问题。此功能在 AOSP 中已被废弃，可能无法正常工作。</string>
     <string name="settings_change_require_root">此更改需要 root 权限</string>
     <string name="settings_need_reboot">重启以应用更改</string>
     <string name="settings_permission_denied">权限被拒绝</string>
