@@ -8,12 +8,12 @@
     <string name="title_settings_template_conf">Cấu hình mẫu cài đặt</string>
     <string name="title_app_manage">Quản lý ứng dụng</string>
     <string name="title_app_select">Chọn ứng dụng</string>
-    <string name="title_app_settings">Cài đặt ứng dụng</string>
+    <string name="title_app_settings">Cấu hình ứng dụng</string>
     <string name="title_about">Giới thiệu</string>
     <string name="title_about_fork">Thông tin về dự án này</string>
-    <string name="do_not_dual">Không cài HMA lên người dùng thứ cấp</string>
+    <string name="do_not_dual">Không cài đặt HMA-OSS cho người dùng phụ</string>
     <string name="show_crash_log">Xem nhật ký lỗi</string>
-    <string name="config_damaged">Tệp cấu hình bị hỏng. Hãy xóa dữ liệu của ứng dụng</string>
+    <string name="config_damaged">Tệp cấu hình đã bị hỏng. Hãy xóa dữ liệu của ứng dụng</string>
     <string name="edit_list">Sửa danh sách</string>
     <string name="delete">Xóa</string>
     <string name="enabled">Đã bật</string>
@@ -51,7 +51,7 @@
     <string name="home_import_failed">Nhập không thành công</string>
     <string name="home_import_app_version_too_old">Phiên bản mô-đun thấp hơn bản sao lưu</string>
     <string name="home_import_backup_version_too_old">Phiên bản của bản sao lưu quá cũ</string>
-    <string name="home_import_file_damaged">Tệp bản sao lưu bị hư</string>
+    <string name="home_import_file_damaged">Tệp sao lưu đã bị hỏng</string>
     <string name="home_export_failed">Xuất thất bại</string>
     <string name="home_exported">Cấu hình đã được sao lưu</string>
     <string name="home_new_update">Bản cập nhật mới khả dụng: %s</string>
@@ -107,7 +107,7 @@
     <string name="app_spoof">Giả mạo</string>
     <string name="app_hide_installation_source">Giả mạo các nguồn cài đặt</string>
     <string name="app_hide_installation_source_desc">Tất cả các ứng dụng của người dùng sẽ được giả mạo là đã cài đặt trên Cửa hàng Play cho ứng dụng này</string>
-    <string name="app_hide_installation_source_system">Giả mạo các ứng dụng hệ thống luôn</string>
+    <string name="app_hide_installation_source_system">Giả mạo cả các ứng dụng hệ thống</string>
     <string name="app_hide_installation_source_system_desc">Tất cả các ứng dụng hệ thống sẽ được giả mạo là đã cài đặt qua không gì cả cho ứng dụng này</string>
     <string name="app_exclude_target_installation_source">Loại trừ ứng dụng mục tiêu</string>
     <string name="app_exclude_target_installation_source_desc">Bạn có thể bật nó nếu ứng dụng này không có sẵn trên Cửa hàng Play</string>
@@ -117,7 +117,7 @@
     <string name="app_global_activity_launch_protection_state">Bảo vệ đang được %s toàn hệ thống</string>
     <string name="app_force_stop_launch">Buộc dừng và khởi chạy</string>
     <string name="app_launch">Khởi chạy</string>
-    <string name="app_launch_failed">Ứng dụng khởi chạy thất bại, kiểm tra nhật ký để biết chi tiết</string>
+    <string name="app_launch_failed">Ứng dụng khởi chạy thất bại, kiểm tra nhật ký để biết thêm chi tiết</string>
     <string name="app_restrict_zygote_permissions">Hạn chế quyền Zygote</string>
     <string name="app_restrict_zygote_permissions_desc">Tùy chọn này có thể gây ra lỗi hoặc kết quả sai, hãy lựa chọn cẩn thận.</string>
     <!-- Presets -->
@@ -181,7 +181,7 @@
     <string name="settings_no_undone_warning">Thao tác không thể hoàn tác.</string>
     <string name="settings_package_query_workaround">Sử dụng phương thức truy vấn ứng dụng khác</string>
     <string name="settings_package_query_workaround_summary">Đừng bật tùy chọn này nếu bạn thấy danh sách ứng dụng hiển thị bình thường.</string>
-    <string name="settings_launcher_icon">Biểu tượng khởi động</string>
+    <string name="settings_launcher_icon">Biểu tượng ứng dụng</string>
     <string name="settings_error_only_log">Chỉ ghi lỗi vào nhật ký</string>
     <string name="settings_disable_hooks">Tắt các tính năng</string>
     <string name="settings_disable_hooks_summary">Bạn có thể tắt bớt các tính năng khi bị xung đột với các mô-đun khác</string>
