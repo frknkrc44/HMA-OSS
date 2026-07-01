@@ -7,7 +7,6 @@ object Constants {
     const val GMS_PACKAGE_NAME = "com.google.android.gms"
     const val GSF_PACKAGE_NAME = "com.google.android.gsf"
     const val VENDING_PACKAGE_NAME = "com.android.vending"
-    const val ANDROID_PACKAGE_NAME = "android"
     const val TRANSLATE_URL = "https://crowdin.com/project/frknkrc44-hma-oss"
 
     const val UID_SYSTEM = 1000
@@ -27,8 +26,14 @@ object Constants {
     const val ENABLE_INTERNET_OFF = 1
     const val ENABLE_INTERNET_ON = 2
 
+    const val MANAGER_WORK_MODE_UNKNOWN = 0
+    const val MANAGER_WORK_MODE_OK = 1
+    const val MANAGER_WORK_MODE_NO_HOOKS = 2
+
     const val PARCEL_TYPE_LOG = 0
     const val PARCEL_TYPE_CONFIG = 1
+
+    const val CONFIG_VERSION_NO_SETTINGS = -100
 
     /**
      * Defines the GID for the group that allows write access to the internal media storage.
@@ -96,7 +101,6 @@ object Constants {
         "com.android.providers.media",
         "com.android.providers.media.module",
         "com.android.providers.settings",
-        "com.google.android.webview",
         "com.google.android.providers.media.module"
     )
 }

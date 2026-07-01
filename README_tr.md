@@ -45,7 +45,7 @@ Belirli uygulamaların kurulu olup olmadığını tespit etmek kötü bir yönte
 
 Ayrıca bazı uygulamalar uygulama listenizi ele geçirmek, parmak izi verileri olarak kullanmak veya başka kötü niyetli amaçlar için çeşitli açıklardan yararlanır.
 
-Bu modül, uygulamaları gizlemek veya uygulama listesi isteklerini reddetmek için çalışabilen bir Xposed modülüdür.
+Bu modül, uygulamaları gizlemek veya uygulama listesi isteklerini reddetmek için çalışabilen bir Zygisk modülüdür.
 
 ## Çeviriye katkıda bulunmak istiyorum
 [Buraya tıklayarak](https://crowdin.com/project/frknkrc44-hma-oss) çeviriye katkıda bulunabilirsiniz. 

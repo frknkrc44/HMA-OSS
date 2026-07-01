@@ -1,7 +1,9 @@
 package icu.nullptr.hidemyapplist.common.app_presets
 
 import android.content.pm.ApplicationInfo
-import icu.nullptr.hidemyapplist.common.Utils
+import icu.nullptr.hidemyapplist.common.Utils.containsMultiple
+import icu.nullptr.hidemyapplist.common.Utils.endsWithMultiple
+import icu.nullptr.hidemyapplist.common.Utils.startsWithMultiple
 
 class CustomROMPreset : BasePreset(NAME) {
     companion object {
@@ -17,12 +19,12 @@ class CustomROMPreset : BasePreset(NAME) {
         val packageName = appInfo.packageName
 
         // LineageOS overlays
-        if (Utils.containsMultiple(appInfo.sourceDir, "_lineage", "lineage_")) {
+        if (appInfo.sourceDir.containsMultiple("_lineage", "lineage_")) {
             return true
         }
 
         // LineageOS apps
-        if (Utils.startsWithMultiple(packageName, "lineageos.", "org.lineageos.")) {
+        if (packageName.startsWithMultiple("lineageos.", "org.lineageos.")) {
             return true
         }
 
@@ -52,14 +54,13 @@ class CustomROMPreset : BasePreset(NAME) {
         }
 
         // EvoX (just added by the community request)
-        if (Utils.startsWithMultiple(packageName, "org.evolution.", "org.evolutionx.") ||
-            Utils.endsWithMultiple(packageName, ".evolution", ".evolutionx")) {
+        if (packageName.startsWithMultiple("org.evolution.", "org.evolutionx.") ||
+            packageName.endsWithMultiple( ".evolution", ".evolutionx")) {
             return true
         }
 
         // Several AOSP ROMs
-        if (Utils.startsWithMultiple(
-                packageName,
+        if (packageName.startsWithMultiple(
                 "com.android.system.switch.",
                 "com.accents.",
                 "com.alpha.",
@@ -75,10 +76,7 @@ class CustomROMPreset : BasePreset(NAME) {
             return true
         }
 
-        if (Utils.endsWithMultiple(
-                packageName,
-                ".overlay.fog",
-        )) {
+        if (packageName.endsWith(".overlay.fog")) {
             return true
         }
 

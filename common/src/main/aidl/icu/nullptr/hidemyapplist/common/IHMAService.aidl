@@ -42,10 +42,13 @@ interface IHMAService {
     // service version
     String getServiceVersionName() = 18;
 
-    // only used for Zygisk
-    // String[] getLoadedHooks() = 19;
+    String[] getLoadedHooks() = 19;
 
     ParcelFileDescriptor readFD(int type) = 20;
 
     void writeFD(int type, in ParcelFileDescriptor fd) = 21;
+
+    int getManagerWorkMode() = 22;
+
+    void startMainActivityAsUser(String packageName, int userId) = 23;
 }

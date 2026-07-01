@@ -3,29 +3,48 @@ package org.frknkrc44.hma_oss.ui.fragment
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.common.FilterHolder
 import icu.nullptr.hidemyapplist.service.ServiceClient
-import icu.nullptr.hidemyapplist.ui.util.navController
-import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import icu.nullptr.hidemyapplist.ui.util.showToast
+import icu.nullptr.hidemyapplist.util.PackageHelper
 import kotlinx.coroutines.launch
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentLogsBinding
 import org.frknkrc44.hma_oss.ui.adapter.StatAdapter
 
-class StatsFragment : Fragment(R.layout.fragment_logs) {
+class StatsFragment(
+    private val loadingIndicator: View,
+    private val toolbar: Toolbar,
+) : Fragment(R.layout.fragment_logs) {
 
     private val binding by viewBinding(FragmentLogsBinding::bind)
-    private val adapter by lazy { StatAdapter() }
+    private val adapter by lazy { StatAdapter {
+        lifecycleScope.launch {
+            PackageHelper.isRefreshing
+                .flowWithLifecycle(lifecycle)
+                .collect { isRefreshing ->
+                    if (!isRefreshing && it.wasRefreshing) {
+                        it.wasRefreshing = false
+
+                        updateLogs()
+                    }
+                }
+        }
+    } }
     private var statCache: String? = null
 
     private fun updateLogs() {
+        loadingIndicator.isVisible = PackageHelper.refreshing
+
         lifecycleScope.launch {
             statCache = runCatching { ServiceClient.detailedFilterStats }.getOrNull()
             if (statCache == null) {
@@ -38,8 +57,8 @@ class StatsFragment : Fragment(R.layout.fragment_logs) {
                 fun getTotalCount(key: String) = stats.filterCounts[key]!!.totalCount
 
                 val countsKeys = stats.filterCounts.keys.sortedWith { key1, key2 ->
-                    if (getTotalCount(key1) > getTotalCount(key2)) -1 else 1
-                }
+                    getTotalCount(key1).compareTo(getTotalCount(key2))
+                }.asReversed()
 
                 for (key in countsKeys) {
                     adapter.addOrUpdateEntry(
@@ -66,23 +85,21 @@ class StatsFragment : Fragment(R.layout.fragment_logs) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        with(binding.toolbar) {
-            setupToolbar(
-                toolbar = this,
-                title = getString(R.string.title_filter_logs),
-                menuRes = R.menu.menu_stats,
-                onMenuOptionSelected = this@StatsFragment::onMenuOptionSelected,
-            )
-            setNavigationIcon(R.drawable.baseline_arrow_back_24)
-            setNavigationOnClickListener { navController.popBackStack() }
-        }
-
         binding.list.layoutManager = LinearLayoutManager(context)
         binding.list.adapter = adapter
         binding.list.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
 
-        setEdge2EdgeFlags(binding.root)
-
         updateLogs()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        setupToolbar(
+            toolbar,
+            title = getString(R.string.title_filter_logs),
+            menuRes = R.menu.menu_stats,
+            onMenuOptionSelected = this::onMenuOptionSelected,
+        )
     }
 }

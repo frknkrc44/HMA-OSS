@@ -59,12 +59,15 @@ jobs:
       - name: Build debug
         id: buildDebug
         run: |
-          ./gradlew assembleDebug
-          echo "debugName=$(ls app/build/outputs/apk/debug/*.apk | awk -F '(/|.apk)' '{print $6}')" >> $GITHUB_OUTPUT
+          ./gradlew :app:assembleDebug
+          ./gradlew :zygote:assembleDebug
+          echo "debugZIPName=$(ls zygote/build/outputs/magisk/debug/*.zip | awk -F '(/|.zip)' '{print $6}')" >> $GITHUB_OUTPUT
 
-      - name: Upload debug
+      - name: Upload debug ZIP
         if: success()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
-          name: ${{ steps.buildDebug.outputs.debugName }}
-          path: "app/build/outputs/apk/debug/*.apk"
+          archive: false
+          name: ${{ steps.buildDebug.outputs.debugZIPName }}
+          path: |
+            zygote/build/outputs/magisk/debug/*.zip

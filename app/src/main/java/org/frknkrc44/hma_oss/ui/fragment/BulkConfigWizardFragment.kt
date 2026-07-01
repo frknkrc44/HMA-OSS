@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.common.JsonConfig
+import icu.nullptr.hidemyapplist.data.AppConstants
 import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.ui.fragment.ScopeFragmentArgs
@@ -56,8 +57,8 @@ class BulkConfigWizardFragment : Fragment(R.layout.fragment_bulk_config_wizard) 
             }
             val args = AppSettingsV2FragmentArgs(
                 packageName = "bulk_config",
-                bulkConfig = viewModel.appConfig.value?.toString(),
-                bulkConfigMode = true,
+                inputConfig = viewModel.appConfig.value?.toString(),
+                mode = AppConstants.APP_CONFIG_MODE_BULK_CONFIG,
                 bulkConfigApps = viewModel.appliedAppList.value.toTypedArray(),
             )
             navigate(R.id.nav_app_settings, args.toBundle())
