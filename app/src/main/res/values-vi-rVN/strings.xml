@@ -179,13 +179,13 @@
     <string name="settings_clear_uninstalled_app_configs">Xóa những thiết lập của những Ứ.D đã xóa</string>
     <string name="settings_clear_uninstalled_app_configs_summary">Tùy chọn này cho phép bạn tạo một cấu hình mà không để lại dư lượng, nhưng bạn sẽ phải cấu hình lại các ứng dụng khi bạn cài đặt chúng lần nữa.</string>
     <string name="settings_no_undone_warning">Thao tác không thể hoàn tác.</string>
-    <string name="settings_package_query_workaround">Tìm gói cài đặt thay thế</string>
-    <string name="settings_package_query_workaround_summary">Đừng bật lựa chọn này nếu bạn thấy danh sách tên gói ứng dụng trong ứng dụng này đúng cách.</string>
+    <string name="settings_package_query_workaround">Sử dụng phương thức truy vấn ứng dụng khác</string>
+    <string name="settings_package_query_workaround_summary">Đừng bật tùy chọn này nếu bạn thấy danh sách ứng dụng hiển thị bình thường.</string>
     <string name="settings_launcher_icon">Biểu tượng khởi động</string>
-    <string name="settings_error_only_log">Chỉ lổi được lưu nhật ký</string>
+    <string name="settings_error_only_log">Chỉ ghi lỗi vào nhật ký</string>
     <string name="settings_disable_hooks">Tắt các tính năng</string>
     <string name="settings_disable_hooks_summary">Bạn có thể tắt bớt các tính năng khi bị xung đột với các mô-đun khác</string>
-    <string name="settings_enable_internet">Bật kết nối Internet</string>
+    <string name="settings_enable_internet">Cho phép truy cập Internet</string>
     <string name="settings_enable_internet_summary">Ứng dụng này sẽ mất tất cả chức năng liên quan đến Internet khi bạn tắt tùy chọn này.</string>
     <string name="settings_default_config">Cấu hình mặc định cho ứng dụng mới</string>
     <string name="settings_default_config_summary">Tùy chọn này sẽ áp dụng cấu hình tùy chỉnh cho tất cả các ứng dụng mới, nhưng sẽ giữ lại cấu hình hiện có cho các ứng dụng bạn đã từng thiết lập.</string>
@@ -211,20 +211,23 @@
     <string name="settings_update">Cập nhật</string>
     <string name="settings_disable_update">Tắt thông báo</string>
     <string name="settings_receive_beta_update">Nhận bản beta</string>
-    <string name="settings_receive_beta_update_summary">Bản beta có thể ko tương thích</string>
+    <string name="settings_receive_beta_update_summary">Bản beta có thể không ổn định</string>
     <!-- Bulk config wizard -->
     <string name="title_bulk_config_wizard">Cấu hình hàng loạt</string>
     <!-- About -->
-    <string name="about_description">Mặc dù việc phát hiện cài đặt ứng dụng cụ thể là không chính xác, nhưng không phải mọi ứng dụng sử dụng root đều cung cấp hỗ trợ tên gói ngẫu nhiên. Trong trường hợp này, các ứng dụng được phát hiện sử dụng quyền root (chẳng hạn như Vị trí giả mạo và Cách ly bộ nhớ) tương đương với chính ứng dụng gốc được phát hiện. \n\n Đồng thời, một số ứng dụng thông minh sử dụng nhiều kẽ hở khác nhau để lấy danh sách ứng dụng của bạn, để nó có thể thu hút một cá tính dành cho bạn. \n\nMô-đun này cung cấp một số phương pháp để kiểm tra xem bạn đã ẩn danh sách ứng dụng của mình hay chưa. Ngoài ra, nó có thể hoạt động như một mô-đun Xposed để ẩn một số ứng dụng hoặc từ chối các yêu cầu danh sách ứng dụng để bảo vệ quyền riêng tư của bạn.
- </string>
-    <string name="about_fork_description">Dự án HMA ban đầu đã trở thành mã nguồn đóng và mã mới nhất của họ không chứa một số thay đổi mới nhất, vì vậy tôi đã tạo nhánh này để tiếp tục nó dưới dạng mã nguồn mở một lần nữa.</string>
+    <string name="about_description">        Mặc dù việc phát hiện cài đặt ứng dụng cụ thể là không chính xác, nhưng không phải mọi ứng dụng sử dụng root đều hỗ trợ đổi tên gói ngẫu nhiên. Trong trường hợp này, việc phát hiện các ứng dụng sử dụng quyền root (chẳng hạn như Fake Location và Storage Isolation) tương đương với phát hiện quyền root. \n\n Đồng thời, một số ứng dụng thông minh sử dụng nhiều kẽ hở khác nhau để lấy danh sách ứng dụng của bạn, từ đó có thể thu thập thông tin người dùng. \n\nMô-đun này cung cấp một số phương pháp để kiểm tra xem bạn đã ẩn danh sách ứng dụng của mình hay chưa. Ngoài ra, nó có thể hoạt động như một mô-đun Zygisk để ẩn một số ứng dụng hoặc từ chối các yêu cầu danh sách ứng dụng để bảo vệ quyền riêng tư của bạn.
+    </string>
+    <string name="about_fork_description">        Dự án HMA gốc đã chuyển sang mã nguồn đóng và mã nguồn mới nhất của họ không chứa một số thay đổi gần đây, vì vậy tôi đã fork lại để tiếp tục nó dưới dạng mã nguồn mở một lần nữa.
+    </string>
     <string name="about_how_to_use_title">Làm sao để dùng mô-đun này</string>
-    <string name="about_how_to_use_description_1">Bạn có thể tạo biểu mẫu trong \"Quản lý mẫu\". \nSau đó áp dụng cho các ứng dụng trong \"Quản lý ứng dụng\". (Bạn cũng có thể chọn các ứng dụng bổ sung cho các mục tiêu.) \nBạn nên và CHỈ nên chọn \"Khung Hệ thống\" trong scope của mô-đun Xposed / danh sách trắng.    </string>
-    <string name="about_how_to_use_description_2">Sửa đổi cấu hình hiệu quả trong thời gian thực.</string>
+    <string name="about_how_to_use_description_1">        Bạn có thể tạo mẫu trong \"Quản lý mẫu\". \nSau đó áp dụng mẫu đó trong \"Quản lý ứng dụng\". (Bạn cũng có thể chọn các ứng dụng bổ sung cho các mục tiêu.)
+    </string>
+    <string name="about_how_to_use_description_2">        Chỉnh sửa cấu hình có hiệu quả ngay lập tức.
+    </string>
     <string name="about_how_to_use_description_3">        Kể từ bây giờ, ứng dụng này sẽ đóng vai trò như một trình quản lý cho mô-đun Zygisk, do đó, bạn cần cài một mô-đun Zygisk riêng để ứng dụng này có thể hoạt động.    </string>
     <string name="about_translator">Dịch giả</string>
     <string name="about_developer">Nhà phát triển</string>
-    <string name="about_support">Giúp và phản hồi</string>
+    <string name="about_support">Giúp đỡ và phản hồi</string>
     <string name="about_open_source">Giấy phép nguồn mở</string>
     <!-- Colors -->
     <string name="color_sakura">Anh đào</string>
