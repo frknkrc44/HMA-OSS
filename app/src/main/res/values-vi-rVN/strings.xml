@@ -53,17 +53,17 @@
     <string name="home_import_backup_version_too_old">Phiên bản của bản sao lưu quá cũ</string>
     <string name="home_import_file_damaged">Tệp bản sao lưu bị hư</string>
     <string name="home_export_failed">Xuất thất bại</string>
-    <string name="home_exported">Sao lưu cấu hình</string>
+    <string name="home_exported">Cấu hình đã được sao lưu</string>
     <string name="home_new_update">Bản cập nhật mới khả dụng: %s</string>
     <string name="home_update">Cập nhật: %s</string>
     <!-- Backup & Restore -->
-    <string name="backup_restore_backup_settings">Backup settings</string>
-    <string name="backup_restore_restore_settings">Restore settings</string>
-    <string name="backup_restore_apps">App configs</string>
-    <string name="backup_restore_templates">Templates</string>
-    <string name="backup_restore_settings_templates">Settings templates</string>
-    <string name="backup_restore_append">Append</string>
-    <string name="backup_restore_items_count">%d items</string>
+    <string name="backup_restore_backup_settings">Sao lưu cấu hình</string>
+    <string name="backup_restore_restore_settings">Khôi phục cấu hình</string>
+    <string name="backup_restore_apps">Các tùy chỉnh ứng dụng</string>
+    <string name="backup_restore_templates">Các mẫu</string>
+    <string name="backup_restore_settings_templates">Các mẫu cài đặt</string>
+    <string name="backup_restore_append">Bổ sung</string>
+    <string name="backup_restore_items_count">%d mục</string>
     <!-- App select -->
     <string name="list_show_system">Hiện ứng dụng hệ thống</string>
     <string name="list_sorting">Sắp xếp</string>
@@ -170,7 +170,7 @@
     <string name="settings_detail_log">Nhật ký chi tiết cho gỡ lỗi</string>
     <string name="settings_max_log_size">Kích cỡ bộ đệm nhật ký</string>
     <string name="settings_hide_icon">Ẩn hình biểu tượng mô-đun trong trình khởi chạy</string>
-    <string name="settings_hide_icon_summary">Bạn vẫn có thể mở ứng dụng trong Xposed</string>
+    <string name="settings_hide_icon_summary">Bạn vẫn có thể mở ứng dụng trong trình quản lý root</string>
     <string name="settings_bypass_risky_package_warning">Bỏ qua cảnh báo gói rủi ro</string>
     <string name="settings_bypass_risky_package_warning_summary">Lưu ý rằng nhà phát triển không chịu trách nhiệm về các vấn đề liên quan đến gói rủi ro trước hoặc sau khi bạn bật tính năng này</string>
     <string name="settings_disable_activity_launch_protection">Tắt tính năng bảo vệ khởi chạy hoạt động</string>
@@ -183,14 +183,14 @@
     <string name="settings_package_query_workaround_summary">Đừng bật lựa chọn này nếu bạn thấy danh sách tên gói ứng dụng trong ứng dụng này đúng cách.</string>
     <string name="settings_launcher_icon">Biểu tượng khởi động</string>
     <string name="settings_error_only_log">Chỉ lổi được lưu nhật ký</string>
-    <string name="settings_disable_hooks">Disable functions</string>
-    <string name="settings_disable_hooks_summary">You can disable some of the functions when they conflict with other modules</string>
+    <string name="settings_disable_hooks">Tắt các tính năng</string>
+    <string name="settings_disable_hooks_summary">Bạn có thể tắt bớt các tính năng khi bị xung đột với các mô-đun khác</string>
     <string name="settings_enable_internet">Bật kết nối Internet</string>
     <string name="settings_enable_internet_summary">Ứng dụng này sẽ mất tất cả chức năng liên quan đến Internet khi bạn tắt tùy chọn này.</string>
-    <string name="settings_default_config">App config for new apps</string>
-    <string name="settings_default_config_summary">This will apply the defined config to all of new apps but will keep the existing configuration for new apps if you applied something before.</string>
-    <string name="settings_webview_protection">WebView protection</string>
-    <string name="settings_webview_protection_summary">This will add extra protection for crashes caused by hiding/targeting WebView or browsers</string>
+    <string name="settings_default_config">Cấu hình mặc định cho ứng dụng mới</string>
+    <string name="settings_default_config_summary">Tùy chọn này sẽ áp dụng cấu hình tùy chỉnh cho tất cả các ứng dụng mới, nhưng sẽ giữ lại cấu hình hiện có cho các ứng dụng bạn đã từng thiết lập.</string>
+    <string name="settings_webview_protection">Bảo vệ WebView</string>
+    <string name="settings_webview_protection_summary">Tính năng này giúp tránh việc ứng dụng bị crash do ẩn / tương tác với WebView hoặc trình duyệt</string>
     <string name="settings_language">Ngôn ngữ</string>
     <string name="settings_translate">Giúp chúng tôi dịch</string>
     <string name="settings_translate_summary">Giúp chúng tôi dịch %s sang ngôn ngữ của bạn</string>
@@ -221,8 +221,7 @@
     <string name="about_how_to_use_title">Làm sao để dùng mô-đun này</string>
     <string name="about_how_to_use_description_1">Bạn có thể tạo biểu mẫu trong \"Quản lý mẫu\". \nSau đó áp dụng cho các ứng dụng trong \"Quản lý ứng dụng\". (Bạn cũng có thể chọn các ứng dụng bổ sung cho các mục tiêu.) \nBạn nên và CHỈ nên chọn \"Khung Hệ thống\" trong scope của mô-đun Xposed / danh sách trắng.    </string>
     <string name="about_how_to_use_description_2">Sửa đổi cấu hình hiệu quả trong thời gian thực.</string>
-    <string name="about_how_to_use_description_3">        This application acts like a manager of the Zygisk module from now, so you need a separate Zygisk module to make this manager work.
-    </string>
+    <string name="about_how_to_use_description_3">        Kể từ bây giờ, ứng dụng này sẽ đóng vai trò như một trình quản lý cho mô-đun Zygisk, do đó, bạn cần cài một mô-đun Zygisk riêng để ứng dụng này có thể hoạt động.    </string>
     <string name="about_translator">Dịch giả</string>
     <string name="about_developer">Nhà phát triển</string>
     <string name="about_support">Giúp và phản hồi</string>
@@ -251,7 +250,7 @@
     <string name="dark_theme">Chủ đề tối</string>
     <string name="dark_theme_off">Luôn tắt</string>
     <string name="dark_theme_on">Luôn bật</string>
-    <string name="sick_mode_title">Sick mode is activated</string>
-    <string name="sick_mode_description">HMA-OSS detected possibly conflictable modules and limited its functionality</string>
-    <string name="sick_mode_notice">HMA/HMAL configs are compatible with HMA-OSS and you can begin to use with your existing config but you need to uninstall HMA/HMAL then reboot at first</string>
+    <string name="sick_mode_title">Chế độ an toàn đã kích hoạt</string>
+    <string name="sick_mode_description">HMA-OSS đã phát hiện các mô-đun thể gây xung đột và đã hạn chế một số tính năng</string>
+    <string name="sick_mode_notice">HMA-OSS có tương thích với cấu hình của HMA/HMAL và bạn có thể sử dụng cấu hình hiện có. Tuy nhiên bạn cần gỡ cài đặt HMA/HMAL và khởi động lại máy trước</string>
 </resources>
