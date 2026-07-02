@@ -56,6 +56,14 @@
     <string name="home_exported">สำรองการตั้งค่าแล้ว</string>
     <string name="home_new_update">มีอัปเดตใหม่: %s</string>
     <string name="home_update">อัปเดต: %s</string>
+    <!-- Backup & Restore -->
+    <string name="backup_restore_backup_settings">Backup settings</string>
+    <string name="backup_restore_restore_settings">Restore settings</string>
+    <string name="backup_restore_apps">App configs</string>
+    <string name="backup_restore_templates">Templates</string>
+    <string name="backup_restore_settings_templates">Settings templates</string>
+    <string name="backup_restore_append">Append</string>
+    <string name="backup_restore_items_count">%d items</string>
     <!-- App select -->
     <string name="list_show_system">แสดงแอประบบ</string>
     <string name="list_sorting">การจัดเรียง</string>
@@ -125,7 +133,7 @@
     <string name="preset_sus_apps">แอปที่น่าสงสัย</string>
     <string name="preset_detector_apps">แอปตรวจจับ / ตรวจสอบ</string>
     <string name="preset_shizuku_dhizuku">แอป Shizuku / Dhizuku</string>
-    <string name="preset_accessibility_apps">Accessibility apps</string>
+    <string name="preset_accessibility_apps">แอปช่วยการเข้าถึง</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">การช่วยการเข้าถึง</string>
     <string name="settings_preset_dev_options">ตัวเลือกสำหรับนักพัฒนา</string>
@@ -180,8 +188,14 @@ Vold ข้อมูลแอป: %s
     <string name="settings_package_query_workaround_summary">อย่าเปิดใช้งานตัวเลือกนี้หากคุณเห็นรายการแพ็กเกจในแอปนี้ถูกต้องอยู่แล้ว</string>
     <string name="settings_launcher_icon">ไอคอนตัวเรียกใช้งาน</string>
     <string name="settings_error_only_log">บันทึกเฉพาะข้อผิดพลาด</string>
-    <string name="settings_enable_internet">Enable Internet connection</string>
-    <string name="settings_enable_internet_summary">This app will lose all of Internet-related functionality when you disabled this option.</string>
+    <string name="settings_disable_hooks">Disable functions</string>
+    <string name="settings_disable_hooks_summary">You can disable some of the functions when they conflict with other modules</string>
+    <string name="settings_enable_internet">เปิดการเชื่อมต่ออินเทอร์เน็ต</string>
+    <string name="settings_enable_internet_summary">แอปนี้จะสูญเสียความสามารถทั้งหมดที่เกี่ยวข้องกับอินเทอร์เน็ต เมื่อคุณปิดใช้งานตัวเลือกนี้</string>
+    <string name="settings_default_config">App config for new apps</string>
+    <string name="settings_default_config_summary">This will apply the defined config to all of new apps but will keep the existing configuration for new apps if you applied something before.</string>
+    <string name="settings_webview_protection">WebView protection</string>
+    <string name="settings_webview_protection_summary">This will add extra protection for crashes caused by hiding/targeting WebView or browsers</string>
     <string name="settings_language">ภาษา</string>
     <string name="settings_translate">เข้าร่วมการแปลภาษา</string>
     <string name="settings_translate_summary">ช่วยเราแปล %s เป็นภาษาของคุณ</string>
@@ -217,6 +231,8 @@ Vold ข้อมูลแอป: %s
 จากนั้นนำเทมเพลตไปใช้กับแอปในเมนู \"จัดการแอป\"(คุณสามารถเลือกแอปเพิ่มเติมสำหรับเป้าหมายได้)
 คุณควร และต้องเลือกเพียง \"System Framework\"ในขอบเขต / ไวท์ลิสต์ของโมดูล Xposed เท่านั้น</string>
     <string name="about_how_to_use_description_2">การแก้ไขการตั้งค่าจะมีผลทันทีแบบเรียลไทม์</string>
+    <string name="about_how_to_use_description_3">        This application acts like a manager of the Zygisk module from now, so you need a separate Zygisk module to make this manager work.
+    </string>
     <string name="about_translator">ผู้แปล</string>
     <string name="about_developer">ผู้พัฒนา</string>
     <string name="about_support">การสนับสนุนและข้อเสนอแนะ</string>
@@ -245,4 +261,7 @@ Vold ข้อมูลแอป: %s
     <string name="dark_theme">ธีมมืด</string>
     <string name="dark_theme_off">ปิดตลอดเวลา</string>
     <string name="dark_theme_on">เปิดตลอดเวลา</string>
+    <string name="sick_mode_title">Sick mode is activated</string>
+    <string name="sick_mode_description">HMA-OSS detected possibly conflictable modules and limited its functionality</string>
+    <string name="sick_mode_notice">HMA/HMAL configs are compatible with HMA-OSS and you can begin to use with your existing config but you need to uninstall HMA/HMAL then reboot at first</string>
 </resources>

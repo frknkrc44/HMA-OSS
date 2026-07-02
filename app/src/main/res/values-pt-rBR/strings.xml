@@ -56,6 +56,14 @@
     <string name="home_exported">Configuração salva</string>
     <string name="home_new_update">Nova atualização disponível: %s</string>
     <string name="home_update">Atualização: %s</string>
+    <!-- Backup & Restore -->
+    <string name="backup_restore_backup_settings">Configurações de backup</string>
+    <string name="backup_restore_restore_settings">Restaurar configurações</string>
+    <string name="backup_restore_apps">Configurações do aplicativo</string>
+    <string name="backup_restore_templates">Modelos</string>
+    <string name="backup_restore_settings_templates">Modelos de configurações</string>
+    <string name="backup_restore_append">Acrescentar</string>
+    <string name="backup_restore_items_count">%d itens</string>
     <!-- App select -->
     <string name="list_show_system">Mostrar apps do sistema</string>
     <string name="list_sorting">Ordenar</string>
@@ -175,8 +183,14 @@
     <string name="settings_package_query_workaround_summary">Não ative essa opção se você consegue ver a lista de aplicativos corretamente neste app.</string>
     <string name="settings_launcher_icon">Ícone do lançador</string>
     <string name="settings_error_only_log">Log somente de erros</string>
+    <string name="settings_disable_hooks">Desativar funções</string>
+    <string name="settings_disable_hooks_summary">Você pode desativar algumas funções quando elas entrarem em conflito com outros módulos</string>
     <string name="settings_enable_internet">Ativar conexão à internet</string>
     <string name="settings_enable_internet_summary">Este app perderá todas as funcionalidades relacionadas à internet quando desativar esta opção.</string>
+    <string name="settings_default_config">Configuração de aplicativos para novos aplicativos</string>
+    <string name="settings_default_config_summary">Isso aplicará a configuração definida a todos os novos aplicativos, mas manterá a configuração existente para novos aplicativos, caso você tenha aplicado alguma configuração anteriormente.</string>
+    <string name="settings_webview_protection">Proteção WebView</string>
+    <string name="settings_webview_protection_summary">Isso adicionará proteção extra contra falhas causadas por ocultação/segmentação de WebView ou navegadores</string>
     <string name="settings_language">Idioma</string>
     <string name="settings_translate">Participe na tradução</string>
     <string name="settings_translate_summary">Nos ajude a traduzir %s na sua língua </string>
@@ -207,6 +221,8 @@
     <string name="about_how_to_use_title">Como usar esse modulo</string>
     <string name="about_how_to_use_description_1">Voce pode criar modelos em \"Gerenciar modelos\".\nEntão aplique os modelos nos apps em \"Gerenciar apps\". (Voce tamber pode selecionar apps adicionais para os esconder de tais.)\nVoce só deve habilitar o \"Sistema Android\" na lista de ativação do Xposed.\n    </string>
     <string name="about_how_to_use_description_2">       A modificação de configurações tem efeito imediato.\n    </string>
+    <string name="about_how_to_use_description_3">        A partir de agora, este aplicativo funciona como um gerenciador do módulo Zygisk, portanto, você precisa de um módulo Zygisk separado para que este gerenciador funcione.
+    </string>
     <string name="about_translator">Tradutor</string>
     <string name="about_developer">Desenvolvedor</string>
     <string name="about_support">Suporte e ajuda</string>
@@ -235,4 +251,7 @@
     <string name="dark_theme">Tema escuro</string>
     <string name="dark_theme_off">Sempre desligado</string>
     <string name="dark_theme_on">Sempre ligado</string>
+    <string name="sick_mode_title">O modo doença está ativado</string>
+    <string name="sick_mode_description">O HMA-OSS detectou módulos possivelmente conflitantes e limitou sua funcionalidade</string>
+    <string name="sick_mode_notice">As configurações do HMA/HMAL são compatíveis com o HMA-OSS e você pode começar a usá-las com sua configuração existente, mas primeiro precisa desinstalar o HMA/HMAL e reiniciar o sistema</string>
 </resources>

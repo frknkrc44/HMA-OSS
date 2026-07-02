@@ -56,6 +56,14 @@
     <string name="home_exported">Configuración exportada</string>
     <string name="home_new_update">Nueva actualización disponible: %s</string>
     <string name="home_update">Actualización: %s</string>
+    <!-- Backup & Restore -->
+    <string name="backup_restore_backup_settings">Ajustes de copia de seguridad</string>
+    <string name="backup_restore_restore_settings">Restaurar la configuración</string>
+    <string name="backup_restore_apps">Configuración de aplicaciones</string>
+    <string name="backup_restore_templates">Plantillas</string>
+    <string name="backup_restore_settings_templates">Ajustes de plantillas</string>
+    <string name="backup_restore_append">Añadir</string>
+    <string name="backup_restore_items_count">%d elementos</string>
     <!-- App select -->
     <string name="list_show_system">Mostrar apps del sistema</string>
     <string name="list_sorting">Ordenar</string>
@@ -162,7 +170,7 @@
     <string name="settings_detail_log">Logs detallados para depuración</string>
     <string name="settings_max_log_size">Tamaño de búfer de los logs</string>
     <string name="settings_hide_icon">Ocultar icono del módulo en el launcher</string>
-    <string name="settings_hide_icon_summary">Aún puedes abrir la aplicación en tu gestor Xposed</string>
+    <string name="settings_hide_icon_summary">Todavía puedes abrir la aplicación en el gestor de root</string>
     <string name="settings_bypass_risky_package_warning">Omitir la advertencia de paquete riesgoso</string>
     <string name="settings_bypass_risky_package_warning_summary">Tenga en cuenta que los desarrolladores no son responsables de problemas relacionados con paquetes riesgosos antes o después de activar esta característica</string>
     <string name="settings_disable_activity_launch_protection">Desactivar la protección de Activity launch</string>
@@ -175,8 +183,14 @@
     <string name="settings_package_query_workaround_summary">No active esta opción si ve la lista de paquetes en esta aplicación correctamente.</string>
     <string name="settings_launcher_icon">Icono de la app</string>
     <string name="settings_error_only_log">Registro de error</string>
+    <string name="settings_disable_hooks">Desactivar funciones</string>
+    <string name="settings_disable_hooks_summary">Puede desactivar algunas de las funciones cuando entran en conflicto con otros módulos</string>
     <string name="settings_enable_internet">Habilitar conexión a Internet</string>
     <string name="settings_enable_internet_summary">Esta aplicación perderá toda la funcionalidad relacionada con Internet cuando deshabilite esta opción.</string>
+    <string name="settings_default_config">Configuración de aplicaciones nuevas</string>
+    <string name="settings_default_config_summary">Esto aplicará la configuración definida a todas las aplicaciones nuevas, pero mantendrá la configuración actual para nuevas aplicaciones si aplicaste algo antes.</string>
+    <string name="settings_webview_protection">Protección de WebView</string>
+    <string name="settings_webview_protection_summary">Esto añadirá protección adicional para los bloqueos causados por ocultar/apuntar a WebView o navegadores</string>
     <string name="settings_language">Idioma</string>
     <string name="settings_translate">Participa en la traducción</string>
     <string name="settings_translate_summary">Ayúdanos a traducir %s a tu idioma</string>
@@ -199,7 +213,7 @@
     <string name="settings_receive_beta_update">Recibir actualizaciones beta</string>
     <string name="settings_receive_beta_update_summary">La versión beta puede ser inestable</string>
     <!-- Bulk config wizard -->
-    <string name="title_bulk_config_wizard">Asistente de configuración masiva</string>
+    <string name="title_bulk_config_wizard">Configuración múltiple</string>
     <!-- About -->
     <string name="about_description">        Aunque es incorrecto detectar la instalación de una aplicación específica, no todas las aplicaciones que usan root brindan soporte para nombre de paquete aleatorio. En este caso, aplicaciones detectadas que usan root (como los modulos \'Fake Location\' y \'Storage Isolation\') es equivalente a detectar el root en si mismo.\n\nAl mismo tiempo, algunas aplicaciones inteligentes utilizan varias lagunas para adquirir su lista de aplicaciones, de modo que pueden hacerse una idea de \"quien es usted\".\n\nEste módulo proporciona algunos métodos para probar si ya ha ocultado correctamente su lista de aplicaciones. Además, puede funcionar como un módulo Xposed para ocultar algunas aplicaciones o rechazar solicitudes de listas de aplicaciones para proteger su privacidad.
     </string>
@@ -209,6 +223,8 @@
     <string name="about_how_to_use_description_1">        Puede crear plantillas en \"Administrar plantillas\".\n Luego aplique las plantillas a las aplicaciones en \"Administrar aplicaciones\". (También puede seleccionar aplicaciones adicionales para las app objetivo).\n Debería y SÓLO debería marcar \"Framework del sistema\" en la lista blanca del módulo Xposed.
     </string>
     <string name="about_how_to_use_description_2">        La modificación de configuración es efectiva en tiempo real.
+    </string>
+    <string name="about_how_to_use_description_3">        Esta aplicación actúa como un administrador del módulo Zygisk a partir de ahora así que necesita un módulo Zygisk independiente para hacer que este administrador funcione.
     </string>
     <string name="about_translator">Traductor</string>
     <string name="about_developer">Desarrollador</string>
@@ -238,4 +254,7 @@
     <string name="dark_theme">Tema oscuro</string>
     <string name="dark_theme_off">Siempre apagado</string>
     <string name="dark_theme_on">Siempre encendido</string>
+    <string name="sick_mode_title">El modo seguro está activado</string>
+    <string name="sick_mode_description">HMA-OSS detectó módulos posiblemente conflictivos y limitó su funcionalidad</string>
+    <string name="sick_mode_notice">Las configuraciones HMA/HMAL son compatibles con HMA-OSS y puede comenzar a usar con su configuración existente, pero necesita desinstalar HMA/HMAL y luego reiniciar al principio</string>
 </resources>
