@@ -57,9 +57,9 @@
     <string name="home_new_update">Pembaruan tersedia: %s</string>
     <string name="home_update">Memperbarui: %s</string>
     <!-- Backup & Restore -->
-    <string name="backup_restore_backup_settings">Setelan cadangan</string>
+    <string name="backup_restore_backup_settings">Pengaturan pencadangan</string>
     <string name="backup_restore_restore_settings">Setelan pemulihan</string>
-    <string name="backup_restore_apps">Konfig aplikasi</string>
+    <string name="backup_restore_apps">Konfigurasi aplikasi</string>
     <string name="backup_restore_templates">Templat</string>
     <string name="backup_restore_settings_templates">Templat setelan</string>
     <string name="backup_restore_append">Tambahkan</string>
