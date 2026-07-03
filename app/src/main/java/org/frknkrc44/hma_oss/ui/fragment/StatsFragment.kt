@@ -1,9 +1,11 @@
 package org.frknkrc44.hma_oss.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar
+import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.flowWithLifecycle
@@ -79,6 +81,11 @@ class StatsFragment(
                 ServiceClient.clearFilterStats()
                 showToast(android.R.string.ok)
                 updateLogs()
+            }
+            R.id.menu_info -> {
+                startActivity(Intent(Intent.ACTION_VIEW).apply {
+                    data = "https://github.com/frknkrc44/HMA-OSS/wiki/About-HMA%E2%80%90OSS#filter-logs-categories".toUri()
+                })
             }
             // TODO: Add other options when required
         }
