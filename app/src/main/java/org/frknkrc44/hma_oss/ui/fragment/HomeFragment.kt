@@ -5,6 +5,7 @@ import android.content.res.ColorStateList
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -53,6 +54,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 toolbar = this,
                 title = getString(R.string.app_name),
                 isHomeToolbar = true,
+                menuRes = R.menu.menu_home,
+                onMenuOptionSelected = ::onMenuOptionSelected,
             )
             // isTitleCentered = true
         }
@@ -390,6 +393,16 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         }
                         .show()
                 }
+            }
+        }
+    }
+
+    private fun onMenuOptionSelected(item: MenuItem) {
+        when (item.itemId) {
+            R.id.menu_info -> {
+                startActivity(Intent(Intent.ACTION_VIEW).apply {
+                    data = "https://github.com/frknkrc44/HMA-OSS/wiki/About-HMA%E2%80%90OSS".toUri()
+                })
             }
         }
     }
