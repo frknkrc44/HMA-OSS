@@ -57,13 +57,13 @@
     <string name="home_new_update">Nuovo aggiornamento disponibile: %s</string>
     <string name="home_update">Aggiornamento: %s</string>
     <!-- Backup & Restore -->
-    <string name="backup_restore_backup_settings">Backup settings</string>
-    <string name="backup_restore_restore_settings">Restore settings</string>
-    <string name="backup_restore_apps">App configs</string>
-    <string name="backup_restore_templates">Templates</string>
-    <string name="backup_restore_settings_templates">Settings templates</string>
-    <string name="backup_restore_append">Append</string>
-    <string name="backup_restore_items_count">%d items</string>
+    <string name="backup_restore_backup_settings">Impostazioni backup</string>
+    <string name="backup_restore_restore_settings">Ripristina impostazioni</string>
+    <string name="backup_restore_apps">Configurazioni app</string>
+    <string name="backup_restore_templates">Modelli</string>
+    <string name="backup_restore_settings_templates">Impostazioni modelli</string>
+    <string name="backup_restore_append">Aggiungi</string>
+    <string name="backup_restore_items_count">%d elementi</string>
     <!-- App select -->
     <string name="list_show_system">Mostra app di sistema</string>
     <string name="list_sorting">Ordinamento</string>
@@ -183,7 +183,7 @@
     <string name="settings_package_query_workaround_summary">Non abilitare questa opzione se vedi correttamente l\'elenco dei pacchetti in questa app.</string>
     <string name="settings_launcher_icon">Icona launcher</string>
     <string name="settings_error_only_log">Registro solo errori</string>
-    <string name="settings_disable_hooks">Disable functions</string>
+    <string name="settings_disable_hooks">Disabilita funzioni</string>
     <string name="settings_disable_hooks_summary">You can disable some of the functions when they conflict with other modules</string>
     <string name="settings_enable_internet">Abilita connessione Internet</string>
     <string name="settings_enable_internet_summary">Questa app perderà tutte le funzionalità relative a Internet quando hai disabilitato questa opzione.</string>
