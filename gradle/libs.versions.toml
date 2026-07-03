@@ -7,7 +7,7 @@ hidden-api = "4.4.0"
 androidx-navigation = "2.9.8"
 vbpd = "2.0.4"
 r8_annotations = "v1.0.1"
-androidvmtools = "86f3e1e"
+androidvmtools = "c1da5dd"
 zygoteloader = "bf5078e182"
 coil = "3.4.0"
 
