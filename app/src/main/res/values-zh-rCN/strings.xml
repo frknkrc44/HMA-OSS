@@ -173,8 +173,8 @@
     <string name="settings_hide_icon_summary">您仍可以在 Root 管理器中打开此应用</string>
     <string name="settings_bypass_risky_package_warning">禁用\"风险应用警告\"</string>
     <string name="settings_bypass_risky_package_warning_summary">配置风险应用时不弹出警告弹窗（HMA-OSS 不为无视警告导致的问题负责）</string>
-    <string name="settings_disable_activity_launch_protection">禁用 Activity 启动保护</string>
-    <string name="settings_disable_activity_launch_protection_summary">禁用所有 startActivity 钩子保护，如果不确定，请勿开启</string>
+    <string name="settings_disable_activity_launch_protection">不要拦截可疑的Activity启动</string>
+    <string name="settings_disable_activity_launch_protection_summary">某些检测器会通过打开Root应用来检测其是否安装，HMA-OSS 默认会帮您拦截，开启此选项后，HMA-OSS 将不再拦截 (如果不确定，请勿开启)</string>
     <string name="settings_system_wallpaper">使用系统壁纸</string>
     <string name="settings_clear_uninstalled_app_configs">清除已卸载应用的配置</string>
     <string name="settings_clear_uninstalled_app_configs_summary">此选项可避免配置残留，但如果您重装了该应用，则需要重新进行配置</string>
