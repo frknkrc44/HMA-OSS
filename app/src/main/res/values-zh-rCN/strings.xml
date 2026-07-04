@@ -112,9 +112,9 @@
     <string name="app_exclude_target_installation_source">排除此应用自身</string>
     <string name="app_exclude_target_installation_source_desc">不为此应用伪装安装来源（如果此应用没有上架Play商店，可以启用此项）</string>
     <string name="app_force_stop_warning">保存配置后请强制停止目标应用以使配置生效</string>
-    <string name="app_invert_activity_launch_protection">反转Activity启动保护</string>
-    <string name="app_invert_activity_launch_protection_desc">反转\"禁用Activity启动保护\"设置项</string>
-    <string name="app_global_activity_launch_protection_state">\"禁用Activity启动保护\"全局状态： %s</string>
+    <string name="app_invert_activity_launch_protection">可疑Activity拦截特例</string>
+    <string name="app_invert_activity_launch_protection_desc">反转“不要拦截可疑Activity启动”设置项的状态</string>
+    <string name="app_global_activity_launch_protection_state">该设置全局状态： %s</string>
     <string name="app_force_stop_launch">强制停止并打开</string>
     <string name="app_launch">打开</string>
     <string name="app_launch_failed">应用打开失败，请检查日志获取更多详细信息</string>
