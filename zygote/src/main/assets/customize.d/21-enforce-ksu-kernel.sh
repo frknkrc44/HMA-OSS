@@ -29,7 +29,7 @@ if [ "$KSU" ]; then
         UAPI_VERSION=$(ksud debug info 2>/dev/null | grep uapi_version | cut -f2 -d' ')
         UAPI_VERSION="${UAPI_VERSION:-0}"
 
-        if lsmod 2>/dev/null | grep -q kernelsu && [ $UAPI_VERSION -lt 2 ]
+        if lsmod 2>/dev/null | grep -q kernelsu && [ $UAPI_VERSION -lt 2 ] && [ -z "$YUKISU" ]
         then
             abort "$KSU_VERSION_MISMATCH_ERR"
         else

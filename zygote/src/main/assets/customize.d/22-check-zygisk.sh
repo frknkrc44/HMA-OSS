@@ -42,7 +42,7 @@ find_zygisk "rezygisk" "ReZygisk"
 find_zygisk "admirepowered" "Zygisk Mod"
 find_zygisk "zygisk_on_ksu" "Zygisk on KernelSU"
 
-if [ -z "$ZYGISK_NAME" ] && [ "$ZYGISK_ENABLED" == "1" ]
+if [ -z "$ZYGISK_NAME" ] && ([ "$ZYGISK_ENABLED" == "1" ] || [ "$YUKISU" ])
 then
    ZYGISK_NAME="$FALLBACK_ZYGISK_NAME"
 fi
