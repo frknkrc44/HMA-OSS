@@ -80,7 +80,7 @@
     <string name="template_new_blacklist">ساخت قالب لیست سیاه</string>
     <string name="template_new_whitelist">ساخت قالب سفید</string>
     <string name="template_new_setting">ایجاد قالب تنظیمات</string>
-    <string name="template_delete">شما مطمئن هستید که میخواهید این قالب را حذف کنید؟</string>
+    <string name="template_delete">آیا مطمئن هستید که میخواهید این قالب را حذف کنید؟</string>
     <string name="template_name">نام قالب</string>
     <string name="template_name_invalid">نام نامعتبر</string>
     <string name="template_delete_title">حذف قالب</string>
@@ -96,14 +96,14 @@
     <string name="app_choose_preset">انتخاب پیش‌تنظیم</string>
     <string name="app_exclude_system_apps">برنامه های سیستمی را مستثنی کنید</string>
     <string name="app_exclude_system_apps_summary">این گزینه را فقط در مواقع ضروری خاموش کنید. غیرفعال کردن آن احتمالا باعث خرابی می‌شود</string>
-    <string name="app_template_using">با استفاده از %d قالب</string>
-    <string name="app_preset_using">با استفاده از %d پیش‌تنظیم</string>
-    <string name="app_settings_preset_using">با استفاده از %d پیش‌تنظیم تنظیمات</string>
-    <string name="app_settings_template_using">استفاده از %d قالب تنظیمات</string>
+    <string name="app_template_using">درحال استفاده از %d قالب</string>
+    <string name="app_preset_using">درحال استفاده از %d پیش‌تنظیم</string>
+    <string name="app_settings_preset_using">درحال استفاده از %d پیش‌تنظیم تنظیمات</string>
+    <string name="app_settings_template_using">درحال استفاده از %d قالب تنظیمات</string>
     <string name="app_extra_apps_visible_count">%d برنامه اضافی قابل مشاهده است</string>
     <string name="app_extra_apps_invisible_count">%d برنامه اضافی مخفی شده</string>
     <string name="app_warning_risky_package_title">بسته‌ی خطرناک</string>
-    <string name="app_warning_risky_package_desc">این بسته به عنوان خطرناک علامت‌گذاری شده‌ است و می‌تواند در برنامه‌های مخفی مشکلاتی ایجاد کند. آیا می‌خواهید ادامه دهید؟</string>
+    <string name="app_warning_risky_package_desc">این بسته به عنوان خطرناک علامت‌گذاری شده‌ است و می‌تواند در برنامه‌های مخفی شده مشکلاتی ایجاد کند. آیا می‌خواهید ادامه دهید؟</string>
     <string name="app_spoof">جعل سازی</string>
     <string name="app_hide_installation_source">جعل سازی منبع نصب</string>
     <string name="app_hide_installation_source_desc">همه‌ی برنامه‌های کاربر برای این اپلیکیشن به‌صورت نصب‌شده از طریق Play Store جعل‌سازی می‌شوند</string>
@@ -111,10 +111,10 @@
     <string name="app_hide_installation_source_system_desc">همه‌ی برنامه‌های سیستمی برای این اپلیکیشن، به‌صورت نصب‌شده از هیچ منبعی جعل‌سازی می‌شوند</string>
     <string name="app_exclude_target_installation_source">برنامه هدف را مستثنی کنید</string>
     <string name="app_exclude_target_installation_source_desc">اگر این برنامه در فروشگاه Play موجود نیست می‌توانید آن را فعال کنید</string>
-    <string name="app_force_stop_warning">پس از ذخیره‌سازی پیکربندی توقف اجباری برنامه‌ی مقصد را فراموش ننمایید</string>
-    <string name="app_invert_activity_launch_protection">وارونه سازی محافظت اجرای فعالیت</string>
-    <string name="app_invert_activity_launch_protection_desc">این گزینه، گزینه‌ی «وارونه سازی محافظت اجرای فعالیت» را در تنظیمات فعال می‌کند.</string>
-    <string name="app_global_activity_launch_protection_state">حفاظت %s فعال است</string>
+    <string name="app_force_stop_warning">پس از ذخیره‌سازی پیکربندی، توقف اجباری برنامه‌ی مقصد را فراموش ننمایید</string>
+    <string name="app_invert_activity_launch_protection">وارونه سازی حفاظ اجرای فعالیت</string>
+    <string name="app_invert_activity_launch_protection_desc">این گزینه، گزینه‌ی «وارونه سازی حفاظ اجرای فعالیت» را در تنظیمات فعال می‌کند.</string>
+    <string name="app_global_activity_launch_protection_state">محافظت به صورت سراسری %s است</string>
     <string name="app_force_stop_launch">توقف اجباری و شروع</string>
     <string name="app_launch">شروع</string>
     <string name="app_launch_failed">شروع برنامه شکست خورد، گزارش‌ها را بررسی کنید</string>
@@ -167,7 +167,7 @@
     <string name="settings_permission_denied">مجوز رد شد</string>
     <string name="settings_force_mount_data">اعمال کردن ایزوله ساری داده ها برای تمامی برنامه ها</string>
     <string name="settings_force_mount_data_summary">ایزوله‌سازی داده برای برنامه‌های با API کمتر از ۳۰ به صورت پیش‌فرض غیرفعال است</string>
-    <string name="settings_detail_log">گزارش جزئیات برای اشکال‌زدایی</string>
+    <string name="settings_detail_log">گزارش دقیق برای اشکال‌زدایی</string>
     <string name="settings_max_log_size">اندازه بافر گزارش گیرنده</string>
     <string name="settings_hide_icon">مخفی سازی آیکون ماژول در راه انداز</string>
     <string name="settings_hide_icon_summary">هنوز هم می توانید برنامه را در منیجر روت باز کنید</string>
@@ -196,7 +196,7 @@
     <string name="settings_translate_summary">به ما در ترجمه %s به زبان خودتان کمک کنید</string>
     <string name="settings_theme">تم</string>
     <string name="settings_system_theme_color">رنگ تم سیستم</string>
-    <string name="settings_theme_color">زنگ تم</string>
+    <string name="settings_theme_color">رنگ تم</string>
     <string name="settings_dark_theme">تم سیاه</string>
     <string name="settings_pure_black_dark_theme">تم مشکی مطلق</string>
     <string name="settings_pure_black_dark_theme_summary">اگر تم تیره فعال است، از تم مشکی مطلق استفاده کنید</string>
@@ -215,10 +215,9 @@
     <!-- Bulk config wizard -->
     <string name="title_bulk_config_wizard">ابزار تنظیمات چندگانه</string>
     <!-- About -->
-    <string name="about_description">        اگرچه تشخیص نصب یک برنامه‌ی خاص، کار درستی نیست، اما همه‌ی برنامه‌هایی که از دسترسی روت استفاده می‌کنند، از نام بسته‌ی تصادفی پشتیبانی نمی‌کنند. در این حالت، تشخیص برنامه‌هایی که از روت استفاده می‌کنند (مثل Fake Location و Storage Isolation)، معادل تشخیص خودِ روت محسوب می‌شود.\n\nدر عین حال، برخی برنامه‌های هوشمند از روش‌های مختلفی برای دستیابی به لیست برنامه‌های شما استفاده می‌کنند تا بتوانند یک نمایه (شخصیت‌سازی) از شما ترسیم کنند.\n\nاین ماژول روش‌هایی را برای آزمایش اینکه آیا لیست برنامه‌های خود را به‌خوبی پنهان کرده‌اید، ارائه می‌دهد. همچنین می‌تواند به‌عنوان یک ماژول Zygisk عمل کند تا برخی برنامه‌ها را پنهان کرده یا درخواست‌های لیست برنامه‌ها را رد کند تا از حریم خصوصی شما محافظت نماید.
+    <string name="about_description">        اگرچه تشخیص نصب یک برنامه‌ی خاص، کار درستی نیست، اما همه‌ی برنامه‌هایی که از دسترسی روت استفاده می‌کنند، از نام بسته‌ی تصادفی پشتیبانی نمی‌کنند. در این حالت، تشخیص برنامه‌هایی که از روت استفاده می‌کنند (مثل Fake Location و Storage Isolation)، معادل تشخیص خودِ روت محسوب می‌شود.\n\nدر عین حال، برخی برنامه‌های هوشمند از روش‌های مختلفی برای دستیابی به لیست برنامه‌های شما استفاده می‌کنند تا بتوانند یک نمایه از شما ترسیم کنند.\n\nاین ماژول روش‌هایی را برای آزمایش اینکه آیا لیست برنامه‌های خود را به‌خوبی پنهان کرده‌اید، ارائه می‌دهد. همچنین می‌تواند به‌عنوان یک ماژول Zygisk عمل کند تا برخی برنامه‌ها را پنهان کرده یا درخواست‌های لیست برنامه‌ها را رد کند تا از حریم خصوصی شما محافظت نماید.
     </string>
-    <string name="about_fork_description">        پروژه‌ی اصلی HMA به‌صورت متن‌بسته درآمده و آخرین کد آن شامل برخی تغییرات اخیر نمی‌شد، به همین دلیل من این فورک را ایجاد کردم تا دوباره آن را به‌صورت متن‌باز ادامه دهم.
-    </string>
+    <string name="about_fork_description">        پروژه‌ی اصلی HMA به‌صورت متن‌بسته درآمده و آخرین کد آن شامل برخی تغییرات اخیر نمی‌شد، به همین دلیل من این فورک را ایجاد کردم تا دوباره آن را به‌صورت متن‌باز ادامه دهم.    </string>
     <string name="about_how_to_use_title">نحوه استفاده از این ماژول</string>
     <string name="about_how_to_use_description_1">        می‌توانید در بخش «مدیریت قالب‌ها» قالب بسازید.\nسپس قالب‌ها را در بخش «مدیریت برنامه‌ها» روی برنامه‌ها اعمال کنید. (همچنین می‌توانید برنامه‌های اضافی را برای هدف‌گیری انتخاب کنید.)
     </string>
