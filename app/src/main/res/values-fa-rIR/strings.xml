@@ -5,7 +5,7 @@
     <string name="title_settings">تنظیمات </string>
     <string name="title_template_manage">مدیریت قالب ها</string>
     <string name="title_template_settings">تنظیمات قالب ها</string>
-    <string name="title_settings_template_conf">Settings template configuration</string>
+    <string name="title_settings_template_conf">پیکربندی قالب تنظیمات</string>
     <string name="title_app_manage">مدیریت برنامه ها</string>
     <string name="title_app_select">انتخاب برنامه ها</string>
     <string name="title_app_settings">تنظیمات برنامه</string>
@@ -29,9 +29,9 @@
     <string name="no">خیر</string>
     <string name="search">جستجو </string>
     <string name="system">سیستم</string>
-    <string name="add">Add</string>
-    <string name="edit">Edit</string>
-    <string name="apply">Apply</string>
+    <string name="add">افزودن</string>
+    <string name="edit">ویرایش</string>
+    <string name="apply">اعمال</string>
     <string name="follow_system">دنبال کردن سیستم</string>
     <!-- Home -->
     <string name="home_xposed_activated">ماژول فعال شده [%s]</string>
@@ -55,15 +55,15 @@
     <string name="home_export_failed">صادر ناموفق بود</string>
     <string name="home_exported">کانفیگ پشتیبان گیری شده</string>
     <string name="home_new_update">بروزرسانی جدید در دسترس است: %s</string>
-    <string name="home_update">Update: %s</string>
+    <string name="home_update">به روزرسانی: %s</string>
     <!-- Backup & Restore -->
-    <string name="backup_restore_backup_settings">Backup settings</string>
-    <string name="backup_restore_restore_settings">Restore settings</string>
-    <string name="backup_restore_apps">App configs</string>
-    <string name="backup_restore_templates">Templates</string>
-    <string name="backup_restore_settings_templates">Settings templates</string>
-    <string name="backup_restore_append">Append</string>
-    <string name="backup_restore_items_count">%d items</string>
+    <string name="backup_restore_backup_settings">پشتیبان گیری تنظیمات</string>
+    <string name="backup_restore_restore_settings">بازیابی تنظیمات</string>
+    <string name="backup_restore_apps">پیکربندی برنامه</string>
+    <string name="backup_restore_templates">قالب ها</string>
+    <string name="backup_restore_settings_templates">قالب های تنظیمات</string>
+    <string name="backup_restore_append">الحاق</string>
+    <string name="backup_restore_items_count">%d موارد</string>
     <!-- App select -->
     <string name="list_show_system">نمایش برنامه های سیستمی</string>
     <string name="list_sorting">مرتب‌سازی</string>
@@ -79,14 +79,14 @@
     <string name="template_usage_hint">برای برنامه‌های که در «پیش‌تنظیم» نیستن قالب هایی بسازید و فهرست برنامه ها را اضافه کنید.\n\nلیست سیاه (پیشنهاد شده): برنامه‌های انتخاب شده در قالب، برای برنامه‌هایی که از آن قالب استفاده می‌کنند، نامرئی خواهند بود.\nلیست سفید: برنامه‌هایی که در قالب انتخاب نشده‌اند، برای برنامه‌هایی که از این قالب استفاده می‌کنند، نامرئی خواهند بود.</string>
     <string name="template_new_blacklist">ساخت قالب لیست سیاه</string>
     <string name="template_new_whitelist">ساخت قالب سفید</string>
-    <string name="template_new_setting">Create a settings template</string>
+    <string name="template_new_setting">ایجاد قالب تنظیمات</string>
     <string name="template_delete">شما مطمئن هستید که میخواهید این قالب را حذف کنید؟</string>
     <string name="template_name">نام قالب</string>
     <string name="template_name_invalid">نام نامعتبر </string>
     <string name="template_delete_title">حذف قالب</string>
     <string name="template_name_already_exist">نام قالب از قبل وجود دارد</string>
     <string name="template_applied_count">روی %d برنامه اعمال شد</string>
-    <string name="template_setting_count">%d settings added</string>
+    <string name="template_setting_count">%d تنظیم اضافه شد</string>
     <string name="template_apps_visible_count">%d برنامه قابل مشاهده است </string>
     <string name="template_apps_invisible_count">%d برنامه نامرئی </string>
     <!-- App settings -->
@@ -99,7 +99,7 @@
     <string name="app_template_using">با استفاده از %d قالب</string>
     <string name="app_preset_using">با استفاده از %d پیش‌تنظیمات </string>
     <string name="app_settings_preset_using">با استفاده از %d تنظیمات پیش‌تنظیمات </string>
-    <string name="app_settings_template_using">Using %d settings templates</string>
+    <string name="app_settings_template_using">استفاده از %d قالب تنظیمات</string>
     <string name="app_extra_apps_visible_count">%d برنامه اضافی قابل مشاهده است </string>
     <string name="app_extra_apps_invisible_count">%d برنامه اضافی نامرئی</string>
     <string name="app_warning_risky_package_title">بسته‌ی پرخطر</string>
@@ -118,8 +118,8 @@
     <string name="app_force_stop_launch">فورس استاپ و شروع</string>
     <string name="app_launch">شروع</string>
     <string name="app_launch_failed">شروع برنامه شکست خورد، لاگ‌ها را بررسی کنید</string>
-    <string name="app_restrict_zygote_permissions">Restrict Zygote permissions</string>
-    <string name="app_restrict_zygote_permissions_desc">This option can cause crashes or false positives, choose wisely.</string>
+    <string name="app_restrict_zygote_permissions">محدود کردن دسترسی های Zygote</string>
+    <string name="app_restrict_zygote_permissions_desc">این گزینه می‌تواند باعث خرابی یا نتایج مثبت کاذب شود، آگاهانه انتخاب کنید.</string>
     <!-- Presets -->
     <string name="title_preset">پیش‌تنظیمات</string>
     <string name="title_settings_preset">تنظیمات پیش‌تنظیمات</string>
@@ -129,26 +129,26 @@
     <string name="preset_custom_rom">برنامه‌های کاستوم رام</string>
     <string name="preset_sus_apps">برنامه‌های مشکوک</string>
     <string name="preset_detector_apps">تشخیص/برنامه‌های بررسی</string>
-    <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku apps</string>
-    <string name="preset_accessibility_apps">Accessibility apps</string>
+    <string name="preset_shizuku_dhizuku">برنامه های Shizuku/Dhizuku</string>
+    <string name="preset_accessibility_apps">برنامه های دسترسی پذیری</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">دسترسی‌پذیری</string>
     <string name="settings_preset_dev_options">گزینه‌های برنامه‌نویس</string>
-    <string name="settings_preset_input_method">Input method</string>
+    <string name="settings_preset_input_method">ورودی متن</string>
     <!-- Settings templates -->
-    <string name="settings_templates_database">Settings database</string>
-    <string name="settings_templates_name">Setting name</string>
-    <string name="settings_templates_value">Setting value</string>
+    <string name="settings_templates_database">دیتابیس تنظیمات</string>
+    <string name="settings_templates_name">نام تنظیم</string>
+    <string name="settings_templates_value">تنظیم مقدار</string>
     <!-- Settings templates - basic configuration types -->
-    <string name="settings_templates_custom">Custom setting</string>
-    <string name="settings_templates_random_ssaid">Random SSAID</string>
+    <string name="settings_templates_custom">تنظیم سفارشی</string>
+    <string name="settings_templates_random_ssaid">SSAID تصادفی</string>
     <!-- Logs -->
     <string name="logs_save">ذخیره لاگ‌ها</string>
     <string name="logs_clear">پاک کردن لاگ‌ها</string>
     <string name="logs_empty">هیچ لاگی برای ذخیره نیست</string>
     <string name="logs_saved">لاگ‌ها ذخیره شدند</string>
     <!-- Filter logs -->
-    <string name="title_filter_logs">Filter logs</string>
+    <string name="title_filter_logs">فیلتر گزارش‌ها</string>
     <!-- Settings -->
     <string name="settings_module">ماژول</string>
     <string name="settings_overwrite">بازنویسی</string>
@@ -161,31 +161,31 @@
     <string name="settings_app_data_isolation">جداسازی داده‌های برنامه</string>
     <string name="settings_vold_app_data_isolation">جداسازی داده‌های برنامه خشونت</string>
     <string name="settings_warning">هشدار</string>
-    <string name="settings_vold_warning">This will enable an AOSP feature which make app\'s external private storage directory isolated. This can help improve hiding apps while may cause stability issues. This feature may stop working at any time since it is abandoned in AOSP.</string>
-    <string name="settings_change_require_root">Changing requires root permission</string>
-    <string name="settings_need_reboot">Changing requires reboot</string>
-    <string name="settings_permission_denied">Permission denied</string>
-    <string name="settings_force_mount_data">Enforce data isolation for all apps</string>
-    <string name="settings_force_mount_data_summary">Data isolation is disabled for apps target API lower than 30 by default</string>
-    <string name="settings_detail_log">Detail log for debugging</string>
-    <string name="settings_max_log_size">Logger buffer sizes</string>
-    <string name="settings_hide_icon">Hide module icon in launcher</string>
+    <string name="settings_vold_warning">این‌گزینه یک ویژگی AOSP را فعال می‌کند که دایرکتوری ذخیره‌سازی خصوصی خارجی برنامه را ایزوله می‌کند. این می‌تواند به بهبود پنهان‌سازی برنامه‌ها کمک کند، در حالی که ممکن است باعث ایجاد مشکلات پایداری شود. این ویژگی ممکن است در هر زمانی از کار بیفتد زیرا در AOSP کنار گذاشته شده است.</string>
+    <string name="settings_change_require_root">تغییرات نیاز به دسترسی روت دارد</string>
+    <string name="settings_need_reboot">تغییرات نیاز به ریبوت دارد</string>
+    <string name="settings_permission_denied">مجوز رد شد</string>
+    <string name="settings_force_mount_data">اعمال کردن ایزوله ساری داده ها برای تمامی برنامه ها</string>
+    <string name="settings_force_mount_data_summary">ایزوله‌سازی داده برای برنامه‌های با API کمتر از ۳۰، به صورت پیش‌فرض غیرفعال است.</string>
+    <string name="settings_detail_log">گزارش جزئیات برای اشکال‌زدایی</string>
+    <string name="settings_max_log_size">اندازه بافر گزارش گیرنده</string>
+    <string name="settings_hide_icon">مخفی سازی آیکون ماژول در راه انداز</string>
     <string name="settings_hide_icon_summary">You can still open the app in Xposed manager</string>
-    <string name="settings_bypass_risky_package_warning">Bypass risky package warning</string>
+    <string name="settings_bypass_risky_package_warning">دور زدن هشدار بسته خطرناک</string>
     <string name="settings_bypass_risky_package_warning_summary">Note that the devs are not responsible for risky package related issues before or after you enabled this feature</string>
     <string name="settings_disable_activity_launch_protection">Disable Activity launch protection</string>
-    <string name="settings_disable_activity_launch_protection_summary">This toggle will lift all startActivity protections. If you\'re unsure, don\'t enable it.</string>
-    <string name="settings_system_wallpaper">Use system wallpaper</string>
-    <string name="settings_clear_uninstalled_app_configs">Clear uninstalled app configs</string>
-    <string name="settings_clear_uninstalled_app_configs_summary">This option allows you to create a config without remnants but you\'ll have to reconfigure apps when you installed them again.</string>
-    <string name="settings_no_undone_warning">This action cannot be undone.</string>
-    <string name="settings_package_query_workaround">Alternative package query</string>
-    <string name="settings_package_query_workaround_summary">Don\'t enable this option if you see the package list in this app correctly.</string>
-    <string name="settings_launcher_icon">Launcher icon</string>
-    <string name="settings_error_only_log">Error-only log</string>
-    <string name="settings_disable_hooks">Disable functions</string>
-    <string name="settings_disable_hooks_summary">You can disable some of the functions when they conflict with other modules</string>
-    <string name="settings_enable_internet">Enable Internet connection</string>
+    <string name="settings_disable_activity_launch_protection_summary">این گزینه تمام محافظت‌های startActivity را غیرفعال می‌کند. اگر مطمئن نیستید، آن را فعال نکنید.</string>
+    <string name="settings_system_wallpaper">استفاده از والپیپر سیستم</string>
+    <string name="settings_clear_uninstalled_app_configs">پاکسازی پیکربندی برنامه های حذف شده</string>
+    <string name="settings_clear_uninstalled_app_configs_summary">این گزینه به شما امکان می‌دهد پیکربندی را بدون ردپا ایجاد کنید، اما هنگام نصب مجدد برنامه‌ها، باید آنها را دوباره پیکربندی کنید.</string>
+    <string name="settings_no_undone_warning">این اقدام قابل لغو نیست.</string>
+    <string name="settings_package_query_workaround">روش جایگزین جستجوی برنامه</string>
+    <string name="settings_package_query_workaround_summary">اگر لیست بسته‌ها را در این برنامه به درستی می‌بینید این گزینه را فعال نکنید.</string>
+    <string name="settings_launcher_icon">آیکون راه انداز</string>
+    <string name="settings_error_only_log">گزارش گیری خطاها</string>
+    <string name="settings_disable_hooks">غیرفعال سازی عملکرد ها</string>
+    <string name="settings_disable_hooks_summary">می‌توانید برخی از عملکرد ها را در صورت تداخل با سایر ماژول‌ها غیرفعال کنید.</string>
+    <string name="settings_enable_internet">فعال سازی اتصال اینترنت</string>
     <string name="settings_enable_internet_summary">This app will lose all of Internet-related functionality when you disabled this option.</string>
     <string name="settings_default_config">App config for new apps</string>
     <string name="settings_default_config_summary">This will apply the defined config to all of new apps but will keep the existing configuration for new apps if you applied something before.</string>
