@@ -14,7 +14,7 @@
     <string name="do_not_dual">Jangan pasang HMA pada pengguna kedua</string>
     <string name="show_crash_log">Tampilkan log kerusakan</string>
     <string name="config_damaged">Berkas konfig rusak. Harap bersihkan data aplikasi</string>
-    <string name="edit_list">Edit daftar</string>
+    <string name="edit_list">Ubah daftar</string>
     <string name="delete">Hapus</string>
     <string name="enabled">Aktif</string>
     <string name="disabled">Nonaktif</string>
@@ -140,7 +140,7 @@
     <string name="settings_templates_name">Nama setelan</string>
     <string name="settings_templates_value">Nilai setelan</string>
     <!-- Settings templates - basic configuration types -->
-    <string name="settings_templates_custom">Setelan khusus</string>
+    <string name="settings_templates_custom">Kustom setelan</string>
     <string name="settings_templates_random_ssaid">SSAID acak</string>
     <!-- Logs -->
     <string name="logs_save">Simpan log</string>
