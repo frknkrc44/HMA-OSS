@@ -216,7 +216,7 @@
     <string name="title_bulk_config_wizard">批量配置向导</string>
     <!-- About -->
     <string name="about_description">尽管检测用户是否安装了特定应用来判断系统环境是不正确的，但并非所有 Root 应用都支持随机包名。一旦应用程序检测到安装了 Root 相关应用（如 Fake Location 或 存储空间隔离）与检测到了 Root 本身无异。\n\n况且，某些“聪明”的应用还会利用各种漏洞获取您的应用列表，以此为您量身定制\"个性化广告\"。\n\n本模块作为一个 Zygisk 模块，可以隐藏特定应用，或拒绝应用列表请求，从而保护您的隐私。</string>
-    <string name="about_fork_description">原 HMA 项目已闭源，且最新代码未包含部分新改动，因此我创建了这个分支以继续保持开源维护。</string>
+    <string name="about_fork_description">原版\"隐藏应用列表\"已闭源，且其最后的开源代码未适配新版 Android。因此，我创建了此项目来继续保持开源维护</string>
     <string name="about_how_to_use_title">如何使用本模块</string>
     <string name="about_how_to_use_description_1">1. 在“模板管理”中创建模板
 2. 将模板应用到目标应用（您也可以为目标应用单独配置可见/不可见的应用）</string>
