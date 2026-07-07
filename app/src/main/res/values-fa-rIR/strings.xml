@@ -253,7 +253,7 @@
     <string name="dark_theme">تم تاریک</string>
     <string name="dark_theme_off">همیشه خاموش</string>
     <string name="dark_theme_on">همیشه روشن</string>
-    <string name="sick_mode_title">حالت ویژه فعال شد</string>
+    <string name="sick_mode_title">حالت ناساز فعال شد</string>
     <string name="sick_mode_description">HMA-OSS ماژول‌های احتمالیِ تداخل‌دار را شناسایی کرده و عملکرد خود را محدود نموده است</string>
     <string name="sick_mode_notice">تنظیمات HMA/HMAL با HMA-OSS سازگار هستند و می‌توانید با همان تنظیمات موجود خود شروع به کار کنید، اما ابتدا باید HMA/HMAL را حذف کرده و سپس دستگاه را ریبوت کنید</string>
 </resources>
