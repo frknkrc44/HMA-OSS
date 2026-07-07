@@ -105,7 +105,7 @@
     <string name="app_warning_risky_package_title">Pachet riscant</string>
     <string name="app_warning_risky_package_desc">Acest pachet este marcat ca riscant și poate cauza probleme către aplicațiile mascate. Doriți să continuați?</string>
     <string name="app_spoof">Falsificare</string>
-    <string name="app_hide_installation_source">Falsificarea sursei de instalare</string>
+    <string name="app_hide_installation_source">Falsificați sursa instalării</string>
     <string name="app_hide_installation_source_desc">Pentru această aplicație sursa de instalare a tuturor aplicațiilor instalate va fi falsificată ca Play Store</string>
     <string name="app_hide_installation_source_system">Falsificarea sursei de instalare și pentru aplicațiile de sistem</string>
     <string name="app_hide_installation_source_system_desc">Toate aplicațiile de sistem vor fi falsificate ca instalate din nici o sursă pentru această aplicație</string>
@@ -170,7 +170,7 @@
     <string name="settings_detail_log">Detail log for debugging</string>
     <string name="settings_max_log_size">Logger buffer sizes</string>
     <string name="settings_hide_icon">Hide module icon in launcher</string>
-    <string name="settings_hide_icon_summary">You can still open the app in Xposed manager</string>
+    <string name="settings_hide_icon_summary">Puteți deschide in continuare aplicația în managerul superutilizatorului</string>
     <string name="settings_bypass_risky_package_warning">Bypass risky package warning</string>
     <string name="settings_bypass_risky_package_warning_summary">Note that the devs are not responsible for risky package related issues before or after you enabled this feature</string>
     <string name="settings_disable_activity_launch_protection">Disable Activity launch protection</string>
