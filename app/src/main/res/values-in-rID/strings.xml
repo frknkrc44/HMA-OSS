@@ -18,7 +18,7 @@
     <string name="delete">Hapus</string>
     <string name="enabled">Aktif</string>
     <string name="disabled">Nonaktif</string>
-    <string name="work_mode">Mode kerja</string>
+    <string name="work_mode">Mode fungsi</string>
     <string name="blacklist">Daftar hitam</string>
     <string name="whitelist">Daftar putih</string>
     <string name="application">Aplikasi</string>
@@ -72,7 +72,7 @@
     <string name="list_sort_by_package_name">Nama paket</string>
     <string name="list_sort_by_install_time">Waktu pemasangan</string>
     <string name="list_sort_by_update_time">Waktu pembaruan</string>
-    <string name="list_empty_no_enabled">Coba aktifkan penyembunyian untuk aplikasi dengan mode kerja templat ini dan aplikasi akan muncul di sini</string>
+    <string name="list_empty_no_enabled">Coba aktifkan penyembunyian untuk aplikasi dengan mode fungsi templat ini dan aplikasi akan muncul di sini</string>
     <string name="list_empty_no_apps">Tidak ada aplikasi yang ditemukan, mungkin Anda tidak mengizinkan aplikasi ini untuk mengakses semua paket</string>
     <string name="list_empty_preset">Tidak ada aplikasi yang ditambahkan dalam preset ini</string>
     <!-- Manage templates -->
