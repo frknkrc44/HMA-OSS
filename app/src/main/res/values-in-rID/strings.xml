@@ -39,7 +39,7 @@
     <string name="home_xposed_service_on">Layanan sistem sedang berjalan [%d]</string>
     <string name="home_xposed_service_off">Layanan sistem tidak berjalan</string>
     <string name="home_xposed_service_old">Modul diperbarui, perlu mulai ulang</string>
-    <string name="home_xposed_filter_count">HMA-OSS telah menyaring total %d permintaan</string>
+    <string name="home_xposed_filter_count">HMA-OSS telah memfilter total %d permintaan</string>
     <string name="home_manage">Kelola</string>
     <string name="home_detection_test">Uji deteksi</string>
     <string name="home_download_test_app_title">Unduh aplikasi uji</string>
@@ -144,7 +144,7 @@
     <string name="settings_templates_random_ssaid">SSAID acak</string>
     <!-- Logs -->
     <string name="logs_save">Simpan log</string>
-    <string name="logs_clear">Hapus log</string>
+    <string name="logs_clear">Bersihkan log</string>
     <string name="logs_empty">Tidak ada log tersimpan</string>
     <string name="logs_saved">Log disimpan</string>
     <!-- Filter logs -->
