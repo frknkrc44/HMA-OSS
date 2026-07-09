@@ -19,28 +19,30 @@ class PmsPackageEventsHook : IFrameworkHook {
 
         BulkHooker.instance.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                hookBefore(
-                    PACKAGE_MONITOR_CLASS,
-                    "onReceive",
-                ) { _, frame, _ ->
-                    val intent = frame.getArgument(2) as? Intent ?: return@hookBefore
+                val hookedMethodName = "sendPackageBroadcastAndNotify"
 
+                hookBefore(
+                    BROADCAST_HELPER_CLASS,
+                    hookedMethodName,
+                ) { _, frame, _ ->
                     service?.handlePackageEvent(
-                        intent.action,
-                        intent.data?.encodedSchemeSpecificPart,
-                        intent.extras,
+                        frame.getArgument(1) as? String,
+                        frame.getArgument(2) as? String,
+                        frame.getArgument(3) as? Bundle,
                     )
                 }
 
-                if (!isHookAvailable(PACKAGE_MONITOR_CLASS, "onReceive")) {
+                if (!isHookAvailable(BROADCAST_HELPER_CLASS, hookedMethodName)) {
                     hookBefore(
-                        BROADCAST_HELPER_CLASS,
-                        "sendPackageBroadcastAndNotify",
+                        PACKAGE_MONITOR_CLASS,
+                        "onReceive",
                     ) { _, frame, _ ->
+                        val intent = frame.getArgument(2) as? Intent ?: return@hookBefore
+
                         service?.handlePackageEvent(
-                            frame.getArgument(1) as? String,
-                            frame.getArgument(2) as? String,
-                            frame.getArgument(3) as? Bundle,
+                            intent.action,
+                            intent.data?.encodedSchemeSpecificPart,
+                            intent.extras,
                         )
                     }
                 }
