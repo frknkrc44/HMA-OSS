@@ -215,16 +215,20 @@
     <!-- Bulk config wizard -->
     <string name="title_bulk_config_wizard">一括設定ウィザード</string>
     <!-- About -->
-    <string name="about_description">        特定のアプリのインストールを検出することは好ましい方法ではありませんが、root 権限を使用するすべてのアプリがランダムなパッケージ名に対応しているとは限りません。このような場合、Fake Location や Storage Isolation などの root 権限に関連するアプリが検出されると、そのデバイスは root 化されているものとみなされます。\n\n一方で、一部のスマートアプリはさまざまな抜け穴を利用してアプリリストを取得し、それに基づいてユーザープロフィールを作成しています。\n\nこのモジュールは、アプリリストが適切に非表示になっているかどうかをテストするためのいくつかの方法を提供します。また、Zygisk モジュールとして動作することで、特定のアプリを非表示にしたり、アプリリストの取得要求を拒否したりすることで、プライバシーを保護することもできます。
+    <string name="about_description">
+        特定のアプリのインストールを検出することは好ましい方法ではありませんが、root 権限を使用するすべてのアプリがランダムなパッケージ名に対応しているとは限りません。このような場合、Fake Location や Storage Isolation などの root 権限に関連するアプリが検出されると、そのデバイスは root 化されているものとみなされます。\n\n一方で、一部のスマートアプリはさまざまな抜け穴を利用してアプリリストを取得し、それに基づいてユーザープロフィールを作成しています。\n\nこのモジュールは、アプリリストが適切に非表示になっているかどうかをテストするためのいくつかの方法を提供します。また、Zygisk モジュールとして動作することで、特定のアプリを非表示にしたり、アプリリストの取得要求を拒否したりすることで、プライバシーを保護することもできます。
     </string>
     <string name="about_fork_description">        オリジナルの HMA プロジェクトはクローズドソースになり、最新版のコードには一部の重要な変更点が反映されていませんでした。そこで、再びオープンソースとして継続していくために、このフォーク版を作成しました。
     </string>
     <string name="about_how_to_use_title">このモジュールの使用方法</string>
-    <string name="about_how_to_use_description_1">        「テンプレートの管理」でテンプレートを作成できます。\n作成したテンプレートは、「アプリの管理」でアプリに適用できます。（対象とするアプリを追加で選択することもできます。）
+    <string name="about_how_to_use_description_1">
+        「テンプレートの管理」でテンプレートを作成できます。\n作成したテンプレートは、「アプリの管理」でアプリに適用できます。（対象とするアプリを追加で選択することもできます。）
     </string>
-    <string name="about_how_to_use_description_2">        設定変更はリアルタイムで反映されます。
+    <string name="about_how_to_use_description_2">
+        設定変更はリアルタイムで反映されます。
     </string>
-    <string name="about_how_to_use_description_3">        このアプリは今後、Zygisk モジュールのマネージャーとして機能するため、このマネージャーを動作させるには別途 Zygisk モジュールが必要です。
+    <string name="about_how_to_use_description_3">
+        このアプリは今後、Zygisk モジュールのマネージャーとして機能するため、このマネージャーを動作させるには別途 Zygisk モジュールが必要です。
     </string>
     <string name="about_translator">翻訳者</string>
     <string name="about_developer">開発者</string>
