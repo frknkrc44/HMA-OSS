@@ -223,7 +223,8 @@
     <string name="about_how_to_use_description_1">        Du kannst Vorlagen unter \"Vorlagen verwalten\" erstellen.\nWende diese dann unter \"Apps verwalten\" an. (Du kannst außerdem extra Apps für Ziele einstellen.)\nWähle nur und wirklich NUR \"System Framework\" in Xposed aus.</string>
     <string name="about_how_to_use_description_2">        Config modification effective in real time.
     </string>
-    <string name="about_how_to_use_description_3">        This application acts like a manager of the Zygisk module from now, so you need a separate Zygisk module to make this manager work.
+    <string name="about_how_to_use_description_3">
+        This application acts like a manager of the Zygisk module from now, so you need a separate Zygisk module to make this manager work.
     </string>
     <string name="about_translator">Übersetzer</string>
     <string name="about_developer">Entwickler</string>
