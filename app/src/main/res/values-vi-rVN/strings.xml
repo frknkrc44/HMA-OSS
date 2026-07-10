@@ -215,16 +215,21 @@
     <!-- Bulk config wizard -->
     <string name="title_bulk_config_wizard">Cấu hình hàng loạt</string>
     <!-- About -->
-    <string name="about_description">        Mặc dù việc phát hiện cài đặt ứng dụng cụ thể là không chính xác, nhưng không phải mọi ứng dụng sử dụng root đều hỗ trợ đổi tên gói ngẫu nhiên. Trong trường hợp này, việc phát hiện các ứng dụng sử dụng quyền root (chẳng hạn như Fake Location và Storage Isolation) tương đương với phát hiện quyền root. \n\n Đồng thời, một số ứng dụng thông minh sử dụng nhiều kẽ hở khác nhau để lấy danh sách ứng dụng của bạn, từ đó có thể thu thập thông tin người dùng. \n\nMô-đun này cung cấp một số phương pháp để kiểm tra xem bạn đã ẩn danh sách ứng dụng của mình hay chưa. Ngoài ra, nó có thể hoạt động như một mô-đun Zygisk để ẩn một số ứng dụng hoặc từ chối các yêu cầu danh sách ứng dụng để bảo vệ quyền riêng tư của bạn.
+    <string name="about_description">
+        Mặc dù việc phát hiện cài đặt ứng dụng cụ thể là không chính xác, nhưng không phải mọi ứng dụng sử dụng root đều hỗ trợ đổi tên gói ngẫu nhiên. Trong trường hợp này, việc phát hiện các ứng dụng sử dụng quyền root (chẳng hạn như Fake Location và Storage Isolation) tương đương với phát hiện quyền root. \n\n Đồng thời, một số ứng dụng thông minh sử dụng nhiều kẽ hở khác nhau để lấy danh sách ứng dụng của bạn, từ đó có thể thu thập thông tin người dùng. \n\nMô-đun này cung cấp một số phương pháp để kiểm tra xem bạn đã ẩn danh sách ứng dụng của mình hay chưa. Ngoài ra, nó có thể hoạt động như một mô-đun Zygisk để ẩn một số ứng dụng hoặc từ chối các yêu cầu danh sách ứng dụng để bảo vệ quyền riêng tư của bạn.
     </string>
-    <string name="about_fork_description">        Dự án HMA gốc đã chuyển sang mã nguồn đóng và mã nguồn mới nhất của họ không chứa một số thay đổi gần đây, vì vậy tôi đã fork lại để tiếp tục nó dưới dạng mã nguồn mở một lần nữa.
+    <string name="about_fork_description">
+        Dự án HMA gốc đã chuyển sang mã nguồn đóng và mã nguồn mới nhất của họ không chứa một số thay đổi gần đây, vì vậy tôi đã fork lại để tiếp tục nó dưới dạng mã nguồn mở một lần nữa.
     </string>
     <string name="about_how_to_use_title">Làm sao để dùng mô-đun này</string>
-    <string name="about_how_to_use_description_1">        Bạn có thể tạo mẫu trong \"Quản lý mẫu\". \nSau đó áp dụng mẫu đó trong \"Quản lý ứng dụng\". (Bạn cũng có thể chọn các ứng dụng bổ sung cho các mục tiêu.)
+    <string name="about_how_to_use_description_1">
+        Bạn có thể tạo mẫu trong \"Quản lý mẫu\". \nSau đó áp dụng mẫu đó trong \"Quản lý ứng dụng\". (Bạn cũng có thể chọn các ứng dụng bổ sung cho các mục tiêu.)
     </string>
-    <string name="about_how_to_use_description_2">        Chỉnh sửa cấu hình có hiệu quả ngay lập tức.
+    <string name="about_how_to_use_description_2">
+        Chỉnh sửa cấu hình có hiệu quả ngay lập tức.
     </string>
-    <string name="about_how_to_use_description_3">        Kể từ bây giờ, ứng dụng này sẽ đóng vai trò như một trình quản lý cho mô-đun Zygisk, do đó, bạn cần cài một mô-đun Zygisk riêng để ứng dụng này có thể hoạt động.    </string>
+    <string name="about_how_to_use_description_3">
+        Kể từ bây giờ, ứng dụng này sẽ đóng vai trò như một trình quản lý cho mô-đun Zygisk, do đó, bạn cần cài một mô-đun Zygisk riêng để ứng dụng này có thể hoạt động.    </string>
     <string name="about_translator">Dịch giả</string>
     <string name="about_developer">Nhà phát triển</string>
     <string name="about_support">Giúp đỡ và phản hồi</string>
