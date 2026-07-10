@@ -231,7 +231,8 @@ Vold ข้อมูลแอป: %s
 จากนั้นนำเทมเพลตไปใช้กับแอปในเมนู \"จัดการแอป\"(คุณสามารถเลือกแอปเพิ่มเติมสำหรับเป้าหมายได้)
 คุณควร และต้องเลือกเพียง \"System Framework\"ในขอบเขต / ไวท์ลิสต์ของโมดูล Xposed เท่านั้น</string>
     <string name="about_how_to_use_description_2">การแก้ไขการตั้งค่าจะมีผลทันทีแบบเรียลไทม์</string>
-    <string name="about_how_to_use_description_3">        This application acts like a manager of the Zygisk module from now, so you need a separate Zygisk module to make this manager work.
+    <string name="about_how_to_use_description_3">
+        This application acts like a manager of the Zygisk module from now, so you need a separate Zygisk module to make this manager work.
     </string>
     <string name="about_translator">ผู้แปล</string>
     <string name="about_developer">ผู้พัฒนา</string>
