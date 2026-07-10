@@ -56,6 +56,14 @@
     <string name="home_exported">Configurazione salvata</string>
     <string name="home_new_update">Nuovo aggiornamento disponibile: %s</string>
     <string name="home_update">Aggiornamento: %s</string>
+    <!-- Backup & Restore -->
+    <string name="backup_restore_backup_settings">Impostazioni backup</string>
+    <string name="backup_restore_restore_settings">Ripristina impostazioni</string>
+    <string name="backup_restore_apps">Configurazioni app</string>
+    <string name="backup_restore_templates">Modelli</string>
+    <string name="backup_restore_settings_templates">Impostazioni modelli</string>
+    <string name="backup_restore_append">Aggiungi</string>
+    <string name="backup_restore_items_count">%d elementi</string>
     <!-- App select -->
     <string name="list_show_system">Mostra app di sistema</string>
     <string name="list_sorting">Ordinamento</string>
@@ -175,8 +183,14 @@
     <string name="settings_package_query_workaround_summary">Non abilitare questa opzione se vedi correttamente l\'elenco dei pacchetti in questa app.</string>
     <string name="settings_launcher_icon">Icona launcher</string>
     <string name="settings_error_only_log">Registro solo errori</string>
+    <string name="settings_disable_hooks">Disabilita funzioni</string>
+    <string name="settings_disable_hooks_summary">È possibile disabilitare alcune funzioni quando sono in conflitto con altri moduli</string>
     <string name="settings_enable_internet">Abilita connessione Internet</string>
     <string name="settings_enable_internet_summary">Questa app perderà tutte le funzionalità relative a Internet quando hai disabilitato questa opzione.</string>
+    <string name="settings_default_config">Configurazione app per nuove app</string>
+    <string name="settings_default_config_summary">Questa opzione applicherà la configurazione definita a tutte le nuove app, ma manterrà la configurazione esistente per le nuove app se ne hai applicata una in precedenza.</string>
+    <string name="settings_webview_protection">Protezione WebView</string>
+    <string name="settings_webview_protection_summary">Questo aggiungerà ulteriore protezione contro gli arresti anomali causati dall\'occultamento/targeting di WebView o dei browser</string>
     <string name="settings_language">Lingua</string>
     <string name="settings_translate">Aiuta a tradurre</string>
     <string name="settings_translate_summary">Aiutaci a tradurre %s nella tua lingua</string>
@@ -210,6 +224,9 @@
     </string>
     <string name="about_how_to_use_description_2">        Modifiche alla configurazione sono effettive in tempo reale.
     </string>
+    <string name="about_how_to_use_description_3">
+Questa applicazione funge da manager del modulo Zygisk, quindi è necessario un modulo Zygisk separato per far funzionare questo manager.
+    </string>
     <string name="about_translator">Traduzione</string>
     <string name="about_developer">Sviluppatore</string>
     <string name="about_support">Supporto e feedback</string>
@@ -238,4 +255,7 @@
     <string name="dark_theme">Tema dark</string>
     <string name="dark_theme_off">Sempre spento</string>
     <string name="dark_theme_on">Sempre acceso</string>
+    <string name="sick_mode_title">Modalità malattia attivata</string>
+    <string name="sick_mode_description">HMA-OSS ha rilevato moduli potenzialmente in conflitto e ne ha limitato la funzionalità</string>
+    <string name="sick_mode_notice">Le configurazioni HMA/HMAL sono compatibili con HMA-OSS e puoi iniziare a usare con la tua configurazione esistente, ma devi disinstallare HMA/HMAL poi riavviare all\'inizio</string>
 </resources>

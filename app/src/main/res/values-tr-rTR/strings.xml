@@ -56,6 +56,14 @@
     <string name="home_exported">Yapılandırma yedeklendi</string>
     <string name="home_new_update">Yeni güncelleme mevcut: %s</string>
     <string name="home_update">Güncelleme: %s</string>
+    <!-- Backup & Restore -->
+    <string name="backup_restore_backup_settings">Ayarları yedekle</string>
+    <string name="backup_restore_restore_settings">Ayarları geri yükle</string>
+    <string name="backup_restore_apps">Uygulama yapılandırmaları</string>
+    <string name="backup_restore_templates">Şablonlar</string>
+    <string name="backup_restore_settings_templates">Ayarlar şablonları</string>
+    <string name="backup_restore_append">Birleştir</string>
+    <string name="backup_restore_items_count">%d öğe</string>
     <!-- App select -->
     <string name="list_show_system">Sistem uygulamalarını göster</string>
     <string name="list_sorting">Sıralama</string>
@@ -175,8 +183,14 @@
     <string name="settings_package_query_workaround_summary">Uygulama içindeki paket listesi doğru şekilde görünüyorsa bu özelliği etkinleştirmeyin.</string>
     <string name="settings_launcher_icon">Başlatıcı simgesi</string>
     <string name="settings_error_only_log">Sadece hataları kaydet</string>
+    <string name="settings_disable_hooks">Özellikleri devre dışı bırak</string>
+    <string name="settings_disable_hooks_summary">Diğer modüllerle çakışan bir fonksiyon varsa bunları devre dışı bırakabilirsiniz</string>
     <string name="settings_enable_internet">Internet bağlantısını etkinleştir</string>
     <string name="settings_enable_internet_summary">Bu uygulama özelliği kapattığınızda Internet\'e bağımlı bütün özelliklerini kaybedecek.</string>
+    <string name="settings_default_config">Yeni uygulamalar için varsayılan yapılandırma</string>
+    <string name="settings_default_config_summary">Burada ayarlanan yapılandırma önceden yapılandırılmamış bütün yeni uygulamalara uygulanacak.</string>
+    <string name="settings_webview_protection">WebView koruması</string>
+    <string name="settings_webview_protection_summary">Bu seçenek yanlışlıkla tarayıcı ya da WebView sağlayıcılarını hedef aldığınızda ya da gizlediğinizde oluşabilecek çökmeleri önler</string>
     <string name="settings_language">Dil</string>
     <string name="settings_translate">Çeviriye katkıda bulun</string>
     <string name="settings_translate_summary">%s’i kendi dilinize çevirmemize yardımcı olun</string>
@@ -210,6 +224,9 @@
     </string>
     <string name="about_how_to_use_description_2">        Yapılandırma değişiklikleri gerçek zamanlı olarak etkilidir.
     </string>
+    <string name="about_how_to_use_description_3">
+        Bu uygulama artık Zygisk modülünün bir yöneticisi olarak çalışıyor ve bu yöneticinin çalışması için ayrı bir Zygisk modülüne ihtiyacınız olacak.
+    </string>
     <string name="about_translator">Çevirmen</string>
     <string name="about_developer">Geliştirici</string>
     <string name="about_support">Destek ve geri bildirim</string>
@@ -238,4 +255,7 @@
     <string name="dark_theme">Koyu tema</string>
     <string name="dark_theme_off">Her zaman kapalı</string>
     <string name="dark_theme_on">Her zaman açık</string>
+    <string name="sick_mode_title">Hasta modu etkin</string>
+    <string name="sick_mode_description">HMA-OSS potansiyel çakışabilecek modüller bulduğundan ötürü özelliklerini kısıtladı</string>
+    <string name="sick_mode_notice">HMA/HMAL yapılandırmaları HMA-OSS ile uyumludur ve önceki yapılandırma yedeğini bu modülde kullanabilirsiniz ancak öncesinde HMA/HMAL\'yi kaldırıp yeniden başlatmanız gerekiyor</string>
 </resources>

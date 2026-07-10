@@ -5,7 +5,7 @@
     <string name="title_settings">Setelan</string>
     <string name="title_template_manage">Kelola templat</string>
     <string name="title_template_settings">Setelan templat</string>
-    <string name="title_settings_template_conf">Konfigurasi setelan templat</string>
+    <string name="title_settings_template_conf">Konfigurasi templat setelan</string>
     <string name="title_app_manage">Kelola aplikasi</string>
     <string name="title_app_select">Pilih aplikasi</string>
     <string name="title_app_settings">Setelan aplikasi</string>
@@ -14,11 +14,11 @@
     <string name="do_not_dual">Jangan pasang HMA pada pengguna kedua</string>
     <string name="show_crash_log">Tampilkan log kerusakan</string>
     <string name="config_damaged">Berkas konfig rusak. Harap bersihkan data aplikasi</string>
-    <string name="edit_list">Edit daftar</string>
+    <string name="edit_list">Ubah daftar</string>
     <string name="delete">Hapus</string>
     <string name="enabled">Aktif</string>
     <string name="disabled">Nonaktif</string>
-    <string name="work_mode">Mode kerja</string>
+    <string name="work_mode">Mode fungsi</string>
     <string name="blacklist">Daftar hitam</string>
     <string name="whitelist">Daftar putih</string>
     <string name="application">Aplikasi</string>
@@ -34,12 +34,12 @@
     <string name="apply">Terapkan</string>
     <string name="follow_system">Sistem</string>
     <!-- Home -->
-    <string name="home_xposed_activated">Modul Aktif [%s]</string>
-    <string name="home_xposed_not_activated">Modul Tidak Aktif</string>
+    <string name="home_xposed_activated">Modul Diaktifkan [%s]</string>
+    <string name="home_xposed_not_activated">Modul Tidak Diaktifkan</string>
     <string name="home_xposed_service_on">Layanan sistem sedang berjalan [%d]</string>
     <string name="home_xposed_service_off">Layanan sistem tidak berjalan</string>
     <string name="home_xposed_service_old">Modul diperbarui, perlu mulai ulang</string>
-    <string name="home_xposed_filter_count">HMA-OSS telah menyaring total %d permintaan</string>
+    <string name="home_xposed_filter_count">HMA-OSS telah memfilter total %d permintaan</string>
     <string name="home_manage">Kelola</string>
     <string name="home_detection_test">Uji deteksi</string>
     <string name="home_download_test_app_title">Unduh aplikasi uji</string>
@@ -56,13 +56,10 @@
     <string name="home_exported">Konfig dicadangkan</string>
     <string name="home_new_update">Pembaruan tersedia: %s</string>
     <string name="home_update">Memperbarui: %s</string>
-    <string name="sick_mode_title">Mode sakit aktif</string>
-    <string name="sick_mode_description">HMA-OSS mendeteksi modul yang kemungkinan tidak kompatibel dan membatasi fungsinya</string>
-    <string name="sick_mode_notice">Konfig HMA/HMAL kompatibel dengan HMA-OSS dan Anda dapat mulai menggunakannya dengan konfig yang sudah ada, tetapi Anda perlu mencopot pemasangan HMA/HMAL lalu melakukan mulai ulang terlebih dahulu</string>
     <!-- Backup & Restore -->
     <string name="backup_restore_backup_settings">Setelan cadangan</string>
     <string name="backup_restore_restore_settings">Setelan pemulihan</string>
-    <string name="backup_restore_apps">Konfig aplikasi</string>
+    <string name="backup_restore_apps">Konfigurasi aplikasi</string>
     <string name="backup_restore_templates">Templat</string>
     <string name="backup_restore_settings_templates">Templat setelan</string>
     <string name="backup_restore_append">Tambahkan</string>
@@ -75,11 +72,11 @@
     <string name="list_sort_by_package_name">Nama paket</string>
     <string name="list_sort_by_install_time">Waktu pemasangan</string>
     <string name="list_sort_by_update_time">Waktu pembaruan</string>
-    <string name="list_empty_no_enabled">Coba aktifkan penyembunyian untuk aplikasi dengan mode kerja templat ini dan aplikasi akan muncul di sini</string>
+    <string name="list_empty_no_enabled">Coba aktifkan penyembunyian untuk aplikasi dengan mode fungsi templat ini dan aplikasi akan muncul di sini</string>
     <string name="list_empty_no_apps">Tidak ada aplikasi yang ditemukan, mungkin Anda tidak mengizinkan aplikasi ini untuk mengakses semua paket</string>
     <string name="list_empty_preset">Tidak ada aplikasi yang ditambahkan dalam preset ini</string>
     <!-- Manage templates -->
-    <string name="template_usage_hint">Buat templat untuk aplikasi \"bermasalah\", guna mengontrol akses daftar aplikasi.\n\nDaftar hitam (disarankan): aplikasi yang dipilih dalam templat tidak akan terlihat dari aplikasi yang menerapkan templat tersebut.\nDaftar putih: aplikasi yang tidak dipilih dalam templat tidak akan terlihat oleh aplikasi yang menerapkan templat tersebut.</string>
+    <string name="template_usage_hint">Buat templat untuk \"aplikasi tertentu\", guna mengontrol akses daftar aplikasi.\n\nDaftar hitam (disarankan): aplikasi yang dipilih dalam templat tidak akan terlihat oleh aplikasi yang menerapkan templat tersebut.\nDaftar putih: aplikasi yang tidak dipilih dalam templat tidak akan terlihat oleh aplikasi yang menerapkan templat tersebut.</string>
     <string name="template_new_blacklist">Buat templat daftar hitam</string>
     <string name="template_new_whitelist">Buat templat daftar putih</string>
     <string name="template_new_setting">Buat templat setelan</string>
@@ -102,7 +99,7 @@
     <string name="app_template_using">Menggunakan %d templat</string>
     <string name="app_preset_using">Menggunakan %d preset</string>
     <string name="app_settings_preset_using">Menggunakan %d preset setelan</string>
-    <string name="app_settings_template_using">Menggunakan templat setelan %d</string>
+    <string name="app_settings_template_using">Menggunakan %d templat setelan</string>
     <string name="app_extra_apps_visible_count">%d aplikasi tambahan terlihat</string>
     <string name="app_extra_apps_invisible_count">%d aplikasi tambahan tidak terlihat</string>
     <string name="app_warning_risky_package_title">Paket berisiko</string>
@@ -112,13 +109,13 @@
     <string name="app_hide_installation_source_desc">Semua aplikasi pengguna akan di-spoof seolah-olah terpasang di Play Store untuk aplikasi ini</string>
     <string name="app_hide_installation_source_system">Spoof aplikasi sistem juga</string>
     <string name="app_hide_installation_source_system_desc">Semua aplikasi sistem akan di-spoof seolah-olah terpasang tanpa alasan apa pun untuk aplikasi ini</string>
-    <string name="app_exclude_target_installation_source">Kecualikan target aplikasi</string>
+    <string name="app_exclude_target_installation_source">Kecualikan aplikasi target</string>
     <string name="app_exclude_target_installation_source_desc">Anda dapat mengaktifkannya jika aplikasi ini tidak tersedia di Play Store</string>
-    <string name="app_force_stop_warning">Jangan lupa untuk menghentikan paksa target aplikasi setelah menyimpan konfigurasi</string>
+    <string name="app_force_stop_warning">Jangan lupa untuk paksa henti aplikasi target setelah menyimpan konfigurasi</string>
     <string name="app_invert_activity_launch_protection">Ubah proteksi peluncuran aktivitas</string>
     <string name="app_invert_activity_launch_protection_desc">Opsi ini akan mengubah pilihan \"Nonaktifkan proteksi peluncuran aktivitas\" di setelan.</string>
     <string name="app_global_activity_launch_protection_state">Proteksi %s secara global</string>
-    <string name="app_force_stop_launch">Paksa berhenti dan luncurkan</string>
+    <string name="app_force_stop_launch">Paksa henti dan luncurkan</string>
     <string name="app_launch">Luncurkan</string>
     <string name="app_launch_failed">Peluncuran aplikasi gagal, periksa log untuk detail lebih lanjut</string>
     <string name="app_restrict_zygote_permissions">Batasi izin Zygote aplikasi</string>
@@ -139,7 +136,7 @@
     <string name="settings_preset_dev_options">Opsi pengembang</string>
     <string name="settings_preset_input_method">Alat input</string>
     <!-- Settings templates -->
-    <string name="settings_templates_database">Setelan database</string>
+    <string name="settings_templates_database">Basis data setelan</string>
     <string name="settings_templates_name">Nama setelan</string>
     <string name="settings_templates_value">Nilai setelan</string>
     <!-- Settings templates - basic configuration types -->
@@ -147,7 +144,7 @@
     <string name="settings_templates_random_ssaid">SSAID acak</string>
     <!-- Logs -->
     <string name="logs_save">Simpan log</string>
-    <string name="logs_clear">Hapus log</string>
+    <string name="logs_clear">Bersihkan log</string>
     <string name="logs_empty">Tidak ada log tersimpan</string>
     <string name="logs_saved">Log disimpan</string>
     <!-- Filter logs -->
@@ -169,7 +166,7 @@
     <string name="settings_need_reboot">Perubahan diperlukan mulai ulang</string>
     <string name="settings_permission_denied">Izin ditolak</string>
     <string name="settings_force_mount_data">Paksa isolasi data untuk semua aplikasi</string>
-    <string name="settings_force_mount_data_summary">Isolasi data dinonaktifkan untuk aplikasi target API yang lebih rendah dari 30 secara bawaan</string>
+    <string name="settings_force_mount_data_summary">Isolasi data dinonaktifkan secara bawaan untuk aplikasi target API di bawah 30</string>
     <string name="settings_detail_log">Log detail untuk debugging</string>
     <string name="settings_max_log_size">Ukuran buffer log</string>
     <string name="settings_hide_icon">Sembunyikan ikon modul di peluncur</string>
@@ -192,6 +189,8 @@
     <string name="settings_enable_internet_summary">Aplikasi ini akan kehilangan semua fungsi yang berhubungan dengan internet jika Anda menonaktifkan opsi ini.</string>
     <string name="settings_default_config">Konfig aplikasi untuk aplikasi baru</string>
     <string name="settings_default_config_summary">Ini akan menerapkan konfigurasi yang telah ditentukan ke semua aplikasi baru, tetapi akan mempertahankan konfigurasi yang ada untuk aplikasi baru jika Anda telah menerapkan sesuatu sebelumnya.</string>
+    <string name="settings_webview_protection">Proteksi WebView</string>
+    <string name="settings_webview_protection_summary">Ini akan menambahkan proteksi ekstra terhadap kerusakan yang disebabkan oleh penyembunyian/penargetan WebView atau browser</string>
     <string name="settings_language">Bahasa</string>
     <string name="settings_translate">Berpartisipasi dalam terjemahan</string>
     <string name="settings_translate_summary">Bantu kami menerjemahkan %s ke bahasa Anda</string>
@@ -205,8 +204,8 @@
     <string name="settings_stop_system_service">Hentikan layanan sistem</string>
     <string name="settings_stop_system_service_summary">Perlu mulai ulang untuk memulai kembali layanan</string>
     <string name="settings_is_clean_env">Bersihkan lingkungan runtime pada saat yang bersamaan?</string>
-    <string name="settings_is_clean_env_summary">Hapus cache layanan sistem di /data/misc/hide_my_applist_*. Setelah mulai ulang berikutnya, Diperlukan membuka aplikasi modul sekali secara manual untuk mengaktifkan intersepsi, dan jumlah intersepsi juga akan dihapus.</string>
-    <string name="settings_force_clean_env">Paksa bersihkan lingkungan runtime (root)</string>
+    <string name="settings_is_clean_env_summary">Hapus cache layanan sistem di /data/misc/hide_my_applist_*. Ini artinya Anda harus membuka aplikasi modul secara manual sekali setelah proses mulai ulang berikutnya untuk mengaktifkan intersepsi, dan hitungan intersepsi juga akan dibersihkan.</string>
+    <string name="settings_force_clean_env">Bersihkan paksa lingkungan runtime (root)</string>
     <string name="settings_force_clean_env_summary">Hanya jika layanan sistem gagal untuk memulai, jika tidak, Anda harus mengetuk opsi di atas.</string>
     <string name="settings_force_clean_env_toast_successful">Lingkungan runtime dibersihkan</string>
     <string name="settings_update">Pembaruan</string>
@@ -224,7 +223,7 @@
     </string>
     <string name="about_how_to_use_title">Cara menggunakan modul ini</string>
     <string name="about_how_to_use_description_1">
-        Anda dapat membuat templat di \"Kelola templat\".\nKemudian terapkan templat ke aplikasi di \"Kelola aplikasi\". (Anda juga dapat memilih aplikasi tambahan untuk target.)
+        Anda dapat membuat templat di \"Kelola templat\".\nKemudian terapkan templat ke aplikasi di \"Kelola aplikasi\". (Anda juga dapat memilih aplikasi tambahan sebagai target.)
     </string>
     <string name="about_how_to_use_description_2">
         Perubahan konfigurasi efektif secara real time.
@@ -260,4 +259,7 @@
     <string name="dark_theme">Tema gelap</string>
     <string name="dark_theme_off">Selalu nonaktif</string>
     <string name="dark_theme_on">Selalu aktif</string>
+    <string name="sick_mode_title">Mode sakit diaktifkan</string>
+    <string name="sick_mode_description">HMA-OSS mendeteksi modul yang kemungkinan tidak kompatibel dan membatasi fungsinya</string>
+    <string name="sick_mode_notice">Konfig HMA/HMAL kompatibel dengan HMA-OSS dan Anda dapat mulai menggunakannya dengan konfig yang sudah ada, tetapi Anda perlu mencopot pemasangan HMA/HMAL lalu melakukan mulai ulang terlebih dahulu</string>
 </resources>

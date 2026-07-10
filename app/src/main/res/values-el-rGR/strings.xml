@@ -56,6 +56,14 @@
     <string name="home_exported">Το αντίγραφο διαμόρφωσης αποθηκεύτηκε</string>
     <string name="home_new_update">Νέα ενημέρωση διαθέσιμη: %s</string>
     <string name="home_update">Ενημέρωση: %s</string>
+    <!-- Backup & Restore -->
+    <string name="backup_restore_backup_settings">Backup settings</string>
+    <string name="backup_restore_restore_settings">Επαναφορά ρυθμίσεων</string>
+    <string name="backup_restore_apps">Διαμορφώσεις εφαρμογής</string>
+    <string name="backup_restore_templates">Πρότυπα</string>
+    <string name="backup_restore_settings_templates">Πρότυπα ρυθμίσεων</string>
+    <string name="backup_restore_append">Προσθήκη</string>
+    <string name="backup_restore_items_count">%d αντικείμενα</string>
     <!-- App select -->
     <string name="list_show_system">Εμφάνιση εφαρμογών συστήματος</string>
     <string name="list_sorting">Ταξινόμηση</string>
@@ -175,8 +183,14 @@
     <string name="settings_package_query_workaround_summary">Μην ενεργοποιήσετε αυτήν την επιλογή εάν βλέπετε σωστά τη λίστα πακέτων σε αυτήν την εφαρμογή.</string>
     <string name="settings_launcher_icon">Εικονίδιο εκκίνησης</string>
     <string name="settings_error_only_log">Αρχείο καταγραφής μόνο για σφάλματα</string>
+    <string name="settings_disable_hooks">Απενεργοποίηση λειτουργιών</string>
+    <string name="settings_disable_hooks_summary">Μπορείτε να απενεργοποιήσετε ορισμένες από τις λειτουργίες όταν έρχονται σε διένεξη με άλλες ενότητες</string>
     <string name="settings_enable_internet">Ενεργοποίηση σύνδεσης στο Διαδίκτυο</string>
     <string name="settings_enable_internet_summary">Αυτή η εφαρμογή θα χάσει όλες τις λειτουργίες που σχετίζονται με το Διαδίκτυο όταν απενεργοποιήσετε αυτήν την επιλογή.</string>
+    <string name="settings_default_config">Διαμόρφωση εφαρμογής για νέες εφαρμογές</string>
+    <string name="settings_default_config_summary">Αυτό θα εφαρμόσει την καθορισμένη διαμόρφωση σε όλες τις νέες εφαρμογές, αλλά θα διατηρήσει την υπάρχουσα διαμόρφωση για τις νέες εφαρμογές, εάν έχετε εφαρμόσει κάτι πριν.</string>
+    <string name="settings_webview_protection">Προστασία WebView</string>
+    <string name="settings_webview_protection_summary">Αυτό θα προσθέσει επιπλέον προστασία για σφάλματα που προκαλούνται από την απόκρυψη/στόχευση του WebView ή των προγραμμάτων περιήγησης</string>
     <string name="settings_language">Γλώσσα</string>
     <string name="settings_translate">Συμμετοχή στη μετάφραση</string>
     <string name="settings_translate_summary">Βοηθήστε μας να μεταφράσουμε το %s στη γλώσσα σας</string>
@@ -210,6 +224,8 @@
     </string>
     <string name="about_how_to_use_description_2">        Η τροποποίηση διαμόρφωσης είναι αποτελεσματική σε πραγματικό χρόνο.
     </string>
+    <string name="about_how_to_use_description_3">        Αυτή η εφαρμογή λειτουργεί ως διαχειριστής της ενότητας Zygisk από τώρα και στο εξής, επομένως χρειάζεστε μια ξεχωριστή ενότητα Zygisk για να λειτουργήσει αυτός ο διαχειριστής.
+    </string>
     <string name="about_translator">Μεταφραστής</string>
     <string name="about_developer">Προγραμματιστής</string>
     <string name="about_support">Υποστήριξη και ανατροφοδότηση</string>
@@ -238,4 +254,7 @@
     <string name="dark_theme">Σκούρο θέμα</string>
     <string name="dark_theme_off">Πάντα απενεργοποιημένο</string>
     <string name="dark_theme_on">Πάντα ενεργοποιημένο</string>
+    <string name="sick_mode_title">Η λειτουργία Sick είναι ενεργοποιημένη</string>
+    <string name="sick_mode_description">Το HMA-OSS εντόπισε πιθανές διενέξεις σε ενότητες και περιόρισε τη λειτουργικότητα του</string>
+    <string name="sick_mode_notice">Οι διαμορφώσεις HMA/HMAL είναι συμβατές με το HMA-OSS και μπορείτε να ξεκινήσετε να τις χρησιμοποιείτε με την υπάρχουσα διαμόρφωσή σας, αλλά πρέπει πρώτα να απεγκαταστήσετε το HMA/HMAL και στη συνέχεια να επανεκκινήσετε το σύστημα</string>
 </resources>

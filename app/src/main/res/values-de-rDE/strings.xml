@@ -56,6 +56,14 @@
     <string name="home_exported">Konfiguration gesichert</string>
     <string name="home_new_update">Neue Aktualisierung verfügbar: %s</string>
     <string name="home_update">Aktualisierung: %s</string>
+    <!-- Backup & Restore -->
+    <string name="backup_restore_backup_settings">Backup settings</string>
+    <string name="backup_restore_restore_settings">Restore settings</string>
+    <string name="backup_restore_apps">App configs</string>
+    <string name="backup_restore_templates">Templates</string>
+    <string name="backup_restore_settings_templates">Settings templates</string>
+    <string name="backup_restore_append">Append</string>
+    <string name="backup_restore_items_count">%d items</string>
     <!-- App select -->
     <string name="list_show_system">System-Apps anzeigen</string>
     <string name="list_sorting">Einstellung</string>
@@ -122,7 +130,7 @@
     <string name="preset_sus_apps">Verdächtige Anwendungen</string>
     <string name="preset_detector_apps">Detektor/Prüf-Apps</string>
     <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku Apps</string>
-    <string name="preset_accessibility_apps">Accessibility apps</string>
+    <string name="preset_accessibility_apps">Bedienungshilfen</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Bedienungshilfen</string>
     <string name="settings_preset_dev_options">Entwickleroptionen</string>
@@ -175,8 +183,14 @@
     <string name="settings_package_query_workaround_summary">Aktivieren Sie diese Option nicht, wenn Sie die Paketliste in dieser App korrekt sehen.</string>
     <string name="settings_launcher_icon">Startbildschirm Symbol</string>
     <string name="settings_error_only_log">Nur Fehlerprotokoll</string>
-    <string name="settings_enable_internet">Enable Internet connection</string>
-    <string name="settings_enable_internet_summary">This app will lose all of Internet-related functionality when you disabled this option.</string>
+    <string name="settings_disable_hooks">Disable functions</string>
+    <string name="settings_disable_hooks_summary">You can disable some of the functions when they conflict with other modules</string>
+    <string name="settings_enable_internet">Internetverbindung aktivieren</string>
+    <string name="settings_enable_internet_summary">Diese App verliert alle Internetfunktionen, wenn Sie diese Option deaktiviert haben.</string>
+    <string name="settings_default_config">App config for new apps</string>
+    <string name="settings_default_config_summary">This will apply the defined config to all of new apps but will keep the existing configuration for new apps if you applied something before.</string>
+    <string name="settings_webview_protection">WebView protection</string>
+    <string name="settings_webview_protection_summary">This will add extra protection for crashes caused by hiding/targeting WebView or browsers</string>
     <string name="settings_language">Sprache</string>
     <string name="settings_translate">Beim Übersetzen mitmachen</string>
     <string name="settings_translate_summary">Helfe uns, %s in deine Sprache zu übersetzen</string>
@@ -209,6 +223,9 @@
     <string name="about_how_to_use_description_1">        Du kannst Vorlagen unter \"Vorlagen verwalten\" erstellen.\nWende diese dann unter \"Apps verwalten\" an. (Du kannst außerdem extra Apps für Ziele einstellen.)\nWähle nur und wirklich NUR \"System Framework\" in Xposed aus.</string>
     <string name="about_how_to_use_description_2">        Config modification effective in real time.
     </string>
+    <string name="about_how_to_use_description_3">
+        This application acts like a manager of the Zygisk module from now, so you need a separate Zygisk module to make this manager work.
+    </string>
     <string name="about_translator">Übersetzer</string>
     <string name="about_developer">Entwickler</string>
     <string name="about_support">Hilfe und Rückmeldung</string>
@@ -237,4 +254,7 @@
     <string name="dark_theme">Dunkles Thema</string>
     <string name="dark_theme_off">Immer aus</string>
     <string name="dark_theme_on">Immer aktiviert</string>
+    <string name="sick_mode_title">Sick mode is activated</string>
+    <string name="sick_mode_description">HMA-OSS detected possibly conflictable modules and limited its functionality</string>
+    <string name="sick_mode_notice">HMA/HMAL configs are compatible with HMA-OSS and you can begin to use with your existing config but you need to uninstall HMA/HMAL then reboot at first</string>
 </resources>

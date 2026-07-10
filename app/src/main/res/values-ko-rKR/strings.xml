@@ -12,7 +12,7 @@
     <string name="title_about">정보</string>
     <string name="title_about_fork">이 포크 버전에 대하여</string>
     <string name="do_not_dual">보조 사용자에게 HMA 설치하지 않음</string>
-    <string name="show_crash_log">크래시 로그 표시</string>
+    <string name="show_crash_log">충돌 로그 표시</string>
     <string name="config_damaged">설정 파일이 손상되었습니다. 앱 데이터를 삭제하세요.</string>
     <string name="edit_list">목록 편집</string>
     <string name="delete">삭제</string>
@@ -56,6 +56,14 @@
     <string name="home_exported">설정 백업 완료</string>
     <string name="home_new_update">새로운 업데이트: %s</string>
     <string name="home_update">업데이트: %s</string>
+    <!-- Backup & Restore -->
+    <string name="backup_restore_backup_settings">설정 백업</string>
+    <string name="backup_restore_restore_settings">설정 복원</string>
+    <string name="backup_restore_apps">앱 설정</string>
+    <string name="backup_restore_templates">템플릿</string>
+    <string name="backup_restore_settings_templates">설정 템플릿</string>
+    <string name="backup_restore_append">기존 항목에 추가</string>
+    <string name="backup_restore_items_count">%d개 항목</string>
     <!-- App select -->
     <string name="list_show_system">시스템 앱 표시</string>
     <string name="list_sorting">정렬</string>
@@ -111,7 +119,7 @@
     <string name="app_launch">실행</string>
     <string name="app_launch_failed">앱 실행 실패, 자세한 내용은 로그를 확인하세요.</string>
     <string name="app_restrict_zygote_permissions">Zygote 권한 제한</string>
-    <string name="app_restrict_zygote_permissions_desc">이 옵션은 충돌이나 오작동을 유발할 수 있으므로 신중하게 선택하세요.</string>
+    <string name="app_restrict_zygote_permissions_desc">이 옵션은 충돌이나 오탐을 유발할 수 있으므로 신중하게 선택하세요.</string>
     <!-- Presets -->
     <string name="title_preset">프리셋</string>
     <string name="title_settings_preset">설정 프리셋</string>
@@ -122,7 +130,7 @@
     <string name="preset_sus_apps">의심스러운 앱</string>
     <string name="preset_detector_apps">탐지기/검사기 앱</string>
     <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku 앱</string>
-    <string name="preset_accessibility_apps">Accessibility apps</string>
+    <string name="preset_accessibility_apps">접근성 앱</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">접근성</string>
     <string name="settings_preset_dev_options">개발자 옵션</string>
@@ -140,7 +148,7 @@
     <string name="logs_empty">저장할 로그 없음</string>
     <string name="logs_saved">로그 저장됨</string>
     <!-- Filter logs -->
-    <string name="title_filter_logs">Filter logs</string>
+    <string name="title_filter_logs">로그 필터링</string>
     <!-- Settings -->
     <string name="settings_module">모듈</string>
     <string name="settings_overwrite">덮어쓰기</string>
@@ -162,7 +170,7 @@
     <string name="settings_detail_log">디버깅용 상세 로그</string>
     <string name="settings_max_log_size">로거 버퍼 크기</string>
     <string name="settings_hide_icon">런처에서 모듈 아이콘 숨기기</string>
-    <string name="settings_hide_icon_summary">Xposed 관리자에서 여전히 앱을 열 수 있습니다.</string>
+    <string name="settings_hide_icon_summary">ROOT 매니저에서 여전히 앱을 열 수 있습니다.</string>
     <string name="settings_bypass_risky_package_warning">위험한 패키지 경고 무시</string>
     <string name="settings_bypass_risky_package_warning_summary">이 기능을 활성화한 전후에 발생하는 위험한 패키지 관련 문제에 대해 개발자는 책임을 지지 않습니다.</string>
     <string name="settings_disable_activity_launch_protection">액티비티 실행 보호 비활성화</string>
@@ -175,11 +183,17 @@
     <string name="settings_package_query_workaround_summary">이 앱에서 패키지 목록이 정상적으로 보인다면 이 옵션을 활성화하지 마세요.</string>
     <string name="settings_launcher_icon">런처 아이콘</string>
     <string name="settings_error_only_log">오류 로그만 기록</string>
-    <string name="settings_enable_internet">Enable Internet connection</string>
-    <string name="settings_enable_internet_summary">This app will lose all of Internet-related functionality when you disabled this option.</string>
+    <string name="settings_disable_hooks">기능 비활성화</string>
+    <string name="settings_disable_hooks_summary">다른 모듈과 충돌하는 경우 일부 기능을 비활성화할 수 있습니다.</string>
+    <string name="settings_enable_internet">인터넷 연결 활성화</string>
+    <string name="settings_enable_internet_summary">이 옵션을 비활성화하면 인터넷과 관련된 모든 기능을 사용할 수 없게 됩니다.</string>
+    <string name="settings_default_config">새 앱의 기본 설정</string>
+    <string name="settings_default_config_summary">정의된 설정을 모든 새 앱에 적용합니다. 다만 이전에 설정한 적이 있다면 기존 설정을 유지합니다.</string>
+    <string name="settings_webview_protection">WebView 보호</string>
+    <string name="settings_webview_protection_summary">WebView나 브라우저를 숨기거나 대상으로 지정할 때 발생하는 충돌에 대한 추가 보호를 제공합니다.</string>
     <string name="settings_language">언어</string>
     <string name="settings_translate">번역 참여하기</string>
-    <string name="settings_translate_summary">%s(을)를 당신의 언어로 번역하는 것을 도와주세요.</string>
+    <string name="settings_translate_summary">%s을(를) 여러분의 언어로 번역하는 데 참여하세요.</string>
     <string name="settings_theme">테마</string>
     <string name="settings_system_theme_color">시스템 테마 색상</string>
     <string name="settings_theme_color">테마 색상</string>
@@ -201,14 +215,20 @@
     <!-- Bulk config wizard -->
     <string name="title_bulk_config_wizard">일괄 설정 마법사</string>
     <!-- About -->
-    <string name="about_description">        특정 앱 설치를 감지하는 것이 올바르지는 않지만, ROOT를 사용하는 모든 앱이 랜덤 패키지 이름을 지원하는 것은 아닙니다. 이 경우, ROOT를 사용하는 앱(Fake Location, Storage Isolation 등)이 감지되는 것은 ROOT 자체가 감지되는 것과 같습니다.\n\n동시에, 일부 영리한 앱들은 다양한 허점을 이용해 사용자의 앱 목록을 획득하고, 이를 통해 사용자의 페르소나를 그려내기도 합니다.\n\n이 모듈은 앱 목록이 잘 숨겨졌는지 테스트하는 몇 가지 방법을 제공합니다. 또한 Xposed 모듈로 작동하여 일부 앱을 숨기거나 앱 목록 요청을 거부하여 개인 정보를 보호할 수 있습니다.
+    <string name="about_description">
+        특정 앱 설치를 감지하는 것이 올바르지는 않지만, ROOT를 사용하는 모든 앱이 랜덤 패키지 이름을 지원하는 것은 아닙니다. 이 경우, ROOT를 사용하는 앱(Fake Location, Storage Isolation 등)이 감지되는 것은 ROOT 자체가 감지되는 것과 같습니다.\n\n동시에, 일부 영리한 앱들은 다양한 허점을 이용해 사용자의 앱 목록을 획득하고, 이를 통해 사용자의 페르소나를 그려내기도 합니다.\n\n이 모듈은 앱 목록이 잘 숨겨졌는지 테스트하는 몇 가지 방법을 제공합니다. 또한 Zygisk 모듈로 작동하여 일부 앱을 숨기거나 앱 목록 요청을 거부하여 개인 정보를 보호할 수 있습니다.
     </string>
     <string name="about_fork_description">        기존 HMA 프로젝트가 비공개 소스로 전환되었고 최신 코드에 일부 최신 변경 사항이 포함되지 않았기에, 오픈 소스로 계속 이어가기 위해 이 포크를 만들었습니다.
     </string>
     <string name="about_how_to_use_title">모듈 사용 방법</string>
-    <string name="about_how_to_use_description_1">        \"템플릿 관리\"에서 템플릿을 만들 수 있습니다.\n그런 다음 \"앱 관리\"에서 앱에 템플릿을 적용하세요. (대상에 대해 추가 앱을 선택할 수도 있습니다.)\nXposed 모듈 범위 / 화이트리스트에서 반드시 오직 \"시스템 프레임워크(System Framework)\"만 체크해야 합니다.
+    <string name="about_how_to_use_description_1">
+        \"템플릿 관리\"에서 템플릿을 만들 수 있습니다.\n그런 다음 \"앱 관리\"에서 앱에 템플릿을 적용하세요. (대상에 대해 추가 앱을 선택할 수도 있습니다.)
     </string>
-    <string name="about_how_to_use_description_2">        설정 변경은 실시간으로 적용됩니다.
+    <string name="about_how_to_use_description_2">
+        설정 변경은 실시간으로 적용됩니다.
+    </string>
+    <string name="about_how_to_use_description_3">
+        이제 이 애플리케이션은 Zygisk 모듈 매니저 역할을 하므로, 작동하려면 별도의 Zygisk 모듈이 필요합니다.
     </string>
     <string name="about_translator">번역가</string>
     <string name="about_developer">개발자</string>
@@ -238,4 +258,7 @@
     <string name="dark_theme">다크 테마</string>
     <string name="dark_theme_off">항상 끄기</string>
     <string name="dark_theme_on">항상 켜기</string>
+    <string name="sick_mode_title">제한 모드 활성화됨</string>
+    <string name="sick_mode_description">HMA-OSS가 충돌 가능성이 있는 모듈을 감지하여 기능을 제한했습니다.</string>
+    <string name="sick_mode_notice">HMA/HMAL 설정은 HMA-OSS와 호환되므로 기존 설정을 그대로 사용할 수 있습니다. 다만 먼저 HMA/HMAL을 제거한 후 재부팅해야 합니다.</string>
 </resources>
