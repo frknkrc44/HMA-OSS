@@ -217,14 +217,16 @@
     <!-- About -->
     <string name="about_description">        Deși nu este corect să detectezi sursa instalării aplicației, nu orice aplicație care folosește permisiuni de superutilizator oferă suport pentru nume aleatoriu.În acest caz, aplicațiile detectate care folosesc permisiuni de superutilizator(precum Locație falsă sau Izolarea stocării) sunt egale cu insăși detecția accesului superutilizator. \n\nÎn același timp, unele aplicații deștepte folosesc diverse portițe pentru a obține lista aplicațiilor tale instalate, astfel încât să-ți poată contura un profil pe baza acesteia.\n\nAcest modul oferă câteva metode pentru a testa dacă ți-ai ascuns bine lista de aplicații. De asemenea, poate funcționa ca modul Zygisk pentru a ascunde anumite aplicații sau pentru a respinge cererile de listare a aplicațiilor, protejându-ți astfel confidențialitatea.
     </string>
-    <string name="about_fork_description">        Proiectul original HMA a devenit \'closed-source\', iar cel mai recent cod al lor nu conținea unele dintre ultimele modificări, așa că am creat acest fork pentru a-l continua din nou ca proiect \'open-source\'.
+    <string name="about_fork_description">
+        Proiectul original HMA a devenit \'closed-source\', iar cel mai recent cod al lor nu conținea unele dintre ultimele modificări, așa că am creat acest fork pentru a-l continua din nou ca proiect \'open-source\'.
     </string>
     <string name="about_how_to_use_title">Cum puteți utiliza acest modul</string>
     <string name="about_how_to_use_description_1">        Puteți crea șabloane în \'\"Gestionați șabloanele\".\nApoi aplicați șabloanele pe aplicații în \"Gestionați aplicațiile\". (Puteți, de asemenea, selecta aplicații extra pentru aplicațiile-țintă)
     </string>
     <string name="about_how_to_use_description_2">        Modificare configurație — efect în timp real.
     </string>
-    <string name="about_how_to_use_description_3">        Această aplicație acționează de acum înainte ca un manager al modulului Zygisk, deci aveţi nevoie de un modul Zygisk separat pentru a-l face să funcţioneze.
+    <string name="about_how_to_use_description_3">
+        Această aplicație acționează de acum înainte ca un manager al modulului Zygisk, deci aveţi nevoie de un modul Zygisk separat pentru a-l face să funcţioneze.
     </string>
     <string name="about_translator">Traducător</string>
     <string name="about_developer">Dezvoltator</string>
