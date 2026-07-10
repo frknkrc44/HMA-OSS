@@ -215,16 +215,21 @@
     <!-- Bulk config wizard -->
     <string name="title_bulk_config_wizard">Asisten konfigurasi massal</string>
     <!-- About -->
-    <string name="about_description">        Meskipun tidak tepat untuk mendeteksi pemasangan aplikasi tertentu, tidak semua aplikasi yang menggunakan root mendukung nama paket acak. Dalam kasus ini, aplikasi terdeteksi yang menggunakan root (seperti Pemalsuan Lokasi dan Isolasi Data) dianggap sama dengan root itu sendiri.\n\nPada saat yang sama, beberapa aplikasi cerdas memanfaatkan celah untuk mendapatkan daftar aplikasi Anda, sehingga mereka bisa membangun profil tentang Anda.\n\nModul ini menyediakan beberapa metode untuk menguji apakah Anda telah menyembunyikan daftar aplikasi dengan baik. Selain itu, dapat berfungsi sebagai modul Zygisk untuk menyembunyikan aplikasi tertentu atau menolak permintaan daftar aplikasi guna melindungi privasi Anda.
+    <string name="about_description">
+        Meskipun tidak tepat untuk mendeteksi pemasangan aplikasi tertentu, tidak semua aplikasi yang menggunakan root mendukung nama paket acak. Dalam kasus ini, aplikasi terdeteksi yang menggunakan root (seperti Pemalsuan Lokasi dan Isolasi Data) dianggap sama dengan root itu sendiri.\n\nPada saat yang sama, beberapa aplikasi cerdas memanfaatkan celah untuk mendapatkan daftar aplikasi Anda, sehingga mereka bisa membangun profil tentang Anda.\n\nModul ini menyediakan beberapa metode untuk menguji apakah Anda telah menyembunyikan daftar aplikasi dengan baik. Selain itu, dapat berfungsi sebagai modul Zygisk untuk menyembunyikan aplikasi tertentu atau menolak permintaan daftar aplikasi guna melindungi privasi Anda.
     </string>
-    <string name="about_fork_description">        Proyek HMA asli telah menjadi sumber tertutup dan kode terbaru mereka tidak memuat beberapa perubahan terbaru, jadi saya membuat percabangan ini untuk melanjutkannya sebagai sumber terbuka lagi.
+    <string name="about_fork_description">
+        Proyek HMA asli telah menjadi sumber tertutup dan kode terbaru mereka tidak memuat beberapa perubahan terbaru, jadi saya membuat percabangan ini untuk melanjutkannya sebagai sumber terbuka lagi.
     </string>
     <string name="about_how_to_use_title">Cara menggunakan modul ini</string>
-    <string name="about_how_to_use_description_1">        Anda dapat membuat templat di \"Kelola templat\".\nKemudian terapkan templat ke aplikasi di \"Kelola aplikasi\". (Anda juga dapat memilih aplikasi tambahan sebagai target.)
+    <string name="about_how_to_use_description_1">
+        Anda dapat membuat templat di \"Kelola templat\".\nKemudian terapkan templat ke aplikasi di \"Kelola aplikasi\". (Anda juga dapat memilih aplikasi tambahan sebagai target.)
     </string>
-    <string name="about_how_to_use_description_2">        Perubahan konfigurasi efektif secara real time.
+    <string name="about_how_to_use_description_2">
+        Perubahan konfigurasi efektif secara real time.
     </string>
-    <string name="about_how_to_use_description_3">        Aplikasi ini bertindak sebagai manajer modul Zygisk mulai sekarang, jadi Anda memerlukan modul Zygisk terpisah agar manajer ini berfungsi.
+    <string name="about_how_to_use_description_3">
+        Aplikasi ini bertindak sebagai manajer modul Zygisk mulai sekarang, jadi Anda memerlukan modul Zygisk terpisah agar manajer ini berfungsi.
     </string>
     <string name="about_translator">Penerjemah</string>
     <string name="about_developer">Pengembang</string>
