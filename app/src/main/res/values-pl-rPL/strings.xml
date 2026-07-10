@@ -222,7 +222,8 @@
     </string>
     <string name="about_how_to_use_description_2">Zmiany konfiguracji obowiązują w czasie rzeczywistym.
     </string>
-    <string name="about_how_to_use_description_3">Ta aplikacja zachowuje się jak menadżer dla modułu Zygisk od teraz. Potrzebujesz osobnego modułu Zygisk, aby ten menadżer działał
+    <string name="about_how_to_use_description_3">
+Ta aplikacja zachowuje się jak menadżer dla modułu Zygisk od teraz. Potrzebujesz osobnego modułu Zygisk, aby ten menadżer działał
     </string>
     <string name="about_translator">Tłumacze</string>
     <string name="about_developer">Developer</string>
