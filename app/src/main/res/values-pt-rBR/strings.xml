@@ -221,7 +221,8 @@
     <string name="about_how_to_use_title">Como usar esse modulo</string>
     <string name="about_how_to_use_description_1">Voce pode criar modelos em \"Gerenciar modelos\".\nEntão aplique os modelos nos apps em \"Gerenciar apps\". (Voce tamber pode selecionar apps adicionais para os esconder de tais.)\nVoce só deve habilitar o \"Sistema Android\" na lista de ativação do Xposed.\n    </string>
     <string name="about_how_to_use_description_2">       A modificação de configurações tem efeito imediato.\n    </string>
-    <string name="about_how_to_use_description_3">        A partir de agora, este aplicativo funciona como um gerenciador do módulo Zygisk, portanto, você precisa de um módulo Zygisk separado para que este gerenciador funcione.
+    <string name="about_how_to_use_description_3">
+        A partir de agora, este aplicativo funciona como um gerenciador do módulo Zygisk, portanto, você precisa de um módulo Zygisk separado para que este gerenciador funcione.
     </string>
     <string name="about_translator">Tradutor</string>
     <string name="about_developer">Desenvolvedor</string>
