@@ -224,7 +224,8 @@
     </string>
     <string name="about_how_to_use_description_2">        修改設定會立刻生效。
     </string>
-    <string name="about_how_to_use_description_3">此應用程式從現在起就像一個Zygisk模組的管理員，因此你需要一個單獨的Zygisk模組才能使此管理員運作    </string>
+    <string name="about_how_to_use_description_3">
+此應用程式從現在起就像一個Zygisk模組的管理員，因此你需要一個單獨的Zygisk模組才能使此管理員運作    </string>
     <string name="about_translator">譯者</string>
     <string name="about_developer">開發者</string>
     <string name="about_support">支援和反饋</string>
