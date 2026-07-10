@@ -224,7 +224,8 @@
     </string>
     <string name="about_how_to_use_description_2">        La modificación de configuración es efectiva en tiempo real.
     </string>
-    <string name="about_how_to_use_description_3">        Esta aplicación actúa como un administrador del módulo Zygisk a partir de ahora así que necesita un módulo Zygisk independiente para hacer que este administrador funcione.
+    <string name="about_how_to_use_description_3">
+        Esta aplicación actúa como un administrador del módulo Zygisk a partir de ahora así que necesita un módulo Zygisk independiente para hacer que este administrador funcione.
     </string>
     <string name="about_translator">Traductor</string>
     <string name="about_developer">Desarrollador</string>
