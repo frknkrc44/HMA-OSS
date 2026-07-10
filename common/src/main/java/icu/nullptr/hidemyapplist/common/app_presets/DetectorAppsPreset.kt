@@ -34,6 +34,7 @@ class DetectorAppsPreset  : BasePreset(NAME) {
         "com.atominvention.rootchecker",
         "com.joeykrim.rootcheck",
         "com.studio.duckdetector",
+        "com.eltavine.duckdetector",
         "com.chuqniudetector",
         "com.chunqiudetector",
         "com.longz.detector",

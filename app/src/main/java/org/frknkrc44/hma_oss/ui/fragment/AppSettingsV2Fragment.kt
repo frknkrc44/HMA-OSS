@@ -24,6 +24,7 @@ import icu.nullptr.hidemyapplist.common.AppPresets
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.common.SettingsPresets
+import icu.nullptr.hidemyapplist.data.AppConstants
 import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.fragment.ScopeFragmentArgs
@@ -47,11 +48,20 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
         private const val TAG = "AppSettingsV2Fragment"
     }
 
+    private var argsOverride: AppSettingsV2FragmentArgs? = null
+
     private val binding by viewBinding(FragmentSettingsBinding::bind)
     private val viewModel by viewModels<AppSettingsViewModel> {
-        val args by navArgs<AppSettingsV2FragmentArgs>()
-        val cfg: JsonConfig.AppConfig? = if (args.bulkConfigMode) {
-            if (args.bulkConfig != null) JsonConfig.AppConfig.parse(args.bulkConfig!!)
+        var args = if (argsOverride != null) {
+            argsOverride!!
+        } else {
+            val safeArgs by navArgs<AppSettingsV2FragmentArgs>()
+
+            safeArgs
+        }
+
+        val cfg: JsonConfig.AppConfig? = if (args.mode != AppConstants.APP_CONFIG_MODE_SINGLE) {
+            if (args.inputConfig != null) JsonConfig.AppConfig.parse(args.inputConfig)
             else null
         } else {
             ConfigManager.getAppConfig(args.packageName)
@@ -60,26 +70,34 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
         val pack = AppSettingsViewModel.Pack(
             app = args.packageName,
             enabled = cfg != null,
-            bulkConfig =  args.bulkConfigMode,
+            mode =  args.mode,
             config = cfg ?: JsonConfig.AppConfig(),
             bulkApps = args.bulkConfigApps,
+            customSubtitle = args.customSubtitle,
         )
         AppSettingsViewModel.Factory(pack)
     }
 
     private fun saveConfig() {
-        if (viewModel.pack.bulkConfig) {
-            setFragmentResult("bulk_app_settings", Bundle().apply {
-                putString(
-                    "appConfig",
-                    if (viewModel.pack.enabled) viewModel.pack.config.toString() else null,
+        when (viewModel.pack.mode) {
+            AppConstants.APP_CONFIG_MODE_SINGLE -> {
+                ConfigManager.setAppConfig(
+                    viewModel.pack.app,
+                    if (viewModel.pack.enabled) viewModel.pack.config else null,
                 )
-            })
-        } else {
-            ConfigManager.setAppConfig(
-                viewModel.pack.app,
-                if (viewModel.pack.enabled) viewModel.pack.config else null,
-            )
+            }
+            AppConstants.APP_CONFIG_MODE_BULK_CONFIG -> {
+                setFragmentResult("bulk_app_settings", Bundle().apply {
+                    putString(
+                        "appConfig",
+                        if (viewModel.pack.enabled) viewModel.pack.config.toString() else null,
+                    )
+                })
+            }
+            AppConstants.APP_CONFIG_MODE_DEFAULT_CONFIG -> {
+                ConfigManager.defaultConfig = if (viewModel.pack.enabled) viewModel.pack.config else null
+            }
+            else -> throw UnsupportedOperationException("Invalid mode: ${viewModel.pack.mode}")
         }
     }
 
@@ -96,8 +114,10 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
     }
 
     val subtitle: String by lazy {
-        if (viewModel.pack.bulkConfig) {
-            if (viewModel.pack.bulkApps.isNullOrEmpty()) {
+        if (viewModel.pack.mode != AppConstants.APP_CONFIG_MODE_SINGLE) {
+            if (!viewModel.pack.customSubtitle.isNullOrEmpty()) {
+                return@lazy viewModel.pack.customSubtitle!!
+            } else if (viewModel.pack.bulkApps.isNullOrEmpty()) {
                 return@lazy getString(R.string.title_bulk_config_wizard)
             } else {
                 return@lazy viewModel.pack.bulkApps!!.joinToString(", ") {
@@ -111,6 +131,7 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) { onBack() }
+
         setupToolbar(
             toolbar = binding.toolbar,
             title = getString(R.string.title_app_settings),
@@ -171,14 +192,26 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
         }
     }
 
-    class AppPreferenceFragment : PreferenceFragmentCompat() {
+    abstract class BaseAppSettingsPreferenceFragment : PreferenceFragmentCompat() {
+        internal val parent get() = requireParentFragment() as AppSettingsV2Fragment
+        internal val pack get() = parent.viewModel.pack
 
-        private val parent get() = requireParentFragment() as AppSettingsV2Fragment
-        private val pack get() = parent.viewModel.pack
+        fun showForceStopWarning() {
+            if (pack.mode == AppConstants.APP_CONFIG_MODE_SINGLE) {
+                showToast(R.string.app_force_stop_warning, Toast.LENGTH_LONG)
+            }
+        }
+    }
 
-        private fun launchMainActivity(packageName: String, userId: Int) {
-            if (userId != 0) {
-                // TODO: Try to find a method to launch apps across user profiles
+    class AppPreferenceFragment : BaseAppSettingsPreferenceFragment() {
+        private fun startMainActivity(packageName: String, userId: Int) {
+            if (userId != PackageHelper.currentUserID) {
+                try {
+                    ServiceClient.startMainActivityAsUser(packageName, userId)
+                } catch (e: Throwable) {
+                    showToast(R.string.app_launch_failed)
+                    ServiceClient.log(Log.ERROR, TAG, e.stackTraceToString())
+                }
                 return
             }
 
@@ -206,7 +239,7 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
             preferenceManager.preferenceDataStore = AppPreferenceDataStore(pack)
             setPreferencesFromResource(R.xml.app_settings_v2, rootKey)
             findPreference<Preference>("appInfo")?.let {
-                if (pack.bulkConfig) {
+                if (pack.mode != AppConstants.APP_CONFIG_MODE_SINGLE) {
                     it.icon = R.drawable.outline_storage_24.asDrawable(requireContext())
                     it.title = parent.subtitle
                     if (!pack.bulkApps.isNullOrEmpty()) {
@@ -229,10 +262,10 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
                                 when (which) {
                                     0 -> {
                                         ServiceClient.forceStop(pack.app, userId)
-                                        launchMainActivity(pack.app, userId)
+                                        startMainActivity(pack.app, userId)
                                     }
                                     1 -> {
-                                        launchMainActivity(pack.app, userId)
+                                        startMainActivity(pack.app, userId)
                                     }
                                 }
                             }
@@ -292,8 +325,7 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
                         pack.config.restrictedZygotePermissions = Constants.GID_PAIRS.values.mapIndexedNotNullTo(mutableSetOf()) { i, value ->
                             if (checked[i]) value else null
                         }.toList()
-                        Toast.makeText(requireContext(),
-                            R.string.app_force_stop_warning, Toast.LENGTH_LONG).show()
+                        showForceStopWarning()
                     }.setMultiChoiceItems(Constants.GID_PAIRS.keys.toTypedArray(), checked) { _, i, value ->
                         checked[i] = value
                     }.show()
@@ -303,33 +335,27 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
         }
     }
 
-    class AppSpoofingPreferenceFragment(private val preferenceDataStore: PreferenceDataStore) : PreferenceFragmentCompat() {
+    class AppSpoofingPreferenceFragment(private val preferenceDataStore: PreferenceDataStore) : BaseAppSettingsPreferenceFragment() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             preferenceManager.preferenceDataStore = preferenceDataStore
             setPreferencesFromResource(R.xml.app_settings_spoofing_v2, rootKey)
 
             findPreference<SwitchPreferenceCompat>("hideInstallationSource")?.setOnPreferenceChangeListener { _, _ ->
-                Toast.makeText(requireContext(),
-                    R.string.app_force_stop_warning, Toast.LENGTH_LONG).show()
+                showForceStopWarning()
                 true
             }
             findPreference<SwitchPreferenceCompat>("hideSystemInstallationSource")?.setOnPreferenceChangeListener { _, _ ->
-                Toast.makeText(requireContext(),
-                    R.string.app_force_stop_warning, Toast.LENGTH_LONG).show()
+                showForceStopWarning()
                 true
             }
             findPreference<SwitchPreferenceCompat>("excludeTargetInstallationSource")?.setOnPreferenceChangeListener { _, _ ->
-                Toast.makeText(requireContext(),
-                    R.string.app_force_stop_warning, Toast.LENGTH_LONG).show()
+                showForceStopWarning()
                 true
             }
         }
     }
 
-    class TemplateConfigPreferenceFragment(private val preferenceDataStore: PreferenceDataStore) : PreferenceFragmentCompat() {
-        private val parent get() = requireParentFragment() as AppSettingsV2Fragment
-        private val pack get() = parent.viewModel.pack
-
+    class TemplateConfigPreferenceFragment(private val preferenceDataStore: PreferenceDataStore) : BaseAppSettingsPreferenceFragment() {
         private fun updateApplyTemplates() {
             findPreference<Preference>("applyTemplates")?.title =
                 getString(R.string.app_template_using, pack.config.applyTemplates.size)

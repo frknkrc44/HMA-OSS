@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    
     <string name="title_home">主页</string>
     <string name="title_logs">日志</string>
     <string name="title_settings">设置</string>
@@ -11,6 +12,7 @@
     <string name="title_app_settings">应用设置</string>
     <string name="title_about">关于</string>
     <string name="title_about_fork">关于HMA-OSS</string>
+    
     <string name="do_not_dual">请勿将HMA-OSS安装到分身或多用户空间</string>
     <string name="show_crash_log">显示崩溃日志</string>
     <string name="config_damaged">配置文件损坏，请清除应用数据</string>
@@ -33,6 +35,7 @@
     <string name="edit">编辑</string>
     <string name="apply">应用</string>
     <string name="follow_system">跟随系统</string>
+
     <!-- Home -->
     <string name="home_xposed_activated">模块已激活 [%s]</string>
     <string name="home_xposed_not_activated">模块未激活</string>
@@ -56,6 +59,16 @@
     <string name="home_exported">备份完成</string>
     <string name="home_new_update">更新可用： %s</string>
     <string name="home_update">更新： %s</string>
+
+    <!-- Backup & Restore -->
+    <string name="backup_restore_backup_settings">备份配置</string>
+    <string name="backup_restore_restore_settings">还原配置</string>
+    <string name="backup_restore_apps">应用设置</string>
+    <string name="backup_restore_templates">应用模板</string>
+    <string name="backup_restore_settings_templates">设置模板</string>
+    <string name="backup_restore_append">增量还原</string>
+    <string name="backup_restore_items_count">%d 项</string>
+    
     <!-- App select -->
     <string name="list_show_system">显示系统应用</string>
     <string name="list_sorting">排序</string>
@@ -67,6 +80,7 @@
     <string name="list_empty_no_enabled">使用此模版的应用程序会显示在这里</string>
     <string name="list_empty_no_apps">未找到应用，可能您未授权本应用查询所有已安装应用</string>
     <string name="list_empty_preset">此预设中未添加任何应用程序</string>
+    
     <!-- Manage templates -->
     <string name="template_usage_hint">为那些“不安分”的应用建立模板，控制它们能获取到的应用列表。\n\n黑名单（推荐）：在该模板中勾选的应用，对使用此模板的软件不可见（隐藏勾选的）。\n白名单：在该模板中未勾选的应用，对使用此模板的软件不可见（只显示勾选的）。</string>
     <string name="template_new_blacklist">创建黑名单应用模板</string>
@@ -81,6 +95,7 @@
     <string name="template_setting_count">已添加 %d 个设置</string>
     <string name="template_apps_visible_count">%d 个应用可见</string>
     <string name="template_apps_invisible_count">%d 个应用不可见</string>
+    
     <!-- App settings -->
     <string name="app_enable_hide">启用隐藏</string>
     <string name="app_template_config">模板设置</string>
@@ -112,6 +127,7 @@
     <string name="app_launch_failed">应用启动失败，请检查日志获取更多详细信息</string>
     <string name="app_restrict_zygote_permissions">限制Zygote权限</string>
     <string name="app_restrict_zygote_permissions_desc">此选项可能导致崩溃或误报，请谨慎选择</string>
+    
     <!-- Presets -->
     <string name="title_preset">应用预设</string>
     <string name="title_settings_preset">设置预设</string>
@@ -123,24 +139,30 @@
     <string name="preset_detector_apps">检测类应用</string>
     <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku应用</string>
     <string name="preset_accessibility_apps">辅助功能应用</string>
+    
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">无障碍功能</string>
     <string name="settings_preset_dev_options">开发者选项</string>
     <string name="settings_preset_input_method">输入法</string>
+    
     <!-- Settings templates -->
     <string name="settings_templates_database">设置数据库</string>
     <string name="settings_templates_name">设置名称</string>
     <string name="settings_templates_value">设置值</string>
+
     <!-- Settings templates - basic configuration types -->
     <string name="settings_templates_custom">自定义设置</string>
     <string name="settings_templates_random_ssaid">随机SSAID</string>
+    
     <!-- Logs -->
     <string name="logs_save">保存日志</string>
     <string name="logs_clear">清除日志</string>
     <string name="logs_empty">没有可保存的日志</string>
     <string name="logs_saved">日志已保存</string>
+    
     <!-- Filter logs -->
     <string name="title_filter_logs">筛选日志</string>
+    
     <!-- Settings -->
     <string name="settings_module">模块</string>
     <string name="settings_overwrite">覆盖</string>
@@ -175,17 +197,24 @@
     <string name="settings_package_query_workaround_summary">如果本应用能正常显示已安装的应用列表，请勿开启此项</string>
     <string name="settings_launcher_icon">桌面图标</string>
     <string name="settings_error_only_log">错误日志</string>
+    <string name="settings_disable_hooks">禁用注入点</string>
+    <string name="settings_disable_hooks_summary">您可以禁用部分注入点以避免与其它模块冲突</string>
     <string name="settings_enable_internet">启用互联网连接</string>
     <string name="settings_enable_internet_summary">如果您关闭了此选项，该应用将失去所有与互联网相关的功能</string>
+    <string name="settings_default_config">默认隐藏配置</string>
+    <string name="settings_default_config_summary">为新安装的应用自动套用的配置项，已有配置的应用不受影响（不会影响当前已安装的应用）</string>
+    
     <string name="settings_language">语言</string>
     <string name="settings_translate">参与翻译</string>
     <string name="settings_translate_summary">帮助我们把 %s 翻译到您的语言</string>
+    
     <string name="settings_theme">主题</string>
     <string name="settings_system_theme_color">跟随系统主题色</string>
     <string name="settings_theme_color">主题颜色</string>
     <string name="settings_dark_theme">深色主题</string>
     <string name="settings_pure_black_dark_theme">纯黑主题</string>
     <string name="settings_pure_black_dark_theme_summary">当深色主题启用时使用纯黑主题</string>
+    
     <string name="settings_service">服务</string>
     <string name="settings_stop_system_service">停止系统服务</string>
     <string name="settings_stop_system_service_summary">需要重启设备才能再次启动系统服务</string>
@@ -194,22 +223,27 @@
     <string name="settings_force_clean_env">强制清理运行环境（root）</string>
     <string name="settings_force_clean_env_summary">只有在系统服务无法启动的情况下才应使用，否则请使用上面的选项。</string>
     <string name="settings_force_clean_env_toast_successful">运行环境已清理</string>
+    
     <string name="settings_update">更新</string>
     <string name="settings_disable_update">禁用更新通知</string>
     <string name="settings_receive_beta_update">接收测试版更新</string>
     <string name="settings_receive_beta_update_summary">注意：测试版可能不稳定</string>
+    
     <!-- Bulk config wizard -->
     <string name="title_bulk_config_wizard">批量配置向导</string>
+    
     <!-- About -->
     <string name="about_description">尽管简单粗暴地检测特定应用安装来判断系统环境是不准确的，但并非所有使用 Root 的应用都支持随机包名。在这种情况下，被检测到安装了 Root 相关应用（如 Fake Location 或 存储空间隔离）就等同于被检测到了 Root 本身。\n\n同时，一些“聪明”的应用会利用各种漏洞获取您的应用列表，以此为您建立用户画像。\n\n本模块提供了一些方法来测试您是否已经完美隐藏了应用列表。同时，它作为一个 LSPosed 模块，可以隐藏特定应用，或拒绝应用列表请求，从而保护您的隐私。</string>
     <string name="about_fork_description">原 HMA 项目已闭源，且最新代码未包含部分新改动，因此我创建了这个分支以继续保持开源维护。</string>
     <string name="about_how_to_use_title">如何使用本模块</string>
     <string name="about_how_to_use_description_1">1. 在“模板管理”中创建模板。\n2. 在“应用管理”中将模板应用到目标APP上。（您也可以为目标APP额外单独选择可见/不可见的应用）。\n3. 注意：在 LSPosed 作用域中，您应该且只应该勾选“系统框架”。</string>
     <string name="about_how_to_use_description_2">配置修改即时生效</string>
+    <string name="about_how_to_use_description_3">此应用程序为HMA-OSS管理器应用，不提供实际功能。您需要安装Zygisk框架（如 ZygiskNext）与HMA-OSS后端模块，此应用程序才能正常运行。</string>
     <string name="about_translator">翻译者</string>
     <string name="about_developer">开发者</string>
     <string name="about_support">支持与反馈</string>
     <string name="about_open_source">开放源代码许可</string>
+    
     <!-- Colors -->
     <string name="color_sakura">樱花粉</string>
     <string name="color_red">红色</string>
@@ -230,8 +264,13 @@
     <string name="color_deep_orange">深橙</string>
     <string name="color_brown">棕色</string>
     <string name="color_blue_grey">灰蓝</string>
+
     <!-- Dark theme modes -->
     <string name="dark_theme">深色主题</string>
     <string name="dark_theme_off">始终关闭</string>
     <string name="dark_theme_on">始终开启</string>
+
+    <string name="sick_mode_title">安全模式</string>
+    <string name="sick_mode_description">HMA-OSS 检测到冲突的模块，为避免冲突已禁用自身核心功能</string>
+    <string name="sick_mode_notice">提示: HMA/HMAL配置与HMA-OSS兼容，在HMA/HMAL中备份的配置文件可在HMA-OSS中恢复使用。卸载HMA/HMAL并重启手机后，HMA-OSS即可恢复运行</string>
 </resources>

@@ -1,11 +1,15 @@
 [versions]
-#noinspection AndroidGradlePluginVersion
+#noinspection GradleDependency,AndroidGradlePluginVersion
 agp = "8.13.2"
-kotlin = "2.3.0"
-material = "1.13.0"
+kotlin = "2.3.21"
+material = "1.14.0"
 hidden-api = "4.4.0"
-androidx-navigation = "2.9.7"
+androidx-navigation = "2.9.8"
 vbpd = "2.0.4"
+r8_annotations = "v1.0.1"
+androidvmtools = "c1da5dd"
+zygoteloader = "bf5078e182"
+coil = "3.4.0"
 
 [plugins]
 agp-app = { id = "com.android.application", version.ref = "agp" }
@@ -13,26 +17,28 @@ agp-lib = { id = "com.android.library", version.ref = "agp" }
 kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 nav-safeargs-kotlin = { id = "androidx.navigation.safeargs.kotlin", version.ref = "androidx-navigation" }
-autoresconfig = { id = "dev.rikka.tools.autoresconfig", version = "1.2.2" }
 refine = { id = "dev.rikka.tools.refine", version = "4.4.0" }
+# do not update until https://github.com/RikkaApps/MaterialThemeBuilder/pull/13 merged
 materialthemebuilder = { id = "dev.rikka.tools.materialthemebuilder", version = "1.5.1" }
+com-github-aerathstuff-zygoteloader = { id = "com.github.aerath-stuff.ZygoteLoader", version.ref = "zygoteloader" }
 
 [libraries]
 androidx-appcompat-appcompat = { group = "androidx.appcompat", name = "appcompat", version = "1.7.1" }
-androidx-annotation-jvm = { group = "androidx.annotation", name = "annotation-jvm", version = "1.9.1" }
+androidx-annotation-jvm = { group = "androidx.annotation", name = "annotation-jvm", version = "1.10.0" }
 androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "androidx-navigation" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidx-navigation" }
 androidx-preference-ktx = { module = "androidx.preference:preference-ktx", version = "1.2.1" }
 androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version = "1.2.0" }
-com-github-bumptech-glide = { module = "com.github.bumptech.glide:glide", version = "5.0.5" }
+com-android-tools-build-apksig = { module = "com.android.tools.build:apksig", version.ref = "agp" }
 dev-androidbroadcast-vbpd = { module = "dev.androidbroadcast.vbpd:vbpd", version.ref = "vbpd" }
 dev-androidbroadcast-vbpd-reflection = { module = "dev.androidbroadcast.vbpd:vbpd-reflection", version.ref = "vbpd" }
-#noinspection NewerVersionAvailable
-com-github-kyuubiran-ezxhelper = { module = "com.github.kyuubiran:EzXHelper", version = "1.0.3" }
 com-github-topjohnwu-libsu-core = { module = "com.github.topjohnwu.libsu:core", version = "6.0.0" }
-de-robv-android-xposed-api = { module = "de.robv.android.xposed:api", version = "82" }
 dev-rikka-hidden-compat = { module = "dev.rikka.hidden:compat", version.ref = "hidden-api" }
 dev-rikka-hidden-stub = { module = "dev.rikka.hidden:stub", version.ref = "hidden-api" }
-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.10.0" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.11.0" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
 me-zhanghai-android-appiconloader = { module = "me.zhanghai.android.appiconloader:appiconloader", version = "1.5.0" }
+io-github-vova7878-androidvmtools = { module = "com.github.aerath-stuff:AndroidVMTools", version.ref = "androidvmtools" }
+io-github-vova7878-r8annotations = { module = "io.github.vova7878:R8Annotations", version.ref = "r8_annotations" }
+io-coilkt-coil3-coil = { module = "io.coil-kt.coil3:coil", version.ref = "coil" }
+io-coilkt-coil3-coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coil" }

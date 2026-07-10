@@ -1,4 +1,3 @@
-import com.android.build.gradle.internal.api.BaseVariantOutputImpl
 import com.google.gson.JsonParser
 import org.jose4j.json.internal.json_simple.JSONObject
 import java.io.DataInputStream
@@ -7,7 +6,6 @@ import java.net.URL
 
 plugins {
     alias(libs.plugins.agp.app)
-    alias(libs.plugins.autoresconfig)
     alias(libs.plugins.refine)
     alias(libs.plugins.kotlin)
     alias(libs.plugins.kotlin.serialization)
@@ -117,9 +115,17 @@ afterEvaluate {
 android {
     namespace = appPackageName
 
+    defaultConfig {
+        buildConfigField("String[]", "SUPPORTED_LOCALES", generateSupportedLocales())
+    }
+
     buildFeatures {
         buildConfig = true
         viewBinding = true
+    }
+
+    base {
+        archivesName = "${rootProject.name}-${defaultConfig.versionName!!.replace("/", "_")}"
     }
 
     packaging {
@@ -139,22 +145,45 @@ kotlin {
     jvmToolchain(21)
 }
 
-autoResConfig {
-    generateClass.set(true)
-    generateRes.set(false)
-    generatedClassFullName.set("icu.nullptr.hidemyapplist.util.LangList")
-    generatedArrayFirstItem.set("SYSTEM")
+// Inspired from https://github.com/XayahSuSuSu/Android-DataBackup/pull/260
+fun generateSupportedLocales(): String {
+    val foundLocales = StringBuilder()
+    foundLocales.append("new String[]{")
+
+    fun appendLangCode(code: String) {
+        foundLocales.append("\"").append(code).append("\"").append(",")
+    }
+
+    appendLangCode("SYSTEM")
+
+    fileTree(android.sourceSets["main"].res.srcDirs.first()).files.mapNotNull {
+        if (it.name == "strings.xml") {
+            val baseName = it.parent.substringAfterLast(File.separator)
+            if (baseName == "values") {
+                "en"
+            } else {
+                baseName.substringAfter('-')
+                    .replace("-r", "-")
+            }
+        } else {
+            null
+        }
+    }.sortedWith { file1, file2 ->
+        file1.compareTo(file2)
+    }.forEach { appendLangCode(it) }
+
+    return "${foundLocales.removeSuffix(",")}}"
 }
 
 dependencies {
     implementation(projects.common)
-    runtimeOnly(projects.xposed)
 
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.preference.ktx)
     implementation(libs.androidx.swiperefreshlayout)
-    implementation(libs.com.github.bumptech.glide)
+    implementation(libs.io.coilkt.coil3.coil)
+    implementation(libs.io.coilkt.coil3.coil.network.okhttp)
     implementation(libs.dev.androidbroadcast.vbpd)
     implementation(libs.dev.androidbroadcast.vbpd.reflection)
     implementation(libs.com.github.topjohnwu.libsu.core)
@@ -164,12 +193,4 @@ dependencies {
 
     implementation(libs.androidx.appcompat.appcompat)
     implementation(libs.material)
-}
-
-android.applicationVariants.all {
-    outputs.all {
-        (this as BaseVariantOutputImpl).apply {
-            outputFileName = "${rootProject.name.replace(" ", "_")}-${versionName}-${buildType.name}.apk"
-        }
-    }
 }

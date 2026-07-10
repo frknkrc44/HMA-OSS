@@ -45,7 +45,7 @@ Although it's bad practice to detect the installation of specific apps, not ever
 
 Additionally, some apps use various loopholes to acquire your app list, in order to use it as fingerprinting data or for other nefarious purposes.
 
-This module can work as an Xposed module to hide apps or reject app list requests.
+This module can work as an Zygisk module to hide apps or reject app list requests.
 
 ## About HMA-OSS
 
