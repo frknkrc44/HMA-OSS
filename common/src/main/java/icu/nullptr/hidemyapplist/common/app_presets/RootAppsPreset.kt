@@ -2,14 +2,28 @@ package icu.nullptr.hidemyapplist.common.app_presets
 
 import android.content.pm.ApplicationInfo
 import icu.nullptr.hidemyapplist.common.AppPresets
-import icu.nullptr.hidemyapplist.common.Utils
 import icu.nullptr.hidemyapplist.common.Utils.checkSplitPackages
+import icu.nullptr.hidemyapplist.common.Utils.containsMultiple
+import icu.nullptr.hidemyapplist.common.Utils.endsWithMultiple
+import icu.nullptr.hidemyapplist.common.Utils.startsWithMultiple
 
 class RootAppsPreset(private val appPresets: AppPresets) : BasePreset(NAME) {
     companion object {
         const val NAME = "root_apps"
         const val ACCESS_SUPERUSER_PERM = "\u0000a\u0000n\u0000d\u0000r\u0000o\u0000i\u0000d\u0000.\u0000p\u0000e\u0000r\u0000m\u0000i\u0000s\u0000s\u0000i\u0000o\u0000n\u0000.\u0000A\u0000C\u0000C\u0000E\u0000S\u0000S\u0000_\u0000S\u0000U\u0000P\u0000E\u0000R\u0000U\u0000S\u0000E\u0000R"
-        const val MOZILLA_WHITELIST = "\u0000o\u0000r\u0000g\u0000.\u0000m\u0000o\u0000z\u0000i\u0000l\u0000l\u0000a\u0000.\u0000g\u0000e\u0000c\u0000k\u0000o"
+        val WHITELISTS = arrayOf(
+            // Whitelist the Mozilla apps (why a browser app has ACCESS_SUPERUSER?)
+            "\u0000o\u0000r\u0000g\u0000.\u0000m\u0000o\u0000z\u0000i\u0000l\u0000l\u0000a\u0000.\u0000g\u0000e\u0000c\u0000k\u0000o",
+
+            // Whitelist the Chinese apps (usually games)
+            "\u0000M\u0000E\u0000I\u0000Z\u0000U\u0000P\u0000U\u0000S\u0000H",
+            "\u0000h\u0000k\u0000.\u0000a\u0000l\u0000i\u0000p\u0000a\u0000y\u0000.\u0000w\u0000a\u0000l\u0000l\u0000e\u0000t",
+            "\u0000c\u0000o\u0000m\u0000.\u0000t\u0000e\u0000n\u0000c\u0000e\u0000n\u0000t\u0000.\u0000m\u0000m",
+            "\u0000c\u0000o\u0000m\u0000.\u0000h\u0000e\u0000y\u0000t\u0000a\u0000p\u0000.",
+
+            // Whitelist the Netmera included Turkish apps
+            "\u0000c\u0000o\u0000m\u0000.\u0000n\u0000e\u0000t\u0000m\u0000e\u0000r\u0000a\u0000.\u0000N\u0000e\u0000t\u0000m\u0000e\u0000r\u0000a",
+        )
     }
 
     override val exactPackageNames = setOf(
@@ -55,6 +69,8 @@ class RootAppsPreset(private val appPresets: AppPresets) : BasePreset(NAME) {
         "com.jhc.detach",
         "com.sunilpaulmathew.debloater",
         "com.rk.taskmanager",
+        "be.mygod.vpnhotspot",
+        "com.emanuelef.remote_capture",
 
         // NetHunter related apps
         "com.mayank.rucky",
@@ -105,7 +121,7 @@ class RootAppsPreset(private val appPresets: AppPresets) : BasePreset(NAME) {
     override fun canBeAddedIntoPreset(appInfo: ApplicationInfo): Boolean {
         val packageName = appInfo.packageName
 
-        // Some of detectors trying to abuse the ACCESS_SUPERUSER permission
+        // Some of the detectors trying to abuse the ACCESS_SUPERUSER permission
         if (appPresets.getPresetByName(DetectorAppsPreset.NAME)?.containsPackage(packageName) ?: false) {
             return false
         }
@@ -116,12 +132,12 @@ class RootAppsPreset(private val appPresets: AppPresets) : BasePreset(NAME) {
         }
 
         // All Viper4Android/ViperFX apps
-        if (Utils.endsWithMultiple(packageName, ".viper4android", ".viperfx")) {
+        if (packageName.endsWithMultiple(".viper4android", ".viperfx")) {
             return true
         }
 
         // All libxzr apps (konabess, hkf, ...)
-        if (Utils.startsWithMultiple(packageName, "xzr.", "moe.xzr.")) {
+        if (packageName.startsWithMultiple("xzr.", "moe.xzr.")) {
             return true
         }
 
@@ -171,10 +187,14 @@ class RootAppsPreset(private val appPresets: AppPresets) : BasePreset(NAME) {
         }
 
         return checkSplitPackages(appInfo) { key, zipFile ->
+            if (findAppsFromLibs(zipFile, libNames) || findAppsFromAssets(zipFile, assetNames)) {
+                return@checkSplitPackages true
+            }
+
             val manifestStr = appPresets.readManifest(key, zipFile)
 
-            // Whitelist the Mozilla apps (why a browser app has ACCESS_SUPERUSER?)
-            if (manifestStr.contains(MOZILLA_WHITELIST)) {
+            // Check for whitelists
+            if (packageName.containsMultiple(*WHITELISTS)) {
                 return@checkSplitPackages false
             }
 
@@ -182,10 +202,6 @@ class RootAppsPreset(private val appPresets: AppPresets) : BasePreset(NAME) {
             // It is not used anymore, but can be good to use it as rooted app indicator
             // Thanks to @F640 for giving this idea
             if (manifestStr.contains(ACCESS_SUPERUSER_PERM)) {
-                return@checkSplitPackages true
-            }
-
-            if (findAppsFromLibs(zipFile, libNames) || findAppsFromAssets(zipFile, assetNames)) {
                 return@checkSplitPackages true
             }
 

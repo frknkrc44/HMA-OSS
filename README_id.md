@@ -45,7 +45,7 @@ Meskipun merupakan praktik yang buruk untuk mendeteksi pemasangan aplikasi terte
 
 Selain itu, beberapa aplikasi menggunakan berbagai celah untuk memperoleh daftar aplikasi anda, untuk menggunakannya sebagai data fingerprinting atau untuk tujuan lain yang tidak diinginkan.
 
-Modul ini dapat berfungsi sebagai modul Xposed untuk menyembunyikan aplikasi atau menolak permintaan daftar aplikasi.
+Modul ini dapat berfungsi sebagai modul Zygisk untuk menyembunyikan aplikasi atau menolak permintaan daftar aplikasi.
 
 ## Saya ingin berkontribusi dalam terjemahan
 Anda dapat berkontribusi dalam penerjemahan [Di Sini](https://crowdin.com/project/frknkrc44-hma-oss).

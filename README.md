@@ -28,9 +28,6 @@
     <a href="https://choosealicense.com/licenses/gpl-3.0/" style="text-decoration:none">
       <img src="https://img.shields.io/github/license/frknkrc44/HMA-OSS?label=License">
     </a>
-    <a href="https://hypercommit.com/hma-oss">
-      <img src="https://img.shields.io/badge/Hypercommit-DB2475">
-    </a>
   </p>
 </div>
 
@@ -48,7 +45,7 @@ Although it's bad practice to detect the installation of specific apps, not ever
 
 Additionally, some apps use various loopholes to acquire your app list, in order to use it as fingerprinting data or for other nefarious purposes.
 
-This module can work as an Xposed module to hide apps or reject app list requests.
+This module can work as an Zygisk module to hide apps or reject app list requests.
 
 ## About HMA-OSS
 

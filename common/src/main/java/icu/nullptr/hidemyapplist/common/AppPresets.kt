@@ -3,9 +3,9 @@ package icu.nullptr.hidemyapplist.common
 import android.content.pm.ApplicationInfo
 import android.content.pm.IPackageManager
 import android.util.Log
-import icu.nullptr.hidemyapplist.common.RiskyPackageUtils.ignoredForRiskyPackagesList
 import icu.nullptr.hidemyapplist.common.RiskyPackageUtils.tryToAddIntoGMSConnectionList
 import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
+import icu.nullptr.hidemyapplist.common.Utils.isSystemApp
 import icu.nullptr.hidemyapplist.common.app_presets.AccessibilityAppsPreset
 import icu.nullptr.hidemyapplist.common.app_presets.BasePreset
 import icu.nullptr.hidemyapplist.common.app_presets.CustomROMPreset
@@ -56,7 +56,7 @@ class AppPresets private constructor() {
     fun getPresetByName(name: String) = presetList.firstOrNull { it.name == name }
 
     fun reloadPresets(appsList: List<ApplicationInfo>) {
-        ignoredForRiskyPackagesList.clear()
+        RiskyPackageUtils.clearAppList()
         presetList.forEach { it.clearPackageList() }
 
         for (appInfo in appsList) {
@@ -72,7 +72,11 @@ class AppPresets private constructor() {
                 loggerFunction?.invoke(Log.ERROR, fail.toString())
             }
 
-            presetList.forEach {
+            presetList.forEach addToPreset@{
+                if (it.name == AccessibilityAppsPreset.NAME && appInfo.isSystemApp()) {
+                    return@addToPreset
+                }
+
                 runCatching {
                     it.addPackageInfoPreset(appInfo)
                 }.onFailure { fail ->
@@ -97,7 +101,7 @@ class AppPresets private constructor() {
         presetList.forEach {
             if (!it.containsPackage(packageName)) {
                 if (appInfo == null)
-                    appInfo = getPackageInfoCompat(pms, packageName, 0, 0)?.applicationInfo
+                    appInfo = pms.getPackageInfoCompat(packageName, 0, 0)?.applicationInfo
 
                 if (appInfo != null) {
                     runCatching {
@@ -113,7 +117,7 @@ class AppPresets private constructor() {
         }
 
         if (appInfo == null)
-            appInfo = getPackageInfoCompat(pms, packageName, 0, 0)?.applicationInfo
+            appInfo = pms.getPackageInfoCompat(packageName, 0, 0)?.applicationInfo
 
         if (appInfo != null)
             addedInAList = tryToAddIntoGMSConnectionList(appInfo, packageName) {
@@ -135,7 +139,7 @@ class AppPresets private constructor() {
             }
         }
 
-        if (ignoredForRiskyPackagesList.remove(packageName))
+        if (RiskyPackageUtils.removeAppFromList(packageName))
             itWasInAList = true
 
         if (itWasInAList)

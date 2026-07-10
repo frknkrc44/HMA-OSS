@@ -6,6 +6,7 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
+import android.os.Binder
 import android.os.UserHandle
 import android.os.UserManager
 import android.util.Log
@@ -222,11 +223,13 @@ object PackageHelper {
     }
 
     fun getInstalledPackagesAsUser(pm: PackageManager, userId: Int): List<PackageInfo> {
-        return if (userId == 0) {
+        return if (userId == currentUserID) {
             pm.getInstalledPackages(0)
         } else {
             val packages = ServiceClient.getPackageNames(userId) ?: arrayOf<String>()
             packages.mapNotNull { ServiceClient.getPackageInfo(it, userId) }
         }
     }
+
+    val currentUserID by lazy { Binder.getCallingUid() / 100000 }
 }

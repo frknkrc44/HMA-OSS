@@ -15,11 +15,13 @@ bin/
 gen/
 out/
 #  Uncomment the following line in case you need and you don't have the release build type files in your app
+debug/
 release/
 app/debug
 
 # Gradle files
 .gradle/
+gradle/gradle-daemon-jvm.properties
 build/
 
 # Local configuration file (sdk path, etc)
@@ -80,3 +82,9 @@ lint/tmp/
 
 updates/
 translators.json
+
+.kotlin/
+xposed/
+
+# ide files
+.vscode/

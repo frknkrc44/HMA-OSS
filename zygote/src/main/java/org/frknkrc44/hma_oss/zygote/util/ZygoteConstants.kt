@@ -1,0 +1,27 @@
+package org.frknkrc44.hma_oss.zygote.util
+
+object ZygoteConstants {
+    const val SYSTEM_SERVER_CLASS = "com.android.server.SystemServer"
+    const val RUNTIME_INIT_CLASS = "com.android.internal.os.RuntimeInit"
+    const val ZYGOTE_INIT_CLASS = "com.android.internal.os.ZygoteInit"
+    const val COMPUTER_ENGINE_CLASS = "com.android.server.pm.ComputerEngine"
+    const val PACKAGE_MANAGER_SERVICE_CLASS = "com.android.server.pm.PackageManagerService"
+    const val PMS_COMPUTER_TRACKER_CLASS = $$"com.android.server.pm.PackageManagerService$ComputerTracker"
+    const val APPS_FILTER_CLASS = "com.android.server.pm.AppsFilter"
+    const val APPS_FILTER_IMPL_CLASS = "com.android.server.pm.AppsFilterImpl"
+    const val STORAGE_MANAGER_SERVICE_CLASS = "com.android.server.StorageManagerService"
+    const val ACCESSIBILITY_SERVICE_CLASS = "com.android.server.accessibility.AccessibilityManagerService"
+    const val CONTENT_PROVIDER_TRANSPORT_CLASS = $$"android.content.ContentProvider$Transport"
+    const val IMM_SERVICE_CLASS = "com.android.server.inputmethod.InputMethodManagerService"
+    const val IMM_IMPL_CLASS = "com.android.server.inputmethod.IInputMethodManagerImpl"
+    const val ACTIVITY_STARTER_CLASS = "com.android.server.wm.ActivityStarter"
+    const val ACTIVITY_TASK_SUPERVISOR_CLASS = "com.android.server.wm.ActivityTaskSupervisor"
+    const val ACTIVITY_STACK_SUPERVISOR_CLASS = "com.android.server.wm.ActivityStackSupervisor"
+    const val ZYGOTE_PROCESS_CLASS = "android.os.ZygoteProcess"
+    const val PROCESS_LIST_CLASS = "com.android.server.am.ProcessList"
+    const val PROCESS_RECORD_INTERNAL_CLASS = "com.android.server.am.psc.ProcessRecordInternal"
+    const val BROADCAST_CONTROLLER_CLASS = "com.android.server.am.BroadcastController"
+    const val ACTIVITY_MANAGER_SERVICE_CLASS = "com.android.server.am.ActivityManagerService"
+    const val BROADCAST_HELPER_CLASS = "com.android.server.pm.BroadcastHelper"
+    const val PACKAGE_MONITOR_CLASS = "com.android.internal.content.PackageMonitor"
+}

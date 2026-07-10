@@ -101,12 +101,12 @@ class SettingsTemplateConfFragment : Fragment(R.layout.fragment_template_setting
 
         lifecycleScope.launch {
             viewModel.targetSettingList.collect {
-                binding.targetApps.text = String.format(getString(R.string.template_setting_count), it.size)
+                binding.targetApps.text = getString(R.string.template_setting_count, it.size)
             }
         }
         lifecycleScope.launch {
             viewModel.appliedAppList.collect {
-                binding.appliedApps.text = String.format(getString(R.string.template_applied_count), it.size)
+                binding.appliedApps.text = getString(R.string.template_applied_count, it.size)
             }
         }
 
