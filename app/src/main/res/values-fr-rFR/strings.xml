@@ -57,13 +57,13 @@
     <string name="home_new_update">Nouvelle mise à jour disponible: %s</string>
     <string name="home_update">Mise à jour: %s</string>
     <!-- Backup & Restore -->
-    <string name="backup_restore_backup_settings">Backup settings</string>
-    <string name="backup_restore_restore_settings">Restore settings</string>
-    <string name="backup_restore_apps">App configs</string>
-    <string name="backup_restore_templates">Templates</string>
-    <string name="backup_restore_settings_templates">Settings templates</string>
-    <string name="backup_restore_append">Append</string>
-    <string name="backup_restore_items_count">%d items</string>
+    <string name="backup_restore_backup_settings">Paramètres de sauvegarde</string>
+    <string name="backup_restore_restore_settings">Restaurer les paramètres</string>
+    <string name="backup_restore_apps">Configurations de l\'application</string>
+    <string name="backup_restore_templates">Modèles</string>
+    <string name="backup_restore_settings_templates">Modèles de paramètres</string>
+    <string name="backup_restore_append">Ajouter</string>
+    <string name="backup_restore_items_count">%d éléments</string>
     <!-- App select -->
     <string name="list_show_system">Afficher les applications du système</string>
     <string name="list_sorting">Trier</string>
@@ -130,7 +130,7 @@
     <string name="preset_sus_apps">Applications suspectes</string>
     <string name="preset_detector_apps">Applications de détection/vérification</string>
     <string name="preset_shizuku_dhizuku">Applications Shizuku/Dhizuku</string>
-    <string name="preset_accessibility_apps">Accessibility apps</string>
+    <string name="preset_accessibility_apps">Applications d\'accessibilité</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Accessibilité</string>
     <string name="settings_preset_dev_options">Options de développeur</string>
@@ -183,14 +183,14 @@
     <string name="settings_package_query_workaround_summary">N\'activez pas cette option si la liste des paquets s\'affiche correctement dans cette application.</string>
     <string name="settings_launcher_icon">Icône du lanceur</string>
     <string name="settings_error_only_log">Journal d\'erreurs uniquement</string>
-    <string name="settings_disable_hooks">Disable functions</string>
-    <string name="settings_disable_hooks_summary">You can disable some of the functions when they conflict with other modules</string>
-    <string name="settings_enable_internet">Enable Internet connection</string>
-    <string name="settings_enable_internet_summary">This app will lose all of Internet-related functionality when you disabled this option.</string>
-    <string name="settings_default_config">App config for new apps</string>
-    <string name="settings_default_config_summary">This will apply the defined config to all of new apps but will keep the existing configuration for new apps if you applied something before.</string>
-    <string name="settings_webview_protection">WebView protection</string>
-    <string name="settings_webview_protection_summary">This will add extra protection for crashes caused by hiding/targeting WebView or browsers</string>
+    <string name="settings_disable_hooks">Désactiver les fonctions</string>
+    <string name="settings_disable_hooks_summary">Vous pouvez désactiver certaines fonctions lorsqu\'elles entrent en conflit avec d\'autres modules</string>
+    <string name="settings_enable_internet">Activer la connexion Internet</string>
+    <string name="settings_enable_internet_summary">Cette application perdra toutes les fonctionnalités liées à Internet lorsque vous aurez désactivé cette option.</string>
+    <string name="settings_default_config">Configuration de l\'application pour les nouvelles applications</string>
+    <string name="settings_default_config_summary">Cela appliquera la configuration définie à toutes les nouvelles applications, mais conservera la configuration existante pour les nouvelles applications si vous avez appliqué quelque chose avant.</string>
+    <string name="settings_webview_protection">Protection WebView</string>
+    <string name="settings_webview_protection_summary">Cela ajoutera une protection supplémentaire pour les plantages causés par la masquation/ciblage WebView ou les navigateurs</string>
     <string name="settings_language">Langue</string>
     <string name="settings_translate">Participer à la traduction</string>
     <string name="settings_translate_summary">Aidez nous à traduire %s dans votre language</string>
@@ -225,8 +225,7 @@
     <string name="about_how_to_use_description_2">        Modification de la configuration effective en temps réel.
     </string>
     <string name="about_how_to_use_description_3">
-        This application acts like a manager of the Zygisk module from now, so you need a separate Zygisk module to make this manager work.
-    </string>
+        Cette application fait désormais office de gestionnaire du module Zygisk ; vous aurez donc besoin d\'un module Zygisk distinct pour que ce gestionnaire fonctionne.    </string>
     <string name="about_translator">Traducteurs</string>
     <string name="about_developer">Développeur</string>
     <string name="about_support">Support et retour d\'expérience</string>
@@ -255,7 +254,7 @@
     <string name="dark_theme">Thème sombre</string>
     <string name="dark_theme_off">Tout le temps désactivé</string>
     <string name="dark_theme_on">Tout le temps activé</string>
-    <string name="sick_mode_title">Sick mode is activated</string>
-    <string name="sick_mode_description">HMA-OSS detected possibly conflictable modules and limited its functionality</string>
-    <string name="sick_mode_notice">HMA/HMAL configs are compatible with HMA-OSS and you can begin to use with your existing config but you need to uninstall HMA/HMAL then reboot at first</string>
+    <string name="sick_mode_title">Le mode Malade est activé</string>
+    <string name="sick_mode_description">HMA-OSS a détecté des modules potentiellement en conflits et limité ses fonctionnalités</string>
+    <string name="sick_mode_notice">Les configurations HMA/HMAL sont compatibles avec HMA-OSS et vous pouvez commencer à utiliser avec votre configuration existante, mais vous devez désinstaller HMA/HMAL puis redémarrer au premier</string>
 </resources>
