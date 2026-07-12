@@ -225,8 +225,7 @@
     <string name="about_how_to_use_description_2">        Modification de la configuration effective en temps réel.
     </string>
     <string name="about_how_to_use_description_3">
-        This application acts like a manager of the Zygisk module from now, so you need a separate Zygisk module to make this manager work.
-    </string>
+        Cette application fait désormais office de gestionnaire du module Zygisk ; vous aurez donc besoin d\'un module Zygisk distinct pour que ce gestionnaire fonctionne.    </string>
     <string name="about_translator">Traducteurs</string>
     <string name="about_developer">Développeur</string>
     <string name="about_support">Support et retour d\'expérience</string>
@@ -255,7 +254,7 @@
     <string name="dark_theme">Thème sombre</string>
     <string name="dark_theme_off">Tout le temps désactivé</string>
     <string name="dark_theme_on">Tout le temps activé</string>
-    <string name="sick_mode_title">Sick mode is activated</string>
-    <string name="sick_mode_description">HMA-OSS detected possibly conflictable modules and limited its functionality</string>
-    <string name="sick_mode_notice">HMA/HMAL configs are compatible with HMA-OSS and you can begin to use with your existing config but you need to uninstall HMA/HMAL then reboot at first</string>
+    <string name="sick_mode_title">Le mode Malade est activé</string>
+    <string name="sick_mode_description">HMA-OSS a détecté des modules potentiellement en conflits et limité ses fonctionnalités</string>
+    <string name="sick_mode_notice">Les configurations HMA/HMAL sont compatibles avec HMA-OSS et vous pouvez commencer à utiliser avec votre configuration existante, mais vous devez désinstaller HMA/HMAL puis redémarrer au premier</string>
 </resources>
