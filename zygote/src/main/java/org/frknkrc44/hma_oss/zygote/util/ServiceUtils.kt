@@ -11,6 +11,7 @@ import android.os.ServiceManager
 import com.android.apksig.ApkVerifier
 import com.v7878.unsafe.Reflection.getDeclaredMethod
 import icu.nullptr.hidemyapplist.common.Constants
+import icu.nullptr.hidemyapplist.common.PropertyUtils
 import icu.nullptr.hidemyapplist.common.Utils.binderLocalScope
 import icu.nullptr.hidemyapplist.common.Utils.containsMultiple
 import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
@@ -176,5 +177,9 @@ object ServiceUtils {
         // we shouldn't apply hooks when the HMA/HMAL detected
         return isAppInstalled("com.tsng.hidemyapplist") ||
                 isAppInstalled("com.google.android.hmal")
+    }
+
+    val sAppDataIsolationEnabled by lazy {
+        PropertyUtils.isAppDataIsolationEnabled || service?.config?.altAppDataIsolation == true
     }
 }

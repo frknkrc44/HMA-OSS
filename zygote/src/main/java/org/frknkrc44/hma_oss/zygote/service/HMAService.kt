@@ -37,6 +37,7 @@ import org.frknkrc44.hma_oss.zygote.hook.BroadcastHook
 import org.frknkrc44.hma_oss.zygote.hook.ContentProviderHook
 import org.frknkrc44.hma_oss.zygote.hook.IFrameworkHook
 import org.frknkrc44.hma_oss.zygote.hook.ImmHook
+import org.frknkrc44.hma_oss.zygote.hook.PlatformCompatHook
 import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget29
 import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget30
 import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget31
@@ -228,6 +229,10 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.BAKLAVA) {
+                frameworkHooks.add(PlatformCompatHook())
+            }
+
             frameworkHooks.add(AppDataIsolationHook())
         }
 
