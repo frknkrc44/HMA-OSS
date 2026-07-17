@@ -94,6 +94,7 @@ zygisk {
     description = "A Zygisk backend for HMA-OSS"
     entrypoint = "org.frknkrc44.hma_oss.zygote.ZygoteEntry"
     archiveName = "${rootProject.name}-ZYGISK-${android.defaultConfig.versionName}"
+    updateJson = "https://furkank.net/hma_oss_update_checker.php"
     isAddVariantToArchiveName = true
 }
 
