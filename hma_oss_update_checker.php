@@ -1,8 +1,9 @@
 <?php
     $cacheFileName = 'hma_oss_update_request_cache.json';
     $changelogFileName = 'hma_oss_changelog.md';
+    $cacheLifetime = 3600;
 
-    if (file_exists($cacheFileName) && (time() - filemtime($cacheFileName)) <= 60000) {
+    if (file_exists($cacheFileName) && (time() - filemtime($cacheFileName)) <= $cacheLifetime) {
         $cachedFile = file_get_contents($cacheFileName);
 
         if (strlen($cachedFile) > 0) {
