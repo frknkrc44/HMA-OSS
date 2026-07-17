@@ -12,12 +12,15 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.net.toUri
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.MyApp.Companion.hmaApp
 import icu.nullptr.hidemyapplist.common.Constants
+import icu.nullptr.hidemyapplist.common.Utils.conflictedModules
+import icu.nullptr.hidemyapplist.common.Utils.isAppInstalled
 import icu.nullptr.hidemyapplist.data.fetchLatestUpdate
 import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.service.PrefManager
@@ -307,6 +310,48 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     serviceStatus.setTextColor(colorError)
                     filterCount.setText(R.string.sick_mode_notice)
                     filterCount.setTextColor(colorError)
+
+                    migrateBtn.isVisible = true
+                    @Suppress("DEPRECATION")
+                    migrateBtn.setOnClickListener {
+                        MaterialAlertDialogBuilder(requireContext())
+                            .setTitle(R.string.home_migrate_data)
+                            .setMessage(R.string.home_migrate_data_summary)
+                            .setPositiveButton(android.R.string.ok) { _, _ ->
+                                val packages = findUninstallRequiredPackages()
+                                if (packages.size > 1) {
+                                    showMigrateStatusDialog(false)
+                                    return@setPositiveButton
+                                }
+
+                                if (packages.isNotEmpty() && !ServiceClient.migrateData(packages.first())) {
+                                    showMigrateStatusDialog(false)
+                                    return@setPositiveButton
+                                }
+
+                                startActivity(Intent(Intent.ACTION_UNINSTALL_PACKAGE).apply {
+                                    data = "package:${packages.first()}".toUri()
+                                })
+
+                                showMigrateStatusDialog(true)
+                            }
+                            .setNegativeButton(R.string.home_migrate_uninstall_only) { _, _ ->
+                                val packages = findUninstallRequiredPackages()
+                                if (packages.size > 1) {
+                                    showMigrateStatusDialog(false)
+                                    return@setNegativeButton
+                                }
+
+                                if (packages.isNotEmpty()) {
+                                    startActivity(Intent(Intent.ACTION_UNINSTALL_PACKAGE).apply {
+                                        data = "package:${packages.first()}".toUri()
+                                    })
+                                }
+
+                                showMigrateStatusDialog(true)
+                            }
+                            .show()
+                    }
                 } else {
                     moduleStatusIcon.setImageResource(R.drawable.sentiment_calm_24px)
 
@@ -405,6 +450,22 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 })
             }
         }
+    }
+
+    private fun findUninstallRequiredPackages() = conflictedModules.filter {
+        requireContext().packageManager.isAppInstalled(it)
+    }
+
+    private fun showMigrateStatusDialog(success: Boolean) {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.home_migrate_data)
+            .setMessage(if (success) {
+                R.string.home_migrate_data_completed
+            } else {
+                R.string.home_migrate_data_failed
+            })
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
     }
 
     companion object {

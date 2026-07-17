@@ -60,6 +60,12 @@
     <string name="home_exported">Backed up config</string>
     <string name="home_new_update">New update available: %s</string>
     <string name="home_update">Update: %s</string>
+    <string name="home_migrate_data_fix_button">Fix the issue</string>
+    <string name="home_migrate_data">Migrate data</string>
+    <string name="home_migrate_data_summary">You will also be prompted to uninstall HMA/HMAL in both options. Do you want to migrate the old data?</string>
+    <string name="home_migrate_data_failed">Failed to copy the data or found more than one HMA/HMAL.</string>
+    <string name="home_migrate_data_completed">Done! You need to reboot your device.</string>
+    <string name="home_migrate_uninstall_only">Uninstall only</string>
 
     <!-- Backup & Restore -->
     <string name="backup_restore_backup_settings">Backup settings</string>

@@ -138,4 +138,6 @@ object ServiceClient : IHMAService, IBinder.DeathRecipient {
     override fun startMainActivityAsUser(packageName: String, userId: Int) {
         service?.startMainActivityAsUser(packageName, userId)
     }
+
+    override fun migrateData(packageName: String) = service?.migrateData(packageName) ?: false
 }
