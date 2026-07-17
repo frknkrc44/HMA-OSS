@@ -464,7 +464,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             } else {
                 R.string.home_migrate_data_failed
             })
-            .setNegativeButton(android.R.string.cancel, null)
+            .setNegativeButton(android.R.string.ok, null)
             .show()
     }
 

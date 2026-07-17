@@ -114,8 +114,11 @@ object Utils {
     fun IPackageManager.isAppInstalled(packageName: String, userId: Int = 0) =
         getPackageUidCompat(packageName, 0, userId) >= 0
 
-    fun PackageManager.isAppInstalled(packageName: String) =
+    fun PackageManager.isAppInstalled(packageName: String) = try {
         getPackageUid(packageName, 0) >= 0
+    } catch (_: Throwable) {
+        false
+    }
 
     fun ApplicationInfo.isSystemApp() = flags and ApplicationInfo.FLAG_SYSTEM != 0 ||
             flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP != 0
