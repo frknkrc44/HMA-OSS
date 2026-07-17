@@ -317,7 +317,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         MaterialAlertDialogBuilder(requireContext())
                             .setTitle(R.string.home_migrate_data)
                             .setMessage(R.string.home_migrate_data_summary)
-                            .setPositiveButton(android.R.string.ok) { _, _ ->
+                            .setPositiveButton(R.string.yes) { _, _ ->
                                 val packages = findUninstallRequiredPackages()
                                 if (packages.size > 1) {
                                     showMigrateStatusDialog(false)
@@ -335,11 +335,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
                                 showMigrateStatusDialog(true)
                             }
-                            .setNegativeButton(R.string.home_migrate_uninstall_only) { _, _ ->
+                            .setNegativeButton(android.R.string.cancel, null)
+                            .setNeutralButton(R.string.home_migrate_uninstall_only) { _, _ ->
                                 val packages = findUninstallRequiredPackages()
                                 if (packages.size > 1) {
                                     showMigrateStatusDialog(false)
-                                    return@setNegativeButton
+                                    return@setNeutralButton
                                 }
 
                                 if (packages.isNotEmpty()) {
