@@ -7,6 +7,7 @@ object ZygoteConstants {
     const val COMPUTER_ENGINE_CLASS = "com.android.server.pm.ComputerEngine"
     const val PACKAGE_MANAGER_SERVICE_CLASS = "com.android.server.pm.PackageManagerService"
     const val PMS_COMPUTER_TRACKER_CLASS = $$"com.android.server.pm.PackageManagerService$ComputerTracker"
+    const val PMS_COMPUTER_ENGINE_CLASS = $$"com.android.server.pm.PackageManagerService$ComputerEngine"
     const val APPS_FILTER_CLASS = "com.android.server.pm.AppsFilter"
     const val APPS_FILTER_IMPL_CLASS = "com.android.server.pm.AppsFilterImpl"
     const val STORAGE_MANAGER_SERVICE_CLASS = "com.android.server.StorageManagerService"
