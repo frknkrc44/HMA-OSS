@@ -51,4 +51,6 @@ interface IHMAService {
     int getManagerWorkMode() = 22;
 
     void startMainActivityAsUser(String packageName, int userId) = 23;
+
+    boolean migrateData(String packageName) = 24;
 }

@@ -69,6 +69,8 @@ afterEvaluate {
     )
 
     val urlConnection = if (crowdinApiKey.isNotBlank()) {
+        logger.lifecycle("Found Crowdin API key")
+
         val url = URL("https://crowdin.com/api/v2/projects/$crowdinProjectId/members")
         (url.openConnection() as HttpURLConnection).apply {
             setRequestProperty("authorization", "Bearer $crowdinApiKey")

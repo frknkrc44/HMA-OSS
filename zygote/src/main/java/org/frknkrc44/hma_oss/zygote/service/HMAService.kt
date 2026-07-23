@@ -1,5 +1,6 @@
 package org.frknkrc44.hma_oss.zygote.service
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.content.pm.IPackageManager
@@ -23,6 +24,7 @@ import icu.nullptr.hidemyapplist.common.RiskyPackageUtils.appHasGMSConnection
 import icu.nullptr.hidemyapplist.common.SettingsPresets
 import icu.nullptr.hidemyapplist.common.Utils.binderLocalScope
 import icu.nullptr.hidemyapplist.common.Utils.cleanRemnantsFromConfig
+import icu.nullptr.hidemyapplist.common.Utils.conflictedModules
 import icu.nullptr.hidemyapplist.common.Utils.generateRandomString
 import icu.nullptr.hidemyapplist.common.Utils.getInstalledApplicationsCompat
 import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
@@ -37,6 +39,7 @@ import org.frknkrc44.hma_oss.zygote.hook.BroadcastHook
 import org.frknkrc44.hma_oss.zygote.hook.ContentProviderHook
 import org.frknkrc44.hma_oss.zygote.hook.IFrameworkHook
 import org.frknkrc44.hma_oss.zygote.hook.ImmHook
+import org.frknkrc44.hma_oss.zygote.hook.PlatformCompatHook
 import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget29
 import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget30
 import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget31
@@ -228,6 +231,10 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.BAKLAVA) {
+                frameworkHooks.add(PlatformCompatHook())
+            }
+
             frameworkHooks.add(AppDataIsolationHook())
         }
 
@@ -697,6 +704,30 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
         } else {
             throw RemoteException("Package is disabled")
         }
+    }
+
+    override fun migrateData(packageName: String): Boolean {
+        if (packageName !in conflictedModules) return false
+
+        @SuppressLint("SdCardPath")
+        fun getDataFile(): File? {
+            // Android 11+
+            val dataMirror = File("/data_mirror/data_ce/null/0/$packageName/files/config.json")
+            if (dataMirror.exists()) return dataMirror
+
+            // Android 10-
+            val data = File("/data/data/$packageName/files/config.json")
+            if (data.exists()) return data
+
+            return null
+        }
+
+        val dataFile = getDataFile() ?: return false
+
+        val bytes = dataFile.readBytes()
+        configFile.writeBytes(bytes)
+
+        return true
     }
 
     // This part is a copy of Android code

@@ -6,6 +6,7 @@ import icu.nullptr.hidemyapplist.common.Constants
 import org.frknkrc44.hma_oss.zygote.service.BulkHooker
 import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.sAppDataIsolationEnabled
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.setArgument
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.ZYGOTE_PROCESS_CLASS
@@ -14,7 +15,7 @@ class ZygoteHook : IFrameworkHook {
     override val TAG = "ZygoteHook"
 
     private val forceMountData get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R &&
-            service?.config?.forceMountData ?: false
+            sAppDataIsolationEnabled && service?.config?.forceMountData ?: false
 
     override fun load() {
         BulkHooker.instance.hookBefore(

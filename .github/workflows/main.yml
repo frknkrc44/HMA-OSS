@@ -66,10 +66,19 @@ jobs:
         run: |
           ./gradlew prebuild
 
-      - name: Build all
-        id: buildAll
+      - name: Build APK
         run: |
           ./gradlew :app:assemble
+
+      - name: Upload APK mappings
+        uses: actions/upload-artifact@v7
+        with:
+          name: app-mappings
+          path: "app/build/outputs/mapping/release"
+
+      - name: Build module
+        id: buildModule
+        run: |
           ./gradlew :zygote:assemble
           echo "releaseName=$(ls zygote/build/outputs/magisk/release/*.zip | awk -F '(/|.zip)' '{print $6}')" >> $GITHUB_OUTPUT
           echo "debugName=$(ls zygote/build/outputs/magisk/debug/*.zip | awk -F '(/|.zip)' '{print $6}')" >> $GITHUB_OUTPUT
@@ -78,41 +87,36 @@ jobs:
           echo "ossNum=$(ls app/build/outputs/apk/debug/*.apk | awk -F '(/|.apk)' '{print $6}' | cut -f4 -d'-')" >> $GITHUB_OUTPUT
 
       - name: Upload release
-        if: success()
         uses: actions/upload-artifact@v7
         with:
           archive: false
-          name: ${{ steps.buildAll.outputs.releaseName }}
-          path: ${{ steps.buildAll.outputs.releaseFile }}
+          name: ${{ steps.buildModule.outputs.releaseName }}
+          path: ${{ steps.buildModule.outputs.releaseFile }}
+
+      - name: Upload module mappings
+        uses: actions/upload-artifact@v7
+        with:
+          name: zygote-mappings
+          path: "zygote/build/outputs/mapping/release"
 
       - name: Upload debug
-        if: success()
         uses: actions/upload-artifact@v7
         with:
           archive: false
-          name: ${{ steps.buildAll.outputs.debugName }}
-          path: ${{ steps.buildAll.outputs.debugFile }}
-
-      - name: Upload mappings
-        uses: actions/upload-artifact@v7
-        with:
-          archive: true
-          name: mappings
-          path: |
-            "app/build/outputs/mapping/release"
-            "zygote/build/outputs/mapping/release"
+          name: ${{ steps.buildModule.outputs.debugName }}
+          path: ${{ steps.buildModule.outputs.debugFile }}
 
       - name: Upload to GitHub release
         uses: softprops/action-gh-release@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          name: oss-${{ steps.buildAll.outputs.ossNum }}
+          name: oss-${{ steps.buildModule.outputs.ossNum }}
           body: ${{ github.event.head_commit.message }}
           files: |
-            ${{ steps.buildAll.outputs.releaseFile }}
-            ${{ steps.buildAll.outputs.debugFile }}
+            ${{ steps.buildModule.outputs.releaseFile }}
+            ${{ steps.buildModule.outputs.debugFile }}
             app/src/main/assets/translators.json
-          tag_name: oss-${{ steps.buildAll.outputs.ossNum }}
+          tag_name: oss-${{ steps.buildModule.outputs.ossNum }}
 
       - name: Post to channel
         if: ${{ github.event_name != 'pull_request' && success() && github.ref == 'refs/heads/master' }}
@@ -122,7 +126,7 @@ jobs:
           COMMIT_URL: ${{ github.event.head_commit.url }}
           COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
         run: |
-          export release=${{ steps.buildAll.outputs.releaseFile }}
-          export debug=${{ steps.buildAll.outputs.debugFile }}
+          export release=${{ steps.buildModule.outputs.releaseFile }}
+          export debug=${{ steps.buildModule.outputs.debugFile }}
           ESCAPED=`python3 -c 'import json,os,urllib.parse; msg = json.dumps(os.environ["COMMIT_MESSAGE"]); print(urllib.parse.quote(msg if len(msg) <= 1024 else json.dumps(os.environ["COMMIT_URL"])))'`
           curl -v "https://api.telegram.org/bot${BOT_TOKEN}/sendMediaGroup?chat_id=${CHANNEL_ID}&media=%5B%7B%22type%22:%22document%22,%20%22media%22:%22attach://release%22%7D,%7B%22type%22:%22document%22,%20%22media%22:%22attach://debug%22,%22caption%22:${ESCAPED}%7D%5D"  -F release="@$release" -F debug="@$debug"
