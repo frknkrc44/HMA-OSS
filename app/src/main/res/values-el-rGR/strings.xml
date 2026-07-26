@@ -57,7 +57,7 @@
     <string name="home_new_update">Νέα ενημέρωση διαθέσιμη: %s</string>
     <string name="home_update">Ενημέρωση: %s</string>
     <!-- Backup & Restore -->
-    <string name="backup_restore_backup_settings">Backup settings</string>
+    <string name="backup_restore_backup_settings">Ρυθμίσεις αντιγράφου ασφαλείας</string>
     <string name="backup_restore_restore_settings">Επαναφορά ρυθμίσεων</string>
     <string name="backup_restore_apps">Διαμορφώσεις εφαρμογής</string>
     <string name="backup_restore_templates">Πρότυπα</string>
