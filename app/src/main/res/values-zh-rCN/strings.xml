@@ -41,7 +41,6 @@
     <string name="home_xposed_not_activated">模块未激活</string>
     <string name="home_xposed_service_on">系统服务运行中 [%d]</string>
     <string name="home_xposed_service_off">系统服务未运行</string>
-    <string name="home_xposed_service_old">模块已更新，需要重启设备</string>
     <string name="home_xposed_filter_count">隐藏应用列表已经执行了 %d 次拦截</string>
     <string name="home_manage">管理</string>
     <string name="home_detection_test">拦截测试</string>
@@ -214,9 +213,6 @@
     <string name="settings_pure_black_dark_theme_summary">当深色主题启用时使用纯黑主题</string>
     
     <string name="settings_service">服务</string>
-    <string name="settings_stop_system_service">停止系统服务</string>
-    <string name="settings_stop_system_service_summary">需要重启设备才能再次启动系统服务</string>
-    <string name="settings_is_clean_env">同时清理运行环境？</string>
     <string name="settings_is_clean_env_summary">删除 /data/misc/hide_my_applist_* 中的缓存。这意味着下次重启后需手动打开一次本模块才能启用拦截功能，拦截次数也会清零。</string>
     <string name="settings_force_clean_env">强制清理运行环境（root）</string>
     <string name="settings_force_clean_env_summary">只有在系统服务无法启动的情况下才应使用，否则请使用上面的选项。</string>

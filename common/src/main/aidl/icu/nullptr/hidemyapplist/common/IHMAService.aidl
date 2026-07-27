@@ -2,7 +2,7 @@ package icu.nullptr.hidemyapplist.common;
 
 interface IHMAService {
 
-    void stopService(boolean cleanEnv) = 0;
+    // void stopService(boolean cleanEnv) = 0;
 
     void writeConfig(String json) = 1;
 
@@ -53,4 +53,6 @@ interface IHMAService {
     void startMainActivityAsUser(String packageName, int userId) = 23;
 
     boolean migrateData(String packageName) = 24;
+
+    void reloadConfigFromFile() = 25;
 }

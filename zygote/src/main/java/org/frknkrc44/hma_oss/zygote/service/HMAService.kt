@@ -65,7 +65,7 @@ import java.lang.reflect.Modifier
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWorkMode: Int) : IHMAService.Stub() {
+class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWorkMode: Int) : IHMAService.Stub() {
 
     companion object {
         private const val TAG = "HMA-Service"
@@ -102,18 +102,20 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
         loadFilterCount()
         loadConfig()
 
-        if (managerWorkMode == Constants.MANAGER_WORK_MODE_OK) {
+        appUid = findAndVerifyAppSignature(pms)
+
+        if (managerWorkMode != Constants.MANAGER_WORK_MODE_NO_HOOKS) {
             installHooks()
+
+            AppPresets.instance.loggerFunction = { level, msg ->
+                logWithLevel(level, "AppPresets") { msg }
+            }
+            reloadPresetsFromScratch()
+
+            managerWorkMode = Constants.MANAGER_WORK_MODE_OK
         }
 
         logI(TAG) { "HMA service initialized in mode $managerWorkMode" }
-
-        AppPresets.instance.loggerFunction = { level, msg ->
-            logWithLevel(level, "AppPresets") { msg }
-        }
-        reloadPresetsFromScratch()
-
-        appUid = findAndVerifyAppSignature(pms)
     }
 
     private fun searchDataDir() {
@@ -176,21 +178,23 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
             }
         }
 
-        if (!configFile.exists()) {
-            logI(TAG) { "Config file not found" }
-            return
-        }
-        val loading = runCatching {
-            val json = configFile.readText()
-            JsonConfig.parse(json)
-        }.getOrElse {
-            logE(TAG, it) { "Failed to parse config.json" }
-            return
-        }
+        val loading = configFile.let {
+            return@let runCatching configParser@{
+                if (configFile.exists()) {
+                    val json = configFile.readText()
+                    return@configParser JsonConfig.parse(json)
+                }
+            }.getOrElse {
+                logE(TAG, it) { "Failed to parse config.json" }
+                null
+            } as JsonConfig?
+        } ?: return
+
         if (loading.configVersion != BuildConfig.CONFIG_VERSION) {
             logW(TAG) { "Config version mismatch, need to reload" }
             return
         }
+
         loading.cleanRemnantsFromConfig()
         config = loading
         logI(TAG) { "Config loaded" }
@@ -435,13 +439,6 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
         } else {
             Constants.FAKE_INSTALLATION_SOURCE_USER
         }
-    }
-
-    override fun stopService(cleanEnv: Boolean) {
-        if (!cleanEnv) return
-
-        logI(TAG) { "Clean runtime environment" }
-        File(dataDir).deleteRecursively()
     }
 
     fun ensureManagerWorkModeOK(silent: Boolean = false): Boolean {
@@ -728,6 +725,19 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
         configFile.writeBytes(bytes)
 
         return true
+    }
+
+    override fun reloadConfigFromFile() {
+        val loading = runCatching {
+            assert(configFile.exists())
+            val json = configFile.readText()
+            JsonConfig.parse(json)
+        }.getOrElse {
+            logE(TAG, it) { "Failed to parse config.json" }
+            return
+        }
+
+        config = loading
     }
 
     // This part is a copy of Android code

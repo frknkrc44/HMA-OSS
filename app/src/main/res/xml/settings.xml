@@ -139,10 +139,10 @@
 
     <PreferenceCategory android:title="@string/settings_service">
         <Preference
-            android:icon="@drawable/outline_stop_circle_24"
-            android:key="stopSystemService"
-            android:summary="@string/settings_stop_system_service_summary"
-            android:title="@string/settings_stop_system_service" />
+            android:icon="@drawable/reset_settings_24px"
+            android:key="resetDefault"
+            android:summary="@string/settings_reset_default_summary"
+            android:title="@string/settings_reset_default" />
         <Preference
             android:icon="@drawable/outline_cleaning_services_24"
             android:key="forceCleanEnv"

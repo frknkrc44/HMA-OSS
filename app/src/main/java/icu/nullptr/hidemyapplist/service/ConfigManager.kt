@@ -327,4 +327,9 @@ object ConfigManager {
 
         return config
     }
+
+    fun resetConfig() {
+        config = JsonConfig()
+        saveConfig()
+    }
 }

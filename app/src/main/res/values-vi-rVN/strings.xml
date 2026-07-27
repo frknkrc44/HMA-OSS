@@ -38,7 +38,6 @@
     <string name="home_xposed_not_activated">Mô-đun chưa Kích hoạt</string>
     <string name="home_xposed_service_on">Dịch vụ hệ thống đang chạy [%d]</string>
     <string name="home_xposed_service_off">Dịch vụ hệ thống đang không chạy</string>
-    <string name="home_xposed_service_old">Mô-đun đã cập nhật, cần khởi động lại</string>
     <string name="home_xposed_filter_count">HMA-OSS đã lọc tổng cộng %d yêu cầu</string>
     <string name="home_manage">Quản lý</string>
     <string name="home_detection_test">Thử phát hiện</string>
@@ -201,9 +200,6 @@
     <string name="settings_pure_black_dark_theme">Chủ đề đen thuần</string>
     <string name="settings_pure_black_dark_theme_summary">Sử dụng màu đen thuần nếu chủ đề tối được bật</string>
     <string name="settings_service">Dịch vụ</string>
-    <string name="settings_stop_system_service">Dừng dịch vụ</string>
-    <string name="settings_stop_system_service_summary">Cần khởi động lại để bắt đầu lại dịch vụ</string>
-    <string name="settings_is_clean_env">Làm sạch môi trường thời gian chạy cùng lúc?</string>
     <string name="settings_is_clean_env_summary">Xóa bộ nhớ tạm của dịch vụ hệ thống trong /data/misc/hide_my_applist_*. Điều này có nghĩa là bạn cần phải khởi chạy ứng dụng mô-đun một lần theo cách thủ công sau lần khởi động lại tiếp theo để cho phép đánh chặn và số lần đánh chặn cũng sẽ được xóa sạch.</string>
     <string name="settings_force_clean_env">Buộc dọn dẹp môi trường thực thi (root)</string>
     <string name="settings_force_clean_env_summary">Chỉ chọn khi dịch vụ hệ thống không khởi động được, nếu không bạn nên nhấp vào tùy chọn ở trên.</string>

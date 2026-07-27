@@ -354,25 +354,25 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                             .show()
                     }
                 } else {
-                    moduleStatusIcon.setImageResource(R.drawable.sentiment_calm_24px)
+                    val image = when(workMode) {
+                        Constants.MANAGER_WORK_MODE_LOADING -> R.drawable.sentiment_stressed_24px
+                        else -> R.drawable.sentiment_calm_24px
+                    }
+
+                    moduleStatusIcon.setImageResource(image)
 
                     val versionNameSimple = ServiceClient.serviceVersionName ?: BuildConfig.VERSION_NAME
                     moduleStatus.text =
                         getString(R.string.home_xposed_activated, versionNameSimple)
                     root.setOnLongClickListener {
-                        ConfigManager.saveConfig()
+                        ServiceClient.reloadConfigFromFile()
                         showToast(android.R.string.ok)
 
                         true
                     }
 
-                    if (serviceVersion < org.frknkrc44.hma_oss.common.BuildConfig.SERVICE_VERSION) {
-                        serviceStatus.text =
-                            getString(R.string.home_xposed_service_old)
-                    } else {
-                        serviceStatus.text =
-                            getString(R.string.home_xposed_service_on, serviceVersion)
-                    }
+                    serviceStatus.text =
+                        getString(R.string.home_xposed_service_on, serviceVersion)
                     filterCount.visibility = View.VISIBLE
                     filterCount.text =
                         getString(R.string.home_xposed_filter_count, ServiceClient.filterCount)

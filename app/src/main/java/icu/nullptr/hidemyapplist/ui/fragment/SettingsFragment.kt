@@ -449,20 +449,16 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                 entryValues = allHooks.map { it.toString() }.toTypedArray()
             }
 
-            findPreference<Preference>("stopSystemService")?.setOnPreferenceClickListener {
+            findPreference<Preference>("resetDefault")?.setOnPreferenceClickListener {
                 if (ServiceClient.serviceVersion != 0) {
                     MaterialAlertDialogBuilder(requireContext())
-                        .setTitle(R.string.settings_is_clean_env)
-                        .setMessage(R.string.settings_is_clean_env_summary)
+                        .setTitle(R.string.settings_reset_default)
+                        .setMessage(R.string.settings_irreversible_confirmation)
                         .setPositiveButton(R.string.yes) { _, _ ->
-                            ServiceClient.stopService(true)
-                            showToast(R.string.settings_stop_system_service)
+                            ConfigManager.resetConfig()
+                            showToast(android.R.string.ok)
                         }
-                        .setNegativeButton(R.string.no) { _, _ ->
-                            ServiceClient.stopService(false)
-                            showToast(R.string.settings_stop_system_service)
-                        }
-                        .setNeutralButton(android.R.string.cancel, null)
+                        .setNegativeButton(R.string.no, null)
                         .show()
                 } else showToast(R.string.home_xposed_service_off)
                 true

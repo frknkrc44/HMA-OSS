@@ -38,7 +38,6 @@
     <string name="home_xposed_not_activated">Modul Dezactivat</string>
     <string name="home_xposed_service_on">Serviciul de sistem rulează [%d]</string>
     <string name="home_xposed_service_off">Serviciul de sistem nu funcționează</string>
-    <string name="home_xposed_service_old">Modul actualizat, necesită repornire</string>
     <string name="home_xposed_filter_count">HMA-SSS a filtrat in total %d cereri</string>
     <string name="home_manage">Gestionează</string>
     <string name="home_detection_test">Test de detectare</string>
@@ -201,9 +200,6 @@
     <string name="settings_pure_black_dark_theme">Temă Amoled</string>
     <string name="settings_pure_black_dark_theme_summary">Folosește tema Amoled dacă tema întunecată este pornită</string>
     <string name="settings_service">Serviciu</string>
-    <string name="settings_stop_system_service">Oprește serviciul de sistem</string>
-    <string name="settings_stop_system_service_summary">Telefonul necesită repornire pentru a reporni serviciul</string>
-    <string name="settings_is_clean_env">Curățați mediul de execuție în același timp?</string>
     <string name="settings_is_clean_env_summary">Eliminați cache-ul serviciului de sistem din /data/misc/hide_my_applist_*. Aceasta înseamnă că trebuie să lansați manual aplicația modulului odată după următoarea repornire pentru a activa interceptările, iar numărul de interceptări va fi, de asemenea, curățat.</string>
     <string name="settings_force_clean_env">Forțați curățarea mediului de execuție(superutilizator)</string>
     <string name="settings_force_clean_env_summary">Numai în cazul în care serviciul de sistem nu pornește, altfel ar trebui să dați clic pe opțiunea de mai sus.</string>

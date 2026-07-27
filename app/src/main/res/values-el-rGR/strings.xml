@@ -38,7 +38,6 @@
     <string name="home_xposed_not_activated">Μη Ενεργοποιημένη Ενότητα</string>
     <string name="home_xposed_service_on">Η υπηρεσία συστήματος εκτελείται [%d]</string>
     <string name="home_xposed_service_off">Η υπηρεσία συστήματος δεν εκτελείται</string>
-    <string name="home_xposed_service_old">Η ενότητα ενημερώθηκε, χρειάζεται επανεκκίνηση</string>
     <string name="home_xposed_filter_count">Το HMA-OSS έχει φιλτράρει συνολικά %d αιτήματα</string>
     <string name="home_manage">Διαχείριση</string>
     <string name="home_detection_test">Δοκιμή εντοπισμού</string>
@@ -201,9 +200,6 @@
     <string name="settings_pure_black_dark_theme">Καθαρό μαύρο σκούρο θέμα</string>
     <string name="settings_pure_black_dark_theme_summary">Χρήση καθαρού μαύρου θέματος εάν είναι ενεργοποιημένο το σκούρο θέμα</string>
     <string name="settings_service">Υπηρεσία</string>
-    <string name="settings_stop_system_service">Διακοπή υπηρεσίας συστήματος</string>
-    <string name="settings_stop_system_service_summary">Χρειάζεται επανεκκίνηση για επανεκκίνηση της υπηρεσίας</string>
-    <string name="settings_is_clean_env">Εκκαθάριση περιβάλλοντος εκτέλεσης ταυτόχρονα;</string>
     <string name="settings_is_clean_env_summary">Αφαίρεση προσωρινής μνήμης υπηρεσίας συστήματος /data/misc/hide_my_applist_*. Αυτό σημαίνει ότι πρέπει να εκκινήσετε την εφαρμογή της ενότητας μία φορά χειροκίνητα μετά την επόμενη επανεκκίνηση, για να ενεργοποιηθούν οι υποκλοπές. Επίσης, οι μετρήσεις υποκλοπών θα εκκαθαριστούν.</string>
     <string name="settings_force_clean_env">Επιβολή εκκαθάρισης περιβάλλοντος εκτέλεσης (root)</string>
     <string name="settings_force_clean_env_summary">Μόνο εάν η υπηρεσία συστήματος δεν εκκινηθεί, διαφορετικά θα πρέπει να κάνετε κλικ στην παραπάνω επιλογή.</string>

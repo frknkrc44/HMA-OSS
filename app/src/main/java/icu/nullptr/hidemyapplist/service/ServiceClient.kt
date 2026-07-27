@@ -80,10 +80,6 @@ object ServiceClient : IHMAService, IBinder.DeathRecipient {
         service?.writeConfig(json)
     }
 
-    override fun stopService(cleanEnv: Boolean) {
-        service?.stopService(cleanEnv)
-    }
-
     fun forceStop(packageName: String) {
         forceStop(packageName, 0)
     }
@@ -140,4 +136,9 @@ object ServiceClient : IHMAService, IBinder.DeathRecipient {
     }
 
     override fun migrateData(packageName: String) = service?.migrateData(packageName) ?: false
+
+    override fun reloadConfigFromFile() {
+        service?.reloadConfigFromFile()
+        ConfigManager.init()
+    }
 }

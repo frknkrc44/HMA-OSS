@@ -67,7 +67,7 @@ object UserService {
             logE(ZygoteEntry.TAG) { "Conflicting module detected, skipping hook" }
             Constants.MANAGER_WORK_MODE_NO_HOOKS
         } else {
-            Constants.MANAGER_WORK_MODE_OK
+            Constants.MANAGER_WORK_MODE_LOADING
         }
 
         waitForService("activity")
