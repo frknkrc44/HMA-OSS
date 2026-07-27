@@ -106,7 +106,7 @@
     <string name="app_warning_risky_package_desc">此应用被标记为风险应用，对其隐藏可能会导致问题。是否继续？</string>
     <string name="app_spoof">伪装功能</string>
     <string name="app_hide_installation_source">伪装安装来源</string>
-    <string name="app_hide_installation_source_desc">对此应用，将所有应用伪装为通过Play商店安装（不会伪装系统应用）</string>
+    <string name="app_hide_installation_source_desc">对此应用，将所有其他应用（包括自身）伪装为通过Play商店安装（不会伪装系统应用）</string>
     <string name="app_hide_installation_source_system">同时伪装系统应用</string>
     <string name="app_hide_installation_source_system_desc">将所有系统应用伪装为无安装来源</string>
     <string name="app_exclude_target_installation_source">排除此应用自身</string>
