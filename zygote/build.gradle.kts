@@ -87,13 +87,13 @@ zygisk {
     // inject to system_server
     packages(ZygoteLoader.PACKAGE_SYSTEM_SERVER)
 
-    // module properties
+    // module properties — PostBoot fork
     id = "hma_oss_zygisk"
-    name = "HMA-OSS Zygisk"
-    author = "frknkrc44"
-    description = "A Zygisk backend for HMA-OSS"
+    name = "HMA-OSS Zygisk (PostBoot)"
+    author = "frknkrc44 + PostBoot port"
+    description = "HMA-OSS Zygisk backend, patched for KernelSU temporary-root (late-load / Jailbreak) — mirrors the NeoZygisk-PostBoot technique. Requires NeoZygisk-PostBoot or another late-load capable Zygisk provider. Tap the module Action button (or run postboot-activate.sh) to verify injection state."
     entrypoint = "org.frknkrc44.hma_oss.zygote.ZygoteEntry"
-    archiveName = "${rootProject.name}-ZYGISK-${android.defaultConfig.versionName}"
+    archiveName = "${rootProject.name}-ZYGISK-POSTBOOT-${android.defaultConfig.versionName}"
     isAddVariantToArchiveName = true
 }
 

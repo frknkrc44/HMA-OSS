@@ -10,3 +10,11 @@
 *.dex binary
 *.jar binary
 *.png binary
+
+# Ensure the Gradle wrapper and packaged shell scripts stay executable +
+# LF-normalised regardless of the push path (Emergent Save-to-GitHub,
+# `git am` on Windows clients, tarball imports, etc.).
+gradlew                          text eol=lf
+zygote/src/main/assets/*.sh      text eol=lf
+zygote/src/main/assets/**/*.sh   text eol=lf
+build-in-docker.sh               text eol=lf

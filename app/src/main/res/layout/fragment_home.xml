@@ -68,6 +68,10 @@
                     layout="@layout/view_home_item" />
 
                 <include
+                    android:id="@+id/nav_postboot_status"
+                    layout="@layout/view_home_item" />
+
+                <include
                     android:id="@+id/nav_settings"
                     layout="@layout/view_home_item" />
 

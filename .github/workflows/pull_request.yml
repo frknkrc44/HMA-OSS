@@ -44,6 +44,10 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle-
 
+      - name: Make gradlew executable
+        # Defensive: some push paths drop the executable bit; re-assert it.
+        run: chmod +x gradlew
+
       - name: Gradle prebuild
         run: |
           echo 'org.gradle.jvmargs=-Xmx2048m' >> gradle.properties

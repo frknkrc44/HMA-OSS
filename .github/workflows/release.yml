@@ -1,0 +1,178 @@
+name: Publish PostBoot release
+
+# Fires when a tag matching `v*-postboot` (or plain `v*`) is pushed. Runs the
+# same guardrails as .github/workflows/postboot-guardrails.yml, builds the
+# module ZIP, computes SHA-256, and creates a GitHub Release with the ZIP,
+# SHA-256, and RELEASE_NOTES.md attached.
+#
+# Trigger:
+#     git tag v1.0-postboot
+#     git push origin v1.0-postboot
+
+on:
+  push:
+    tags:
+      - 'v*-postboot'
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+      - 'v[0-9]+.[0-9]+'
+
+permissions:
+  contents: write   # create Releases + upload assets
+
+jobs:
+  guardrails:
+    name: Re-run guardrails on the tagged ref
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: sh -n on packaged scripts
+        run: |
+          set -e
+          for f in zygote/src/main/assets/*.sh zygote/src/main/assets/customize.d/*.sh; do
+              [ -f "$f" ] || continue
+              sh -n "$f"
+          done
+      - name: Safety contract (executable code paths only)
+        run: |
+          set -e
+          forbidden='ksud[[:space:]]+soft-reboot|setprop[[:space:]]+ctl.restart|ctl\.restart[[:space:]]+zygote|killall[[:space:]]+zygote|pkill[[:space:]]+zygote|/system/bin/reboot|svc[[:space:]]+power[[:space:]]+reboot'
+          hit=0
+          for f in zygote/src/main/assets/*.sh zygote/src/main/assets/customize.d/*.sh; do
+              [ -f "$f" ] || continue
+              stripped=$(sed -E '/^[[:space:]]*#/d' "$f" | sed -E 's/`[^`]*`//g')
+              if printf '%s\n' "$stripped" | grep -EnI "$forbidden"; then
+                  echo "!! Forbidden lifecycle string in $f"
+                  hit=1
+              fi
+          done
+          exit $hit
+      - name: /dev/.hma_oss referenced
+        run: |
+          grep -q '^RUN=/dev/.hma_oss' zygote/src/main/assets/postboot-bootstrap.sh
+          grep -q '/dev/.hma_oss'      zygote/src/main/assets/uninstall.sh
+
+  build:
+    name: Build module ZIP
+    needs: guardrails
+    runs-on: ubuntu-latest
+    outputs:
+      zip_path:  ${{ steps.locate.outputs.path }}
+      zip_name:  ${{ steps.locate.outputs.name }}
+      zip_sha:   ${{ steps.locate.outputs.sha256 }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: 'platforms;android-36 build-tools;35.0.0'
+      - name: Create local.properties
+        run: |
+          cat > local.properties <<EOF
+          sdk.dir=$ANDROID_SDK_ROOT
+          officialBuild=false
+          localBuild=true
+          EOF
+      - name: Gradle cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ hashFiles('**/*.gradle*', '**/gradle/wrapper/gradle-wrapper.properties') }}
+      - name: Make gradlew executable
+        # Defensive: the executable bit is 100755 in our git index, but some
+        # push paths (Emergent Save-to-GitHub, `git am` on Windows clients,
+        # certain tarball imports) can drop it, yielding "Permission denied"
+        # on the ./gradlew invocation. Always re-assert.
+        run: chmod +x gradlew
+      - name: Build manager APK + Zygisk module ZIP
+        run: |
+          ./gradlew :app:assembleRelease :zygote:assembleRelease --no-daemon --stacktrace
+      - id: locate
+        name: Locate + hash artefact
+        run: |
+          Z=$(ls zygote/build/outputs/magisk/release/*.zip | head -n 1)
+          N=$(basename "$Z")
+          S=$(sha256sum "$Z" | awk '{print $1}')
+          echo "path=$Z"          >> "$GITHUB_OUTPUT"
+          echo "name=$N"          >> "$GITHUB_OUTPUT"
+          echo "sha256=$S"        >> "$GITHUB_OUTPUT"
+          echo "Built:  $N"
+          echo "SHA256: $S"
+      - name: Audit ZIP contents
+        run: |
+          Z="${{ steps.locate.outputs.path }}"
+          for f in \
+              postboot-bootstrap.sh \
+              postboot-activate.sh \
+              post-fs-data.sh \
+              service.sh \
+              uninstall.sh \
+              action.sh \
+              customize.d/22-check-zygisk.sh \
+              customize.d/24-postboot-stage.sh
+          do
+              if ! unzip -l "$Z" | grep -qE "[[:space:]]$f$"; then
+                  echo "!! Release ZIP is missing $f"; exit 1
+              fi
+          done
+          unzip -l "$Z" | grep -q 'zygisk/arm64-v8a.so'
+          tmp=$(mktemp -d); unzip -q "$Z" -d "$tmp"
+          forbidden='ksud[[:space:]]+soft-reboot|setprop[[:space:]]+ctl.restart|ctl\.restart[[:space:]]+zygote|killall[[:space:]]+zygote|pkill[[:space:]]+zygote|/system/bin/reboot'
+          hit=0
+          for f in "$tmp"/*.sh "$tmp"/customize.d/*.sh; do
+              [ -f "$f" ] || continue
+              stripped=$(sed -E '/^[[:space:]]*#/d' "$f" | sed -E 's/`[^`]*`//g')
+              if printf '%s\n' "$stripped" | grep -EnI "$forbidden"; then
+                  echo "!! Forbidden in packaged $f"; hit=1
+              fi
+          done
+          [ "$hit" -eq 0 ]
+          echo "OK: release ZIP audit passed."
+      - name: Write SHA-256 sidecar
+        run: |
+          echo "${{ steps.locate.outputs.sha256 }}  ${{ steps.locate.outputs.name }}" \
+              > "${{ steps.locate.outputs.path }}.sha256"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: HMA-OSS-Zygisk-PostBoot-${{ github.ref_name }}
+          path: |
+            zygote/build/outputs/magisk/release/*.zip
+            zygote/build/outputs/magisk/release/*.sha256
+
+  publish:
+    name: Publish GitHub Release
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: HMA-OSS-Zygisk-PostBoot-${{ github.ref_name }}
+          path: dist
+      - name: Compose release body
+        id: body
+        run: |
+          NOTES=""
+          if [ -f RELEASE_NOTES.md ]; then
+              NOTES="$(cat RELEASE_NOTES.md)"
+          else
+              NOTES="Automated release for tag ${{ github.ref_name }}."
+          fi
+          printf '%s\n\n---\n**SHA-256**: `%s`\n' "$NOTES" "${{ needs.build.outputs.zip_sha }}" > body.md
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: "HMA-OSS Zygisk (PostBoot) ${{ github.ref_name }}"
+          body_path: body.md
+          draft: false
+          prerelease: ${{ contains(github.ref_name, '-rc') || contains(github.ref_name, '-beta') || contains(github.ref_name, '-alpha') }}
+          files: |
+            dist/*.zip
+            dist/*.sha256

@@ -62,12 +62,13 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle-
 
+      - name: Make gradlew executable
+        # Defensive: some push paths drop the executable bit; re-assert it.
+        run: chmod +x gradlew
+
       - name: Gradle prebuild
         run: |
           ./gradlew prebuild
-
-      - name: Build all
-        id: buildAll
         run: |
           ./gradlew :app:assemble
           ./gradlew :zygote:assemble

@@ -1,0 +1,177 @@
+name: PostBoot guardrails
+
+# Enforces the NeoZygisk-PostBoot safety contract on this HMA-OSS fork:
+#   * all shell scripts must have valid syntax (`sh -n`)
+#   * the runtime tmpfs path `/dev/.hma_oss` must be referenced by the
+#     bootstrap and by at least one lifecycle hook
+#   * the module must NEVER contain destructive lifecycle commands
+#     (ksud soft-reboot, ctl.restart zygote, killall zygote, reboot, etc.)
+#   * the built release ZIP (if produced by a companion build workflow)
+#     must ship the PostBoot scripts and be arm64-only compatible
+#
+# This workflow is intentionally cheap: no Android SDK, no JDK, no Gradle.
+# It runs on every push / PR and takes ~30 s.
+
+on:
+  push:
+    branches: [ postboot, master ]
+  pull_request:
+    branches: [ postboot, master ]
+
+jobs:
+  shell-syntax:
+    name: Shell syntax check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: sh -n on every packaged shell script
+        run: |
+          set -e
+          fail=0
+          for f in \
+              zygote/src/main/assets/*.sh \
+              zygote/src/main/assets/customize.d/*.sh
+          do
+              [ -f "$f" ] || continue
+              if sh -n "$f"; then
+                  echo "OK    $f"
+              else
+                  echo "FAIL  $f"
+                  fail=1
+              fi
+          done
+          exit $fail
+
+  shellcheck:
+    name: ShellCheck (informational)
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ludeeus/action-shellcheck@master
+        with:
+          scandir: 'zygote/src/main/assets'
+          severity: warning
+
+  runtime-path-required:
+    name: /dev/.hma_oss runtime path referenced
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bootstrap references /dev/.hma_oss
+        run: |
+          set -e
+          grep -q '^RUN=/dev/.hma_oss'         zygote/src/main/assets/postboot-bootstrap.sh
+          grep -q 'PostBoot runtime at /dev/.hma_oss\|/dev/.hma_oss' \
+              zygote/src/main/assets/customize.d/24-postboot-stage.sh
+          grep -q '/dev/.hma_oss'              zygote/src/main/assets/uninstall.sh
+
+  safety-contract:
+    name: No destructive lifecycle commands
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reject dangerous strings in packaged asset code paths
+        # Strategy: only flag *executable* lines, not comments or help text.
+        # For each script we first drop shell-comment lines (^\s*#),
+        # then strip anything inside `backticks` (that's how our docstrings
+        # reference forbidden tokens), then check the resulting text.
+        run: |
+          set -e
+          forbidden='ksud[[:space:]]+soft-reboot|setprop[[:space:]]+ctl.restart|ctl\.restart[[:space:]]+zygote|killall[[:space:]]+zygote|pkill[[:space:]]+zygote|/system/bin/reboot|svc[[:space:]]+power[[:space:]]+reboot'
+          hit=0
+          for f in \
+              zygote/src/main/assets/*.sh \
+              zygote/src/main/assets/customize.d/*.sh
+          do
+              [ -f "$f" ] || continue
+              stripped=$(sed -E '/^[[:space:]]*#/d' "$f" | sed -E 's/`[^`]*`//g')
+              if printf '%s\n' "$stripped" | grep -EnI "$forbidden"; then
+                  echo "!! Forbidden lifecycle string in $f"
+                  hit=1
+              fi
+          done
+          if [ "$hit" -ne 0 ]; then
+              echo
+              echo "Refuse to ship: PostBoot safety contract (docs/POSTBOOT_PORT.md §3) violated."
+              exit 1
+          fi
+          echo "OK: no destructive lifecycle commands present in executable code paths."
+
+  release-zip-audit:
+    name: Audit release ZIP contents (when built)
+    runs-on: ubuntu-latest
+    if: >-
+      contains(github.event.head_commit.message, '[release]') ||
+      startsWith(github.ref, 'refs/tags/v')
+    needs: [ shell-syntax, runtime-path-required, safety-contract ]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: 'platforms;android-36 build-tools;35.0.0'
+      - name: Create local.properties
+        run: |
+          cat > local.properties <<EOF
+          sdk.dir=$ANDROID_SDK_ROOT
+          officialBuild=false
+          localBuild=true
+          EOF
+      - name: Make gradlew executable
+        # Defensive: some push paths drop the executable bit; re-assert it.
+        run: chmod +x gradlew
+      - name: Build module ZIP
+        run: |
+          ./gradlew :app:assembleRelease :zygote:assembleRelease --no-daemon
+      - name: Locate the ZIP
+        id: zip
+        run: |
+          Z=$(ls zygote/build/outputs/magisk/release/*.zip | head -n 1)
+          echo "path=$Z" >> "$GITHUB_OUTPUT"
+          echo "Found: $Z"
+      - name: ZIP contains all PostBoot scripts
+        run: |
+          for f in \
+              postboot-bootstrap.sh \
+              postboot-activate.sh \
+              post-fs-data.sh \
+              service.sh \
+              uninstall.sh \
+              action.sh \
+              customize.d/22-check-zygisk.sh \
+              customize.d/24-postboot-stage.sh
+          do
+              if ! unzip -l "${{ steps.zip.outputs.path }}" | grep -qE "[[:space:]]$f$"; then
+                  echo "!! ZIP is missing $f"
+                  exit 1
+              fi
+              echo "OK  $f"
+          done
+      - name: ZIP has arm64-v8a Zygisk shim
+        run: |
+          unzip -l "${{ steps.zip.outputs.path }}" | grep -q 'zygisk/arm64-v8a.so'
+      - name: ZIP does NOT contain forbidden lifecycle strings
+        run: |
+          Z="${{ steps.zip.outputs.path }}"
+          tmp=$(mktemp -d)
+          unzip -q "$Z" -d "$tmp"
+          forbidden='ksud[[:space:]]+soft-reboot|setprop[[:space:]]+ctl.restart|ctl\.restart[[:space:]]+zygote|killall[[:space:]]+zygote|pkill[[:space:]]+zygote|/system/bin/reboot'
+          hit=0
+          for f in "$tmp"/*.sh "$tmp"/customize.d/*.sh; do
+              [ -f "$f" ] || continue
+              stripped=$(sed -E '/^[[:space:]]*#/d' "$f" | sed -E 's/`[^`]*`//g')
+              if printf '%s\n' "$stripped" | grep -EnI "$forbidden"; then
+                  echo "!! ZIP $f contains forbidden lifecycle command"
+                  hit=1
+              fi
+          done
+          [ "$hit" -eq 0 ] || exit 1
+          echo "OK: ZIP is safe."
+      - uses: actions/upload-artifact@v4
+        with:
+          name: HMA-OSS-Zygisk-PostBoot
+          path: zygote/build/outputs/magisk/release/*.zip

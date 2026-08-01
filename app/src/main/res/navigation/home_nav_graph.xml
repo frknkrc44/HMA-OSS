@@ -25,6 +25,11 @@
         android:label="@string/title_about" />
 
     <fragment
+        android:id="@+id/nav_postboot_status"
+        android:name="org.frknkrc44.hma_oss.ui.fragment.PostBootStatusFragment"
+        android:label="@string/title_postboot_status" />
+
+    <fragment
         android:id="@+id/nav_template_manage"
         android:name="icu.nullptr.hidemyapplist.ui.fragment.TemplateManageFragment"
         android:label="@string/title_template_manage" />

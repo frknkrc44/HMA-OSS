@@ -208,6 +208,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
         }
 
+        with(binding.navPostbootStatus) {
+            text1.text = getString(R.string.home_postboot_status)
+            icon.setImageResource(R.drawable.outline_info_24)
+            root.setOnClickListener {
+                navigate(R.id.nav_postboot_status)
+            }
+        }
+
         with(binding.navSettings) {
             text1.text = getString(R.string.title_settings)
             icon.setImageResource(R.drawable.outline_settings_24)

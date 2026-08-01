@@ -13,6 +13,23 @@
     <string name="title_app_settings">App settings</string>
     <string name="title_about">About</string>
     <string name="title_about_fork">About this fork</string>
+    <string name="title_postboot_status">PostBoot status</string>
+
+    <!-- PostBoot fork (KernelSU temporary root) -->
+    <string name="postboot_refresh">Refresh</string>
+    <string name="postboot_raw_status">Raw status</string>
+    <string name="postboot_loading">Loading PostBoot status…</string>
+    <string name="postboot_state_unknown">PostBoot state unknown. Bootstrap has not produced a status file yet — tap the module Action in KernelSU Manager once.</string>
+    <string name="postboot_state_healthy">HMA-OSS is active in this KernelSU session.</string>
+    <string name="postboot_state_waiting_softreboot">Zygisk provider is alive but HMA-OSS is not injected yet. Perform ONE KernelSU Manager Soft Reboot from a clean post-exploit session.</string>
+    <string name="postboot_state_waiting_provider">Zygisk provider has not finished injecting. Wait for it, or verify NeoZygisk-PostBoot is active.</string>
+    <string name="postboot_state_no_provider">No Zygisk provider found. Install NeoZygisk-PostBoot (or a compatible late-load provider) first.</string>
+    <string name="postboot_state_disabled">The HMA-OSS module is disabled or marked for removal. Enable it in KernelSU Manager.</string>
+    <string name="postboot_state_missing_lib">The HMA-OSS module is installed but zygisk/arm64-v8a.so is missing. Reinstall the module ZIP.</string>
+    <string name="postboot_state_not_installed">HMA-OSS module directory not found. Install the module ZIP first.</string>
+    <string name="postboot_state_busy">Another PostBoot bootstrap invocation is currently running. Refresh in a few seconds.</string>
+    <string name="postboot_state_failed">PostBoot bootstrap failed. See the log below for the failing phase and reason.</string>
+    <string name="home_postboot_status">PostBoot status</string>
 
     <string name="do_not_dual">Do not install HMA to secondary user</string>
     <string name="show_crash_log">Show crash log</string>

@@ -47,6 +47,32 @@ Additionally, some apps use various loopholes to acquire your app list, in order
 
 This module can work as an Zygisk module to hide apps or reject app list requests.
 
+## PostBoot fork — KernelSU temporary root / Jailbreak / late-load
+
+This branch (`postboot`) adapts HMA-OSS Zygisk so it works under **KernelSU
+temporary root** (a.k.a. *Jailbreak mode* / *late-load mode*), where the normal
+`post-fs-data.sh` → `service.sh` lifecycle does not run at boot.
+
+The port mirrors the technique validated by
+[**NeoZygisk-PostBoot**](https://github.com/igorcv88/NeoZygisk-PostBoot) —
+DEFEX-safe tmpfs runtime staging at `/dev/.hma_oss`, an idempotent
+non-destructive bootstrap, and a read-only user-invokable verifier. The module
+never restarts zygote, `system_server`, or userspace, and never invokes
+`ksud soft-reboot` — the required Soft Reboot is initiated by the user through
+KernelSU Manager.
+
+Full technical write-up: [`docs/POSTBOOT_PORT.md`](docs/POSTBOOT_PORT.md).
+Build instructions: [`docs/BUILD.md`](docs/BUILD.md).
+
+Required user lifecycle (once installed):
+
+1. Full reboot → run KernelSU temporary-root exploit → confirm KernelSU active.
+2. Install **NeoZygisk-PostBoot** (or another late-load-capable provider).
+3. Install this HMA-OSS Zygisk (PostBoot) module.
+4. KernelSU Manager → **Soft Reboot** *once*.
+5. Verify with `su -c '/system/bin/sh /data/adb/modules/hma_oss_zygisk/postboot-activate.sh verify'`
+   (or tap the module Action).
+
 ## About HMA-OSS
 
 https://github.com/frknkrc44/HMA-OSS/wiki
