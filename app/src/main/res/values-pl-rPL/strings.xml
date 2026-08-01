@@ -47,7 +47,7 @@
     <string name="home_backup_and_restore">Kopia i przywracanie</string>
     <string name="home_backup_config">Kopia konfiguracji</string>
     <string name="home_restore_config">Przywróć konfigurację</string>
-    <string name="home_import_successful">Zainportowano pomyślnie</string>
+    <string name="home_import_successful">Zaimportowano pomyślnie</string>
     <string name="home_import_failed">Importowanie nie powiodło się</string>
     <string name="home_import_app_version_too_old">Wersja modułu jest niższa niż kopia</string>
     <string name="home_import_backup_version_too_old">Wersja kopii jest za stara</string>
@@ -113,7 +113,7 @@
     <string name="app_exclude_target_installation_source_desc">Możesz włączyć tę opcję, jeśli ta aplikacja nie jest dostępna w Sklepie Google Play</string>
     <string name="app_force_stop_warning">Nie zapomnij wymusić zatrzymania aplikacji docelowej po zapisaniu konfiguracji</string>
     <string name="app_invert_activity_launch_protection">Zmień działanie ochrony przed uruchamianiem aktywności</string>
-    <string name="app_invert_activity_launch_protection_desc">Ta opcja zmieni działanie wyboru ustawienia „Wyłącz ochronę przed uruchamianiem aktywności” w Ustawieniach.</string>
+    <string name="app_invert_activity_launch_protection_desc">Ta opcja zmieni działanie wyboru ustawienia Wyłącz ochronę przed uruchamianiem aktywności w Ustawieniach.</string>
     <string name="app_global_activity_launch_protection_state">Ochrona jest %s globalnie</string>
     <string name="app_force_stop_launch">Wymuś zatrzymanie i uruchom</string>
     <string name="app_launch">Uruchom</string>
@@ -125,7 +125,7 @@
     <string name="title_settings_preset">Ustawienia wstępne</string>
     <string name="title_preset_manage">Pokaż ustawienia wstępne</string>
     <string name="preset_xposed">Moduły Vector/Xposed</string>
-    <string name="preset_root_apps">Menedżery roota/Aplikacje z rootem</string>
+    <string name="preset_root_apps">Menedżery roota/aplikacje z rootem</string>
     <string name="preset_custom_rom">Aplikacje niestandardowego ROMu</string>
     <string name="preset_sus_apps">Podejrzane aplikacje</string>
     <string name="preset_detector_apps">Aplikacje do wykrywania/sprawdzania</string>
