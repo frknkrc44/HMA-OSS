@@ -17,7 +17,7 @@ import icu.nullptr.hidemyapplist.common.app_presets.XposedModulesPreset
 import java.util.zip.ZipFile
 
 class AppPresets private constructor() {
-    private val presetList = mutableListOf<BasePreset>()
+    private val presetList = mutableMapOf<String, BasePreset>()
 
     private val manifestDataCache = mutableMapOf<String, String>()
 
@@ -52,12 +52,12 @@ class AppPresets private constructor() {
         return cache
     }
 
-    val presetNames by lazy { presetList.map { it.name }.toTypedArray() }
-    fun getPresetByName(name: String) = presetList.firstOrNull { it.name == name }
+    val presetNames by lazy { presetList.keys }
+    fun getPresetByName(name: String) = presetList[name]
 
     fun reloadPresets(appsList: List<ApplicationInfo>) {
         RiskyPackageUtils.clearAppList()
-        presetList.forEach { it.clearPackageList() }
+        presetList.values.forEach { it.clearPackageList() }
 
         for (appInfo in appsList) {
             when (appInfo.packageName) {
@@ -73,12 +73,12 @@ class AppPresets private constructor() {
             }
 
             presetList.forEach addToPreset@{
-                if (it.name == AccessibilityAppsPreset.NAME && appInfo.isSystemApp()) {
+                if (it.key == AccessibilityAppsPreset.NAME && appInfo.isSystemApp()) {
                     return@addToPreset
                 }
 
                 runCatching {
-                    it.addPackageInfoPreset(appInfo)
+                    it.value.addPackageInfoPreset(appInfo)
                 }.onFailure { fail ->
                     loggerFunction?.invoke(Log.ERROR, fail.toString())
                 }
@@ -90,8 +90,11 @@ class AppPresets private constructor() {
         manifestDataCache.clear()
     }
 
+    fun containsPackage(presetName: String, packageName: String) =
+        presetList[presetName]?.containsPackage(packageName) ?: false
+
     fun handlePackageAdded(pms: IPackageManager, packageName: String) {
-        if (presetList.any { it.containsPackage(packageName) }) {
+        if (presetList.any { it.value.containsPackage(packageName) }) {
             return
         }
 
@@ -99,14 +102,14 @@ class AppPresets private constructor() {
         var addedInAList = false
 
         presetList.forEach {
-            if (!it.containsPackage(packageName)) {
+            if (!it.value.containsPackage(packageName)) {
                 if (appInfo == null)
                     appInfo = pms.getPackageInfoCompat(packageName, 0, 0)?.applicationInfo
 
                 if (appInfo != null) {
                     runCatching {
-                        if (it.addPackageInfoPreset(appInfo!!)) {
-                            loggerFunction?.invoke(Log.DEBUG, "Package $packageName added into ${it.name}!")
+                        if (it.value.addPackageInfoPreset(appInfo!!)) {
+                            loggerFunction?.invoke(Log.DEBUG, "Package $packageName added into ${it.key}!")
                             addedInAList = true
                         }
                     }.onFailure { fail ->
@@ -134,7 +137,7 @@ class AppPresets private constructor() {
         var itWasInAList = false
 
         presetList.forEach {
-            if (it.removePackageFromPreset(packageName)) {
+            if (it.value.removePackageFromPreset(packageName)) {
                 itWasInAList = true
             }
         }
@@ -147,12 +150,12 @@ class AppPresets private constructor() {
     }
 
     init {
-        presetList.add(CustomROMPreset())
-        presetList.add(DetectorAppsPreset())
-        presetList.add(RootAppsPreset(this))
-        presetList.add(XposedModulesPreset())
-        presetList.add(SuspiciousAppsPreset())
-        presetList.add(SDhizukuAppsPreset(this))
-        presetList.add(AccessibilityAppsPreset(this))
+        presetList[CustomROMPreset.NAME] = CustomROMPreset()
+        presetList[DetectorAppsPreset.NAME] = DetectorAppsPreset()
+        presetList[RootAppsPreset.NAME] = RootAppsPreset(this)
+        presetList[XposedModulesPreset.NAME] = XposedModulesPreset()
+        presetList[SuspiciousAppsPreset.NAME] = SuspiciousAppsPreset()
+        presetList[SDhizukuAppsPreset.NAME] = SDhizukuAppsPreset(this)
+        presetList[AccessibilityAppsPreset.NAME] = AccessibilityAppsPreset(this)
     }
 }

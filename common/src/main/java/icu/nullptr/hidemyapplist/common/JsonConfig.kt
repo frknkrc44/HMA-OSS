@@ -83,6 +83,8 @@ data class JsonConfig(
      */
     var defaultConfig: AppConfig? = null,
 
+    val ignoredPackagesForPresets: MutableSet<String> = mutableSetOf(),
+
     val templates: MutableMap<String, Template> = mutableMapOf(),
     val settingsTemplates: MutableMap<String, SettingsTemplate> = mutableMapOf(),
 

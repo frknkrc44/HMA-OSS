@@ -337,13 +337,11 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
         return null
     }
 
-    fun getEnabledSettingsTemplates(caller: String?): Set<String> {
-        return config.scope[caller]?.applySettingTemplates ?: return setOf()
-    }
+    fun getEnabledSettingsTemplates(caller: String?) =
+        config.scope[caller]?.applySettingTemplates ?: setOf()
 
-    fun getEnabledSettingsPresets(caller: String?): Set<String> {
-        return config.scope[caller]?.applySettingsPresets ?: return setOf()
-    }
+    fun getEnabledSettingsPresets(caller: String?) =
+        config.scope[caller]?.applySettingsPresets ?: setOf()
 
     fun isAppInGMSIgnoredPackages(caller: String, query: String) =
         (caller in Constants.gmsPackages) && appHasGMSConnection(query)
@@ -377,18 +375,18 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
             }
         }
 
-        for (presetName in appConfig.applyPresets) {
-            val preset = AppPresets.instance.getPresetByName(presetName) ?: continue
+        if (query !in config.ignoredPackagesForPresets) {
+            for (presetName in appConfig.applyPresets) {
+                if (AppPresets.instance.containsPackage(presetName, query)) {
+                    // Do not hide apps from Play Store if they are connected to GMS
+                    val overriddenCaller = if (caller == Constants.VENDING_PACKAGE_NAME) {
+                        Constants.GMS_PACKAGE_NAME
+                    } else {
+                        caller
+                    }
 
-            if (preset.containsPackage(query)) {
-                // Do not hide apps from Play Store if they are connected to GMS
-                val overriddenCaller = if (caller == Constants.VENDING_PACKAGE_NAME) {
-                    Constants.GMS_PACKAGE_NAME
-                } else {
-                    caller
+                    return !isAppInGMSIgnoredPackages(overriddenCaller, query)
                 }
-
-                return !isAppInGMSIgnoredPackages(overriddenCaller, query)
             }
         }
 
