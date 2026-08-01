@@ -93,17 +93,17 @@
     <string name="app_enable_hide">Włącz ukrywanie</string>
     <string name="app_template_config">Konfiguracja szablonu</string>
     <string name="app_choose_template">Wybierz szablon</string>
-    <string name="app_choose_preset">Wybierz ustawienie</string>
+    <string name="app_choose_preset">Wybierz ustawienie wstępne</string>
     <string name="app_exclude_system_apps">Wyklucz aplikacje systemowe</string>
     <string name="app_exclude_system_apps_summary">Wyłączaj tę opcję tylko wtedy, gdy jest to naprawdę konieczne. Jej wyłączenie może spowodować awarię.</string>
     <string name="app_template_using">Używa %d szablonów</string>
-    <string name="app_preset_using">Używa %d ustawień</string>
-    <string name="app_settings_preset_using">Używa %d ustawień</string>
+    <string name="app_preset_using">Używa %d ustawień wstępnych</string>
+    <string name="app_settings_preset_using">Używa %d ustawień wstępnych</string>
     <string name="app_settings_template_using">Używa %d szablonów ustawień</string>
     <string name="app_extra_apps_visible_count">%d dodatkowych aplikacji jest widocznych</string>
     <string name="app_extra_apps_invisible_count">%d dodatkowych aplikacji jest niewidocznych</string>
     <string name="app_warning_risky_package_title">Ryzykowny pakiet</string>
-    <string name="app_warning_risky_package_desc">Ten pakiet jest oznaczony jako ryzykowny i może powodować problemy z ukrytymi aplikacjami. Chcesz kontynuować?</string>
+    <string name="app_warning_risky_package_desc">Ten pakiet jest oznaczony jako ryzykowny i może powodować problemy z ukrytymi aplikacjami. Kontynuować?</string>
     <string name="app_spoof">Fałszowanie</string>
     <string name="app_hide_installation_source">Fałszuj źródło instalacji</string>
     <string name="app_hide_installation_source_desc">Wszystkie aplikacje użytkownika będą dla tej aplikacji fałszywie oznaczane jako zainstalowane przez Sklep Google Play.</string>
@@ -167,7 +167,7 @@
     <string name="settings_permission_denied">Odmowa uprawnień</string>
     <string name="settings_force_mount_data">Wymuś izolacje danych dla wszystkich aplikacji</string>
     <string name="settings_force_mount_data_summary">Izolacja danych jest domyślnie wyłączona dla aplikacji docelowych API niższych niż 30</string>
-    <string name="settings_detail_log">Dziennik szczegółowy do debugowania</string>
+    <string name="settings_detail_log">Szczegółowy dziennik do debugowania</string>
     <string name="settings_max_log_size">Rozmiary bufora rejestratora</string>
     <string name="settings_hide_icon">Ukryj ikonę modułu w launcherze</string>
     <string name="settings_hide_icon_summary">Nadal możesz otworzyć aplikację w menedżerze roota</string>
@@ -197,9 +197,9 @@
     <string name="settings_theme">Motyw</string>
     <string name="settings_system_theme_color">Kolor motywu systemowego</string>
     <string name="settings_theme_color">Kolor motywu</string>
-    <string name="settings_dark_theme">Motyw ciemny</string>
-    <string name="settings_pure_black_dark_theme">Czysty czarny ciemny motyw</string>
-    <string name="settings_pure_black_dark_theme_summary">Użyj czystego czarnego motywu, gdy motyw ciemny jest włączony</string>
+    <string name="settings_dark_theme">Ciemny motyw</string>
+    <string name="settings_pure_black_dark_theme">Czarny ciemny motyw</string>
+    <string name="settings_pure_black_dark_theme_summary">Użyj czarnego motywu, gdy ciemny motyw jest włączony</string>
     <string name="settings_service">Usługa</string>
     <string name="settings_stop_system_service">Zatrzymaj usługę systemową</string>
     <string name="settings_stop_system_service_summary">Wymaga restartu, aby zrestartować usługę</string>
@@ -210,7 +210,7 @@
     <string name="settings_force_clean_env_toast_successful">Środowisko uruchomieniowe wyczyszczone</string>
     <string name="settings_update">Aktualizacja</string>
     <string name="settings_disable_update">Wyłącz powiadomienia o aktualizacji</string>
-    <string name="settings_receive_beta_update">Otrzymuj aktualizacje beta</string>
+    <string name="settings_receive_beta_update">Pobierz aktualizacje beta</string>
     <string name="settings_receive_beta_update_summary">Wersje beta mogą być niestabilne</string>
     <!-- Bulk config wizard -->
     <string name="title_bulk_config_wizard">Kreator konfiguracji zbiorczej</string>
@@ -243,7 +243,7 @@
     <string name="color_teal">Cyraneczkowy</string>
     <string name="color_green">Zielony</string>
     <string name="color_light_green">Jasny zielony</string>
-    <string name="color_lime">Limonkowy</string>
+    <string name="color_lime">Limonkowy zielony</string>
     <string name="color_yellow">Zółty</string>
     <string name="color_amber">Bursztynowy</string>
     <string name="color_orange">Pomarańczowy</string>
