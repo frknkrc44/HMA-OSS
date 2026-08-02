@@ -260,7 +260,7 @@
 2. 如果安装的应用之前有被手动/自动配置过，则不会覆盖其配置项
 3. 此功能不会影响当前已经安装的应用程序
 
-注意：你可以到\"模板管理\"中手动添加模板</string>
+注意：您可以到\"模板管理\"中手动添加模板，模版可以把相同的配置保存起来，同时应用给多个目标应用</string>
     <string name="about_how_to_use_description_2">修改配置后立刻生效</string>
     <string name="about_how_to_use_description_3">此应用程序为HMA-OSS管理器应用，不提供实际功能。您需要安装Zygisk框架（如 ZygiskNext）与HMA-OSS后端模块，此应用程序才能正常运行。</string>
     <string name="about_translator">翻译者</string>
