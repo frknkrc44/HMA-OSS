@@ -113,7 +113,7 @@
     <string name="app_hide_installation_source_system_desc">将所有系统应用伪装为无安装来源</string>
     <string name="app_exclude_target_installation_source">排除此应用自身</string>
     <string name="app_exclude_target_installation_source_desc">此应用将显示为原有安装来源（如果此应用没有上架Play商店，可以启用此项）</string>
-    <string name="app_force_stop_warning">保存配置后请强制停止目标应用以使配置生效</string>
+    <string name="app_force_stop_warning">强制停止并重启目标应用，配置亦可生效</string>
     <string name="app_invert_activity_launch_protection">可疑Activity拦截特例</string>
     <string name="app_invert_activity_launch_protection_desc">反转“不要拦截可疑Activity启动”设置项的状态</string>
     <string name="app_global_activity_launch_protection_state">该设置全局状态： %s</string>
@@ -208,7 +208,7 @@
     <string name="settings_is_clean_env">同时清理运行环境？</string>
     <string name="settings_is_clean_env_summary">删除 /data/misc/hide_my_applist_* 中的缓存。这意味着下次重启后需手动打开一次本应用才能启用拦截功能，拦截次数也会清零。</string>
     <string name="settings_force_clean_env">强制清理运行环境（root）</string>
-    <string name="settings_force_clean_env_summary">只有在系统服务无法启动的情况下才应使用，否则请使用上面的选项。</string>
+    <string name="settings_force_clean_env_summary">系统服务无法启动时可尝试使用此选项</string>
     <string name="settings_force_clean_env_toast_successful">运行环境已清理</string>
     <string name="settings_update">更新</string>
     <string name="settings_disable_update">禁用更新通知</string>
@@ -233,7 +233,7 @@
 5. 设置预设（HMA-OSS特色功能）：内置的设置模板
 6. 额外可见/不可见应用（HMA-OSS特色功能）：字面意思，在当前黑/白名单模板与预设的基础上额外添加可见/不可见的应用的例外
 
-伪装功能：为目标应用伪装其他应用的安装来源，伪装设备上没有安装过第三方应用
+伪装安装来源：为目标应用伪装其他应用的安装来源，伪装设备上没有安装过第三方应用
 
 关于设置模板（HMA-OSS特色功能）
 1. 对目标应用欺骗\"设置项\"(SettingsProvider) 的属性值，\"设置项\"存储了大部分安卓运行数据（例如adb调试开启状态，无障碍应用列表等等）
