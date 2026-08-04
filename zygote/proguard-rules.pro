@@ -25,3 +25,4 @@
 -dontwarn android.content.pm.ParceledListSlice
 -dontwarn android.os.SystemProperties
 -dontwarn com.v7878.r8.annotations.KeepCodeAttribute
+-keep class icu.nullptr.hidemyapplist.common.** { *; }
