@@ -14,7 +14,7 @@ import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.ZYGOTE_PROCESS_CLASS
 class ZygoteHook : IFrameworkHook {
     override val TAG = "ZygoteHook"
 
-    private val forceMountData get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R &&
+    private val forceMountData get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA &&
             sAppDataIsolationEnabled && service?.config?.forceMountData ?: false
 
     override fun load() {
