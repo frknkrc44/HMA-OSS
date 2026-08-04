@@ -55,12 +55,12 @@
     <string name="home_exported">Cấu hình đã được sao lưu</string>
     <string name="home_new_update">Bản cập nhật mới khả dụng: %s</string>
     <string name="home_update">Cập nhật: %s</string>
-    <string name="home_migrate_data_fix_button">Fix the issue</string>
-    <string name="home_migrate_data">Migrate data</string>
-    <string name="home_migrate_data_summary">You will also be prompted to uninstall HMA/HMAL in both options. Do you want to migrate the old data?</string>
-    <string name="home_migrate_data_failed">Failed to copy the data or found more than one HMA/HMAL.</string>
-    <string name="home_migrate_data_completed">Done! You need to reboot your device.</string>
-    <string name="home_migrate_uninstall_only">Uninstall only</string>
+    <string name="home_migrate_data_fix_button">Sửa lỗi</string>
+    <string name="home_migrate_data">Chuyển dữ liệu</string>
+    <string name="home_migrate_data_summary">Cả hai tùy chọn đều yêu cầu gỡ HMA/HMAL. Bạn có muốn chuyển dữ liệu cũ sang không?</string>
+    <string name="home_migrate_data_failed">Không thể đồng bộ dữ liệu hoặc phát hiện nhiều ứng dụng HMA/HMAL.</string>
+    <string name="home_migrate_data_completed">Đã xong! Bạn cần khởi động lại thiết bị.</string>
+    <string name="home_migrate_uninstall_only">Chỉ gỡ cài đặt</string>
     <!-- Backup & Restore -->
     <string name="backup_restore_backup_settings">Sao lưu cấu hình</string>
     <string name="backup_restore_restore_settings">Khôi phục cấu hình</string>
@@ -90,9 +90,9 @@
     <string name="template_name_invalid">Tên không hợp lệ</string>
     <string name="template_delete_title">Xóa mẫu</string>
     <string name="template_name_already_exist">Tên mẫu đã tồn tại</string>
-    <string name="template_applied_count">Đã áp dụng cho các ứng dụng: %d</string>
-    <string name="template_setting_count">Cài đặt %d đã được thêm vào</string>
-    <string name="template_apps_visible_count">%d ứng dụng không ẩn</string>
+    <string name="template_applied_count">Đã áp dụng cho %d ứng dụng</string>
+    <string name="template_setting_count">%d cài đặt đã được thêm vào</string>
+    <string name="template_apps_visible_count">%d ứng dụng hiện hình</string>
     <string name="template_apps_invisible_count">%d Ứng dụng bị ẩn</string>
     <!-- App settings -->
     <string name="app_enable_hide">Bật ẩn</string>
@@ -101,12 +101,12 @@
     <string name="app_choose_preset">Chọn thiết lập trước</string>
     <string name="app_exclude_system_apps">Loại trừ ứng dụng hệ thống</string>
     <string name="app_exclude_system_apps_summary">Chỉ tắt tùy chọn này khi cần thiết vì nó có thể gây sự cố nếu tắt</string>
-    <string name="app_template_using">Đang dùng %d mẫu</string>
+    <string name="app_template_using">Đang sử dùng %d mẫu</string>
     <string name="app_preset_using">Đang sử dụng %d thiết lập trước</string>
     <string name="app_settings_preset_using">Đang sử dụng %d cài đặt thiết lập trước</string>
-    <string name="app_settings_template_using">Đang dùng %d mẫu cài đặt</string>
-    <string name="app_extra_apps_visible_count">Ứng dụng bổ sung hiện hình %d</string>
-    <string name="app_extra_apps_invisible_count">%d Ứng dụng bổ sung được ẩn</string>
+    <string name="app_settings_template_using">Đang sử dụng %d mẫu cài đặt</string>
+    <string name="app_extra_apps_visible_count">Cho phép thấy %d ứng dụng bổ sung</string>
+    <string name="app_extra_apps_invisible_count">Ẩn %d ứng dụng bổ sung</string>
     <string name="app_warning_risky_package_title">Gói rủi ro</string>
     <string name="app_warning_risky_package_desc">Gói này được đánh dấu là rủi ro và bạn có thể gây ra lỗi cho các ứng dụng được ẩn. Bạn có muốn tiếp tục không?</string>
     <string name="app_spoof">Giả mạo</string>
@@ -129,7 +129,7 @@
     <string name="title_preset">Thiết lập trước</string>
     <string name="title_settings_preset">Cài đặt thiết lập trước</string>
     <string name="title_preset_manage">Hiển thị các thiết lập trước</string>
-    <string name="title_ignored_apps_for_presets">Ignored apps</string>
+    <string name="title_ignored_apps_for_presets">Ứng dụng được bỏ qua</string>
     <string name="preset_xposed">Các mô-đun LSPosed / Xposed</string>
     <string name="preset_root_apps">Trình quản lý Root / Ứng dụng có Root</string>
     <string name="preset_custom_rom">Ứng dụng ROM Tùy chỉnh</string>
@@ -162,7 +162,7 @@
     <string name="settings_overwrite_summary">Các mục trong danh mục này sẽ bị buộc phải bật nếu các công tắc được chọn</string>
     <string name="settings_default_value">Giá trị mặc định: %s</string>
     <string name="settings_data_isolation">Cách ly dữ liệu</string>
-    <string name="settings_data_isolation_summary">Dữ liệu ứng dụng: %s\nDữ liệu ứng dụng phân vùng: %s\nBuộc gắn kết: %s</string>
+    <string name="settings_data_isolation_summary">Dữ liệu ứng dụng: %s\nDữ liệu ứng dụng (Vold): %s\nBuộc gắn bộ nhớ: %s</string>
     <string name="settings_data_isolation_unsupported">Tùy chọn này chỉ khả dụng trên Android 11 trở lên</string>
     <string name="settings_app_data_isolation">Cách ly dữ liệu của ứng dụng</string>
     <string name="settings_vold_app_data_isolation">Buộc cách ly dữ liệu ứng dụng</string>
@@ -207,9 +207,9 @@
     <string name="settings_pure_black_dark_theme">Chủ đề đen thuần</string>
     <string name="settings_pure_black_dark_theme_summary">Sử dụng màu đen thuần nếu chủ đề tối được bật</string>
     <string name="settings_service">Dịch vụ</string>
-    <string name="settings_reset_default">Reset to defaults</string>
-    <string name="settings_reset_default_summary">This option allows you to clear whole config and begin from scratch</string>
-    <string name="settings_irreversible_confirmation">This action is irreversible. Are you sure?</string>
+    <string name="settings_reset_default">Khôi phục thiết lập ban đầu</string>
+    <string name="settings_reset_default_summary">Tùy chọn này cho phép bạn xoá toàn bộ cấu hình hiện tại và thiết lập lại từ đầu</string>
+    <string name="settings_irreversible_confirmation">Hành động này không thể hoàn tác. Bạn có chắc chắn không?</string>
     <string name="settings_is_clean_env_summary">Xóa bộ nhớ tạm của dịch vụ hệ thống trong /data/misc/hide_my_applist_*. Điều này có nghĩa là bạn cần phải khởi chạy ứng dụng mô-đun một lần theo cách thủ công sau lần khởi động lại tiếp theo để cho phép đánh chặn và số lần đánh chặn cũng sẽ được xóa sạch.</string>
     <string name="settings_force_clean_env">Buộc dọn dẹp môi trường thực thi (root)</string>
     <string name="settings_force_clean_env_summary">Chỉ chọn khi dịch vụ hệ thống không khởi động được, nếu không bạn nên nhấp vào tùy chọn ở trên.</string>
