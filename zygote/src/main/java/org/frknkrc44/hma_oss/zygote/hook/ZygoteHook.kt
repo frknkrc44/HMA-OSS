@@ -16,7 +16,8 @@ class ZygoteHook : ForceMountHookBase() {
     override val TAG = "ZygoteHook"
 
     private val forceMountData get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA &&
-            sAppDataIsolationEnabled && service?.config?.forceMountData ?: false
+            service?.config?.forceMountData ?: false &&
+            sAppDataIsolationEnabled
 
     override fun load() {
         BulkHooker.instance.hookBefore(
