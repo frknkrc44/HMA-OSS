@@ -5,24 +5,24 @@
     <string name="title_settings">Configurações</string>
     <string name="title_template_manage">Gerenciar modelos</string>
     <string name="title_template_settings">Configurações do modelo</string>
-    <string name="title_settings_template_conf">Configuração do perfil de configurações</string>
+    <string name="title_settings_template_conf">Configuração do modelo de configurações</string>
     <string name="title_app_manage">Gerenciar apps</string>
-    <string name="title_app_select">Selecionar aplicativo</string>
-    <string name="title_app_settings">Configurações do aplicativo</string>
+    <string name="title_app_select">Selecionar apps</string>
+    <string name="title_app_settings">Configurações do app</string>
     <string name="title_about">Sobre</string>
     <string name="title_about_fork">Sobre essa versão</string>
     <string name="do_not_dual">Não instale HMA no usuário secundário</string>
     <string name="show_crash_log">Mostrar registro do erro</string>
-    <string name="config_damaged">Arquivo de configuração danificado. Por favor limpe os dados do aplicativo</string>
+    <string name="config_damaged">Arquivo de configuração danificado. Por favor limpe os dados do app</string>
     <string name="edit_list">Editar lista</string>
-    <string name="delete">Deletar</string>
-    <string name="enabled">Habilitada</string>
-    <string name="disabled">Desabilitado</string>
+    <string name="delete">Excluir</string>
+    <string name="enabled">Ativado</string>
+    <string name="disabled">Desativado</string>
     <string name="work_mode">Modo de funcionamento</string>
     <string name="blacklist">Lista Negra</string>
     <string name="whitelist">Lista Branca</string>
-    <string name="application">Aplicativo</string>
-    <string name="preferences">Configurações</string>
+    <string name="application">App</string>
+    <string name="preferences">Preferências</string>
     <string name="refresh">Recarregar</string>
     <string name="filter">Filtro</string>
     <string name="yes">Sim</string>
@@ -41,8 +41,8 @@
     <string name="home_xposed_filter_count">HMA-OSS filtrou no total %d pedidos</string>
     <string name="home_manage">Gerenciar</string>
     <string name="home_detection_test">Teste de detecção</string>
-    <string name="home_download_test_app_title">Baixar aplicativo de teste</string>
-    <string name="home_download_test_app_message">Desenvolvemos um aplicativo de teste de detecção individual e migramos o teste de detecção para ele. Deseja baixá-lo agora?</string>
+    <string name="home_download_test_app_title">Baixar app de teste</string>
+    <string name="home_download_test_app_message">Desenvolvemos um app de teste de detecção individual e migramos o teste de detecção para ele. Deseja baixá-lo agora?</string>
     <string name="home_backup_and_restore">Backup &amp; Restaurar</string>
     <string name="home_backup_config">Backup</string>
     <string name="home_restore_config">Restaurar backup</string>
@@ -50,21 +50,21 @@
     <string name="home_import_failed">Erro ao importar</string>
     <string name="home_import_app_version_too_old">Versão do módulo inferior ao backup</string>
     <string name="home_import_backup_version_too_old">Versão do backup é muito antiga</string>
-    <string name="home_import_file_damaged">Arquivo de backup esta danificado</string>
+    <string name="home_import_file_damaged">O arquivo de backup está danificado</string>
     <string name="home_export_failed">Erro ao exportar</string>
     <string name="home_exported">Configuração salva</string>
     <string name="home_new_update">Nova atualização disponível: %s</string>
     <string name="home_update">Atualização: %s</string>
-    <string name="home_migrate_data_fix_button">Fix the issue</string>
-    <string name="home_migrate_data">Migrate data</string>
-    <string name="home_migrate_data_summary">You will also be prompted to uninstall HMA/HMAL in both options. Do you want to migrate the old data?</string>
-    <string name="home_migrate_data_failed">Failed to copy the data or found more than one HMA/HMAL.</string>
-    <string name="home_migrate_data_completed">Done! You need to reboot your device.</string>
-    <string name="home_migrate_uninstall_only">Uninstall only</string>
+    <string name="home_migrate_data_fix_button">Corrigir o problema</string>
+    <string name="home_migrate_data">Migrar dados</string>
+    <string name="home_migrate_data_summary">Nas duas opções você também será solicitado a desinstalar o HMA/HMAL. Deseja migrar os dados antigos?</string>
+    <string name="home_migrate_data_failed">Falha ao copiar os dados ou foi encontrado mais de um HMA/HMAL.</string>
+    <string name="home_migrate_data_completed">Pronto! Você precisa reiniciar o dispositivo.</string>
+    <string name="home_migrate_uninstall_only">Apenas desinstalar</string>
     <!-- Backup & Restore -->
     <string name="backup_restore_backup_settings">Configurações de backup</string>
     <string name="backup_restore_restore_settings">Restaurar configurações</string>
-    <string name="backup_restore_apps">Configurações do aplicativo</string>
+    <string name="backup_restore_apps">Configurações de apps</string>
     <string name="backup_restore_templates">Modelos</string>
     <string name="backup_restore_settings_templates">Modelos de configurações</string>
     <string name="backup_restore_append">Acrescentar</string>
@@ -77,68 +77,68 @@
     <string name="list_sort_by_package_name">Pelo nome do pacote</string>
     <string name="list_sort_by_install_time">Pela data de instalação</string>
     <string name="list_sort_by_update_time">Pela data de atualização</string>
-    <string name="list_empty_no_enabled">Tente esconder apps com esse modelo e os apps irão aparecer aqui</string>
-    <string name="list_empty_no_apps">Nenhum app encontrado, talvez você não permitiu esse app a acessar todos os apps</string>
+    <string name="list_empty_no_enabled">Tente ativar a ocultação para apps com o modo de funcionamento deste modelo e eles aparecerão aqui</string>
+    <string name="list_empty_no_apps">Nenhum app encontrado, talvez você não tenha permitido que este app consulte todos os pacotes</string>
     <string name="list_empty_preset">Nenhum app adicionado nesse perfil</string>
     <!-- Manage templates -->
-    <string name="template_usage_hint">Crie modelos para apps \"inquietos\", controlando a lista de aplicativos que eles podem obter.\n\nLista Negra (recomendado): Os apps selecionados no modelo serão invisiveis para os apps no qual esse modelo for aplicado.\nLista Branca: Os apps não selecionados nesse modelo serão invisiveis aos apps no qual esse modelo for aplicado.</string>
+    <string name="template_usage_hint">Crie modelos para apps \"inquietos\", controlando a lista de apps que eles podem obter.\n\nLista Negra (recomendado): Os apps selecionados no modelo serão invisiveis para os apps no qual esse modelo for aplicado.\nLista Branca: Os apps não selecionados nesse modelo serão invisiveis aos apps no qual esse modelo for aplicado.</string>
     <string name="template_new_blacklist">Criar modelo de lista negra</string>
     <string name="template_new_whitelist">Criar modelo de lista branca</string>
-    <string name="template_new_setting">Criar perfil de configurações</string>
-    <string name="template_delete">Tem certeza que quer apagar a configuração</string>
+    <string name="template_new_setting">Criar modelo de configurações</string>
+    <string name="template_delete">Tem certeza de que deseja apagar o modelo?</string>
     <string name="template_name">Nome do modelo</string>
     <string name="template_name_invalid">Nome inválido</string>
     <string name="template_delete_title">Apagar modelo</string>
     <string name="template_name_already_exist">Nome de modelo já existe</string>
-    <string name="template_applied_count">Aplicado a %d aplicativos </string>
+    <string name="template_applied_count">Aplicado a %d apps</string>
     <string name="template_setting_count">%d configurações adicionadas</string>
-    <string name="template_apps_visible_count">%d aplicativos visíveis</string>
-    <string name="template_apps_invisible_count">%d aplicativos invisíveis</string>
+    <string name="template_apps_visible_count">%d apps visíveis</string>
+    <string name="template_apps_invisible_count">%d apps invisíveis</string>
     <!-- App settings -->
-    <string name="app_enable_hide">Ativar</string>
+    <string name="app_enable_hide">Ativar ocultação</string>
     <string name="app_template_config">Configurações do modelo</string>
     <string name="app_choose_template">Escolher modelo</string>
     <string name="app_choose_preset">Escolher perfil</string>
     <string name="app_exclude_system_apps">Excluir apps do sistema</string>
-    <string name="app_exclude_system_apps_summary">Desative essa opção somente quando Realmente necessário, já que pode ocasionar do app parar de funcionar se desativada</string>
+    <string name="app_exclude_system_apps_summary">Desative essa opção somente quando for realmente necessário. É provável que ela cause travamentos se desativada</string>
     <string name="app_template_using">Usando %d modelos</string>
     <string name="app_preset_using">Usando %d perfis</string>
     <string name="app_settings_preset_using">Usando %d perfis de configuração</string>
-    <string name="app_settings_template_using">Usando %d perfis de configuração</string>
+    <string name="app_settings_template_using">Usando %d modelos de configurações</string>
     <string name="app_extra_apps_visible_count">%d apps adicionais expostos</string>
     <string name="app_extra_apps_invisible_count">%d apps adicionais escondidos</string>
-    <string name="app_warning_risky_package_title">Aplicativo de risco</string>
-    <string name="app_warning_risky_package_desc">Esse aplicativo foi marcado como de risco e pode ocasionar em problemas se escondidos dos apps. Deseja continuar?</string>
-    <string name="app_spoof">Esconder</string>
-    <string name="app_hide_installation_source">Esconder fontes de instalação</string>
-    <string name="app_hide_installation_source_desc">Todos os apps de usuário serão marcados como instalados a partir da Play Store para esse aplicativo</string>
-    <string name="app_hide_installation_source_system">Esconder fonte de instalação de apps de sistema</string>
-    <string name="app_hide_installation_source_system_desc">Todos os apps de sistema serão marcados como instalados pelo nada para esse aplicativo</string>
-    <string name="app_exclude_target_installation_source">Ignorar esse app</string>
-    <string name="app_exclude_target_installation_source_desc">Ative isso se esse app não esta disponivel na Play Store</string>
-    <string name="app_force_stop_warning">Não esqueça de fechar o app após salvar a configuração</string>
+    <string name="app_warning_risky_package_title">App de risco</string>
+    <string name="app_warning_risky_package_desc">Esse app foi marcado como de risco e pode ocasionar em problemas se escondidos dos apps. Deseja continuar?</string>
+    <string name="app_spoof">Mascaramento</string>
+    <string name="app_hide_installation_source">Mascarar fontes de instalação</string>
+    <string name="app_hide_installation_source_desc">Todos os apps de usuário serão marcados como instalados a partir da Play Store para esse app</string>
+    <string name="app_hide_installation_source_system">Mascarar também os apps do sistema</string>
+    <string name="app_hide_installation_source_system_desc">Todos os apps do sistema serão marcados como sem origem de instalação para esse app</string>
+    <string name="app_exclude_target_installation_source">Excluir o app alvo</string>
+    <string name="app_exclude_target_installation_source_desc">Ative se este app não estiver disponível na Play Store</string>
+    <string name="app_force_stop_warning">Não esqueça de forçar a parada do app alvo após salvar a configuração</string>
     <string name="app_invert_activity_launch_protection">Inverter proteção de inicialização de atividade</string>
-    <string name="app_invert_activity_launch_protection_desc">Essa opção ira inverter a seleção da opção \"Desativar proteção de inicialização de atividade\" </string>
-    <string name="app_global_activity_launch_protection_state">Proteção esta %s globalmente</string>
+    <string name="app_invert_activity_launch_protection_desc">Essa opção irá inverter a seleção de \"Desativar proteção de inicialização de atividade\" nas Configurações.</string>
+    <string name="app_global_activity_launch_protection_state">Proteção global: %s</string>
     <string name="app_force_stop_launch">Forçar parada e abrir</string>
     <string name="app_launch">Abrir</string>
     <string name="app_launch_failed">Falha ao abrir app, verifique os registros para mais detalhes</string>
-    <string name="app_restrict_zygote_permissions">Restringir permissões do ziygote</string>
+    <string name="app_restrict_zygote_permissions">Restringir permissões do Zygote</string>
     <string name="app_restrict_zygote_permissions_desc">Essa opção pode causar travamentos ou falsos positivos; escolha com sabedoria.</string>
     <!-- Presets -->
-    <string name="title_preset">Modelos</string>
-    <string name="title_settings_preset">Configurações de modelos</string>
+    <string name="title_preset">Perfis</string>
+    <string name="title_settings_preset">Perfis de configurações</string>
     <string name="title_preset_manage">Mostrar perfis</string>
-    <string name="title_ignored_apps_for_presets">Ignored apps</string>
+    <string name="title_ignored_apps_for_presets">Apps ignorados</string>
     <string name="preset_xposed">Módulos Lsposed/Xposed</string>
     <string name="preset_root_apps">Gerenciadores de root/Apps de root</string>
-    <string name="preset_custom_rom">Apps de ROM modificado</string>
+    <string name="preset_custom_rom">Apps de ROM personalizada</string>
     <string name="preset_sus_apps">Apps suspeitos</string>
-    <string name="preset_detector_apps">Apps detectores de root</string>
-    <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku apps</string>
+    <string name="preset_detector_apps">Apps detectores/verificadores</string>
+    <string name="preset_shizuku_dhizuku">Apps Shizuku/Dhizuku</string>
     <string name="preset_accessibility_apps">Apps de acessibilidade</string>
     <!-- Settings preset names -->
-    <string name="settings_preset_accessibility">Acessibilidade </string>
+    <string name="settings_preset_accessibility">Acessibilidade</string>
     <string name="settings_preset_dev_options">Opções de desenvolvedor</string>
     <string name="settings_preset_input_method">Teclado</string>
     <!-- Settings templates -->
@@ -156,50 +156,50 @@
     <!-- Filter logs -->
     <string name="title_filter_logs">Filtrar registros</string>
     <!-- Settings -->
-    <string name="settings_module">Modulo</string>
-    <string name="settings_overwrite">Habilitar</string>
-    <string name="settings_overwritten">Forçada</string>
-    <string name="settings_overwrite_summary">Tais items serão habilitados a força se ativados</string>
-    <string name="settings_default_value">Valor padrão %s</string>
+    <string name="settings_module">Módulo</string>
+    <string name="settings_overwrite">Sobrescrever</string>
+    <string name="settings_overwritten">Sobrescrito</string>
+    <string name="settings_overwrite_summary">Os itens desta categoria serão forçados como ativados se as chaves estiverem marcadas</string>
+    <string name="settings_default_value">Valor padrão: %s</string>
     <string name="settings_data_isolation">Isolamento de dados</string>
     <string name="settings_data_isolation_summary">Isolamento de dados: %s\nIsolamento pelo Vold: %s\nForçar montagem: %s</string>
-    <string name="settings_data_isolation_unsupported">Esta opção só esta disponivel no Android 11 pra cima</string>
-    <string name="settings_app_data_isolation">Isolamento de dados</string>
+    <string name="settings_data_isolation_unsupported">Esta opção só está disponível no Android 11 ou superior</string>
+    <string name="settings_app_data_isolation">Isolamento de dados do app</string>
     <string name="settings_vold_app_data_isolation">Isolamento de dados pelo Vold</string>
     <string name="settings_warning">Aviso</string>
-    <string name="settings_vold_warning">Isso ira ativar um recurso do Android que isola as pastas externas de aplicativos. Isso pode ajudar a melhor esconder apps, mas pode causar instabilidade. Esse recurso pode parar de funcionar a qualquer momento ja que esta abandonada no Android.</string>
+    <string name="settings_vold_warning">Isso irá ativar um recurso do AOSP que isola a pasta de armazenamento privado externo do app. Isso pode ajudar a esconder melhor os apps, mas pode causar instabilidade. Esse recurso pode parar de funcionar a qualquer momento, já que foi abandonado no AOSP.</string>
     <string name="settings_change_require_root">Alterar requer permissão root</string>
     <string name="settings_need_reboot">Alterar requer reinicialização</string>
     <string name="settings_permission_denied">Permissão negada</string>
     <string name="settings_force_mount_data">Impor isolamento de dados em todos os apps</string>
-    <string name="settings_force_mount_data_summary">Isolamento de dados está desativado para apps q usam API inferior a 30 por padrão</string>
+    <string name="settings_force_mount_data_summary">Por padrão, o isolamento de dados fica desativado para apps que usam API alvo inferior a 30</string>
     <string name="settings_detail_log">Registros detalhados para depuração</string>
-    <string name="settings_max_log_size">Tamanho do registro</string>
-    <string name="settings_hide_icon">Esconder icone do modulo na tela inicial</string>
-    <string name="settings_hide_icon_summary">Você ainda poderá abrir o app pelo Lsposed</string>
+    <string name="settings_max_log_size">Tamanhos do buffer de registro</string>
+    <string name="settings_hide_icon">Esconder ícone do módulo na tela inicial</string>
+    <string name="settings_hide_icon_summary">Você ainda poderá abrir o app pelo gerenciador de root</string>
     <string name="settings_bypass_risky_package_warning">Ignorar aviso de app de risco</string>
     <string name="settings_bypass_risky_package_warning_summary">Nota que o desenvolvedor não é responsável por problemas causados por apps de risco antes ou depois de você ativar esse recurso</string>
     <string name="settings_disable_activity_launch_protection">Desativar proteção de inicialização de atividade</string>
-    <string name="settings_disable_activity_launch_protection_summary">Essa opção ira levantar as restrições startActivity. Se não tiver certeza não ative.</string>
+    <string name="settings_disable_activity_launch_protection_summary">Essa opção irá remover todas as proteções de startActivity. Se não tiver certeza, não ative.</string>
     <string name="settings_system_wallpaper">Usar papel de parede do sistema</string>
     <string name="settings_clear_uninstalled_app_configs">Limpar configurações de apps desinstalados</string>
     <string name="settings_clear_uninstalled_app_configs_summary">Esta opção permite criar uma configuração sem remanescentes, mas terá que reconfigurar os apps quando os instalar novamente.</string>
     <string name="settings_no_undone_warning">Esta ação não pode ser desfeita.</string>
-    <string name="settings_package_query_workaround">Método de listagem alternativa</string>
-    <string name="settings_package_query_workaround_summary">Não ative essa opção se você consegue ver a lista de aplicativos corretamente neste app.</string>
-    <string name="settings_launcher_icon">Ícone do lançador</string>
-    <string name="settings_error_only_log">Log somente de erros</string>
+    <string name="settings_package_query_workaround">Consulta alternativa de pacotes</string>
+    <string name="settings_package_query_workaround_summary">Não ative essa opção se você consegue ver a lista de apps corretamente neste app.</string>
+    <string name="settings_launcher_icon">Ícone do launcher</string>
+    <string name="settings_error_only_log">Registro somente de erros</string>
     <string name="settings_disable_hooks">Desativar funções</string>
     <string name="settings_disable_hooks_summary">Você pode desativar algumas funções quando elas entrarem em conflito com outros módulos</string>
     <string name="settings_enable_internet">Ativar conexão à internet</string>
     <string name="settings_enable_internet_summary">Este app perderá todas as funcionalidades relacionadas à internet quando desativar esta opção.</string>
-    <string name="settings_default_config">Configuração de aplicativos para novos aplicativos</string>
-    <string name="settings_default_config_summary">Isso aplicará a configuração definida a todos os novos aplicativos, mas manterá a configuração existente para novos aplicativos, caso você tenha aplicado alguma configuração anteriormente.</string>
+    <string name="settings_default_config">Configuração de app para novos apps</string>
+    <string name="settings_default_config_summary">Isso aplicará a configuração definida a todos os novos apps, mas manterá a configuração existente para novos apps, caso você tenha aplicado alguma configuração anteriormente.</string>
     <string name="settings_webview_protection">Proteção WebView</string>
     <string name="settings_webview_protection_summary">Isso adicionará proteção extra contra falhas causadas por ocultação/segmentação de WebView ou navegadores</string>
     <string name="settings_language">Idioma</string>
     <string name="settings_translate">Participe na tradução</string>
-    <string name="settings_translate_summary">Nos ajude a traduzir %s na sua língua </string>
+    <string name="settings_translate_summary">Ajude-nos a traduzir o %s para o seu idioma</string>
     <string name="settings_theme">Tema</string>
     <string name="settings_system_theme_color">Cor de tema do sistema</string>
     <string name="settings_theme_color">Cor do tema</string>
@@ -207,10 +207,10 @@
     <string name="settings_pure_black_dark_theme">Tema preto (AMOLED)</string>
     <string name="settings_pure_black_dark_theme_summary">Ativa o tema preto se o tema escuro estiver habilitado</string>
     <string name="settings_service">Serviço</string>
-    <string name="settings_reset_default">Reset to defaults</string>
-    <string name="settings_reset_default_summary">This option allows you to clear whole config and begin from scratch</string>
-    <string name="settings_irreversible_confirmation">This action is irreversible. Are you sure?</string>
-    <string name="settings_is_clean_env_summary">Remover arquivo temporário do serviço do sistema em /data/misc/hide_my_applist_*. Isso significa que você precisa iniciar o aplicativo manualmente uma vez na próxima reinicialização para habilitar interceptações, e a contagens de interceptações será apagada.</string>
+    <string name="settings_reset_default">Restaurar padrões</string>
+    <string name="settings_reset_default_summary">Esta opção permite limpar toda a configuração e começar do zero</string>
+    <string name="settings_irreversible_confirmation">Esta ação é irreversível. Tem certeza?</string>
+    <string name="settings_is_clean_env_summary">Remove o cache do serviço do sistema em /data/misc/hide_my_applist_*. Isso significa que você precisa abrir o app do módulo manualmente uma vez após a próxima reinicialização para habilitar as interceptações, e as contagens de interceptações também serão apagadas.</string>
     <string name="settings_force_clean_env">Forçar a limpar o ambiente de operação (root)</string>
     <string name="settings_force_clean_env_summary">Apenas se o serviço de sistema falhar ao iniciar, se não você deve clicar a opção acima.</string>
     <string name="settings_force_clean_env_toast_successful">Ambiente de operação limpo</string>
@@ -221,21 +221,28 @@
     <!-- Bulk config wizard -->
     <string name="title_bulk_config_wizard">Assistente de configuração em massa</string>
     <!-- About -->
-    <string name="about_description">        Although It is incorrect to detect specific app installation, yet not every app using root provides random package name support. In this case, detected apps that use root (such as Fake Location and Storage Isolation) is equal to detected root itself.\n\nAt the same time, some smart apps use various loopholes to acquire your app list, so that it can draw a persona for you.\n\nThis module provides some methods to test whether you have already hidden your applist nicely. Also, it can work as an Xposed module to hide some apps or reject app list requests to protect your privacy.
+    <string name="about_description">
+        Embora seja incorreto detectar a instalação de apps específicos, nem todo app que usa root oferece suporte a nomes de pacote aleatórios. Nesse caso, detectar apps que usam root (como Fake Location e Storage Isolation) equivale a detectar o próprio root.\n\nAo mesmo tempo, alguns apps espertos usam diversas brechas para obter a sua lista de apps, de modo a traçar um perfil sobre você.\n\nEste módulo oferece alguns métodos para testar se você já escondeu bem a sua lista de apps. Além disso, ele pode funcionar como um módulo Zygisk para esconder alguns apps ou rejeitar pedidos de lista de apps e proteger a sua privacidade.
     </string>
-    <string name="about_fork_description">O projeto original do HMA se tornou de código fechado e o código disponível não disponibilizou as últimas ultimas mudanças, então eu criei essa versão para continua-la como código aberto novamente.    </string>
+    <string name="about_fork_description">
+        O projeto original do HMA se tornou de código fechado e o código mais recente deles não continha algumas das últimas mudanças, então eu criei essa versão para continuá-la como código aberto novamente.
+    </string>
     <string name="about_how_to_use_title">Como usar esse modulo</string>
-    <string name="about_how_to_use_description_1">Voce pode criar modelos em \"Gerenciar modelos\".\nEntão aplique os modelos nos apps em \"Gerenciar apps\". (Voce tamber pode selecionar apps adicionais para os esconder de tais.)\nVoce só deve habilitar o \"Sistema Android\" na lista de ativação do Xposed.\n    </string>
-    <string name="about_how_to_use_description_2">       A modificação de configurações tem efeito imediato.\n    </string>
+    <string name="about_how_to_use_description_1">
+        Você pode criar modelos em \"Gerenciar modelos\".\nDepois aplique os modelos aos apps em \"Gerenciar apps\". (Você também pode selecionar apps adicionais como alvos.)
+    </string>
+    <string name="about_how_to_use_description_2">
+        A modificação da configuração tem efeito em tempo real.
+    </string>
     <string name="about_how_to_use_description_3">
-        A partir de agora, este aplicativo funciona como um gerenciador do módulo Zygisk, portanto, você precisa de um módulo Zygisk separado para que este gerenciador funcione.
+        A partir de agora, este app funciona como um gerenciador do módulo Zygisk, portanto, você precisa de um módulo Zygisk separado para que este gerenciador funcione.
     </string>
     <string name="about_translator">Tradutor</string>
     <string name="about_developer">Desenvolvedor</string>
     <string name="about_support">Suporte e ajuda</string>
     <string name="about_open_source">Licenças de código aberto</string>
     <!-- Colors -->
-    <string name="color_sakura">Sakura (rosado) </string>
+    <string name="color_sakura">Sakura</string>
     <string name="color_red">Vermelho</string>
     <string name="color_pink">Rosa</string>
     <string name="color_purple">Roxo</string>
