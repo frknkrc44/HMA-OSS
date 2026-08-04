@@ -38,7 +38,6 @@
     <string name="home_xposed_not_activated">Módulo não ativado</string>
     <string name="home_xposed_service_on">Serviço do sistema funcionando [%d]</string>
     <string name="home_xposed_service_off">Serviço do sistema não está funcionando</string>
-    <string name="home_xposed_service_old">Módulo atualizado, necessário reiniciar</string>
     <string name="home_xposed_filter_count">HMA-OSS filtrou no total %d pedidos</string>
     <string name="home_manage">Gerenciar</string>
     <string name="home_detection_test">Teste de detecção</string>
@@ -56,6 +55,12 @@
     <string name="home_exported">Configuração salva</string>
     <string name="home_new_update">Nova atualização disponível: %s</string>
     <string name="home_update">Atualização: %s</string>
+    <string name="home_migrate_data_fix_button">Fix the issue</string>
+    <string name="home_migrate_data">Migrate data</string>
+    <string name="home_migrate_data_summary">You will also be prompted to uninstall HMA/HMAL in both options. Do you want to migrate the old data?</string>
+    <string name="home_migrate_data_failed">Failed to copy the data or found more than one HMA/HMAL.</string>
+    <string name="home_migrate_data_completed">Done! You need to reboot your device.</string>
+    <string name="home_migrate_uninstall_only">Uninstall only</string>
     <!-- Backup & Restore -->
     <string name="backup_restore_backup_settings">Configurações de backup</string>
     <string name="backup_restore_restore_settings">Restaurar configurações</string>
@@ -124,6 +129,7 @@
     <string name="title_preset">Modelos</string>
     <string name="title_settings_preset">Configurações de modelos</string>
     <string name="title_preset_manage">Mostrar perfis</string>
+    <string name="title_ignored_apps_for_presets">Ignored apps</string>
     <string name="preset_xposed">Módulos Lsposed/Xposed</string>
     <string name="preset_root_apps">Gerenciadores de root/Apps de root</string>
     <string name="preset_custom_rom">Apps de ROM modificado</string>
@@ -201,9 +207,9 @@
     <string name="settings_pure_black_dark_theme">Tema preto (AMOLED)</string>
     <string name="settings_pure_black_dark_theme_summary">Ativa o tema preto se o tema escuro estiver habilitado</string>
     <string name="settings_service">Serviço</string>
-    <string name="settings_stop_system_service">Parar serviço do sistema</string>
-    <string name="settings_stop_system_service_summary">Reinicialização necessária para reiniciar o serviço</string>
-    <string name="settings_is_clean_env">Limpar o ambiente de operação ao mesmo tempo?</string>
+    <string name="settings_reset_default">Reset to defaults</string>
+    <string name="settings_reset_default_summary">This option allows you to clear whole config and begin from scratch</string>
+    <string name="settings_irreversible_confirmation">This action is irreversible. Are you sure?</string>
     <string name="settings_is_clean_env_summary">Remover arquivo temporário do serviço do sistema em /data/misc/hide_my_applist_*. Isso significa que você precisa iniciar o aplicativo manualmente uma vez na próxima reinicialização para habilitar interceptações, e a contagens de interceptações será apagada.</string>
     <string name="settings_force_clean_env">Forçar a limpar o ambiente de operação (root)</string>
     <string name="settings_force_clean_env_summary">Apenas se o serviço de sistema falhar ao iniciar, se não você deve clicar a opção acima.</string>
