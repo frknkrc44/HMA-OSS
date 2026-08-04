@@ -28,10 +28,6 @@ class ZygoteHook : IFrameworkHook {
             val isHookEnabled = service?.isHookEnabled(caller) ?: false
             if (!isHookEnabled) return@hookBefore
 
-            // ignore if the GIDs array is null
-            val gIDsIndex = frame.args.indexOfFirst { it is IntArray }
-            if (gIDsIndex < 0) return@hookBefore
-
             // another plan for PlatformCompatHook
             if (forceMountData && !(service?.systemApps?.contains(caller) ?: false)) {
                 @Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN")
@@ -45,6 +41,10 @@ class ZygoteHook : IFrameworkHook {
                     }
                 }
             }
+
+            // ignore if the GIDs array is null
+            val gIDsIndex = frame.args.indexOfFirst { it is IntArray }
+            if (gIDsIndex < 0) return@hookBefore
 
             var perms = service?.getRestrictedZygotePermissions(caller) ?: return@hookBefore
             if (perms.isNotEmpty()) {
