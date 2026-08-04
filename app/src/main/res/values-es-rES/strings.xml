@@ -38,7 +38,6 @@
     <string name="home_xposed_not_activated">Módulo No Activado</string>
     <string name="home_xposed_service_on">Servicio del sistema ejecutándose [%d]</string>
     <string name="home_xposed_service_off">El servicio del sistema no se está ejecutando</string>
-    <string name="home_xposed_service_old">Módulo actualizado, requiere reiniciar</string>
     <string name="home_xposed_filter_count">HMA-OSS ha filtrado un total de %d solicitudes</string>
     <string name="home_manage">Administrar</string>
     <string name="home_detection_test">Prueba de detección</string>
@@ -56,6 +55,12 @@
     <string name="home_exported">Configuración exportada</string>
     <string name="home_new_update">Nueva actualización disponible: %s</string>
     <string name="home_update">Actualización: %s</string>
+    <string name="home_migrate_data_fix_button">Fix the issue</string>
+    <string name="home_migrate_data">Migrate data</string>
+    <string name="home_migrate_data_summary">You will also be prompted to uninstall HMA/HMAL in both options. Do you want to migrate the old data?</string>
+    <string name="home_migrate_data_failed">Failed to copy the data or found more than one HMA/HMAL.</string>
+    <string name="home_migrate_data_completed">Done! You need to reboot your device.</string>
+    <string name="home_migrate_uninstall_only">Uninstall only</string>
     <!-- Backup & Restore -->
     <string name="backup_restore_backup_settings">Ajustes de copia de seguridad</string>
     <string name="backup_restore_restore_settings">Restaurar la configuración</string>
@@ -124,6 +129,7 @@
     <string name="title_preset">Presets</string>
     <string name="title_settings_preset">Presets de ajustes</string>
     <string name="title_preset_manage">Mostrar presets</string>
+    <string name="title_ignored_apps_for_presets">Ignored apps</string>
     <string name="preset_xposed">Módulos LSPosed/Xposed</string>
     <string name="preset_root_apps">Apps de gestión root/Aplicaciones Root</string>
     <string name="preset_custom_rom">Aplicaciones de ROM personalizadas</string>
@@ -201,9 +207,9 @@
     <string name="settings_pure_black_dark_theme">Tema negro puro</string>
     <string name="settings_pure_black_dark_theme_summary">Usar el tema negro puro si el tema oscuro está activado</string>
     <string name="settings_service">Servicio</string>
-    <string name="settings_stop_system_service">Detener el servicio del sistema</string>
-    <string name="settings_stop_system_service_summary">Necesita reiniciar para reiniciar el servicio</string>
-    <string name="settings_is_clean_env">¿Limpiar el entorno de ejecución al mismo tiempo?</string>
+    <string name="settings_reset_default">Reset to defaults</string>
+    <string name="settings_reset_default_summary">This option allows you to clear whole config and begin from scratch</string>
+    <string name="settings_irreversible_confirmation">This action is irreversible. Are you sure?</string>
     <string name="settings_is_clean_env_summary">Elimine la caché de servicios del sistema en /data/misc/hide_my_applist_*. Esto significa que tendrá que iniciar la aplicación del módulo una vez manualmente después del siguiente reinicio para habilitar las intercepciones, y los recuentos de intercepción también se limpiarán.</string>
     <string name="settings_force_clean_env">Forzar limpiar entorno de ejecución (root)</string>
     <string name="settings_force_clean_env_summary">Solo si el servicio del sistema no se inicia; de lo contrario, debe hacer clic en la opción anterior.</string>
