@@ -14,7 +14,7 @@ import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.PLATFORM_COMPAT_CLASS
 
 @RequiresApi(Build.VERSION_CODES.R)
-class PlatformCompatHook : IFrameworkHook {
+class PlatformCompatHook : ForceMountHookBase() {
     override val TAG = "PlatformCompatHook"
 
     override fun load() {
@@ -24,7 +24,7 @@ class PlatformCompatHook : IFrameworkHook {
         BulkHooker.instance.hookBefore(
             PLATFORM_COMPAT_CLASS,
             "isChangeEnabled",
-        ) { _, frame, returnValue ->
+        ) { methodName, frame, returnValue ->
             if (service?.config?.forceMountData ?: false) return@hookBefore
 
             runCatching {
@@ -38,7 +38,8 @@ class PlatformCompatHook : IFrameworkHook {
                 if (app == BuildConfig.APP_PACKAGE_NAME) return@hookBefore
                 if (service?.isHookEnabled(app) ?: false) {
                     returnValue.result = true
-                    logD(TAG) { "force mount data: ${appInfo.uid} $app" }
+                    val last = lastForceMountedApp.getAndSet(app)
+                    if (last != app) logI(TAG) { "@$methodName: force mountAppsData for $app" }
                 }
             }.onFailure {
                 logE(TAG, it) { "Fatal error occurred, disable hooks" }
