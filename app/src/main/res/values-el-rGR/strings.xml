@@ -38,7 +38,6 @@
     <string name="home_xposed_not_activated">Μη Ενεργοποιημένη Ενότητα</string>
     <string name="home_xposed_service_on">Η υπηρεσία συστήματος εκτελείται [%d]</string>
     <string name="home_xposed_service_off">Η υπηρεσία συστήματος δεν εκτελείται</string>
-    <string name="home_xposed_service_old">Η ενότητα ενημερώθηκε, χρειάζεται επανεκκίνηση</string>
     <string name="home_xposed_filter_count">Το HMA-OSS έχει φιλτράρει συνολικά %d αιτήματα</string>
     <string name="home_manage">Διαχείριση</string>
     <string name="home_detection_test">Δοκιμή εντοπισμού</string>
@@ -56,6 +55,12 @@
     <string name="home_exported">Το αντίγραφο διαμόρφωσης αποθηκεύτηκε</string>
     <string name="home_new_update">Νέα ενημέρωση διαθέσιμη: %s</string>
     <string name="home_update">Ενημέρωση: %s</string>
+    <string name="home_migrate_data_fix_button">Fix the issue</string>
+    <string name="home_migrate_data">Migrate data</string>
+    <string name="home_migrate_data_summary">You will also be prompted to uninstall HMA/HMAL in both options. Do you want to migrate the old data?</string>
+    <string name="home_migrate_data_failed">Failed to copy the data or found more than one HMA/HMAL.</string>
+    <string name="home_migrate_data_completed">Done! You need to reboot your device.</string>
+    <string name="home_migrate_uninstall_only">Uninstall only</string>
     <!-- Backup & Restore -->
     <string name="backup_restore_backup_settings">Ρυθμίσεις αντιγράφου ασφαλείας</string>
     <string name="backup_restore_restore_settings">Επαναφορά ρυθμίσεων</string>
@@ -124,6 +129,7 @@
     <string name="title_preset">Προεπιλογές</string>
     <string name="title_settings_preset">Προεπιλογές ρυθμίσεων</string>
     <string name="title_preset_manage">Εμφάνιση προεπιλογών</string>
+    <string name="title_ignored_apps_for_presets">Ignored apps</string>
     <string name="preset_xposed">Ενότητες LSPosed/Xposed</string>
     <string name="preset_root_apps">Διαχειριστές Root/Εφαρμογές Root</string>
     <string name="preset_custom_rom">Προσαρμοσμένες εφαρμογές ROM</string>
@@ -201,9 +207,9 @@
     <string name="settings_pure_black_dark_theme">Καθαρό μαύρο σκούρο θέμα</string>
     <string name="settings_pure_black_dark_theme_summary">Χρήση καθαρού μαύρου θέματος εάν είναι ενεργοποιημένο το σκούρο θέμα</string>
     <string name="settings_service">Υπηρεσία</string>
-    <string name="settings_stop_system_service">Διακοπή υπηρεσίας συστήματος</string>
-    <string name="settings_stop_system_service_summary">Χρειάζεται επανεκκίνηση για επανεκκίνηση της υπηρεσίας</string>
-    <string name="settings_is_clean_env">Εκκαθάριση περιβάλλοντος εκτέλεσης ταυτόχρονα;</string>
+    <string name="settings_reset_default">Reset to defaults</string>
+    <string name="settings_reset_default_summary">This option allows you to clear whole config and begin from scratch</string>
+    <string name="settings_irreversible_confirmation">This action is irreversible. Are you sure?</string>
     <string name="settings_is_clean_env_summary">Αφαίρεση προσωρινής μνήμης υπηρεσίας συστήματος /data/misc/hide_my_applist_*. Αυτό σημαίνει ότι πρέπει να εκκινήσετε την εφαρμογή της ενότητας μία φορά χειροκίνητα μετά την επόμενη επανεκκίνηση, για να ενεργοποιηθούν οι υποκλοπές. Επίσης, οι μετρήσεις υποκλοπών θα εκκαθαριστούν.</string>
     <string name="settings_force_clean_env">Επιβολή εκκαθάρισης περιβάλλοντος εκτέλεσης (root)</string>
     <string name="settings_force_clean_env_summary">Μόνο εάν η υπηρεσία συστήματος δεν εκκινηθεί, διαφορετικά θα πρέπει να κάνετε κλικ στην παραπάνω επιλογή.</string>
