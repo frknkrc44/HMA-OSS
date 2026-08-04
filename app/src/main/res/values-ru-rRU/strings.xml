@@ -38,7 +38,6 @@
     <string name="home_xposed_not_activated">Модуль не активирован</string>
     <string name="home_xposed_service_on">Системная служба работает [%d]</string>
     <string name="home_xposed_service_off">Системная служба не работает</string>
-    <string name="home_xposed_service_old">Модуль обновлён, требуется перезагрузка</string>
     <string name="home_xposed_filter_count">HMA-OSS отфильтровал всего %d запросов</string>
     <string name="home_manage">Управление</string>
     <string name="home_detection_test">Проверка обнаружения</string>
@@ -56,6 +55,12 @@
     <string name="home_exported">Создан файл с настройками модуля</string>
     <string name="home_new_update">Доступно новое обновление: %s</string>
     <string name="home_update">Обновить: %s</string>
+    <string name="home_migrate_data_fix_button">Fix the issue</string>
+    <string name="home_migrate_data">Migrate data</string>
+    <string name="home_migrate_data_summary">You will also be prompted to uninstall HMA/HMAL in both options. Do you want to migrate the old data?</string>
+    <string name="home_migrate_data_failed">Failed to copy the data or found more than one HMA/HMAL.</string>
+    <string name="home_migrate_data_completed">Done! You need to reboot your device.</string>
+    <string name="home_migrate_uninstall_only">Uninstall only</string>
     <!-- Backup & Restore -->
     <string name="backup_restore_backup_settings">Backup settings</string>
     <string name="backup_restore_restore_settings">Restore settings</string>
@@ -124,6 +129,7 @@
     <string name="title_preset">Пресеты</string>
     <string name="title_settings_preset">Настройка пресетов</string>
     <string name="title_preset_manage">Показать пресеты</string>
+    <string name="title_ignored_apps_for_presets">Ignored apps</string>
     <string name="preset_xposed">Модули LSPosed/Xposed</string>
     <string name="preset_root_apps">Root-менеджеры/Рутированные приложения</string>
     <string name="preset_custom_rom">Приложения кастомных прошивок</string>
@@ -201,9 +207,9 @@
     <string name="settings_pure_black_dark_theme">Чёрная тема</string>
     <string name="settings_pure_black_dark_theme_summary">Использовать чёрную тему если включена тёмная тема</string>
     <string name="settings_service">Служба</string>
-    <string name="settings_stop_system_service">Остановить системную службу</string>
-    <string name="settings_stop_system_service_summary">Потребуется перезагрузка, чтобы перезапустить службу</string>
-    <string name="settings_is_clean_env">Очистить также среду выполнения?</string>
+    <string name="settings_reset_default">Reset to defaults</string>
+    <string name="settings_reset_default_summary">This option allows you to clear whole config and begin from scratch</string>
+    <string name="settings_irreversible_confirmation">This action is irreversible. Are you sure?</string>
     <string name="settings_is_clean_env_summary">Удалить кэш системной службы в /data/misc/hide_my_applist_*. Это означает, что вам нужно запустить приложение модуля вручную после следующей перезагрузки, чтобы включить перехваты, и количество перехватов также будет очищено.</string>
     <string name="settings_force_clean_env">Принудительно очистить среду выполнения (root)</string>
     <string name="settings_force_clean_env_summary">Только если не удается запустить системную службу, в противном случае вам следует нажать на опцию выше.</string>
