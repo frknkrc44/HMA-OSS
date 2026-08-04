@@ -55,12 +55,12 @@
     <string name="home_exported">تم النسخ الاحتياطي للإعدادات</string>
     <string name="home_new_update">تحديث جديد متوفر: %s</string>
     <string name="home_update">تحديث: %s</string>
-    <string name="home_migrate_data_fix_button">Fix the issue</string>
-    <string name="home_migrate_data">Migrate data</string>
-    <string name="home_migrate_data_summary">You will also be prompted to uninstall HMA/HMAL in both options. Do you want to migrate the old data?</string>
-    <string name="home_migrate_data_failed">Failed to copy the data or found more than one HMA/HMAL.</string>
-    <string name="home_migrate_data_completed">Done! You need to reboot your device.</string>
-    <string name="home_migrate_uninstall_only">Uninstall only</string>
+    <string name="home_migrate_data_fix_button">إصلاح المشكل</string>
+    <string name="home_migrate_data">نقل البيانات</string>
+    <string name="home_migrate_data_summary">سيُطلب منك أيضًا إلغاء تثبيت HMA/HMAL في كلتا الحالتين. هل تريد نقل البيانات القديمة؟</string>
+    <string name="home_migrate_data_failed">تعذر نسخ البيانات، أو تم العثور على أكثر من نسخة من HMA/HMAL.</string>
+    <string name="home_migrate_data_completed">تم! يلزم إعادة تشغيل جهازك.</string>
+    <string name="home_migrate_uninstall_only">إلغاء التثبيت فقط</string>
     <!-- Backup & Restore -->
     <string name="backup_restore_backup_settings">نسخ احتياطي للإعدادات</string>
     <string name="backup_restore_restore_settings">استعادة الإعدادات</string>
@@ -129,7 +129,7 @@
     <string name="title_preset">الإعدادات المسبقة</string>
     <string name="title_settings_preset">الضبط المسبق</string>
     <string name="title_preset_manage">إظهار الضبط المسبق</string>
-    <string name="title_ignored_apps_for_presets">Ignored apps</string>
+    <string name="title_ignored_apps_for_presets">التطبيقات المُتجاهلة</string>
     <string name="preset_xposed">إضافات Xposed/LSPosed</string>
     <string name="preset_root_apps">تطبيقات روت/تطبيقات إدارة روت</string>
     <string name="preset_custom_rom">تطبيقات الروم المخصص</string>
@@ -208,9 +208,9 @@
     <string name="settings_pure_black_dark_theme">الثيم الأسود الخالص</string>
     <string name="settings_pure_black_dark_theme_summary">استخدم السمة السوداء الخالصة إذا كان المظهر الداكن مُفعل</string>
     <string name="settings_service">الخدمة</string>
-    <string name="settings_reset_default">Reset to defaults</string>
-    <string name="settings_reset_default_summary">This option allows you to clear whole config and begin from scratch</string>
-    <string name="settings_irreversible_confirmation">This action is irreversible. Are you sure?</string>
+    <string name="settings_reset_default">إعادة التعيين إلى الإعدادات الافتراضية</string>
+    <string name="settings_reset_default_summary">يتيح لك هذا الخِيار مسح جميع الإعدادات والبدء من جديد</string>
+    <string name="settings_irreversible_confirmation">لا يمكن التراجع عن هذا الإجراء. هل أنت متأكد؟</string>
     <string name="settings_is_clean_env_summary">إزالة التخزين المؤقت لخدمة النظام في /data/misc/hide_my_applist_*. هذا يعني أنك ستحتاج إلى تشغيل الإضافة مرة واحدة يدويا بعد إعادة التشغيل التالي حتي تعمل الاعتراضات، وسيتم أيضا تنظيف عمليات الاعتراض.</string>
     <string name="settings_force_clean_env">إجبار تنظيف بيئة العمل (روت)</string>
     <string name="settings_force_clean_env_summary">فقط إذا فشلت خدمة النظام في البَدْء، وإلا يجب عليك أن تضغط على الخِيار أعلاه.</string>
