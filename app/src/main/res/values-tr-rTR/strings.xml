@@ -38,7 +38,6 @@
     <string name="home_xposed_not_activated">Modül Etkin Değil</string>
     <string name="home_xposed_service_on">Sistem servisi çalışıyor [%d]</string>
     <string name="home_xposed_service_off">Sistem servisi çalışmıyor</string>
-    <string name="home_xposed_service_old">Modül güncellendi, yeniden başlatma gerekiyor</string>
     <string name="home_xposed_filter_count">HMA-OSS toplam %d isteği filtreledi</string>
     <string name="home_manage">Yönet</string>
     <string name="home_detection_test">Tespit testi</string>
@@ -56,6 +55,12 @@
     <string name="home_exported">Yapılandırma yedeklendi</string>
     <string name="home_new_update">Yeni güncelleme mevcut: %s</string>
     <string name="home_update">Güncelleme: %s</string>
+    <string name="home_migrate_data_fix_button">Fix the issue</string>
+    <string name="home_migrate_data">Migrate data</string>
+    <string name="home_migrate_data_summary">You will also be prompted to uninstall HMA/HMAL in both options. Do you want to migrate the old data?</string>
+    <string name="home_migrate_data_failed">Failed to copy the data or found more than one HMA/HMAL.</string>
+    <string name="home_migrate_data_completed">Done! You need to reboot your device.</string>
+    <string name="home_migrate_uninstall_only">Uninstall only</string>
     <!-- Backup & Restore -->
     <string name="backup_restore_backup_settings">Ayarları yedekle</string>
     <string name="backup_restore_restore_settings">Ayarları geri yükle</string>
@@ -124,6 +129,7 @@
     <string name="title_preset">Ön ayarlar</string>
     <string name="title_settings_preset">Ayarlar ön ayarları</string>
     <string name="title_preset_manage">Ön ayarları göster</string>
+    <string name="title_ignored_apps_for_presets">Ignored apps</string>
     <string name="preset_xposed">LSPosed/Xposed modülleri</string>
     <string name="preset_root_apps">Root yöneticileri/Rootlu uygulamalar</string>
     <string name="preset_custom_rom">Özel ROM uygulamaları</string>
@@ -201,9 +207,9 @@
     <string name="settings_pure_black_dark_theme">Saf siyah koyu tema</string>
     <string name="settings_pure_black_dark_theme_summary">Koyu tema etkinse saf siyah temayı kullan</string>
     <string name="settings_service">Servis</string>
-    <string name="settings_stop_system_service">Sistem servisini durdur</string>
-    <string name="settings_stop_system_service_summary">Servisi yeniden başlatmak için yeniden başlatma gerekiyor</string>
-    <string name="settings_is_clean_env">Aynı zamanda çalışma zamanı ortamını da temizlemek istiyor musunuz?</string>
+    <string name="settings_reset_default">Reset to defaults</string>
+    <string name="settings_reset_default_summary">This option allows you to clear whole config and begin from scratch</string>
+    <string name="settings_irreversible_confirmation">This action is irreversible. Are you sure?</string>
     <string name="settings_is_clean_env_summary">/data/misc/hide_my_applist_* içindeki sistem servisi önbelleğini kaldırır. Bu, bir sonraki yeniden başlatmadan sonra modül uygulaması el ile başlatılmalıdır ve müdahale sayımları da temizlenecektir.</string>
     <string name="settings_force_clean_env">Çalışma zamanı ortamını zorla temizle (root)</string>
     <string name="settings_force_clean_env_summary">Sadece sistem servisi başlatılamazsa bu seçeneği kullanın, aksi takdirde yukarıdaki seçeneği tıklayın.</string>
