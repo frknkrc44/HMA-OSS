@@ -260,7 +260,7 @@
     <string name="dark_theme">Thème sombre</string>
     <string name="dark_theme_off">Tout le temps désactivé</string>
     <string name="dark_theme_on">Tout le temps activé</string>
-    <string name="sick_mode_title">Le mode Malade est activé</string>
+    <string name="sick_mode_title">Aucun hook n’est appliqué en raison de conflits potentiels avec le mode «Hide»</string>
     <string name="sick_mode_description">HMA-OSS a détecté des modules potentiellement en conflits et limité ses fonctionnalités</string>
     <string name="sick_mode_notice">Les configurations HMA/HMAL sont compatibles avec HMA-OSS et vous pouvez commencer à utiliser avec votre configuration existante, mais vous devez désinstaller HMA/HMAL puis redémarrer au premier</string>
 </resources>
