@@ -100,7 +100,7 @@
     <string name="app_choose_template">Escolher modelo</string>
     <string name="app_choose_preset">Escolher predefinições</string>
     <string name="app_exclude_system_apps">Excluir apps de sistema</string>
-    <string name="app_exclude_system_apps_summary">Desative esta opção apenas quando realmente necessário. É provável que cause um erro com ela desativada.</string>
+    <string name="app_exclude_system_apps_summary">Desative esta opção apenas quando realmente necessário. É provável que cause um erro com ela desativada</string>
     <string name="app_template_using">A utilizar %d modelos</string>
     <string name="app_preset_using">A utilizar %d predefinições</string>
     <string name="app_settings_preset_using">A utilizar %d predefinições de definições</string>
@@ -178,7 +178,7 @@
     <string name="settings_hide_icon">Ocultar ícone do módulo no launcher</string>
     <string name="settings_hide_icon_summary">Ainda pode abrir o app no gestor de root</string>
     <string name="settings_bypass_risky_package_warning">Ignorar aviso de pacote de risco</string>
-    <string name="settings_bypass_risky_package_warning_summary">Note que os programadores não são responsáveis por problemas relacionados com pacotes de risco antes ou depois de ativar esta funcionalidade.</string>
+    <string name="settings_bypass_risky_package_warning_summary">Note que os programadores não são responsáveis por problemas relacionados com pacotes de risco antes ou depois de ativar esta funcionalidade</string>
     <string name="settings_disable_activity_launch_protection">Desativar proteção de início de Atividade</string>
     <string name="settings_disable_activity_launch_protection_summary">Este interruptor irá remover todas as proteções startActivity. Se não tiver a certeza, não o ative.</string>
     <string name="settings_system_wallpaper">Usar papel de parede do sistema</string>
@@ -204,7 +204,7 @@
     <string name="settings_system_theme_color">Cor do tema do sistema</string>
     <string name="settings_theme_color">Cor do tema</string>
     <string name="settings_dark_theme">Tema escuro</string>
-    <string name="settings_pure_black_dark_theme">Tema preto puro</string>
+    <string name="settings_pure_black_dark_theme">Tema escuro preto puro</string>
     <string name="settings_pure_black_dark_theme_summary">Usar o tema preto puro se o tema escuro estiver ativado</string>
     <string name="settings_service">Serviço</string>
     <string name="settings_reset_default">Repor valores predefinidos</string>
@@ -224,7 +224,8 @@
     <string name="about_description">
         Embora seja incorreto detetar a instalação de apps específicos, nem todos os apps que usam root oferecem suporte para nomes de pacotes aleatórios. Neste caso, detetar apps que usam root (como a Fake Location e a Storage Isolation) equivale a detetar o próprio root.\n\nAo mesmo tempo, alguns apps mais inteligentes aproveitam várias falhas para obter a sua lista de apps, de modo a traçar um perfil seu.\n\nEste módulo fornece alguns métodos para testar se já ocultou bem a sua lista de apps. Além disso, pode funcionar como um módulo Zygisk para ocultar alguns apps ou rejeitar pedidos de acesso à lista de apps e proteger a sua privacidade.
     </string>
-    <string name="about_fork_description">        O projeto original HMA passou a ser de código fechado e a sua versão mais recente não incluía algumas das últimas alterações, portanto, criei este fork para o continuar como um projeto de código aberto.
+    <string name="about_fork_description">
+        O projeto original HMA passou a ser de código fechado e a sua versão mais recente não incluía algumas das últimas alterações, portanto, criei este fork para o continuar como um projeto de código aberto.
     </string>
     <string name="about_how_to_use_title">Como usar este módulo</string>
     <string name="about_how_to_use_description_1">
