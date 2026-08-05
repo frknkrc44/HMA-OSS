@@ -43,16 +43,16 @@
     <string name="home_detection_test">Teste de deteção</string>
     <string name="home_download_test_app_title">Transferir app de teste</string>
     <string name="home_download_test_app_message">Desenvolvemos um app de teste de deteção individual e migrámos o teste de deteção para o mesmo. Deseja transferi-lo agora?</string>
-    <string name="home_backup_and_restore">Cópia de Segurança e Restauro</string>
-    <string name="home_backup_config">Cópia de segurança da configuração</string>
+    <string name="home_backup_and_restore">Backup &amp; Restauro</string>
+    <string name="home_backup_config">Backup da configuração</string>
     <string name="home_restore_config">Restaurar configuração</string>
     <string name="home_import_successful">Importação bem-sucedida</string>
     <string name="home_import_failed">Falha na importação</string>
-    <string name="home_import_app_version_too_old">A versão do módulo é inferior à da cópia de segurança</string>
-    <string name="home_import_backup_version_too_old">Versão da cópia de segurança muito antiga</string>
-    <string name="home_import_file_damaged">O ficheiro da cópia de segurança foi danificado</string>
+    <string name="home_import_app_version_too_old">A versão do módulo é inferior à do backup</string>
+    <string name="home_import_backup_version_too_old">Versão do backup muito antiga</string>
+    <string name="home_import_file_damaged">O ficheiro do backup foi danificado</string>
     <string name="home_export_failed">Exportação falhou</string>
-    <string name="home_exported">Cópia de segurança da configuração efetuada</string>
+    <string name="home_exported">Backup da configuração efetuado</string>
     <string name="home_new_update">Nova atualização disponível: %s</string>
     <string name="home_update">Atualização: %s</string>
     <string name="home_migrate_data_fix_button">Corrigir o problema</string>
@@ -62,7 +62,7 @@
     <string name="home_migrate_data_completed">Concluído! Precisa de reiniciar o dispositivo.</string>
     <string name="home_migrate_uninstall_only">Apenas desinstalar</string>
     <!-- Backup & Restore -->
-    <string name="backup_restore_backup_settings">Definições da cópia de segurança</string>
+    <string name="backup_restore_backup_settings">Definições do backup</string>
     <string name="backup_restore_restore_settings">Definições do restauro</string>
     <string name="backup_restore_apps">Configurações de apps</string>
     <string name="backup_restore_templates">Modelos</string>
@@ -101,8 +101,8 @@
     <string name="app_choose_preset">Escolher predefinições</string>
     <string name="app_exclude_system_apps">Excluir apps de sistema</string>
     <string name="app_exclude_system_apps_summary">Desative esta opção apenas quando realmente necessário. É provável que cause um erro com ela desativada.</string>
-    <string name="app_template_using">Usando %d modelos</string>
-    <string name="app_preset_using">Usando %d predefinições</string>
+    <string name="app_template_using">A utilizar %d modelos</string>
+    <string name="app_preset_using">A utilizar %d predefinições</string>
     <string name="app_settings_preset_using">A utilizar %d predefinições de definições</string>
     <string name="app_settings_template_using">A utilizar %d modelos de definições</string>
     <string name="app_extra_apps_visible_count">%d apps adicionais visíveis</string>
