@@ -100,7 +100,7 @@
     <string name="app_choose_template">选择模板</string>
     <string name="app_choose_preset">选择预设</string>
     <string name="app_exclude_system_apps">始终显示系统应用</string>
-    <string name="app_exclude_system_apps_summary">仅在必要时关闭此选项，关闭它可能导致应用或系统崩溃</string>
+    <string name="app_exclude_system_apps_summary">警告：关闭此选项可能导致应用或系统崩溃</string>
     <string name="app_template_using">已启用 %d 个应用模板</string>
     <string name="app_preset_using">已启用 %d 个应用预设</string>
     <string name="app_settings_preset_using">已启用 %d 个设置预设</string>
@@ -112,7 +112,7 @@
 
 提示：您可到设置中禁用此警告</string>
     <string name="app_spoof">伪装安装来源</string>
-    <string name="app_hide_installation_source">伪装安装来源</string>
+    <string name="app_hide_installation_source">伪装商店安装</string>
     <string name="app_hide_installation_source_desc">对此应用，将所有其他应用（包括自身）伪装为通过Play商店安装（不会伪装系统应用）</string>
     <string name="app_hide_installation_source_system">同时伪装系统应用</string>
     <string name="app_hide_installation_source_system_desc">将所有系统应用伪装为无安装来源</string>
@@ -131,7 +131,7 @@
     <string name="title_preset">应用预设</string>
     <string name="title_settings_preset">设置预设</string>
     <string name="title_preset_manage">查看预设</string>
-    <string name="title_ignored_apps_for_presets">Ignored apps</string>
+    <string name="title_ignored_apps_for_presets">预设排除列表</string>
     <string name="preset_xposed">LSPosed/Xposed 模块</string>
     <string name="preset_root_apps">Root 管理器/Root 应用</string>
     <string name="preset_custom_rom">自定义 ROM 应用</string>
@@ -209,9 +209,9 @@
     <string name="settings_pure_black_dark_theme">纯黑主题</string>
     <string name="settings_pure_black_dark_theme_summary">当深色主题启用时使用纯黑主题</string>
     <string name="settings_service">服务</string>
-    <string name="settings_reset_default">重置为默认设置</string>
-    <string name="settings_reset_default_summary">This option allows you to clear whole config and begin from scratch</string>
-    <string name="settings_irreversible_confirmation">This action is irreversible. Are you sure?</string>
+    <string name="settings_reset_default">重置所有配置</string>
+    <string name="settings_reset_default_summary">重置配置文件，让一切从头开始！</string>
+    <string name="settings_irreversible_confirmation">此操作无法撤销，您确定吗？</string>
     <string name="settings_is_clean_env_summary">删除 /data/misc/hide_my_applist_* 中的缓存。这意味着下次重启后需手动打开一次本应用才能启用拦截功能，拦截次数也会清零。</string>
     <string name="settings_force_clean_env">强制清理运行环境（root）</string>
     <string name="settings_force_clean_env_summary">系统服务无法启动时可尝试使用此选项</string>
