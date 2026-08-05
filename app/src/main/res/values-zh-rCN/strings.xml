@@ -13,7 +13,7 @@
     <string name="title_about_fork">关于HMA-OSS</string>
     <string name="do_not_dual">请勿将HMA-OSS安装到分身或多用户空间</string>
     <string name="show_crash_log">显示崩溃日志</string>
-    <string name="config_damaged">配置文件损坏，请清除应用数据</string>
+    <string name="config_damaged">配置文件损坏，需要清除应用数据</string>
     <string name="edit_list">编辑列表</string>
     <string name="delete">删除</string>
     <string name="enabled">启用</string>
