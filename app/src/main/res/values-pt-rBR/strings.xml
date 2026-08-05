@@ -204,7 +204,7 @@
     <string name="settings_system_theme_color">Cor de tema do sistema</string>
     <string name="settings_theme_color">Cor do tema</string>
     <string name="settings_dark_theme">Tema escuro</string>
-    <string name="settings_pure_black_dark_theme">Tema preto (AMOLED)</string>
+    <string name="settings_pure_black_dark_theme">Tema escuro preto puro</string>
     <string name="settings_pure_black_dark_theme_summary">Ativa o tema preto se o tema escuro estiver habilitado</string>
     <string name="settings_service">Serviço</string>
     <string name="settings_reset_default">Restaurar padrões</string>
