@@ -232,7 +232,7 @@
 Ta aplikacja zachowuje się jak menadżer dla modułu Zygisk od teraz. Potrzebujesz osobnego modułu Zygisk, aby ten menadżer działał
     </string>
     <string name="about_translator">Tłumacze</string>
-    <string name="about_developer">Developer</string>
+    <string name="about_developer">Deweloperzy</string>
     <string name="about_support">Wsparcie i opinie</string>
     <string name="about_open_source">Licencje Open Source</string>
     <!-- Colors -->
