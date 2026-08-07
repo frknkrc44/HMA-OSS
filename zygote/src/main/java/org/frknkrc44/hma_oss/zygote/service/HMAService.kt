@@ -61,10 +61,7 @@ import rikka.hidden.compat.ActivityManagerApis
 import rikka.hidden.compat.UserManagerApis
 import java.io.File
 import java.io.FileInputStream
-import java.io.FileNotFoundException
 import java.lang.reflect.Modifier
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
 
 class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWorkMode: Int) : IHMAService.Stub() {
 
@@ -74,7 +71,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
     }
 
     @Volatile
-    var logcatAvailable = false
+    private var logcatAvailable = false
 
     private lateinit var dataDir: String
     private lateinit var configFile: File
@@ -87,7 +84,6 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
     private val loggerLock = Any()
     val systemApps = mutableSetOf<String>()
     private val frameworkHooks = mutableSetOf<IFrameworkHook>()
-    val executor: ExecutorService = Executors.newSingleThreadExecutor()
     internal var appUid = 0
         private set
 

@@ -7,10 +7,14 @@ import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
 
 @Suppress("SpellCheckingInspection")
 object Logcat {
-    private var logdReady: Boolean? = null
+    private val logdReady: Boolean by lazy { SystemProperties.get("init.svc.logd") == "running" }
+
+    private val executor: ExecutorService = Executors.newSingleThreadExecutor()
 
     fun logV(tag: String, cause: Throwable? = null, msg: () -> String) = logWithLevel(Log.VERBOSE, tag, cause, msg)
 
@@ -35,12 +39,15 @@ object Logcat {
 
         val parsedMsg = parseLog(level, tag, msg(), cause)
 
+        // add into our log
         service?.apply {
             executor.execute {
                 addLog(parsedMsg)
-                println(parsedMsg)
             }
-        } ?: println(parsedMsg)
+        }
+
+        // add into logcat if available
+        println(parsedMsg)
     }
 
     private fun parseLog(level: Int, tag: String, msg: String, cause: Throwable? = null) = buildString {
@@ -59,14 +66,9 @@ object Logcat {
         if (!endsWith('\n')) append('\n')
     }
 
-
     private fun println(msg: String) {
-        if (logdReady == null) {
-            logdReady = SystemProperties.get("init.svc.logd") == "running"
+        if (logdReady) {
+            Log.i("HMA-OSS", msg)
         }
-
-        if (logdReady != true) return
-
-        Log.i("HMA-OSS", msg)
     }
 }
