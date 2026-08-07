@@ -61,6 +61,7 @@ import rikka.hidden.compat.ActivityManagerApis
 import rikka.hidden.compat.UserManagerApis
 import java.io.File
 import java.io.FileInputStream
+import java.io.FileNotFoundException
 import java.lang.reflect.Modifier
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -178,25 +179,30 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
             }
         }
 
-        val loading = configFile.let {
-            return@let runCatching configParser@{
-                if (configFile.exists()) {
-                    val json = configFile.readText()
-                    return@configParser JsonConfig.parse(json)
-                }
-            }.getOrElse {
-                logE(TAG, it) { "Failed to parse config.json" }
-                null
-            } as JsonConfig?
-        } ?: return
+        if (!configFile.exists()) {
+            logI(TAG) { "Config file not found" }
+            return
+        }
+
+        val loading = try {
+            val json = configFile.readText()
+            JsonConfig.parse(json)
+        } catch (it: Throwable) {
+            logW(TAG, it) { "Failed to parse config.json, skip it" }
+
+            config
+        }
 
         if (loading.configVersion != BuildConfig.CONFIG_VERSION) {
             logW(TAG) { "Config version mismatch, need to reload" }
             return
         }
 
-        loading.cleanRemnantsFromConfig()
-        config = loading
+        if (config != loading) {
+            loading.cleanRemnantsFromConfig()
+            config = loading
+        }
+
         logI(TAG) { "Config loaded" }
     }
 
