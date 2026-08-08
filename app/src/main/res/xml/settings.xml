@@ -64,6 +64,7 @@
 
     <PreferenceCategory android:title="@string/settings_module">
         <Preference
+            app:widgetLayout="@layout/preference_sub_menu_indicator"
             android:icon="@drawable/add_moderator_24px"
             android:key="defaultConfig"
             android:title="@string/settings_default_config"
@@ -99,6 +100,7 @@
             android:title="@string/settings_disable_hooks"
             android:summary="@string/settings_disable_hooks_summary" />
         <Preference
+            app:widgetLayout="@layout/preference_sub_menu_indicator"
             android:icon="@drawable/outline_storage_24"
             android:key="dataIsolation"
             android:title="@string/settings_data_isolation" />
