@@ -21,7 +21,7 @@ import icu.nullptr.hidemyapplist.common.FilterHolder
 import icu.nullptr.hidemyapplist.common.IHMAService
 import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.common.PresetCache
-import icu.nullptr.hidemyapplist.common.RiskyPackageUtils.appHasGMSConnection
+import icu.nullptr.hidemyapplist.common.RiskyPackageUtils
 import icu.nullptr.hidemyapplist.common.SettingsPresets
 import icu.nullptr.hidemyapplist.common.Utils.binderLocalScope
 import icu.nullptr.hidemyapplist.common.Utils.cleanRemnantsFromConfig
@@ -110,7 +110,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
             installHooks()
 
             AppPresets.instance.loggerFunction = { level, msg ->
-                logWithLevel(level, "AppPresets") { msg }
+                logWithLevel(level, "AppPresets", msg = msg)
             }
             loadPresetCache()
 
@@ -238,7 +238,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
             }
 
             if (loading != null) {
-                AppPresets.instance.importCache(loading.cache)
+                AppPresets.instance.importCache(loading)
             }
         }
 
@@ -373,7 +373,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
         config.scope[caller]?.applySettingsPresets ?: setOf()
 
     fun isAppInGMSIgnoredPackages(caller: String, query: String) =
-        (caller in Constants.gmsPackages) && appHasGMSConnection(query)
+        (caller in Constants.gmsPackages) && RiskyPackageUtils.instance.appHasGMSConnection(query)
 
     fun shouldHide(caller: String?, query: String?, userId: Int): Boolean {
         if (caller == null || query == null) return false
@@ -653,6 +653,8 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
     override fun getLogFileLocation(): String = logFile.absolutePath
 
     private fun reloadPresets(fromScratch: Boolean) {
+        logI(TAG) { "Reloading presets " + if (fromScratch) "from scratch" else "over cache" }
+
         val apps = mutableListOf<ApplicationInfo>().apply {
             binderLocalScope {
                 UserManagerApis.getUserIdsNoThrow().forEach { id ->

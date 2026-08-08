@@ -3,7 +3,6 @@ package icu.nullptr.hidemyapplist.common
 import android.content.pm.ApplicationInfo
 import android.content.pm.IPackageManager
 import android.util.Log
-import icu.nullptr.hidemyapplist.common.RiskyPackageUtils.tryToAddIntoGMSConnectionList
 import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
 import icu.nullptr.hidemyapplist.common.Utils.isSystemApp
 import icu.nullptr.hidemyapplist.common.app_presets.AccessibilityAppsPreset
@@ -21,7 +20,7 @@ class AppPresets private constructor() {
 
     private val manifestDataCache = mutableMapOf<String, String>()
 
-    var loggerFunction: ((Int, String) -> Unit)? = null
+    var loggerFunction: ((Int, () -> String) -> Unit)? = null
 
     companion object {
         val instance by lazy { AppPresets() }
@@ -32,12 +31,12 @@ class AppPresets private constructor() {
         if (Runtime.getRuntime().freeMemory() < 2048000) {
             manifestDataCache.clear()
             System.gc()
-            loggerFunction?.invoke(Log.VERBOSE, "@readManifest tried to clear the memory")
+            loggerFunction?.invoke(Log.VERBOSE) { "@readManifest tried to clear the memory" }
         }
 
         var cache = manifestDataCache[packageName]
         if (cache == null) {
-            loggerFunction?.invoke(Log.VERBOSE, "@readManifest cache is null, reading manifest for $packageName")
+            loggerFunction?.invoke(Log.VERBOSE) { "@readManifest cache is null, reading manifest for $packageName" }
 
             val manifestFile = zipFile.getInputStream(
                 zipFile.getEntry("AndroidManifest.xml")
@@ -46,7 +45,7 @@ class AppPresets private constructor() {
             cache = String(manifestBytes, Charsets.US_ASCII)
             manifestDataCache[packageName] = cache
         } else {
-            loggerFunction?.invoke(Log.VERBOSE, "@readManifest returning cache for $packageName")
+            loggerFunction?.invoke(Log.VERBOSE) { "@readManifest returning cache for $packageName" }
         }
 
         return cache
@@ -55,58 +54,63 @@ class AppPresets private constructor() {
     val presetNames by lazy { presetList.keys }
     fun getPresetByName(name: String) = presetList[name]
 
-    fun importCache(cache: Map<String, List<String>>) {
-        cache.forEach { (presetName, elements) ->
+    fun importCache(cache: PresetCache) {
+        cache.cache.forEach { (presetName, elements) ->
             getPresetByName(presetName)?.packageNames?.addAll(elements)
         }
+        RiskyPackageUtils.instance.importCache(cache.riskyPackageCache)
     }
 
     fun exportCache() = PresetCache().apply {
         presetList.forEach { (k, v) ->
             cache[k] = v.packageNames.toMutableList()
+            riskyPackageCache.addAll(RiskyPackageUtils.instance.exportCache())
         }
     }
 
     fun reloadPresets(appsList: List<ApplicationInfo>, fromScratch: Boolean) {
-        if (fromScratch) {
-            RiskyPackageUtils.clearAppList()
-            presetList.values.forEach { it.clearPackageList() }
-        } else {
+        if (!fromScratch) {
             val packageNames = appsList.mapTo(HashSet()) { it.packageName }
-            RiskyPackageUtils.removeAppsFromListIfNotExists(packageNames)
+            RiskyPackageUtils.instance.removeAppsFromListIfNotExists(packageNames)
 
             presetList.values.forEach { preset ->
                 preset.packageNames.removeIf { it !in packageNames }
             }
+
+            // fromScratch = false is only called at boot process, we can return safely
+            return
         }
 
-        for (appInfo in appsList) {
-            when (appInfo.packageName) {
-                "android" -> continue
-            }
+        RiskyPackageUtils.instance.clearAppList()
+        presetList.values.forEach { it.clearPackageList() }
+
+        appsList.forEach { appInfo ->
+            val packageName = appInfo.packageName
+
+            if (packageName == "android") return@forEach
 
             runCatching {
-                tryToAddIntoGMSConnectionList(appInfo, appInfo.packageName) {
-                    loggerFunction?.invoke(Log.DEBUG, it)
+                RiskyPackageUtils.instance.tryToAddIntoGMSConnectionList(appInfo) {
+                    loggerFunction?.invoke(Log.DEBUG) { it }
                 }
             }.onFailure { fail ->
-                loggerFunction?.invoke(Log.ERROR, fail.toString())
+                loggerFunction?.invoke(Log.ERROR) { fail.toString() }
             }
 
-            presetList.forEach addToPreset@{
-                if (it.key == AccessibilityAppsPreset.NAME && appInfo.isSystemApp()) {
-                    return@addToPreset
-                }
+            presetList.values.forEach { preset ->
+                if (preset.containsPackage(packageName)) return@forEach
+
+                if (preset is AccessibilityAppsPreset && appInfo.isSystemApp()) return@forEach
 
                 runCatching {
-                    it.value.addPackageInfoPreset(appInfo)
+                    preset.addPackageInfoPreset(appInfo)
                 }.onFailure { fail ->
-                    loggerFunction?.invoke(Log.ERROR, fail.toString())
+                    loggerFunction?.invoke(Log.ERROR) { fail.toString() }
                 }
+
+                loggerFunction?.invoke(Log.DEBUG) { preset.toString() }
             }
         }
-
-        presetList.forEach { loggerFunction?.invoke(Log.DEBUG, it.toString()) }
 
         manifestDataCache.clear()
     }
@@ -135,11 +139,11 @@ class AppPresets private constructor() {
                     runCatching {
                         if (it.value.addPackageInfoPreset(appInfo!!)) {
                             onModifyCache(it.key)
-                            loggerFunction?.invoke(Log.DEBUG, "Package $packageName added into ${it.key}!")
+                            loggerFunction?.invoke(Log.DEBUG) { "Package $packageName added into ${it.key}!" }
                             addedInAList = true
                         }
                     }.onFailure { fail ->
-                        loggerFunction?.invoke(Log.ERROR, fail.toString())
+                        loggerFunction?.invoke(Log.ERROR) { fail.toString() }
                     }
                 }
             }
@@ -149,12 +153,12 @@ class AppPresets private constructor() {
             appInfo = pms.getPackageInfoCompat(packageName, 0, 0)?.applicationInfo
 
         if (appInfo != null)
-            addedInAList = tryToAddIntoGMSConnectionList(appInfo, packageName) {
-                loggerFunction?.invoke(Log.DEBUG, it)
+            addedInAList = RiskyPackageUtils.instance.tryToAddIntoGMSConnectionList(appInfo) {
+                loggerFunction?.invoke(Log.DEBUG) { it }
             } || addedInAList
 
         if (addedInAList)
-            loggerFunction?.invoke(Log.DEBUG, "Package add event handled for $packageName!")
+            loggerFunction?.invoke(Log.DEBUG) { "Package add event handled for $packageName!" }
 
         manifestDataCache.clear()
 
@@ -174,11 +178,11 @@ class AppPresets private constructor() {
             }
         }
 
-        if (RiskyPackageUtils.removeAppFromList(packageName))
+        if (RiskyPackageUtils.instance.removeAppFromList(packageName))
             itWasInAList = true
 
         if (itWasInAList)
-            loggerFunction?.invoke(Log.DEBUG, "Package remove event handled for $packageName!")
+            loggerFunction?.invoke(Log.DEBUG) { "Package remove event handled for $packageName!" }
 
         return itWasInAList
     }
