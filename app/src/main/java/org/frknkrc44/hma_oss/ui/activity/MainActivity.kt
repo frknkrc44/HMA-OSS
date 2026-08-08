@@ -2,6 +2,7 @@ package org.frknkrc44.hma_oss.ui.activity
 
 import android.content.Context
 import android.content.res.Configuration
+import android.content.res.Resources
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -48,6 +49,10 @@ class MainActivity : AppCompatActivity() {
         if (!DynamicColors.isDynamicColorAvailable()) {
             theme.applyStyle(ThemeUtils.getColorThemeStyleRes(this), true)
         }
+    }
+
+    override fun onApplyThemeResource(theme: Resources.Theme, resid: Int, first: Boolean) {
+        super.onApplyThemeResource(theme, resid, first)
 
         theme.applyStyle(ThemeUtils.getOverlayThemeStyleRes(this), true)
 
