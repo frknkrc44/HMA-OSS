@@ -54,20 +54,20 @@ object Utils {
         }
     }
 
-    fun String.startsWithMultiple(vararg targets: String): Boolean {
-        assert(isNotEmpty() && targets.isNotEmpty())
+    fun String?.startsWithMultiple(vararg targets: String): Boolean {
+        if (isNullOrEmpty() || targets.isEmpty()) return false
 
         return targets.any { startsWith(it) }
     }
 
-    fun String.endsWithMultiple(vararg targets: String): Boolean {
-        assert(isNotEmpty() && targets.isNotEmpty())
+    fun String?.endsWithMultiple(vararg targets: String): Boolean {
+        if (isNullOrEmpty() || targets.isEmpty()) return false
 
         return targets.any { endsWith(it) }
     }
 
-    fun String.containsMultiple(vararg targets: String): Boolean {
-        assert(isNotEmpty() && targets.isNotEmpty())
+    fun String?.containsMultiple(vararg targets: String): Boolean {
+        if (isNullOrEmpty() || targets.isEmpty()) return false
 
         return targets.any { contains(it) }
     }
