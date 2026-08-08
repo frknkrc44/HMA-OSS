@@ -60,6 +60,15 @@
             android:summary="@string/settings_pure_black_dark_theme_summary"
             app:singleLineTitle="false"
             android:title="@string/settings_pure_black_dark_theme" />
+        <SwitchPreferenceCompat
+            android:icon="@drawable/outline_hide_image_24"
+            android:key="hideIcon"
+            android:summary="@string/settings_hide_icon_summary"
+            app:singleLineTitle="false"
+            android:title="@string/settings_hide_icon" />
+        <org.frknkrc44.hma_oss.ui.preference.AppIconPreference
+            android:key="launcherIcon"
+            android:title="@string/settings_launcher_icon" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/settings_module">
@@ -123,23 +132,14 @@
             android:summary="%s"
             app:singleLineTitle="false"
             android:title="@string/settings_max_log_size" />
-        <SwitchPreferenceCompat
-            android:icon="@drawable/outline_hide_image_24"
-            android:key="hideIcon"
-            android:summary="@string/settings_hide_icon_summary"
-            app:singleLineTitle="false"
-            android:title="@string/settings_hide_icon" />
-        <org.frknkrc44.hma_oss.ui.preference.AppIconPreference
-            android:key="launcherIcon"
-            android:title="@string/settings_launcher_icon"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/settings_service">
         <Preference
             android:icon="@drawable/outline_delete_24"
             android:key="clearUninstalledPackageConfigs"
             android:summary="@string/settings_clear_uninstalled_app_configs_summary"
             android:title="@string/settings_clear_uninstalled_app_configs" />
-    </PreferenceCategory>
-
-    <PreferenceCategory android:title="@string/settings_service">
         <Preference
             android:icon="@drawable/reset_settings_24px"
             android:key="resetDefault"
