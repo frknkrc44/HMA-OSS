@@ -55,9 +55,30 @@ class AppPresets private constructor() {
     val presetNames by lazy { presetList.keys }
     fun getPresetByName(name: String) = presetList[name]
 
-    fun reloadPresets(appsList: List<ApplicationInfo>) {
-        RiskyPackageUtils.clearAppList()
-        presetList.values.forEach { it.clearPackageList() }
+    fun importCache(cache: Map<String, List<String>>) {
+        cache.forEach { (presetName, elements) ->
+            getPresetByName(presetName)?.packageNames?.addAll(elements)
+        }
+    }
+
+    fun exportCache() = PresetCache().apply {
+        presetList.forEach { (k, v) ->
+            cache[k] = v.packageNames.toMutableList()
+        }
+    }
+
+    fun reloadPresets(appsList: List<ApplicationInfo>, fromScratch: Boolean) {
+        if (fromScratch) {
+            RiskyPackageUtils.clearAppList()
+            presetList.values.forEach { it.clearPackageList() }
+        } else {
+            val packageNames = appsList.mapTo(HashSet()) { it.packageName }
+            RiskyPackageUtils.removeAppsFromListIfNotExists(packageNames)
+
+            presetList.values.forEach { preset ->
+                preset.packageNames.removeIf { it !in packageNames }
+            }
+        }
 
         for (appInfo in appsList) {
             when (appInfo.packageName) {
@@ -93,7 +114,11 @@ class AppPresets private constructor() {
     fun containsPackage(presetName: String, packageName: String) =
         presetList[presetName]?.containsPackage(packageName) ?: false
 
-    fun handlePackageAdded(pms: IPackageManager, packageName: String) {
+    fun handlePackageAdded(
+        pms: IPackageManager,
+        packageName: String,
+        onModifyCache: (preset: String) -> Unit,
+    ) {
         if (presetList.any { it.value.containsPackage(packageName) }) {
             return
         }
@@ -109,6 +134,7 @@ class AppPresets private constructor() {
                 if (appInfo != null) {
                     runCatching {
                         if (it.value.addPackageInfoPreset(appInfo!!)) {
+                            onModifyCache(it.key)
                             loggerFunction?.invoke(Log.DEBUG, "Package $packageName added into ${it.key}!")
                             addedInAList = true
                         }
@@ -131,13 +157,19 @@ class AppPresets private constructor() {
             loggerFunction?.invoke(Log.DEBUG, "Package add event handled for $packageName!")
 
         manifestDataCache.clear()
+
+        return
     }
 
-    fun handlePackageRemoved(packageName: String) {
+    fun handlePackageRemoved(
+        packageName: String,
+        onModifyCache: (preset: String) -> Unit,
+        ): Boolean {
         var itWasInAList = false
 
         presetList.forEach {
             if (it.value.removePackageFromPreset(packageName)) {
+                onModifyCache(it.key)
                 itWasInAList = true
             }
         }
@@ -147,6 +179,8 @@ class AppPresets private constructor() {
 
         if (itWasInAList)
             loggerFunction?.invoke(Log.DEBUG, "Package remove event handled for $packageName!")
+
+        return itWasInAList
     }
 
     init {

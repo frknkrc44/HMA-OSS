@@ -20,6 +20,7 @@ import icu.nullptr.hidemyapplist.common.Constants.PARCEL_TYPE_LOG
 import icu.nullptr.hidemyapplist.common.FilterHolder
 import icu.nullptr.hidemyapplist.common.IHMAService
 import icu.nullptr.hidemyapplist.common.JsonConfig
+import icu.nullptr.hidemyapplist.common.PresetCache
 import icu.nullptr.hidemyapplist.common.RiskyPackageUtils.appHasGMSConnection
 import icu.nullptr.hidemyapplist.common.SettingsPresets
 import icu.nullptr.hidemyapplist.common.Utils.binderLocalScope
@@ -75,7 +76,8 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
 
     private lateinit var dataDir: String
     private lateinit var configFile: File
-    private lateinit var presetCacheFile: File
+    private lateinit var presetCacheFileOld: File
+    private lateinit var presetCacheFileNew: File
     private lateinit var filterCountFile: File
     private lateinit var logFile: File
     private lateinit var oldLogFile: File
@@ -93,6 +95,9 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
     var filterHolder = FilterHolder()
         private set
 
+    var presetCache = PresetCache()
+        private set
+
     init {
         searchDataDir()
         service = this
@@ -107,7 +112,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
             AppPresets.instance.loggerFunction = { level, msg ->
                 logWithLevel(level, "AppPresets") { msg }
             }
-            reloadPresetsFromScratch()
+            loadPresetCache()
 
             managerWorkMode = Constants.MANAGER_WORK_MODE_OK
         }
@@ -145,7 +150,8 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
 
         File("$dataDir/log").mkdirs()
         configFile = File("$dataDir/config.json")
-        presetCacheFile = File("$dataDir/preset_cache.json")
+        presetCacheFileOld = File("$dataDir/preset_cache.json")
+        presetCacheFileNew = File("$dataDir/preset_cache_v2.json")
         filterCountFile = File("$dataDir/filter_count.json")
         logFile = File("$dataDir/log/runtime.log")
         oldLogFile = File("$dataDir/log/old.log")
@@ -166,8 +172,8 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
             }
         }
 
-        // remove the preset cache
-        presetCacheFile.also {
+        // remove the old preset cache
+        presetCacheFileOld.also {
             runCatching {
                 if (it.exists()) it.delete()
             }.onFailure { e ->
@@ -216,6 +222,27 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
         }
         filterHolder = loading
         logI(TAG) { "Filter counts loaded" }
+    }
+
+    private fun loadPresetCache() {
+        var isFileAvailable = presetCacheFileNew.exists()
+
+        if (isFileAvailable) {
+            val loading = runCatching {
+                val json = presetCacheFileNew.readText()
+                PresetCache.parse(json)
+            }.getOrElse {
+                logE(TAG, it) { "Failed to parse preset cache V2" }
+                isFileAvailable = false
+                null
+            }
+
+            if (loading != null) {
+                AppPresets.instance.importCache(loading.cache)
+            }
+        }
+
+        reloadPresets(!isFileAvailable)
     }
 
     private fun installHooks() {
@@ -549,7 +576,11 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
                     }
 
                     // Handle app presets
-                    handlePackageAdded(pms, packageName)
+                    handlePackageAdded(pms, packageName) { preset ->
+                        if (presetCache.cache[preset]?.add(packageName) ?: false) {
+                            writePresetCache()
+                        }
+                    }
                 }
                 Intent.ACTION_PACKAGE_REMOVED -> {
                     // ignore package updates
@@ -563,7 +594,12 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
                         appUid = findAndVerifyAppSignature(pms)
                     }
 
-                    handlePackageRemoved(packageName)
+                    // Handle app presets
+                    handlePackageRemoved(packageName) { preset ->
+                        if (presetCache.cache[preset]?.remove(packageName) ?: false) {
+                            writePresetCache()
+                        }
+                    }
                 }
             }
         }
@@ -616,7 +652,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
 
     override fun getLogFileLocation(): String = logFile.absolutePath
 
-    override fun reloadPresetsFromScratch() {
+    private fun reloadPresets(fromScratch: Boolean) {
         val apps = mutableListOf<ApplicationInfo>().apply {
             binderLocalScope {
                 UserManagerApis.getUserIdsNoThrow().forEach { id ->
@@ -625,9 +661,24 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
             }
         }
 
-        AppPresets.instance.reloadPresets(apps)
+        AppPresets.instance.reloadPresets(apps, fromScratch)
         logI(TAG) { "All presets are loaded" }
+
+        presetCache = AppPresets.instance.exportCache()
+
+        writePresetCache()
     }
+
+    fun writePresetCache() {
+        runCatching {
+            presetCacheFileNew.writeText(presetCache.toString())
+            logD(TAG) { "Preset cache synced" }
+        }.onFailure {
+            logE(TAG, it) { "Failed to write into preset cache file" }
+        }
+    }
+
+    override fun reloadPresetsFromScratch() = reloadPresets(true)
 
     override fun getDetailedFilterStats() = filterHolder.toString()
 

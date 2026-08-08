@@ -8,6 +8,7 @@ import android.content.pm.ResolveInfo
 import android.os.Binder
 import android.os.Build
 import icu.nullptr.hidemyapplist.common.CollectionUtils.removeIf
+import kotlinx.serialization.json.Json
 import java.util.zip.ZipFile
 
 object Utils {
@@ -124,4 +125,9 @@ object Utils {
             flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP != 0
 
     val conflictedModules = arrayOf("com.tsng.hidemyapplist", "com.google.android.hmal")
+
+    val encoder = Json {
+        encodeDefaults = true
+        ignoreUnknownKeys = true
+    }
 }

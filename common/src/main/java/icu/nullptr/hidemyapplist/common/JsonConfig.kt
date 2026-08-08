@@ -1,8 +1,8 @@
 package icu.nullptr.hidemyapplist.common
 
+import icu.nullptr.hidemyapplist.common.Utils.encoder
 import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
 import org.frknkrc44.hma_oss.common.BuildConfig
 
 @Serializable
@@ -237,10 +237,6 @@ data class JsonConfig(
     companion object {
         fun parse(json: String) = encoder.decodeFromString<JsonConfig>(json)
 
-        val encoder = Json {
-            encodeDefaults = true
-            ignoreUnknownKeys = true
-        }
     }
 
     override fun toString() = encoder.encodeToString(this)

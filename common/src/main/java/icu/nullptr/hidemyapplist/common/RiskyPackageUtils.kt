@@ -36,5 +36,8 @@ object RiskyPackageUtils {
 
     internal fun removeAppFromList(packageName: String) = ignoredForRiskyPackagesList.remove(packageName)
 
+    internal fun removeAppsFromListIfNotExists(packageNames: Iterable<String>) =
+        ignoredForRiskyPackagesList.removeIf { it !in packageNames }
+
     internal fun clearAppList() = ignoredForRiskyPackagesList.clear()
 }
