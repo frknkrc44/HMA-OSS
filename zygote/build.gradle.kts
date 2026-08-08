@@ -34,6 +34,8 @@ afterEvaluate {
         val outSrcDir = layout.buildDirectory.dir("generated/source/signInfo/${variantLowered}")
         val outSrc = outSrcDir.get().file("org/frknkrc44/hma_oss/zygote/Magic.java")
         val signInfoTask = tasks.register("generate${variantCapped}SignInfo") {
+            description = "Generate signature info for verification"
+
             outputs.file(outSrc)
             doLast {
                 addManagerApp(variantLowered)
@@ -94,7 +96,7 @@ zygisk {
     description = "A Zygisk backend for HMA-OSS"
     entrypoint = "org.frknkrc44.hma_oss.zygote.ZygoteEntry"
     archiveName = "${rootProject.name}-ZYGISK-${android.defaultConfig.versionName}"
-    updateJson = "https://furkank.net/hma_oss_update_checker.php"
+    updateJson = "https://furkank.net/hma_oss_update_checker.json"
     isAddVariantToArchiveName = true
 }
 
