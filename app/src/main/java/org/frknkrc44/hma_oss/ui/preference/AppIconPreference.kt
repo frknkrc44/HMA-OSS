@@ -5,8 +5,6 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.graphics.PorterDuff
-import android.graphics.drawable.GradientDrawable
-import android.graphics.drawable.LayerDrawable
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -19,8 +17,6 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceViewHolder
 import icu.nullptr.hidemyapplist.data.AppConstants.allAppIcons
 import icu.nullptr.hidemyapplist.service.PrefManager
-import icu.nullptr.hidemyapplist.ui.util.ThemeUtils
-import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.asColor
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.asDrawable
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.themeColor
 import icu.nullptr.hidemyapplist.util.PackageHelper.findEnabledAppComponent
