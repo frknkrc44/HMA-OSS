@@ -62,10 +62,8 @@ class AppPresets private constructor() {
     }
 
     fun exportCache() = PresetCache().apply {
-        presetList.forEach { (k, v) ->
-            cache[k] = v.packageNames.toMutableList()
-            riskyPackageCache.addAll(RiskyPackageUtils.instance.exportCache())
-        }
+        presetList.forEach { (k, v) -> cache[k] = v.packageNames.toMutableList() }
+        riskyPackageCache.addAll(RiskyPackageUtils.instance.exportCache())
     }
 
     fun reloadPresets(appsList: List<ApplicationInfo>, fromScratch: Boolean) {
