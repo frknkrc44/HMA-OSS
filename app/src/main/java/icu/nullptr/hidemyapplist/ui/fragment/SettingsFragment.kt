@@ -369,10 +369,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
             lifecycleScope.launch {
                 PrefManager.isLauncherIconInvisible
                     .flowWithLifecycle(lifecycle)
-                    .collect { _ ->
-                        findPreference<AppIconPreference>("launcherIcon")?.apply {
-                            updateHolder()
-                        }
+                    .collect { value ->
+                        findPreference<AppIconPreference>("launcherIcon")?.isEnabled = !value
                     }
             }
 

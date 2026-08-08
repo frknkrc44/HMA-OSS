@@ -1,6 +1,5 @@
 package org.frknkrc44.hma_oss.ui.preference
 
-import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.Context
 import android.content.pm.PackageManager
@@ -24,25 +23,12 @@ import icu.nullptr.hidemyapplist.util.PackageHelper.findEnabledAppComponent
 import org.frknkrc44.hma_oss.BuildConfig
 import org.frknkrc44.hma_oss.R
 
-
-@Suppress("deprecation")
+@Suppress("ReplaceManualRangeWithIndicesCalls")
 class AppIconPreference(context: Context, attrs: AttributeSet?) : Preference(context, attrs) {
-    var viewHolder: PreferenceViewHolder? = null
-
-    @SuppressLint("SetTextI18n")
-    @Deprecated("Deprecated in Java")
     override fun onBindViewHolder(holder: PreferenceViewHolder) {
-        viewHolder = holder
-
         super.onBindViewHolder(holder)
 
-        updateHolder()
-    }
-
-    fun updateHolder() {
-        if (viewHolder == null) return
-
-        (viewHolder!!.itemView as ViewGroup).apply {
+        (holder.itemView as ViewGroup).apply {
             val summary = findViewById<View>(android.R.id.summary)
             val parent = summary.parent as ViewGroup
             parent.removeView(summary)
