@@ -38,7 +38,6 @@
     <string name="home_xposed_not_activated">Moduł nie aktywowany</string>
     <string name="home_xposed_service_on">Uruchomiono usługę systemową [%d]</string>
     <string name="home_xposed_service_off">Usługa systemowa nie jest uruchomiona</string>
-    <string name="home_xposed_service_old">Moduł zaktualizowany, wymaga reboota</string>
     <string name="home_xposed_filter_count">HMA-OSS przefiltrowało %d zapytań</string>
     <string name="home_manage">Zarządzaj</string>
     <string name="home_detection_test">Test wykrywalności</string>
@@ -201,9 +200,6 @@
     <string name="settings_pure_black_dark_theme">Czysta czerń ciemnego motywu</string>
     <string name="settings_pure_black_dark_theme_summary">Użyj motywu czystej czerni, gdy motyw ciemny jest włączony</string>
     <string name="settings_service">Usługa</string>
-    <string name="settings_stop_system_service">Zatrzymaj systemową usługę</string>
-    <string name="settings_stop_system_service_summary">Wymaga reboota aby zrestartować usługę</string>
-    <string name="settings_is_clean_env">Wyczyścić środowisko runtime w tym samym czasie?</string>
     <string name="settings_is_clean_env_summary">Usuwa cache systemowej usługi w lokalizacji /data/misc/hide_my_applist_*. To oznacza, że będziesz musiał uruchomić aplikację modułu manualnie po następnym reboocie, aby włączyć przechwytywanie a licznik przechwyceń również zostanie wyczyszczony.</string>
     <string name="settings_force_clean_env">Wymuś wyczyszczenie środowiska runtime (root)</string>
     <string name="settings_force_clean_env_summary">Użyj, tylko gdy usługa systemowa zalicza faila przy starcie, w przeciwnym wypadku powinieneś kliknąć opcję powyżej.</string>

@@ -1,5 +1,6 @@
 package org.frknkrc44.hma_oss.zygote.service
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.content.pm.IPackageManager
@@ -19,10 +20,12 @@ import icu.nullptr.hidemyapplist.common.Constants.PARCEL_TYPE_LOG
 import icu.nullptr.hidemyapplist.common.FilterHolder
 import icu.nullptr.hidemyapplist.common.IHMAService
 import icu.nullptr.hidemyapplist.common.JsonConfig
-import icu.nullptr.hidemyapplist.common.RiskyPackageUtils.appHasGMSConnection
+import icu.nullptr.hidemyapplist.common.PresetCache
+import icu.nullptr.hidemyapplist.common.RiskyPackageUtils
 import icu.nullptr.hidemyapplist.common.SettingsPresets
 import icu.nullptr.hidemyapplist.common.Utils.binderLocalScope
 import icu.nullptr.hidemyapplist.common.Utils.cleanRemnantsFromConfig
+import icu.nullptr.hidemyapplist.common.Utils.conflictedModules
 import icu.nullptr.hidemyapplist.common.Utils.generateRandomString
 import icu.nullptr.hidemyapplist.common.Utils.getInstalledApplicationsCompat
 import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
@@ -37,6 +40,7 @@ import org.frknkrc44.hma_oss.zygote.hook.BroadcastHook
 import org.frknkrc44.hma_oss.zygote.hook.ContentProviderHook
 import org.frknkrc44.hma_oss.zygote.hook.IFrameworkHook
 import org.frknkrc44.hma_oss.zygote.hook.ImmHook
+import org.frknkrc44.hma_oss.zygote.hook.PlatformCompatHook
 import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget29
 import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget30
 import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget31
@@ -59,10 +63,8 @@ import rikka.hidden.compat.UserManagerApis
 import java.io.File
 import java.io.FileInputStream
 import java.lang.reflect.Modifier
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
 
-class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWorkMode: Int) : IHMAService.Stub() {
+class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWorkMode: Int) : IHMAService.Stub() {
 
     companion object {
         private const val TAG = "HMA-Service"
@@ -70,11 +72,12 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
     }
 
     @Volatile
-    var logcatAvailable = false
+    private var logcatAvailable = false
 
     private lateinit var dataDir: String
     private lateinit var configFile: File
-    private lateinit var presetCacheFile: File
+    private lateinit var presetCacheFileOld: File
+    private lateinit var presetCacheFileNew: File
     private lateinit var filterCountFile: File
     private lateinit var logFile: File
     private lateinit var oldLogFile: File
@@ -83,7 +86,6 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
     private val loggerLock = Any()
     val systemApps = mutableSetOf<String>()
     private val frameworkHooks = mutableSetOf<IFrameworkHook>()
-    val executor: ExecutorService = Executors.newSingleThreadExecutor()
     internal var appUid = 0
         private set
 
@@ -99,18 +101,20 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
         loadFilterCount()
         loadConfig()
 
-        if (managerWorkMode == Constants.MANAGER_WORK_MODE_OK) {
+        appUid = findAndVerifyAppSignature(pms)
+
+        if (managerWorkMode != Constants.MANAGER_WORK_MODE_NO_HOOKS) {
             installHooks()
+
+            AppPresets.instance.loggerFunction = { level, msg ->
+                logWithLevel(level, "AppPresets", msg = msg)
+            }
+            loadPresetCache()
+
+            managerWorkMode = Constants.MANAGER_WORK_MODE_OK
         }
 
         logI(TAG) { "HMA service initialized in mode $managerWorkMode" }
-
-        AppPresets.instance.loggerFunction = { level, msg ->
-            logWithLevel(level, "AppPresets") { msg }
-        }
-        reloadPresetsFromScratch()
-
-        appUid = findAndVerifyAppSignature(pms)
     }
 
     private fun searchDataDir() {
@@ -143,7 +147,8 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
 
         File("$dataDir/log").mkdirs()
         configFile = File("$dataDir/config.json")
-        presetCacheFile = File("$dataDir/preset_cache.json")
+        presetCacheFileOld = File("$dataDir/preset_cache.json")
+        presetCacheFileNew = File("$dataDir/preset_cache_v2.json")
         filterCountFile = File("$dataDir/filter_count.json")
         logFile = File("$dataDir/log/runtime.log")
         oldLogFile = File("$dataDir/log/old.log")
@@ -164,8 +169,8 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
             }
         }
 
-        // remove the preset cache
-        presetCacheFile.also {
+        // remove the old preset cache
+        presetCacheFileOld.also {
             runCatching {
                 if (it.exists()) it.delete()
             }.onFailure { e ->
@@ -177,19 +182,26 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
             logI(TAG) { "Config file not found" }
             return
         }
-        val loading = runCatching {
+
+        val loading = try {
             val json = configFile.readText()
             JsonConfig.parse(json)
-        }.getOrElse {
-            logE(TAG, it) { "Failed to parse config.json" }
-            return
+        } catch (it: Throwable) {
+            logW(TAG, it) { "Failed to parse config.json, skip it" }
+
+            config
         }
+
         if (loading.configVersion != BuildConfig.CONFIG_VERSION) {
             logW(TAG) { "Config version mismatch, need to reload" }
             return
         }
-        loading.cleanRemnantsFromConfig()
-        config = loading
+
+        if (config != loading) {
+            loading.cleanRemnantsFromConfig()
+            config = loading
+        }
+
         logI(TAG) { "Config loaded" }
     }
 
@@ -207,6 +219,27 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
         }
         filterHolder = loading
         logI(TAG) { "Filter counts loaded" }
+    }
+
+    private fun loadPresetCache() {
+        var isFileAvailable = presetCacheFileNew.exists()
+
+        if (isFileAvailable) {
+            val loading = runCatching {
+                val json = presetCacheFileNew.readText()
+                PresetCache.parse(json)
+            }.getOrElse {
+                logE(TAG, it) { "Failed to parse preset cache V2" }
+                isFileAvailable = false
+                null
+            }
+
+            if (loading != null) {
+                AppPresets.instance.importCache(loading)
+            }
+        }
+
+        reloadPresets(!isFileAvailable)
     }
 
     private fun installHooks() {
@@ -228,6 +261,10 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.BAKLAVA) {
+                frameworkHooks.add(PlatformCompatHook())
+            }
+
             frameworkHooks.add(AppDataIsolationHook())
         }
 
@@ -326,16 +363,14 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
         return null
     }
 
-    fun getEnabledSettingsTemplates(caller: String?): Set<String> {
-        return config.scope[caller]?.applySettingTemplates ?: return setOf()
-    }
+    fun getEnabledSettingsTemplates(caller: String?) =
+        config.scope[caller]?.applySettingTemplates ?: setOf()
 
-    fun getEnabledSettingsPresets(caller: String?): Set<String> {
-        return config.scope[caller]?.applySettingsPresets ?: return setOf()
-    }
+    fun getEnabledSettingsPresets(caller: String?) =
+        config.scope[caller]?.applySettingsPresets ?: setOf()
 
     fun isAppInGMSIgnoredPackages(caller: String, query: String) =
-        (caller in Constants.gmsPackages) && appHasGMSConnection(query)
+        (caller in Constants.gmsPackages) && RiskyPackageUtils.instance.appHasGMSConnection(query)
 
     fun shouldHide(caller: String?, query: String?, userId: Int): Boolean {
         if (caller == null || query == null) return false
@@ -366,18 +401,18 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
             }
         }
 
-        for (presetName in appConfig.applyPresets) {
-            val preset = AppPresets.instance.getPresetByName(presetName) ?: continue
+        if (query !in config.ignoredPackagesForPresets) {
+            for (presetName in appConfig.applyPresets) {
+                if (AppPresets.instance.containsPackage(presetName, query)) {
+                    // Do not hide apps from Play Store if they are connected to GMS
+                    val overriddenCaller = if (caller == Constants.VENDING_PACKAGE_NAME) {
+                        Constants.GMS_PACKAGE_NAME
+                    } else {
+                        caller
+                    }
 
-            if (preset.containsPackage(query)) {
-                // Do not hide apps from Play Store if they are connected to GMS
-                val overriddenCaller = if (caller == Constants.VENDING_PACKAGE_NAME) {
-                    Constants.GMS_PACKAGE_NAME
-                } else {
-                    caller
+                    return !isAppInGMSIgnoredPackages(overriddenCaller, query)
                 }
-
-                return !isAppInGMSIgnoredPackages(overriddenCaller, query)
             }
         }
 
@@ -428,13 +463,6 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
         } else {
             Constants.FAKE_INSTALLATION_SOURCE_USER
         }
-    }
-
-    override fun stopService(cleanEnv: Boolean) {
-        if (!cleanEnv) return
-
-        logI(TAG) { "Clean runtime environment" }
-        File(dataDir).deleteRecursively()
     }
 
     fun ensureManagerWorkModeOK(silent: Boolean = false): Boolean {
@@ -545,7 +573,11 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
                     }
 
                     // Handle app presets
-                    handlePackageAdded(pms, packageName)
+                    handlePackageAdded(pms, packageName) { preset ->
+                        if (HMAServiceCache.instance.addIntoPresetCache(preset, packageName)) {
+                            writePresetCache()
+                        }
+                    }
                 }
                 Intent.ACTION_PACKAGE_REMOVED -> {
                     // ignore package updates
@@ -559,7 +591,12 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
                         appUid = findAndVerifyAppSignature(pms)
                     }
 
-                    handlePackageRemoved(packageName)
+                    // Handle app presets
+                    handlePackageRemoved(packageName) { preset ->
+                        if (HMAServiceCache.instance.removeFromPresetCache(preset, packageName)) {
+                            writePresetCache()
+                        }
+                    }
                 }
             }
         }
@@ -612,7 +649,9 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
 
     override fun getLogFileLocation(): String = logFile.absolutePath
 
-    override fun reloadPresetsFromScratch() {
+    private fun reloadPresets(fromScratch: Boolean) {
+        logI(TAG) { "Reloading presets " + if (fromScratch) "from scratch" else "over cache" }
+
         val apps = mutableListOf<ApplicationInfo>().apply {
             binderLocalScope {
                 UserManagerApis.getUserIdsNoThrow().forEach { id ->
@@ -621,9 +660,24 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
             }
         }
 
-        AppPresets.instance.reloadPresets(apps)
+        AppPresets.instance.reloadPresets(apps, fromScratch)
         logI(TAG) { "All presets are loaded" }
+
+        HMAServiceCache.instance.presetCache = AppPresets.instance.exportCache()
+
+        writePresetCache()
     }
+
+    fun writePresetCache() {
+        runCatching {
+            presetCacheFileNew.writeText(HMAServiceCache.instance.presetCache.toString())
+            logD(TAG) { "Preset cache synced" }
+        }.onFailure {
+            logE(TAG, it) { "Failed to write into preset cache file" }
+        }
+    }
+
+    override fun reloadPresetsFromScratch() = reloadPresets(true)
 
     override fun getDetailedFilterStats() = filterHolder.toString()
 
@@ -697,6 +751,43 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private val managerWor
         } else {
             throw RemoteException("Package is disabled")
         }
+    }
+
+    override fun migrateData(packageName: String): Boolean {
+        if (packageName !in conflictedModules) return false
+
+        @SuppressLint("SdCardPath")
+        fun getDataFile(): File? {
+            // Android 11+
+            val dataMirror = File("/data_mirror/data_ce/null/0/$packageName/files/config.json")
+            if (dataMirror.exists()) return dataMirror
+
+            // Android 10-
+            val data = File("/data/data/$packageName/files/config.json")
+            if (data.exists()) return data
+
+            return null
+        }
+
+        val dataFile = getDataFile() ?: return false
+
+        val bytes = dataFile.readBytes()
+        configFile.writeBytes(bytes)
+
+        return true
+    }
+
+    override fun reloadConfigFromFile() {
+        val loading = runCatching {
+            assert(configFile.exists())
+            val json = configFile.readText()
+            JsonConfig.parse(json)
+        }.getOrElse {
+            logE(TAG, it) { "Failed to parse config.json" }
+            return
+        }
+
+        config = loading
     }
 
     // This part is a copy of Android code

@@ -38,7 +38,6 @@
     <string name="home_xposed_not_activated">Modul nicht aktiviert</string>
     <string name="home_xposed_service_on">System Service läuft [%d]</string>
     <string name="home_xposed_service_off">System Service läuft nicht</string>
-    <string name="home_xposed_service_old">Modul aktualisiert, Neustart benötigt</string>
     <string name="home_xposed_filter_count">HMA-OSS hat insgesamt %d Anfragen gefiltert</string>
     <string name="home_manage">Verwalten</string>
     <string name="home_detection_test">Erkennungstest</string>
@@ -201,9 +200,6 @@
     <string name="settings_pure_black_dark_theme">Schwarzes Thema</string>
     <string name="settings_pure_black_dark_theme_summary">Schwarzes Thema verwenden, wenn dunkles Thema aktiviert ist</string>
     <string name="settings_service">Service</string>
-    <string name="settings_stop_system_service">Stoppe Systemdienste</string>
-    <string name="settings_stop_system_service_summary">Neustart erforderlich</string>
-    <string name="settings_is_clean_env">Laufzeitumgebung gleichzeitig reinigen?</string>
     <string name="settings_is_clean_env_summary">System Service Cache in /data/misc/hide_my_applist_* entfernen. Das heißt, dass du die Modul-App nach dem nächsten Neustart selbst starten musst, um das Abfangen zu aktivieren und die Abfangzahlen werden auch bereinigt.</string>
     <string name="settings_force_clean_env">Reinigung der Laufzeitumgebung erzwingen (Root)</string>
     <string name="settings_force_clean_env_summary">Nur wenn der Systemdienst nicht startet, ansonsten sollten Sie auf die obige Option klicken.</string>

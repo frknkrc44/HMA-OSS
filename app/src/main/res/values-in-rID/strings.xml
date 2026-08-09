@@ -38,7 +38,6 @@
     <string name="home_xposed_not_activated">Modul Tidak Diaktifkan</string>
     <string name="home_xposed_service_on">Layanan sistem sedang berjalan [%d]</string>
     <string name="home_xposed_service_off">Layanan sistem tidak berjalan</string>
-    <string name="home_xposed_service_old">Modul diperbarui, perlu mulai ulang</string>
     <string name="home_xposed_filter_count">HMA-OSS telah memfilter total %d permintaan</string>
     <string name="home_manage">Kelola</string>
     <string name="home_detection_test">Uji deteksi</string>
@@ -201,9 +200,6 @@
     <string name="settings_pure_black_dark_theme">Tema gelap hitam pekat</string>
     <string name="settings_pure_black_dark_theme_summary">Gunakan tema hitam pekat jika tema gelap diaktifkan</string>
     <string name="settings_service">Layanan</string>
-    <string name="settings_stop_system_service">Hentikan layanan sistem</string>
-    <string name="settings_stop_system_service_summary">Perlu mulai ulang untuk memulai kembali layanan</string>
-    <string name="settings_is_clean_env">Bersihkan lingkungan runtime pada saat yang bersamaan?</string>
     <string name="settings_is_clean_env_summary">Hapus cache layanan sistem di /data/misc/hide_my_applist_*. Ini artinya Anda harus membuka aplikasi modul secara manual sekali setelah proses mulai ulang berikutnya untuk mengaktifkan intersepsi, dan hitungan intersepsi juga akan dibersihkan.</string>
     <string name="settings_force_clean_env">Bersihkan paksa lingkungan runtime (root)</string>
     <string name="settings_force_clean_env_summary">Hanya jika layanan sistem gagal untuk memulai, jika tidak, Anda harus mengetuk opsi di atas.</string>

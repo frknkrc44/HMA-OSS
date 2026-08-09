@@ -1,11 +1,10 @@
 package org.frknkrc44.hma_oss.ui.preference
 
-import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.Context
 import android.content.pm.PackageManager
-import android.graphics.drawable.GradientDrawable
-import android.graphics.drawable.LayerDrawable
+import android.content.res.ColorStateList
+import android.graphics.PorterDuff
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -18,31 +17,18 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceViewHolder
 import icu.nullptr.hidemyapplist.data.AppConstants.allAppIcons
 import icu.nullptr.hidemyapplist.service.PrefManager
-import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.asColor
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.asDrawable
+import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.themeColor
 import icu.nullptr.hidemyapplist.util.PackageHelper.findEnabledAppComponent
 import org.frknkrc44.hma_oss.BuildConfig
 import org.frknkrc44.hma_oss.R
 
-
-@Suppress("deprecation")
+@Suppress("ReplaceManualRangeWithIndicesCalls")
 class AppIconPreference(context: Context, attrs: AttributeSet?) : Preference(context, attrs) {
-    var viewHolder: PreferenceViewHolder? = null
-
-    @SuppressLint("SetTextI18n")
-    @Deprecated("Deprecated in Java")
     override fun onBindViewHolder(holder: PreferenceViewHolder) {
-        viewHolder = holder
-
         super.onBindViewHolder(holder)
 
-        updateHolder()
-    }
-
-    fun updateHolder() {
-        if (viewHolder == null) return
-
-        (viewHolder!!.itemView as ViewGroup).apply {
+        (holder.itemView as ViewGroup).apply {
             val summary = findViewById<View>(android.R.id.summary)
             val parent = summary.parent as ViewGroup
             parent.removeView(summary)
@@ -55,6 +41,23 @@ class AppIconPreference(context: Context, attrs: AttributeSet?) : Preference(con
 
             for (idx in 0 ..< allAppIcons.size) {
                 val radioButton = object : AppCompatRadioButton(context) {
+                    init {
+                        layoutParams = RadioGroup.LayoutParams(
+                            ViewGroup.LayoutParams.WRAP_CONTENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ).apply {
+                            val padding = context.resources.getDimensionPixelOffset(R.dimen.item_padding_mini2x)
+                            setMargins(padding, padding, padding, padding)
+                        }
+
+                        id = idx
+                        gravity = Gravity.CENTER_VERTICAL
+                        text = ""
+                        buttonDrawable = allAppIcons[idx].first.asDrawable(context)
+                        buttonTintList = null
+                        buttonTintMode = PorterDuff.Mode.SRC_ATOP
+                    }
+
                     override fun setChecked(checked: Boolean) {
                         if (PrefManager.hideIcon) {
                             foreground = null
@@ -64,30 +67,19 @@ class AppIconPreference(context: Context, attrs: AttributeSet?) : Preference(con
 
                         super.setChecked(checked)
 
-                        foreground = if (checked) LayerDrawable(
-                            arrayOf(
-                                GradientDrawable().apply {
-                                    setColor(R.color.gray.asColor(context) - 0x44000000)
-                                    cornerRadius = 96.0f
-                                },
-                                R.drawable.check_24px.asDrawable(context)
+                        buttonTintList = if (isChecked) {
+                            ColorStateList.valueOf(
+                                (context.themeColor(
+                                    androidx.appcompat.R.attr.colorPrimaryDark
+                                ) - 0x88000000).toInt()
                             )
-                        ) else null
+                        } else {
+                            null
+                        }
+
+                        foreground = if (checked) R.drawable.check_24px.asDrawable(context) else null
                         alpha = if (checked) 1.0f else 0.4f
                     }
-                }
-
-                with(radioButton) {
-                    layoutParams = RadioGroup.LayoutParams(-2, -2).apply {
-                        val padding = context.resources.getDimensionPixelOffset(R.dimen.item_padding_mini2x)
-                        setMargins(padding, padding, padding, padding)
-                    }
-
-                    id = idx
-                    gravity = Gravity.CENTER_VERTICAL
-                    buttonDrawable = allAppIcons[idx].first.asDrawable(context)
-                    text = ""
-                    buttonTintList = null
                 }
 
                 appIconSelector.addView(radioButton)

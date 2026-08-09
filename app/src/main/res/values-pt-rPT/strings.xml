@@ -38,7 +38,6 @@
     <string name="home_xposed_not_activated">Módulo não ativado</string>
     <string name="home_xposed_service_on">Serviço do sistema em execução [%d]</string>
     <string name="home_xposed_service_off">Serviço do sistema parado</string>
-    <string name="home_xposed_service_old">Módulo atualizado, é necessário reiniciar</string>
     <string name="home_xposed_filter_count">HMA-OSS filtrou um total de %d pedidos</string>
     <string name="home_manage">Gerir</string>
     <string name="home_detection_test">Teste de deteção</string>
@@ -201,9 +200,6 @@
     <string name="settings_pure_black_dark_theme">Tema preto puro</string>
     <string name="settings_pure_black_dark_theme_summary">Usar o tema preto puro se o tema escuro estiver ativado</string>
     <string name="settings_service">Serviço</string>
-    <string name="settings_stop_system_service">Parar serviço do sistema</string>
-    <string name="settings_stop_system_service_summary">É necessário reiniciar para reiniciar o serviço</string>
-    <string name="settings_is_clean_env">Limpar ambiente de execução ao mesmo tempo?</string>
     <string name="settings_is_clean_env_summary">Remove a cache do serviço do sistema em /data/misc/hide_my_applist_*. Isto significa que precisa de iniciar a aplicação do módulo manualmente uma vez após o próximo reinício para ativar as interceções, e as contagens de interceção também serão limpas.</string>
     <string name="settings_force_clean_env">Forçar limpeza do ambiente de execução (root)</string>
     <string name="settings_force_clean_env_summary">Apenas se o serviço do sistema falhar ao iniciar. Caso contrário, deve clicar na opção acima.</string>

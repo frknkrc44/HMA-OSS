@@ -38,7 +38,6 @@
     <string name="home_xposed_not_activated">Modül Etkin Değil</string>
     <string name="home_xposed_service_on">Sistem servisi çalışıyor [%d]</string>
     <string name="home_xposed_service_off">Sistem servisi çalışmıyor</string>
-    <string name="home_xposed_service_old">Modül güncellendi, yeniden başlatma gerekiyor</string>
     <string name="home_xposed_filter_count">HMA-OSS toplam %d isteği filtreledi</string>
     <string name="home_manage">Yönet</string>
     <string name="home_detection_test">Tespit testi</string>
@@ -201,9 +200,6 @@
     <string name="settings_pure_black_dark_theme">Saf siyah koyu tema</string>
     <string name="settings_pure_black_dark_theme_summary">Koyu tema etkinse saf siyah temayı kullan</string>
     <string name="settings_service">Servis</string>
-    <string name="settings_stop_system_service">Sistem servisini durdur</string>
-    <string name="settings_stop_system_service_summary">Servisi yeniden başlatmak için yeniden başlatma gerekiyor</string>
-    <string name="settings_is_clean_env">Aynı zamanda çalışma zamanı ortamını da temizlemek istiyor musunuz?</string>
     <string name="settings_is_clean_env_summary">/data/misc/hide_my_applist_* içindeki sistem servisi önbelleğini kaldırır. Bu, bir sonraki yeniden başlatmadan sonra modül uygulaması el ile başlatılmalıdır ve müdahale sayımları da temizlenecektir.</string>
     <string name="settings_force_clean_env">Çalışma zamanı ortamını zorla temizle (root)</string>
     <string name="settings_force_clean_env_summary">Sadece sistem servisi başlatılamazsa bu seçeneği kullanın, aksi takdirde yukarıdaki seçeneği tıklayın.</string>

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceCategory android:title="@string/application">
         <Preference
-            android:key="appInfo" />
+            android:key="appInfo"
+            app:widgetLayout="@layout/preference_more_indicator" />
         <SwitchPreferenceCompat
             android:icon="@drawable/outline_shield_24"
             android:key="enableHide"
@@ -12,6 +13,7 @@
     </PreferenceCategory>
 
     <Preference
+        app:widgetLayout="@layout/preference_sub_menu_indicator"
         android:dependency="enableHide"
         android:key="spoofing"
         android:icon="@drawable/outline_shop_24"
@@ -21,6 +23,7 @@
         android:dependency="enableHide"
         android:title="@string/preferences">
         <Preference
+            app:widgetLayout="@layout/preference_sub_menu_indicator"
             android:key="templateConfig"
             android:icon="@drawable/outline_assignment_24"
             android:title="@string/app_template_config" />

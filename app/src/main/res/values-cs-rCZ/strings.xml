@@ -38,7 +38,6 @@
     <string name="home_xposed_not_activated">Modul není aktivován</string>
     <string name="home_xposed_service_on">Systémová služba běží [%d]</string>
     <string name="home_xposed_service_off">Systémová služba neběží</string>
-    <string name="home_xposed_service_old">Modul aktualizován, je třeba restartovat</string>
     <string name="home_xposed_filter_count">HMA-OSS odfiltroval celkem %d požadavků</string>
     <string name="home_manage">Spravovat</string>
     <string name="home_detection_test">Detekční test</string>
@@ -201,9 +200,6 @@
     <string name="settings_pure_black_dark_theme">Čistý černý tmavý motiv</string>
     <string name="settings_pure_black_dark_theme_summary">Pokud je povolen tmavý motiv, použijte čistě černý motiv</string>
     <string name="settings_service">Služba</string>
-    <string name="settings_stop_system_service">Zastavit systémovou službu</string>
-    <string name="settings_stop_system_service_summary">K restartování služby je třeba restartovat</string>
-    <string name="settings_is_clean_env">Vyčistit runtime prostředí ve stejnou dobu?</string>
     <string name="settings_is_clean_env_summary">Odeberte mezipaměť systémové služby v /data/misc/hide_my_applist_*. To znamená, že musíte po příštím restartu spustit aplikaci modulu jednou ručně, abyste povolili odposlechy a počty odposlechů budou také vyčištěny.</string>
     <string name="settings_force_clean_env">Force clean runtime environment (root)</string>
     <string name="settings_force_clean_env_summary">Only if system service fails to start, otherwise you should click the above option.</string>

@@ -38,7 +38,6 @@
     <string name="home_xposed_not_activated">Module Inactivé</string>
     <string name="home_xposed_service_on">Service système en fonctionnement [%d]</string>
     <string name="home_xposed_service_off">Service système ne fonctionne pas</string>
-    <string name="home_xposed_service_old">Module mis à jour, redémarrage nécessaire</string>
     <string name="home_xposed_filter_count">L\'application a filtré un total de %d requêtes</string>
     <string name="home_manage">Gérer</string>
     <string name="home_detection_test">Test de détection</string>
@@ -201,9 +200,6 @@
     <string name="settings_pure_black_dark_theme">Thème foncé noir pure</string>
     <string name="settings_pure_black_dark_theme_summary">Utiliser le thème noirci pure si le thème foncé est activé</string>
     <string name="settings_service">Service</string>
-    <string name="settings_stop_system_service">Stopper le service du système</string>
-    <string name="settings_stop_system_service_summary">Redémarrage nécessaire pour redémarrer le service</string>
-    <string name="settings_is_clean_env">Nettoyer l\'environnement d\'éxécution en même temps?</string>
     <string name="settings_is_clean_env_summary">Supprimer le cache du service système dans /data/misc/hide_my_applist_*. Celà veut dire que vous devez lancer le module de l\'application une fois manuellement après le prochain redémarrage pour permettre l\'activation des interceptions, le compteur d\'interceptions sera également nettoyé.</string>
     <string name="settings_force_clean_env">Forcer le nettoyage de l\'environnement (racine)</string>
     <string name="settings_force_clean_env_summary">Uniquement si le service du système échoue à démarrer, autrement vous devriez opter pour l\'option ci-dessus.</string>

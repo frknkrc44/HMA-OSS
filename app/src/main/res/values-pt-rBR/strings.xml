@@ -38,7 +38,6 @@
     <string name="home_xposed_not_activated">Módulo não ativado</string>
     <string name="home_xposed_service_on">Serviço do sistema funcionando [%d]</string>
     <string name="home_xposed_service_off">Serviço do sistema não está funcionando</string>
-    <string name="home_xposed_service_old">Módulo atualizado, necessário reiniciar</string>
     <string name="home_xposed_filter_count">HMA-OSS filtrou no total %d pedidos</string>
     <string name="home_manage">Gerenciar</string>
     <string name="home_detection_test">Teste de detecção</string>
@@ -201,9 +200,6 @@
     <string name="settings_pure_black_dark_theme">Tema preto (AMOLED)</string>
     <string name="settings_pure_black_dark_theme_summary">Ativa o tema preto se o tema escuro estiver habilitado</string>
     <string name="settings_service">Serviço</string>
-    <string name="settings_stop_system_service">Parar serviço do sistema</string>
-    <string name="settings_stop_system_service_summary">Reinicialização necessária para reiniciar o serviço</string>
-    <string name="settings_is_clean_env">Limpar o ambiente de operação ao mesmo tempo?</string>
     <string name="settings_is_clean_env_summary">Remover arquivo temporário do serviço do sistema em /data/misc/hide_my_applist_*. Isso significa que você precisa iniciar o aplicativo manualmente uma vez na próxima reinicialização para habilitar interceptações, e a contagens de interceptações será apagada.</string>
     <string name="settings_force_clean_env">Forçar a limpar o ambiente de operação (root)</string>
     <string name="settings_force_clean_env_summary">Apenas se o serviço de sistema falhar ao iniciar, se não você deve clicar a opção acima.</string>

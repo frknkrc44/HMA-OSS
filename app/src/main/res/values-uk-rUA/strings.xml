@@ -38,7 +38,6 @@
     <string name="home_xposed_not_activated">Модуль не активовано</string>
     <string name="home_xposed_service_on">Системна служба працює [%d]</string>
     <string name="home_xposed_service_off">Системна служба не працює</string>
-    <string name="home_xposed_service_old">Модуль оновлено, потрібно перезавантажити</string>
     <string name="home_xposed_filter_count">HMA-OSS відфільтрував %d запитів</string>
     <string name="home_manage">Керувати</string>
     <string name="home_detection_test">Перевірка на виявлення</string>
@@ -201,9 +200,6 @@
     <string name="settings_pure_black_dark_theme">Чорна тема</string>
     <string name="settings_pure_black_dark_theme_summary">Використовуйте чорну тему, якщо темну тему ввімкнено</string>
     <string name="settings_service">Служба</string>
-    <string name="settings_stop_system_service">Зупинити системну службу</string>
-    <string name="settings_stop_system_service_summary">Потрібне перезавантаження, щоб перезапустити службу</string>
-    <string name="settings_is_clean_env">Очистити також середовище виконання?</string>
     <string name="settings_is_clean_env_summary">Видаліть кеш системної служби в /data/misc/hide_my_applist_*. Це означає, що вам потрібно один раз запустити програму модуля вручну після наступного перезавантаження, щоб увімкнути перехоплення, і кількість перехоплень також буде очищено.</string>
     <string name="settings_force_clean_env">Примусово очистити середовище виконання (root)</string>
     <string name="settings_force_clean_env_summary">Лише якщо не вдається запустити системну службу, інакше вам слід натиснути вищезазначену опцію.</string>

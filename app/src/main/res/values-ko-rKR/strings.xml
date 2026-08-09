@@ -38,7 +38,6 @@
     <string name="home_xposed_not_activated">모듈 활성화되지 않음</string>
     <string name="home_xposed_service_on">시스템 서비스 실행 중 [%d]</string>
     <string name="home_xposed_service_off">시스템 서비스 실행 중지</string>
-    <string name="home_xposed_service_old">모듈이 업데이트되었습니다. 재부팅이 필요합니다.</string>
     <string name="home_xposed_filter_count">HMA-OSS가 총 %d개의 요청을 필터링했습니다.</string>
     <string name="home_manage">관리</string>
     <string name="home_detection_test">탐지 테스트</string>
@@ -201,9 +200,6 @@
     <string name="settings_pure_black_dark_theme">완전 검정 다크 테마</string>
     <string name="settings_pure_black_dark_theme_summary">다크 테마가 활성화된 경우 완전 검정 배경을 사용합니다.</string>
     <string name="settings_service">서비스</string>
-    <string name="settings_stop_system_service">시스템 서비스 중지</string>
-    <string name="settings_stop_system_service_summary">서비스를 다시 시작하려면 재부팅해야 합니다.</string>
-    <string name="settings_is_clean_env">런타임 환경도 함께 정리할까요?</string>
     <string name="settings_is_clean_env_summary">/data/misc/hide_my_applist_* 경로의 시스템 서비스 캐시를 제거합니다. 즉, 가로채기를 활성화하려면 다음 재부팅 후 모듈 앱을 수동으로 한 번 실행해야 하며, 가로채기 횟수도 초기화됩니다.</string>
     <string name="settings_force_clean_env">런타임 환경 강제 정리 (ROOT)</string>
     <string name="settings_force_clean_env_summary">시스템 서비스 시작에 실패한 경우에만 사용하세요. 그렇지 않다면 위 옵션을 클릭해야 합니다.</string>

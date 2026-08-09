@@ -64,6 +64,7 @@ class TemplateManageFragment : Fragment(R.layout.fragment_template_manage) {
         when (info.type) {
             ConfigManager.PTType.APP -> navigateToAppTemplateSettings(info)
             ConfigManager.PTType.SETTINGS -> navigateToSettingTemplateSettings(info)
+            ConfigManager.PTType.IGNORED_APPS -> {}
         }
     }
 

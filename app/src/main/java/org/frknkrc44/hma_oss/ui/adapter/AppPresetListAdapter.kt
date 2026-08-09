@@ -32,6 +32,7 @@ class AppPresetListAdapter(
                         when (item.type) {
                             ConfigManager.PTType.APP -> R.drawable.baseline_assignment_24
                             ConfigManager.PTType.SETTINGS -> R.drawable.baseline_settings_24
+                            ConfigManager.PTType.IGNORED_APPS -> R.drawable.outline_android_24
                         }
                     )
 
@@ -64,6 +65,18 @@ class AppPresetListAdapter(
     private fun updateList(context: Context) {
         list.clear()
 
+        list += ConfigManager.PresetInfo(
+            "ignored_apps",
+            ConfigManager.PTType.IGNORED_APPS,
+            context.getString(R.string.title_ignored_apps_for_presets),
+        )
+
+        list += ConfigManager.PresetInfo(
+            "preset",
+            null,
+            context.getString(R.string.title_preset),
+        )
+
         val appPresetNames = AppPresets.instance.presetNames
         val appPresetTranslations = appPresetNames.map { name ->
             try {
@@ -78,12 +91,6 @@ class AppPresetListAdapter(
 
             name
         }
-
-        list += ConfigManager.PresetInfo(
-            "preset",
-            null,
-            context.getString(R.string.title_preset),
-        )
 
         list += appPresetNames
             .map { ConfigManager.PresetInfo(

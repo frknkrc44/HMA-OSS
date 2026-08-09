@@ -38,7 +38,6 @@
     <string name="home_xposed_not_activated">الإضافة غير مفعلة</string>
     <string name="home_xposed_service_on">خدمة النظام تعمل [%d]</string>
     <string name="home_xposed_service_off">خدمة النظام متوقفة</string>
-    <string name="home_xposed_service_old">تم تحديث الإضافة، تحتاج إلى إعادة التشغيل</string>
     <string name="home_xposed_filter_count">HMA-OSS قام بتصفية إجمالي %d من الطلبات</string>
     <string name="home_manage">الإدارة</string>
     <string name="home_detection_test">اختبار الاكتشاف</string>
@@ -202,9 +201,6 @@
     <string name="settings_pure_black_dark_theme">الثيم الأسود الخالص</string>
     <string name="settings_pure_black_dark_theme_summary">استخدم السمة السوداء الخالصة إذا كان المظهر الداكن مُفعل</string>
     <string name="settings_service">الخدمة</string>
-    <string name="settings_stop_system_service">إيقاف خدمة النظام</string>
-    <string name="settings_stop_system_service_summary">تحتاج إلى إعادة تشغيل الجهاز لإعادة تشغيل الخدمة</string>
-    <string name="settings_is_clean_env">تنظيف بيئة التشغيل في نفس الوقت؟</string>
     <string name="settings_is_clean_env_summary">إزالة التخزين المؤقت لخدمة النظام في /data/misc/hide_my_applist_*. هذا يعني أنك ستحتاج إلى تشغيل الإضافة مرة واحدة يدويا بعد إعادة التشغيل التالي حتي تعمل الاعتراضات، وسيتم أيضا تنظيف عمليات الاعتراض.</string>
     <string name="settings_force_clean_env">إجبار تنظيف بيئة العمل (روت)</string>
     <string name="settings_force_clean_env_summary">فقط إذا فشلت خدمة النظام في البَدْء، وإلا يجب عليك أن تضغط على الخِيار أعلاه.</string>

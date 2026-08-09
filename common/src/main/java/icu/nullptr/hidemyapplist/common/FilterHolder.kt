@@ -1,7 +1,7 @@
 package icu.nullptr.hidemyapplist.common
 
+import icu.nullptr.hidemyapplist.common.Utils.encoder
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
 
 @Serializable
 data class FilterHolder(
@@ -27,10 +27,6 @@ data class FilterHolder(
     companion object {
         fun parse(json: String) = encoder.decodeFromString<FilterHolder>(json)
 
-        private val encoder = Json {
-            encodeDefaults = true
-            ignoreUnknownKeys = true
-        }
     }
 
     enum class FilterType {

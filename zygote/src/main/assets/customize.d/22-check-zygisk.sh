@@ -41,10 +41,22 @@ find_zygisk "zygisksu" "ZygiskNext / NeoZygisk"
 find_zygisk "rezygisk" "ReZygisk"
 find_zygisk "admirepowered" "Zygisk Mod"
 find_zygisk "zygisk_on_ksu" "Zygisk on KernelSU"
+find_zygisk "yukizygisk" "YukiZygisk"
 
-if [ -z "$ZYGISK_NAME" ] && [ "$ZYGISK_ENABLED" == "1" ]
+if [ -z "$ZYGISK_NAME" ]
 then
-    ZYGISK_NAME="$FALLBACK_ZYGISK_NAME"
+    if [ "$ZYGISK_ENABLED" == "1" ]
+    then
+        ZYGISK_NAME="$FALLBACK_ZYGISK_NAME"
+    else
+        # because ZYGISK_ENABLED is not working properly
+        MAGISK_ZYGISK=$(magisk --sqlite "SELECT value FROM settings WHERE key = 'zygisk'" 2> /dev/null | cut -f2 -d=)
+
+        if [ "$MAGISK_ZYGISK" == "1" ]
+        then
+            ZYGISK_NAME="$FALLBACK_ZYGISK_NAME"
+        fi
+    fi
 fi
 
 # not installed zygisk

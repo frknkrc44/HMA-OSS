@@ -3,9 +3,13 @@ package icu.nullptr.hidemyapplist.common
 import android.content.pm.ApplicationInfo
 import icu.nullptr.hidemyapplist.common.Utils.checkSplitPackages
 
-object RiskyPackageUtils {
-    private const val GMS_PROP = "\u0000c\u0000o\u0000m\u0000.\u0000g\u0000o\u0000o\u0000g\u0000l\u0000e\u0000.\u0000a\u0000n\u0000d\u0000r\u0000o\u0000i\u0000d\u0000.\u0000g\u0000m\u0000s\u0000."
-    private const val FIREBASE_PROP = "\u0000c\u0000o\u0000m\u0000.\u0000g\u0000o\u0000o\u0000g\u0000l\u0000e\u0000.\u0000f\u0000i\u0000r\u0000e\u0000b\u0000a\u0000s\u0000e\u0000."
+class RiskyPackageUtils private constructor() {
+    companion object {
+        val instance by lazy { RiskyPackageUtils() }
+
+        private const val GMS_PROP = "\u0000c\u0000o\u0000m\u0000.\u0000g\u0000o\u0000o\u0000g\u0000l\u0000e\u0000.\u0000a\u0000n\u0000d\u0000r\u0000o\u0000i\u0000d\u0000.\u0000g\u0000m\u0000s\u0000."
+        private const val FIREBASE_PROP = "\u0000c\u0000o\u0000m\u0000.\u0000g\u0000o\u0000o\u0000g\u0000l\u0000e\u0000.\u0000f\u0000i\u0000r\u0000e\u0000b\u0000a\u0000s\u0000e\u0000."
+    }
 
     private val ignoredForRiskyPackagesList = mutableSetOf<String>()
 
@@ -14,9 +18,12 @@ object RiskyPackageUtils {
         "com.anydesk.anydeskandroid",
     )
 
-    fun appHasGMSConnection(query: String) = query in ignoredForRiskyPackagesList || query in explicitlyIgnoredPackages
+    fun appHasGMSConnection(query: String, excludeExplicit: Boolean = false) =
+        query in ignoredForRiskyPackagesList || (!excludeExplicit && query in explicitlyIgnoredPackages)
 
-    internal fun tryToAddIntoGMSConnectionList(appInfo: ApplicationInfo, packageName: String, loggerFunction: ((String) -> Unit)?): Boolean {
+    internal fun tryToAddIntoGMSConnectionList(appInfo: ApplicationInfo, loggerFunction: ((String) -> Unit)?): Boolean {
+        val packageName = appInfo.packageName
+
         if (appHasGMSConnection(packageName)) return false
 
         return checkSplitPackages(appInfo) { key, zipFile ->
@@ -34,7 +41,14 @@ object RiskyPackageUtils {
         }
     }
 
+    internal fun importCache(elements: MutableSet<String>) = ignoredForRiskyPackagesList.addAll(elements)
+
+    internal fun exportCache(): Set<String> = ignoredForRiskyPackagesList
+
     internal fun removeAppFromList(packageName: String) = ignoredForRiskyPackagesList.remove(packageName)
+
+    internal fun removeAppsFromListIfNotExists(packageNames: Iterable<String>) =
+        ignoredForRiskyPackagesList.removeIf { it !in packageNames }
 
     internal fun clearAppList() = ignoredForRiskyPackagesList.clear()
 }

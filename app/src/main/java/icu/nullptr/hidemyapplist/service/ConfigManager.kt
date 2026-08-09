@@ -31,6 +31,11 @@ object ConfigManager {
          * This preset/template type is used for settings filtering.
          */
         SETTINGS,
+
+        /**
+         * Ignored apps from presets, not really a preset
+         */
+        IGNORED_APPS,
     }
 
     data class TemplateInfo(val name: String?, val type: PTType, val isWhiteList: Boolean)
@@ -151,6 +156,14 @@ object ConfigManager {
             config.disabledHooks.addAll(elements)
             saveConfig()
             showToast(R.string.settings_need_reboot)
+        }
+
+    var ignoredPackagesForPresets: Set<String>
+        get() = config.ignoredPackagesForPresets
+        set(elements) {
+            config.ignoredPackagesForPresets.clear()
+            config.ignoredPackagesForPresets.addAll(elements)
+            saveConfig()
         }
 
     fun importConfig(json: String) {
@@ -326,5 +339,10 @@ object ConfigManager {
         }
 
         return config
+    }
+
+    fun resetConfig() {
+        config = JsonConfig()
+        saveConfig()
     }
 }

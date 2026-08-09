@@ -38,7 +38,6 @@
     <string name="home_xposed_not_activated">Modulo non attivato</string>
     <string name="home_xposed_service_on">Servizio di sistema in esecuzione [%d]</string>
     <string name="home_xposed_service_off">Servizio di sistema stoppato</string>
-    <string name="home_xposed_service_old">Modulo aggiornato, in attesa di riavvio</string>
     <string name="home_xposed_filter_count">HMA-OSS ha filtrato in totale %d richieste</string>
     <string name="home_manage">Gestisci</string>
     <string name="home_detection_test">Test di rilevamento</string>
@@ -201,9 +200,6 @@
     <string name="settings_pure_black_dark_theme">Tema nero</string>
     <string name="settings_pure_black_dark_theme_summary">Usa tema nero se il tema scuro è abilitato</string>
     <string name="settings_service">Servizio</string>
-    <string name="settings_stop_system_service">Stoppa servizio di sistema</string>
-    <string name="settings_stop_system_service_summary">È necessario riavviare per riavviare il servizio</string>
-    <string name="settings_is_clean_env">Pulire l\'ambiente di runtime allo stesso tempo?</string>
     <string name="settings_is_clean_env_summary">Rimuove la cache del servizio di sistema in /data/misc/hide_my_applist_*. Questo significa che è necessario avviare l\'app del modulo una volta manualmente dopo il prossimo riavvio per abilitare le intercettazioni e anche i conteggi delle intercettazioni verranno resettati.</string>
     <string name="settings_force_clean_env">Forza pulizia ambiente runtime (root)</string>
     <string name="settings_force_clean_env_summary">Solo se il servizio di sistema non riesce ad avviarsi, altrimenti devi cliccare l\'opzione sopra.</string>
