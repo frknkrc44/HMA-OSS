@@ -191,7 +191,13 @@ class BulkHooker private constructor() {
         return element.hookFinished
     }
 
-    private fun invokeExactCompat(clazz: String, methodName: String, original: MethodHandle, frame: EmulatedStackFrame, value: ReturnValue) {
+    private fun invokeExactCompat(
+        clazz: String,
+        methodName: String,
+        original: MethodHandle,
+        frame: EmulatedStackFrame,
+        value: ReturnValue,
+    ) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
             val element = findHookElement(clazz, methodName)!!
 
@@ -214,15 +220,8 @@ class BulkHooker private constructor() {
         }
     }
 
-    private fun findHookElement(clazz: String, methodName: String): HookElement? {
-        hooks[clazz]?.forEach { element ->
-            if (element.methodName == methodName) {
-                return element
-            }
-        }
-
-        return null
-    }
+    private fun findHookElement(clazz: String, methodName: String) =
+        hooks[clazz]?.firstOrNull { it.methodName == methodName }
 
     fun findAltMethod(
         clazzNames: List<String>,
