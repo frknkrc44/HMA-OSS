@@ -169,7 +169,7 @@
     <string name="settings_warning">警告</string>
     <string name="settings_vold_warning">启用 AOSP 隔离应用私有目录功能。这可以增强隐藏效果，但可能会导致稳定性问题。此功能在 AOSP 中已被废弃，可能无法正常工作。</string>
     <string name="settings_change_require_root">此操作需要 Root 权限</string>
-    <string name="settings_need_reboot">操作已完成，需要重启设备。</string>
+    <string name="settings_need_reboot">此更改需要重启手机后才能生效</string>
     <string name="settings_permission_denied">权限不足</string>
     <string name="settings_force_mount_data">强制隔离应用数据目录</string>
     <string name="settings_force_mount_data_summary">强制启用 API 30 (Android 11) 以上 AOSP 应用数据目录隔离功能，对于 Target API 低于 30 的应用默认禁用</string>
