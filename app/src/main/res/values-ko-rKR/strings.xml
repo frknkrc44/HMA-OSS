@@ -55,6 +55,12 @@
     <string name="home_exported">설정 백업 완료</string>
     <string name="home_new_update">새로운 업데이트: %s</string>
     <string name="home_update">업데이트: %s</string>
+    <string name="home_migrate_data_fix_button">Fix the issue</string>
+    <string name="home_migrate_data">Migrate data</string>
+    <string name="home_migrate_data_summary">You will also be prompted to uninstall HMA/HMAL in both options. Do you want to migrate the old data?</string>
+    <string name="home_migrate_data_failed">Failed to copy the data or found more than one HMA/HMAL.</string>
+    <string name="home_migrate_data_completed">Done! You need to reboot your device.</string>
+    <string name="home_migrate_uninstall_only">Uninstall only</string>
     <!-- Backup & Restore -->
     <string name="backup_restore_backup_settings">설정 백업</string>
     <string name="backup_restore_restore_settings">설정 복원</string>
@@ -123,6 +129,7 @@
     <string name="title_preset">프리셋</string>
     <string name="title_settings_preset">설정 프리셋</string>
     <string name="title_preset_manage">프리셋 표시</string>
+    <string name="title_ignored_apps_for_presets">Ignored apps</string>
     <string name="preset_xposed">LSPosed/Xposed 모듈</string>
     <string name="preset_root_apps">ROOT 매니저/앱</string>
     <string name="preset_custom_rom">커스텀 ROM 앱</string>
@@ -200,6 +207,9 @@
     <string name="settings_pure_black_dark_theme">완전 검정 다크 테마</string>
     <string name="settings_pure_black_dark_theme_summary">다크 테마가 활성화된 경우 완전 검정 배경을 사용합니다.</string>
     <string name="settings_service">서비스</string>
+    <string name="settings_reset_default">Reset to defaults</string>
+    <string name="settings_reset_default_summary">This option allows you to clear whole config and begin from scratch</string>
+    <string name="settings_irreversible_confirmation">This action is irreversible. Are you sure?</string>
     <string name="settings_is_clean_env_summary">/data/misc/hide_my_applist_* 경로의 시스템 서비스 캐시를 제거합니다. 즉, 가로채기를 활성화하려면 다음 재부팅 후 모듈 앱을 수동으로 한 번 실행해야 하며, 가로채기 횟수도 초기화됩니다.</string>
     <string name="settings_force_clean_env">런타임 환경 강제 정리 (ROOT)</string>
     <string name="settings_force_clean_env_summary">시스템 서비스 시작에 실패한 경우에만 사용하세요. 그렇지 않다면 위 옵션을 클릭해야 합니다.</string>

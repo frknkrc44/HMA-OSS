@@ -55,6 +55,12 @@
     <string name="home_exported">Configuración exportada</string>
     <string name="home_new_update">Nueva actualización disponible: %s</string>
     <string name="home_update">Actualización: %s</string>
+    <string name="home_migrate_data_fix_button">Corregir el problema</string>
+    <string name="home_migrate_data">Migrar datos</string>
+    <string name="home_migrate_data_summary">También se le pedirá que desinstale HMA/HMAL en ambas opciones. ¿Desea migrar los datos antiguos?</string>
+    <string name="home_migrate_data_failed">No se pudo copiar los datos o encontrar más de un HMA/HMAL.</string>
+    <string name="home_migrate_data_completed">¡Listo! Necesitas reiniciar tu dispositivo.</string>
+    <string name="home_migrate_uninstall_only">Sólo desinstalar</string>
     <!-- Backup & Restore -->
     <string name="backup_restore_backup_settings">Ajustes de copia de seguridad</string>
     <string name="backup_restore_restore_settings">Restaurar la configuración</string>
@@ -123,6 +129,7 @@
     <string name="title_preset">Presets</string>
     <string name="title_settings_preset">Presets de ajustes</string>
     <string name="title_preset_manage">Mostrar presets</string>
+    <string name="title_ignored_apps_for_presets">Aplicaciones ignoradas</string>
     <string name="preset_xposed">Módulos LSPosed/Xposed</string>
     <string name="preset_root_apps">Apps de gestión root/Aplicaciones Root</string>
     <string name="preset_custom_rom">Aplicaciones de ROM personalizadas</string>
@@ -200,6 +207,9 @@
     <string name="settings_pure_black_dark_theme">Tema negro puro</string>
     <string name="settings_pure_black_dark_theme_summary">Usar el tema negro puro si el tema oscuro está activado</string>
     <string name="settings_service">Servicio</string>
+    <string name="settings_reset_default">Restablecer valores predeterminados</string>
+    <string name="settings_reset_default_summary">Esta opción te permite borrar toda la configuración y comenzar desde cero</string>
+    <string name="settings_irreversible_confirmation">Esta acción es irreversible. ¿Estás seguro?</string>
     <string name="settings_is_clean_env_summary">Elimine la caché de servicios del sistema en /data/misc/hide_my_applist_*. Esto significa que tendrá que iniciar la aplicación del módulo una vez manualmente después del siguiente reinicio para habilitar las intercepciones, y los recuentos de intercepción también se limpiarán.</string>
     <string name="settings_force_clean_env">Forzar limpiar entorno de ejecución (root)</string>
     <string name="settings_force_clean_env_summary">Solo si el servicio del sistema no se inicia; de lo contrario, debe hacer clic en la opción anterior.</string>

@@ -55,6 +55,12 @@
     <string name="home_exported">Configurația a fost salvată ca și copie de rezervă</string>
     <string name="home_new_update">O nouă actualizare disponibilă: %s</string>
     <string name="home_update">Actualizare: %s</string>
+    <string name="home_migrate_data_fix_button">Fix the issue</string>
+    <string name="home_migrate_data">Migrate data</string>
+    <string name="home_migrate_data_summary">You will also be prompted to uninstall HMA/HMAL in both options. Do you want to migrate the old data?</string>
+    <string name="home_migrate_data_failed">Failed to copy the data or found more than one HMA/HMAL.</string>
+    <string name="home_migrate_data_completed">Done! You need to reboot your device.</string>
+    <string name="home_migrate_uninstall_only">Uninstall only</string>
     <!-- Backup & Restore -->
     <string name="backup_restore_backup_settings">Copie de rezervă setări</string>
     <string name="backup_restore_restore_settings">Restaurează copie de rezervă setări</string>
@@ -123,6 +129,7 @@
     <string name="title_preset">Șabloane</string>
     <string name="title_settings_preset">Șabloane setări</string>
     <string name="title_preset_manage">Arată șabloane</string>
+    <string name="title_ignored_apps_for_presets">Ignored apps</string>
     <string name="preset_xposed">Module LSPosed/Xposed</string>
     <string name="preset_root_apps">Gestionar Root/Aplicații Root</string>
     <string name="preset_custom_rom">Aplicații Custom ROM</string>
@@ -200,6 +207,9 @@
     <string name="settings_pure_black_dark_theme">Temă Amoled</string>
     <string name="settings_pure_black_dark_theme_summary">Folosește tema Amoled dacă tema întunecată este pornită</string>
     <string name="settings_service">Serviciu</string>
+    <string name="settings_reset_default">Reset to defaults</string>
+    <string name="settings_reset_default_summary">This option allows you to clear whole config and begin from scratch</string>
+    <string name="settings_irreversible_confirmation">This action is irreversible. Are you sure?</string>
     <string name="settings_is_clean_env_summary">Eliminați cache-ul serviciului de sistem din /data/misc/hide_my_applist_*. Aceasta înseamnă că trebuie să lansați manual aplicația modulului odată după următoarea repornire pentru a activa interceptările, iar numărul de interceptări va fi, de asemenea, curățat.</string>
     <string name="settings_force_clean_env">Forțați curățarea mediului de execuție(superutilizator)</string>
     <string name="settings_force_clean_env_summary">Numai în cazul în care serviciul de sistem nu pornește, altfel ar trebui să dați clic pe opțiunea de mai sus.</string>

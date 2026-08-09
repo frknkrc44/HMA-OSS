@@ -55,6 +55,12 @@
     <string name="home_exported">Zálohovaná konfigurace</string>
     <string name="home_new_update">K dispozici nová aktualizace: %s</string>
     <string name="home_update">Aktualizace: %s</string>
+    <string name="home_migrate_data_fix_button">Fix the issue</string>
+    <string name="home_migrate_data">Migrate data</string>
+    <string name="home_migrate_data_summary">You will also be prompted to uninstall HMA/HMAL in both options. Do you want to migrate the old data?</string>
+    <string name="home_migrate_data_failed">Failed to copy the data or found more than one HMA/HMAL.</string>
+    <string name="home_migrate_data_completed">Done! You need to reboot your device.</string>
+    <string name="home_migrate_uninstall_only">Uninstall only</string>
     <!-- Backup & Restore -->
     <string name="backup_restore_backup_settings">Backup settings</string>
     <string name="backup_restore_restore_settings">Restore settings</string>
@@ -123,6 +129,7 @@
     <string name="title_preset">Presets</string>
     <string name="title_settings_preset">Settings presets</string>
     <string name="title_preset_manage">Show presets</string>
+    <string name="title_ignored_apps_for_presets">Ignored apps</string>
     <string name="preset_xposed">LSPosed/Xposed moduly</string>
     <string name="preset_root_apps">Root managers/Rooted apps</string>
     <string name="preset_custom_rom">Custom ROM apps</string>
@@ -200,6 +207,9 @@
     <string name="settings_pure_black_dark_theme">Čistý černý tmavý motiv</string>
     <string name="settings_pure_black_dark_theme_summary">Pokud je povolen tmavý motiv, použijte čistě černý motiv</string>
     <string name="settings_service">Služba</string>
+    <string name="settings_reset_default">Reset to defaults</string>
+    <string name="settings_reset_default_summary">This option allows you to clear whole config and begin from scratch</string>
+    <string name="settings_irreversible_confirmation">This action is irreversible. Are you sure?</string>
     <string name="settings_is_clean_env_summary">Odeberte mezipaměť systémové služby v /data/misc/hide_my_applist_*. To znamená, že musíte po příštím restartu spustit aplikaci modulu jednou ručně, abyste povolili odposlechy a počty odposlechů budou také vyčištěny.</string>
     <string name="settings_force_clean_env">Force clean runtime environment (root)</string>
     <string name="settings_force_clean_env_summary">Only if system service fails to start, otherwise you should click the above option.</string>

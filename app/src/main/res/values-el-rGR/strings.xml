@@ -55,8 +55,14 @@
     <string name="home_exported">Το αντίγραφο διαμόρφωσης αποθηκεύτηκε</string>
     <string name="home_new_update">Νέα ενημέρωση διαθέσιμη: %s</string>
     <string name="home_update">Ενημέρωση: %s</string>
+    <string name="home_migrate_data_fix_button">Διόρθωση προβλήματος</string>
+    <string name="home_migrate_data">Μεταφορά δεδομένων</string>
+    <string name="home_migrate_data_summary">Θα σας ζητηθεί επίσης να απεγκαταστήσετε HMA/HMAL και στις δύο επιλογές. Θέλετε να μεταφέρετε τα παλιά δεδομένα;</string>
+    <string name="home_migrate_data_failed">Αποτυχία αντιγραφής των δεδομένων ή βρέθηκαν περισσότερα από ένα HMA/HMAL.</string>
+    <string name="home_migrate_data_completed">Τέλος! Πρέπει να επανεκκινήσετε τη συσκευή σας.</string>
+    <string name="home_migrate_uninstall_only">Μόνο απεγκατάσταση</string>
     <!-- Backup & Restore -->
-    <string name="backup_restore_backup_settings">Backup settings</string>
+    <string name="backup_restore_backup_settings">Ρυθμίσεις αντιγράφου ασφαλείας</string>
     <string name="backup_restore_restore_settings">Επαναφορά ρυθμίσεων</string>
     <string name="backup_restore_apps">Διαμορφώσεις εφαρμογής</string>
     <string name="backup_restore_templates">Πρότυπα</string>
@@ -123,6 +129,7 @@
     <string name="title_preset">Προεπιλογές</string>
     <string name="title_settings_preset">Προεπιλογές ρυθμίσεων</string>
     <string name="title_preset_manage">Εμφάνιση προεπιλογών</string>
+    <string name="title_ignored_apps_for_presets">Αγνοημένες εφαρμογές</string>
     <string name="preset_xposed">Ενότητες LSPosed/Xposed</string>
     <string name="preset_root_apps">Διαχειριστές Root/Εφαρμογές Root</string>
     <string name="preset_custom_rom">Προσαρμοσμένες εφαρμογές ROM</string>
@@ -200,6 +207,9 @@
     <string name="settings_pure_black_dark_theme">Καθαρό μαύρο σκούρο θέμα</string>
     <string name="settings_pure_black_dark_theme_summary">Χρήση καθαρού μαύρου θέματος εάν είναι ενεργοποιημένο το σκούρο θέμα</string>
     <string name="settings_service">Υπηρεσία</string>
+    <string name="settings_reset_default">Επαναφορά προεπιλογών</string>
+    <string name="settings_reset_default_summary">Αυτή η επιλογή σάς επιτρέπει να διαγράψετε ολόκληρη τη διαμόρφωση και να ξεκινήσετε από την αρχή</string>
+    <string name="settings_irreversible_confirmation">Αυτή η ενέργεια είναι μη αναστρέψιμη. Είστε σίγουροι;</string>
     <string name="settings_is_clean_env_summary">Αφαίρεση προσωρινής μνήμης υπηρεσίας συστήματος /data/misc/hide_my_applist_*. Αυτό σημαίνει ότι πρέπει να εκκινήσετε την εφαρμογή της ενότητας μία φορά χειροκίνητα μετά την επόμενη επανεκκίνηση, για να ενεργοποιηθούν οι υποκλοπές. Επίσης, οι μετρήσεις υποκλοπών θα εκκαθαριστούν.</string>
     <string name="settings_force_clean_env">Επιβολή εκκαθάρισης περιβάλλοντος εκτέλεσης (root)</string>
     <string name="settings_force_clean_env_summary">Μόνο εάν η υπηρεσία συστήματος δεν εκκινηθεί, διαφορετικά θα πρέπει να κάνετε κλικ στην παραπάνω επιλογή.</string>

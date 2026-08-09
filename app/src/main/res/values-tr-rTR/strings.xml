@@ -55,6 +55,12 @@
     <string name="home_exported">Yapılandırma yedeklendi</string>
     <string name="home_new_update">Yeni güncelleme mevcut: %s</string>
     <string name="home_update">Güncelleme: %s</string>
+    <string name="home_migrate_data_fix_button">Sorunu düzelt</string>
+    <string name="home_migrate_data">Veriyi aktar</string>
+    <string name="home_migrate_data_summary">İki seçenekte de HMA/HMAL\'yi kaldırmaya yönlendirileceksiniz. Eski veriyi geri yüklemek istiyor musunuz?</string>
+    <string name="home_migrate_data_failed">Veriyi kopyalama başarısız oldu ya da birden fazla HMA/HMAL bulundu.</string>
+    <string name="home_migrate_data_completed">Başarılı! Cihazınızı yeniden başlatın.</string>
+    <string name="home_migrate_uninstall_only">Sadece kaldır</string>
     <!-- Backup & Restore -->
     <string name="backup_restore_backup_settings">Ayarları yedekle</string>
     <string name="backup_restore_restore_settings">Ayarları geri yükle</string>
@@ -123,6 +129,7 @@
     <string name="title_preset">Ön ayarlar</string>
     <string name="title_settings_preset">Ayarlar ön ayarları</string>
     <string name="title_preset_manage">Ön ayarları göster</string>
+    <string name="title_ignored_apps_for_presets">Yoksayılan uygulamalar</string>
     <string name="preset_xposed">LSPosed/Xposed modülleri</string>
     <string name="preset_root_apps">Root yöneticileri/Rootlu uygulamalar</string>
     <string name="preset_custom_rom">Özel ROM uygulamaları</string>
@@ -200,6 +207,9 @@
     <string name="settings_pure_black_dark_theme">Saf siyah koyu tema</string>
     <string name="settings_pure_black_dark_theme_summary">Koyu tema etkinse saf siyah temayı kullan</string>
     <string name="settings_service">Servis</string>
+    <string name="settings_reset_default">Varsayılanlara sıfırla</string>
+    <string name="settings_reset_default_summary">Bu seçenek bütün yapılandırmayı temizleyip baştan başlamanızı sağlar</string>
+    <string name="settings_irreversible_confirmation">Bu eylem geri alınamaz. Emin misiniz?</string>
     <string name="settings_is_clean_env_summary">/data/misc/hide_my_applist_* içindeki sistem servisi önbelleğini kaldırır. Bu, bir sonraki yeniden başlatmadan sonra modül uygulaması el ile başlatılmalıdır ve müdahale sayımları da temizlenecektir.</string>
     <string name="settings_force_clean_env">Çalışma zamanı ortamını zorla temizle (root)</string>
     <string name="settings_force_clean_env_summary">Sadece sistem servisi başlatılamazsa bu seçeneği kullanın, aksi takdirde yukarıdaki seçeneği tıklayın.</string>

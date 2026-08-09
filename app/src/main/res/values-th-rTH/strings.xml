@@ -55,6 +55,12 @@
     <string name="home_exported">สำรองการตั้งค่าแล้ว</string>
     <string name="home_new_update">มีอัปเดตใหม่: %s</string>
     <string name="home_update">อัปเดต: %s</string>
+    <string name="home_migrate_data_fix_button">Fix the issue</string>
+    <string name="home_migrate_data">Migrate data</string>
+    <string name="home_migrate_data_summary">You will also be prompted to uninstall HMA/HMAL in both options. Do you want to migrate the old data?</string>
+    <string name="home_migrate_data_failed">Failed to copy the data or found more than one HMA/HMAL.</string>
+    <string name="home_migrate_data_completed">Done! You need to reboot your device.</string>
+    <string name="home_migrate_uninstall_only">Uninstall only</string>
     <!-- Backup & Restore -->
     <string name="backup_restore_backup_settings">Backup settings</string>
     <string name="backup_restore_restore_settings">Restore settings</string>
@@ -126,6 +132,7 @@
     <string name="title_preset">พรีเซ็ต</string>
     <string name="title_settings_preset">พรีเซ็ตการตั้งค่า</string>
     <string name="title_preset_manage">แสดงพรีเซ็ต</string>
+    <string name="title_ignored_apps_for_presets">Ignored apps</string>
     <string name="preset_xposed">โมดูล LSPosed / Xposed</string>
     <string name="preset_root_apps">ตัวจัดการ Root / แอปที่รูทแล้ว</string>
     <string name="preset_custom_rom">แอป Custom ROM</string>
@@ -205,6 +212,9 @@ Vold ข้อมูลแอป: %s
     <string name="settings_pure_black_dark_theme">ธีมมืดสีดำสนิท</string>
     <string name="settings_pure_black_dark_theme_summary">ใช้ธีมสีดำสนิทเมื่อเปิดใช้งานธีมมืด</string>
     <string name="settings_service">บริการ</string>
+    <string name="settings_reset_default">Reset to defaults</string>
+    <string name="settings_reset_default_summary">This option allows you to clear whole config and begin from scratch</string>
+    <string name="settings_irreversible_confirmation">This action is irreversible. Are you sure?</string>
     <string name="settings_is_clean_env_summary">ลบแคชของ system service ใน /data/misc/hide_my_applist_* ซึ่งหมายความว่าคุณต้องเปิดแอปโมดูลด้วยตนเองหนึ่งครั้งหลังจากรีบูตครั้งถัดไป เพื่อเปิดใช้งานการดักจับ และจำนวนการดักจับจะถูกล้างด้วย</string>
     <string name="settings_force_clean_env">บังคับล้างสภาพแวดล้อมการทำงาน (รูท)</string>
     <string name="settings_force_clean_env_summary">ใช้เฉพาะกรณีที่ system service ไม่สามารถเริ่มทำงานได้ มิฉะนั้นควรกดตัวเลือกด้านบน</string>

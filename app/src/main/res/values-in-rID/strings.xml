@@ -55,6 +55,12 @@
     <string name="home_exported">Konfig dicadangkan</string>
     <string name="home_new_update">Pembaruan tersedia: %s</string>
     <string name="home_update">Memperbarui: %s</string>
+    <string name="home_migrate_data_fix_button">Perbaiki masalahnya</string>
+    <string name="home_migrate_data">Migrasikan Data</string>
+    <string name="home_migrate_data_summary">Anda juga akan diminta menghapus HMA/HMAL di kedua opsi. Apakah Anda ingin memigrasikan data lama?</string>
+    <string name="home_migrate_data_failed">Gagal menyalin data atau menemukan lebih dari satu HMA/HMAL.</string>
+    <string name="home_migrate_data_completed">Selesai! Anda perlu memulai ulang perangkat Anda.</string>
+    <string name="home_migrate_uninstall_only">Hanya menghapus</string>
     <!-- Backup & Restore -->
     <string name="backup_restore_backup_settings">Setelan cadangan</string>
     <string name="backup_restore_restore_settings">Setelan pemulihan</string>
@@ -123,6 +129,7 @@
     <string name="title_preset">Preset</string>
     <string name="title_settings_preset">Preset setelan</string>
     <string name="title_preset_manage">Tampilan preset</string>
+    <string name="title_ignored_apps_for_presets">Aplikasi yang diabaikan</string>
     <string name="preset_xposed">Modul LSPosed/Xposed</string>
     <string name="preset_root_apps">Manajer root/Aplikasi root</string>
     <string name="preset_custom_rom">Aplikasi ROM kustom</string>
@@ -139,7 +146,7 @@
     <string name="settings_templates_name">Nama setelan</string>
     <string name="settings_templates_value">Nilai setelan</string>
     <!-- Settings templates - basic configuration types -->
-    <string name="settings_templates_custom">Setelan khusus</string>
+    <string name="settings_templates_custom">Kustom setelan</string>
     <string name="settings_templates_random_ssaid">SSAID acak</string>
     <!-- Logs -->
     <string name="logs_save">Simpan log</string>
@@ -200,6 +207,9 @@
     <string name="settings_pure_black_dark_theme">Tema gelap hitam pekat</string>
     <string name="settings_pure_black_dark_theme_summary">Gunakan tema hitam pekat jika tema gelap diaktifkan</string>
     <string name="settings_service">Layanan</string>
+    <string name="settings_reset_default">Setel ulang ke setelan bawaan</string>
+    <string name="settings_reset_default_summary">Opsi ini memungkinkan Anda menghapus seluruh konfigurasi dan memulai dari awal</string>
+    <string name="settings_irreversible_confirmation">Tindakan ini tidak dapat dibatalkan. Apakah Anda yakin?</string>
     <string name="settings_is_clean_env_summary">Hapus cache layanan sistem di /data/misc/hide_my_applist_*. Ini artinya Anda harus membuka aplikasi modul secara manual sekali setelah proses mulai ulang berikutnya untuk mengaktifkan intersepsi, dan hitungan intersepsi juga akan dibersihkan.</string>
     <string name="settings_force_clean_env">Bersihkan paksa lingkungan runtime (root)</string>
     <string name="settings_force_clean_env_summary">Hanya jika layanan sistem gagal untuk memulai, jika tidak, Anda harus mengetuk opsi di atas.</string>

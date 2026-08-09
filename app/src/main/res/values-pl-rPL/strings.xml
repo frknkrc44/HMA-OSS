@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="title_home">Dom</string>
+    <string name="title_home">Strona Główna</string>
     <string name="title_logs">Logi</string>
     <string name="title_settings">Ustawienia</string>
     <string name="title_template_manage">Menedżer szablonów</string>
@@ -55,6 +55,12 @@
     <string name="home_exported">Backupowanie configu</string>
     <string name="home_new_update">Nowa aktualizacja jest dostępna: %s</string>
     <string name="home_update">Aktualizacja: %s</string>
+    <string name="home_migrate_data_fix_button">Napraw problem</string>
+    <string name="home_migrate_data">Migruj dane</string>
+    <string name="home_migrate_data_summary">Zostanie wyświetlony komunikat, aby odinstalować HMA/HMAL w przypadku obu opcji. Czy chcesz zmigrować stare dane z tych aplikacji?</string>
+    <string name="home_migrate_data_failed">Nie udało się skopiować danych albo znaleźć więcej niż jednej instancji HMA/HMAL.</string>
+    <string name="home_migrate_data_completed">Zrobione! Musisz uruchomić ponownie urządzenie.</string>
+    <string name="home_migrate_uninstall_only">Tylko odinstaluj</string>
     <!-- Backup & Restore -->
     <string name="backup_restore_backup_settings">Ustawienia backapu</string>
     <string name="backup_restore_restore_settings">Ustawienia przywracania</string>
@@ -123,6 +129,7 @@
     <string name="title_preset">Presety</string>
     <string name="title_settings_preset">Presety ustawień</string>
     <string name="title_preset_manage">Pokaż presety</string>
+    <string name="title_ignored_apps_for_presets">Ignorowane aplikacje</string>
     <string name="preset_xposed">Moduły LSPosed/Xposed</string>
     <string name="preset_root_apps">Menedżery Root/Aplikacje zrootowane</string>
     <string name="preset_custom_rom">Aplikacje custom ROMu</string>
@@ -200,6 +207,9 @@
     <string name="settings_pure_black_dark_theme">Czysta czerń ciemnego motywu</string>
     <string name="settings_pure_black_dark_theme_summary">Użyj motywu czystej czerni, gdy motyw ciemny jest włączony</string>
     <string name="settings_service">Usługa</string>
+    <string name="settings_reset_default">Zresetuj do domyślnych</string>
+    <string name="settings_reset_default_summary">Ta opcja pozwala Ci wyczyścić całą konfigurację i zacząć od zera</string>
+    <string name="settings_irreversible_confirmation">Ta akcja jest nieodwracalna. Jesteś tego pewien?</string>
     <string name="settings_is_clean_env_summary">Usuwa cache systemowej usługi w lokalizacji /data/misc/hide_my_applist_*. To oznacza, że będziesz musiał uruchomić aplikację modułu manualnie po następnym reboocie, aby włączyć przechwytywanie a licznik przechwyceń również zostanie wyczyszczony.</string>
     <string name="settings_force_clean_env">Wymuś wyczyszczenie środowiska runtime (root)</string>
     <string name="settings_force_clean_env_summary">Użyj, tylko gdy usługa systemowa zalicza faila przy starcie, w przeciwnym wypadku powinieneś kliknąć opcję powyżej.</string>
@@ -222,7 +232,7 @@
 Ta aplikacja zachowuje się jak menadżer dla modułu Zygisk od teraz. Potrzebujesz osobnego modułu Zygisk, aby ten menadżer działał
     </string>
     <string name="about_translator">Tłumacze</string>
-    <string name="about_developer">Developer</string>
+    <string name="about_developer">Deweloperzy</string>
     <string name="about_support">Wsparcie i opinie</string>
     <string name="about_open_source">Licencje Open Source</string>
     <!-- Colors -->
@@ -249,7 +259,7 @@ Ta aplikacja zachowuje się jak menadżer dla modułu Zygisk od teraz. Potrzebuj
     <string name="dark_theme">Motyw ciemny</string>
     <string name="dark_theme_off">Zawsze wył.</string>
     <string name="dark_theme_on">Zawsze włą.</string>
-    <string name="sick_mode_title">Tryb \"chorego\" jest aktywny</string>
+    <string name="sick_mode_title">Tryb \"Sick\" jest aktywny</string>
     <string name="sick_mode_description">HMA-OSS wykrył potencjalny konflikt modułów i ograniczył ich funkcjonalność</string>
     <string name="sick_mode_notice">Konfiguracje HMA/HMAL są kompatybilne z HMA-OSS i możesz zacząć używać go z Twoim istniejącymi konfiguracjami, ale najpierw musisz odinstalować HMA/HMAL i zrebootować telefon</string>
 </resources>
