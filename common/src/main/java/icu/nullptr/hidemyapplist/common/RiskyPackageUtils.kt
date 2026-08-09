@@ -18,7 +18,8 @@ class RiskyPackageUtils private constructor() {
         "com.anydesk.anydeskandroid",
     )
 
-    fun appHasGMSConnection(query: String) = query in ignoredForRiskyPackagesList || query in explicitlyIgnoredPackages
+    fun appHasGMSConnection(query: String, excludeExplicit: Boolean = false) =
+        query in ignoredForRiskyPackagesList || (!excludeExplicit && query in explicitlyIgnoredPackages)
 
     internal fun tryToAddIntoGMSConnectionList(appInfo: ApplicationInfo, loggerFunction: ((String) -> Unit)?): Boolean {
         val packageName = appInfo.packageName

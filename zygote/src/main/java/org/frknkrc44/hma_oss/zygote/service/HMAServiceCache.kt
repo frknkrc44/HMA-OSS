@@ -1,6 +1,7 @@
 package org.frknkrc44.hma_oss.zygote.service
 
 import icu.nullptr.hidemyapplist.common.PresetCache
+import icu.nullptr.hidemyapplist.common.RiskyPackageUtils
 
 class HMAServiceCache private constructor() {
     companion object {
@@ -11,6 +12,26 @@ class HMAServiceCache private constructor() {
 
     var presetCache = PresetCache()
         internal set
+
+    fun addIntoPresetCache(preset: String, packageName: String): Boolean {
+        var returnedValue = false
+
+        returnedValue = returnedValue or (presetCache.cache[preset]?.add(packageName) ?: false)
+        if (RiskyPackageUtils.instance.appHasGMSConnection(packageName, true)) {
+            returnedValue = returnedValue or presetCache.riskyPackageCache.add(packageName)
+        }
+
+        return returnedValue
+    }
+
+    fun removeFromPresetCache(preset: String, packageName: String): Boolean {
+        var returnedValue = false
+
+        returnedValue = returnedValue or (presetCache.cache[preset]?.remove(packageName) ?: false)
+        returnedValue = returnedValue or presetCache.riskyPackageCache.remove(packageName)
+
+        return returnedValue
+    }
 
     fun findCallerByUid(uid: Int) = uidHideCache.firstOrNull { it.first == uid }?.second
 

@@ -574,7 +574,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
 
                     // Handle app presets
                     handlePackageAdded(pms, packageName) { preset ->
-                        if (HMAServiceCache.instance.presetCache.cache[preset]?.add(packageName) ?: false) {
+                        if (HMAServiceCache.instance.addIntoPresetCache(preset, packageName)) {
                             writePresetCache()
                         }
                     }
@@ -593,7 +593,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
 
                     // Handle app presets
                     handlePackageRemoved(packageName) { preset ->
-                        if (HMAServiceCache.instance.presetCache.cache[preset]?.remove(packageName) ?: false) {
+                        if (HMAServiceCache.instance.removeFromPresetCache(preset, packageName)) {
                             writePresetCache()
                         }
                     }
