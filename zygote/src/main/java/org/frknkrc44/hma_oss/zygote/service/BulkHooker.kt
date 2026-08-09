@@ -235,7 +235,7 @@ class BulkHooker private constructor() {
                 curClazz = Class.forName(clazz, true, loader)
             } catch (ex: ClassNotFoundException) {
                 logE(ZygoteEntry.TAG, ex) { "Class $clazz not found" }
-                return null
+                continue
             }
 
             fun findMethods(clazz: Class<*>): List<Executable> {
