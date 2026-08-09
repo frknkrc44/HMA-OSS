@@ -119,6 +119,8 @@ fun Project.configureBaseExtension() {
         }
 
         val config = localProperties.getProperty("fileDir")?.let {
+            logger.lifecycle("Using provided signing key")
+
             signingConfigs.create("config") {
                 storeFile = file(it)
                 storePassword = localProperties.getProperty("storePassword")

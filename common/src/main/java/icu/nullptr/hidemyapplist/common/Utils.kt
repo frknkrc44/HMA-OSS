@@ -3,10 +3,12 @@ package icu.nullptr.hidemyapplist.common
 import android.content.pm.ApplicationInfo
 import android.content.pm.IPackageManager
 import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.os.Binder
 import android.os.Build
 import icu.nullptr.hidemyapplist.common.CollectionUtils.removeIf
+import kotlinx.serialization.json.Json
 import java.util.zip.ZipFile
 
 object Utils {
@@ -53,20 +55,20 @@ object Utils {
         }
     }
 
-    fun String.startsWithMultiple(vararg targets: String): Boolean {
-        assert(isNotEmpty() && targets.isNotEmpty())
+    fun String?.startsWithMultiple(vararg targets: String): Boolean {
+        if (isNullOrEmpty() || targets.isEmpty()) return false
 
         return targets.any { startsWith(it) }
     }
 
-    fun String.endsWithMultiple(vararg targets: String): Boolean {
-        assert(isNotEmpty() && targets.isNotEmpty())
+    fun String?.endsWithMultiple(vararg targets: String): Boolean {
+        if (isNullOrEmpty() || targets.isEmpty()) return false
 
         return targets.any { endsWith(it) }
     }
 
-    fun String.containsMultiple(vararg targets: String): Boolean {
-        assert(isNotEmpty() && targets.isNotEmpty())
+    fun String?.containsMultiple(vararg targets: String): Boolean {
+        if (isNullOrEmpty() || targets.isEmpty()) return false
 
         return targets.any { contains(it) }
     }
@@ -113,6 +115,19 @@ object Utils {
     fun IPackageManager.isAppInstalled(packageName: String, userId: Int = 0) =
         getPackageUidCompat(packageName, 0, userId) >= 0
 
+    fun PackageManager.isAppInstalled(packageName: String) = try {
+        getPackageUid(packageName, 0) >= 0
+    } catch (_: Throwable) {
+        false
+    }
+
     fun ApplicationInfo.isSystemApp() = flags and ApplicationInfo.FLAG_SYSTEM != 0 ||
             flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP != 0
+
+    val conflictedModules = arrayOf("com.tsng.hidemyapplist", "com.google.android.hmal")
+
+    val encoder = Json {
+        encodeDefaults = true
+        ignoreUnknownKeys = true
+    }
 }

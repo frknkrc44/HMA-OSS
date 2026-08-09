@@ -122,7 +122,7 @@ class RootAppsPreset(private val appPresets: AppPresets) : BasePreset(NAME) {
         val packageName = appInfo.packageName
 
         // Some of the detectors trying to abuse the ACCESS_SUPERUSER permission
-        if (appPresets.getPresetByName(DetectorAppsPreset.NAME)?.containsPackage(packageName) ?: false) {
+        if (appPresets.containsPackage(DetectorAppsPreset.NAME, packageName)) {
             return false
         }
 

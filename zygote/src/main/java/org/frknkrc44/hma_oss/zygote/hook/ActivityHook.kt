@@ -28,6 +28,7 @@ import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.ACTIVITY_STARTER_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.ACTIVITY_TASK_SUPERVISOR_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.COMPUTER_ENGINE_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.PACKAGE_MANAGER_SERVICE_CLASS
+import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.PMS_COMPUTER_ENGINE_CLASS
 
 class ActivityHook : IFrameworkHook {
     override val TAG = "ActivityHook"
@@ -58,13 +59,15 @@ class ActivityHook : IFrameworkHook {
                 // just an empty hook that does nothing
             }
 
+            val aPRFClazz = when(Build.VERSION.SDK_INT) {
+                Build.VERSION_CODES.Q, Build.VERSION_CODES.R -> PACKAGE_MANAGER_SERVICE_CLASS
+                Build.VERSION_CODES.S, Build.VERSION_CODES.S_V2 -> PMS_COMPUTER_ENGINE_CLASS
+                else -> COMPUTER_ENGINE_CLASS
+            }
+
             if (!OSUtils.isSamsung()) {
                 hookBefore(
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                        COMPUTER_ENGINE_CLASS
-                    } else {
-                        PACKAGE_MANAGER_SERVICE_CLASS
-                    },
+                    aPRFClazz,
                     "applyPostResolutionFilter",
                 ) { methodName, frame, _ ->
                     @Suppress("UNCHECKED_CAST") // I know what I do
@@ -101,13 +104,7 @@ class ActivityHook : IFrameworkHook {
                 }
             }
 
-            val hookedClazz = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                COMPUTER_ENGINE_CLASS
-            } else {
-                PACKAGE_MANAGER_SERVICE_CLASS
-            }
-
-            if (!isHookAvailable(hookedClazz, "applyPostResolutionFilter")) {
+            if (!isHookAvailable(aPRFClazz, "applyPostResolutionFilter")) {
                 // Try to keep compatibility when InxLocker detected
                 val isInxLockerAvailable = service != null && service!!.pms.getPackageUidCompat(
                     "io.github.chimio.inxlocker", 0, 0
