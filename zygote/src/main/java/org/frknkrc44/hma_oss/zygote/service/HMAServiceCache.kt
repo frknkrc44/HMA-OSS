@@ -1,11 +1,16 @@
 package org.frknkrc44.hma_oss.zygote.service
 
+import icu.nullptr.hidemyapplist.common.PresetCache
+
 class HMAServiceCache private constructor() {
     companion object {
         val instance by lazy { HMAServiceCache() }
     }
 
     private val uidHideCache = mutableListOf<Triple<Int, String, MutableList<String>>>()
+
+    var presetCache = PresetCache()
+        internal set
 
     fun findCallerByUid(uid: Int) = uidHideCache.firstOrNull { it.first == uid }?.second
 

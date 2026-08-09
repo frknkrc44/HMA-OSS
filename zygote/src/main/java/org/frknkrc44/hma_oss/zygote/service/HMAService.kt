@@ -95,9 +95,6 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
     var filterHolder = FilterHolder()
         private set
 
-    var presetCache = PresetCache()
-        private set
-
     init {
         searchDataDir()
         service = this
@@ -577,7 +574,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
 
                     // Handle app presets
                     handlePackageAdded(pms, packageName) { preset ->
-                        if (presetCache.cache[preset]?.add(packageName) ?: false) {
+                        if (HMAServiceCache.instance.presetCache.cache[preset]?.add(packageName) ?: false) {
                             writePresetCache()
                         }
                     }
@@ -596,7 +593,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
 
                     // Handle app presets
                     handlePackageRemoved(packageName) { preset ->
-                        if (presetCache.cache[preset]?.remove(packageName) ?: false) {
+                        if (HMAServiceCache.instance.presetCache.cache[preset]?.remove(packageName) ?: false) {
                             writePresetCache()
                         }
                     }
@@ -666,14 +663,14 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
         AppPresets.instance.reloadPresets(apps, fromScratch)
         logI(TAG) { "All presets are loaded" }
 
-        presetCache = AppPresets.instance.exportCache()
+        HMAServiceCache.instance.presetCache = AppPresets.instance.exportCache()
 
         writePresetCache()
     }
 
     fun writePresetCache() {
         runCatching {
-            presetCacheFileNew.writeText(presetCache.toString())
+            presetCacheFileNew.writeText(HMAServiceCache.instance.presetCache.toString())
             logD(TAG) { "Preset cache synced" }
         }.onFailure {
             logE(TAG, it) { "Failed to write into preset cache file" }
