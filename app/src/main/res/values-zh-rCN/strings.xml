@@ -79,7 +79,7 @@
     <string name="list_sort_by_update_time">按更新时间</string>
     <string name="list_empty_no_enabled">使用此模版的应用程序会显示在这里</string>
     <string name="list_empty_no_apps">未找到任何应用，您可能未授权本应用查看应用列表</string>
-    <string name="list_empty_preset">此预设中未添加任何应用程序</string>
+    <string name="list_empty_preset">此预设是空的！</string>
     <!-- Manage templates -->
     <string name="template_usage_hint">为“不安分”的应用们创建模板，避免重复配置相同的配置项。\n\n应用模版\n黑名单（推荐）：目标应用无法看到模板内的应用程序\n白名单：目标应用只能看到模板内的应用程序\n\n设置模板：伪装目标应用能看到的设置项(SettingProvider)的值</string>
     <string name="template_new_blacklist">创建黑名单应用模板</string>
@@ -150,11 +150,11 @@
     <string name="settings_templates_random_ssaid">随机SSAID</string>
     <!-- Logs -->
     <string name="logs_save">保存日志</string>
-    <string name="logs_clear">清除日志</string>
+    <string name="logs_clear">清空日志</string>
     <string name="logs_empty">没有可保存的日志</string>
     <string name="logs_saved">日志已保存</string>
     <!-- Filter logs -->
-    <string name="title_filter_logs">筛选日志</string>
+    <string name="title_filter_logs">拦截日志</string>
     <!-- Settings -->
     <string name="settings_module">模块</string>
     <string name="settings_overwrite">覆盖</string>
@@ -162,7 +162,7 @@
     <string name="settings_overwrite_summary">勾选后，此类别的选项将被强制启用</string>
     <string name="settings_default_value">默认值：%s</string>
     <string name="settings_data_isolation">数据隔离</string>
-    <string name="settings_data_isolation_summary">App data：%s\nVold app data：%s\n强制隔离应用数据：%s</string>
+    <string name="settings_data_isolation_summary">App data：%s\nVold app data：%s\n强制隔离数据：%s</string>
     <string name="settings_data_isolation_unsupported">此选项仅支持 Android 11 及以上的系统</string>
     <string name="settings_app_data_isolation">App data 隔离</string>
     <string name="settings_vold_app_data_isolation">Vold app data 隔离</string>
@@ -171,7 +171,7 @@
     <string name="settings_change_require_root">此操作需要 Root 权限</string>
     <string name="settings_need_reboot">操作已完成，需要重启设备。</string>
     <string name="settings_permission_denied">权限不足</string>
-    <string name="settings_force_mount_data">强制隔离应用数据</string>
+    <string name="settings_force_mount_data">强制隔离应用数据目录</string>
     <string name="settings_force_mount_data_summary">强制启用 API 30 (Android 11) 以上 AOSP 应用数据目录隔离功能，对于 Target API 低于 30 的应用默认禁用</string>
     <string name="settings_detail_log">详细日志</string>
     <string name="settings_max_log_size">日志缓冲区大小</string>
@@ -182,7 +182,7 @@
     <string name="settings_disable_activity_launch_protection">不要拦截可疑的Activity启动</string>
     <string name="settings_disable_activity_launch_protection_summary">某些检测器会通过打开Root应用来检测其是否安装，HMA-OSS 默认会帮您拦截，开启此选项后，HMA-OSS 将不再拦截（推荐保持关闭）</string>
     <string name="settings_system_wallpaper">使用系统壁纸</string>
-    <string name="settings_clear_uninstalled_app_configs">优化配置文件</string>
+    <string name="settings_clear_uninstalled_app_configs">清除残留配置</string>
     <string name="settings_clear_uninstalled_app_configs_summary">清除已卸载应用的配置，重新安装应用后需要重新进行配置</string>
     <string name="settings_no_undone_warning">此操作无法撤销</string>
     <string name="settings_package_query_workaround">修复应用列表</string>
@@ -208,9 +208,9 @@
     <string name="settings_pure_black_dark_theme_summary">当深色主题启用时使用纯黑主题</string>
     <string name="settings_service">服务</string>
     <string name="settings_reset_default">重置所有配置</string>
-    <string name="settings_reset_default_summary">重置配置文件，让一切从头开始！</string>
+    <string name="settings_reset_default_summary">恢复到初始配置，并清空所有自定义内容</string>
     <string name="settings_irreversible_confirmation">此操作无法撤销，您确定吗？</string>
-    <string name="settings_is_clean_env_summary">删除 /data/misc/hide_my_applist_* 中的缓存。这意味着下次重启手机后需手动打开一次本应用才能开始拦截，拦截次数也会清零。</string>
+    <string name="settings_is_clean_env_summary">删除 /data/misc/hide_my_applist_* 中的缓存。下次重启手机后需手动打开本应用才能开始拦截，拦截次数也会清零。</string>
     <string name="settings_force_clean_env">强制清理运行环境（Root）</string>
     <string name="settings_force_clean_env_summary">系统服务无法启动时可尝试使用此选项</string>
     <string name="settings_force_clean_env_toast_successful">运行环境清理完成！</string>
