@@ -15,7 +15,7 @@ import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.ZYGOTE_PROCESS_CLASS
 class ZygoteHook : ForceMountHookBase() {
     override val TAG = "ZygoteHook"
 
-    private val forceMountData get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA &&
+    private val forceMountData get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R &&
             service?.config?.forceMountData ?: false &&
             sAppDataIsolationEnabled
 
