@@ -27,6 +27,12 @@ object ZLUtils {
      */
     val EmulatedStackFrame.args by lazyWithReceiver { dumpArgs() }
 
+    /**
+     * - `argTypes[0]: thisObject`
+     * - `argTypes[1:]: function args`
+     */
+    val EmulatedStackFrame.argTypes by lazyWithReceiver { dumpArgTypes() }
+
     internal fun EmulatedStackFrame.dumpArgs(skipFirst: Boolean = false): Array<Any?> {
         return mutableListOf<Any?>().let {
             val begin = if (skipFirst) 1 else 0
@@ -36,6 +42,25 @@ object ZLUtils {
 
             it.toTypedArray()
         }
+    }
+
+    internal fun EmulatedStackFrame.dumpArgTypes(skipFirst: Boolean = false): Array<Class<*>> {
+        return mutableListOf<Class<*>>().let {
+            val begin = if (skipFirst) 1 else 0
+            for (index in begin ..< type().parameterCount()) {
+                it.add(getArgumentType(index))
+            }
+
+            it.toTypedArray()
+        }
+    }
+
+    /**
+     * - `index == 0: thisObject`
+     * - `index >= 1: function args`
+     */
+    fun EmulatedStackFrame.getArgumentType(index: Int): Class<*> {
+        return accessor().getArgumentType(index)
     }
 
     /**

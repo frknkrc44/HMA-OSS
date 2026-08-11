@@ -102,6 +102,7 @@ val androidSourceCompatibility = JavaVersion.VERSION_21
 val androidTargetCompatibility = JavaVersion.VERSION_21
 
 tasks.register("clean", Delete::class) {
+    description = "Clean the build directory"
     delete(rootProject.layout.buildDirectory)
 }
 
