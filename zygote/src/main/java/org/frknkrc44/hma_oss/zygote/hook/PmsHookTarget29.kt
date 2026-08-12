@@ -24,7 +24,7 @@ class PmsHookTarget29 : PmsHookTargetBase() {
             hookBefore(
                 service!!.pms::class.java.name,
                 "filterAppAccessLPr",
-                paramCount = 5,
+                argumentCount = 5,
             ) { methodName, frame, returnValue ->
                 applyPackageHiding(
                     methodName,

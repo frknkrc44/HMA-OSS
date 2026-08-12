@@ -32,41 +32,42 @@ class BulkHooker private constructor() {
 
     internal val hooks = ConcurrentHashMap<String, CopyOnWriteArrayList<HookElement>>()
 
-    fun isHookAvailable(clazz: String, methodName: String): Boolean {
-        return hooks[clazz]?.any { it.methodName == methodName } ?: false
-    }
+    internal fun isHookAvailable(clazz: String, method: String) = findHookElement(clazz, method) != null
 
-    private fun addHook(clazz: String, methodName: String, paramCount: Int, impl: HookTransformer) {
+    private fun findHookElement(clazz: String, method: String) =
+        hooks[clazz]?.firstOrNull { it.methodName == method }
+
+    private fun addHook(clazz: String, methodName: String, argumentCount: Int, impl: HookTransformer) {
         val inDisabledHooks = service?.config?.disabledHooks?.any {
             clazz == it.className &&
                     methodName == it.methodName &&
-                    paramCount == it.argumentCount
+                    argumentCount == it.argumentCount
         }
 
         if (inDisabledHooks == true) {
-            logI(ZygoteEntry.TAG) { "Disabled hook: $clazz -> $methodName($paramCount)" }
+            logI(ZygoteEntry.TAG) { "Disabled hook: $clazz -> $methodName($argumentCount)" }
             return
         }
 
         val element = HookElement(
             impl = impl,
             methodName = methodName,
-            paramCount = paramCount,
+            argumentCount = argumentCount,
         )
 
         if (applyHook(clazz, element)) {
             hooks.computeIfAbsent(clazz) { CopyOnWriteArrayList() }.add(element)
         } else {
-            logI(ZygoteEntry.TAG) { "Invalid hook removed: $clazz -> $methodName($paramCount)" }
+            logI(ZygoteEntry.TAG) { "Invalid hook removed: $clazz -> $methodName($argumentCount)" }
         }
     }
 
     internal fun hookBefore(
         clazz: String,
         methodName: String,
-        paramCount: Int = PARAMETER_COUNT_UNKNOWN,
+        argumentCount: Int = PARAMETER_COUNT_UNKNOWN,
         hook: (methodName: String, frame: EmulatedStackFrame, returnValue: ReturnValue) -> Unit,
-    ) = addHook(clazz, methodName, paramCount) { original, frame ->
+    ) = addHook(clazz, methodName, argumentCount) { original, frame ->
         val value = ReturnValue()
 
         try {
@@ -98,9 +99,9 @@ class BulkHooker private constructor() {
     internal fun hookAfter(
         clazz: String,
         methodName: String,
-        paramCount: Int = PARAMETER_COUNT_UNKNOWN,
+        argumentCount: Int = PARAMETER_COUNT_UNKNOWN,
         hook: (methodName: String, frame: EmulatedStackFrame, returnValue: ReturnValue) -> Unit,
-    ) = addHook(clazz, methodName, paramCount) { original, frame ->
+    ) = addHook(clazz, methodName, argumentCount) { original, frame ->
         val value = ReturnValue()
 
         try {
@@ -145,8 +146,8 @@ class BulkHooker private constructor() {
         fun applyForClass(clazz: Class<*>?) {
             val executables = Reflection.getHiddenExecutables(clazz).filter { executable ->
                 if (element.methodName == executable.name) {
-                    if (element.paramCount >= 0) {
-                        return@filter element.paramCount == executable.parameterCount
+                    if (element.argumentCount >= 0) {
+                        return@filter element.argumentCount == executable.parameterCount
                     }
 
                     return@filter true
@@ -220,13 +221,10 @@ class BulkHooker private constructor() {
         }
     }
 
-    private fun findHookElement(clazz: String, methodName: String) =
-        hooks[clazz]?.firstOrNull { it.methodName == methodName }
-
     fun findAltMethod(
         clazzNames: List<String>,
         methodNames: List<String>,
-        paramCount: Int = -1,
+        argumentCount: Int = -1,
         loader: ClassLoader? = SystemServerHook.classLoader,
     ): Executable? {
         for (clazz in clazzNames) {
@@ -241,8 +239,8 @@ class BulkHooker private constructor() {
             fun findMethods(clazz: Class<*>): List<Executable> {
                 return Reflection.getHiddenExecutables(clazz).filter { executable ->
                     if (executable.name in methodNames) {
-                        if (paramCount >= 0) {
-                            return@filter paramCount == executable.parameterCount
+                        if (argumentCount >= 0) {
+                            return@filter argumentCount == executable.parameterCount
                         }
 
                         return@filter true
@@ -268,7 +266,7 @@ class BulkHooker private constructor() {
             return methods.firstOrNull()
         }
 
-        logI(ZygoteEntry.TAG) { "Invalid hook detected: $clazzNames -> $methodNames($paramCount)" }
+        logI(ZygoteEntry.TAG) { "Invalid hook detected: $clazzNames -> $methodNames($argumentCount)" }
 
         return null
     }

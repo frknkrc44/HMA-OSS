@@ -695,7 +695,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
                     JsonConfig.HookItem(
                         className,
                         element.methodName,
-                        element.paramCount,
+                        element.argumentCount,
                     ).toString()
                 )
             }

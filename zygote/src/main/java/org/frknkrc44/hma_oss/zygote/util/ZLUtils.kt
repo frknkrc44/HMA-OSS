@@ -147,11 +147,11 @@ object ZLUtils {
         ).apply { isAccessible = true }.invoke(null, *args)
     }
 
-    fun findConstructor(className: String, paramCount: Int = -1): Constructor<*>? {
+    fun findConstructor(className: String, argumentCount: Int = -1): Constructor<*>? {
         val clazz = Class.forName(className, true, SystemServerHook.classLoader)
 
         return clazz.constructors.firstOrNull {
-            paramCount == -1 || it.parameterCount == paramCount
+            argumentCount == -1 || it.parameterCount == argumentCount
         }
     }
 
