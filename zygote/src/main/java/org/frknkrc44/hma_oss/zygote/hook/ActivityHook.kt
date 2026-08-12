@@ -106,9 +106,9 @@ class ActivityHook : IFrameworkHook {
 
             if (!isHookAvailable(aPRFClazz, "applyPostResolutionFilter")) {
                 // Try to keep compatibility when InxLocker detected
-                val isInxLockerAvailable = service != null && service!!.pms.getPackageUidCompat(
-                    "io.github.chimio.inxlocker", 0, 0
-                ) >= 0
+                val isInxLockerAvailable = service?.pms?.isPackageAvailable(
+                    "io.github.chimio.inxlocker", 0,
+                ) ?: false
 
                 if (isInxLockerAvailable) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
