@@ -3,7 +3,6 @@ package org.frknkrc44.hma_oss.zygote.hook
 import android.content.pm.PackageManager
 import android.os.Binder
 import android.os.Build
-import android.util.ArrayMap
 import icu.nullptr.hidemyapplist.common.CollectionUtils.firstOrNullWithType
 import icu.nullptr.hidemyapplist.common.CollectionUtils.lastWithType
 import icu.nullptr.hidemyapplist.common.Constants
@@ -50,41 +49,6 @@ abstract class PmsHookTargetBase : IFrameworkHook {
     override fun load() {
         BulkHooker.instance.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                hookAfter(
-                    COMPUTER_ENGINE_CLASS,
-                    "getPackageStates",
-                ) { _, _, returnValue ->
-                    val callingUid = Binder.getCallingUid()
-                    if (callingUid == Constants.UID_SYSTEM) return@hookAfter
-
-                    val callingUserId = getUserFromCallingUid(callingUid)
-
-                    val callingApps = getCallingApps(callingUid)
-                    val caller = callingApps.firstOrNull { service?.isHookEnabled(it) ?: false }
-                    if (caller != null) {
-                        logD(TAG) { "@getPackageStates: incoming query from $caller" }
-
-                        val result = returnValue.result as ArrayMap<*, *>
-                        val markedToRemove = mutableListOf<Any>()
-
-                        for (pair in result.entries) {
-                            val packageSettings = pair.value
-                            val packageName = getPackageNameFromPackageSettings(packageSettings)
-                            if (service?.shouldHide(caller, packageName, callingUserId) ?: false) {
-                                markedToRemove.add(pair.key)
-                            }
-                        }
-
-                        if (markedToRemove.isNotEmpty()) {
-                            val copyResult = ArrayMap(result)
-                            copyResult.removeAll(markedToRemove)
-                            logD(TAG) { "@getPackageStates: removed ${markedToRemove.size} entries from $caller" }
-                            returnValue.result = copyResult
-                            service?.increasePMFilterCount(caller)
-                        }
-                    }
-                }
-
                 // Samsung related fix
                 if (OSUtils.isSamsung()) {
                     hookBefore(
