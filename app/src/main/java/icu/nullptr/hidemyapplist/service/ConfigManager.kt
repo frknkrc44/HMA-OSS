@@ -313,14 +313,14 @@ object ConfigManager {
 
                 // --- STEP 3: Clear uninstalled apps from templates ---
                 inConfig.templates.forEach { (key, value) ->
-                    val newList = value.appList.mapNotNull { if (PackageHelper.exists(it)) it else null }.toSet()
+                    val newList = value.appList.filter { PackageHelper.exists(it) }
                     val count = value.appList.size - newList.size
 
                     if (count > 0) {
                         cleanedAppCount += count
                         inConfig.templates[key] = JsonConfig.Template(
                             isWhitelist = value.isWhitelist,
-                            appList = newList
+                            appList = newList.toSet(),
                         )
                     }
                 }
