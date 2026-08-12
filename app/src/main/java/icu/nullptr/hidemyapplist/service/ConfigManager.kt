@@ -8,6 +8,7 @@ import icu.nullptr.hidemyapplist.common.CollectionUtils.removeIfWithCount
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
+import icu.nullptr.hidemyapplist.service.ServiceClient.log
 import icu.nullptr.hidemyapplist.ui.util.showToast
 import icu.nullptr.hidemyapplist.util.PackageHelper
 import org.frknkrc44.hma_oss.R
@@ -212,13 +213,13 @@ object ConfigManager {
     }
 
     fun updateTemplate(name: String, template: JsonConfig.Template) {
-        ServiceClient.log(Log.DEBUG, TAG, "updateTemplate: $name list = ${template.appList}")
+        log(Log.DEBUG, TAG, "updateTemplate: $name list = ${template.appList}")
         config.templates[name] = template
         saveConfig()
     }
 
     fun updateTemplateAppliedApps(name: String, appliedList: List<String>) {
-        ServiceClient.log(Log.DEBUG, TAG, "updateTemplateAppliedApps: $name list = $appliedList")
+        log(Log.DEBUG, TAG, "updateTemplateAppliedApps: $name list = $appliedList")
         config.scope.forEach { (app, appInfo) ->
             if (appliedList.contains(app)) appInfo.applyTemplates.add(name)
             else appInfo.applyTemplates.remove(name)
@@ -262,13 +263,13 @@ object ConfigManager {
     }
 
     fun updateSettingTemplate(name: String, template: JsonConfig.SettingsTemplate) {
-        ServiceClient.log(Log.DEBUG, TAG, "updateSettingTemplate: $name list = ${template.settingsList}")
+        log(Log.DEBUG, TAG, "updateSettingTemplate: $name list = ${template.settingsList}")
         config.settingsTemplates[name] = template
         saveConfig()
     }
 
     fun updateSettingTemplateAppliedApps(name: String, appliedList: List<String>) {
-        ServiceClient.log(Log.DEBUG, TAG, "updateSettingTemplateAppliedApps: $name list = $appliedList")
+        log(Log.DEBUG, TAG, "updateSettingTemplateAppliedApps: $name list = $appliedList")
         config.scope.forEach { (app, appInfo) ->
             if (appliedList.contains(app)) appInfo.applySettingTemplates.add(name)
             else appInfo.applySettingTemplates.remove(name)
@@ -294,12 +295,23 @@ object ConfigManager {
         PackageHelper.invalidateCache { throwable ->
             if (throwable == null) {
                 // --- STEP 1: Clear uninstalled app configs ---
-                val scopeRemoveCount = inConfig.scope.removeIfWithCount { pkg, _ ->
-                    !PackageHelper.exists(pkg)
+                val scopeRemoveCount = inConfig.scope.removeIfWithCount { packageName, _ ->
+                    !PackageHelper.exists(packageName)
                 }
 
-                // --- STEP 2: Clear uninstalled apps from templates ---
+                // --- STEP 2: Clear uninstalled apps from extra app lists ---
                 var cleanedAppCount = 0
+                inConfig.scope.values.forEach { config ->
+                    cleanedAppCount += config.extraAppList.removeIfWithCount { packageName ->
+                        !PackageHelper.exists(packageName)
+                    }
+
+                    cleanedAppCount += config.extraOppositeAppList.removeIfWithCount { packageName ->
+                        !PackageHelper.exists(packageName)
+                    }
+                }
+
+                // --- STEP 3: Clear uninstalled apps from templates ---
                 inConfig.templates.forEach { (key, value) ->
                     val newList = value.appList.mapNotNull { if (PackageHelper.exists(it)) it else null }.toSet()
                     val count = value.appList.size - newList.size
@@ -314,7 +326,7 @@ object ConfigManager {
                 }
 
                 if ((scopeRemoveCount > 0 || cleanedAppCount > 0) && inConfig == config) {
-                    ServiceClient.log(Log.INFO, TAG, "Pruned $scopeRemoveCount app config(s) and $cleanedAppCount app(s) from template(s)")
+                    log(Log.INFO, TAG, "Pruned $scopeRemoveCount app configs and $cleanedAppCount app entries")
                     saveConfig()
                 }
 

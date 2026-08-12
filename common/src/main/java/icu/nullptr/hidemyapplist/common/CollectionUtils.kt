@@ -9,6 +9,10 @@ object CollectionUtils {
         return this.filter { (key, value) -> predicate(key, value) }.count { this.remove(it.key) != null }
     }
 
+    inline fun <K> MutableSet<K>.removeIfWithCount(predicate: (K) -> Boolean): Int {
+        return this.filter { key -> predicate(key) }.count { this.remove(it) }
+    }
+
     inline fun <reified T> Array<*>.firstWithType(): T {
         return this.first { it is T } as T
     }
