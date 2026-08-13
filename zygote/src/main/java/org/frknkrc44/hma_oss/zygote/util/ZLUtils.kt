@@ -175,4 +175,8 @@ object ZLUtils {
 
         return field
     }
+
+    fun EmulatedStackFrame.shortyEquals(index: Int, shorty: Char): Boolean {
+        return accessor().getArgumentShorty(index) == shorty
+    }
 }

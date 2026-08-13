@@ -13,6 +13,7 @@ import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.sAppDataIsolationEnabled
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.argTypes
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.setArgument
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.shortyEquals
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.NATIVE_ZYGOTE_PROCESS_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.ZYGOTE_PROCESS_CLASS
 import java.util.concurrent.atomic.AtomicReference
@@ -58,14 +59,14 @@ class ZygoteHook : IFrameworkHook {
         if (!isHookEnabled) return
 
         // another plan for PlatformCompatHook
-        if (forceMountData && !(service?.systemApps?.contains(caller) ?: false)) {
+        if (isZygoteProcessForceMounted(frame, caller)) {
             val lastMapIndex = frame.argTypes.indexOfLast {
                 it.isAssignableFrom(java.util.Map::class.java)
             }
             if (lastMapIndex >= 0) {
                 // enable bindMountAppsData after checks
                 val bindMountAppsDataIndex = lastMapIndex + 1
-                if (frame.accessor().getArgumentShorty(bindMountAppsDataIndex) == 'Z') {
+                if (frame.shortyEquals(bindMountAppsDataIndex, 'Z')) {
                     val last = lastForceMountedApp.getAndSet(caller)
                     if (last != caller) logI(TAG) { "@startZygoteProcess: force mountAppsData for $caller" }
                     frame.setArgument(bindMountAppsDataIndex, true)
@@ -88,5 +89,17 @@ class ZygoteHook : IFrameworkHook {
             frame.setArgument(gIDsIndex, gIDs.filter { it !in perms }.toIntArray())
             service?.increaseOthersFilterCount(caller)
         }
+    }
+
+    fun isZygoteProcessForceMounted(frame: EmulatedStackFrame, caller: String): Boolean {
+        if (!forceMountData || (service?.systemApps?.contains(caller) ?: false)) return false
+
+        val longArrayIndex = frame.argTypes.indexOfFirst {
+            it.isAssignableFrom(LongArray::class.java)
+        }
+        if (longArrayIndex < 0) return false
+
+        val isTopAppIndex = longArrayIndex - 1
+        return frame.args[isTopAppIndex] == true
     }
 }
