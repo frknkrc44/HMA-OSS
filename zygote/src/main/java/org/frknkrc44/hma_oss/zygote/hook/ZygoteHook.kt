@@ -1,12 +1,15 @@
 package org.frknkrc44.hma_oss.zygote.hook
 
+import android.annotation.SuppressLint
+import android.content.pm.ServiceInfo
 import android.os.Build
 import com.v7878.unsafe.invoke.EmulatedStackFrame
+import icu.nullptr.hidemyapplist.common.CollectionUtils.firstOrNullWithType
 import icu.nullptr.hidemyapplist.common.CollectionUtils.lastOrNullWithType
 import icu.nullptr.hidemyapplist.common.Constants
 import org.frknkrc44.hma_oss.zygote.service.BulkHooker
 import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
-import org.frknkrc44.hma_oss.zygote.service.ReturnValue
+import org.frknkrc44.hma_oss.zygote.service.SystemServerHook
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.sAppDataIsolationEnabled
@@ -14,6 +17,8 @@ import org.frknkrc44.hma_oss.zygote.util.ZLUtils.argTypes
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.setArgument
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.shortyEquals
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.thisObject
+import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.APP_ZYGOTE_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.NATIVE_ZYGOTE_PROCESS_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.ZYGOTE_PROCESS_CLASS
 import java.util.concurrent.atomic.AtomicReference
@@ -31,26 +36,60 @@ class ZygoteHook : IFrameworkHook {
         BulkHooker.instance.apply {
             hookBefore(
                 ZYGOTE_PROCESS_CLASS,
-                "start",
-                hook = this@ZygoteHook::hookIntoZygoteProcess,
-            )
+                "startViaZygote",
+            ) { _, frame, _ ->
+                val packageNameIndex = frame.args.indexOfLast { it is String }
+                if (packageNameIndex < 0) return@hookBefore
+
+                val isChildZygoteIndex = packageNameIndex - 1
+                if (frame.shortyEquals(isChildZygoteIndex, 'Z')) {
+                    val isChildZygote = frame.args[isChildZygoteIndex] == true
+
+                    hookIntoZygoteProcess(frame, isChildZygote)
+                }
+            }
+
+            if (!isHookAvailable(ZYGOTE_PROCESS_CLASS, "startViaZygote")) {
+                hookBefore(
+                    ZYGOTE_PROCESS_CLASS,
+                    "start",
+                ) { _, frame, _ ->
+                    hookIntoZygoteProcess(frame, false)
+                }
+            }
+
+            // Try to fix PrivIsolated
+            hookBefore(
+                "com.android.server.am.ServiceRecord",
+                "<init>"
+            ) { _, frame, _ ->
+                val caller = frame.args.firstOrNullWithType<String>() ?: return@hookBefore
+                val perms = service?.getRestrictedZygotePermissions(caller) ?: return@hookBefore
+                if (perms.contains(Constants.APP_ZYGOTE_GID)) {
+                    val serviceInfo = frame.args.firstOrNullWithType<ServiceInfo>() ?: return@hookBefore
+                    if (serviceInfo.flags and ServiceInfo.FLAG_ISOLATED_PROCESS != 0) {
+                        logI(TAG) { "@serviceRecord: Isolated process becomes app zygote process" }
+                        serviceInfo.flags = serviceInfo.flags or ServiceInfo.FLAG_USE_APP_ZYGOTE
+                    }
+                }
+            }
 
             // TODO: Replace with variable later
             if (Build.VERSION.SDK_INT >= 37) {
                 hookBefore(
                     NATIVE_ZYGOTE_PROCESS_CLASS,
                     "start",
-                    hook = this@ZygoteHook::hookIntoZygoteProcess,
-                )
+                ) { _, frame, _ ->
+                    hookIntoZygoteProcess(frame, false)
+                }
             }
         }
     }
 
-    @Suppress("unused", "PLATFORM_CLASS_MAPPED_TO_KOTLIN")
+    @Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN")
     private fun hookIntoZygoteProcess(
-        methodName: String,
         frame: EmulatedStackFrame,
-        returnValue: ReturnValue,
+        isChildZygote: Boolean,
     ) {
         logD(TAG) { "@startZygoteProcess: Starting ${frame.args.contentToString()}" }
 
@@ -59,7 +98,7 @@ class ZygoteHook : IFrameworkHook {
         if (!isHookEnabled) return
 
         // another plan for PlatformCompatHook
-        if (isZygoteProcessForceMounted(frame, caller)) {
+        if (!isChildZygote && isZygoteProcessForceMounted(frame, caller)) {
             val lastMapIndex = frame.argTypes.indexOfLast {
                 it.isAssignableFrom(java.util.Map::class.java)
             }

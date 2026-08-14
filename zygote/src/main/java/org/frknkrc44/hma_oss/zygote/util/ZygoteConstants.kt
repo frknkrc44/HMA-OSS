@@ -26,4 +26,5 @@ object ZygoteConstants {
     const val ACTIVITY_MANAGER_SERVICE_CLASS = "com.android.server.am.ActivityManagerService"
     const val BROADCAST_HELPER_CLASS = "com.android.server.pm.BroadcastHelper"
     const val PACKAGE_MONITOR_CLASS = "com.android.internal.content.PackageMonitor"
+    const val APP_ZYGOTE_CLASS = "android.os.AppZygote"
 }

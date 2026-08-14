@@ -55,10 +55,21 @@ class BulkHooker private constructor() {
             argumentCount = argumentCount,
         )
 
-        if (applyHook(clazz, element)) {
-            hooks.computeIfAbsent(clazz) { CopyOnWriteArrayList() }.add(element)
-        } else {
-            logI(ZygoteEntry.TAG) { "Invalid hook removed: $clazz -> $methodName($argumentCount)" }
+        when (methodName) {
+            "<init>" -> {
+                if (applyHookForConstructor(clazz, element)) {
+                    hooks.computeIfAbsent(clazz) { CopyOnWriteArrayList() }.add(element)
+                } else {
+                    logI(ZygoteEntry.TAG) { "Invalid CONSTRUCTOR hook removed: $clazz -> $methodName($argumentCount)" }
+                }
+            }
+            else -> {
+                if (applyHooForMethod(clazz, element)) {
+                    hooks.computeIfAbsent(clazz) { CopyOnWriteArrayList() }.add(element)
+                } else {
+                    logI(ZygoteEntry.TAG) { "Invalid METHOD hook removed: $clazz -> $methodName($argumentCount)" }
+                }
+            }
         }
     }
 
@@ -130,7 +141,7 @@ class BulkHooker private constructor() {
         frame.setReturnValue(value.result)
     }
 
-    private fun applyHook(
+    private fun applyHooForMethod(
         clazz: String,
         element: HookElement,
         loader: ClassLoader? = SystemServerHook.classLoader,
@@ -154,6 +165,64 @@ class BulkHooker private constructor() {
                 }
 
                 return@filter false
+            }.sortedWith { v1, v2 ->
+                v1.parameterCount.compareTo(v2.parameterCount)
+            }
+
+            for (executable in executables) {
+                if (!element.hookFinished) {
+                    logD(ZygoteEntry.TAG) { "Hooked: $executable" }
+
+                    val memoryAddresses = Hooks.hook(
+                        executable, Hooks.EntryPointType.DIRECT,
+                        element.impl, Hooks.EntryPointType.DIRECT
+                    )
+
+                    logV(ZygoteEntry.TAG) { "Memory address map: $memoryAddresses" }
+
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+                        element.memoryAddresses = memoryAddresses
+                        element.method = executable
+                    }
+
+                    element.hookFinished = true
+                    break
+                }
+            }
+        }
+
+        while (
+            !element.hookFinished &&
+            curClazz != null &&
+            curClazz.javaClass.simpleName != "Object"
+        ) {
+            applyForClass(curClazz)
+            curClazz = curClazz.superclass
+        }
+
+        return element.hookFinished
+    }
+
+    private fun applyHookForConstructor(
+        clazz: String,
+        element: HookElement,
+        loader: ClassLoader? = SystemServerHook.classLoader,
+    ): Boolean {
+        var curClazz: Class<*>?
+        try {
+            curClazz = Class.forName(clazz, true, loader)
+        } catch (ex: ClassNotFoundException) {
+            logE(ZygoteEntry.TAG, ex) { "Class $clazz not found" }
+            return false
+        }
+
+        fun applyForClass(clazz: Class<*>?) {
+            val executables = Reflection.getHiddenConstructors(clazz).filter { executable ->
+                if (element.argumentCount >= 0) {
+                    return@filter element.argumentCount == executable.parameterCount
+                }
+
+                return@filter true
             }.sortedWith { v1, v2 ->
                 v1.parameterCount.compareTo(v2.parameterCount)
             }
