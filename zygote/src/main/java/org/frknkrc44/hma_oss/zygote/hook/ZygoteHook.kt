@@ -62,13 +62,13 @@ class ZygoteHook : IFrameworkHook {
             ) { _, frame, _ ->
                 val caller = frame.args.firstOrNullWithType<String>() ?: return@hookBefore
                 val perms = service?.getRestrictedZygotePermissions(caller) ?: return@hookBefore
-                if (perms.contains(Constants.APP_ZYGOTE_GID)) {
-                    val serviceInfo = frame.args.firstOrNullWithType<ServiceInfo>() ?: return@hookBefore
-                    if (serviceInfo.flags and ServiceInfo.FLAG_ISOLATED_PROCESS != 0) {
-                        logI(TAG) { "@serviceRecord: Isolated process becomes app zygote process" }
-                        serviceInfo.flags = serviceInfo.flags or ServiceInfo.FLAG_USE_APP_ZYGOTE
-                    }
-                }
+                if (!perms.contains(Constants.APP_ZYGOTE_GID)) return@hookBefore
+
+                val serviceInfo = frame.args.firstOrNullWithType<ServiceInfo>() ?: return@hookBefore
+                if (serviceInfo.flags and ServiceInfo.FLAG_ISOLATED_PROCESS == 0) return@hookBefore
+
+                logD(TAG) { "@serviceRecord: Isolated process becomes app zygote process for $caller service" }
+                serviceInfo.flags = serviceInfo.flags or ServiceInfo.FLAG_USE_APP_ZYGOTE
             }
 
             // TODO: Replace with variable later
