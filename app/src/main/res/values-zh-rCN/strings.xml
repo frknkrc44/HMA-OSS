@@ -159,7 +159,7 @@
     <string name="settings_module">模块</string>
     <string name="settings_overwrite">覆盖</string>
     <string name="settings_overwritten">已覆盖</string>
-    <string name="settings_overwrite_summary">启用开关后，对应功能将强制启用，否则将使用默认值</string>
+    <string name="settings_overwrite_summary">打开开关后，对应功能将被强制启用，否则将使用默认值</string>
     <string name="settings_default_value">默认值：%s</string>
     <string name="settings_data_isolation">数据隔离</string>
     <string name="settings_data_isolation_summary">App data：%s\nVold app data：%s\n强制隔离数据：%s</string>
