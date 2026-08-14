@@ -16,6 +16,7 @@ import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.setArgument
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.shortyEquals
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.NATIVE_ZYGOTE_PROCESS_CLASS
+import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.SERVICE_RECORD_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.ZYGOTE_PROCESS_CLASS
 import java.util.concurrent.atomic.AtomicReference
 
@@ -56,7 +57,7 @@ class ZygoteHook : IFrameworkHook {
 
             // Try to fix PrivIsolated
             hookBefore(
-                "com.android.server.am.ServiceRecord",
+                SERVICE_RECORD_CLASS,
                 "<init>"
             ) { _, frame, _ ->
                 val caller = frame.args.firstOrNullWithType<String>() ?: return@hookBefore
