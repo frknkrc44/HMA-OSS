@@ -1,6 +1,5 @@
 package org.frknkrc44.hma_oss.zygote.hook
 
-import android.annotation.SuppressLint
 import android.content.pm.ServiceInfo
 import android.os.Build
 import com.v7878.unsafe.invoke.EmulatedStackFrame
@@ -9,7 +8,6 @@ import icu.nullptr.hidemyapplist.common.CollectionUtils.lastOrNullWithType
 import icu.nullptr.hidemyapplist.common.Constants
 import org.frknkrc44.hma_oss.zygote.service.BulkHooker
 import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
-import org.frknkrc44.hma_oss.zygote.service.SystemServerHook
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.sAppDataIsolationEnabled
@@ -17,8 +15,6 @@ import org.frknkrc44.hma_oss.zygote.util.ZLUtils.argTypes
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.setArgument
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.shortyEquals
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.thisObject
-import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.APP_ZYGOTE_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.NATIVE_ZYGOTE_PROCESS_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.ZYGOTE_PROCESS_CLASS
 import java.util.concurrent.atomic.AtomicReference
