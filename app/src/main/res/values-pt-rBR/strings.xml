@@ -185,8 +185,6 @@
     <string name="settings_clear_uninstalled_app_configs">Limpar configurações de apps desinstalados</string>
     <string name="settings_clear_uninstalled_app_configs_summary">Esta opção permite criar uma configuração sem remanescentes, mas terá que reconfigurar os apps quando os instalar novamente.</string>
     <string name="settings_no_undone_warning">Esta ação não pode ser desfeita.</string>
-    <string name="settings_package_query_workaround">Consulta alternativa de pacotes</string>
-    <string name="settings_package_query_workaround_summary">Não ative essa opção se você consegue ver a lista de apps corretamente neste app.</string>
     <string name="settings_launcher_icon">Ícone do launcher</string>
     <string name="settings_error_only_log">Registro somente de erros</string>
     <string name="settings_disable_hooks">Desativar funções</string>

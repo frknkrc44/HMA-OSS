@@ -14,7 +14,6 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toDrawable
 import icu.nullptr.hidemyapplist.MyApp.Companion.hmaApp
 import icu.nullptr.hidemyapplist.common.Constants
-import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.asDrawable
@@ -97,35 +96,17 @@ object PackageHelper {
                 val um = hmaApp.getSystemService(Context.USER_SERVICE) as UserManager
                 val profiles = um.userProfiles
 
-                if (ConfigManager.packageQueryWorkaround) {
-                    mutableMapOf<String, PackageCache>().also { cacheMap ->
-                        for (userProfile: UserHandle in profiles) {
-                            val packages = ServiceClient.getPackageNames(userProfile.hashCode()) ?: arrayOf<String>()
-                            for (packageName in packages) {
-                                val packageInfo = ServiceClient.getPackageInfo(packageName, userProfile.hashCode())!!
-                                if (packageInfo.packageName in Constants.packagesShouldNotHide) continue
-                                packageInfo.applicationInfo?.let { appInfo ->
-                                    val label = pm.getApplicationLabel(appInfo).toString()
-                                    val icon = loadAppIconFromAppInfo(appInfo)
-                                    if (!cacheMap.containsKey(packageInfo.packageName)) {
-                                        cacheMap[packageInfo.packageName] = PackageCache(packageInfo, label, icon, userProfile.hashCode())
-                                    }
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    mutableMapOf<String, PackageCache>().also { cacheMap ->
-                        for (userProfile: UserHandle in profiles) {
-                            val packages = getInstalledPackagesAsUser(pm, userProfile.hashCode())
-                            for (packageInfo in packages) {
-                                if (packageInfo.packageName in Constants.packagesShouldNotHide) continue
-                                packageInfo.applicationInfo?.let { appInfo ->
-                                    val label = pm.getApplicationLabel(appInfo).toString()
-                                    val icon = loadAppIconFromAppInfo(appInfo)
-                                    if (!cacheMap.containsKey(packageInfo.packageName)) {
-                                        cacheMap[packageInfo.packageName] = PackageCache(packageInfo, label, icon, userProfile.hashCode())
-                                    }
+                mutableMapOf<String, PackageCache>().also { cacheMap ->
+                    for (userProfile: UserHandle in profiles) {
+                        val packages = ServiceClient.getPackageNames(userProfile.hashCode()) ?: arrayOf<String>()
+                        for (packageName in packages) {
+                            val packageInfo = ServiceClient.getPackageInfo(packageName, userProfile.hashCode())!!
+                            if (packageInfo.packageName in Constants.packagesShouldNotHide) continue
+                            packageInfo.applicationInfo?.let { appInfo ->
+                                val label = pm.getApplicationLabel(appInfo).toString()
+                                val icon = loadAppIconFromAppInfo(appInfo)
+                                if (!cacheMap.containsKey(packageInfo.packageName)) {
+                                    cacheMap[packageInfo.packageName] = PackageCache(packageInfo, label, icon, userProfile.hashCode())
                                 }
                             }
                         }
@@ -219,15 +200,6 @@ object PackageHelper {
             val pkgInfo =  getPackageInfo(BuildConfig.APPLICATION_ID, PackageManager.GET_ACTIVITIES)!!
 
             return pkgInfo.activities?.firstOrNull { it.targetActivity != null }?.asComponentName()
-        }
-    }
-
-    fun getInstalledPackagesAsUser(pm: PackageManager, userId: Int): List<PackageInfo> {
-        return if (userId == currentUserID) {
-            pm.getInstalledPackages(0)
-        } else {
-            val packages = ServiceClient.getPackageNames(userId) ?: arrayOf<String>()
-            packages.mapNotNull { ServiceClient.getPackageInfo(it, userId) }
         }
     }
 

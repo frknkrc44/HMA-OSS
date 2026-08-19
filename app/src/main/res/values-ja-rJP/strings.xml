@@ -185,8 +185,6 @@
     <string name="settings_clear_uninstalled_app_configs">アンインストール済みのアプリの設定を消去</string>
     <string name="settings_clear_uninstalled_app_configs_summary">このオプションを使用すると、残骸を残さずに設定ファイルを作成できますが、アプリを再インストールした際には再設定が必要になります。</string>
     <string name="settings_no_undone_warning">この操作は取り消せません。</string>
-    <string name="settings_package_query_workaround">代替パッケージクエリ</string>
-    <string name="settings_package_query_workaround_summary">このアプリでパッケージリストが正しく表示されている場合は、このオプションを有効にしないでください。</string>
     <string name="settings_launcher_icon">ランチャーアイコン</string>
     <string name="settings_error_only_log">エラーのみのログ</string>
     <string name="settings_disable_hooks">機能を無効化</string>

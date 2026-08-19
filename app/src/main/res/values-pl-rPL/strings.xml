@@ -185,8 +185,6 @@
     <string name="settings_clear_uninstalled_app_configs">Wyczyść configi odinstalowanym aplikacją</string>
     <string name="settings_clear_uninstalled_app_configs_summary">Ta opcja pozwala na utworzenie konfiguracji bez pozostałości, ale będziesz musiał ponownie skonfigurować aplikacje po ich ponownym zainstalowaniu.</string>
     <string name="settings_no_undone_warning">Tej akcji nie da się cofnąć.</string>
-    <string name="settings_package_query_workaround">Alternatywne zapytanie o paczki</string>
-    <string name="settings_package_query_workaround_summary">Nie włączaj tej opcji, jeżeli widzisz listę paczek w tej aplikacji poprawnie.</string>
     <string name="settings_launcher_icon">Ikona w launcherze</string>
     <string name="settings_error_only_log">Tylko logi typu error</string>
     <string name="settings_disable_hooks">Wyłącz hooki modułu</string>

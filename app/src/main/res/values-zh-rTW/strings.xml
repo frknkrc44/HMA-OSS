@@ -185,8 +185,6 @@
     <string name="settings_clear_uninstalled_app_configs">清除未安裝應用程式的配置檔</string>
     <string name="settings_clear_uninstalled_app_configs_summary">此選項可以清理您的配置檔，但重新安裝應用程式時需要重新配置它們</string>
     <string name="settings_no_undone_warning">此操作無法撤銷</string>
-    <string name="settings_package_query_workaround">備選應用程式查詢</string>
-    <string name="settings_package_query_workaround_summary">如果應用程式列表正常顯示，請勿開啟此選項</string>
     <string name="settings_launcher_icon">啟動器圖示</string>
     <string name="settings_error_only_log">只記錄錯誤日誌</string>
     <string name="settings_disable_hooks">停用注入點</string>

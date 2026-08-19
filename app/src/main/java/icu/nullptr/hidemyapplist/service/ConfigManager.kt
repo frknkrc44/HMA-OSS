@@ -114,14 +114,6 @@ object ConfigManager {
             saveConfig()
         }
 
-    var packageQueryWorkaround: Boolean
-        get() = config.packageQueryWorkaround
-        set(value) {
-            config.packageQueryWorkaround = value
-            saveConfig()
-            PackageHelper.invalidateCache()
-        }
-
     var webViewProtection: Boolean
         get() = config.webViewProtection
         set(value) {
