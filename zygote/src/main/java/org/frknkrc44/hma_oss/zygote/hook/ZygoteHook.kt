@@ -50,13 +50,13 @@ class ZygoteHook : IFrameworkHook {
 
                 val serviceInfo = frame.args.firstOrNullWithType<ServiceInfo>() ?: return@hookBefore
                 if (serviceInfo.flags and ServiceInfo.FLAG_ISOLATED_PROCESS == 0) return@hookBefore
+                if (serviceInfo.flags and ServiceInfo.FLAG_NATIVE_SERVICE != 0) return@hookBefore
 
                 logD(TAG) { "@serviceRecord: Isolated process becomes app zygote process for $caller service" }
                 serviceInfo.flags = serviceInfo.flags or ServiceInfo.FLAG_USE_APP_ZYGOTE
             }
 
-            // TODO: Replace with variable later
-            if (Build.VERSION.SDK_INT >= 37) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CINNAMON_BUN) {
                 hookBefore(
                     NATIVE_ZYGOTE_PROCESS_CLASS,
                     "start",

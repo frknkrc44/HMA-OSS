@@ -72,7 +72,7 @@ val gitCommitCount = "git rev-list refs/remotes/origin/master --count".execute()
 val gitCommitCountAfterOss = gitCommitCount - 432
 
 val minSdkVer by extra(29)
-val targetSdkVer by extra(36)
+val targetSdkVer by extra(37)
 
 val appVerCode by extra(gitCommitCount + 0x6f7373) // commit count + 0xOSS
 val appVerName by extra(gitVersionName)
