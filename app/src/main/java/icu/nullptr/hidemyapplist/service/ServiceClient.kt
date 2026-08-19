@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.os.IBinder
 import android.os.ParcelFileDescriptor
 import android.util.Log
+import icu.nullptr.hidemyapplist.MyApp.Companion.hmaApp
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.IHMAService
+import java.io.File
 import java.io.FileInputStream
 import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
@@ -47,8 +49,8 @@ object ServiceClient : IHMAService, IBinder.DeathRecipient {
 
     override fun getFilterCount() = service?.filterCount ?: 0
 
-    override fun getLogs(): String? {
-        val parcelFD = readFD(Constants.PARCEL_TYPE_LOG) ?: return service?.logs
+    val logs get(): String {
+        val parcelFD = readFD(Constants.PARCEL_TYPE_LOG) ?: return ""
         val readStream = FileInputStream(parcelFD.fileDescriptor)
         return readStream.readBytes().decodeToString().also {
             readStream.close()
@@ -67,18 +69,22 @@ object ServiceClient : IHMAService, IBinder.DeathRecipient {
     override fun getPackagesForPreset(presetName: String) =
         service?.getPackagesForPreset(presetName)
 
-    override fun readConfig(): String? {
-        val parcelFD = service?.readFD(Constants.PARCEL_TYPE_CONFIG) ?: return service?.readConfig()
-        val readStream = FileInputStream(parcelFD.fileDescriptor)
-        return readStream.readBytes().decodeToString().also {
-            readStream.close()
-            parcelFD.close()
+    var config: String
+        get() {
+            val parcelFD = service?.readFD(Constants.PARCEL_TYPE_CONFIG) ?: return "{}"
+            val readStream = FileInputStream(parcelFD.fileDescriptor)
+            return readStream.readBytes().decodeToString().also {
+                readStream.close()
+                parcelFD.close()
+            }
         }
-    }
+        set(text) {
+            val configFile = File("${hmaApp.filesDir.absolutePath}/temp_config.json")
+            configFile.writeText(text)
 
-    override fun writeConfig(json: String) {
-        service?.writeConfig(json)
-    }
+            val parcelFD = ParcelFileDescriptor.open(configFile, ParcelFileDescriptor.MODE_READ_ONLY)
+            writeFD(Constants.PARCEL_TYPE_CONFIG, parcelFD)
+        }
 
     fun forceStop(packageName: String) {
         forceStop(packageName, 0)

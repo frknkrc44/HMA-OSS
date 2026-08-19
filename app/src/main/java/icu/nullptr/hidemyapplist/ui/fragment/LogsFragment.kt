@@ -26,7 +26,6 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-
 class LogsFragment(
     private val loadingIndicator: View,
     private val toolbar: Toolbar,

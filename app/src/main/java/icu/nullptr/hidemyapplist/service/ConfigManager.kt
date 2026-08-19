@@ -1,11 +1,8 @@
 package icu.nullptr.hidemyapplist.service
 
 import android.os.Build
-import android.os.ParcelFileDescriptor
 import android.util.Log
-import icu.nullptr.hidemyapplist.MyApp.Companion.hmaApp
 import icu.nullptr.hidemyapplist.common.CollectionUtils.removeIfWithCount
-import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
 import icu.nullptr.hidemyapplist.service.ServiceClient.log
@@ -13,7 +10,6 @@ import icu.nullptr.hidemyapplist.ui.util.showToast
 import icu.nullptr.hidemyapplist.util.PackageHelper
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.common.BuildConfig
-import java.io.File
 
 object ConfigManager {
     /**
@@ -47,7 +43,7 @@ object ConfigManager {
 
     fun init() {
         try {
-            val rawConfig = ServiceClient.readConfig()!!
+            val rawConfig = ServiceClient.config
             config = JsonConfig.parse(rawConfig)
         } catch (_: Throwable) {
             // ignore the issues
@@ -57,17 +53,7 @@ object ConfigManager {
     }
 
     fun saveConfig() {
-        val text = config.toString()
-
-        try {
-            ServiceClient.writeConfig(text)
-        } catch (_: Throwable) {
-            val configFile = File("${hmaApp.filesDir.absolutePath}/temp_config.json")
-            configFile.writeText(text)
-
-            val parcelFD = ParcelFileDescriptor.open(configFile, ParcelFileDescriptor.MODE_READ_ONLY)
-            ServiceClient.writeFD(Constants.PARCEL_TYPE_CONFIG, parcelFD)
-        }
+        ServiceClient.config = config.toString()
     }
 
     var detailLog: Boolean

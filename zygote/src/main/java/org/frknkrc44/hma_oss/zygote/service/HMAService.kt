@@ -469,8 +469,6 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
     }
 
     fun addLog(parsedMsg: String) {
-        if (!ensureManagerWorkModeOK(true)) return
-
         synchronized(loggerLock) {
             if (!logcatAvailable) return
             if (logFile.length() / 1024 > config.maxLogSize) clearLogs()
@@ -485,7 +483,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
         }
     }
 
-    override fun writeConfig(json: String) {
+    fun writeConfig(json: String) {
         if (!ensureManagerWorkModeOK()) return
 
         synchronized(configLock) {
@@ -534,17 +532,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
 
     override fun getFilterCount() = filterHolder.totalCount
 
-    override fun getLogs() = synchronized(loggerLock) {
-        if (logFile.exists()) {
-            logFile.readText()
-        } else {
-            ""
-        }
-    }
-
     override fun clearLogs() {
-        if (!ensureManagerWorkModeOK()) return
-
         synchronized(loggerLock) {
             oldLogFile.delete()
             logFile.renameTo(oldLogFile)
@@ -608,8 +596,6 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
 
     override fun getPackagesForPreset(presetName: String) =
         AppPresets.instance.getPresetByName(presetName)?.packages?.toTypedArray()
-
-    override fun readConfig() = config.toString()
 
     override fun forceStop(packageName: String?, userId: Int) {
         binderLocalScope {
