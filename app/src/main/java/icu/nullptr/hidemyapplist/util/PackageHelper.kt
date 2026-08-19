@@ -102,13 +102,13 @@ object PackageHelper {
                     for (userProfile: UserHandle in profiles) {
                         val packages = ServiceClient.getPackageNames(userProfile.hashCode()) ?: arrayOf<String>()
                         for (packageName in packages) {
+                            if (packageName in Constants.packagesShouldNotHide) continue
                             val packageInfo = ServiceClient.getPackageInfo(packageName, userProfile.hashCode())!!
-                            if (packageInfo.packageName in Constants.packagesShouldNotHide) continue
                             packageInfo.applicationInfo?.let { appInfo ->
                                 val label = pm.getApplicationLabel(appInfo).toString()
                                 val icon = loadAppIconFromAppInfo(appInfo)
-                                if (!cacheMap.containsKey(packageInfo.packageName)) {
-                                    cacheMap[packageInfo.packageName] = PackageCache(packageInfo, label, icon, userProfile.hashCode())
+                                if (!cacheMap.containsKey(packageName)) {
+                                    cacheMap[packageName] = PackageCache(packageInfo, label, icon, userProfile.hashCode())
                                 }
                             }
                         }
