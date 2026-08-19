@@ -34,26 +34,9 @@ class ZygoteHook : IFrameworkHook {
         BulkHooker.instance.apply {
             hookBefore(
                 ZYGOTE_PROCESS_CLASS,
-                "startViaZygote",
+                "start",
             ) { _, frame, _ ->
-                val packageNameIndex = frame.args.indexOfLast { it is String }
-                if (packageNameIndex < 0) return@hookBefore
-
-                val isChildZygoteIndex = packageNameIndex - 1
-                if (frame.shortyEquals(isChildZygoteIndex, 'Z')) {
-                    val isChildZygote = frame.args[isChildZygoteIndex] == true
-
-                    hookIntoZygoteProcess(frame, isChildZygote)
-                }
-            }
-
-            if (!isHookAvailable(ZYGOTE_PROCESS_CLASS, "startViaZygote")) {
-                hookBefore(
-                    ZYGOTE_PROCESS_CLASS,
-                    "start",
-                ) { _, frame, _ ->
-                    hookIntoZygoteProcess(frame, false)
-                }
+                hookIntoZygoteProcess(frame)
             }
 
             // Try to fix PrivIsolated
@@ -78,17 +61,14 @@ class ZygoteHook : IFrameworkHook {
                     NATIVE_ZYGOTE_PROCESS_CLASS,
                     "start",
                 ) { _, frame, _ ->
-                    hookIntoZygoteProcess(frame, false)
+                    hookIntoZygoteProcess(frame)
                 }
             }
         }
     }
 
     @Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN")
-    private fun hookIntoZygoteProcess(
-        frame: EmulatedStackFrame,
-        isChildZygote: Boolean,
-    ) {
+    private fun hookIntoZygoteProcess(frame: EmulatedStackFrame) {
         logD(TAG) { "@startZygoteProcess: Starting ${frame.args.contentToString()}" }
 
         val caller = frame.args.lastOrNullWithType<String>() ?: return
@@ -96,7 +76,7 @@ class ZygoteHook : IFrameworkHook {
         if (!isHookEnabled) return
 
         // another plan for PlatformCompatHook
-        if (!isChildZygote && isZygoteProcessForceMounted(frame, caller)) {
+        if (isZygoteProcessForceMounted(frame, caller)) {
             val lastMapIndex = frame.argTypes.indexOfLast {
                 it.isAssignableFrom(java.util.Map::class.java)
             }
@@ -107,6 +87,7 @@ class ZygoteHook : IFrameworkHook {
                     val last = lastForceMountedApp.getAndSet(caller)
                     if (last != caller) logI(TAG) { "@startZygoteProcess: force mountAppsData for $caller" }
                     frame.setArgument(bindMountAppsDataIndex, true)
+                    logD(TAG) { "@startZygoteProcess: mountAppsData argument overridden for $caller" }
                 }
             }
         }
@@ -130,6 +111,24 @@ class ZygoteHook : IFrameworkHook {
 
     fun isZygoteProcessForceMounted(frame: EmulatedStackFrame, caller: String): Boolean {
         if (!forceMountData || (service?.systemApps?.contains(caller) ?: false)) return false
+
+        var targetSDK = -1
+        val gIDsVarIndex = frame.argTypes.indexOfFirst {
+            it.isAssignableFrom(IntArray::class.java)
+        }
+
+        for (i in gIDsVarIndex ..< frame.argTypes.size) {
+            if (frame.argTypes[i].isAssignableFrom(String::class.java)) {
+                val targetSDKVar = frame.args[i - 1]
+                if (targetSDKVar is Int) {
+                    targetSDK = targetSDKVar
+                }
+
+                break
+            }
+        }
+
+        if (targetSDK >= 30) return false
 
         val longArrayIndex = frame.argTypes.indexOfFirst {
             it.isAssignableFrom(LongArray::class.java)
