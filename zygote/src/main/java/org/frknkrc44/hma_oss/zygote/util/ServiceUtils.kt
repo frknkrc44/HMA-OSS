@@ -2,7 +2,9 @@ package org.frknkrc44.hma_oss.zygote.util
 
 import android.app.ActivityThread
 import android.content.Context.USER_SERVICE
+import android.content.Intent
 import android.content.pm.IPackageManager
+import android.content.pm.ResolveInfo
 import android.os.Binder
 import android.os.Build
 import android.os.IBinder
@@ -45,10 +47,11 @@ object ServiceUtils {
         }
 
         var service: IBinder? = null
+        var count = 0
 
         do {
             Thread.sleep(250)
-        } while ((ServiceManager.getService(name).also { service = it }) == null)
+        } while ((ServiceManager.getService(name).also { service = it }) == null && ++count < 100)
 
         return service
     }
@@ -181,4 +184,17 @@ object ServiceUtils {
     val sAppDataIsolationEnabled by lazy {
         PropertyUtils.isAppDataIsolationEnabled || service?.config?.altAppDataIsolation == true
     }
+
+    // I am lazy to call IPackageManager
+    @Suppress("UNCHECKED_CAST")
+    fun queryIntentActivitiesAsUser(intent: Intent, userId: Int) = callMethodWithTypes(
+        packageManager,
+        "queryIntentActivitiesAsUser",
+        arrayOf(
+            Intent::class.java,
+            Int::class.javaPrimitiveType!!,
+            Int::class.javaPrimitiveType!!,
+        ),
+        arrayOf(intent, /* flags */ 0, userId)
+    ) as List<ResolveInfo>?
 }

@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.content.pm.IPackageManager
 import android.content.pm.PackageManager
-import android.content.pm.ResolveInfo
 import android.os.Build
 import android.os.Bundle
 import android.os.ParcelFileDescriptor
@@ -54,9 +53,8 @@ import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logW
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logWithLevel
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.findAndVerifyAppSignature
-import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.packageManager
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.queryIntentActivitiesAsUser
 import org.frknkrc44.hma_oss.zygote.util.WebViewUtils.getWebviewProvider
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.callMethodWithTypes
 import rikka.hidden.compat.ActivityManagerApis
 import rikka.hidden.compat.UserManagerApis
 import java.io.File
@@ -781,19 +779,6 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
 
     // This part is a copy of Android code
     fun getLaunchIntentForPackageAsUser(packageName: String, userId: Int): Intent? {
-        // I am lazy to call IPackageManager
-        @Suppress("UNCHECKED_CAST")
-        fun queryIntentActivitiesAsUser(intent: Intent, userId: Int) = callMethodWithTypes(
-            packageManager,
-            "queryIntentActivitiesAsUser",
-            arrayOf(
-                Intent::class.java,
-                Int::class.javaPrimitiveType!!,
-                Int::class.javaPrimitiveType!!,
-            ),
-            arrayOf(intent, /* flags */ 0, userId)
-        ) as List<ResolveInfo>?
-
         val intentToResolve = Intent(Intent.ACTION_MAIN).apply {
             addCategory(Intent.CATEGORY_INFO)
             setPackage(packageName)
