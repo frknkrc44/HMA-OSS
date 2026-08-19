@@ -470,17 +470,12 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
     }
 
     fun addLog(parsedMsg: String) {
+        if (!ensureManagerWorkModeOK(true)) return
+
         synchronized(loggerLock) {
             if (!logcatAvailable) return
             if (logFile.length() / 1024 > config.maxLogSize) clearLogs()
-
-            runCatching {
-                if (logFile.exists()) {
-                    logFile.appendText(parsedMsg)
-                } else {
-                    logFile.writeText(parsedMsg)
-                }
-            }
+            logFile.appendText(parsedMsg)
         }
     }
 
@@ -534,9 +529,12 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
     override fun getFilterCount() = filterHolder.totalCount
 
     override fun clearLogs() {
+        if (!ensureManagerWorkModeOK()) return
+
         synchronized(loggerLock) {
             oldLogFile.delete()
             logFile.renameTo(oldLogFile)
+            logFile.createNewFile()
         }
     }
 
