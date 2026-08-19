@@ -37,7 +37,7 @@ object PackageHelper {
         val info: PackageInfo,
         val label: String,
         val icon: Drawable,
-        val userIds: MutableList<Int>,
+        val userIds: HashSet<Int>,
     )
 
     object Comparators {
@@ -114,7 +114,7 @@ object PackageHelper {
                                         packageInfo,
                                         label,
                                         icon,
-                                        mutableListOf(userProfile.hashCode())
+                                        HashSet<Int>().apply { add(userProfile.hashCode()) }
                                     )
                                 }
                             }
@@ -167,8 +167,8 @@ object PackageHelper {
             android.R.drawable.sym_def_app_icon.asDrawable(hmaApp)
     }
 
-    fun loadUserIds(packageName: String): List<Int> = runBlocking {
-        getCacheNoThrow()[packageName]?.userIds ?: listOf()
+    fun loadUserIds(packageName: String): Set<Int> = runBlocking {
+        getCacheNoThrow()[packageName]?.userIds ?: setOf()
     }
 
     fun isSystem(packageName: String): Boolean = runBlocking {
