@@ -152,7 +152,6 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
         logFile = File("$dataDir/log/runtime.log")
         oldLogFile = File("$dataDir/log/old.log")
         logFile.renameTo(oldLogFile)
-        logFile.createNewFile()
 
         logcatAvailable = true
         logI(TAG) { "Data dir: $dataDir" }
@@ -475,7 +474,14 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
         synchronized(loggerLock) {
             if (!logcatAvailable) return
             if (logFile.length() / 1024 > config.maxLogSize) clearLogs()
-            logFile.appendText(parsedMsg)
+
+            runCatching {
+                if (logFile.exists()) {
+                    logFile.appendText(parsedMsg)
+                } else {
+                    logFile.writeText(parsedMsg)
+                }
+            }
         }
     }
 
@@ -529,7 +535,11 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
     override fun getFilterCount() = filterHolder.totalCount
 
     override fun getLogs() = synchronized(loggerLock) {
-        logFile.readText()
+        if (logFile.exists()) {
+            logFile.readText()
+        } else {
+            ""
+        }
     }
 
     override fun clearLogs() {
@@ -538,7 +548,6 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
         synchronized(loggerLock) {
             oldLogFile.delete()
             logFile.renameTo(oldLogFile)
-            logFile.createNewFile()
         }
     }
 
