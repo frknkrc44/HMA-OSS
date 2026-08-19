@@ -204,7 +204,11 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
     }
 
     class AppPreferenceFragment : BaseAppSettingsPreferenceFragment() {
-        private fun startMainActivity(packageName: String, userId: Int) {
+        private fun startMainActivity(userId: Int, forceStop: Boolean) {
+            val packageName = pack.app
+
+            if (forceStop) ServiceClient.forceStop(packageName, userId)
+
             if (userId != PackageHelper.currentUserID) {
                 try {
                     ServiceClient.startMainActivityAsUser(packageName, userId)
@@ -257,16 +261,19 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
                                 R.array.app_action_texts,
                             ) { _, which ->
                                 parent.saveConfig()
-                                val userId = PackageHelper.loadUserId(pack.app)
+                                val userIds = PackageHelper.loadUserIds(pack.app)
+                                val forceStop = which == 0
 
-                                when (which) {
-                                    0 -> {
-                                        ServiceClient.forceStop(pack.app, userId)
-                                        startMainActivity(pack.app, userId)
-                                    }
-                                    1 -> {
-                                        startMainActivity(pack.app, userId)
-                                    }
+                                if (userIds.size == 1) {
+                                    startMainActivity(userIds.first(), forceStop)
+                                } else if (userIds.size > 1) {
+                                    MaterialAlertDialogBuilder(pref.context).apply {
+                                        setItems(
+                                            userIds.map { id -> id.toString() }.toTypedArray(),
+                                        ) { _, userId ->
+                                            startMainActivity(userId, forceStop)
+                                        }
+                                    }.show()
                                 }
                             }
                         }.show()
