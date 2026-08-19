@@ -27,7 +27,7 @@ object Logcat {
     fun logE(tag: String, cause: Throwable? = null, msg: () -> String) = logWithLevel(Log.ERROR, tag, cause, msg)
 
     @JvmStatic
-    fun logILegacy(tag: String, msg: String, cause: Throwable?) = logI(tag, cause) { msg }
+    fun logILegacy(tag: String, msg: String) = logI(tag) { msg }
 
     @JvmStatic
     fun logELegacy(tag: String, msg: String, cause: Throwable?) = logE(tag, cause) { msg }

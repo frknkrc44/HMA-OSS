@@ -27,17 +27,13 @@ public class ZygoteEntry {
     @DoNotObfuscate
     @DoNotShrink
     public static void main() throws Throwable {
-        logILegacy(TAG, String.format("Injected into %s - %s", ZygoteLoader.getPackageName(), BuildConfig.APP_VERSION_NAME), null);
+        logILegacy(TAG, String.format("Injected into %s - %s", ZygoteLoader.getPackageName(), BuildConfig.APP_VERSION_NAME));
 
         try {
             SystemServerHook.init();
+            logILegacy(TAG, "Done");
         } catch (Throwable th) {
             logELegacy(TAG, "An exception occurred while SystemServerHook init", th);
-
-            // do not print "Done" if there is an issue
-            return;
         }
-
-        logILegacy(TAG, "Done", null);
     }
 }

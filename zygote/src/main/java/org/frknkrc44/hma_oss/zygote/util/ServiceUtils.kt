@@ -29,7 +29,6 @@ import org.frknkrc44.hma_oss.zygote.util.ZLUtils.findField
 import rikka.hidden.compat.UserManagerApis
 import java.io.File
 
-
 object ServiceUtils {
     private const val TAG = "ServiceUtils"
 
