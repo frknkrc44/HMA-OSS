@@ -145,6 +145,7 @@ class BulkHooker private constructor() {
         }
 
         val isConstructorHook = element.methodName == CONSTRUCTOR_METHOD_NAME
+        if (isConstructorHook && Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return false
 
         fun applyForClass(clazz: Class<*>?) {
             val executables = if (isConstructorHook) {
@@ -223,6 +224,7 @@ class BulkHooker private constructor() {
             val thisObject = frame.getArgument(0)
             val args = frame.dumpArgs(true)
 
+            // TODO: Make it compatible with Constructor
             value.result = (element.method as Method).invoke(thisObject, *args)
 
             ArtMethodUtils.setExecutableEntryPoint(
