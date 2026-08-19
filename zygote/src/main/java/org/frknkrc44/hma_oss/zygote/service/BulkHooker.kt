@@ -20,6 +20,7 @@ import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.setReturnValue
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.CONSTRUCTOR_METHOD_NAME
 import java.lang.invoke.MethodHandle
+import java.lang.reflect.Constructor
 import java.lang.reflect.Executable
 import java.lang.reflect.Method
 import java.util.concurrent.ConcurrentHashMap
@@ -145,7 +146,6 @@ class BulkHooker private constructor() {
         }
 
         val isConstructorHook = element.methodName == CONSTRUCTOR_METHOD_NAME
-        if (isConstructorHook && Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return false
 
         fun applyForClass(clazz: Class<*>?) {
             val executables = if (isConstructorHook) {
@@ -224,8 +224,13 @@ class BulkHooker private constructor() {
             val thisObject = frame.getArgument(0)
             val args = frame.dumpArgs(true)
 
-            // TODO: Make it compatible with Constructor
-            value.result = (element.method as Method).invoke(thisObject, *args)
+            val method = if (element.method is Constructor<*>) {
+                Reflection.constructorToMethod(element.method as Constructor<*>)
+            } else {
+                element.method as Method
+            }
+
+            value.result = method.invoke(thisObject, *args)
 
             ArtMethodUtils.setExecutableEntryPoint(
                 element.method!!,
