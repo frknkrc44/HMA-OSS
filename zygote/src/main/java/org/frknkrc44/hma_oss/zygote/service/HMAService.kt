@@ -151,7 +151,8 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
         filterCountFile = File("$dataDir/filter_count.json")
         logFile = File("$dataDir/log/runtime.log")
         oldLogFile = File("$dataDir/log/old.log")
-        logFile.renameTo(oldLogFile)
+
+        clearLogs()
 
         logcatAvailable = true
         logI(TAG) { "Data dir: $dataDir" }
