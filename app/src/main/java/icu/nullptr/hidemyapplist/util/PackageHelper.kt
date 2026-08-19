@@ -19,6 +19,7 @@ import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.asDrawable
 import icu.nullptr.hidemyapplist.ui.util.asComponentName
 import icu.nullptr.hidemyapplist.ui.util.get
+import icu.nullptr.hidemyapplist.util.ConfigUtils.Companion.getLocale
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.first
@@ -28,7 +29,6 @@ import kotlinx.coroutines.withContext
 import org.frknkrc44.hma_oss.BuildConfig
 import org.frknkrc44.hma_oss.R
 import java.text.Collator
-import java.util.Locale
 
 object PackageHelper {
     const val TAG = "PackageHelper"
@@ -43,17 +43,19 @@ object PackageHelper {
     object Comparators {
         val byLabel = Comparator<String> { o1, o2 ->
             try {
-                val n1 = loadAppLabel(o1).lowercase(Locale.getDefault())
-                val n2 = loadAppLabel(o2).lowercase(Locale.getDefault())
-                Collator.getInstance(Locale.getDefault()).compare(n1, n2)
+                val locale = getLocale()
+                val n1 = loadAppLabel(o1).lowercase(locale)
+                val n2 = loadAppLabel(o2).lowercase(locale)
+                Collator.getInstance(locale).compare(n1, n2)
             } catch (_: Throwable) {
                 byPackageName.compare(o1, o2)
             }
         }
         val byPackageName = Comparator<String> { o1, o2 ->
-            val n1 = o1.lowercase(Locale.getDefault())
-            val n2 = o2.lowercase(Locale.getDefault())
-            Collator.getInstance(Locale.getDefault()).compare(n1, n2)
+            val locale = getLocale()
+            val n1 = o1.lowercase(locale)
+            val n2 = o2.lowercase(locale)
+            Collator.getInstance(locale).compare(n1, n2)
         }
         val byInstallTime = Comparator<String> { o1, o2 ->
             try {
