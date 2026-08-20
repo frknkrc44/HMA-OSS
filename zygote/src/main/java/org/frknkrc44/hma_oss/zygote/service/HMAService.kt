@@ -53,6 +53,7 @@ import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logW
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logWithLevel
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.findAndVerifyAppSignature
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.isConflictingModuleInstalled
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.queryIntentActivitiesAsUser
 import org.frknkrc44.hma_oss.zygote.util.WebViewUtils.getWebviewProvider
 import rikka.hidden.compat.ActivityManagerApis
@@ -61,7 +62,7 @@ import java.io.File
 import java.io.FileInputStream
 import java.lang.reflect.Modifier
 
-class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWorkMode: Int) : IHMAService.Stub() {
+class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
     companion object {
         private const val TAG = "HMA-Service"
@@ -70,6 +71,8 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
 
     @Volatile
     private var logcatAvailable = false
+
+    private var managerWorkMode: Int = Constants.MANAGER_WORK_MODE_UNKNOWN
 
     private lateinit var dataDir: String
     private lateinit var configFile: File
@@ -93,6 +96,13 @@ class HMAService(val pms: IPackageManager, val pmn: Any?, private var managerWor
         private set
 
     init {
+        managerWorkMode = if (pms.isConflictingModuleInstalled()) {
+            logE(TAG) { "Conflicting module detected, skipping hook" }
+            Constants.MANAGER_WORK_MODE_NO_HOOKS
+        } else {
+            Constants.MANAGER_WORK_MODE_LOADING
+        }
+
         searchDataDir()
         service = this
         loadFilterCount()
