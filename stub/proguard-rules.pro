@@ -19,6 +19,3 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
-
--keep class org.frknkrc44.hma_oss.zygote.ZygoteEntry { premain(); main(); }
--dontwarn com.v7878.r8.annotations.KeepCodeAttribute

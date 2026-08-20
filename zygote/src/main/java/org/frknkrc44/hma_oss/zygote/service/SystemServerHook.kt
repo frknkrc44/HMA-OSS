@@ -13,6 +13,8 @@ import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.waitForService
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.callStaticMethod
+import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.PACKAGE_MANAGER_NATIVE_SERVICE
+import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.PACKAGE_MANAGER_SERVICE
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.RUNTIME_INIT_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.SYSTEM_SERVER_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.ZYGOTE_INIT_CLASS
@@ -23,7 +25,6 @@ object SystemServerHook {
     private const val TAG = "SystemServerHook"
 
     var classLoader: ClassLoader? = null
-    var initialized = false
 
     @Throws(Throwable::class)
     fun onSystemServer(loader: ClassLoader?) {
@@ -33,20 +34,16 @@ object SystemServerHook {
 
         classLoader = loader
 
-        if (!initialized) {
-            initialized = true
+        thread {
+            val pms = waitForService(PACKAGE_MANAGER_SERVICE) as IPackageManager
+            val pmn = waitForService(PACKAGE_MANAGER_NATIVE_SERVICE)
+            logD(TAG) { "Got pms: $pms, $pmn" }
 
-            thread {
-                val pms = waitForService("package") as IPackageManager
-                val pmn = waitForService("package_native")
-                logD(TAG) { "Got pms: $pms, $pmn" }
-
-                runCatching {
-                    UserService.register(pms, pmn)
-                    logI(TAG) { "User service started" }
-                }.onFailure {
-                    logE(TAG, it) { "System service crashed" }
-                }
+            runCatching {
+                UserService.register(pms, pmn)
+                logI(TAG) { "User service started" }
+            }.onFailure {
+                logE(TAG, it) { "System service crashed" }
             }
         }
     }

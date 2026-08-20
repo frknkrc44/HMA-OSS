@@ -11,7 +11,6 @@ import android.os.IBinder
 import android.os.IUserManager
 import android.os.ServiceManager
 import com.android.apksig.ApkVerifier
-import com.v7878.unsafe.Reflection.getDeclaredMethod
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.PropertyUtils
 import icu.nullptr.hidemyapplist.common.Utils.binderLocalScope
@@ -36,14 +35,8 @@ object ServiceUtils {
 
     @Throws(InterruptedException::class)
     fun waitForService(name: String?): IBinder? {
-        try {
-            return getDeclaredMethod(
-                ServiceManager::class.java,
-                "waitForService",
-                String::class.java,
-            ).invoke(null, name) as IBinder?
-        } catch (e: Throwable) {
-            logE(TAG, e) { "An error occurred on waitForService" }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            return ServiceManager.waitForService(name)
         }
 
         var service: IBinder? = null
@@ -96,14 +89,8 @@ object ServiceUtils {
 
                 runCatching {
                     userIds.forEach {
-                        val profiles = callMethodWithTypes(
-                            userManager,
-                            "getProfileIds",
-                            arrayOf(Int::class.javaPrimitiveType!!, Boolean::class.javaPrimitiveType!!),
-                            arrayOf(it, false),
-                        ) ?: return@forEach
-
-                        (profiles as IntArray).forEach { pId -> set.add(pId) }
+                        val profiles = userManager.getProfileIds(it, false)
+                        profiles.forEach { pId -> set.add(pId) }
                     }
                 }.onFailure {
                     set.addAll(userIds)

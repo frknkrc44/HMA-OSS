@@ -1,5 +1,6 @@
 package org.frknkrc44.hma_oss.zygote.util
 
+@Suppress("SpellCheckingInspection")
 object ZygoteConstants {
     const val SYSTEM_SERVER_CLASS = "com.android.server.SystemServer"
     const val RUNTIME_INIT_CLASS = "com.android.internal.os.RuntimeInit"
@@ -29,4 +30,10 @@ object ZygoteConstants {
     const val SERVICE_RECORD_CLASS = "com.android.server.am.ServiceRecord"
 
     const val CONSTRUCTOR_METHOD_NAME = "<init>"
+
+    const val PACKAGE_MANAGER_SERVICE = "package"
+    const val PACKAGE_MANAGER_NATIVE_SERVICE = "package_native"
+    const val WEBVIEW_UPDATE_SERVICE = "webviewupdate"
+
+    const val WEBVIEW_PROVIDER_KEY = "webview_provider"
 }

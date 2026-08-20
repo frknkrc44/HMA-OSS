@@ -29,5 +29,6 @@ rootProject.name = "HMA-OSS"
 include(
     ":app",
     ":common",
+    ":stub",
     ":zygote",
 )
