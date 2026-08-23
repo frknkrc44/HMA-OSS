@@ -51,6 +51,8 @@ object BrowserUtils {
     }
 
     private val webViewService by lazy {
-        ServiceManager.getService(WEBVIEW_UPDATE_SERVICE) as IWebViewUpdateService
+        IWebViewUpdateService.Stub.asInterface(
+            ServiceManager.getService(WEBVIEW_UPDATE_SERVICE)
+        )
     }
 }

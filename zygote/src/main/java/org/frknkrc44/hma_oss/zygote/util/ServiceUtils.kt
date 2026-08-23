@@ -64,9 +64,11 @@ object ServiceUtils {
         }
     }
 
-    val packageManager get() = ActivityThread.currentActivityThread().application.packageManager!!
+    private val application get () = ActivityThread.currentActivityThread().application!!
 
-    val contentResolver get() = ActivityThread.currentActivityThread().application.contentResolver!!
+    val packageManager get() = application.packageManager!!
+
+    val contentResolver get() = application.contentResolver!!
 
     fun getCallingApps(): Array<String> {
         return getCallingApps(Binder.getCallingUid())
@@ -79,7 +81,7 @@ object ServiceUtils {
         } ?: arrayOf()
     }
 
-    fun findAndVerifyAppSignature(pms: IPackageManager): Int {
+    fun findAndVerifyAppSignature(): Int {
         val userService = waitForService(USER_SERVICE)
 
         try {
@@ -101,7 +103,7 @@ object ServiceUtils {
                 logV(TAG) { "@findAndVerifyAppSignature: checking for uid $uid" }
 
                 val pkgInfo = runCatching {
-                    pms.getPackageInfoCompat(BuildConfig.APP_PACKAGE_NAME, 0L, uid)
+                    service?.pms?.getPackageInfoCompat(BuildConfig.APP_PACKAGE_NAME, 0L, uid)
                 }.getOrNull()
 
                 if (pkgInfo != null) {

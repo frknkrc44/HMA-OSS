@@ -108,7 +108,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         loadFilterCount()
         loadConfig()
 
-        appUid = findAndVerifyAppSignature(pms)
+        appUid = findAndVerifyAppSignature()
 
         if (managerWorkMode != Constants.MANAGER_WORK_MODE_NO_HOOKS) {
             installHooks()
@@ -553,7 +553,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
             when (eventType) {
                 Intent.ACTION_PACKAGE_ADDED -> {
                     if (packageName == BuildConfig.APP_PACKAGE_NAME && appUid < 0) {
-                        appUid = findAndVerifyAppSignature(pms)
+                        appUid = findAndVerifyAppSignature()
                     }
 
                     /**
@@ -587,7 +587,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
                     if (packageName == BuildConfig.APP_PACKAGE_NAME && appUid >= 0) {
                         logI(TAG) { "The manager app is uninstalled, looking for alternatives" }
 
-                        appUid = findAndVerifyAppSignature(pms)
+                        appUid = findAndVerifyAppSignature()
                     }
 
                     // Handle app presets
