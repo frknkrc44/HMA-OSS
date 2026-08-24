@@ -1,7 +1,6 @@
 package org.frknkrc44.hma_oss.zygote.hook
 
-import org.frknkrc44.hma_oss.zygote.service.BulkHooker
-import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
+import org.frknkrc44.hma_oss.zygote.service.UserService.service
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackageNameFromPackageSettings
@@ -20,7 +19,7 @@ class PmsHookTarget29 : PmsHookTargetBase() {
     override fun load() {
         logI(TAG) { "Load hook" }
 
-        BulkHooker.instance.apply {
+        service!!.hookerInstance.apply {
             hookBefore(
                 service!!.pms::class.java.name,
                 "filterAppAccessLPr",

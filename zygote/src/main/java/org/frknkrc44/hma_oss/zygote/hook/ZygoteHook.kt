@@ -6,8 +6,7 @@ import com.v7878.unsafe.invoke.EmulatedStackFrame
 import icu.nullptr.hidemyapplist.common.CollectionUtils.firstOrNullWithType
 import icu.nullptr.hidemyapplist.common.CollectionUtils.lastOrNullWithType
 import icu.nullptr.hidemyapplist.common.Constants
-import org.frknkrc44.hma_oss.zygote.service.BulkHooker
-import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
+import org.frknkrc44.hma_oss.zygote.service.UserService.service
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.sAppDataIsolationEnabled
@@ -31,7 +30,7 @@ class ZygoteHook : IFrameworkHook {
             sAppDataIsolationEnabled
 
     override fun load() {
-        BulkHooker.instance.apply {
+        service!!.hookerInstance.apply {
             hookBefore(
                 ZYGOTE_PROCESS_CLASS,
                 "start",

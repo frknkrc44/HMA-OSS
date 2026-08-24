@@ -9,7 +9,7 @@ import com.v7878.unsafe.invoke.Transformers
 import com.v7878.vmtools.HookTransformer
 import com.v7878.vmtools.Hooks
 import org.frknkrc44.hma_oss.zygote.ZygoteEntry
-import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
+import org.frknkrc44.hma_oss.zygote.service.UserService.service
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
@@ -26,9 +26,8 @@ import java.lang.reflect.Method
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CopyOnWriteArrayList
 
-class BulkHooker private constructor() {
-    companion object {
-        val instance: BulkHooker by lazy { BulkHooker() }
+class BulkHooker {
+    private companion object {
         const val PARAMETER_COUNT_UNKNOWN = -1
     }
 

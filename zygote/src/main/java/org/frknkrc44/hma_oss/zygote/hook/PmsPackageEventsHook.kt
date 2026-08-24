@@ -3,8 +3,7 @@ package org.frknkrc44.hma_oss.zygote.hook
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import org.frknkrc44.hma_oss.zygote.service.BulkHooker
-import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
+import org.frknkrc44.hma_oss.zygote.service.UserService.service
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.BROADCAST_HELPER_CLASS
@@ -17,7 +16,7 @@ class PmsPackageEventsHook : IFrameworkHook {
     override fun load() {
         logI(TAG) { "Load hook" }
 
-        BulkHooker.instance.apply {
+        service!!.hookerInstance.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 val hookedMethodName = "sendPackageBroadcastAndNotify"
 

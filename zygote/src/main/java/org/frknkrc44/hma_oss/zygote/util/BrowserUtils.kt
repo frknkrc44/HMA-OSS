@@ -6,7 +6,7 @@ import android.provider.Settings
 import android.webkit.IWebViewUpdateService
 import com.android.server.pm.PackageManagerService
 import icu.nullptr.hidemyapplist.common.Utils.binderLocalScope
-import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
+import org.frknkrc44.hma_oss.zygote.service.UserService.service
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.contentResolver
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getObjectField

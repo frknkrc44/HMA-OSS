@@ -36,4 +36,7 @@ object ZygoteConstants {
     const val WEBVIEW_UPDATE_SERVICE = "webviewupdate"
 
     const val WEBVIEW_PROVIDER_KEY = "webview_provider"
+
+    const val ACTION_USB_STATE = "android.hardware.usb.action.USB_STATE"
+    const val USB_FUNCTION_ADB = "adb"
 }

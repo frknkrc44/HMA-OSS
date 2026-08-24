@@ -5,9 +5,8 @@ import android.os.Build
 import android.os.SystemProperties
 import androidx.annotation.RequiresApi
 import org.frknkrc44.hma_oss.common.BuildConfig
-import org.frknkrc44.hma_oss.zygote.service.BulkHooker
-import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
 import org.frknkrc44.hma_oss.zygote.service.SystemServerHook
+import org.frknkrc44.hma_oss.zygote.service.UserService.service
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
@@ -56,7 +55,7 @@ class AppDataIsolationHook : IFrameworkHook {
         if (!isAltIsolationEnabled) return
         logI(TAG) { "Load hook" }
 
-        BulkHooker.instance.apply {
+        service!!.hookerInstance.apply {
             hookBefore(
                 PROCESS_LIST_CLASS,
                 "startProcess",

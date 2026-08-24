@@ -9,8 +9,7 @@ import android.os.Bundle
 import android.provider.Settings
 import com.v7878.unsafe.invoke.EmulatedStackFrame
 import icu.nullptr.hidemyapplist.common.CollectionUtils.firstWithType
-import org.frknkrc44.hma_oss.zygote.service.BulkHooker
-import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
+import org.frknkrc44.hma_oss.zygote.service.UserService.service
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
@@ -25,7 +24,7 @@ class ContentProviderHook : IFrameworkHook {
 
     @Suppress("UNCHECKED_CAST")
     override fun load() {
-        BulkHooker.instance.apply {
+        service!!.hookerInstance.apply {
             hookAfter(
                 CONTENT_PROVIDER_TRANSPORT_CLASS,
                 "query",

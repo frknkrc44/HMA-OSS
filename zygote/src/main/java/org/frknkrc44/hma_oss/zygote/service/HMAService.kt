@@ -65,11 +65,12 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
     companion object {
         private const val TAG = "HMA-Service"
-        var service: HMAService? = null
     }
 
     @Volatile
     private var logcatAvailable = false
+
+    val hookerInstance = BulkHooker()
 
     private var managerWorkMode: Int = Constants.MANAGER_WORK_MODE_UNKNOWN
 
@@ -103,10 +104,11 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         }
 
         searchDataDir()
-        service = this
         loadFilterCount()
         loadConfig()
+    }
 
+    fun initHooks() {
         appUid = findAndVerifyAppSignature()
 
         if (managerWorkMode != Constants.MANAGER_WORK_MODE_NO_HOOKS) {
@@ -690,7 +692,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     override fun getLoadedHooks(): Array<String> {
         val hookList = mutableListOf<String>()
 
-        for ((className, hookElements) in BulkHooker.instance.hooks) {
+        for ((className, hookElements) in hookerInstance.hooks) {
             for (element in hookElements) {
                 hookList.add(
                     JsonConfig.HookItem(

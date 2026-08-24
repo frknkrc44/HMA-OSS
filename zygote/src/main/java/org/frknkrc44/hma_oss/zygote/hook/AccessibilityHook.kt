@@ -3,8 +3,7 @@ package org.frknkrc44.hma_oss.zygote.hook
 import android.accessibilityservice.AccessibilityServiceInfo
 import android.content.pm.ParceledListSlice
 import icu.nullptr.hidemyapplist.common.settings_presets.AccessibilityPreset
-import org.frknkrc44.hma_oss.zygote.service.BulkHooker
-import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
+import org.frknkrc44.hma_oss.zygote.service.UserService.service
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.returnType
@@ -14,7 +13,7 @@ class AccessibilityHook : IFrameworkHook {
     override val TAG = "AccessibilityHook"
 
     override fun load() {
-        BulkHooker.instance.apply {
+        service!!.hookerInstance.apply {
             hookBefore(
                 ACCESSIBILITY_SERVICE_CLASS,
                 "getEnabledAccessibilityServiceList",

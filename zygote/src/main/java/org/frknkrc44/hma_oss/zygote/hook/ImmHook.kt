@@ -13,9 +13,8 @@ import icu.nullptr.hidemyapplist.common.Utils
 import icu.nullptr.hidemyapplist.common.Utils.getPackageUidCompat
 import icu.nullptr.hidemyapplist.common.Utils.getUserFromCallingUid
 import icu.nullptr.hidemyapplist.common.settings_presets.InputMethodPreset
-import org.frknkrc44.hma_oss.zygote.service.BulkHooker
-import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
 import org.frknkrc44.hma_oss.zygote.service.ReturnValue
+import org.frknkrc44.hma_oss.zygote.service.UserService.service
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logW
@@ -72,7 +71,7 @@ class ImmHook : IFrameworkHook {
     override fun load() {
         // OEMs (especially Samsung and Xiaomi) messes up whole framework code,
         // so nothing left except messing up this code
-        BulkHooker.instance.apply {
+        service!!.hookerInstance.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
                 findAltMethod(
                     listOf(IMM_SERVICE_CLASS, IMM_IMPL_CLASS),
