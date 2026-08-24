@@ -112,10 +112,7 @@ object Utils {
 
     fun getUserFromCallingUid(uid: Int) = uid / 100000
 
-    fun IPackageManager.isAppInstalled(packageName: String, userId: Int = 0) =
-        getPackageUidCompat(packageName, 0, userId) >= 0
-
-    fun PackageManager.isAppInstalled(packageName: String) = try {
+    fun PackageManager.isPackageAvailable(packageName: String) = try {
         getPackageUid(packageName, 0) >= 0
     } catch (_: Throwable) {
         false

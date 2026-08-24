@@ -17,7 +17,6 @@ import icu.nullptr.hidemyapplist.common.Utils.binderLocalScope
 import icu.nullptr.hidemyapplist.common.Utils.conflictedModules
 import icu.nullptr.hidemyapplist.common.Utils.containsMultiple
 import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
-import icu.nullptr.hidemyapplist.common.Utils.isAppInstalled
 import org.frknkrc44.hma_oss.common.BuildConfig
 import org.frknkrc44.hma_oss.zygote.Magic
 import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
@@ -167,7 +166,7 @@ object ServiceUtils {
 
     fun IPackageManager.isConflictingModuleInstalled(): Boolean {
         // we shouldn't apply hooks when the HMA/HMAL detected
-        return conflictedModules.any { isAppInstalled(it) }
+        return conflictedModules.any { isPackageAvailable(it, 0) }
     }
 
     val sAppDataIsolationEnabled by lazy {

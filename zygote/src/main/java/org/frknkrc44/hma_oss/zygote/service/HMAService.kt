@@ -28,7 +28,6 @@ import icu.nullptr.hidemyapplist.common.Utils.conflictedModules
 import icu.nullptr.hidemyapplist.common.Utils.generateRandomString
 import icu.nullptr.hidemyapplist.common.Utils.getInstalledApplicationsCompat
 import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
-import icu.nullptr.hidemyapplist.common.Utils.isAppInstalled
 import icu.nullptr.hidemyapplist.common.Utils.isSystemApp
 import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
 import org.frknkrc44.hma_oss.common.BuildConfig
@@ -449,7 +448,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         if (caller == query && appConfig.excludeTargetInstallationSource) return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
 
         try {
-            val installed = pms.isAppInstalled(query, callingUser)
+            val installed = pms.isPackageAvailable(query, callingUser)
             logD(TAG) { "@shouldHideInstallationSource UID for $caller, ${callingUser}: $query, $installed" }
             if (!installed) return Constants.FAKE_INSTALLATION_SOURCE_DISABLED // invalid package installation source request
         } catch (e: Throwable) {

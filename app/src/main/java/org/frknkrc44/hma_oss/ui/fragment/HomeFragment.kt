@@ -20,7 +20,7 @@ import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.MyApp.Companion.hmaApp
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.Utils.conflictedModules
-import icu.nullptr.hidemyapplist.common.Utils.isAppInstalled
+import icu.nullptr.hidemyapplist.common.Utils.isPackageAvailable
 import icu.nullptr.hidemyapplist.data.fetchLatestUpdate
 import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.service.ServiceClient
@@ -453,7 +453,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun findUninstallRequiredPackages() = conflictedModules.filter {
-        requireContext().packageManager.isAppInstalled(it)
+        requireContext().packageManager.isPackageAvailable(it)
     }
 
     private fun showMigrateStatusDialog(success: Boolean) {
