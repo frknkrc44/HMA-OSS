@@ -209,29 +209,8 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
 
             if (forceStop) ServiceClient.forceStop(packageName, userId)
 
-            if (userId != PackageHelper.currentUserID) {
-                try {
-                    ServiceClient.startMainActivityAsUser(packageName, userId)
-                } catch (e: Throwable) {
-                    showToast(R.string.app_launch_failed)
-                    ServiceClient.log(Log.ERROR, TAG, e.stackTraceToString())
-                }
-                return
-            }
-
             try {
-                val pkgMgr = requireContext().packageManager
-                val pkgInfo = pkgMgr.getPackageInfo(packageName, 0)
-                if (pkgInfo.applicationInfo?.enabled == true) {
-                    val resolvedIntent = pkgMgr.getLaunchIntentForPackage(packageName)
-                    if (resolvedIntent != null) {
-                        startActivity(resolvedIntent)
-                    } else {
-                        throw RuntimeException("No main activity found to launch this app")
-                    }
-                } else {
-                    throw RuntimeException("Package is disabled")
-                }
+                ServiceClient.startMainActivityAsUser(packageName, userId)
             } catch (e: Throwable) {
                 showToast(R.string.app_launch_failed)
                 ServiceClient.log(Log.ERROR, TAG, e.stackTraceToString())
