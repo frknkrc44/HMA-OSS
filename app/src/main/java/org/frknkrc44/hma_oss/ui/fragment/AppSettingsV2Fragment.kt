@@ -1,6 +1,7 @@
 package org.frknkrc44.hma_oss.ui.fragment
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -300,7 +301,13 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
                         )
             }
             findPreference<Preference>("restrictZygotePermissions")?.setOnPreferenceClickListener {
-                val checked = Constants.GID_PAIRS.values.map {
+                val gidPairs = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.CINNAMON_BUN) {
+                    Constants.GID_PAIRS.filter { it.value != Constants.APP_ZYGOTE_GID }
+                } else {
+                    Constants.GID_PAIRS
+                }
+
+                val checked = gidPairs.values.map {
                     it in pack.config.restrictedZygotePermissions
                 }.toBooleanArray()
 
@@ -308,11 +315,11 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
                     .setTitle(R.string.app_restrict_zygote_permissions)
                     .setNegativeButton(android.R.string.cancel, null)
                     .setPositiveButton(android.R.string.ok) { _, _ ->
-                        pack.config.restrictedZygotePermissions = Constants.GID_PAIRS.values.mapIndexedNotNullTo(mutableSetOf()) { i, value ->
+                        pack.config.restrictedZygotePermissions = gidPairs.values.mapIndexedNotNullTo(mutableSetOf()) { i, value ->
                             if (checked[i]) value else null
                         }.toList()
                         showForceStopWarning()
-                    }.setMultiChoiceItems(Constants.GID_PAIRS.keys.toTypedArray(), checked) { _, i, value ->
+                    }.setMultiChoiceItems(gidPairs.keys.toTypedArray(), checked) { _, i, value ->
                         checked[i] = value
                     }.show()
 
