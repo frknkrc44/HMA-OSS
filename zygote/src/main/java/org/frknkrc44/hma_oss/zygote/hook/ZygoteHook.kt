@@ -1,7 +1,9 @@
 package org.frknkrc44.hma_oss.zygote.hook
 
+import android.content.pm.ServiceInfo
 import android.os.Build
 import com.v7878.unsafe.invoke.EmulatedStackFrame
+import icu.nullptr.hidemyapplist.common.CollectionUtils.firstOrNullWithType
 import icu.nullptr.hidemyapplist.common.CollectionUtils.lastOrNullWithType
 import icu.nullptr.hidemyapplist.common.Constants
 import org.frknkrc44.hma_oss.zygote.service.UserService.service

@@ -18,6 +18,7 @@ import org.frknkrc44.hma_oss.zygote.util.ServiceUtils
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.dumpArgs
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.setReturnValue
+import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.CONSTRUCTOR_METHOD_NAME
 import java.lang.invoke.MethodHandle
 import java.lang.reflect.Executable
 import java.lang.reflect.Method
@@ -37,6 +38,11 @@ class BulkHooker {
         hooks[clazz]?.firstOrNull { it.methodName == method }
 
     private fun addHook(clazz: String, methodName: String, argumentCount: Int, impl: HookTransformer) {
+        val isConstructorHook = methodName == CONSTRUCTOR_METHOD_NAME
+        if (isConstructorHook && Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+            logI(ZygoteEntry.TAG) { "Constructor hook removed for Android 12-: $clazz -> $methodName($argumentCount)" }
+        }
+
         val inDisabledHooks = service?.config?.disabledHooks?.any {
             clazz == it.className &&
                     methodName == it.methodName &&
@@ -142,40 +148,45 @@ class BulkHooker {
             return false
         }
 
+        val isConstructorHook = element.methodName == CONSTRUCTOR_METHOD_NAME
+
         fun applyForClass(clazz: Class<*>?) {
-            val executables = Reflection.getHiddenExecutables(clazz).filter { executable ->
-                if (element.methodName == executable.name) {
+            if (isConstructorHook) {
+                Reflection.getHiddenConstructors(clazz).let { constructors ->
                     if (element.argumentCount >= 0) {
-                        return@filter element.argumentCount == executable.parameterCount
+                        constructors.filter { element.argumentCount == it.parameterCount }
+                    } else {
+                        constructors.toList()
+                    }
+                }.firstOrNull()
+            } else {
+                Reflection.getHiddenExecutables(clazz).filter { executable ->
+                    if (element.methodName == executable.name) {
+                        if (element.argumentCount >= 0) {
+                            return@filter element.argumentCount == executable.parameterCount
+                        }
+
+                        return@filter true
                     }
 
-                    return@filter true
+                    return@filter false
+                }.firstOrNull()
+            }?.let { executable ->
+                logD(ZygoteEntry.TAG) { "Hooked constructor: $executable" }
+
+                val memoryAddresses = Hooks.hook(
+                    executable, Hooks.EntryPointType.DIRECT,
+                    element.impl, Hooks.EntryPointType.DIRECT
+                )
+
+                logV(ZygoteEntry.TAG) { "Memory address map: $memoryAddresses" }
+
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+                    element.memoryAddresses = memoryAddresses
+                    element.method = executable
                 }
 
-                return@filter false
-            }.sortedWith { v1, v2 ->
-                v1.parameterCount.compareTo(v2.parameterCount)
-            }
-
-            for (executable in executables) {
-                if (!element.hookFinished) {
-                    logD(ZygoteEntry.TAG) { "Hooked: $executable" }
-
-                    val memoryAddresses = Hooks.hook(
-                        executable, Hooks.EntryPointType.DIRECT,
-                        element.impl, Hooks.EntryPointType.DIRECT
-                    )
-
-                    logV(ZygoteEntry.TAG) { "Memory address map: $memoryAddresses" }
-
-                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-                        element.memoryAddresses = memoryAddresses
-                        element.method = executable
-                    }
-
-                    element.hookFinished = true
-                    break
-                }
+                element.hookFinished = true
             }
         }
 
