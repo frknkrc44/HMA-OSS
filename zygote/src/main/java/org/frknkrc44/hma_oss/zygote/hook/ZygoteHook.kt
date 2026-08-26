@@ -112,29 +112,31 @@ class ZygoteHook : IFrameworkHook {
         if (!forceMountData || (service?.systemApps?.contains(caller) ?: false)) return false
 
         var targetSDK = -1
-        val gIDsVarIndex = frame.argTypes.indexOfFirst {
-            it.isAssignableFrom(IntArray::class.java)
-        }
+        for ((i, clazz) in frame.argTypes.withIndex()) {
+            if (targetSDK < 0) {
+                var gIDsVarIndex = -1
 
-        for (i in gIDsVarIndex ..< frame.argTypes.size) {
-            if (frame.argTypes[i].isAssignableFrom(String::class.java)) {
-                val targetSDKVar = frame.args[i - 1]
-                if (targetSDKVar is Int) {
-                    targetSDK = targetSDKVar
+                if (clazz.isAssignableFrom(IntArray::class.java)) {
+                    gIDsVarIndex = i
                 }
 
-                break
+                if (gIDsVarIndex < 0) continue
+
+                if (clazz.isAssignableFrom(String::class.java)) {
+                    val targetSDKVar = frame.args[i - 1]
+                    if (targetSDKVar is Int) {
+                        targetSDK = targetSDKVar
+                        if (targetSDK >= 30) return false
+                    }
+                }
+            }
+
+            if (clazz.isAssignableFrom(LongArray::class.java)) {
+                val isTopAppIndex = i - 1
+                return frame.args[isTopAppIndex] == true
             }
         }
 
-        if (targetSDK >= 30) return false
-
-        val longArrayIndex = frame.argTypes.indexOfFirst {
-            it.isAssignableFrom(LongArray::class.java)
-        }
-        if (longArrayIndex < 0) return false
-
-        val isTopAppIndex = longArrayIndex - 1
-        return frame.args[isTopAppIndex] == true
+        return false
     }
 }
