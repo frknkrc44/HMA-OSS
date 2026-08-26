@@ -185,4 +185,7 @@ object ServiceUtils {
         ),
         arrayOf(intent, /* flags */ 0, userId)
     ) as List<ResolveInfo>?
+
+    fun IPackageManager.findApp(packageName: String) =
+        UserManagerApis.getUserIdsNoThrow().any { isPackageAvailable(packageName, it) }
 }

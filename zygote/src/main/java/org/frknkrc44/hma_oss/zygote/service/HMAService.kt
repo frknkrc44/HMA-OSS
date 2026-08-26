@@ -53,6 +53,7 @@ import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logW
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logWithLevel
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.findAndVerifyAppSignature
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.findApp
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.isConflictingModuleInstalled
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.queryIntentActivitiesAsUser
 import rikka.hidden.compat.ActivityManagerApis
@@ -591,10 +592,12 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
                         appUid = findAndVerifyAppSignature()
                     }
 
-                    // Handle app presets
-                    handlePackageRemoved(packageName) { preset ->
-                        if (HMAServiceCache.instance.removeFromPresetCache(preset, packageName)) {
-                            writePresetCache()
+                    // Handle app presets if the app is removed entirely
+                    if (!pms.findApp(packageName)) {
+                        handlePackageRemoved(packageName) { preset ->
+                            if (HMAServiceCache.instance.removeFromPresetCache(preset, packageName)) {
+                                writePresetCache()
+                            }
                         }
                     }
                 }
