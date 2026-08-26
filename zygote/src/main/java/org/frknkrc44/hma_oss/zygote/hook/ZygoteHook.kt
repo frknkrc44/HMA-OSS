@@ -75,7 +75,8 @@ class ZygoteHook : IFrameworkHook {
         if (!isHookEnabled) return
 
         // another plan for PlatformCompatHook
-        if (isZygoteProcessForceMounted(frame, caller)) {
+        val pair = getForceMountArgs(frame, caller)
+        if (pair.first) {
             val lastMapIndex = frame.argTypes.indexOfLast {
                 it == java.util.Map::class.java
             }
@@ -91,26 +92,22 @@ class ZygoteHook : IFrameworkHook {
             }
         }
 
-        // ignore if the GIDs array is null
-        val gIDsIndex = frame.args.indexOfFirst { it is IntArray }
-        if (gIDsIndex < 0) return
+        if (pair.second < 0) return
 
         var perms = service?.getRestrictedZygotePermissions(caller) ?: return
         if (perms.isNotEmpty()) {
-            val gIDs = frame.args[gIDsIndex] as IntArray
+            val gIDs = frame.args[pair.second] as? IntArray ?: return
 
             // add more security, reject if not available in GID_PAIRS
             perms = perms.filter { Constants.GID_PAIRS.containsValue(it) }
 
             logD(TAG) { "@startZygoteProcess: GIDs are ${gIDs.contentToString()}, removing $perms now" }
-            frame.setArgument(gIDsIndex, gIDs.filter { it !in perms }.toIntArray())
+            frame.setArgument(pair.second, gIDs.filter { it !in perms }.toIntArray())
             service?.increaseOthersFilterCount(caller)
         }
     }
 
-    fun isZygoteProcessForceMounted(frame: EmulatedStackFrame, caller: String): Boolean {
-        if (!forceMountData || (service?.systemApps?.contains(caller) ?: false)) return false
-
+    fun getForceMountArgs(frame: EmulatedStackFrame, caller: String): Pair<Boolean, Int> {
         var gIDsVarIndex = -1
         for ((i, clazz) in frame.argTypes.withIndex()) {
             if (clazz == IntArray::class.java) {
@@ -120,19 +117,23 @@ class ZygoteHook : IFrameworkHook {
 
             if (gIDsVarIndex < 0) continue
 
+            if (!forceMountData || (service?.systemApps?.contains(caller) ?: false)) {
+                return Pair(false, gIDsVarIndex)
+            }
+
             if (clazz == String::class.java) {
                 val targetSDKVar = frame.args[i - 1]
                 if (targetSDKVar is Int && targetSDKVar >= 30) {
-                    return false
+                    return Pair(false, gIDsVarIndex)
                 }
             }
 
             if (clazz == LongArray::class.java) {
                 val isTopAppIndex = i - 1
-                return frame.args[isTopAppIndex] == true
+                return Pair(frame.args[isTopAppIndex] == true, gIDsVarIndex)
             }
         }
 
-        return false
+        return Pair(false, gIDsVarIndex)
     }
 }
