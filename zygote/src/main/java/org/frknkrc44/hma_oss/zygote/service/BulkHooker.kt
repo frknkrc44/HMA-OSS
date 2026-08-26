@@ -18,9 +18,7 @@ import org.frknkrc44.hma_oss.zygote.util.ServiceUtils
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.dumpArgs
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.setReturnValue
-import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.CONSTRUCTOR_METHOD_NAME
 import java.lang.invoke.MethodHandle
-import java.lang.reflect.Constructor
 import java.lang.reflect.Executable
 import java.lang.reflect.Method
 import java.util.concurrent.ConcurrentHashMap
@@ -144,29 +142,17 @@ class BulkHooker {
             return false
         }
 
-        val isConstructorHook = element.methodName == CONSTRUCTOR_METHOD_NAME
-
         fun applyForClass(clazz: Class<*>?) {
-            val executables = if (isConstructorHook) {
-                Reflection.getHiddenConstructors(clazz).let { constructors ->
+            val executables = Reflection.getHiddenExecutables(clazz).filter { executable ->
+                if (element.methodName == executable.name) {
                     if (element.argumentCount >= 0) {
-                        constructors.filter { element.argumentCount == it.parameterCount }
-                    } else {
-                        constructors.toList()
-                    }
-                }
-            } else {
-                Reflection.getHiddenExecutables(clazz).filter { executable ->
-                    if (element.methodName == executable.name) {
-                        if (element.argumentCount >= 0) {
-                            return@filter element.argumentCount == executable.parameterCount
-                        }
-
-                        return@filter true
+                        return@filter element.argumentCount == executable.parameterCount
                     }
 
-                    return@filter false
+                    return@filter true
                 }
+
+                return@filter false
             }.sortedWith { v1, v2 ->
                 v1.parameterCount.compareTo(v2.parameterCount)
             }
@@ -223,13 +209,7 @@ class BulkHooker {
             val thisObject = frame.getArgument(0)
             val args = frame.dumpArgs(true)
 
-            val method = if (element.method is Constructor<*>) {
-                Reflection.constructorToMethod(element.method as Constructor<*>)
-            } else {
-                element.method as Method
-            }
-
-            value.result = method.invoke(thisObject, *args)
+            value.result = (element.method as Method).invoke(thisObject, *args)
 
             ArtMethodUtils.setExecutableEntryPoint(
                 element.method!!,

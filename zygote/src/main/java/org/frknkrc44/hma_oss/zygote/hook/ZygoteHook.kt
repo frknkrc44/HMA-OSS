@@ -1,9 +1,7 @@
 package org.frknkrc44.hma_oss.zygote.hook
 
-import android.content.pm.ServiceInfo
 import android.os.Build
 import com.v7878.unsafe.invoke.EmulatedStackFrame
-import icu.nullptr.hidemyapplist.common.CollectionUtils.firstOrNullWithType
 import icu.nullptr.hidemyapplist.common.CollectionUtils.lastOrNullWithType
 import icu.nullptr.hidemyapplist.common.Constants
 import org.frknkrc44.hma_oss.zygote.service.UserService.service
@@ -14,9 +12,7 @@ import org.frknkrc44.hma_oss.zygote.util.ZLUtils.argTypes
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.setArgument
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.shortyEquals
-import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.CONSTRUCTOR_METHOD_NAME
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.NATIVE_ZYGOTE_PROCESS_CLASS
-import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.SERVICE_RECORD_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.ZYGOTE_PROCESS_CLASS
 import java.util.concurrent.atomic.AtomicReference
 
@@ -39,23 +35,6 @@ class ZygoteHook : IFrameworkHook {
             }
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CINNAMON_BUN) {
-                // Try to fix PrivIsolated
-                hookBefore(
-                    SERVICE_RECORD_CLASS,
-                    CONSTRUCTOR_METHOD_NAME,
-                ) { _, frame, _ ->
-                    val caller = frame.args.firstOrNullWithType<String>() ?: return@hookBefore
-                    val perms = service?.getRestrictedZygotePermissions(caller) ?: return@hookBefore
-                    if (!perms.contains(Constants.APP_ZYGOTE_GID)) return@hookBefore
-
-                    val serviceInfo = frame.args.firstOrNullWithType<ServiceInfo>() ?: return@hookBefore
-                    if (serviceInfo.flags and ServiceInfo.FLAG_ISOLATED_PROCESS == 0) return@hookBefore
-                    if (serviceInfo.flags and ServiceInfo.FLAG_NATIVE_SERVICE != 0) return@hookBefore
-
-                    logD(TAG) { "@serviceRecord: Isolated process becomes app zygote process for $caller service" }
-                    serviceInfo.flags = serviceInfo.flags or ServiceInfo.FLAG_USE_APP_ZYGOTE
-                }
-
                 hookBefore(
                     NATIVE_ZYGOTE_PROCESS_CLASS,
                     "start",
