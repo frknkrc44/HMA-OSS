@@ -77,7 +77,7 @@ class ZygoteHook : IFrameworkHook {
         // another plan for PlatformCompatHook
         if (isZygoteProcessForceMounted(frame, caller)) {
             val lastMapIndex = frame.argTypes.indexOfLast {
-                it.isAssignableFrom(java.util.Map::class.java)
+                it == java.util.Map::class.java
             }
             if (lastMapIndex >= 0) {
                 // enable bindMountAppsData after checks
@@ -111,27 +111,23 @@ class ZygoteHook : IFrameworkHook {
     fun isZygoteProcessForceMounted(frame: EmulatedStackFrame, caller: String): Boolean {
         if (!forceMountData || (service?.systemApps?.contains(caller) ?: false)) return false
 
-        var targetSDK = -1
+        var gIDsVarIndex = -1
         for ((i, clazz) in frame.argTypes.withIndex()) {
-            if (targetSDK < 0) {
-                var gIDsVarIndex = -1
+            if (clazz == IntArray::class.java) {
+                gIDsVarIndex = i
+                continue
+            }
 
-                if (clazz.isAssignableFrom(IntArray::class.java)) {
-                    gIDsVarIndex = i
-                }
+            if (gIDsVarIndex < 0) continue
 
-                if (gIDsVarIndex < 0) continue
-
-                if (clazz.isAssignableFrom(String::class.java)) {
-                    val targetSDKVar = frame.args[i - 1]
-                    if (targetSDKVar is Int) {
-                        targetSDK = targetSDKVar
-                        if (targetSDK >= 30) return false
-                    }
+            if (clazz == String::class.java) {
+                val targetSDKVar = frame.args[i - 1]
+                if (targetSDKVar is Int && targetSDKVar >= 30) {
+                    return false
                 }
             }
 
-            if (clazz.isAssignableFrom(LongArray::class.java)) {
+            if (clazz == LongArray::class.java) {
                 val isTopAppIndex = i - 1
                 return frame.args[isTopAppIndex] == true
             }
