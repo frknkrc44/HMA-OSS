@@ -136,40 +136,15 @@ class BulkHooker {
         element: HookElement,
         loader: ClassLoader? = SystemServerHook.classLoader,
     ): Boolean {
-        var curClazz: Class<*>?
-        try {
-            curClazz = Class.forName(clazz, true, loader)
+        var curClazz = try {
+            Class.forName(clazz, true, loader)
         } catch (ex: ClassNotFoundException) {
             logE(ZygoteEntry.TAG, ex) { "Class $clazz not found" }
             return false
         }
 
-        val isConstructorHook = element.methodName == CONSTRUCTOR_METHOD_NAME
-
         fun applyForClass(clazz: Class<*>?) {
-            if (isConstructorHook) {
-                Reflection.getHiddenConstructors(clazz).let { constructors ->
-                    if (element.argumentCount >= 0) {
-                        constructors.filter {
-                            element.argumentCount == it.parameterCount
-                        }.toTypedArray()
-                    } else {
-                        constructors
-                    }
-                }.firstOrNull()
-            } else {
-                Reflection.getHiddenExecutables(clazz).filter { executable ->
-                    if (element.methodName == executable.name) {
-                        if (element.argumentCount >= 0) {
-                            return@filter element.argumentCount == executable.parameterCount
-                        }
-
-                        return@filter true
-                    }
-
-                    return@filter false
-                }.firstOrNull()
-            }?.let { executable ->
+            resolveExecutable(clazz, element.methodName, element.argumentCount)?.let { executable ->
                 logD(ZygoteEntry.TAG) { "Hooked constructor: $executable" }
 
                 val memoryAddresses = Hooks.hook(
@@ -238,50 +213,64 @@ class BulkHooker {
     fun findAltMethod(
         clazzNames: List<String>,
         methodNames: List<String>,
-        argumentCount: Int = -1,
+        argumentCount: Int = PARAMETER_COUNT_UNKNOWN,
         loader: ClassLoader? = SystemServerHook.classLoader,
     ): Executable? {
         for (clazz in clazzNames) {
-            var curClazz: Class<*>?
-            try {
-                curClazz = Class.forName(clazz, true, loader)
+            var curClazz = try {
+                Class.forName(clazz, true, loader)
             } catch (ex: ClassNotFoundException) {
                 logE(ZygoteEntry.TAG, ex) { "Class $clazz not found" }
                 continue
             }
 
-            fun findMethods(clazz: Class<*>): List<Executable> {
-                return Reflection.getHiddenExecutables(clazz).filter { executable ->
-                    if (executable.name in methodNames) {
-                        if (argumentCount >= 0) {
-                            return@filter argumentCount == executable.parameterCount
-                        }
-
-                        return@filter true
-                    }
-
-                    return@filter false
-                }.sortedWith { v1, v2 ->
-                    v1.parameterCount.compareTo(v2.parameterCount)
-                }
-            }
-
             var methods = listOf<Executable>()
-
             while (
                 methods.isEmpty() &&
                 curClazz != null &&
                 curClazz.javaClass.simpleName != "Object"
             ) {
-                methods = findMethods(curClazz)
+                methods = methodNames.mapNotNull {
+                    resolveExecutable(curClazz, it, argumentCount)
+                }
                 curClazz = curClazz.superclass
             }
 
-            return methods.firstOrNull()
+            return methods.firstOrNull() ?: continue
         }
 
-        logI(ZygoteEntry.TAG) { "Invalid hook detected: $clazzNames -> $methodNames($argumentCount)" }
-
         return null
+    }
+
+    private fun resolveExecutable(
+        clazz: Class<*>?,
+        methodName: String,
+        argumentCount: Int = PARAMETER_COUNT_UNKNOWN,
+    ): Executable? {
+        val isConstructorHook = methodName == CONSTRUCTOR_METHOD_NAME
+
+        return if (isConstructorHook) {
+            Reflection.getHiddenConstructors(clazz).let { constructors ->
+                if (argumentCount >= 0) {
+                    constructors.filter {
+                        argumentCount == it.parameterCount
+                    }.toTypedArray()
+                } else {
+                    constructors
+                }
+            }.firstOrNull()
+        } else {
+            Reflection.getHiddenExecutables(clazz).filter { executable ->
+                if (methodName == executable.name) {
+                    if (argumentCount >= 0) {
+                        return@filter argumentCount == executable.parameterCount
+                    }
+
+                    return@filter true
+                }
+
+                return@filter false
+            }.firstOrNull()
+        }
     }
 }
