@@ -20,7 +20,6 @@ import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.setReturnValue
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.CONSTRUCTOR_METHOD_NAME
 import java.lang.invoke.MethodHandle
-import java.lang.reflect.Constructor
 import java.lang.reflect.Executable
 import java.lang.reflect.Method
 import java.util.concurrent.ConcurrentHashMap
@@ -39,6 +38,11 @@ class BulkHooker {
         hooks[clazz]?.firstOrNull { it.methodName == method }
 
     private fun addHook(clazz: String, methodName: String, argumentCount: Int, impl: HookTransformer) {
+        val isConstructorHook = methodName == CONSTRUCTOR_METHOD_NAME
+        if (isConstructorHook && Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+            logI(ZygoteEntry.TAG) { "Constructor hook removed for Android 12-: $clazz -> $methodName($argumentCount)" }
+        }
+
         val inDisabledHooks = service?.config?.disabledHooks?.any {
             clazz == it.className &&
                     methodName == it.methodName &&
@@ -193,13 +197,8 @@ class BulkHooker {
             val thisObject = frame.getArgument(0)
             val args = frame.dumpArgs(true)
 
-            val method = if (element.method is Method) {
-                element.method as Method
-            } else {
-                Reflection.constructorToMethod(element.method as Constructor<*>)
-            }
-
-            value.result = method.invoke(thisObject, *args)
+            // TODO: DO NOT USE ... as Constructor<*>, IT BREAKS TANGO!!!
+            value.result = (element.method as Method).invoke(thisObject, *args)
 
             ArtMethodUtils.setExecutableEntryPoint(
                 element.method!!,
