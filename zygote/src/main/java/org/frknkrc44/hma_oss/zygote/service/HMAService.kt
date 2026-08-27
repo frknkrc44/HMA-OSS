@@ -53,9 +53,9 @@ import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logW
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logWithLevel
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.findAndVerifyAppSignature
-import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.findApp
-import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.isConflictingModuleInstalled
-import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.queryIntentActivitiesAsUser
+import org.frknkrc44.hma_oss.zygote.util.PackageManagerUtils.findApp
+import org.frknkrc44.hma_oss.zygote.util.PackageManagerUtils.getLaunchIntentForPackageAsUser
+import org.frknkrc44.hma_oss.zygote.util.PackageManagerUtils.isConflictingModuleInstalled
 import rikka.hidden.compat.ActivityManagerApis
 import rikka.hidden.compat.UserManagerApis
 import java.io.File
@@ -797,36 +797,5 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         }
 
         config = loading
-    }
-
-    // This part is a copy of Android code
-    fun getLaunchIntentForPackageAsUser(packageName: String, userId: Int): Intent? {
-        val intentToResolve = Intent(Intent.ACTION_MAIN).apply {
-            addCategory(Intent.CATEGORY_INFO)
-            setPackage(packageName)
-        }
-
-        var resolveInfos = queryIntentActivitiesAsUser(intentToResolve, userId)
-        if (resolveInfos.isNullOrEmpty()) {
-            intentToResolve.apply {
-                removeCategory(Intent.CATEGORY_INFO)
-                addCategory(Intent.CATEGORY_LAUNCHER)
-                setPackage(packageName)
-            }
-
-            resolveInfos = queryIntentActivitiesAsUser(intentToResolve, userId)
-        }
-
-        return if (resolveInfos.isNullOrEmpty()) {
-            null
-        } else {
-            Intent(intentToResolve).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK
-
-                resolveInfos.first().activityInfo.let {
-                    setClassName(it.packageName, it.name)
-                }
-            }
-        }
     }
 }

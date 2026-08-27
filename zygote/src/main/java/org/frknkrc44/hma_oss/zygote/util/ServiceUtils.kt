@@ -1,10 +1,6 @@
 package org.frknkrc44.hma_oss.zygote.util
 
-import android.app.ActivityThread
 import android.content.Context.USER_SERVICE
-import android.content.Intent
-import android.content.pm.IPackageManager
-import android.content.pm.ResolveInfo
 import android.os.Binder
 import android.os.Build
 import android.os.IBinder
@@ -14,7 +10,6 @@ import com.android.apksig.ApkVerifier
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.PropertyUtils
 import icu.nullptr.hidemyapplist.common.Utils.binderLocalScope
-import icu.nullptr.hidemyapplist.common.Utils.conflictedModules
 import icu.nullptr.hidemyapplist.common.Utils.containsMultiple
 import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
 import org.frknkrc44.hma_oss.common.BuildConfig
@@ -24,7 +19,6 @@ import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.callMethod
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.callMethodWithTypes
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.findField
 import rikka.hidden.compat.UserManagerApis
 import java.io.File
@@ -62,12 +56,6 @@ object ServiceUtils {
             }.getOrNull()
         }
     }
-
-    private val application get () = ActivityThread.currentActivityThread().application!!
-
-    val packageManager get() = application.packageManager!!
-
-    val contentResolver get() = application.contentResolver!!
 
     fun getCallingApps(): Array<String> {
         return getCallingApps(Binder.getCallingUid())
@@ -164,28 +152,7 @@ object ServiceUtils {
         }
     }
 
-    fun IPackageManager.isConflictingModuleInstalled(): Boolean {
-        // we shouldn't apply hooks when the HMA/HMAL detected
-        return conflictedModules.any { isPackageAvailable(it, 0) }
-    }
-
     val sAppDataIsolationEnabled by lazy {
         PropertyUtils.isAppDataIsolationEnabled || service?.config?.altAppDataIsolation == true
     }
-
-    // I am lazy to call IPackageManager
-    @Suppress("UNCHECKED_CAST")
-    fun queryIntentActivitiesAsUser(intent: Intent, userId: Int) = callMethodWithTypes(
-        packageManager,
-        "queryIntentActivitiesAsUser",
-        arrayOf(
-            Intent::class.java,
-            Int::class.javaPrimitiveType!!,
-            Int::class.javaPrimitiveType!!,
-        ),
-        arrayOf(intent, /* flags */ 0, userId)
-    ) as List<ResolveInfo>?
-
-    fun IPackageManager.findApp(packageName: String) =
-        UserManagerApis.getUserIdsNoThrow().any { isPackageAvailable(packageName, it) }
 }

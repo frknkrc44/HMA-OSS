@@ -8,7 +8,7 @@ import com.android.server.pm.PackageManagerService
 import icu.nullptr.hidemyapplist.common.Utils.binderLocalScope
 import org.frknkrc44.hma_oss.zygote.service.UserService.service
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
-import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.contentResolver
+import org.frknkrc44.hma_oss.zygote.util.ContextUtils.contentResolver
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getObjectField
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.WEBVIEW_PROVIDER_KEY
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.WEBVIEW_UPDATE_SERVICE
