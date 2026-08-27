@@ -61,7 +61,9 @@ import rikka.hidden.compat.UserManagerApis
 import java.io.File
 import java.io.FileInputStream
 import java.lang.reflect.Modifier
+import java.nio.file.CopyOption
 import java.nio.file.Files
+import java.nio.file.StandardCopyOption
 import kotlin.io.path.Path
 
 class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
@@ -112,11 +114,16 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     }
 
     fun initHooks() {
-        // make the map issues easier to debug
-        Files.copy(
-            Path("/proc/self/maps"),
-            Path(dataDir, "maps_module_thread.txt"),
-        )
+        try {
+            // make the map issues easier to debug
+            Files.copy(
+                Path("/proc/self/maps"),
+                Path(dataDir, "maps_module_thread.txt"),
+                StandardCopyOption.REPLACE_EXISTING,
+            )
+        } catch (cause: Throwable) {
+            logE(TAG, cause) { "An error occurred while copying the map file" }
+        }
 
         appUid = findAndVerifyAppSignature()
 
