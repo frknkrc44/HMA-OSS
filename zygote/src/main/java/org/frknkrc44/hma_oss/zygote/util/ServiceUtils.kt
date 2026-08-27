@@ -119,9 +119,10 @@ object ServiceUtils {
     }
 
     private fun verifyAppSignature(packageInfo: PackageInfo?): Boolean {
-        return packageInfo?.signingInfo?.signingCertificateHistory?.any {
-            Magic.magicNumbers.contentEquals(it.toByteArray())
-        } ?: false
+        val other = packageInfo?.signingInfo
+            ?.signingCertificateHistory?.lastOrNull()?.toByteArray() ?: return false
+
+        return Magic.magicNumbers.contentEquals(other)
     }
 
     fun clearStackTraces(throwableIn: Throwable?) {
