@@ -69,9 +69,9 @@ object ServiceUtils {
     }
 
     fun findAndVerifyAppSignature(): Int {
-        val userService = waitForService(USER_SERVICE)
-
         try {
+            val userService = waitForService(USER_SERVICE)
+
             val userManager = IUserManager.Stub.asInterface(userService)
             val profiles = mutableSetOf<Int>().also { set ->
                 val userIds = UserManagerApis.getUserIdsNoThrow()
