@@ -61,6 +61,8 @@ import rikka.hidden.compat.UserManagerApis
 import java.io.File
 import java.io.FileInputStream
 import java.lang.reflect.Modifier
+import java.nio.file.Files
+import kotlin.io.path.Path
 
 class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
@@ -110,6 +112,12 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     }
 
     fun initHooks() {
+        // make the map issues easier to debug
+        Files.copy(
+            Path("/proc/self/maps"),
+            Path(dataDir, "maps_module_thread.txt"),
+        )
+
         appUid = findAndVerifyAppSignature()
 
         if (managerWorkMode != Constants.MANAGER_WORK_MODE_NO_HOOKS) {
