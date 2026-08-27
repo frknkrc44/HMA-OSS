@@ -105,7 +105,6 @@ dependencies {
     compileOnly(projects.stub)
 
     implementation(libs.androidx.annotation.jvm)
-    implementation(libs.com.android.tools.build.apksig)
     implementation(libs.io.github.vova7878.androidvmtools)
     implementation(libs.io.github.vova7878.r8annotations)
     implementation(libs.dev.rikka.hidden.compat)

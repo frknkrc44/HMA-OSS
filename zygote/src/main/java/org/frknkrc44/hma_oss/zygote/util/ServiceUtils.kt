@@ -1,12 +1,13 @@
 package org.frknkrc44.hma_oss.zygote.util
 
 import android.content.Context.USER_SERVICE
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import android.os.Binder
 import android.os.Build
 import android.os.IBinder
 import android.os.IUserManager
 import android.os.ServiceManager
-import com.android.apksig.ApkVerifier
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.PropertyUtils
 import icu.nullptr.hidemyapplist.common.Utils.binderLocalScope
@@ -21,7 +22,6 @@ import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.callMethod
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.findField
 import rikka.hidden.compat.UserManagerApis
-import java.io.File
 
 object ServiceUtils {
     private const val TAG = "ServiceUtils"
@@ -89,20 +89,22 @@ object ServiceUtils {
             for (uid in profiles) {
                 logV(TAG) { "@findAndVerifyAppSignature: checking for uid $uid" }
 
-                val pkgInfo = runCatching {
-                    service?.pms?.getPackageInfoCompat(BuildConfig.APP_PACKAGE_NAME, 0L, uid)
+                val packageInfo = runCatching {
+                    service?.pms?.getPackageInfoCompat(
+                        BuildConfig.APP_PACKAGE_NAME,
+                        PackageManager.GET_SIGNING_CERTIFICATES.toLong(),
+                        uid,
+                    )
                 }.getOrNull()
 
-                if (pkgInfo != null) {
-                    if (verifyAppSignature(pkgInfo.applicationInfo?.sourceDir)) {
-                        val appUid = pkgInfo.applicationInfo!!.uid
+                if (verifyAppSignature(packageInfo)) {
+                    val appUid = packageInfo!!.applicationInfo!!.uid
 
-                        logI(TAG) { "The manager app signature is verified successfully, uid: $appUid" }
+                    logI(TAG) { "The manager app signature is verified successfully, uid: $appUid" }
 
-                        return appUid
-                    } else {
-                        throw AssertionError("The manager app is modified, skipping")
-                    }
+                    return appUid
+                } else {
+                    throw AssertionError("The manager app is modified, skipping")
                 }
             }
         } catch (e: Throwable) {
@@ -116,16 +118,10 @@ object ServiceUtils {
         return -1
     }
 
-    private fun verifyAppSignature(path: String?): Boolean {
-        if (path == null) return false
-
-        val verifier = ApkVerifier.Builder(File(path))
-            .setMinCheckedPlatformVersion(24)
-            .build()
-        val result = verifier.verify()
-        if (!result.isVerified) return false
-        val mainCert = result.signerCertificates[0]
-        return mainCert.encoded.contentEquals(Magic.magicNumbers)
+    private fun verifyAppSignature(packageInfo: PackageInfo?): Boolean {
+        return packageInfo?.signingInfo?.signingCertificateHistory?.any {
+            Magic.magicNumbers.contentEquals(it.toByteArray())
+        } ?: false
     }
 
     fun clearStackTraces(throwableIn: Throwable?) {

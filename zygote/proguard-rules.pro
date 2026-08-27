@@ -22,13 +22,3 @@
 
 -keep class org.frknkrc44.hma_oss.zygote.ZygoteEntry { premain(); main(); }
 -dontwarn com.v7878.r8.annotations.KeepCodeAttribute
-
--keepattributes *Annotation*,Signature,InnerClasses,EnclosingMethod
-
--keep class com.android.apksig.* { *; }
--keep interface com.android.apksig.** { *; }
-
--keepclassmembers class com.android.apksig.** {
-    @com.android.apksig.internal.asn1.Asn1Field <fields>;
-    @com.android.apksig.internal.asn1.Asn1Class <fields>;
-}
