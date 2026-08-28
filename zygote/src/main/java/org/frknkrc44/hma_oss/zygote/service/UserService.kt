@@ -74,8 +74,9 @@ object UserService {
 
         logI(TAG) { "Registered observer" }
 
-        service = HMAService(pms, pmn)
-        service!!.initHooks()
+        service = HMAService(pms, pmn).apply {
+            initHooks()
+        }
     }
 
     private fun getActMgrField(name: String) = getStaticIntField(
