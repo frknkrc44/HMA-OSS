@@ -108,13 +108,12 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         }
 
         searchDataDir()
+        UserService.service = this
         loadFilterCount()
         loadConfig()
 
         appUid = findAndVerifyAppSignature(pms)
-    }
 
-    fun initHooks() {
         if (managerWorkMode != Constants.MANAGER_WORK_MODE_NO_HOOKS) {
             installHooks()
 
