@@ -6,10 +6,9 @@ import com.v7878.unsafe.invoke.EmulatedStackFrame
 import icu.nullptr.hidemyapplist.common.CollectionUtils.firstOrNullWithType
 import icu.nullptr.hidemyapplist.common.CollectionUtils.lastOrNullWithType
 import icu.nullptr.hidemyapplist.common.Constants
-import org.frknkrc44.hma_oss.zygote.service.UserService.service
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
-import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.sAppDataIsolationEnabled
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.isAppDataIsolationEnabled
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.argTypes
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.setArgument
@@ -26,11 +25,11 @@ class ZygoteHook : IFrameworkHook {
     private val lastForceMountedApp: AtomicReference<String?> = AtomicReference(null)
 
     private val forceMountData get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R &&
-            service?.config?.forceMountData ?: false &&
-            sAppDataIsolationEnabled
+            config.forceMountData &&
+            isAppDataIsolationEnabled(config)
 
     override fun load() {
-        service!!.hookerInstance.apply {
+        hookerInstance.apply {
             hookBefore(
                 ZYGOTE_PROCESS_CLASS,
                 "start",
@@ -45,7 +44,7 @@ class ZygoteHook : IFrameworkHook {
                     CONSTRUCTOR_METHOD_NAME,
                 ) { _, frame, _ ->
                     val caller = frame.args.firstOrNullWithType<String>() ?: return@hookBefore
-                    val perms = service?.getRestrictedZygotePermissions(caller) ?: return@hookBefore
+                    val perms = service.getRestrictedZygotePermissions(caller) ?: return@hookBefore
                     if (!perms.contains(Constants.APP_ZYGOTE_GID)) return@hookBefore
 
                     val serviceInfo = frame.args.firstOrNullWithType<ServiceInfo>() ?: return@hookBefore
@@ -71,7 +70,7 @@ class ZygoteHook : IFrameworkHook {
         logD(TAG) { "@startZygoteProcess: Starting ${frame.args.contentToString()}" }
 
         val caller = frame.args.lastOrNullWithType<String>() ?: return
-        val isHookEnabled = service?.isHookEnabled(caller) ?: false
+        val isHookEnabled = service.isHookEnabled(caller)
         if (!isHookEnabled) return
 
         // another plan for PlatformCompatHook
@@ -94,7 +93,7 @@ class ZygoteHook : IFrameworkHook {
 
         if (pair.second < 0) return
 
-        var perms = service?.getRestrictedZygotePermissions(caller) ?: return
+        var perms = service.getRestrictedZygotePermissions(caller) ?: return
         if (perms.isNotEmpty()) {
             val gIDs = frame.args[pair.second] as? IntArray ?: return
 
@@ -103,7 +102,7 @@ class ZygoteHook : IFrameworkHook {
 
             logD(TAG) { "@startZygoteProcess: GIDs are ${gIDs.contentToString()}, removing $perms now" }
             frame.setArgument(pair.second, gIDs.filter { it !in perms }.toIntArray())
-            service?.increaseOthersFilterCount(caller)
+            service.increaseOthersFilterCount(caller)
         }
     }
 
@@ -117,7 +116,7 @@ class ZygoteHook : IFrameworkHook {
 
             if (gIDsVarIndex < 0) continue
 
-            if (!forceMountData || (service?.systemApps?.contains(caller) ?: false)) {
+            if (!forceMountData || systemApps.contains(caller)) {
                 return Pair(false, gIDsVarIndex)
             }
 

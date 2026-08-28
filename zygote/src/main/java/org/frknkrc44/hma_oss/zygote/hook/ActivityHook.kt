@@ -9,7 +9,6 @@ import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.OSUtils
 import icu.nullptr.hidemyapplist.common.Utils.getPackageName
 import icu.nullptr.hidemyapplist.common.Utils.getUserFromCallingUid
-import org.frknkrc44.hma_oss.zygote.service.UserService.service
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
@@ -43,7 +42,7 @@ class ActivityHook : IFrameworkHook {
     override fun load() {
         logI(TAG) { "Load hook" }
 
-        service!!.hookerInstance.apply {
+        hookerInstance.apply {
             hookBefore(
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                     ACTIVITY_TASK_SUPERVISOR_CLASS
@@ -76,8 +75,8 @@ class ActivityHook : IFrameworkHook {
                     if (callingUid == Constants.UID_SYSTEM) return@hookBefore
 
                     val callingUserId = getUserFromCallingUid(callingUid)
-                    val callingApps = getCallingApps(callingUid)
-                    val caller = callingApps.firstOrNull { service?.isHookEnabled(it) ?: false }
+                    val callingApps = getCallingApps(pms, callingUid)
+                    val caller = callingApps.firstOrNull { service.isHookEnabled(it) }
                     if (caller != null) {
                         logV(TAG) { "@$methodName: $caller requested a resolve info" }
 
@@ -86,7 +85,7 @@ class ActivityHook : IFrameworkHook {
 
                             logV(TAG) { "@$methodName: Checking $targetApp for $caller" }
 
-                            (!(service?.shouldHideActivityLaunch(caller, targetApp, callingUserId) ?: false)).apply {
+                            (!service.shouldHideActivityLaunch(caller, targetApp, callingUserId)).apply {
                                 if (!this) {
                                     logD(TAG) { "@$methodName: insecure query from $caller, target: $targetApp" }
                                 }
@@ -96,7 +95,7 @@ class ActivityHook : IFrameworkHook {
                         if (filteredList.size != list.size) {
                             frame.setArgument(1, filteredList.toList())
 
-                            service?.increasePMFilterCount(caller, list.size - filteredList.size)
+                            service.increasePMFilterCount(caller, list.size - filteredList.size)
                         }
                     }
                 }
@@ -104,9 +103,9 @@ class ActivityHook : IFrameworkHook {
 
             if (!isHookAvailable(aPRFClazz, "applyPostResolutionFilter")) {
                 // Try to keep compatibility when InxLocker detected
-                val isInxLockerAvailable = service?.pms?.isPackageAvailable(
+                val isInxLockerAvailable = pms.isPackageAvailable(
                     "io.github.chimio.inxlocker", 0,
-                ) ?: false
+                )
 
                 if (isInxLockerAvailable) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -120,10 +119,10 @@ class ActivityHook : IFrameworkHook {
                             val intent = getObjectField(request, "intent") as? Intent ?: return@hookBefore
                             val targetApp = intent.component?.packageName
 
-                            if (service?.shouldHideActivityLaunch(caller, targetApp, callingUserId) ?: false) {
+                            if (service.shouldHideActivityLaunch(caller, targetApp, callingUserId)) {
                                 logD(TAG) { "@executeRequest: insecure query from $caller, target: ${intent.component}" }
                                 returnValue.result = fakeReturnCode
-                                service?.increaseALFilterCount(caller)
+                                service.increaseALFilterCount(caller)
                             }
                         }
                     } else {
@@ -137,10 +136,10 @@ class ActivityHook : IFrameworkHook {
                             val intent = frame.args.firstOrNullWithType<Intent>() ?: return@hookBefore
                             val targetApp = intent.component?.packageName
 
-                            if (service?.shouldHideActivityLaunch(caller, targetApp, callingUserId) ?: false) {
+                            if (service.shouldHideActivityLaunch(caller, targetApp, callingUserId)) {
                                 logD(TAG) { "@startActivity: insecure query from $caller, target: ${intent.component}" }
                                 returnValue.result = fakeReturnCode
-                                service?.increaseALFilterCount(caller)
+                                service.increaseALFilterCount(caller)
                             }
                         }
                     }
@@ -155,10 +154,10 @@ class ActivityHook : IFrameworkHook {
                         val intent = getObjectField(request, "intent") as? Intent ?: return@hookBefore
                         val targetApp = intent.component?.packageName
 
-                        if (service?.shouldHideActivityLaunch(caller, targetApp, callingUserId) ?: false) {
+                        if (service.shouldHideActivityLaunch(caller, targetApp, callingUserId)) {
                             logD(TAG) { "@executeRequest: insecure query from $caller, target: ${intent.component}" }
                             returnValue.result = fakeReturnCode
-                            service?.increaseALFilterCount(caller)
+                            service.increaseALFilterCount(caller)
                         }
                     }
                 }

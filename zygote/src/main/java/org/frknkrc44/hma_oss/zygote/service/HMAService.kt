@@ -110,22 +110,11 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         searchDataDir()
         loadFilterCount()
         loadConfig()
+
+        appUid = findAndVerifyAppSignature(pms)
     }
 
     fun initHooks() {
-        try {
-            // make the map issues easier to debug
-            Files.copy(
-                Path("/proc/self/maps"),
-                Path(dataDir, "maps_module_thread.txt"),
-                StandardCopyOption.REPLACE_EXISTING,
-            )
-        } catch (cause: Throwable) {
-            logE(TAG, cause) { "An error occurred while copying the map file" }
-        }
-
-        appUid = findAndVerifyAppSignature()
-
         if (managerWorkMode != Constants.MANAGER_WORK_MODE_NO_HOOKS) {
             installHooks()
 
@@ -180,6 +169,17 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
         logcatAvailable = true
         logI(TAG) { "Data dir: $dataDir" }
+
+        try {
+            // make the map issues easier to debug
+            Files.copy(
+                Path("/proc/self/maps"),
+                Path(dataDir, "maps_module_thread.txt"),
+                StandardCopyOption.REPLACE_EXISTING,
+            )
+        } catch (cause: Throwable) {
+            logE(TAG, cause) { "An error occurred while copying the map file" }
+        }
     }
 
     private fun loadConfig() {
@@ -404,7 +404,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
             if (webviewProvider == caller || webviewProvider == query) return false
 
             // check for current browser
-            val currentBrowser = getDefaultBrowser(userId)
+            val currentBrowser = getDefaultBrowser(pmn, userId)
             if (currentBrowser == caller || currentBrowser == query) return false
         }
 
@@ -569,7 +569,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
             when (eventType) {
                 Intent.ACTION_PACKAGE_ADDED -> {
                     if (packageName == BuildConfig.APP_PACKAGE_NAME && appUid < 0) {
-                        appUid = findAndVerifyAppSignature()
+                        appUid = findAndVerifyAppSignature(pms)
                     }
 
                     /**
@@ -603,7 +603,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
                     if (packageName == BuildConfig.APP_PACKAGE_NAME && appUid >= 0) {
                         logI(TAG) { "The manager app is uninstalled, looking for alternatives" }
 
-                        appUid = findAndVerifyAppSignature()
+                        appUid = findAndVerifyAppSignature(pms)
                     }
 
                     // Handle app presets if the app is removed entirely

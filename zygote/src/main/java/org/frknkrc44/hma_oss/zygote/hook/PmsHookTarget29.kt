@@ -1,6 +1,5 @@
 package org.frknkrc44.hma_oss.zygote.hook
 
-import org.frknkrc44.hma_oss.zygote.service.UserService.service
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackageNameFromPackageSettings
@@ -19,9 +18,9 @@ class PmsHookTarget29 : PmsHookTargetBase() {
     override fun load() {
         logI(TAG) { "Load hook" }
 
-        service!!.hookerInstance.apply {
+        hookerInstance.apply {
             hookBefore(
-                service!!.pms::class.java.name,
+                service.pms::class.java.name,
                 "filterAppAccessLPr",
                 argumentCount = 5,
             ) { methodName, frame, returnValue ->

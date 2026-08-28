@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Build
 import icu.nullptr.hidemyapplist.common.CollectionUtils.firstOrNullWithType
 import icu.nullptr.hidemyapplist.common.CollectionUtils.lastOrNullWithType
-import org.frknkrc44.hma_oss.zygote.service.UserService.service
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
@@ -29,7 +28,7 @@ class BroadcastHook : IFrameworkHook {
     override fun load() {
         logI(TAG) { "Load hook" }
 
-        service!!.hookerInstance.apply {
+        hookerInstance.apply {
             hookBefore(
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA) {
                     BROADCAST_CONTROLLER_CLASS
@@ -43,10 +42,10 @@ class BroadcastHook : IFrameworkHook {
                 val intent = frame.args.firstOrNullWithType<Intent>() ?: return@hookBefore
                 val targetApp = intent.component?.packageName
 
-                if (service?.shouldHideActivityLaunch(caller, targetApp, userId) ?: false) {
+                if (service.shouldHideActivityLaunch(caller, targetApp, userId)) {
                     logD(TAG) { "@broadcastIntent: insecure query from $caller, target: ${intent.component}" }
                     returnValue.result = fakeReturnCode
-                    service?.increaseALFilterCount(caller)
+                    service.increaseALFilterCount(caller)
                 }
 
                 changeUsbStateBroadcast(intent)
@@ -55,7 +54,7 @@ class BroadcastHook : IFrameworkHook {
     }
 
     private fun changeUsbStateBroadcast(intent: Intent) {
-        if (service?.config?.disableActivityLaunchProtection ?: false) return
+        if (config.disableActivityLaunchProtection) return
 
         if (intent.action == ACTION_USB_STATE) {
             intent.removeExtra(USB_FUNCTION_ADB)

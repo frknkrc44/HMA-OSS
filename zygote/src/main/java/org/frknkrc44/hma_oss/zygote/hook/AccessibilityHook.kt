@@ -3,7 +3,6 @@ package org.frknkrc44.hma_oss.zygote.hook
 import android.accessibilityservice.AccessibilityServiceInfo
 import android.content.pm.ParceledListSlice
 import icu.nullptr.hidemyapplist.common.settings_presets.AccessibilityPreset
-import org.frknkrc44.hma_oss.zygote.service.UserService.service
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.returnType
@@ -13,12 +12,12 @@ class AccessibilityHook : IFrameworkHook {
     override val TAG = "AccessibilityHook"
 
     override fun load() {
-        service!!.hookerInstance.apply {
+        hookerInstance.apply {
             hookBefore(
                 ACCESSIBILITY_SERVICE_CLASS,
                 "getEnabledAccessibilityServiceList",
             ) { methodName, frame, returnValue ->
-                val callingApps = ServiceUtils.getCallingApps()
+                val callingApps = ServiceUtils.getCallingApps(pms)
                 if (callingApps.isEmpty()) return@hookBefore
 
                 val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
@@ -38,7 +37,7 @@ class AccessibilityHook : IFrameworkHook {
                 ACCESSIBILITY_SERVICE_CLASS,
                 "addClient",
             ) { _, _, returnValue ->
-                val callingApps = ServiceUtils.getCallingApps()
+                val callingApps = ServiceUtils.getCallingApps(pms)
                 if (callingApps.isEmpty()) return@hookBefore
 
                 val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
@@ -50,5 +49,5 @@ class AccessibilityHook : IFrameworkHook {
     }
 
     private fun callerIsSpoofed(caller: String) =
-        service?.getEnabledSettingsPresets(caller)?.contains(AccessibilityPreset.NAME) ?: false
+        service.getEnabledSettingsPresets(caller).contains(AccessibilityPreset.NAME)
 }

@@ -1,6 +1,7 @@
 package org.frknkrc44.hma_oss.zygote.util
 
 import android.content.Context.USER_SERVICE
+import android.content.pm.IPackageManager
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Binder
@@ -9,13 +10,13 @@ import android.os.IBinder
 import android.os.IUserManager
 import android.os.ServiceManager
 import icu.nullptr.hidemyapplist.common.Constants
+import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.common.PropertyUtils
 import icu.nullptr.hidemyapplist.common.Utils.binderLocalScope
 import icu.nullptr.hidemyapplist.common.Utils.containsMultiple
 import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
 import org.frknkrc44.hma_oss.common.BuildConfig
 import org.frknkrc44.hma_oss.zygote.Magic
-import org.frknkrc44.hma_oss.zygote.service.UserService.service
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
@@ -57,18 +58,18 @@ object ServiceUtils {
         }
     }
 
-    fun getCallingApps(): Array<String> {
-        return getCallingApps(Binder.getCallingUid())
+    fun getCallingApps(pms: IPackageManager): Array<String> {
+        return getCallingApps(pms, Binder.getCallingUid())
     }
 
-    fun getCallingApps(callingUid: Int): Array<String> {
+    fun getCallingApps(pms: IPackageManager, callingUid: Int): Array<String> {
         if (callingUid == Constants.UID_SYSTEM) return arrayOf()
         return binderLocalScope {
-            service?.pms?.getPackagesForUid(callingUid)
+            pms.getPackagesForUid(callingUid)
         } ?: arrayOf()
     }
 
-    fun findAndVerifyAppSignature(): Int {
+    fun findAndVerifyAppSignature(pms: IPackageManager): Int {
         try {
             val userService = waitForService(USER_SERVICE)
 
@@ -90,7 +91,7 @@ object ServiceUtils {
                 logV(TAG) { "@findAndVerifyAppSignature: checking for uid $uid" }
 
                 val packageInfo = runCatching {
-                    service?.pms?.getPackageInfoCompat(
+                    pms.getPackageInfoCompat(
                         BuildConfig.APP_PACKAGE_NAME,
                         PackageManager.GET_SIGNING_CERTIFICATES.toLong(),
                         uid,
@@ -149,7 +150,6 @@ object ServiceUtils {
         }
     }
 
-    val sAppDataIsolationEnabled by lazy {
-        PropertyUtils.isAppDataIsolationEnabled || service?.config?.altAppDataIsolation == true
-    }
+    fun isAppDataIsolationEnabled(config: JsonConfig) =
+        PropertyUtils.isAppDataIsolationEnabled || config.altAppDataIsolation
 }
