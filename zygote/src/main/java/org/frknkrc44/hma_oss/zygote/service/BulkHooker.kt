@@ -63,7 +63,7 @@ class BulkHooker {
         if (applyHook(clazz, element)) {
             hooks.computeIfAbsent(clazz) { CopyOnWriteArrayList() }.add(element)
         } else {
-            logI(ZygoteEntry.TAG) { "Invalid hook removed: $clazz -> $methodName($argumentCount)" }
+            logI(ZygoteEntry.TAG) { "Invalid/crashed hook removed: $clazz -> $methodName($argumentCount)" }
         }
     }
 
@@ -147,14 +147,26 @@ class BulkHooker {
             return false
         }
 
-        fun applyForClass(clazz: Class<*>?) {
-            resolveExecutable(clazz, element.methodName, element.argumentCount)?.let { executable ->
+        while (
+            !element.hookFinished &&
+            curClazz != null &&
+            curClazz.javaClass.simpleName != "Object"
+        ) {
+            resolveExecutable(curClazz, element.methodName, element.argumentCount)?.let { executable ->
                 logD(ZygoteEntry.TAG) { "Hooked constructor: $executable" }
 
-                val memoryAddresses = Hooks.hook(
-                    executable, Hooks.EntryPointType.DIRECT,
-                    element.impl, Hooks.EntryPointType.DIRECT
-                )
+                val memoryAddresses = try {
+                    Hooks.hook(
+                        executable, Hooks.EntryPointType.DIRECT,
+                        element.impl, Hooks.EntryPointType.DIRECT
+                    )
+                } catch (e: Throwable) {
+                    logE(ZygoteEntry.TAG, e) {
+                        "Hook $clazz -> ${element.methodName}(${element.argumentCount}) crashed!"
+                    }
+
+                    return false
+                }
 
                 logV(ZygoteEntry.TAG) { "Memory address map: $memoryAddresses" }
 
@@ -165,14 +177,7 @@ class BulkHooker {
 
                 element.hookFinished = true
             }
-        }
 
-        while (
-            !element.hookFinished &&
-            curClazz != null &&
-            curClazz.javaClass.simpleName != "Object"
-        ) {
-            applyForClass(curClazz)
             curClazz = curClazz.superclass
         }
 
