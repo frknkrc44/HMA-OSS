@@ -25,6 +25,7 @@ import icu.nullptr.hidemyapplist.common.SettingsPresets
 import icu.nullptr.hidemyapplist.common.Utils.binderLocalScope
 import icu.nullptr.hidemyapplist.common.Utils.cleanRemnantsFromConfig
 import icu.nullptr.hidemyapplist.common.Utils.conflictedModules
+import icu.nullptr.hidemyapplist.common.Utils.encoder
 import icu.nullptr.hidemyapplist.common.Utils.generateRandomString
 import icu.nullptr.hidemyapplist.common.Utils.getInstalledApplicationsCompat
 import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
@@ -85,6 +86,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     private lateinit var filterCountFile: File
     private lateinit var logFile: File
     private lateinit var oldLogFile: File
+    private lateinit var moduleStatusFile: File
 
     private val configLock = Any()
     private val loggerLock = Any()
@@ -108,6 +110,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         }
 
         searchDataDir()
+        saveModuleStatus()
         UserService.service = this
         loadFilterCount()
         loadConfig()
@@ -117,12 +120,18 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         if (managerWorkMode != Constants.MANAGER_WORK_MODE_NO_HOOKS) {
             installHooks()
 
-            AppPresets.instance.loggerFunction = { level, msg ->
-                logWithLevel(level, "AppPresets", msg = msg)
-            }
-            loadPresetCache()
+            if (hookerInstance.hooksWasCrashed) {
+                managerWorkMode = Constants.MANAGER_WORK_MODE_NO_HOOKS
+            } else {
+                AppPresets.instance.loggerFunction = { level, msg ->
+                    logWithLevel(level, "AppPresets", msg = msg)
+                }
+                loadPresetCache()
 
-            managerWorkMode = Constants.MANAGER_WORK_MODE_OK
+                managerWorkMode = Constants.MANAGER_WORK_MODE_OK
+            }
+
+            saveModuleStatus()
         }
 
         logI(TAG) { "HMA service initialized in mode $managerWorkMode" }
@@ -156,13 +165,14 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
             )
         }
 
-        File("$dataDir/log").mkdirs()
-        configFile = File("$dataDir/config.json")
-        presetCacheFileOld = File("$dataDir/preset_cache.json")
-        presetCacheFileNew = File("$dataDir/preset_cache_v2.json")
-        filterCountFile = File("$dataDir/filter_count.json")
-        logFile = File("$dataDir/log/runtime.log")
-        oldLogFile = File("$dataDir/log/old.log")
+        val logDir = File(dataDir, "log").apply { mkdirs() }
+        configFile = File(dataDir, "config.json")
+        presetCacheFileOld = File(dataDir, "preset_cache.json")
+        presetCacheFileNew = File(dataDir, "preset_cache_v2.json")
+        filterCountFile = File(dataDir, "filter_count.json")
+        logFile = File(logDir, "runtime.log")
+        oldLogFile = File(logDir, "old.log")
+        moduleStatusFile = File(dataDir, "status.json")
 
         clearLogs()
 
@@ -178,6 +188,19 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
             )
         } catch (cause: Throwable) {
             logE(TAG, cause) { "An error occurred while copying the map file" }
+        }
+    }
+
+    fun saveModuleStatus() {
+        try {
+            val json = mapOf(
+                "workMode" to managerWorkMode,
+                "managerUid" to appUid,
+            )
+
+            moduleStatusFile.writeText(encoder.encodeToString(json))
+        } catch (_: Throwable) {
+            // ignore
         }
     }
 

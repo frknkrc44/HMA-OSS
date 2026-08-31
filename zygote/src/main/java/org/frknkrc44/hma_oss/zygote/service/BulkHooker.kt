@@ -30,6 +30,8 @@ class BulkHooker {
         const val PARAMETER_COUNT_UNKNOWN = -1
     }
 
+    var hooksWasCrashed = false
+
     internal val hooks = ConcurrentHashMap<String, CopyOnWriteArrayList<HookElement>>()
 
     internal fun isHookAvailable(clazz: String, method: String) = findHookElement(clazz, method) != null
@@ -62,8 +64,8 @@ class BulkHooker {
 
         if (applyHook(clazz, element)) {
             hooks.computeIfAbsent(clazz) { CopyOnWriteArrayList() }.add(element)
-        } else {
-            logI(ZygoteEntry.TAG) { "Invalid/crashed hook removed: $clazz -> $methodName($argumentCount)" }
+        } else if (!hooksWasCrashed) {
+            logI(ZygoteEntry.TAG) { "Invalid hook removed: $clazz -> $methodName($argumentCount)" }
         }
     }
 
@@ -140,6 +142,11 @@ class BulkHooker {
         element: HookElement,
         loader: ClassLoader? = SystemServerHook.classLoader,
     ): Boolean {
+        // do not apply next hooks when the previous one was crashed
+        if (hooksWasCrashed) {
+            return false
+        }
+
         var curClazz = try {
             Class.forName(clazz, true, loader)
         } catch (ex: ClassNotFoundException) {
@@ -164,6 +171,8 @@ class BulkHooker {
                     logE(ZygoteEntry.TAG, e) {
                         "Hook $clazz -> ${element.methodName}(${element.argumentCount}) crashed!"
                     }
+
+                    hooksWasCrashed = true
 
                     return false
                 }
