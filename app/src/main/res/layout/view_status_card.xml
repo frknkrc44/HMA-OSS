@@ -8,60 +8,44 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="32dp"
-        android:gravity="center_vertical"
+        android:padding="16dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/module_status_icon"
-            android:layout_weight="0"
-            android:layout_width="@dimen/vector_icon_size"
-            android:layout_height="@dimen/vector_icon_size"
-            tools:ignore="ContentDescription" />
-
-        <LinearLayout
-            android:layout_weight="1"
-            android:layout_marginLeft="16dp"
+        <TextView
+            android:id="@+id/module_status"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+            android:textColor="?android:colorBackground"
+            android:textStyle="bold"
+            android:drawablePadding="@dimen/item_padding_mini2x"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/service_status"
+            android:layout_marginTop="4dp"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textColor="?android:colorBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/filter_count"
+            android:layout_marginTop="4dp"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textColor="?android:colorBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/migrate_btn"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/item_padding_mini2x"
+            android:text="@string/home_migrate_data_fix_button"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/module_status"
-                android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                android:textColor="?android:colorBackground"
-                android:textStyle="bold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/service_status"
-                android:layout_marginTop="4dp"
-                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                android:textColor="?android:colorBackground"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/filter_count"
-                android:layout_marginTop="4dp"
-                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                android:textColor="?android:colorBackground"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/migrate_btn"
-                android:visibility="gone"
-                android:layout_marginTop="@dimen/item_padding_mini2x"
-                android:text="@string/home_migrate_data_fix_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:visibility="visible" />
-
-        </LinearLayout>
+            tools:visibility="visible" />
 
     </LinearLayout>
 

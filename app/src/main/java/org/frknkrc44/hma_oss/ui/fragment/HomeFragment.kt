@@ -13,6 +13,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
+import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -292,11 +293,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 if (workMode == Constants.MANAGER_WORK_MODE_NO_HOOKS) {
                     val colorError = ColorStateList.valueOf(
                         getColor(R.color.md_theme_material_amber_dark_error))
-                    moduleStatusIcon.imageTintList = colorError
-                    moduleStatusIcon.setImageResource(R.drawable.sick_24px)
 
                     moduleStatus.setText(R.string.sick_mode_title)
                     moduleStatus.setTextColor(colorError)
+                    moduleStatus.setCompoundDrawablesWithIntrinsicBounds(
+                        R.drawable.sick_24px, 0, 0, 0)
                     serviceStatus.setText(R.string.sick_mode_description)
                     serviceStatus.setTextColor(colorError)
                     filterCount.isVisible = false
@@ -312,7 +313,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         else -> R.drawable.sentiment_calm_24px
                     }
 
-                    moduleStatusIcon.setImageResource(image)
+                    moduleStatus.setCompoundDrawablesWithIntrinsicBounds(
+                        image, 0, 0, 0)
 
                     val versionNameSimple = ServiceClient.serviceVersionName ?: BuildConfig.VERSION_NAME
                     moduleStatus.text =
@@ -331,13 +333,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         getString(R.string.home_xposed_filter_count, ServiceClient.filterCount)
                 }
             } else {
-                val colorError = getColor(android.R.color.black)
-                moduleStatusIcon.imageTintList = ColorStateList.valueOf(colorError)
-                moduleStatusIcon.setImageResource(R.drawable.sentiment_very_dissatisfied_24px)
+                moduleStatus.setCompoundDrawablesWithIntrinsicBounds(
+                    R.drawable.sentiment_very_dissatisfied_24px, 0, 0, 0)
                 moduleStatus.setText(R.string.home_xposed_not_activated)
                 serviceStatus.setText(R.string.home_xposed_service_off)
                 filterCount.visibility = View.GONE
             }
+
+            TextViewCompat.setCompoundDrawableTintList(
+                moduleStatus, moduleStatus.textColors)
         }
     }
 
