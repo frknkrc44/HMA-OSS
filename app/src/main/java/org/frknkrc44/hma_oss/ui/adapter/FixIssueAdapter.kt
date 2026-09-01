@@ -63,7 +63,11 @@ class FixIssueAdapter(
                     } else {
                         MaterialAlertDialogBuilder(context)
                             .setTitle(R.string.home_migrate_data)
-                            .setMessage(R.string.home_migrate_data_summary)
+                            .setMessage(context.getString(
+                                R.string.sick_mode_notice
+                            ) + "\n\n" + context.getString(
+                                R.string.home_migrate_data_summary
+                            ))
                             .setPositiveButton(R.string.yes) { _, _ ->
                                 migrateOrUninstallOnly(true, packageName)
                             }

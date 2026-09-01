@@ -299,8 +299,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     moduleStatus.setTextColor(colorError)
                     serviceStatus.setText(R.string.sick_mode_description)
                     serviceStatus.setTextColor(colorError)
-                    filterCount.setText(R.string.sick_mode_notice)
-                    filterCount.setTextColor(colorError)
+                    filterCount.isVisible = false
 
                     migrateBtn.isVisible = true
                     @Suppress("DEPRECATION")
