@@ -2,13 +2,15 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:cardCornerRadius="24dp"
+    app:cardCornerRadius="@dimen/profile_badge_size"
     android:layout_margin="16dp"
+    app:strokeColor="@null"
+    app:strokeWidth="0dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:padding="16dp"
+        android:padding="@dimen/profile_badge_size"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">

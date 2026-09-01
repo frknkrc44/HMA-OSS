@@ -11,6 +11,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.annotation.DrawableRes
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.core.widget.TextViewCompat
@@ -286,8 +288,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         with(binding.statusCard) {
             root.setCardBackgroundColor(color)
-            root.outlineAmbientShadowColor = color
-            root.outlineSpotShadowColor = color
 
             if (serviceVersion > 0) {
                 if (workMode == Constants.MANAGER_WORK_MODE_NO_HOOKS) {
@@ -296,8 +296,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
                     moduleStatus.setText(R.string.sick_mode_title)
                     moduleStatus.setTextColor(colorError)
-                    moduleStatus.setCompoundDrawablesWithIntrinsicBounds(
-                        R.drawable.sick_24px, 0, 0, 0)
+                    setStatusIcon(R.drawable.sick_24px)
                     serviceStatus.setText(R.string.sick_mode_description)
                     serviceStatus.setTextColor(colorError)
                     filterCount.isVisible = false
@@ -312,9 +311,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         Constants.MANAGER_WORK_MODE_LOADING -> R.drawable.sentiment_stressed_24px
                         else -> R.drawable.sentiment_calm_24px
                     }
-
-                    moduleStatus.setCompoundDrawablesWithIntrinsicBounds(
-                        image, 0, 0, 0)
+                    setStatusIcon(image)
 
                     val versionNameSimple = ServiceClient.serviceVersionName ?: BuildConfig.VERSION_NAME
                     moduleStatus.text =
@@ -333,16 +330,20 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         getString(R.string.home_xposed_filter_count, ServiceClient.filterCount)
                 }
             } else {
-                moduleStatus.setCompoundDrawablesWithIntrinsicBounds(
-                    R.drawable.sentiment_very_dissatisfied_24px, 0, 0, 0)
+                setStatusIcon(R.drawable.sentiment_very_dissatisfied_24px)
                 moduleStatus.setText(R.string.home_xposed_not_activated)
                 serviceStatus.setText(R.string.home_xposed_service_off)
-                filterCount.visibility = View.GONE
+                filterCount.isVisible = false
             }
 
             TextViewCompat.setCompoundDrawableTintList(
                 moduleStatus, moduleStatus.textColors)
         }
+    }
+
+    private fun setStatusIcon(@DrawableRes res: Int) {
+        binding.statusCard.moduleStatus
+            .setCompoundDrawablesRelativeWithIntrinsicBounds(res, 0, 0, 0)
     }
 
     private fun loadDialogs() {
