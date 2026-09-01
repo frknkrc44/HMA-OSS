@@ -121,7 +121,17 @@ object Utils {
     fun ApplicationInfo.isSystemApp() = flags and ApplicationInfo.FLAG_SYSTEM != 0 ||
             flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP != 0
 
-    val conflictedModules = arrayOf("com.tsng.hidemyapplist", "com.google.android.hmal")
+    val hmaModules = arrayOf(
+        "com.tsng.hidemyapplist",
+        "com.google.android.hmal",
+    )
+
+    val nonHmaModules = arrayOf(
+        "com.wowsoftware.hidemyandroid",
+        "com.strawing.duckusb",
+    )
+
+    val conflictedModules = hmaModules + nonHmaModules
 
     val encoder = Json {
         encodeDefaults = true
