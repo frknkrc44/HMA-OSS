@@ -2,12 +2,16 @@ package org.frknkrc44.hma_oss.ui.fragment
 
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
+import android.os.SystemClock.elapsedRealtime
+import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Chronometer
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -55,11 +59,39 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             setupToolbar(
                 toolbar = this,
                 title = getString(R.string.app_name),
-                isHomeToolbar = true,
                 menuRes = R.menu.menu_home,
                 onMenuOptionSelected = ::onMenuOptionSelected,
             )
             // isTitleCentered = true
+
+            setOnLongClickListener {
+                val dialog = MaterialAlertDialogBuilder(context)
+                    .setTitle(R.string.app_name)
+                    .create()
+
+                dialog.setView(Chronometer(context).apply {
+                    layoutParams = ViewGroup.LayoutParams(-1, -2)
+                    base = elapsedRealtime() + 3000
+                    textSize = dp2Px(resources, 24)
+                    gravity = Gravity.CENTER
+                    typeface = Typeface.SERIF
+                    onChronometerTickListener = {
+                        if (elapsedRealtime() >= base) {
+                            stop()
+                            dialog.dismiss()
+
+                            // is it really final countdown?
+                            isTheFinalCountDown
+                        }
+                    }
+                    isCountDown = true
+                    start()
+                })
+
+                dialog.show()
+
+                true
+            }
         }
 
         setEdge2EdgeFlags(binding.root)
