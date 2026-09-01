@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivities
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -20,9 +19,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.MyApp.Companion.hmaApp
 import icu.nullptr.hidemyapplist.common.Constants
-import icu.nullptr.hidemyapplist.common.Utils.hmaModules
-import icu.nullptr.hidemyapplist.common.Utils.isPackageAvailable
-import icu.nullptr.hidemyapplist.common.Utils.nonHmaModules
 import icu.nullptr.hidemyapplist.data.fetchLatestUpdate
 import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.service.ServiceClient
@@ -309,57 +305,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     migrateBtn.isVisible = true
                     @Suppress("DEPRECATION")
                     migrateBtn.setOnClickListener {
-                        val nonHmaPackages = findConflictedPackages(true)
-                        if (nonHmaPackages.isNotEmpty()) {
-                            startActivities(requireContext(), nonHmaPackages.map {
-                               Intent(Intent.ACTION_UNINSTALL_PACKAGE).apply {
-                                    data = "package:$it".toUri()
-                                }
-                            }.toTypedArray())
-                        }
-
-                        val hmaPackages = findConflictedPackages(false)
-                        if (hmaPackages.isNotEmpty()) {
-                            MaterialAlertDialogBuilder(requireContext())
-                                .setTitle(R.string.home_migrate_data)
-                                .setMessage(R.string.home_migrate_data_summary)
-                                .setPositiveButton(R.string.yes) { _, _ ->
-                                    if (hmaPackages.size > 1) {
-                                        showMigrateStatusDialog(false)
-                                        return@setPositiveButton
-                                    }
-
-                                    if (hmaPackages.isNotEmpty() && !ServiceClient.migrateData(
-                                            hmaPackages.first()
-                                        )
-                                    ) {
-                                        showMigrateStatusDialog(false)
-                                        return@setPositiveButton
-                                    }
-
-                                    startActivity(Intent(Intent.ACTION_UNINSTALL_PACKAGE).apply {
-                                        data = "package:${hmaPackages.first()}".toUri()
-                                    })
-
-                                    showMigrateStatusDialog(true)
-                                }
-                                .setNegativeButton(android.R.string.cancel, null)
-                                .setNeutralButton(R.string.home_migrate_uninstall_only) { _, _ ->
-                                    if (hmaPackages.size > 1) {
-                                        showMigrateStatusDialog(false)
-                                        return@setNeutralButton
-                                    }
-
-                                    if (hmaPackages.isNotEmpty()) {
-                                        startActivity(Intent(Intent.ACTION_UNINSTALL_PACKAGE).apply {
-                                            data = "package:${hmaPackages.first()}".toUri()
-                                        })
-                                    }
-
-                                    showMigrateStatusDialog(true)
-                                }
-                                .show()
-                        }
+                        navigate(R.id.nav_fix_issue)
                     }
                 } else {
                     val image = when(workMode) {
@@ -459,26 +405,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 })
             }
         }
-    }
-
-    private fun findConflictedPackages(nonHma: Boolean) = if (nonHma) {
-        nonHmaModules
-    } else {
-        hmaModules
-    }.filterTo(HashSet()) {
-        requireContext().packageManager.isPackageAvailable(it)
-    }
-
-    private fun showMigrateStatusDialog(success: Boolean) {
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle(R.string.home_migrate_data)
-            .setMessage(if (success) {
-                R.string.home_migrate_data_completed
-            } else {
-                R.string.home_migrate_data_failed
-            })
-            .setNegativeButton(android.R.string.ok, null)
-            .show()
     }
 
     companion object {
