@@ -3,9 +3,7 @@ package org.frknkrc44.hma_oss.ui.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.view.Gravity
 import android.view.ViewGroup
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
