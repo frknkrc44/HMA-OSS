@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.widget.Chronometer
+import androidx.activity.addCallback
 import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import androidx.annotation.MenuRes
@@ -134,6 +135,7 @@ fun FragmentTransaction.withAnimations() = setCustomAnimations(
         R.anim.activity_close_exit,
     )
 
+@Suppress("DEPRECATION")
 fun setEdge2EdgeFlags(
     root: View,
     left: Int? = null,
@@ -142,7 +144,6 @@ fun setEdge2EdgeFlags(
     bottom: Int? = null,
     getInsets: ((left: Int, top: Int, right: Int, bottom: Int) -> Unit)? = null,
 ) {
-    @Suppress("deprecation")
     root.setOnApplyWindowInsetsListener { v, insets ->
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val barInsets = insets.getInsets(WindowInsets.Type.systemBars())
@@ -178,3 +179,6 @@ fun setEdge2EdgeFlags(
         insets
     }
 }
+
+fun Fragment.registerOnBackCallback(back: () -> Unit) =
+    requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) { back() }
