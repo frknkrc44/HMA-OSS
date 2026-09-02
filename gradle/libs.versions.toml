@@ -1,15 +1,15 @@
 [versions]
 #noinspection GradleDependency,AndroidGradlePluginVersion
 agp = "8.13.2"
-kotlin = "2.3.21"
+kotlin = "2.4.10"
 material = "1.14.0"
 hidden-api = "4.4.0"
-androidx-navigation = "2.9.8"
+androidx-navigation = "2.10.0"
 vbpd = "2.0.4"
 r8_annotations = "v1.0.1"
 androidvmtools = "56e99ab"
 zygoteloader = "bf5078e182"
-coil = "3.4.0"
+coil = "3.6.0"
 
 [plugins]
 agp-app = { id = "com.android.application", version.ref = "agp" }
@@ -23,7 +23,7 @@ materialthemebuilder = { id = "dev.rikka.tools.materialthemebuilder", version = 
 com-github-aerathstuff-zygoteloader = { id = "com.github.aerath-stuff.ZygoteLoader", version.ref = "zygoteloader" }
 
 [libraries]
-androidx-appcompat-appcompat = { group = "androidx.appcompat", name = "appcompat", version = "1.7.1" }
+androidx-appcompat-appcompat = { group = "androidx.appcompat", name = "appcompat", version = "1.8.0" }
 androidx-annotation-jvm = { group = "androidx.annotation", name = "annotation-jvm", version = "1.10.0" }
 androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "androidx-navigation" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidx-navigation" }
