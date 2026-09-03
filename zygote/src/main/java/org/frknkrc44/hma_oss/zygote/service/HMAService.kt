@@ -118,7 +118,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
             installHooks()
 
             if (hooker.hooksWasCrashed) {
-                managerWorkMode = Constants.MANAGER_WORK_MODE_NO_HOOKS
+                managerWorkMode = Constants.MANAGER_WORK_MODE_CRASHED
             } else {
                 AppPresets.instance.loggerFunction = { level, msg ->
                     logWithLevel(level, "AppPresets", msg = msg)

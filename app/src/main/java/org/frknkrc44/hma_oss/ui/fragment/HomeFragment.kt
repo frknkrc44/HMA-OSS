@@ -307,9 +307,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     fun loadEnabledIndicator(serviceVersion: Int, workMode: Int) {
         hmaApp.loadConfiguration()
 
+        val isWorking = serviceVersion > 0 && workMode != Constants.MANAGER_WORK_MODE_UNKNOWN
+        val isCrashed = workMode == Constants.MANAGER_WORK_MODE_CRASHED
+        val isNoHooks = isCrashed || workMode == Constants.MANAGER_WORK_MODE_NO_HOOKS
+
         var color = when {
-            serviceVersion == 0 || workMode == Constants.MANAGER_WORK_MODE_UNKNOWN -> getColor(R.color.invalid)
-            workMode == Constants.MANAGER_WORK_MODE_NO_HOOKS -> getColor(R.color.md_theme_material_amber_light_error)
+            !isWorking -> getColor(R.color.invalid)
+            isNoHooks -> getColor(R.color.md_theme_material_amber_light_error)
             else -> themeColor(android.R.attr.colorPrimary)
         }
 
@@ -320,8 +324,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         with(binding.statusCard) {
             root.setCardBackgroundColor(color)
 
-            if (serviceVersion > 0) {
-                if (workMode == Constants.MANAGER_WORK_MODE_NO_HOOKS) {
+            if (isWorking) {
+                if (isNoHooks) {
                     val colorError = ColorStateList.valueOf(
                         getColor(R.color.md_theme_material_amber_dark_error))
 
@@ -332,7 +336,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     serviceStatus.setTextColor(colorError)
                     filterCount.isVisible = false
 
-                    migrateBtn.isVisible = true
+                    migrateBtn.isVisible = !isCrashed
                     @Suppress("DEPRECATION")
                     migrateBtn.setOnClickListener {
                         navigate(R.id.nav_fix_issue)
@@ -370,6 +374,16 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             TextViewCompat.setCompoundDrawableTintList(
                 moduleStatus, moduleStatus.textColors)
         }
+
+        val isHooks = !isNoHooks && isWorking
+
+        binding.manageApps.root.isVisible = isHooks
+        binding.manageTemplates.root.isVisible = isHooks
+        binding.managePresets.root.isVisible = isHooks
+        binding.navBulkConfigWizard.root.isVisible = isHooks
+        binding.navLogs.root.isVisible = isWorking // allow taking logs on NO_HOOKS or CRASHED status
+        binding.navSettings.root.isVisible = isHooks
+        (binding.backupConfig.parent as ViewGroup).isVisible = isHooks
     }
 
     private fun setStatusIcon(@DrawableRes res: Int) {
