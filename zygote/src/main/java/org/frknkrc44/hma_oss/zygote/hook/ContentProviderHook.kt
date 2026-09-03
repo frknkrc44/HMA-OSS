@@ -23,7 +23,7 @@ class ContentProviderHook : IFrameworkHook {
 
     @Suppress("UNCHECKED_CAST")
     override fun load() {
-        hookerInstance.apply {
+        hooker.apply {
             hookAfter(
                 CONTENT_PROVIDER_TRANSPORT_CLASS,
                 "query",

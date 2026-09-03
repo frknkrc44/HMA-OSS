@@ -7,7 +7,8 @@ interface IFrameworkHook {
     val TAG: String
 
     val service get() = UserService.service!!
-    val hookerInstance get() = service.hookerInstance
+    val hooker get() = service.hooker
+    val dataHolder get() = service.dataHolder
     val pms get() = service.pms
     val config get() = service.config
     val systemApps get() = service.systemApps

@@ -44,7 +44,7 @@ class PmsHookTarget30 : PmsHookTargetBase() {
     override fun load() {
         logI(TAG) { "Load hook" }
 
-        hookerInstance.apply {
+        hooker.apply {
             hookBefore(
                 PACKAGE_MANAGER_SERVICE_CLASS,
                 "getPackageSetting",

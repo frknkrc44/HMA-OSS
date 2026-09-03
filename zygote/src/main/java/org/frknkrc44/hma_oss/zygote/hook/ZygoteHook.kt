@@ -29,7 +29,7 @@ class ZygoteHook : IFrameworkHook {
             isAppDataIsolationEnabled(config)
 
     override fun load() {
-        hookerInstance.apply {
+        hooker.apply {
             hookBefore(
                 ZYGOTE_PROCESS_CLASS,
                 "start",

@@ -57,7 +57,7 @@ class PmsHookTarget33 : PmsHookTargetBase() {
     override fun load() {
         logI(TAG) { "Load hook" }
 
-        hookerInstance.apply {
+        hooker.apply {
             hookBefore(
                 APPS_FILTER_IMPL_CLASS,
                 "shouldFilterApplication",

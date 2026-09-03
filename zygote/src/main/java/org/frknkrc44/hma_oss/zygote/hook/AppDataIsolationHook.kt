@@ -52,7 +52,7 @@ class AppDataIsolationHook : IFrameworkHook {
         if (!isAltIsolationEnabled) return
         logI(TAG) { "Load hook" }
 
-        hookerInstance.apply {
+        hooker.apply {
             hookBefore(
                 PROCESS_LIST_CLASS,
                 "startProcess",

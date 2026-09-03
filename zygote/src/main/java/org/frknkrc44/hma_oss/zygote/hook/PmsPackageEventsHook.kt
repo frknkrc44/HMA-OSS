@@ -15,7 +15,7 @@ class PmsPackageEventsHook : IFrameworkHook {
     override fun load() {
         logI(TAG) { "Load hook" }
 
-        hookerInstance.apply {
+        hooker.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 val hookedMethodName = "sendPackageBroadcastAndNotify"
 

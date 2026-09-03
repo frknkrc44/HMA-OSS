@@ -12,7 +12,7 @@ class AccessibilityHook : IFrameworkHook {
     override val TAG = "AccessibilityHook"
 
     override fun load() {
-        hookerInstance.apply {
+        hooker.apply {
             hookBefore(
                 ACCESSIBILITY_SERVICE_CLASS,
                 "getEnabledAccessibilityServiceList",

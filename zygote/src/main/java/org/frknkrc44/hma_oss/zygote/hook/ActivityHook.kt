@@ -42,7 +42,7 @@ class ActivityHook : IFrameworkHook {
     override fun load() {
         logI(TAG) { "Load hook" }
 
-        hookerInstance.apply {
+        hooker.apply {
             hookBefore(
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                     ACTIVITY_TASK_SUPERVISOR_CLASS

@@ -18,7 +18,7 @@ class PmsHookTarget29 : PmsHookTargetBase() {
     override fun load() {
         logI(TAG) { "Load hook" }
 
-        hookerInstance.apply {
+        hooker.apply {
             hookBefore(
                 service.pms::class.java.name,
                 "filterAppAccessLPr",

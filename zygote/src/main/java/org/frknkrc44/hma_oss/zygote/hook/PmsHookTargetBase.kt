@@ -11,7 +11,6 @@ import icu.nullptr.hidemyapplist.common.Constants.VENDING_PACKAGE_NAME
 import icu.nullptr.hidemyapplist.common.OSUtils
 import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
 import icu.nullptr.hidemyapplist.common.Utils.getUserFromCallingUid
-import org.frknkrc44.hma_oss.zygote.service.HMAServiceCache
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
@@ -45,7 +44,7 @@ abstract class PmsHookTargetBase : IFrameworkHook {
     abstract val fakeUserPackageInstallSourceInfo: Any?
 
     override fun load() {
-        hookerInstance.apply {
+        hooker.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 // Samsung related fix
                 if (OSUtils.isSamsung()) {
@@ -215,7 +214,7 @@ abstract class PmsHookTargetBase : IFrameworkHook {
         if (callingUid == null || callingUid == Constants.UID_SYSTEM) return
         val targetApp = findTargetApp() ?: return
         logV(TAG) { "@$methodName incoming query: $callingUid => $targetApp" }
-        if (HMAServiceCache.instance.shouldHideFromUid(callingUid, targetApp) == true) {
+        if (dataHolder.shouldHideFromUid(callingUid, targetApp) == true) {
             applyReturnValue()
             service.increasePMFilterCount(callingUid)
             logD(TAG) { "@$methodName caller cache: $callingUid, target: $targetApp" }
@@ -229,7 +228,7 @@ abstract class PmsHookTargetBase : IFrameworkHook {
             applyReturnValue()
             val last = lastFilteredApp.getAndSet(caller)
             if (last != caller) logI(TAG) { "@$methodName: query from $caller" }
-            HMAServiceCache.instance.putShouldHideUidCache(callingUid, caller, targetApp)
+            dataHolder.putShouldHideUidCache(callingUid, caller, targetApp)
             service.increasePMFilterCount(caller)
         }
     }

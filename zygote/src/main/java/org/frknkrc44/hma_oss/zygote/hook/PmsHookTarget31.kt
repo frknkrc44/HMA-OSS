@@ -44,7 +44,7 @@ class PmsHookTarget31 : PmsHookTargetBase() {
     override fun load() {
         logI(TAG) { "Load hook" }
 
-        hookerInstance.apply {
+        hooker.apply {
             hookBefore(
                 PMS_COMPUTER_TRACKER_CLASS,
                 "getPackageSetting",

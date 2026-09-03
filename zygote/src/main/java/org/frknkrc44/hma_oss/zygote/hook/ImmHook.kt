@@ -70,7 +70,7 @@ class ImmHook : IFrameworkHook {
     override fun load() {
         // OEMs (especially Samsung and Xiaomi) messes up whole framework code,
         // so nothing left except messing up this code
-        hookerInstance.apply {
+        hooker.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
                 findAltMethod(
                     listOf(IMM_SERVICE_CLASS, IMM_IMPL_CLASS),
