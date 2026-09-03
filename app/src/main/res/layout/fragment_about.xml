@@ -56,8 +56,8 @@
                     app:tint="?colorPrimary"
                     android:id="@+id/expand_devs"
                     android:importantForAccessibility="no"
-                    android:layout_width="@dimen/profile_badge_size"
-                    android:layout_height="@dimen/profile_badge_size" />
+                    android:layout_width="@dimen/vector_icon_size"
+                    android:layout_height="@dimen/vector_icon_size" />
 
             </LinearLayout>
 
@@ -127,4 +127,3 @@
     </ScrollView>
 
 </LinearLayout>
-
