@@ -11,7 +11,6 @@ import android.os.UserHandle
 import android.os.UserManager
 import android.util.Log
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.drawable.toDrawable
 import icu.nullptr.hidemyapplist.MyApp.Companion.hmaApp
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.service.PrefManager
@@ -185,21 +184,15 @@ object PackageHelper {
             }
         } else {
             try {
-                hmaApp.appIconLoader.loadIcon(appInfo).toDrawable(hmaApp.resources)
-            } catch (e: Throwable) {
-                ServiceClient.log(Log.ERROR, TAG, e.stackTraceToString())
+                appInfo.loadIcon(hmaApp.packageManager)
+            } catch (x: Throwable) {
+                ServiceClient.log(Log.ERROR, TAG, x.stackTraceToString())
 
-                try {
-                    appInfo.loadIcon(hmaApp.packageManager)
-                } catch (x: Throwable) {
-                    ServiceClient.log(Log.ERROR, TAG, x.stackTraceToString())
-
-                    return ResourcesCompat.getDrawable(
-                        hmaApp.resources,
-                        android.R.drawable.sym_def_app_icon,
-                        hmaApp.theme,
-                    )!!
-                }
+                return ResourcesCompat.getDrawable(
+                    hmaApp.resources,
+                    android.R.drawable.sym_def_app_icon,
+                    hmaApp.theme,
+                )!!
             }
         }
     }
