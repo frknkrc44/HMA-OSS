@@ -33,7 +33,7 @@ import org.frknkrc44.hma_oss.databinding.FragmentAboutBinding
 import org.frknkrc44.hma_oss.databinding.FragmentAboutListItemBinding
 import org.json.JSONObject
 
-@Suppress("deprecation")
+@Suppress("DEPRECATION")
 class AboutFragment : Fragment(R.layout.fragment_about) {
     private val binding by viewBinding(FragmentAboutBinding::bind)
 

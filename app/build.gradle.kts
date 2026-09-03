@@ -54,7 +54,7 @@ val crowdinApiKey: String by rootProject.extra
 val localBuild: Boolean by rootProject.extra
 val officialBuild: Boolean by rootProject.extra
 
-@Suppress("deprecation")
+@Suppress("DEPRECATION")
 afterEvaluate {
     val srcDir = android.sourceSets["main"].assets.srcDirs.first()
     logger.lifecycle("Asset dir: $srcDir")
@@ -188,7 +188,6 @@ dependencies {
     implementation(libs.io.coilkt.coil3.coil.network.okhttp)
     implementation(libs.dev.androidbroadcast.vbpd)
     implementation(libs.dev.androidbroadcast.vbpd.reflection)
-    implementation(libs.com.github.topjohnwu.libsu.core)
     implementation(libs.dev.rikka.hidden.compat)
     implementation(libs.me.zhanghai.android.appiconloader)
 

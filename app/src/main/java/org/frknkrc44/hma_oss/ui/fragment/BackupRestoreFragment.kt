@@ -136,7 +136,7 @@ class BackupRestoreFragment : Fragment(R.layout.fragment_backup_restore) {
     }
 
     @SuppressLint("DefaultLocale")
-    @Suppress("deprecation")
+    @Suppress("DEPRECATION")
     private fun reloadScreenContents() {
         binding.manageApps.subText = getString(
             R.string.backup_restore_items_count,
