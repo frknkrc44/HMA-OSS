@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.content.pm.IPackageManager
-import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.ParcelFileDescriptor
@@ -288,9 +287,9 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     }
 
     private fun installHooks() {
-        pms.getInstalledApplicationsCompat(PackageManager.MATCH_ALL.toLong(), 0)
-            .mapNotNullTo(systemApps) { appInfo ->
-                if (appInfo.isSystemApp()) appInfo.packageName else null
+        pms.allPackages.filterTo(systemApps) {
+            pms.getPackageInfoCompat(
+                it, 0L, 0)?.applicationInfo?.isSystemApp() ?: false
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
@@ -659,7 +658,9 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     }
 
     override fun getPackageNames(userId: Int) = binderLocalScope {
-        pms.getInstalledApplicationsCompat(0L, userId).map { it.packageName }.toTypedArray()
+        pms.getAllPackages().filter { packageName ->
+            pms.isPackageAvailable(packageName, userId)
+        }.toTypedArray()
     }
 
     override fun getPackageInfo(

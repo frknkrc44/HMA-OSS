@@ -6,7 +6,6 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
-import android.os.Binder
 import android.os.UserHandle
 import android.os.UserManager
 import android.util.Log
@@ -102,7 +101,14 @@ object PackageHelper {
                         val packages = ServiceClient.getPackageNames(userProfile.hashCode()) ?: arrayOf<String>()
                         for (packageName in packages) {
                             if (packageName in Constants.packagesShouldNotHide) continue
-                            val packageInfo = ServiceClient.getPackageInfo(packageName, userProfile.hashCode())!!
+                            val packageInfo = try {
+                                ServiceClient.getPackageInfo(packageName, userProfile.hashCode())!!
+                            } catch (e: Throwable) {
+                                ServiceClient.log(Log.DEBUG, TAG,
+                                    "Cannot get package details for $packageName\n${e.stackTraceToString()}")
+
+                                continue
+                            }
                             packageInfo.applicationInfo?.let { appInfo ->
                                 val label = pm.getApplicationLabel(appInfo).toString()
                                 val icon = loadAppIconFromAppInfo(appInfo)
@@ -204,6 +210,4 @@ object PackageHelper {
             return pkgInfo.activities?.firstOrNull { it.targetActivity != null }?.asComponentName()
         }
     }
-
-    val currentUserID by lazy { Binder.getCallingUid() / 100000 }
 }
