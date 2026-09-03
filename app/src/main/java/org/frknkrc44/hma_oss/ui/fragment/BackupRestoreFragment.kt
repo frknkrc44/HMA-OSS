@@ -13,6 +13,7 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.common.CollectionUtils.removeIf
+import icu.nullptr.hidemyapplist.common.CollectionUtils.sync
 import icu.nullptr.hidemyapplist.common.Constants.CONFIG_VERSION_NO_SETTINGS
 import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.common.Utils.cleanRemnantsFromConfig
@@ -308,20 +309,9 @@ class BackupRestoreFragment : Fragment(R.layout.fragment_backup_restore) {
         if (!includeSettings || importedConfig.configVersion == CONFIG_VERSION_NO_SETTINGS) {
             val currentConfig = ConfigManager.getRawConfig(true)
 
-            with(currentConfig.scope) {
-                clear()
-                putAll(importedConfig.scope)
-            }
-
-            with(currentConfig.templates) {
-                clear()
-                putAll(importedConfig.templates)
-            }
-
-            with(currentConfig.settingsTemplates) {
-                clear()
-                putAll(importedConfig.settingsTemplates)
-            }
+            currentConfig.scope.sync(importedConfig.scope)
+            currentConfig.templates.sync(importedConfig.templates)
+            currentConfig.settingsTemplates.sync(importedConfig.settingsTemplates)
 
             ConfigManager.importConfig(currentConfig.toString())
         } else {

@@ -28,4 +28,24 @@ object CollectionUtils {
     inline fun <reified T> Array<*>.lastOrNullWithType(): T? {
         return this.lastOrNull { it is T } as? T
     }
+
+    inline fun <reified T> MutableList<T>.sync(elements: Array<T>) {
+        clear()
+        addAll(elements)
+    }
+
+    inline fun <reified T> MutableList<T>.sync(elements: Iterable<T>) {
+        clear()
+        addAll(elements)
+    }
+
+    inline fun <reified T> MutableSet<T>.sync(elements: Iterable<T>) {
+        clear()
+        addAll(elements)
+    }
+
+    inline fun <reified K, reified V> MutableMap<K, V>.sync(from: Map<K, V>) {
+        clear()
+        putAll(from)
+    }
 }

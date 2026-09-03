@@ -21,6 +21,7 @@ import androidx.preference.SwitchPreferenceCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.common.AppPresets
+import icu.nullptr.hidemyapplist.common.CollectionUtils.sync
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.common.SettingsPresets
@@ -401,8 +402,12 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
                     val useWhitelist = newValue == "1"
 
                     pack.config.applyTemplates.clear()
-                    pack.config.extraAppList.clear()
-                    pack.config.extraOppositeAppList.clear()
+
+                    // swap extra app lists when the work mode was changed
+                    val extraAppList = pack.config.extraAppList.toList()
+                    pack.config.extraAppList.sync(pack.config.extraOppositeAppList)
+                    pack.config.extraOppositeAppList.sync(extraAppList)
+
                     updateApplyTemplates()
                     updateExtraAppList(useWhitelist)
                     updateExtraOppositeAppList(useWhitelist)

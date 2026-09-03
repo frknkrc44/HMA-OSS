@@ -3,6 +3,7 @@ package icu.nullptr.hidemyapplist.service
 import android.os.Build
 import android.util.Log
 import icu.nullptr.hidemyapplist.common.CollectionUtils.removeIfWithCount
+import icu.nullptr.hidemyapplist.common.CollectionUtils.sync
 import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
 import icu.nullptr.hidemyapplist.service.ServiceClient.log
@@ -131,8 +132,7 @@ object ConfigManager {
     var disabledHooks: List<JsonConfig.HookItem>
         get() = config.disabledHooks
         set(elements) {
-            config.disabledHooks.clear()
-            config.disabledHooks.addAll(elements)
+            config.disabledHooks.sync(elements)
             saveConfig()
             showToast(R.string.settings_need_reboot)
         }
@@ -140,8 +140,7 @@ object ConfigManager {
     var ignoredPackagesForPresets: Set<String>
         get() = config.ignoredPackagesForPresets
         set(elements) {
-            config.ignoredPackagesForPresets.clear()
-            config.ignoredPackagesForPresets.addAll(elements)
+            config.ignoredPackagesForPresets.sync(elements)
             saveConfig()
         }
 
