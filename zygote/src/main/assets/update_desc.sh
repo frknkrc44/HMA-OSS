@@ -19,8 +19,9 @@ case "$MODE" in
     1) STATUS="[✅ System service loaded]" ;;
     2) STATUS="[⚠️ Sick mode - Disabled hooks]" ;;
     3) STATUS="[⏳ Loading]" ;;
+    4) STATUS="[❌ System service crashed]"  ;;
     -*) STATUS="[❌ Not loaded - Unknown error]" ;;
-    *)  STATUS="[❓ Unknown]" ;;
+    *) STATUS="[❓ Unknown]" ;;
 esac
 
 sed -i "s/^description=.*/description=$STATUS $ORIG_DESC_FIX/" "$MODDIR/module.prop"
