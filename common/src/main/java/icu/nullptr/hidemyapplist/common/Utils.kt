@@ -131,7 +131,7 @@ object Utils {
         "com.strawing.duckusb",
     )
 
-    val conflictedModules = hmaModules + nonHmaModules
+    val conflictedModules = hmaModules // + nonHmaModules
 
     val encoder = Json {
         encodeDefaults = true
