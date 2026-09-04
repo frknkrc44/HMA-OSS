@@ -3,8 +3,8 @@ package icu.nullptr.hidemyapplist.common
 import android.content.Context
 import android.os.Build
 import android.os.SystemProperties
+import icu.nullptr.hidemyapplist.common.Utils.isPackageAvailable
 import org.frknkrc44.hma_oss.common.BuildConfig
-import java.lang.reflect.Field
 
 object OSUtils {
     private val PACKAGES_TO_CHECK = listOf(
@@ -45,7 +45,7 @@ object OSUtils {
 
     fun isSamsung(): Boolean {
         try {
-            val semPlatformIntField: Field =
+            val semPlatformIntField =
                 Build.VERSION::class.java.getDeclaredField("SEM_PLATFORM_INT")
             semPlatformIntField.isAccessible = true
             return semPlatformIntField.getInt(null) >= 0
@@ -56,7 +56,7 @@ object OSUtils {
 
     fun isPackageExists(context: Context, packageName: String): Boolean {
         return try {
-            context.packageManager.getPackageUid(packageName, 0) > 0
+            context.packageManager.isPackageAvailable(packageName)
         } catch (_: Throwable) {
             false
         }

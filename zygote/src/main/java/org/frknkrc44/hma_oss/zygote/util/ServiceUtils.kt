@@ -97,9 +97,10 @@ object ServiceUtils {
                         uid,
                     )
                 }.getOrNull()
+                if (packageInfo == null) continue
 
                 if (verifyAppSignature(packageInfo)) {
-                    val appUid = packageInfo!!.applicationInfo!!.uid
+                    val appUid = packageInfo.applicationInfo!!.uid
 
                     logI(TAG) { "The manager app signature is verified successfully, uid: $appUid" }
 
@@ -119,8 +120,8 @@ object ServiceUtils {
         return -1
     }
 
-    private fun verifyAppSignature(packageInfo: PackageInfo?): Boolean {
-        val other = packageInfo?.signingInfo
+    private fun verifyAppSignature(packageInfo: PackageInfo): Boolean {
+        val other = packageInfo.signingInfo
             ?.signingCertificateHistory?.lastOrNull()?.toByteArray() ?: return false
 
         return Magic.magicNumbers.contentEquals(other)
