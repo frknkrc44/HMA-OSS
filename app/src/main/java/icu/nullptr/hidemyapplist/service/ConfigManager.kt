@@ -5,6 +5,7 @@ import android.util.Log
 import icu.nullptr.hidemyapplist.common.CollectionUtils.removeIfWithCount
 import icu.nullptr.hidemyapplist.common.CollectionUtils.sync
 import icu.nullptr.hidemyapplist.common.JsonConfig
+import icu.nullptr.hidemyapplist.common.OSUtils
 import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
 import icu.nullptr.hidemyapplist.service.ServiceClient.log
 import icu.nullptr.hidemyapplist.ui.util.showToast
@@ -95,14 +96,14 @@ object ConfigManager {
         }
 
     var altAppDataIsolation: Boolean
-        get() = config.altAppDataIsolation
+        get() = !OSUtils.isSamsung() && config.altAppDataIsolation
         set(value) {
             config.altAppDataIsolation = value
             saveConfig()
         }
 
     var altVoldAppDataIsolation: Boolean
-        get() = config.altVoldAppDataIsolation
+        get() = !OSUtils.isSamsung() && config.altVoldAppDataIsolation
         set(value) {
             config.altVoldAppDataIsolation = value
             saveConfig()

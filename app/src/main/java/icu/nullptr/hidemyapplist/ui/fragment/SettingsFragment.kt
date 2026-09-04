@@ -15,6 +15,7 @@ import androidx.preference.MultiSelectListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceDataStore
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceGroup
 import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreferenceCompat
 import com.google.android.material.color.DynamicColors
@@ -23,6 +24,7 @@ import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.MyApp.Companion.hmaApp
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.JsonConfig
+import icu.nullptr.hidemyapplist.common.OSUtils
 import icu.nullptr.hidemyapplist.common.PropertyUtils
 import icu.nullptr.hidemyapplist.data.AppConstants
 import icu.nullptr.hidemyapplist.service.ConfigManager
@@ -220,6 +222,14 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                     }
                     !enabled
                 }
+            }
+
+            findPreference<PreferenceGroup>("categoryOverwrite")?.let {
+                it.isVisible = !OSUtils.isSamsung()
+            }
+
+            findPreference<PreferenceGroup>("categoryVoldAppDataIsolation")?.let {
+                it.isVisible = !OSUtils.isSamsung()
             }
         }
     }

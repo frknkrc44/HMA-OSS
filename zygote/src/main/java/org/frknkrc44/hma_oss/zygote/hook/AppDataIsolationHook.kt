@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Build
 import android.os.SystemProperties
 import androidx.annotation.RequiresApi
+import icu.nullptr.hidemyapplist.common.OSUtils
 import org.frknkrc44.hma_oss.common.BuildConfig
 import org.frknkrc44.hma_oss.zygote.service.SystemServerHook
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
@@ -43,7 +44,7 @@ class AppDataIsolationHook : IFrameworkHook {
         )
     }
 
-    private val isAltIsolationEnabled get() = config.let {
+    private val isAltIsolationEnabled get() = !OSUtils.isSamsung() && config.let {
         it.altAppDataIsolation || it.altVoldAppDataIsolation
     }
 
