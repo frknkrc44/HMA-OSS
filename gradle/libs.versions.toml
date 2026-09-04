@@ -7,7 +7,6 @@ hidden-api = "4.4.0"
 androidx-navigation = "2.10.0"
 vbpd = "2.0.4"
 r8_annotations = "v1.0.1"
-androidvmtools = "56e99ab"
 zygoteloader = "bf5078e182"
 coil = "3.6.0"
 
@@ -34,7 +33,6 @@ dev-androidbroadcast-vbpd-reflection = { module = "dev.androidbroadcast.vbpd:vbp
 dev-rikka-hidden-compat = { module = "dev.rikka.hidden:compat", version.ref = "hidden-api" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.11.0" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
-io-github-vova7878-androidvmtools = { module = "com.github.aerath-stuff:AndroidVMTools", version.ref = "androidvmtools" }
 io-github-vova7878-r8annotations = { module = "io.github.vova7878:R8Annotations", version.ref = "r8_annotations" }
 io-coilkt-coil3-coil = { module = "io.coil-kt.coil3:coil", version.ref = "coil" }
 io-coilkt-coil3-coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coil" }
