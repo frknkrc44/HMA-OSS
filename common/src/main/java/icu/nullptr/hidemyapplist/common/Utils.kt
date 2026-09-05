@@ -110,6 +110,8 @@ object Utils {
         }
     }
 
+    fun getCallingUser() = getUserFromCallingUid(Binder.getCallingUid())
+
     fun getUserFromCallingUid(uid: Int) = uid / 100000
 
     fun PackageManager.isPackageAvailable(packageName: String) = try {

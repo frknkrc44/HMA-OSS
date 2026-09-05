@@ -1,20 +1,23 @@
 package org.frknkrc44.hma_oss.zygote.hook
 
 import android.content.ComponentName
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Binder
 import android.os.Build
 import android.provider.Settings
 import android.view.inputmethod.InputMethodInfo
+import android.view.inputmethod.InputMethodManager
 import android.view.inputmethod.InputMethodSubtype
 import com.v7878.unsafe.invoke.EmulatedStackFrame
 import icu.nullptr.hidemyapplist.common.Constants
-import icu.nullptr.hidemyapplist.common.Utils
+import icu.nullptr.hidemyapplist.common.Utils.binderLocalScope
+import icu.nullptr.hidemyapplist.common.Utils.getCallingUser
 import icu.nullptr.hidemyapplist.common.Utils.getPackageUidCompat
 import icu.nullptr.hidemyapplist.common.Utils.getUserFromCallingUid
 import icu.nullptr.hidemyapplist.common.settings_presets.InputMethodPreset
 import org.frknkrc44.hma_oss.zygote.service.ReturnValue
-import org.frknkrc44.hma_oss.zygote.util.ContextUtils.packageManager
+import org.frknkrc44.hma_oss.zygote.util.ContextUtils.application
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logW
@@ -30,10 +33,9 @@ import java.util.Collections
 class ImmHook : IFrameworkHook {
     override val TAG = "ImmHook"
 
-    // TODO: Find a method to get settings activity
-    fun getFakeInputMethodInfo(packageName: String): InputMethodInfo {
+    fun getFakeInputMethodInfo(caller: String): InputMethodInfo {
         val defaultInputMethod = service.getSpoofedSetting(
-            packageName,
+            caller,
             Settings.Secure.DEFAULT_INPUT_METHOD,
             Constants.SETTINGS_SECURE,
         )
@@ -43,19 +45,18 @@ class ImmHook : IFrameworkHook {
                 val component = ComponentName.unflattenFromString(defaultInputMethod.value!!)!!
                 logD(TAG) { "Package component: \"$component\"" }
 
-                val kbdPackage = Utils.binderLocalScope {
-                    packageManager.getApplicationInfo(component.packageName, 0)
+                val kbdPackage = resolveIMInfo(component.packageName)
+                if (kbdPackage != null) {
+                    return kbdPackage
                 }
-
-                return InputMethodInfo(
-                    component.packageName,
-                    component.className,
-                    kbdPackage.loadLabel(packageManager),
-                    null,
-                )
             } catch (e: Throwable) {
                 logV(TAG, e) { e.message ?: "" }
             }
+        }
+
+        val kbdPackage = resolveIMInfo("com.google.android.inputmethod.latin")
+        if (kbdPackage != null) {
+            return kbdPackage
         }
 
         return InputMethodInfo(
@@ -248,7 +249,7 @@ class ImmHook : IFrameworkHook {
         }
     }
 
-    fun calculateReturnedInputMethodList(callingUid: Int, inList: List<InputMethodInfo>): List<InputMethodInfo> {
+    private fun calculateReturnedInputMethodList(callingUid: Int, inList: List<InputMethodInfo>): List<InputMethodInfo> {
         logV(TAG) { "@getInputMethodList*calculator: $callingUid - Current: ${inList.map { it.component }}" }
 
         val caller = getCallingApps(pms, callingUid)
@@ -282,17 +283,22 @@ class ImmHook : IFrameworkHook {
         return calculatedList
     }
 
-    private fun isIMExists(packageName: String, inUserId: Int? = null): Boolean {
+    private fun isIMExists(packageName: String, userId: Int = getCallingUser()): Boolean {
         if (packageName in systemApps) return true
 
-        val userId = inUserId ?: Binder.getCallingUserHandle().hashCode()
-        return Utils.binderLocalScope {
+        return binderLocalScope {
             pms.getPackageUidCompat(packageName, PackageManager.MATCH_ALL.toLong(), userId) >= 0
         }
     }
 
     private fun warnNotInstalledKeyboard(methodName: String, packageName: String) {
         logW(TAG) { "@$methodName: PROBABLY spoofing for a not installed keyboard, please install $packageName or spoof for another keyboard by using settings templates to reduce detections. Do not care this message if you are sure the keyboard is installed correctly." }
+    }
+
+    private fun resolveIMInfo(packageName: String): InputMethodInfo? = binderLocalScope {
+        val imManager = application.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+
+        imManager?.inputMethodList?.firstOrNull { it.packageName == packageName }
     }
 
     private fun callerIsSpoofed(caller: String) =
