@@ -10,7 +10,6 @@ if [ "$KSU" ]; then
 
     # default language
     KSU_VERSION_MISMATCH_WARN="! KernelSU manager version ($KSU_VER_CODE) does not match kernel driver version ($KSU_KERNEL_VER_CODE). HMA-OSS will not take any responsibilities for incompatibilities!"
-    KSU_VERSION_MISMATCH_ERR="! KernelSU manager version ($KSU_VER_CODE) does not match kernel driver version ($KSU_KERNEL_VER_CODE). Please upgrade the LKM driver version to continue installation, Aborting..."
     INSTALLER_CONTINUE_MSG(){
         echo "- The installer will continue in $1 seconds"
     }
@@ -18,7 +17,6 @@ if [ "$KSU" ]; then
     # language pack
     if echo "$SYSTEM_LANG" | grep -q "zh"; then
         KSU_VERSION_MISMATCH_WARN="! 警告: KernelSU 管理器版本 ($KSU_VER_CODE) 与驱动版本 ($KSU_KERNEL_VER_CODE) 不匹配! HMA-OSS 不对由此引发的系统异常负责，且模块可能无法激活!"
-        KSU_VERSION_MISMATCH_ERR="! 错误: KernelSU 管理器版本 ($KSU_VER_CODE) 与驱动版本 ($KSU_KERNEL_VER_CODE) 不匹配! 请升级LKM驱动版本以继续安装HMA-OSS"
         INSTALLER_CONTINUE_MSG(){
             echo "- 安装将在 $1 秒后继续"
         }
@@ -26,16 +24,8 @@ if [ "$KSU" ]; then
 
     # kernel and manager version mismatch
     if [ "$KSU_VER_CODE" != "$KSU_KERNEL_VER_CODE" ]; then
-        UAPI_VERSION=$(ksud debug info 2>/dev/null | grep uapi_version | cut -f2 -d' ')
-        UAPI_VERSION="${UAPI_VERSION:-0}"
-
-        if lsmod 2>/dev/null | grep -q kernelsu && [ $UAPI_VERSION -lt 2 ] && [ -z "$YUKISU" ]
-        then
-            abort "$KSU_VERSION_MISMATCH_ERR"
-        else
-            ui_print "$KSU_VERSION_MISMATCH_WARN"
-            ui_print "$(INSTALLER_CONTINUE_MSG 5)"
-            sleep 5
-        fi
+        ui_print "$KSU_VERSION_MISMATCH_WARN"
+        ui_print "$(INSTALLER_CONTINUE_MSG 5)"
+        sleep 5
     fi
 fi

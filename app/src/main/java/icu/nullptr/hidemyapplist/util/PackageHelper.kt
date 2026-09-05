@@ -6,20 +6,18 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
-import android.os.Binder
 import android.os.UserHandle
 import android.os.UserManager
 import android.util.Log
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.drawable.toDrawable
 import icu.nullptr.hidemyapplist.MyApp.Companion.hmaApp
 import icu.nullptr.hidemyapplist.common.Constants
-import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.asDrawable
 import icu.nullptr.hidemyapplist.ui.util.asComponentName
 import icu.nullptr.hidemyapplist.ui.util.get
+import icu.nullptr.hidemyapplist.util.ConfigUtils.Companion.getLocale
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.first
@@ -29,7 +27,6 @@ import kotlinx.coroutines.withContext
 import org.frknkrc44.hma_oss.BuildConfig
 import org.frknkrc44.hma_oss.R
 import java.text.Collator
-import java.util.Locale
 
 object PackageHelper {
     const val TAG = "PackageHelper"
@@ -38,23 +35,25 @@ object PackageHelper {
         val info: PackageInfo,
         val label: String,
         val icon: Drawable,
-        val userId: Int,
+        val userIds: HashSet<Int>,
     )
 
     object Comparators {
         val byLabel = Comparator<String> { o1, o2 ->
             try {
-                val n1 = loadAppLabel(o1).lowercase(Locale.getDefault())
-                val n2 = loadAppLabel(o2).lowercase(Locale.getDefault())
-                Collator.getInstance(Locale.getDefault()).compare(n1, n2)
+                val locale = getLocale()
+                val n1 = loadAppLabel(o1).lowercase(locale)
+                val n2 = loadAppLabel(o2).lowercase(locale)
+                Collator.getInstance(locale).compare(n1, n2)
             } catch (_: Throwable) {
                 byPackageName.compare(o1, o2)
             }
         }
         val byPackageName = Comparator<String> { o1, o2 ->
-            val n1 = o1.lowercase(Locale.getDefault())
-            val n2 = o2.lowercase(Locale.getDefault())
-            Collator.getInstance(Locale.getDefault()).compare(n1, n2)
+            val locale = getLocale()
+            val n1 = o1.lowercase(locale)
+            val n2 = o2.lowercase(locale)
+            Collator.getInstance(locale).compare(n1, n2)
         }
         val byInstallTime = Comparator<String> { o1, o2 ->
             try {
@@ -97,35 +96,31 @@ object PackageHelper {
                 val um = hmaApp.getSystemService(Context.USER_SERVICE) as UserManager
                 val profiles = um.userProfiles
 
-                if (ConfigManager.packageQueryWorkaround) {
-                    mutableMapOf<String, PackageCache>().also { cacheMap ->
-                        for (userProfile: UserHandle in profiles) {
-                            val packages = ServiceClient.getPackageNames(userProfile.hashCode()) ?: arrayOf<String>()
-                            for (packageName in packages) {
-                                val packageInfo = ServiceClient.getPackageInfo(packageName, userProfile.hashCode())!!
-                                if (packageInfo.packageName in Constants.packagesShouldNotHide) continue
-                                packageInfo.applicationInfo?.let { appInfo ->
-                                    val label = pm.getApplicationLabel(appInfo).toString()
-                                    val icon = loadAppIconFromAppInfo(appInfo)
-                                    if (!cacheMap.containsKey(packageInfo.packageName)) {
-                                        cacheMap[packageInfo.packageName] = PackageCache(packageInfo, label, icon, userProfile.hashCode())
-                                    }
-                                }
+                mutableMapOf<String, PackageCache>().also { cacheMap ->
+                    for (userProfile: UserHandle in profiles) {
+                        val packages = ServiceClient.getPackageNames(userProfile.hashCode()) ?: arrayOf<String>()
+                        for (packageName in packages) {
+                            if (packageName in Constants.packagesShouldNotHide) continue
+                            val packageInfo = try {
+                                ServiceClient.getPackageInfo(packageName, userProfile.hashCode())!!
+                            } catch (e: Throwable) {
+                                ServiceClient.log(Log.DEBUG, TAG,
+                                    "Cannot get package details for $packageName\n${e.stackTraceToString()}")
+
+                                continue
                             }
-                        }
-                    }
-                } else {
-                    mutableMapOf<String, PackageCache>().also { cacheMap ->
-                        for (userProfile: UserHandle in profiles) {
-                            val packages = getInstalledPackagesAsUser(pm, userProfile.hashCode())
-                            for (packageInfo in packages) {
-                                if (packageInfo.packageName in Constants.packagesShouldNotHide) continue
-                                packageInfo.applicationInfo?.let { appInfo ->
-                                    val label = pm.getApplicationLabel(appInfo).toString()
-                                    val icon = loadAppIconFromAppInfo(appInfo)
-                                    if (!cacheMap.containsKey(packageInfo.packageName)) {
-                                        cacheMap[packageInfo.packageName] = PackageCache(packageInfo, label, icon, userProfile.hashCode())
-                                    }
+                            packageInfo.applicationInfo?.let { appInfo ->
+                                val label = pm.getApplicationLabel(appInfo).toString()
+                                val icon = loadAppIconFromAppInfo(appInfo)
+                                if (cacheMap.containsKey(packageName)) {
+                                    cacheMap[packageName]?.userIds?.add(userProfile.hashCode())
+                                } else {
+                                    cacheMap[packageName] = PackageCache(
+                                        packageInfo,
+                                        label,
+                                        icon,
+                                        HashSet<Int>().apply { add(userProfile.hashCode()) }
+                                    )
                                 }
                             }
                         }
@@ -177,8 +172,8 @@ object PackageHelper {
             android.R.drawable.sym_def_app_icon.asDrawable(hmaApp)
     }
 
-    fun loadUserId(packageName: String): Int = runBlocking {
-        getCacheNoThrow()[packageName]?.userId ?: 0
+    fun loadUserIds(packageName: String): Set<Int> = runBlocking {
+        getCacheNoThrow()[packageName]?.userIds ?: setOf()
     }
 
     fun isSystem(packageName: String): Boolean = runBlocking {
@@ -195,21 +190,15 @@ object PackageHelper {
             }
         } else {
             try {
-                hmaApp.appIconLoader.loadIcon(appInfo).toDrawable(hmaApp.resources)
-            } catch (e: Throwable) {
-                ServiceClient.log(Log.ERROR, TAG, e.stackTraceToString())
+                appInfo.loadIcon(hmaApp.packageManager)
+            } catch (x: Throwable) {
+                ServiceClient.log(Log.ERROR, TAG, x.stackTraceToString())
 
-                try {
-                    appInfo.loadIcon(hmaApp.packageManager)
-                } catch (x: Throwable) {
-                    ServiceClient.log(Log.ERROR, TAG, x.stackTraceToString())
-
-                    return ResourcesCompat.getDrawable(
-                        hmaApp.resources,
-                        android.R.drawable.sym_def_app_icon,
-                        hmaApp.theme,
-                    )!!
-                }
+                return ResourcesCompat.getDrawable(
+                    hmaApp.resources,
+                    android.R.drawable.sym_def_app_icon,
+                    hmaApp.theme,
+                )!!
             }
         }
     }
@@ -221,15 +210,4 @@ object PackageHelper {
             return pkgInfo.activities?.firstOrNull { it.targetActivity != null }?.asComponentName()
         }
     }
-
-    fun getInstalledPackagesAsUser(pm: PackageManager, userId: Int): List<PackageInfo> {
-        return if (userId == currentUserID) {
-            pm.getInstalledPackages(0)
-        } else {
-            val packages = ServiceClient.getPackageNames(userId) ?: arrayOf<String>()
-            packages.mapNotNull { ServiceClient.getPackageInfo(it, userId) }
-        }
-    }
-
-    val currentUserID by lazy { Binder.getCallingUid() / 100000 }
 }

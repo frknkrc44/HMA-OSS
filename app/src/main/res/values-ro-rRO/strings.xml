@@ -185,8 +185,6 @@
     <string name="settings_clear_uninstalled_app_configs">Curăță configurările aplicației dezinstalate</string>
     <string name="settings_clear_uninstalled_app_configs_summary">Această opțiune că permite să creați o cofigurație fără resturi, dar va trebui să reconfigurați aplicațiile mereu cand le reinstalați.</string>
     <string name="settings_no_undone_warning">Această acțiune nu poate fi anulată.</string>
-    <string name="settings_package_query_workaround">Interogare alternativă packet</string>
-    <string name="settings_package_query_workaround_summary">Nu activați această opțiune dacă lista de aplicații este afișată in mod corect in această aplicație.</string>
     <string name="settings_launcher_icon">Pictogramă lansator</string>
     <string name="settings_error_only_log">Jurnal \'doar-erori\'.</string>
     <string name="settings_disable_hooks">Dezactivează funcții</string>

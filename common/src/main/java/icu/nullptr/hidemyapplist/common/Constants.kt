@@ -30,6 +30,7 @@ object Constants {
     const val MANAGER_WORK_MODE_OK = 1
     const val MANAGER_WORK_MODE_NO_HOOKS = 2
     const val MANAGER_WORK_MODE_LOADING = 3
+    const val MANAGER_WORK_MODE_CRASHED = 4
 
     const val PARCEL_TYPE_LOG = 0
     const val PARCEL_TYPE_CONFIG = 1
@@ -79,6 +80,11 @@ object Constants {
      */
     const val SHARED_USER_GID: Int = 9997
 
+    /**
+     * Defines the app zygote UID/GID
+     */
+    const val APP_ZYGOTE_GID: Int = 3009
+
     val GID_PAIRS = mapOf(
         "SDCARD_RW_GID" to SDCARD_RW_GID,
         "MEDIA_RW_GID" to MEDIA_RW_GID,
@@ -88,6 +94,7 @@ object Constants {
         "EXT_OBB_RW_GID" to EXT_OBB_RW_GID,
         "INET_GID" to INET_GID,
         "SHARED_USER_GID" to SHARED_USER_GID,
+        "APP_ZYGOTE_GID" to APP_ZYGOTE_GID,
     )
 
     val packagesShouldNotHide = setOf(

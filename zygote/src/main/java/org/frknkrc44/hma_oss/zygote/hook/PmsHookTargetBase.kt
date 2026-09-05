@@ -1,9 +1,9 @@
 package org.frknkrc44.hma_oss.zygote.hook
 
+import android.content.pm.IPackageManager
 import android.content.pm.PackageManager
 import android.os.Binder
 import android.os.Build
-import android.util.ArrayMap
 import icu.nullptr.hidemyapplist.common.CollectionUtils.firstOrNullWithType
 import icu.nullptr.hidemyapplist.common.CollectionUtils.lastWithType
 import icu.nullptr.hidemyapplist.common.Constants
@@ -11,9 +11,6 @@ import icu.nullptr.hidemyapplist.common.Constants.VENDING_PACKAGE_NAME
 import icu.nullptr.hidemyapplist.common.OSUtils
 import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
 import icu.nullptr.hidemyapplist.common.Utils.getUserFromCallingUid
-import org.frknkrc44.hma_oss.zygote.service.BulkHooker
-import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
-import org.frknkrc44.hma_oss.zygote.service.HMAServiceCache
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
@@ -32,7 +29,6 @@ abstract class PmsHookTargetBase : IFrameworkHook {
     protected var lastFilteredApp: AtomicReference<String?> = AtomicReference(null)
 
     protected val psPackageInfo by lazy {
-        val pms = service?.pms ?: return@lazy null
         try {
             pms.getPackageInfoCompat(
                 VENDING_PACKAGE_NAME,
@@ -48,43 +44,8 @@ abstract class PmsHookTargetBase : IFrameworkHook {
     abstract val fakeUserPackageInstallSourceInfo: Any?
 
     override fun load() {
-        BulkHooker.instance.apply {
+        hooker.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                hookAfter(
-                    COMPUTER_ENGINE_CLASS,
-                    "getPackageStates",
-                ) { _, _, returnValue ->
-                    val callingUid = Binder.getCallingUid()
-                    if (callingUid == Constants.UID_SYSTEM) return@hookAfter
-
-                    val callingUserId = getUserFromCallingUid(callingUid)
-
-                    val callingApps = getCallingApps(callingUid)
-                    val caller = callingApps.firstOrNull { service?.isHookEnabled(it) ?: false }
-                    if (caller != null) {
-                        logD(TAG) { "@getPackageStates: incoming query from $caller" }
-
-                        val result = returnValue.result as ArrayMap<*, *>
-                        val markedToRemove = mutableListOf<Any>()
-
-                        for (pair in result.entries) {
-                            val packageSettings = pair.value
-                            val packageName = getPackageNameFromPackageSettings(packageSettings)
-                            if (service?.shouldHide(caller, packageName, callingUserId) ?: false) {
-                                markedToRemove.add(pair.key)
-                            }
-                        }
-
-                        if (markedToRemove.isNotEmpty()) {
-                            val copyResult = ArrayMap(result)
-                            copyResult.removeAll(markedToRemove)
-                            logD(TAG) { "@getPackageStates: removed ${markedToRemove.size} entries from $caller" }
-                            returnValue.result = copyResult
-                            service?.increasePMFilterCount(caller)
-                        }
-                    }
-                }
-
                 // Samsung related fix
                 if (OSUtils.isSamsung()) {
                     hookBefore(
@@ -188,7 +149,7 @@ abstract class PmsHookTargetBase : IFrameworkHook {
                 }
             } else {
                 hookBefore(
-                    service!!.pms.javaClass.name,
+                    service.pms.javaClass.name,
                     "getInstallerPackageName",
                 ) { methodName, frame, returnValue ->
                     applyInstallerHiding(
@@ -204,9 +165,9 @@ abstract class PmsHookTargetBase : IFrameworkHook {
                 }
             }
 
-            if (service?.pmn != null) {
+            if (service.pmn != null) {
                 hookBefore(
-                    service!!.pmn!!.javaClass.name,
+                    service.pmn!!.javaClass.name,
                     "getInstallerForPackage",
                 ) { methodName, frame, returnValue ->
                     applyInstallerHiding(
@@ -224,7 +185,7 @@ abstract class PmsHookTargetBase : IFrameworkHook {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 hookBefore(
-                    service!!.pms.javaClass.name,
+                    service.pms.javaClass.name,
                     "getInstallSourceInfo",
                 ) { methodName, frame, returnValue ->
                     applyInstallerHiding(
@@ -246,29 +207,29 @@ abstract class PmsHookTargetBase : IFrameworkHook {
         methodName: String,
         findCallingUid: () -> Int?,
         findTargetApp: () -> String?,
-        findCallingApps: (Int) -> Array<String>?,
+        findCallingApps: (IPackageManager, Int) -> Array<String>?,
         applyReturnValue: () -> Unit,
     ) {
         val callingUid = findCallingUid()
         if (callingUid == null || callingUid == Constants.UID_SYSTEM) return
         val targetApp = findTargetApp() ?: return
         logV(TAG) { "@$methodName incoming query: $callingUid => $targetApp" }
-        if (HMAServiceCache.instance.shouldHideFromUid(callingUid, targetApp) == true) {
+        if (dataHolder.shouldHideFromUid(callingUid, targetApp) == true) {
             applyReturnValue()
-            service?.increasePMFilterCount(callingUid)
+            service.increasePMFilterCount(callingUid)
             logD(TAG) { "@$methodName caller cache: $callingUid, target: $targetApp" }
             return
         }
         val callingUserId = getUserFromCallingUid(callingUid)
-        val callingApps = findCallingApps(callingUid)
-        val caller = callingApps?.firstOrNull { service?.shouldHide(it, targetApp, callingUserId) ?: false }
+        val callingApps = findCallingApps(pms, callingUid)
+        val caller = callingApps?.firstOrNull { service.shouldHide(it, targetApp, callingUserId) }
         if (caller != null) {
             logD(TAG) { "@$methodName caller: $callingUid $caller, target: $targetApp" }
             applyReturnValue()
             val last = lastFilteredApp.getAndSet(caller)
             if (last != caller) logI(TAG) { "@$methodName: query from $caller" }
-            HMAServiceCache.instance.putShouldHideUidCache(callingUid, caller, targetApp)
-            service?.increasePMFilterCount(caller)
+            dataHolder.putShouldHideUidCache(callingUid, caller, targetApp)
+            service.increasePMFilterCount(caller)
         }
     }
 
@@ -281,21 +242,20 @@ abstract class PmsHookTargetBase : IFrameworkHook {
         val callingUid = findCallingUid() ?: return
         if (callingUid == Constants.UID_SYSTEM) return
 
-        val callingApps = getCallingApps(callingUid)
+        val callingApps = getCallingApps(pms, callingUid)
         val callingUser = getUserFromCallingUid(callingUid)
 
         val query = findTargetApp() ?: return
 
         for (caller in callingApps) {
-            val isHide = service?.shouldHideInstallationSource(caller, query, callingUser)
-                ?: Constants.FAKE_INSTALLATION_SOURCE_DISABLED
+            val isHide = service.shouldHideInstallationSource(caller, query, callingUser)
             if (isHide == Constants.FAKE_INSTALLATION_SOURCE_DISABLED) continue
 
             logD(TAG) { "@$methodName: Applied installer hiding for $caller - $callingUid => $isHide" }
 
             applyReturnValue(isHide)
 
-            service?.increaseInstallerFilterCount(caller)
+            service.increaseInstallerFilterCount(caller)
             break
         }
     }

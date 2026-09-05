@@ -2,18 +2,14 @@ package icu.nullptr.hidemyapplist.ui.util
 
 import android.content.ContentResolver
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
-import android.os.SystemClock.elapsedRealtime
-import android.view.Gravity
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
 import android.view.WindowInsets
-import android.widget.Chronometer
+import androidx.activity.addCallback
 import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import androidx.annotation.MenuRes
@@ -23,7 +19,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.ui.activity.MainActivity
 
@@ -55,39 +50,7 @@ fun Fragment.setupToolbar(
     navigationOnClick: View.OnClickListener? = null,
     @MenuRes menuRes: Int? = null,
     onMenuOptionSelected: ((MenuItem) -> Unit)? = null,
-    isHomeToolbar: Boolean = false,
 ) {
-    if (isHomeToolbar) {
-        toolbar.setOnLongClickListener {
-            val dialog = MaterialAlertDialogBuilder(toolbar.context)
-                .setTitle(R.string.app_name)
-                .create()
-
-            dialog.setView(Chronometer(toolbar.context).apply {
-                layoutParams = ViewGroup.LayoutParams(-1, -2)
-                base = elapsedRealtime() + 3000
-                textSize = dp2Px(toolbar.resources, 24)
-                gravity = Gravity.CENTER
-                typeface = Typeface.SERIF
-                onChronometerTickListener = {
-                    if (elapsedRealtime() >= base) {
-                        stop()
-                        dialog.dismiss()
-
-                        // is it really final countdown?
-                        isTheFinalCountDown
-                    }
-                }
-                isCountDown = true
-                start()
-            })
-
-            dialog.show()
-
-            true
-        }
-    }
-
     navigationOnClick?.let { toolbar.setNavigationOnClickListener(it) }
     navigationIcon?.let { toolbar.setNavigationIcon(navigationIcon) }
     toolbar.title = title
@@ -134,6 +97,7 @@ fun FragmentTransaction.withAnimations() = setCustomAnimations(
         R.anim.activity_close_exit,
     )
 
+@Suppress("DEPRECATION")
 fun setEdge2EdgeFlags(
     root: View,
     left: Int? = null,
@@ -142,7 +106,6 @@ fun setEdge2EdgeFlags(
     bottom: Int? = null,
     getInsets: ((left: Int, top: Int, right: Int, bottom: Int) -> Unit)? = null,
 ) {
-    @Suppress("deprecation")
     root.setOnApplyWindowInsetsListener { v, insets ->
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val barInsets = insets.getInsets(WindowInsets.Type.systemBars())
@@ -178,3 +141,6 @@ fun setEdge2EdgeFlags(
         insets
     }
 }
+
+fun Fragment.registerOnBackCallback(back: () -> Unit) =
+    requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) { back() }

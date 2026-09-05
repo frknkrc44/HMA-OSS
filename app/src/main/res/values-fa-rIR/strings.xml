@@ -185,8 +185,6 @@
     <string name="settings_clear_uninstalled_app_configs">پاکسازی پیکربندی برنامه های حذف شده</string>
     <string name="settings_clear_uninstalled_app_configs_summary">این گزینه به شما امکان می‌دهد پیکربندی را بدون ردپا ایجاد کنید، اما هنگام نصب مجدد برنامه‌ها، باید آنها را دوباره پیکربندی کنید.</string>
     <string name="settings_no_undone_warning">این اقدام قابل لغو نیست.</string>
-    <string name="settings_package_query_workaround">روش جایگزین جستجوی برنامه</string>
-    <string name="settings_package_query_workaround_summary">اگر لیست بسته‌ها را در این برنامه به درستی می‌بینید این گزینه را فعال نکنید.</string>
     <string name="settings_launcher_icon">آیکون راه انداز</string>
     <string name="settings_error_only_log">گزارش گیری خطاها</string>
     <string name="settings_disable_hooks">غیرفعال سازی عملکرد ها</string>

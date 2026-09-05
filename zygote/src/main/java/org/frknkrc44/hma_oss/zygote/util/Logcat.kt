@@ -3,7 +3,7 @@ package org.frknkrc44.hma_oss.zygote.util
 import android.os.SystemProperties
 import android.util.Log
 import org.frknkrc44.hma_oss.common.BuildConfig
-import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
+import org.frknkrc44.hma_oss.zygote.service.UserService.service
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -27,7 +27,7 @@ object Logcat {
     fun logE(tag: String, cause: Throwable? = null, msg: () -> String) = logWithLevel(Log.ERROR, tag, cause, msg)
 
     @JvmStatic
-    fun logILegacy(tag: String, msg: String, cause: Throwable?) = logI(tag, cause) { msg }
+    fun logILegacy(tag: String, msg: String) = logI(tag) { msg }
 
     @JvmStatic
     fun logELegacy(tag: String, msg: String, cause: Throwable?) = logE(tag, cause) { msg }

@@ -1,11 +1,11 @@
 package org.frknkrc44.hma_oss.ui.fragment
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.clearFragmentResultListener
@@ -21,6 +21,7 @@ import androidx.preference.SwitchPreferenceCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.common.AppPresets
+import icu.nullptr.hidemyapplist.common.CollectionUtils.sync
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.common.SettingsPresets
@@ -32,6 +33,7 @@ import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.asDrawable
 import icu.nullptr.hidemyapplist.ui.util.enabledString
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.navigate
+import icu.nullptr.hidemyapplist.ui.util.registerOnBackCallback
 import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import icu.nullptr.hidemyapplist.ui.util.showToast
@@ -130,7 +132,7 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) { onBack() }
+        registerOnBackCallback { onBack() }
 
         setupToolbar(
             toolbar = binding.toolbar,
@@ -204,30 +206,13 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
     }
 
     class AppPreferenceFragment : BaseAppSettingsPreferenceFragment() {
-        private fun startMainActivity(packageName: String, userId: Int) {
-            if (userId != PackageHelper.currentUserID) {
-                try {
-                    ServiceClient.startMainActivityAsUser(packageName, userId)
-                } catch (e: Throwable) {
-                    showToast(R.string.app_launch_failed)
-                    ServiceClient.log(Log.ERROR, TAG, e.stackTraceToString())
-                }
-                return
-            }
+        private fun startMainActivity(userId: Int, forceStop: Boolean) {
+            val packageName = pack.app
+
+            if (forceStop) ServiceClient.forceStop(packageName, userId)
 
             try {
-                val pkgMgr = requireContext().packageManager
-                val pkgInfo = pkgMgr.getPackageInfo(packageName, 0)
-                if (pkgInfo.applicationInfo?.enabled == true) {
-                    val resolvedIntent = pkgMgr.getLaunchIntentForPackage(packageName)
-                    if (resolvedIntent != null) {
-                        startActivity(resolvedIntent)
-                    } else {
-                        throw RuntimeException("No main activity found to launch this app")
-                    }
-                } else {
-                    throw RuntimeException("Package is disabled")
-                }
+                ServiceClient.startMainActivityAsUser(packageName, userId)
             } catch (e: Throwable) {
                 showToast(R.string.app_launch_failed)
                 ServiceClient.log(Log.ERROR, TAG, e.stackTraceToString())
@@ -257,16 +242,19 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
                                 R.array.app_action_texts,
                             ) { _, which ->
                                 parent.saveConfig()
-                                val userId = PackageHelper.loadUserId(pack.app)
+                                val userIds = PackageHelper.loadUserIds(pack.app)
+                                val forceStop = which == 0
 
-                                when (which) {
-                                    0 -> {
-                                        ServiceClient.forceStop(pack.app, userId)
-                                        startMainActivity(pack.app, userId)
-                                    }
-                                    1 -> {
-                                        startMainActivity(pack.app, userId)
-                                    }
+                                if (userIds.size == 1) {
+                                    startMainActivity(userIds.first(), forceStop)
+                                } else if (userIds.size > 1) {
+                                    MaterialAlertDialogBuilder(pref.context).apply {
+                                        setItems(
+                                            userIds.map { id -> id.toString() }.toTypedArray(),
+                                        ) { _, userId ->
+                                            startMainActivity(userId, forceStop)
+                                        }
+                                    }.show()
                                 }
                             }
                         }.show()
@@ -314,7 +302,13 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
                         )
             }
             findPreference<Preference>("restrictZygotePermissions")?.setOnPreferenceClickListener {
-                val checked = Constants.GID_PAIRS.values.map {
+                val gidPairs = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.CINNAMON_BUN) {
+                    Constants.GID_PAIRS.filter { it.value != Constants.APP_ZYGOTE_GID }
+                } else {
+                    Constants.GID_PAIRS
+                }
+
+                val checked = gidPairs.values.map {
                     it in pack.config.restrictedZygotePermissions
                 }.toBooleanArray()
 
@@ -322,11 +316,11 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
                     .setTitle(R.string.app_restrict_zygote_permissions)
                     .setNegativeButton(android.R.string.cancel, null)
                     .setPositiveButton(android.R.string.ok) { _, _ ->
-                        pack.config.restrictedZygotePermissions = Constants.GID_PAIRS.values.mapIndexedNotNullTo(mutableSetOf()) { i, value ->
+                        pack.config.restrictedZygotePermissions = gidPairs.values.mapIndexedNotNullTo(mutableSetOf()) { i, value ->
                             if (checked[i]) value else null
                         }.toList()
                         showForceStopWarning()
-                    }.setMultiChoiceItems(Constants.GID_PAIRS.keys.toTypedArray(), checked) { _, i, value ->
+                    }.setMultiChoiceItems(gidPairs.keys.toTypedArray(), checked) { _, i, value ->
                         checked[i] = value
                     }.show()
 
@@ -408,8 +402,12 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
                     val useWhitelist = newValue == "1"
 
                     pack.config.applyTemplates.clear()
-                    pack.config.extraAppList.clear()
-                    pack.config.extraOppositeAppList.clear()
+
+                    // swap extra app lists when the work mode was changed
+                    val extraAppList = pack.config.extraAppList.toList()
+                    pack.config.extraAppList.sync(pack.config.extraOppositeAppList)
+                    pack.config.extraOppositeAppList.sync(extraAppList)
+
                     updateApplyTemplates()
                     updateExtraAppList(useWhitelist)
                     updateExtraOppositeAppList(useWhitelist)

@@ -185,8 +185,6 @@
     <string name="settings_clear_uninstalled_app_configs">제거된 앱 설정 정리</string>
     <string name="settings_clear_uninstalled_app_configs_summary">이 옵션을 사용하면 찌꺼기 없이 설정을 생성할 수 있지만, 앱을 다시 설치할 경우 재구성해야 합니다.</string>
     <string name="settings_no_undone_warning">이 작업은 되돌릴 수 없습니다.</string>
-    <string name="settings_package_query_workaround">대체 패키지 쿼리 방식</string>
-    <string name="settings_package_query_workaround_summary">이 앱에서 패키지 목록이 정상적으로 보인다면 이 옵션을 활성화하지 마세요.</string>
     <string name="settings_launcher_icon">런처 아이콘</string>
     <string name="settings_error_only_log">오류 로그만 기록</string>
     <string name="settings_disable_hooks">기능 비활성화</string>

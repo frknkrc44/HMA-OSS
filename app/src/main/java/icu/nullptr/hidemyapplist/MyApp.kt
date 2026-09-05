@@ -3,15 +3,12 @@ package icu.nullptr.hidemyapplist
 import android.app.Application
 import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
-import icu.nullptr.hidemyapplist.receiver.AppChangeReceiver
 import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.util.ConfigUtils.Companion.getLocale
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import me.zhanghai.android.appiconloader.AppIconLoader
-import org.frknkrc44.hma_oss.R
 
 class MyApp : Application() {
     companion object {
@@ -19,10 +16,6 @@ class MyApp : Application() {
     }
 
     val globalScope = CoroutineScope(Dispatchers.Default)
-    val appIconLoader by lazy {
-        val iconSize = resources.getDimensionPixelSize(R.dimen.app_icon_size)
-        AppIconLoader(iconSize, false, this)
-    }
     var updateDialogSkipped: Boolean = false
 
     @Suppress("DEPRECATION")
@@ -40,7 +33,6 @@ class MyApp : Application() {
     override fun onCreate() {
         super.onCreate()
         hmaApp = this
-        AppChangeReceiver.register(this)
 
         val handler = Thread.getDefaultUncaughtExceptionHandler()
         Thread.setDefaultUncaughtExceptionHandler { t, e ->

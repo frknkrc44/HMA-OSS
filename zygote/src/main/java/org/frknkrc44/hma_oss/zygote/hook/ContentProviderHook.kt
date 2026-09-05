@@ -9,8 +9,6 @@ import android.os.Bundle
 import android.provider.Settings
 import com.v7878.unsafe.invoke.EmulatedStackFrame
 import icu.nullptr.hidemyapplist.common.CollectionUtils.firstWithType
-import org.frknkrc44.hma_oss.zygote.service.BulkHooker
-import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
@@ -25,14 +23,14 @@ class ContentProviderHook : IFrameworkHook {
 
     @Suppress("UNCHECKED_CAST")
     override fun load() {
-        BulkHooker.instance.apply {
+        hooker.apply {
             hookAfter(
                 CONTENT_PROVIDER_TRANSPORT_CLASS,
                 "query",
             ) { _, frame, returnValue ->
                 val callingApps = getCallingPackages(frame)
 
-                val caller = callingApps.firstOrNull { service?.isAnySettingsReplacementsEnabled(it) ?: false }
+                val caller = callingApps.firstOrNull { service.isAnySettingsReplacementsEnabled(it) }
                 if (caller == null) return@hookAfter
 
                 val uriIdx = frame.args.indexOfFirst { it is Uri }
@@ -57,14 +55,14 @@ class ContentProviderHook : IFrameworkHook {
 
                     logD(TAG) { "@spoofSettings QUERY received caller: $caller, database: $database, name: $name" }
 
-                    val replacement = service?.getSpoofedSetting(caller, name, database)
+                    val replacement = service.getSpoofedSetting(caller, name, database)
                     if (replacement != null) {
                         logD(TAG) { "@spoofSettings QUERY $name in $database replaced for $caller" }
                         returnValue.result = MatrixCursor(arrayOf("name", "value"), 1).apply {
                             addRow(arrayOf(replacement.name, replacement.value))
                         }
 
-                        service?.increaseSettingsFilterCount(caller)
+                        service.increaseSettingsFilterCount(caller)
                     }
                 } else {
                     logD(TAG) { "@spoofSettings LIST_QUERY received caller: $caller, database: $database" }
@@ -93,7 +91,7 @@ class ContentProviderHook : IFrameworkHook {
                         val name = result.getString(columns.keys.indexOf("name"))
                         keyColumn.add(name)
 
-                        val replacement = service?.getSpoofedSetting(caller, name, database)
+                        val replacement = service.getSpoofedSetting(caller, name, database)
                         val value = if (replacement != null) {
                             logD(TAG) { "@spoofSettings QUERY $name in $database replaced for $caller" }
 
@@ -115,7 +113,7 @@ class ContentProviderHook : IFrameworkHook {
                         }
                     }
 
-                    service?.increaseSettingsFilterCount(caller, filteredEntryCount)
+                    service.increaseSettingsFilterCount(caller, filteredEntryCount)
 
                     returnValue.result = MatrixCursor(columns.keys.toTypedArray(), columns.size).apply {
                         val size = columns.values.first().size
@@ -137,7 +135,7 @@ class ContentProviderHook : IFrameworkHook {
                 "call",
             ) { _, frame, returnValue ->
                 val callingApps = getCallingPackages(frame)
-                val caller = callingApps.firstOrNull { service?.isAnySettingsReplacementsEnabled(it) ?: false }
+                val caller = callingApps.firstOrNull { service.isAnySettingsReplacementsEnabled(it) }
                 if (caller == null) return@hookBefore
 
                 val nameIdx = frame.args.indexOfLast { it is String }
@@ -149,7 +147,7 @@ class ContentProviderHook : IFrameworkHook {
                 when (method) {
                     "GET_global", "GET_secure", "GET_system" -> {
                         val database = method.substring(method.indexOf('_') + 1)
-                        val replacement = service?.getSpoofedSetting(caller, name, database)
+                        val replacement = service.getSpoofedSetting(caller, name, database)
                         if (replacement != null) {
                             logD(TAG) { "@spoofSettings CALL $name in $database replaced for $caller" }
                             returnValue.result = Bundle().apply {
@@ -157,7 +155,7 @@ class ContentProviderHook : IFrameworkHook {
                                 putInt("_generation_index", -1)
                             }
 
-                            service?.increaseSettingsFilterCount(caller)
+                            service.increaseSettingsFilterCount(caller)
                         }
                     }
                 }
@@ -173,6 +171,6 @@ class ContentProviderHook : IFrameworkHook {
             arrayOf(frame.args.firstWithType<String>())
         }
     } catch (_: Throwable) {
-        ServiceUtils.getCallingApps()
+        ServiceUtils.getCallingApps(pms)
     }
 }

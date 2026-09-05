@@ -1,26 +1,28 @@
 package org.frknkrc44.hma_oss.zygote.hook
 
 import android.content.ComponentName
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Binder
 import android.os.Build
 import android.provider.Settings
 import android.view.inputmethod.InputMethodInfo
+import android.view.inputmethod.InputMethodManager
 import android.view.inputmethod.InputMethodSubtype
 import com.v7878.unsafe.invoke.EmulatedStackFrame
 import icu.nullptr.hidemyapplist.common.Constants
-import icu.nullptr.hidemyapplist.common.Utils
+import icu.nullptr.hidemyapplist.common.Utils.binderLocalScope
+import icu.nullptr.hidemyapplist.common.Utils.getCallingUser
 import icu.nullptr.hidemyapplist.common.Utils.getPackageUidCompat
 import icu.nullptr.hidemyapplist.common.Utils.getUserFromCallingUid
 import icu.nullptr.hidemyapplist.common.settings_presets.InputMethodPreset
-import org.frknkrc44.hma_oss.zygote.service.BulkHooker
-import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
 import org.frknkrc44.hma_oss.zygote.service.ReturnValue
+import org.frknkrc44.hma_oss.zygote.util.ContextUtils.application
+import org.frknkrc44.hma_oss.zygote.util.ContextUtils.packageManager
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logW
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
-import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.packageManager
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.callStaticMethod
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
@@ -32,10 +34,9 @@ import java.util.Collections
 class ImmHook : IFrameworkHook {
     override val TAG = "ImmHook"
 
-    // TODO: Find a method to get settings activity
-    fun getFakeInputMethodInfo(packageName: String): InputMethodInfo {
-        val defaultInputMethod = service?.getSpoofedSetting(
-            packageName,
+    fun getFakeInputMethodInfo(caller: String): InputMethodInfo {
+        val defaultInputMethod = service.getSpoofedSetting(
+            caller,
             Settings.Secure.DEFAULT_INPUT_METHOD,
             Constants.SETTINGS_SECURE,
         )
@@ -45,19 +46,27 @@ class ImmHook : IFrameworkHook {
                 val component = ComponentName.unflattenFromString(defaultInputMethod.value!!)!!
                 logD(TAG) { "Package component: \"$component\"" }
 
-                val kbdPackage = Utils.binderLocalScope {
-                    packageManager.getApplicationInfo(component.packageName, 0)
-                }
+                val kbdPackage = resolveIMInfo(component.packageName)
+                return if (kbdPackage != null) {
+                    kbdPackage
+                } else {
+                    val appInfo = packageManager.getApplicationInfo(component.packageName, 0)
 
-                return InputMethodInfo(
-                    component.packageName,
-                    component.className,
-                    kbdPackage.loadLabel(packageManager),
-                    null,
-                )
+                    InputMethodInfo(
+                        component.packageName,
+                        component.className,
+                        appInfo.loadLabel(packageManager),
+                        null,
+                    )
+                }
             } catch (e: Throwable) {
                 logV(TAG, e) { e.message ?: "" }
             }
+        }
+
+        val kbdPackage = resolveIMInfo("com.google.android.inputmethod.latin")
+        if (kbdPackage != null) {
+            return kbdPackage
         }
 
         return InputMethodInfo(
@@ -72,7 +81,7 @@ class ImmHook : IFrameworkHook {
     override fun load() {
         // OEMs (especially Samsung and Xiaomi) messes up whole framework code,
         // so nothing left except messing up this code
-        BulkHooker.instance.apply {
+        hooker.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
                 findAltMethod(
                     listOf(IMM_SERVICE_CLASS, IMM_IMPL_CLASS),
@@ -82,7 +91,7 @@ class ImmHook : IFrameworkHook {
                         method.declaringClass.name,
                         method.name,
                     ) { methodName, frame, returnValue ->
-                        val callingApps = getCallingApps()
+                        val callingApps = getCallingApps(pms)
 
                         val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
                         if (caller != null) {
@@ -95,7 +104,7 @@ class ImmHook : IFrameworkHook {
                             }
 
                             returnValue.result = fakeIMInfo
-                            service?.increaseSettingsFilterCount(caller)
+                            service.increaseSettingsFilterCount(caller)
                         }
                     }
                 }
@@ -151,7 +160,7 @@ class ImmHook : IFrameworkHook {
                     method.declaringClass.name,
                     method.name,
                 ) { methodName, frame, returnValue ->
-                    val callingApps = getCallingApps()
+                    val callingApps = getCallingApps(pms)
 
                     val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
                     if (caller != null) {
@@ -172,7 +181,7 @@ class ImmHook : IFrameworkHook {
                             } else { list }
                         }
 
-                        service?.increaseSettingsFilterCount(caller)
+                        service.increaseSettingsFilterCount(caller)
                     }
                 }
             }
@@ -216,7 +225,7 @@ class ImmHook : IFrameworkHook {
     }
 
     private fun subtypeHook(methodName: String, returnValue: ReturnValue) {
-        val callingApps = getCallingApps()
+        val callingApps = getCallingApps(pms)
 
         val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
         if (caller != null) {
@@ -224,12 +233,12 @@ class ImmHook : IFrameworkHook {
 
             // TODO: Find a method to get exact value for spoofed input method
             returnValue.result = null
-            service?.increaseSettingsFilterCount(caller)
+            service.increaseSettingsFilterCount(caller)
         }
     }
 
     private fun subtypeListHook(methodName: String, frame: EmulatedStackFrame, returnValue: ReturnValue) {
-        val callingApps = getCallingApps()
+        val callingApps = getCallingApps(pms)
 
         val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
         if (caller != null) {
@@ -246,14 +255,14 @@ class ImmHook : IFrameworkHook {
                 } else { list }
             }
 
-            service?.increaseSettingsFilterCount(caller)
+            service.increaseSettingsFilterCount(caller)
         }
     }
 
-    fun calculateReturnedInputMethodList(callingUid: Int, inList: List<InputMethodInfo>): List<InputMethodInfo> {
+    private fun calculateReturnedInputMethodList(callingUid: Int, inList: List<InputMethodInfo>): List<InputMethodInfo> {
         logV(TAG) { "@getInputMethodList*calculator: $callingUid - Current: ${inList.map { it.component }}" }
 
-        val caller = getCallingApps(callingUid)
+        val caller = getCallingApps(pms, callingUid)
             .firstOrNull { callerIsSpoofed(it) } ?: return inList
 
         logD(TAG) { "@getInputMethodList: spoofed input method for $caller" }
@@ -261,7 +270,7 @@ class ImmHook : IFrameworkHook {
         val callingUserId = getUserFromCallingUid(callingUid)
 
         val calculatedList = inList.filter { imInfo ->
-            service?.shouldHide(caller, imInfo.packageName, callingUserId) ?: false
+            service.shouldHide(caller, imInfo.packageName, callingUserId)
         }
 
         logV(TAG) { "@getInputMethodList*calculator: $callingUid - Calculated: ${calculatedList.map { it.component }}" }
@@ -284,12 +293,11 @@ class ImmHook : IFrameworkHook {
         return calculatedList
     }
 
-    private fun isIMExists(packageName: String, inUserId: Int? = null): Boolean {
-        if (packageName in service!!.systemApps) return true
+    private fun isIMExists(packageName: String, userId: Int = getCallingUser()): Boolean {
+        if (packageName in systemApps) return true
 
-        val userId = inUserId ?: Binder.getCallingUserHandle().hashCode()
-        return Utils.binderLocalScope {
-            service!!.pms.getPackageUidCompat(packageName, PackageManager.MATCH_ALL.toLong(), userId) >= 0
+        return binderLocalScope {
+            pms.getPackageUidCompat(packageName, PackageManager.MATCH_ALL.toLong(), userId) >= 0
         }
     }
 
@@ -297,6 +305,12 @@ class ImmHook : IFrameworkHook {
         logW(TAG) { "@$methodName: PROBABLY spoofing for a not installed keyboard, please install $packageName or spoof for another keyboard by using settings templates to reduce detections. Do not care this message if you are sure the keyboard is installed correctly." }
     }
 
+    private fun resolveIMInfo(packageName: String): InputMethodInfo? = binderLocalScope {
+        val imManager = application.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+
+        imManager?.inputMethodList?.firstOrNull { it.packageName == packageName }
+    }
+
     private fun callerIsSpoofed(caller: String) =
-        service?.getEnabledSettingsPresets(caller)?.contains(InputMethodPreset.NAME) ?: false
+        service.getEnabledSettingsPresets(caller).contains(InputMethodPreset.NAME)
 }

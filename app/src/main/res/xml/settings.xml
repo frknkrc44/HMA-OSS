@@ -85,12 +85,6 @@
             android:title="@string/settings_bypass_risky_package_warning"
             android:summary="@string/settings_bypass_risky_package_warning_summary" />
         <SwitchPreferenceCompat
-            android:icon="@drawable/baseline_apps_24"
-            android:key="packageQueryWorkaround"
-            app:singleLineTitle="false"
-            android:title="@string/settings_package_query_workaround"
-            android:summary="@string/settings_package_query_workaround_summary" />
-        <SwitchPreferenceCompat
             android:icon="@drawable/outline_android_24"
             android:key="disableActivityLaunchProtection"
             app:singleLineTitle="false"

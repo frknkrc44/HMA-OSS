@@ -2,7 +2,6 @@ package org.frknkrc44.hma_oss.ui.fragment
 
 import android.os.Bundle
 import android.view.View
-import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.navArgs
@@ -14,6 +13,7 @@ import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.util.get
 import icu.nullptr.hidemyapplist.ui.util.navController
+import icu.nullptr.hidemyapplist.ui.util.registerOnBackCallback
 import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -64,7 +64,7 @@ class EditSettingFragment : Fragment(R.layout.fragment_edit_setting) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) { onBack() }
+        registerOnBackCallback { onBack() }
 
         setupToolbar(
             toolbar = binding.toolbar,

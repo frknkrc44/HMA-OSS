@@ -110,12 +110,11 @@ object Utils {
         }
     }
 
+    fun getCallingUser() = getUserFromCallingUid(Binder.getCallingUid())
+
     fun getUserFromCallingUid(uid: Int) = uid / 100000
 
-    fun IPackageManager.isAppInstalled(packageName: String, userId: Int = 0) =
-        getPackageUidCompat(packageName, 0, userId) >= 0
-
-    fun PackageManager.isAppInstalled(packageName: String) = try {
+    fun PackageManager.isPackageAvailable(packageName: String) = try {
         getPackageUid(packageName, 0) >= 0
     } catch (_: Throwable) {
         false
@@ -124,7 +123,17 @@ object Utils {
     fun ApplicationInfo.isSystemApp() = flags and ApplicationInfo.FLAG_SYSTEM != 0 ||
             flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP != 0
 
-    val conflictedModules = arrayOf("com.tsng.hidemyapplist", "com.google.android.hmal")
+    val hmaModules = arrayOf(
+        "com.tsng.hidemyapplist",
+        "com.google.android.hmal",
+    )
+
+    val nonHmaModules = arrayOf(
+        "com.wowsoftware.hidemyandroid",
+        "com.strawing.duckusb",
+    )
+
+    val conflictedModules = hmaModules // + nonHmaModules
 
     val encoder = Json {
         encodeDefaults = true

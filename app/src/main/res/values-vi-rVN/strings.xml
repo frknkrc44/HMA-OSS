@@ -185,8 +185,6 @@
     <string name="settings_clear_uninstalled_app_configs">Xóa những thiết lập của những Ứ.D đã xóa</string>
     <string name="settings_clear_uninstalled_app_configs_summary">Tùy chọn này cho phép bạn tạo một cấu hình mà không để lại dư lượng, nhưng bạn sẽ phải cấu hình lại các ứng dụng khi bạn cài đặt chúng lần nữa.</string>
     <string name="settings_no_undone_warning">Thao tác không thể hoàn tác.</string>
-    <string name="settings_package_query_workaround">Sử dụng phương thức truy vấn ứng dụng khác</string>
-    <string name="settings_package_query_workaround_summary">Đừng bật tùy chọn này nếu bạn thấy danh sách ứng dụng hiển thị bình thường.</string>
     <string name="settings_launcher_icon">Biểu tượng ứng dụng</string>
     <string name="settings_error_only_log">Chỉ ghi lỗi vào nhật ký</string>
     <string name="settings_disable_hooks">Tắt các tính năng</string>

@@ -1,62 +1,96 @@
 package org.frknkrc44.hma_oss.zygote.util
 
 import android.os.Build
-import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
+import android.os.ServiceManager
+import android.provider.Settings
+import android.webkit.IWebViewUpdateService
+import com.android.server.pm.PackageManagerService
+import icu.nullptr.hidemyapplist.common.Utils.binderLocalScope
+import org.frknkrc44.hma_oss.zygote.util.ContextUtils.contentResolver
+import org.frknkrc44.hma_oss.zygote.util.ContextUtils.packageManager
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.callMethodWithTypes
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getObjectField
+import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.WEBVIEW_PROVIDER_KEY
+import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.WEBVIEW_UPDATE_SERVICE
 
 object BrowserUtils {
     const val TAG = "BrowserUtils"
 
-    fun getDefaultBrowser(userId: Int): String? {
+    @Volatile
+    private var useAltMethodForBrowserCheck = false
+
+    fun getDefaultBrowser(pmn: Any?, userId: Int): String? {
+        if (!useAltMethodForBrowserCheck) {
+            val pmnMethod = getDefaultBrowserPMN(pmn, userId)
+
+            return if (useAltMethodForBrowserCheck) {
+                getDefaultBrowserPM(userId)
+            } else {
+                pmnMethod
+            }
+        }
+
+        return getDefaultBrowserPM(userId)
+    }
+
+    fun getWebviewProvider(): String? = binderLocalScope {
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                webViewService.currentWebViewPackage?.packageName
+            } else {
+                webViewService.currentWebViewPackageName
+            }
+        } catch (_: Throwable) {
+            Settings.Global.getString(contentResolver, WEBVIEW_PROVIDER_KEY)
+        }
+    }
+
+    /**
+     * This method is mainly called on non-Samsung devices
+     */
+    private fun getDefaultBrowserPMN(pmn: Any?, userId: Int): String? {
         return try {
-            getDefaultBrowserPMN(userId)
+            val pms = getObjectField(
+                pmn ?: return null,
+                "mPm",
+            ) as? PackageManagerService ?: return null
+
+            when (Build.VERSION.SDK_INT) {
+                Build.VERSION_CODES.Q -> pms.getDefaultBrowserPackageName(userId)
+                Build.VERSION_CODES.R -> pms.getPermissionManagerServiceInternal().getDefaultBrowser(userId)
+                else -> pms.defaultAppProvider.getDefaultBrowser(userId)
+            }
         } catch (e: Throwable) {
-            logD(TAG, e) { "Getting default browser failed" }
+            logD(TAG, e) { "Getting default browser failed through PMN" }
+
+            useAltMethodForBrowserCheck = true
+
             null
         }
     }
 
-    private fun getDefaultBrowserPMN(userId: Int): String? {
-        val pms = getObjectField(
-            service?.pmn ?: return null,
-            "mPm",
-        ) ?: return null
-
-        return when (Build.VERSION.SDK_INT) {
-            Build.VERSION_CODES.Q -> callMethodWithTypes(
-                pms,
-                "getDefaultBrowserPackageName",
+    /**
+     * This method is mainly called on Samsung devices
+     */
+    private fun getDefaultBrowserPM(userId: Int): String? {
+        return try {
+            callMethodWithTypes(
+                packageManager,
+                "getDefaultBrowserPackageNameAsUser",
                 arrayOf(Int::class.javaPrimitiveType!!),
-                arrayOf(userId)
+                arrayOf(userId),
             ) as? String
-            Build.VERSION_CODES.R -> {
-                val permissionManager = getObjectField(
-                    pms,
-                    "mPermissionManager",
-                ) ?: return null
+        } catch (x: Throwable) {
+            logD(TAG, x) { "Getting default browser failed through PM" }
 
-                callMethodWithTypes(
-                    permissionManager,
-                    "getDefaultBrowser",
-                    arrayOf(Int::class.javaPrimitiveType!!),
-                    arrayOf(userId)
-                ) as? String
-            }
-            else -> {
-                val defaultAppProvider = getObjectField(
-                    pms,
-                    "mDefaultAppProvider",
-                ) ?: return null
-
-                callMethodWithTypes(
-                    defaultAppProvider,
-                    "getDefaultBrowser",
-                    arrayOf(Int::class.javaPrimitiveType!!),
-                    arrayOf(userId)
-                ) as? String
-            }
+            null
         }
+    }
+
+    private val webViewService by lazy {
+        IWebViewUpdateService.Stub.asInterface(
+            ServiceManager.getService(WEBVIEW_UPDATE_SERVICE)
+        )
     }
 }
