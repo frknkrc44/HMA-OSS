@@ -167,12 +167,12 @@
     <string name="settings_app_data_isolation">Isolation des données d\'application</string>
     <string name="settings_vold_app_data_isolation">Isolation des données d\'application vold</string>
     <string name="settings_warning">Avertissement</string>
-    <string name="settings_vold_warning">Cette option activera une fonctionnalité AOSP qui isole le répertoire de stockage privé externe de l\'application. Cela peut améliorer le masquage des applications, mais est susceptible de provoquer des problèmes de stabilité. Cette fonctionnalité peut cesser de fonctionner à tout moment, car elle a été abandonnée dans AOSP.</string>
+    <string name="settings_vold_warning">Cette option activera une fonctionnalité d\'AOSP qui isole le répertoire de stockage privé externe de l\'application. Cela peut améliorer le masquage des applications, mais est susceptible de provoquer des problèmes de stabilité. Cette fonctionnalité peut cesser de fonctionner à tout moment, car elle a été abandonnée dans AOSP.</string>
     <string name="settings_change_require_root">Modification nécessitant des privilèges root</string>
     <string name="settings_need_reboot">Modification nécessitant un redémarrage</string>
     <string name="settings_permission_denied">Permission refusée</string>
     <string name="settings_force_mount_data">Isolation des données pour toutes les applications</string>
-    <string name="settings_force_mount_data_summary">Isolation des données désactivée par défaut pour les applications dont la version d\'API est inférieure à 30</string>
+    <string name="settings_force_mount_data_summary">Isolation des données désactivée par défaut pour les applications dont l\'API est en version inférieure à 30</string>
     <string name="settings_detail_log">Journal détaillé pour débogage</string>
     <string name="settings_max_log_size">Taille du tampon d\'écriture des journaux</string>
     <string name="settings_hide_icon">Masquage de l\'icône du module dans le lanceur</string>
@@ -205,7 +205,7 @@
     <string name="settings_theme_color">Couleur du thème</string>
     <string name="settings_dark_theme">Thème sombre</string>
     <string name="settings_pure_black_dark_theme">Thème sombre noir profond</string>
-    <string name="settings_pure_black_dark_theme_summary">Utilise une couleur noir profond lorsque le thème sombre est activé</string>
+    <string name="settings_pure_black_dark_theme_summary">Utilise un noir profond lorsque le thème sombre est activé</string>
     <string name="settings_service">Maintenance</string>
     <string name="settings_reset_default">Rétablissement des valeurs par défaut</string>
     <string name="settings_reset_default_summary">Efface l\'intégralité de la configuration pour repartir à zéro</string>
@@ -221,17 +221,22 @@
     <!-- Bulk config wizard -->
     <string name="title_bulk_config_wizard">Assistant de configuration en masse</string>
     <!-- About -->
-    <string name="about_description">        Bien qu\'il soit incorrect de détecter l\'installation d\'une application spécifique, toutes les applications utilisant la racine ne prennent pas en charge les noms de paquets aléatoires. Dans ce cas, les applications détectées qui utilisent la racine (telles que Fake Location et Storage Isolation) sont égales à la racine détectée elle-même.\n\nDans le même temps, certaines applications intelligentes utilisent diverses failles pour acquérir votre liste d\'applications, afin de vous dessiner un personnage.\n\nCe module fournit quelques méthodes pour tester si vous avez déjà bien caché votre liste d\'applications. De plus, il peut fonctionner comme un module Xposed pour cacher certaines applications ou rejeter les demandes de liste d\'applications afin de protéger votre vie privée.
+    <string name="about_description">
+        Bien qu\'il soit incorrect de détecter l\'installation d\'applications spécifiques, toutes les applications utilisant des privilèges root ne savent pas masquer leur présence par un nom de package aléatoire. Ces applications (comme certaines applications de masquage de localisation ou d\'isolation de stockage) lorsqu\'elles sont détectées, révèlent le \"rootage\" de l\'appareil.\n\nDans le même temps, certaines applications intelligentes utilisent diverses failles pour récupérer la liste des applications installées.\n\nCe module fournit certaines méthodes pour tester si vos applications sont correctement masquées. Il est également capable de fonctionner comme un module Zygisk pour cacher des applications ou rejeter les demandes de détection d\'applications afin de protéger votre vie privée.
     </string>
-    <string name="about_fork_description">        Le projet HMA original est devenu closed-source et leur dernier code ne contenait pas certaines des dernières modifications, j\'ai donc créé ce fork pour le poursuivre à nouveau en open-source.
+    <string name="about_fork_description">
+        Le projet HMA originel est passé en code fermé et son dernier code public ne contenait pas certaines de ses dernières modifications, nous avons donc créé ce fork pour pouvoir poursuivre à nouveau son développement en open source.
     </string>
     <string name="about_how_to_use_title">Comment utiliser ce module</string>
-    <string name="about_how_to_use_description_1">        Vous pouvez créer des modèles dans \"Gestion des modèles\"\nAppliquer ensuite les modèles aux application dans \"Gestionnaire d\'applications\". (Vous pouvez également sélectionner des applications supplémentaires pour les cibler.)\nVous devez et ne devez QUE vérifier le \"Système d\'injection\" dans la portée du module Xposed / de la liste blanche.
+    <string name="about_how_to_use_description_1">
+        Créer des modèles dans \"Gestion des modèles\"\nAppliquer ensuite les modèles aux application dans \"Gestion des applications\". (Il est également possible de sélectionner des applications supplémentaires pour les cibler.)
     </string>
-    <string name="about_how_to_use_description_2">        Modification de la configuration effective en temps réel.
+    <string name="about_how_to_use_description_2">
+        Modification de configuration appliquée en temps réel.
     </string>
     <string name="about_how_to_use_description_3">
-        Cette application fait désormais office de gestionnaire du module Zygisk ; vous aurez donc besoin d\'un module Zygisk distinct pour que ce gestionnaire fonctionne.    </string>
+        Cette application fait désormais office de gestionnaire du module Zygisk. Un module Zygisk distinct est par conséquent nécessaire pour que ce gestionnaire fonctionne.
+    </string>
     <string name="about_translator">Traducteurs</string>
     <string name="about_developer">Développeurs</string>
     <string name="about_support">Support et retours d\'expérience</string>
@@ -262,5 +267,5 @@
     <string name="dark_theme_on">Activé</string>
     <string name="sick_mode_title">Mode dégradé activé</string>
     <string name="sick_mode_description">HMA-OSS a détecté des modules susceptibles de provoquer des conflits et a limité ses fonctionnalités</string>
-    <string name="sick_mode_notice">Les configurations HMA/HMAL sont compatibles avec HMA-OSS et vous pouvez commencer à utiliser avec votre configuration existante, mais vous devez désinstaller HMA/HMAL puis redémarrer au premier</string>
+    <string name="sick_mode_notice">Les configurations de HMA/HMAL sont compatibles avec HMA-OSS. Il est par conséquent possible de commencer à les utiliser avec la configuration existante, à condition de d\'abord désinstaller HMA/HMAL puis de redémarrer l\'appareil</string>
 </resources>
