@@ -55,12 +55,12 @@
     <string name="home_exported">備份完成</string>
     <string name="home_new_update">有新的版本更新：%s</string>
     <string name="home_update">更新：%s</string>
-    <string name="home_migrate_data_fix_button">Fix the issue</string>
-    <string name="home_migrate_data">Migrate data</string>
-    <string name="home_migrate_data_summary">You will also be prompted to uninstall HMA/HMAL in both options. Do you want to migrate the old data?</string>
-    <string name="home_migrate_data_failed">Failed to copy the data or found more than one HMA/HMAL.</string>
-    <string name="home_migrate_data_completed">Done! You need to reboot your device.</string>
-    <string name="home_migrate_uninstall_only">Uninstall only</string>
+    <string name="home_migrate_data_fix_button">修正問題</string>
+    <string name="home_migrate_data">轉移資料</string>
+    <string name="home_migrate_data_summary">無論選擇哪項，系統都會提示您解鎖/解除安裝 HMA/HMAL。您是否要轉移舊資料？</string>
+    <string name="home_migrate_data_failed">複製資料失敗，或偵測到多個 HMA/HMAL。</string>
+    <string name="home_migrate_data_completed">完成！您需要重啟裝置。</string>
+    <string name="home_migrate_uninstall_only">僅解除安裝</string>
     <!-- Backup & Restore -->
     <string name="backup_restore_backup_settings">備份設定</string>
     <string name="backup_restore_restore_settings">恢復設定</string>
@@ -129,7 +129,7 @@
     <string name="title_preset">預設模板</string>
     <string name="title_settings_preset">設定預設模板</string>
     <string name="title_preset_manage">顯示預設</string>
-    <string name="title_ignored_apps_for_presets">Ignored apps</string>
+    <string name="title_ignored_apps_for_presets">忽略的應用程式</string>
     <string name="preset_xposed">LSPosed/Xposed 模組</string>
     <string name="preset_root_apps">Root 管理器 / 已 Root 的應用程式</string>
     <string name="preset_custom_rom">自訂 ROM 應用程式</string>
@@ -207,9 +207,9 @@
     <string name="settings_pure_black_dark_theme">純黑的深色主題</string>
     <string name="settings_pure_black_dark_theme_summary">如果啟用了深色主題，則使用純黑色的背景色</string>
     <string name="settings_service">服務</string>
-    <string name="settings_reset_default">Reset to defaults</string>
-    <string name="settings_reset_default_summary">This option allows you to clear whole config and begin from scratch</string>
-    <string name="settings_irreversible_confirmation">This action is irreversible. Are you sure?</string>
+    <string name="settings_reset_default">重置為預設值</string>
+    <string name="settings_reset_default_summary">此選項可讓您清除所有設定，並重新開始</string>
+    <string name="settings_irreversible_confirmation">此操作無法復原。您確定要繼續嗎？</string>
     <string name="settings_is_clean_env_summary">刪除 /data/misc/hide_my_applist_* 中的系統服務快取。這意味著你需要在下次重啟後手動啟動一次模組應用程式，以便啟用攔截，攔截次數也將被清理。</string>
     <string name="settings_force_clean_env">強制清理執行環境 (root)</string>
     <string name="settings_force_clean_env_summary">只有在系統服務無法啟動的情況下使用，否則使用上一個選項</string>
