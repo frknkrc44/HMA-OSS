@@ -15,6 +15,8 @@ object OSUtils {
     )
 
     fun collectOSInfo(context: Context, serviceVersion: String?) = buildString {
+        val pkgMgr = context.packageManager
+
         append("HMA-OSS Log")
         append("\nApp version: ")
         append("${BuildConfig.APP_VERSION_NAME} (${BuildConfig.APP_VERSION_CODE})")
@@ -29,17 +31,17 @@ object OSUtils {
         append("]\nIs HyperOS: ")
         append(SystemProperties.get("ro.mi.os.version.incremental").isNotBlank())
         append("\nIs MIUI: ")
-        append(isPackageExists(context, "com.miui.system"))
+        append(pkgMgr.isPackageAvailable("com.miui.system"))
         append("\nIs oplus: ")
         append(SystemProperties.get("ro.build.version.oplusrom").isNotBlank())
         append("\nIs Samsung: ")
         append(isSamsung())
         append("\nIs Pixel: ")
-        append(isPackageExists(context, "com.google.android.apps.customization.pixel"))
+        append(pkgMgr.isPackageAvailable("com.google.android.apps.customization.pixel"))
 
         PACKAGES_TO_CHECK.forEach {
             append("\nIs $it available: ")
-            append(isPackageExists(context, it))
+            append(pkgMgr.isPackageAvailable(it))
         }
     }
 
@@ -51,14 +53,6 @@ object OSUtils {
             return semPlatformIntField.getInt(null) >= 0
         } catch (_: Throwable) {
             return false
-        }
-    }
-
-    fun isPackageExists(context: Context, packageName: String): Boolean {
-        return try {
-            context.packageManager.isPackageAvailable(packageName)
-        } catch (_: Throwable) {
-            false
         }
     }
 }

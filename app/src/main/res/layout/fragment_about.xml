@@ -40,7 +40,6 @@
                 android:layout_marginVertical="@dimen/item_padding_mini"
                 android:paddingVertical="@dimen/info_card_margin_horizontal"
                 android:paddingHorizontal="@dimen/item_padding_vertical"
-                android:background="?selectableItemBackground"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
