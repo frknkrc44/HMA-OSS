@@ -7,12 +7,12 @@
     <string name="title_template_settings">Paramètres du modèle</string>
     <string name="title_settings_template_conf">Configuration du modèle de paramètres</string>
     <string name="title_app_manage">Gestion des applications</string>
-    <string name="title_app_select">Sélectionner les applications</string>
+    <string name="title_app_select">Sélection des applications</string>
     <string name="title_app_settings">Paramètres de l\'application</string>
     <string name="title_about">À propos</string>
     <string name="title_about_fork">À propos de ce fork</string>
     <string name="do_not_dual">Ne pas installer HMA dans le deuxième espace utilisateur</string>
-    <string name="show_crash_log">Afficher le journal d\'erreur</string>
+    <string name="show_crash_log">Afficher le journal d\'erreurs</string>
     <string name="config_damaged">Fichier de configuration endommagé. Effacer les données de l\'application et relancer</string>
     <string name="edit_list">Éditer la liste</string>
     <string name="delete">Supprimer</string>
@@ -74,7 +74,7 @@
     <string name="list_sorting">Tri</string>
     <string name="list_reverse_order">Ordre inversé</string>
     <string name="list_sort_by_label">Par nom d\'application</string>
-    <string name="list_sort_by_package_name">Par nom de paquet</string>
+    <string name="list_sort_by_package_name">Par nom de package</string>
     <string name="list_sort_by_install_time">Par date d\'installation</string>
     <string name="list_sort_by_update_time">Par date de mise à jour</string>
     <string name="list_empty_no_enabled">Essayer d\'activer le masquage pour les applications avec le mode de fonctionnement de ce modèle et ces applications apparaîtront ici</string>
@@ -89,7 +89,7 @@
     <string name="template_name">Nom du modèle</string>
     <string name="template_name_invalid">Nom incorrect</string>
     <string name="template_delete_title">Suppression de modèle</string>
-    <string name="template_name_already_exist">Le nom du modèle existe déjà</string>
+    <string name="template_name_already_exist">Un modèle portant ce nom existe déjà</string>
     <string name="template_applied_count">Appliqué à %d applications</string>
     <string name="template_setting_count">%d paramètres ajoutés</string>
     <string name="template_apps_visible_count">%d applications visibles</string>
@@ -99,7 +99,7 @@
     <string name="app_template_config">Configuration du modèle</string>
     <string name="app_choose_template">Choisir le modèle</string>
     <string name="app_choose_preset">Sélection des préréglages</string>
-    <string name="app_exclude_system_apps">Exclure les applications système</string>
+    <string name="app_exclude_system_apps">Exclusion des applications système</string>
     <string name="app_exclude_system_apps_summary">Ne désactiver cette option qu\'en cas d\'absolue nécessité. Sa désactivation est susceptible de provoquer des plantages</string>
     <string name="app_template_using">%d modèle(s) utilisé(s)</string>
     <string name="app_preset_using">%d préréglage(s) utilisé(s)</string>
@@ -107,8 +107,8 @@
     <string name="app_settings_template_using">%d modèle(s) de paramètres utilisé(s)</string>
     <string name="app_extra_apps_visible_count">%d application(s) additionelle(s) visible(s)</string>
     <string name="app_extra_apps_invisible_count">%d application(s) additionelle(s) invisible(s)</string>
-    <string name="app_warning_risky_package_title">Paquet à risque</string>
-    <string name="app_warning_risky_package_desc">Ce paquet est indiqué comme étant à risque et peut causer des problèmes aux applications masquées. Continuer ?</string>
+    <string name="app_warning_risky_package_title">Package à risque</string>
+    <string name="app_warning_risky_package_desc">Ce package d\'application est indiqué comme étant à risque et peut causer des problèmes aux applications masquées. Continuer ?</string>
     <string name="app_spoof">Usurpation</string>
     <string name="app_hide_installation_source">Usurpation des sources d\'installation</string>
     <string name="app_hide_installation_source_desc">Toutes les applications utilisateur seront présentées comme ayant été installées depuis le Play Store pour cette application</string>
@@ -118,17 +118,17 @@
     <string name="app_exclude_target_installation_source_desc">Activer si cette application n\'est pas disponible sur le Play Store</string>
     <string name="app_force_stop_warning">Ne pas oublier de forcer l\'arrêt de l\'application cible après avoir enregistré la configuration</string>
     <string name="app_invert_activity_launch_protection">Inversion de la protection contre le lancement d\'activité</string>
-    <string name="app_invert_activity_launch_protection_desc">Cette option inversera la sélection « Désactiver la protection contre le lancement d\'activités » dans les paramètres.</string>
+    <string name="app_invert_activity_launch_protection_desc">Cette option inversera l\'option \"Interrompre l\'activité de l\'appli si elle est inutilisée\" dans les paramètres de l\'appareil.</string>
     <string name="app_global_activity_launch_protection_state">L\'option de protection globale est : %s</string>
     <string name="app_force_stop_launch">Forcer l\'arrêt et démarrer</string>
     <string name="app_launch">Démarrer</string>
-    <string name="app_launch_failed">Le démarrage de l\'application a échoué, vérifiez les journaux d\'activités pour plus d\'informations</string>
-    <string name="app_restrict_zygote_permissions">Restreindre les permissions de Zygote</string>
+    <string name="app_launch_failed">Échec du démarrage de l\'application. Pour plus de détails, consulter les journaux d\'erreurs</string>
+    <string name="app_restrict_zygote_permissions">Restriction des permissions de Zygote</string>
     <string name="app_restrict_zygote_permissions_desc">Cette option peut provoquer des plantages ou des faux positifs et doit être utilisée avec prudence.</string>
     <!-- Presets -->
     <string name="title_preset">Préréglages</string>
     <string name="title_settings_preset">Préréglages des paramètres</string>
-    <string name="title_preset_manage">Afficher les préréglages</string>
+    <string name="title_preset_manage">Affichage des préréglages</string>
     <string name="title_ignored_apps_for_presets">Applications ignorées</string>
     <string name="preset_xposed">Modules LSPosed/Xposed</string>
     <string name="preset_root_apps">Gestionnaires de root/Applications rootées</string>
@@ -139,7 +139,7 @@
     <string name="preset_accessibility_apps">Applications d\'accessibilité</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Accessibilité</string>
-    <string name="settings_preset_dev_options">Options de développeur</string>
+    <string name="settings_preset_dev_options">Options pour les développeurs</string>
     <string name="settings_preset_input_method">Méthode de saisie</string>
     <!-- Settings templates -->
     <string name="settings_templates_database">Base de données des paramètres</string>
@@ -152,23 +152,23 @@
     <string name="logs_save">Enregistrer le journal</string>
     <string name="logs_clear">Effacer le journal</string>
     <string name="logs_empty">Aucun journal à enregistrer</string>
-    <string name="logs_saved">Journeaux sauvegardés</string>
+    <string name="logs_saved">Journal enregistré</string>
     <!-- Filter logs -->
     <string name="title_filter_logs">Journal filtré</string>
     <!-- Settings -->
     <string name="settings_module">Modules</string>
-    <string name="settings_overwrite">Remplacer</string>
-    <string name="settings_overwritten">Remplacé</string>
+    <string name="settings_overwrite">Forçages</string>
+    <string name="settings_overwritten">Forcé</string>
     <string name="settings_overwrite_summary">Les options de cette catégorie sont activées de force lorsque les cases sont cochées</string>
     <string name="settings_default_value">Valeur par défaut : %s</string>
     <string name="settings_data_isolation">Isolation des données</string>
-    <string name="settings_data_isolation_summary">Données des applications : %s\nDonnées Vold des applications : %s\nMontage forcé : %s</string>
+    <string name="settings_data_isolation_summary">Données des applications : %s\nDonnées vold des applications : %s\nMontage forcé : %s</string>
     <string name="settings_data_isolation_unsupported">Option disponible uniquement à partir d\'Android 11</string>
     <string name="settings_app_data_isolation">Isolation des données d\'application</string>
-    <string name="settings_vold_app_data_isolation">Isolation des données d\'application Vold</string>
+    <string name="settings_vold_app_data_isolation">Isolation des données d\'application vold</string>
     <string name="settings_warning">Avertissement</string>
     <string name="settings_vold_warning">Cette option activera une fonctionnalité AOSP qui isole le répertoire de stockage privé externe de l\'application. Cela peut améliorer le masquage des applications, mais est susceptible de provoquer des problèmes de stabilité. Cette fonctionnalité peut cesser de fonctionner à tout moment, car elle a été abandonnée dans AOSP.</string>
-    <string name="settings_change_require_root">Changer les permissions d\'accès à la racine requises</string>
+    <string name="settings_change_require_root">Modification nécessitant des privilèges root</string>
     <string name="settings_need_reboot">Modification nécessitant un redémarrage</string>
     <string name="settings_permission_denied">Permission refusée</string>
     <string name="settings_force_mount_data">Isolation des données pour toutes les applications</string>
@@ -177,49 +177,49 @@
     <string name="settings_max_log_size">Taille du tampon d\'écriture des journaux</string>
     <string name="settings_hide_icon">Masquage de l\'icône du module dans le lanceur</string>
     <string name="settings_hide_icon_summary">L\'ouverture de l\'application est toujours possible depuis le gestionnaire de root</string>
-    <string name="settings_bypass_risky_package_warning">Désactivation de l\'avertissement de signalement de paquets à risque</string>
-    <string name="settings_bypass_risky_package_warning_summary">Note : Les développeurs ne sont pas responsables des problèmes liés à l\'utilisation de paquets à risque avant ou après l\'activation de cette fonctionnalité</string>
+    <string name="settings_bypass_risky_package_warning">Désactivation de l\'avertissement de signalement de packages à risque</string>
+    <string name="settings_bypass_risky_package_warning_summary">Note : Les développeurs ne sont pas responsables des problèmes liés à l\'utilisation de packages d\'applications à risque avant ou après l\'activation de cette fonctionnalité</string>
     <string name="settings_disable_activity_launch_protection">Désactivation de la protection contre le lancement d\'activités</string>
-    <string name="settings_disable_activity_launch_protection_summary">Cette option désactive toutes les protections startActivity. Si vous n\'êtes pas sûr, ne l\'activez pas.</string>
+    <string name="settings_disable_activity_launch_protection_summary">Cette option désactive toutes les protections startActivity. En cas de doute, ne pas l\'activer.</string>
     <string name="settings_system_wallpaper">Utiliser le fond d\'écran du système</string>
-    <string name="settings_clear_uninstalled_app_configs">Effacer les configurations des applications désinstallées</string>
-    <string name="settings_clear_uninstalled_app_configs_summary">Cette option vous permet de créer une configuration sans persistance post-désinstallation, vous devrez reconfigurer les applications lorsque vous les réinstallerez.</string>
+    <string name="settings_clear_uninstalled_app_configs">Suppression des configurations des applications désinstallées</string>
+    <string name="settings_clear_uninstalled_app_configs_summary">Permet de créer des configurations sans persistance post-désinstallation, une reconfiguration des applications sera alors nécessaire en cas de réinstallation de ces applications.</string>
     <string name="settings_no_undone_warning">Cette action ne peut pas être annulée.</string>
-    <string name="settings_package_query_workaround">Requête de paquet alternatif</string>
-    <string name="settings_package_query_workaround_summary">N\'activez pas cette option si la liste des paquets s\'affiche correctement dans cette application.</string>
+    <string name="settings_package_query_workaround">Méthode de récupération alternative des packages</string>
+    <string name="settings_package_query_workaround_summary">Ne pas activer si la liste des packages s\'affiche correctement dans cette application.</string>
     <string name="settings_launcher_icon">Icône du lanceur</string>
     <string name="settings_error_only_log">Journal d\'erreurs uniquement</string>
-    <string name="settings_disable_hooks">Désactiver les fonctions</string>
-    <string name="settings_disable_hooks_summary">Vous pouvez désactiver certaines fonctions lorsqu\'elles entrent en conflit avec d\'autres modules</string>
-    <string name="settings_enable_internet">Activer la connexion Internet</string>
-    <string name="settings_enable_internet_summary">Cette application perdra toutes les fonctionnalités liées à Internet lorsque vous aurez désactivé cette option.</string>
-    <string name="settings_default_config">Configuration de l\'application pour les nouvelles applications</string>
-    <string name="settings_default_config_summary">Cela appliquera la configuration définie à toutes les nouvelles applications, mais conservera la configuration existante pour les nouvelles applications si vous avez appliqué quelque chose avant.</string>
+    <string name="settings_disable_hooks">Désactivation de fonctionnalités</string>
+    <string name="settings_disable_hooks_summary">Permet de désactiver certaines fonctionnalités lorsqu\'elles entrent en conflit avec d\'autres modules</string>
+    <string name="settings_enable_internet">Activation de la connexion Internet</string>
+    <string name="settings_enable_internet_summary">Lorsque désactivé, cette application perd toute fonctionnalité nécessitant un accès à Internet.</string>
+    <string name="settings_default_config">Configuration d\'\'application pour les nouvelles applications</string>
+    <string name="settings_default_config_summary">Appliquera la configuration définie à toutes les nouvelles applications installées, mais conserve la configuration existante pour les nouvelles applications si des paramètres ont appliqués avant l\'activation de cette option.</string>
     <string name="settings_webview_protection">Protection WebView</string>
-    <string name="settings_webview_protection_summary">Cela ajoutera une protection supplémentaire pour les plantages causés par la masquation/ciblage WebView ou les navigateurs</string>
+    <string name="settings_webview_protection_summary">Ajoute une protection supplémentaire pour les plantages provoqués par le masquage/ciblage du composant système WebView ou des navigateurs Web</string>
     <string name="settings_language">Langue</string>
     <string name="settings_translate">Participer à la traduction</string>
-    <string name="settings_translate_summary">Aidez nous à traduire %s dans votre language</string>
+    <string name="settings_translate_summary">Nous aider à traduire %s dans votre langue</string>
     <string name="settings_theme">Thème</string>
-    <string name="settings_system_theme_color">Thème de couleur du système</string>
+    <string name="settings_system_theme_color">Thème de couleurs du système</string>
     <string name="settings_theme_color">Couleur du thème</string>
     <string name="settings_dark_theme">Thème sombre</string>
-    <string name="settings_pure_black_dark_theme">Thème foncé noir pure</string>
-    <string name="settings_pure_black_dark_theme_summary">Utiliser le thème noirci pure si le thème foncé est activé</string>
-    <string name="settings_service">Service</string>
-    <string name="settings_reset_default">Rétablir les valeurs par défaut</string>
-    <string name="settings_reset_default_summary">Cette option vous permet d\'effacer l\'intégralité de la configuration et de repartir de zéro</string>
-    <string name="settings_irreversible_confirmation">Cette action est irréversible. Êtes-vous sûr ?</string>
-    <string name="settings_is_clean_env_summary">Supprimer le cache du service système dans /data/misc/hide_my_applist_*. Celà veut dire que vous devez lancer le module de l\'application une fois manuellement après le prochain redémarrage pour permettre l\'activation des interceptions, le compteur d\'interceptions sera également nettoyé.</string>
-    <string name="settings_force_clean_env">Forcer le nettoyage de l\'environnement (racine)</string>
-    <string name="settings_force_clean_env_summary">Uniquement si le service du système échoue à démarrer, autrement vous devriez opter pour l\'option ci-dessus.</string>
+    <string name="settings_pure_black_dark_theme">Thème sombre noir profond</string>
+    <string name="settings_pure_black_dark_theme_summary">Utilise une couleur noir profond lorsque le thème sombre est activé</string>
+    <string name="settings_service">Maintenance</string>
+    <string name="settings_reset_default">Rétablissement des valeurs par défaut</string>
+    <string name="settings_reset_default_summary">Efface l\'intégralité de la configuration pour repartir à zéro</string>
+    <string name="settings_irreversible_confirmation">Action irréversible. Confirmer ?</string>
+    <string name="settings_is_clean_env_summary">Supprime le cache du service système dans /data/misc/hide_my_applist_*. Le module devra être relancé manuellement après le prochain redémarrage pour permettre l\'activation des interceptions, le compteur d\'interceptions sera également réinitialisé.</string>
+    <string name="settings_force_clean_env">Nettoyage forcé de l\'environnement (root)</string>
+    <string name="settings_force_clean_env_summary">N\'utiliser qu\'en cas d\'échec de démarrage du service système, sinon tenter de rétablir les valeurs par défaut.</string>
     <string name="settings_force_clean_env_toast_successful">Environnement d\'exécution nettoyé</string>
-    <string name="settings_update">Mise à jour</string>
-    <string name="settings_disable_update">Désactiver la notification de mise à jour</string>
-    <string name="settings_receive_beta_update">Recevoir les mises à jours beta</string>
-    <string name="settings_receive_beta_update_summary">Les versions Beta pourraient êtres instables</string>
+    <string name="settings_update">Mises à jour</string>
+    <string name="settings_disable_update">Désactivation des notifications de mise à jour</string>
+    <string name="settings_receive_beta_update">Recevoir les mises à jour bêta</string>
+    <string name="settings_receive_beta_update_summary">Les versions bêta peuvent être instables</string>
     <!-- Bulk config wizard -->
-    <string name="title_bulk_config_wizard">Assistant de configuration de masse</string>
+    <string name="title_bulk_config_wizard">Assistant de configuration en masse</string>
     <!-- About -->
     <string name="about_description">        Bien qu\'il soit incorrect de détecter l\'installation d\'une application spécifique, toutes les applications utilisant la racine ne prennent pas en charge les noms de paquets aléatoires. Dans ce cas, les applications détectées qui utilisent la racine (telles que Fake Location et Storage Isolation) sont égales à la racine détectée elle-même.\n\nDans le même temps, certaines applications intelligentes utilisent diverses failles pour acquérir votre liste d\'applications, afin de vous dessiner un personnage.\n\nCe module fournit quelques méthodes pour tester si vous avez déjà bien caché votre liste d\'applications. De plus, il peut fonctionner comme un module Xposed pour cacher certaines applications ou rejeter les demandes de liste d\'applications afin de protéger votre vie privée.
     </string>
@@ -233,8 +233,8 @@
     <string name="about_how_to_use_description_3">
         Cette application fait désormais office de gestionnaire du module Zygisk ; vous aurez donc besoin d\'un module Zygisk distinct pour que ce gestionnaire fonctionne.    </string>
     <string name="about_translator">Traducteurs</string>
-    <string name="about_developer">Développeur</string>
-    <string name="about_support">Support et retour d\'expérience</string>
+    <string name="about_developer">Développeurs</string>
+    <string name="about_support">Support et retours d\'expérience</string>
     <string name="about_open_source">Licences open source</string>
     <!-- Colors -->
     <string name="color_sakura">Sakura</string>
@@ -244,11 +244,11 @@
     <string name="color_deep_purple">Violet foncé</string>
     <string name="color_indigo">Indigo</string>
     <string name="color_blue">Bleu</string>
-    <string name="color_light_blue">Bleu légé</string>
+    <string name="color_light_blue">Bleu clair</string>
     <string name="color_cyan">Cyan</string>
-    <string name="color_teal">Sarcelle</string>
+    <string name="color_teal">Turquoise</string>
     <string name="color_green">Vert</string>
-    <string name="color_light_green">Vert légé</string>
+    <string name="color_light_green">Vert clair</string>
     <string name="color_lime">Citron vert</string>
     <string name="color_yellow">Jaune</string>
     <string name="color_amber">Ambre</string>
@@ -258,9 +258,9 @@
     <string name="color_blue_grey">Gris bleuté</string>
     <!-- Dark theme modes -->
     <string name="dark_theme">Thème sombre</string>
-    <string name="dark_theme_off">Tout le temps désactivé</string>
-    <string name="dark_theme_on">Tout le temps activé</string>
-    <string name="sick_mode_title">Aucun hook n’est appliqué en raison de conflits potentiels avec le mode «Hide»</string>
-    <string name="sick_mode_description">HMA-OSS a détecté des modules potentiellement en conflits et limité ses fonctionnalités</string>
+    <string name="dark_theme_off">Désactivé</string>
+    <string name="dark_theme_on">Activé</string>
+    <string name="sick_mode_title">Mode dégradé activé</string>
+    <string name="sick_mode_description">HMA-OSS a détecté des modules susceptibles de provoquer des conflits et a limité ses fonctionnalités</string>
     <string name="sick_mode_notice">Les configurations HMA/HMAL sont compatibles avec HMA-OSS et vous pouvez commencer à utiliser avec votre configuration existante, mais vous devez désinstaller HMA/HMAL puis redémarrer au premier</string>
 </resources>
