@@ -18,6 +18,7 @@ import icu.nullptr.hidemyapplist.common.Utils.getUserFromCallingUid
 import icu.nullptr.hidemyapplist.common.settings_presets.InputMethodPreset
 import org.frknkrc44.hma_oss.zygote.service.ReturnValue
 import org.frknkrc44.hma_oss.zygote.util.ContextUtils.application
+import org.frknkrc44.hma_oss.zygote.util.ContextUtils.packageManager
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logW
@@ -46,8 +47,17 @@ class ImmHook : IFrameworkHook {
                 logD(TAG) { "Package component: \"$component\"" }
 
                 val kbdPackage = resolveIMInfo(component.packageName)
-                if (kbdPackage != null) {
-                    return kbdPackage
+                return if (kbdPackage != null) {
+                    kbdPackage
+                } else {
+                    val appInfo = packageManager.getApplicationInfo(component.packageName, 0)
+
+                    InputMethodInfo(
+                        component.packageName,
+                        component.className,
+                        appInfo.loadLabel(packageManager),
+                        null,
+                    )
                 }
             } catch (e: Throwable) {
                 logV(TAG, e) { e.message ?: "" }
