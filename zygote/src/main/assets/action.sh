@@ -12,7 +12,7 @@ echo "- Updated module status"
 install_pkg() {
   pm install --user $1 $APK_FILE 2>&1
 
-  [ $? -ne 0 ] && echo "! Cannot install the manager app for user "$1
+  [ $? -ne 0 ] && echo "! Cannot install the manager app for user "$1 || true
 }
 
 launch_pkg() {
