@@ -10,11 +10,9 @@ import android.os.Bundle
 import android.provider.Settings
 import com.v7878.unsafe.invoke.EmulatedStackFrame
 import icu.nullptr.hidemyapplist.common.CollectionUtils.firstWithType
+import org.frknkrc44.hma_oss.zygote.util.ContentProviderUtils.getOverriddenDatabaseName
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils
-import org.frknkrc44.hma_oss.zygote.util.SettingsGlobal
-import org.frknkrc44.hma_oss.zygote.util.SettingsSecure
-import org.frknkrc44.hma_oss.zygote.util.SettingsSystem
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.CONTENT_PROVIDER_TRANSPORT_CLASS
 
@@ -71,28 +69,7 @@ class ContentProviderHook : IFrameworkHook {
 
                     logD(TAG) { "@spoofSettings QUERY received caller: $caller, database: $database, name: $name, args: $args" }
 
-                    when (database) {
-                        "global" -> {
-                            if (SettingsGlobal.movedToSecure?.contains(name) ?: false) {
-                                database = "secure"
-                            } else if (SettingsGlobal.movedToSystem?.contains(name) ?: false) {
-                                database = "system"
-                            }
-                        }
-                        "secure" -> {
-                            if (SettingsSecure.movedToGlobal?.contains(name) ?: false) {
-                                database = "global"
-                            }
-                        }
-                        "system" -> {
-                            if (SettingsSystem.movedToSecure?.contains(name) ?: false) {
-                                database = "secure"
-                            } else if (SettingsSystem.movedToGlobal?.contains(name) ?: false ||
-                                SettingsSystem.movedToSecureThenGlobal?.contains(name) ?: false) {
-                                database = "global"
-                            }
-                        }
-                    }
+                    database = getOverriddenDatabaseName(database, name)
 
                     val replacement = service.getSpoofedSetting(caller, name, database)
                     if (replacement != null) {
@@ -139,6 +116,11 @@ class ContentProviderHook : IFrameworkHook {
 
                     while (result.moveToNext()) {
                         val name = result.getString(columns.keys.indexOf("name"))
+
+                        // skip when the entry is not a member of this database
+                        val dbName = getOverriddenDatabaseName(database, name)
+                        if (dbName != database) continue
+
                         keyColumn.add(name)
 
                         val replacement = service.getSpoofedSetting(caller, name, database)
