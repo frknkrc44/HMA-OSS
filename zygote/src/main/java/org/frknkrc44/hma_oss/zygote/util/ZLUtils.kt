@@ -107,6 +107,11 @@ object ZLUtils {
         }
     }
 
+    fun getStaticObjectField(className: String, name: String) = getDeclaredField(
+        Class.forName(className),
+        name,
+    ).get(null)
+
     fun getStaticIntField(className: String, name: String) = getDeclaredField(
         Class.forName(className),
         name,

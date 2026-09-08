@@ -1,6 +1,7 @@
 package org.frknkrc44.hma_oss.zygote.hook
 
 import android.content.AttributionSource
+import android.content.ContentResolver
 import android.database.Cursor
 import android.database.MatrixCursor
 import android.net.Uri
@@ -11,6 +12,9 @@ import com.v7878.unsafe.invoke.EmulatedStackFrame
 import icu.nullptr.hidemyapplist.common.CollectionUtils.firstWithType
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils
+import org.frknkrc44.hma_oss.zygote.util.SettingsGlobal
+import org.frknkrc44.hma_oss.zygote.util.SettingsSecure
+import org.frknkrc44.hma_oss.zygote.util.SettingsSystem
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.CONTENT_PROVIDER_TRANSPORT_CLASS
 
@@ -41,25 +45,71 @@ class ContentProviderHook : IFrameworkHook {
                 val segments = uri.pathSegments
                 if (segments.isEmpty()) return@hookAfter
 
-                logD(TAG) {
-                    val projection = frame.args[uriIdx + 1] as Array<String>?
-                    val args = frame.args[uriIdx + 2] as Bundle?
+                val projection = frame.args[uriIdx + 1] as? Array<String>
+                val args = frame.args[uriIdx + 2] as? Bundle
 
+                logD(TAG) {
                     "@spoofSettings QUERY in ${callingApps.contentToString()}: $uri, ${projection?.contentToString()}, $args"
                 }
 
-                val database = segments[0]
+                var database = segments[0]
 
-                if (segments.size >= 2) {
-                    val name = segments[1]
+                if (segments.size >= 2 || args != null) {
+                    val name = if (segments.size >= 2) {
+                        segments[1]
+                    } else {
+                        val querySel = args!!.getString(ContentResolver.QUERY_ARG_SQL_SELECTION)
+                        val query = querySel?.split(" ")
+                            ?.map { it.substringBeforeLast("=").trim() }
 
-                    logD(TAG) { "@spoofSettings QUERY received caller: $caller, database: $database, name: $name" }
+                        logD(TAG) { "@spoofSettings QUERY caller: $caller, querySel: $querySel, query: $query" }
+
+                        val idx = query?.indexOfFirst { it == "name" } ?: return@hookAfter
+
+                        args.getStringArray(ContentResolver.QUERY_ARG_SQL_SELECTION_ARGS)!![idx]
+                    }
+
+                    logD(TAG) { "@spoofSettings QUERY received caller: $caller, database: $database, name: $name, args: $args" }
+
+                    when (database) {
+                        "global" -> {
+                            if (SettingsGlobal.movedToSecure?.contains(name) ?: false) {
+                                database = "secure"
+                            } else if (SettingsGlobal.movedToSystem?.contains(name) ?: false) {
+                                database = "system"
+                            }
+                        }
+                        "secure" -> {
+                            if (SettingsSecure.movedToGlobal?.contains(name) ?: false) {
+                                database = "global"
+                            }
+                        }
+                        "system" -> {
+                            if (SettingsSystem.movedToSecure?.contains(name) ?: false) {
+                                database = "secure"
+                            } else if (SettingsSystem.movedToGlobal?.contains(name) ?: false ||
+                                SettingsSystem.movedToSecureThenGlobal?.contains(name) ?: false) {
+                                database = "global"
+                            }
+                        }
+                    }
 
                     val replacement = service.getSpoofedSetting(caller, name, database)
                     if (replacement != null) {
+                        val columnNames = projection ?: arrayOf("name", "value")
+                        val nameInColumns = "name" in columnNames
+                        val valueInColumns = "value" in columnNames
+
+                        val returnedArray = when {
+                            nameInColumns && valueInColumns -> arrayOf(replacement.name, replacement.value)
+                            valueInColumns -> arrayOf(replacement.value)
+                            nameInColumns -> arrayOf(replacement.name)
+                            else -> return@hookAfter
+                        }
+
                         logD(TAG) { "@spoofSettings QUERY $name in $database replaced for $caller" }
-                        returnValue.result = MatrixCursor(arrayOf("name", "value"), 1).apply {
-                            addRow(arrayOf(replacement.name, replacement.value))
+                        returnValue.result = MatrixCursor(columnNames, 1).apply {
+                            addRow(returnedArray)
                         }
 
                         service.increaseSettingsFilterCount(caller)
