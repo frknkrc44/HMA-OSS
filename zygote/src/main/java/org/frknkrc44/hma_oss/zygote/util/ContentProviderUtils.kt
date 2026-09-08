@@ -11,8 +11,8 @@ object SettingsSystem {
             getStaticObjectField(
                 Settings.System::class.java.name,
                 "MOVED_TO_SECURE",
-            )
-        }.getOrNull() as? HashSet<String>
+            ) as? HashSet<String>
+        }.getOrNull()
     }
 
     val movedToGlobal by lazy {
@@ -20,8 +20,8 @@ object SettingsSystem {
             getStaticObjectField(
                 Settings.System::class.java.name,
                 "MOVED_TO_GLOBAL",
-            )
-        }.getOrNull() as? HashSet<String>
+            ) as? HashSet<String>
+        }.getOrNull()
     }
 
     val movedToSecureThenGlobal by lazy {
@@ -29,8 +29,8 @@ object SettingsSystem {
             getStaticObjectField(
                 Settings.System::class.java.name,
                 "MOVED_TO_SECURE_THEN_GLOBAL",
-            )
-        }.getOrNull() as? HashSet<String>
+            ) as? HashSet<String>
+        }.getOrNull()
     }
 }
 
@@ -40,8 +40,8 @@ object SettingsSecure {
             getStaticObjectField(
                 Settings.Secure::class.java.name,
                 "MOVED_TO_GLOBAL",
-            )
-        }.getOrNull() as? HashSet<String>
+            ) as? HashSet<String>
+        }.getOrNull()
     }
 }
 
@@ -51,8 +51,8 @@ object SettingsGlobal {
             getStaticObjectField(
                 Settings.Global::class.java.name,
                 "MOVED_TO_SECURE",
-            )
-        }.getOrNull() as? HashSet<String>
+            ) as? HashSet<String>
+        }.getOrNull()
     }
 
     val movedToSystem by lazy {
@@ -60,7 +60,7 @@ object SettingsGlobal {
             getStaticObjectField(
                 Settings.Global::class.java.name,
                 "MOVED_TO_SYSTEM",
-            )
-        }.getOrNull() as? HashSet<String>
+            ) as? HashSet<String>
+        }.getOrNull()
     }
 }
