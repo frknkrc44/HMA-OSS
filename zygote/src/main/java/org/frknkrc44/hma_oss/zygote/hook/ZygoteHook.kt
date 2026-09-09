@@ -37,7 +37,8 @@ class ZygoteHook : IFrameworkHook {
                 hookIntoZygoteProcess(frame)
             }
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CINNAMON_BUN) {
+            // TODO: Try to find a way for Android 12- compatibility without harming TANGO support
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 // Try to fix PrivIsolated
                 hookBefore(
                     SERVICE_RECORD_CLASS,
@@ -54,7 +55,9 @@ class ZygoteHook : IFrameworkHook {
                     logD(TAG) { "@serviceRecord: Isolated process becomes app zygote process for $caller service" }
                     serviceInfo.flags = serviceInfo.flags or ServiceInfo.FLAG_USE_APP_ZYGOTE
                 }
+            }
 
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CINNAMON_BUN) {
                 hookBefore(
                     NATIVE_ZYGOTE_PROCESS_CLASS,
                     "start",

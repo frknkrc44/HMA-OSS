@@ -302,7 +302,7 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
                         )
             }
             findPreference<Preference>("restrictZygotePermissions")?.setOnPreferenceClickListener {
-                val gidPairs = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.CINNAMON_BUN) {
+                val gidPairs = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
                     Constants.GID_PAIRS.filter { it.value != Constants.APP_ZYGOTE_GID }
                 } else {
                     Constants.GID_PAIRS
