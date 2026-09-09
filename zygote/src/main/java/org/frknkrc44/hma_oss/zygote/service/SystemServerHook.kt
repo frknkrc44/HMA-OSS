@@ -39,11 +39,11 @@ object SystemServerHook {
             val pmn = waitForService(PACKAGE_MANAGER_NATIVE_SERVICE)
             logD(TAG) { "Got pms: $pms, $pmn" }
 
-            runCatching {
+            try {
                 UserService.register(pms, pmn)
                 logI(TAG) { "User service started" }
-            }.onFailure {
-                logE(TAG, it) { "System service crashed" }
+            } catch (cause: Throwable) {
+                logE(TAG, cause) { "System service crashed" }
             }
         }
     }

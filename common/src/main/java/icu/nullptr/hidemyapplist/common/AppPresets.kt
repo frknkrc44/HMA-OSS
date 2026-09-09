@@ -87,12 +87,12 @@ class AppPresets private constructor() {
 
             if (packageName == "android") return@forEach
 
-            runCatching {
+            try {
                 RiskyPackageUtils.instance.tryToAddIntoGMSConnectionList(appInfo) {
                     loggerFunction?.invoke(Log.DEBUG) { it }
                 }
-            }.onFailure { fail ->
-                loggerFunction?.invoke(Log.ERROR) { fail.toString() }
+            } catch (cause: Throwable) {
+                loggerFunction?.invoke(Log.ERROR) { cause.toString() }
             }
 
             presetList.values.forEach { preset ->
@@ -100,10 +100,10 @@ class AppPresets private constructor() {
 
                 if (preset is AccessibilityAppsPreset && appInfo.isSystemApp()) return@forEach
 
-                runCatching {
+                try {
                     preset.addPackageInfoPreset(appInfo)
-                }.onFailure { fail ->
-                    loggerFunction?.invoke(Log.ERROR) { fail.toString() }
+                } catch (cause: Throwable) {
+                    loggerFunction?.invoke(Log.ERROR) { cause.toString() }
                 }
 
                 loggerFunction?.invoke(Log.DEBUG) { preset.toString() }
@@ -134,14 +134,14 @@ class AppPresets private constructor() {
                     appInfo = pms.getPackageInfoCompat(packageName, 0, 0)?.applicationInfo
 
                 if (appInfo != null) {
-                    runCatching {
+                    try {
                         if (it.value.addPackageInfoPreset(appInfo!!)) {
                             onModifyCache(it.key)
                             loggerFunction?.invoke(Log.DEBUG) { "Package $packageName added into ${it.key}!" }
                             addedInAList = true
                         }
-                    }.onFailure { fail ->
-                        loggerFunction?.invoke(Log.ERROR) { fail.toString() }
+                    } catch (cause: Throwable) {
+                        loggerFunction?.invoke(Log.ERROR) { cause.toString() }
                     }
                 }
             }

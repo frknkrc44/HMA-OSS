@@ -77,12 +77,12 @@ object ServiceUtils {
             val profiles = mutableSetOf<Int>().also { set ->
                 val userIds = UserManagerApis.getUserIdsNoThrow()
 
-                runCatching {
+                try {
                     userIds.forEach {
                         val profiles = userManager.getProfileIds(it, false)
                         profiles.forEach { pId -> set.add(pId) }
                     }
-                }.onFailure {
+                } catch (_: Throwable) {
                     set.addAll(userIds)
                 }
             }

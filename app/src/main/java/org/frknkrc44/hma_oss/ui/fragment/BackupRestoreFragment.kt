@@ -86,24 +86,24 @@ class BackupRestoreFragment : Fragment(R.layout.fragment_backup_restore) {
                 return@restore
             }
 
-            runCatching {
+            try {
                 val backupContent = contentResolver
                     .openInputStream(uri)!!.reader().use { it.readText() }
                 importedConfig = JsonConfig.parse(backupContent)
                 loadScreenContents()
-            }.onFailure {
-                it.printStackTrace()
+            } catch (cause: Throwable) {
+                cause.printStackTrace()
                 navController.navigateUp()
                 MaterialAlertDialogBuilder(requireContext())
                     .setCancelable(false)
                     .setTitle(R.string.home_import_failed)
-                    .setMessage(it.message)
+                    .setMessage(cause.message)
                     .setPositiveButton(android.R.string.ok, null)
                     .setNegativeButton(R.string.show_crash_log) { _, _ ->
                         MaterialAlertDialogBuilder(requireActivity())
                             .setCancelable(false)
                             .setTitle(R.string.home_import_failed)
-                            .setMessage(it.stackTraceToString())
+                            .setMessage(cause.stackTraceToString())
                             .setPositiveButton(android.R.string.ok, null)
                             .show()
                     }
