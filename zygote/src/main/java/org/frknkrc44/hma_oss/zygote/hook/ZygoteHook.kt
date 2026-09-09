@@ -98,10 +98,13 @@ class ZygoteHook : IFrameworkHook {
 
         var perms = service.getRestrictedZygotePermissions(caller) ?: return
         if (perms.isNotEmpty()) {
-            val gIDs = frame.args[pair.second] as? IntArray ?: return
+            perms = perms.filter {
+                // reject if not available in GID_PAIRS, or it is APP_ZYGOTE_GID
+                Constants.GID_PAIRS.containsValue(it) || it == Constants.APP_ZYGOTE_GID
+            }
+            if (perms.isEmpty()) return
 
-            // add more security, reject if not available in GID_PAIRS
-            perms = perms.filter { Constants.GID_PAIRS.containsValue(it) }
+            val gIDs = frame.args[pair.second] as? IntArray ?: return
 
             logD(TAG) { "@startZygoteProcess: GIDs are ${gIDs.contentToString()}, removing $perms now" }
             frame.setArgument(pair.second, gIDs.filter { it !in perms }.toIntArray())
