@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.os.ParcelFileDescriptor
 import android.os.RemoteException
 import android.provider.Settings
-import android.util.Log
 import icu.nullptr.hidemyapplist.common.AppPresets
 import icu.nullptr.hidemyapplist.common.CollectionUtils.removeIf
 import icu.nullptr.hidemyapplist.common.Constants
@@ -204,19 +203,19 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     private fun loadConfig() {
         // remove the old filter count
         File("$dataDir/filter_count").also {
-            runCatching {
+            try {
                 if (it.exists()) it.delete()
-            }.onFailure { e ->
-                logW(TAG, e) { "Failed to delete filter count, skip it" }
+            } catch (cause: Throwable) {
+                logW(TAG, cause) { "Failed to delete filter count, skip it" }
             }
         }
 
         // remove the old preset cache
         presetCacheFileOld.also {
-            runCatching {
+            try {
                 if (it.exists()) it.delete()
-            }.onFailure { e ->
-                logW(TAG, e) { "Failed to delete preset cache, skip it" }
+            } catch (cause: Throwable) {
+                logW(TAG, cause) { "Failed to delete preset cache, skip it" }
             }
         }
 
@@ -228,8 +227,8 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         val loading = try {
             val json = configFile.readText()
             JsonConfig.parse(json)
-        } catch (it: Throwable) {
-            logW(TAG, it) { "Failed to parse config.json, skip it" }
+        } catch (cause: Throwable) {
+            logW(TAG, cause) { "Failed to parse config.json, skip it" }
 
             config
         }
@@ -458,8 +457,8 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
             val installed = pms.isPackageAvailable(query, callingUser)
             logD(TAG) { "@shouldHideInstallationSource UID for $caller, ${callingUser}: $query, $installed" }
             if (!installed) return Constants.FAKE_INSTALLATION_SOURCE_DISABLED // invalid package installation source request
-        } catch (e: Throwable) {
-            logD(TAG, e) { "@shouldHideInstallationSource UID error for $caller, $callingUser" }
+        } catch (cause: Throwable) {
+            logD(TAG, cause) { "@shouldHideInstallationSource UID error for $caller, $callingUser" }
             return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
         }
 
@@ -497,7 +496,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         if (!ensureManagerWorkModeOK()) return
 
         synchronized(configLock) {
-            runCatching {
+            try {
                 val newConfig = JsonConfig.parse(json)
                 newConfig.cleanRemnantsFromConfig()
                 if (newConfig.configVersion != BuildConfig.CONFIG_VERSION) {
@@ -511,10 +510,9 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
                 // remove filter counts for apps if they are not in config
                 dataHolder.filterHolder
                     .filterCounts.removeIf { key, _ -> !config.scope.containsKey(key) }
-            }.onSuccess {
                 logD(TAG) { "Config synced" }
-            }.onFailure {
-                return@synchronized
+            } catch (_: Throwable) {
+                // ignore
             }
         }
 
@@ -529,12 +527,11 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
                 return
             }
 
-            runCatching {
+            try {
                 filterCountFile.writeText(detailedFilterStats)
-            }.onSuccess {
                 logD(TAG) { "Filter count synced" }
-            }.onFailure {
-                return@onFailure
+            } catch (_: Throwable) {
+                // ignore
             }
         }
     }
@@ -615,10 +612,10 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
     override fun forceStop(packageName: String?, userId: Int) {
         binderLocalScope {
-            runCatching {
+            try {
                 ActivityManagerApis.forceStopPackage(packageName, userId)
-            }.onFailure { error ->
-                this.log(Log.ERROR, TAG, error.stackTraceToString())
+            } catch (cause: Throwable) {
+                logE(TAG, cause) { "An error occurred while force stopping the package" }
             }
         }
     }
@@ -677,11 +674,11 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     }
 
     fun writePresetCache() {
-        runCatching {
+        try {
             presetCacheFileNew.writeText(dataHolder.presetCache.toString())
             logD(TAG) { "Preset cache synced" }
-        }.onFailure {
-            logE(TAG, it) { "Failed to write into preset cache file" }
+        } catch (cause: Throwable) {
+            logE(TAG, cause) { "Failed to write into preset cache file" }
         }
     }
 
