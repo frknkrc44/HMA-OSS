@@ -109,6 +109,7 @@ object Constants {
         "com.android.providers.media",
         "com.android.providers.media.module",
         "com.android.providers.settings",
-        "com.google.android.providers.media.module"
+        "com.google.android.providers.media.module",
+        "com.google.android.permissioncontroller",
     )
 }
