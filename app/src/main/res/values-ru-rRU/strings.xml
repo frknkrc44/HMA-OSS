@@ -185,8 +185,6 @@
     <string name="settings_clear_uninstalled_app_configs">Очистить конфиг удаленных прил.</string>
     <string name="settings_clear_uninstalled_app_configs_summary">Эта опция позволяет создавать конфиг без остатков, но вам придется перенастроить приложения при их повторной установке.</string>
     <string name="settings_no_undone_warning">Это действие не может быть отменено.</string>
-    <string name="settings_package_query_workaround">Альтернативный запрос пакета</string>
-    <string name="settings_package_query_workaround_summary">Не включайте эту опцию, если вы видите список пакетов в этом приложении корректно.</string>
     <string name="settings_launcher_icon">Значок запуска</string>
     <string name="settings_error_only_log">Журнал только ошибок</string>
     <string name="settings_disable_hooks">Disable functions</string>

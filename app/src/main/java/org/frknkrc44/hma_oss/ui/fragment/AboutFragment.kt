@@ -3,6 +3,8 @@ package org.frknkrc44.hma_oss.ui.fragment
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.BitmapFactory
+import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
@@ -23,7 +25,9 @@ import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.data.AppConstants.allAppIcons
 import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.ui.util.AccessibilityUtils
+import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.attrDrawable
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.homeItemBackgroundColor
+import icu.nullptr.hidemyapplist.ui.util.dp2Px
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
 import icu.nullptr.hidemyapplist.util.PackageHelper.findEnabledAppComponent
@@ -33,7 +37,7 @@ import org.frknkrc44.hma_oss.databinding.FragmentAboutBinding
 import org.frknkrc44.hma_oss.databinding.FragmentAboutListItemBinding
 import org.json.JSONObject
 
-@Suppress("deprecation")
+@Suppress("DEPRECATION")
 class AboutFragment : Fragment(R.layout.fragment_about) {
     private val binding by viewBinding(FragmentAboutBinding::bind)
 
@@ -98,6 +102,15 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
         }
 
         with(binding.devHeader) {
+            background = LayerDrawable(arrayOf(
+                GradientDrawable().apply {
+                    setColor(0)
+                    cornerRadius = dp2Px(resources, 24)
+                },
+                attrDrawable(android.R.attr.selectableItemBackground),
+            ))
+            clipToOutline = true
+
             setOnClickListener {
                 if (binding.listHma.isVisible) {
                     binding.expandDevs.animate().rotation(0.0f).start()
@@ -196,7 +209,7 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
     fun setOnClickUrl(view: View, url: String) {
         view.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)
-            intent.setData(url.toUri())
+            intent.data = url.toUri()
             startActivity(intent)
         }
     }

@@ -2,7 +2,6 @@ package org.frknkrc44.hma_oss.ui.fragment
 
 import android.os.Bundle
 import android.view.View
-import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -19,6 +18,7 @@ import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.ui.fragment.ScopeFragmentArgs
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.navigate
+import icu.nullptr.hidemyapplist.ui.util.registerOnBackCallback
 import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import kotlinx.coroutines.launch
@@ -61,7 +61,8 @@ class SettingsTemplateConfFragment : Fragment(R.layout.fragment_template_setting
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) { onBack(false) }
+        registerOnBackCallback { onBack(false) }
+
         setupToolbar(
             toolbar = binding.toolbar,
             title = getString(R.string.title_settings_template_conf),

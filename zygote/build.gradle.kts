@@ -3,6 +3,7 @@ import com.v7878.zygisk.gradle.ZygoteLoader
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.io.PrintStream
 import java.util.Locale
+import kotlin.io.path.Path
 
 plugins {
     alias(libs.plugins.agp.app)
@@ -17,6 +18,14 @@ android {
 
     defaultConfig {
         applicationId = namespace
+    }
+
+    sourceSets {
+        getByName("main") {
+            java {
+                srcDirs(Path(rootDir.path, "external", "AndroidVMTools", "src", "main", "java"))
+            }
+        }
     }
 }
 
@@ -102,12 +111,15 @@ zygisk {
 
 dependencies {
     implementation(projects.common)
+    compileOnly(projects.stub)
 
     implementation(libs.androidx.annotation.jvm)
-    implementation(libs.com.android.tools.build.apksig)
-    implementation(libs.io.github.vova7878.androidvmtools)
     implementation(libs.io.github.vova7878.r8annotations)
     implementation(libs.dev.rikka.hidden.compat)
 
-    compileOnly(libs.dev.rikka.hidden.stub)
+    api(androidvmtools.panama.core)
+    api(androidvmtools.panama.unsafe)
+    api(androidvmtools.panama.llvm)
+
+    implementation(androidvmtools.sun.cleaner)
 }

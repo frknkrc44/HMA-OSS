@@ -42,8 +42,8 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:importantForAccessibility="no"
             android:src="@drawable/package_2_24px"
-            android:layout_width="@dimen/profile_badge_size"
-            android:layout_height="@dimen/profile_badge_size" />
+            android:layout_width="@dimen/vector_icon_size"
+            android:layout_height="@dimen/vector_icon_size" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/count_pkg_mgr"
@@ -58,8 +58,8 @@
             android:importantForAccessibility="no"
             android:src="@drawable/rocket_launch_24px"
             android:layout_marginLeft="@dimen/item_padding_mini"
-            android:layout_width="@dimen/profile_badge_size"
-            android:layout_height="@dimen/profile_badge_size" />
+            android:layout_width="@dimen/vector_icon_size"
+            android:layout_height="@dimen/vector_icon_size" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/count_act_launch"
@@ -74,8 +74,8 @@
             android:importantForAccessibility="no"
             android:src="@drawable/outline_settings_24"
             android:layout_marginLeft="@dimen/item_padding_mini"
-            android:layout_width="@dimen/profile_badge_size"
-            android:layout_height="@dimen/profile_badge_size" />
+            android:layout_width="@dimen/vector_icon_size"
+            android:layout_height="@dimen/vector_icon_size" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/count_settings"
@@ -90,8 +90,8 @@
             android:importantForAccessibility="no"
             android:src="@drawable/outline_shop_24"
             android:layout_marginLeft="@dimen/item_padding_mini"
-            android:layout_width="@dimen/profile_badge_size"
-            android:layout_height="@dimen/profile_badge_size" />
+            android:layout_width="@dimen/vector_icon_size"
+            android:layout_height="@dimen/vector_icon_size" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/count_installers"
@@ -106,8 +106,8 @@
             android:importantForAccessibility="no"
             android:src="@drawable/baseline_help_outline_24"
             android:layout_marginLeft="@dimen/item_padding_mini"
-            android:layout_width="@dimen/profile_badge_size"
-            android:layout_height="@dimen/profile_badge_size" />
+            android:layout_width="@dimen/vector_icon_size"
+            android:layout_height="@dimen/vector_icon_size" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/count_others"

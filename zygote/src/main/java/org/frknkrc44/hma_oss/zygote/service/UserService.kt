@@ -7,12 +7,9 @@ import android.os.Bundle
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.Utils.getUserFromCallingUid
 import org.frknkrc44.hma_oss.common.BuildConfig
-import org.frknkrc44.hma_oss.zygote.ZygoteEntry
-import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
-import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.isConflictingModuleInstalled
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.waitForService
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getStaticIntField
 import rikka.hidden.compat.ActivityManagerApis
@@ -23,6 +20,8 @@ object UserService {
     private const val TAG = "HMA-UserService"
 
     private val managerAppUid get() = service?.appUid ?: -1
+
+    var service: HMAService? = null
 
     private val uidObserver = object : UidObserverAdapter() {
         override fun onUidActive(uid: Int) {
@@ -61,14 +60,9 @@ object UserService {
     }
 
     fun register(pms: IPackageManager, pmn: Any?) {
-        logI(TAG) { "Initialize HMAService - Version ${BuildConfig.APP_VERSION_NAME}" }
+        assert(service == null) { "You cannot register the service more than once" }
 
-        val managerWorkMode = if (pms.isConflictingModuleInstalled()) {
-            logE(ZygoteEntry.TAG) { "Conflicting module detected, skipping hook" }
-            Constants.MANAGER_WORK_MODE_NO_HOOKS
-        } else {
-            Constants.MANAGER_WORK_MODE_LOADING
-        }
+        logI(TAG) { "Initialize HMAService - Version ${BuildConfig.APP_VERSION_NAME}" }
 
         waitForService("activity")
         ActivityManagerApis.registerUidObserver(
@@ -80,8 +74,7 @@ object UserService {
 
         logI(TAG) { "Registered observer" }
 
-        // no need to put in a variable
-        HMAService(pms, pmn, managerWorkMode)
+        HMAService(pms, pmn)
     }
 
     private fun getActMgrField(name: String) = getStaticIntField(

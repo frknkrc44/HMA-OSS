@@ -16,7 +16,7 @@ class AppPresetListAdapter(
     private val onClickListener: ((ConfigManager.PresetInfo) -> Unit)?
 ) : RecyclerView.Adapter<AppPresetListAdapter.ViewHolder>() {
 
-    private var list = mutableListOf<ConfigManager.PresetInfo>()
+    private val list = mutableListOf<ConfigManager.PresetInfo>()
 
     init {
         updateList(context)

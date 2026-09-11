@@ -10,6 +10,11 @@
         android:label="@string/title_home" />
 
     <fragment
+        android:id="@+id/nav_fix_issue"
+        android:name="org.frknkrc44.hma_oss.ui.fragment.FixIssueFragment"
+        android:label="@string/home_migrate_data_fix_button" />
+
+    <fragment
         android:id="@+id/nav_logs"
         android:name="org.frknkrc44.hma_oss.ui.fragment.TabbedLogsFragment"
         android:label="@string/title_logs" />

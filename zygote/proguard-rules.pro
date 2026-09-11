@@ -21,7 +21,4 @@
 #-renamesourcefileattribute SourceFile
 
 -keep class org.frknkrc44.hma_oss.zygote.ZygoteEntry { premain(); main(); }
--dontwarn android.content.pm.IPackageManager
--dontwarn android.content.pm.ParceledListSlice
--dontwarn android.os.SystemProperties
 -dontwarn com.v7878.r8.annotations.KeepCodeAttribute

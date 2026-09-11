@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
-import androidx.activity.addCallback
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.flowWithLifecycle
@@ -17,6 +16,7 @@ import icu.nullptr.hidemyapplist.ui.adapter.AppSelectAdapter
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.homeItemBackgroundColor
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.themeColor
 import icu.nullptr.hidemyapplist.ui.util.navController
+import icu.nullptr.hidemyapplist.ui.util.registerOnBackCallback
 import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import icu.nullptr.hidemyapplist.util.PackageHelper
@@ -87,7 +87,8 @@ abstract class AppSelectFragment : Fragment(R.layout.fragment_app_select) {
     open fun getFragmentTitle() = getString(R.string.title_app_select)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) { onBack() }
+        registerOnBackCallback { onBack() }
+
         setupToolbar(
             toolbar = binding.toolbar,
             title = getFragmentTitle(),

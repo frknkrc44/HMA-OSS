@@ -40,7 +40,6 @@
                 android:layout_marginVertical="@dimen/item_padding_mini"
                 android:paddingVertical="@dimen/info_card_margin_horizontal"
                 android:paddingHorizontal="@dimen/item_padding_vertical"
-                android:background="?selectableItemBackground"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -56,8 +55,8 @@
                     app:tint="?colorPrimary"
                     android:id="@+id/expand_devs"
                     android:importantForAccessibility="no"
-                    android:layout_width="@dimen/profile_badge_size"
-                    android:layout_height="@dimen/profile_badge_size" />
+                    android:layout_width="@dimen/vector_icon_size"
+                    android:layout_height="@dimen/vector_icon_size" />
 
             </LinearLayout>
 
@@ -127,4 +126,3 @@
     </ScrollView>
 
 </LinearLayout>
-

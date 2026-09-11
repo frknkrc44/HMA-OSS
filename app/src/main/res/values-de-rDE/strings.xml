@@ -185,8 +185,6 @@
     <string name="settings_clear_uninstalled_app_configs">Konfiguration von deinstallierten Apps löschen</string>
     <string name="settings_clear_uninstalled_app_configs_summary">Mit dieser Option können Sie eine Konfiguration ohne Reste erstellen, aber Sie müssen Apps neu konfigurieren, wenn Sie sie erneut installiert haben.</string>
     <string name="settings_no_undone_warning">Diese Aktion kann nicht rückgängig gemacht werden.</string>
-    <string name="settings_package_query_workaround">Alternative Paketabfrage</string>
-    <string name="settings_package_query_workaround_summary">Aktivieren Sie diese Option nicht, wenn Sie die Paketliste in dieser App korrekt sehen.</string>
     <string name="settings_launcher_icon">Startbildschirm Symbol</string>
     <string name="settings_error_only_log">Nur Fehlerprotokoll</string>
     <string name="settings_disable_hooks">Disable functions</string>

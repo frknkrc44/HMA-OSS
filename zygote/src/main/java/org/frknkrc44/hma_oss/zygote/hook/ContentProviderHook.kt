@@ -1,6 +1,7 @@
 package org.frknkrc44.hma_oss.zygote.hook
 
 import android.content.AttributionSource
+import android.content.ContentResolver
 import android.database.Cursor
 import android.database.MatrixCursor
 import android.net.Uri
@@ -9,8 +10,7 @@ import android.os.Bundle
 import android.provider.Settings
 import com.v7878.unsafe.invoke.EmulatedStackFrame
 import icu.nullptr.hidemyapplist.common.CollectionUtils.firstWithType
-import org.frknkrc44.hma_oss.zygote.service.BulkHooker
-import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
+import org.frknkrc44.hma_oss.zygote.util.ContentProviderUtils.getOverriddenDatabaseName
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
@@ -25,14 +25,14 @@ class ContentProviderHook : IFrameworkHook {
 
     @Suppress("UNCHECKED_CAST")
     override fun load() {
-        BulkHooker.instance.apply {
+        hooker.apply {
             hookAfter(
                 CONTENT_PROVIDER_TRANSPORT_CLASS,
                 "query",
             ) { _, frame, returnValue ->
                 val callingApps = getCallingPackages(frame)
 
-                val caller = callingApps.firstOrNull { service?.isAnySettingsReplacementsEnabled(it) ?: false }
+                val caller = callingApps.firstOrNull { service.isAnySettingsReplacementsEnabled(it) }
                 if (caller == null) return@hookAfter
 
                 val uriIdx = frame.args.indexOfFirst { it is Uri }
@@ -43,28 +43,53 @@ class ContentProviderHook : IFrameworkHook {
                 val segments = uri.pathSegments
                 if (segments.isEmpty()) return@hookAfter
 
-                logD(TAG) {
-                    val projection = frame.args[uriIdx + 1] as Array<String>?
-                    val args = frame.args[uriIdx + 2] as Bundle?
+                val projection = frame.args[uriIdx + 1] as? Array<String>
+                val args = frame.args[uriIdx + 2] as? Bundle
 
+                logD(TAG) {
                     "@spoofSettings QUERY in ${callingApps.contentToString()}: $uri, ${projection?.contentToString()}, $args"
                 }
 
-                val database = segments[0]
+                var database = segments[0]
 
-                if (segments.size >= 2) {
-                    val name = segments[1]
+                if (segments.size >= 2 || args != null) {
+                    val name = if (segments.size >= 2) {
+                        segments[1]
+                    } else {
+                        val querySel = args!!.getString(ContentResolver.QUERY_ARG_SQL_SELECTION)
+                        val query = querySel?.split(" ")
+                            ?.map { it.substringBeforeLast("=").trim() }
 
-                    logD(TAG) { "@spoofSettings QUERY received caller: $caller, database: $database, name: $name" }
+                        logD(TAG) { "@spoofSettings QUERY caller: $caller, querySel: $querySel, query: $query" }
 
-                    val replacement = service?.getSpoofedSetting(caller, name, database)
+                        val idx = query?.indexOfFirst { it == "name" } ?: return@hookAfter
+
+                        args.getStringArray(ContentResolver.QUERY_ARG_SQL_SELECTION_ARGS)!![idx]
+                    }
+
+                    logD(TAG) { "@spoofSettings QUERY received caller: $caller, database: $database, name: $name, args: $args" }
+
+                    database = getOverriddenDatabaseName(database, name)
+
+                    val replacement = service.getSpoofedSetting(caller, name, database)
                     if (replacement != null) {
-                        logD(TAG) { "@spoofSettings QUERY $name in $database replaced for $caller" }
-                        returnValue.result = MatrixCursor(arrayOf("name", "value"), 1).apply {
-                            addRow(arrayOf(replacement.name, replacement.value))
+                        val columnNames = projection ?: arrayOf("name", "value")
+                        val nameInColumns = "name" in columnNames
+                        val valueInColumns = "value" in columnNames
+
+                        val returnedArray = when {
+                            nameInColumns && valueInColumns -> arrayOf(replacement.name, replacement.value)
+                            valueInColumns -> arrayOf(replacement.value)
+                            nameInColumns -> arrayOf(replacement.name)
+                            else -> return@hookAfter
                         }
 
-                        service?.increaseSettingsFilterCount(caller)
+                        logD(TAG) { "@spoofSettings QUERY $name in $database replaced for $caller" }
+                        returnValue.result = MatrixCursor(columnNames, 1).apply {
+                            addRow(returnedArray)
+                        }
+
+                        service.increaseSettingsFilterCount(caller)
                     }
                 } else {
                     logD(TAG) { "@spoofSettings LIST_QUERY received caller: $caller, database: $database" }
@@ -91,9 +116,14 @@ class ContentProviderHook : IFrameworkHook {
 
                     while (result.moveToNext()) {
                         val name = result.getString(columns.keys.indexOf("name"))
+
+                        // skip when the entry is not a member of this database
+                        val dbName = getOverriddenDatabaseName(database, name)
+                        if (dbName != database) continue
+
                         keyColumn.add(name)
 
-                        val replacement = service?.getSpoofedSetting(caller, name, database)
+                        val replacement = service.getSpoofedSetting(caller, name, database)
                         val value = if (replacement != null) {
                             logD(TAG) { "@spoofSettings QUERY $name in $database replaced for $caller" }
 
@@ -115,7 +145,7 @@ class ContentProviderHook : IFrameworkHook {
                         }
                     }
 
-                    service?.increaseSettingsFilterCount(caller, filteredEntryCount)
+                    service.increaseSettingsFilterCount(caller, filteredEntryCount)
 
                     returnValue.result = MatrixCursor(columns.keys.toTypedArray(), columns.size).apply {
                         val size = columns.values.first().size
@@ -137,7 +167,7 @@ class ContentProviderHook : IFrameworkHook {
                 "call",
             ) { _, frame, returnValue ->
                 val callingApps = getCallingPackages(frame)
-                val caller = callingApps.firstOrNull { service?.isAnySettingsReplacementsEnabled(it) ?: false }
+                val caller = callingApps.firstOrNull { service.isAnySettingsReplacementsEnabled(it) }
                 if (caller == null) return@hookBefore
 
                 val nameIdx = frame.args.indexOfLast { it is String }
@@ -149,7 +179,7 @@ class ContentProviderHook : IFrameworkHook {
                 when (method) {
                     "GET_global", "GET_secure", "GET_system" -> {
                         val database = method.substring(method.indexOf('_') + 1)
-                        val replacement = service?.getSpoofedSetting(caller, name, database)
+                        val replacement = service.getSpoofedSetting(caller, name, database)
                         if (replacement != null) {
                             logD(TAG) { "@spoofSettings CALL $name in $database replaced for $caller" }
                             returnValue.result = Bundle().apply {
@@ -157,7 +187,7 @@ class ContentProviderHook : IFrameworkHook {
                                 putInt("_generation_index", -1)
                             }
 
-                            service?.increaseSettingsFilterCount(caller)
+                            service.increaseSettingsFilterCount(caller)
                         }
                     }
                 }
@@ -173,6 +203,6 @@ class ContentProviderHook : IFrameworkHook {
             arrayOf(frame.args.firstWithType<String>())
         }
     } catch (_: Throwable) {
-        ServiceUtils.getCallingApps()
+        ServiceUtils.getCallingApps(pms)
     }
 }

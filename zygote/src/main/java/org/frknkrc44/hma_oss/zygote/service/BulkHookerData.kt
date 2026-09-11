@@ -23,5 +23,5 @@ data class HookElement(
     var method: Executable? = null,
     var memoryAddresses: Pair<Long, Long>? = null,
     var hookFinished: Boolean = false,
-    val paramCount: Int = -1,
+    val argumentCount: Int = -1,
 )

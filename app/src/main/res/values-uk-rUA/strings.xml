@@ -185,8 +185,6 @@
     <string name="settings_clear_uninstalled_app_configs">Очистити налаштування вилучених програм</string>
     <string name="settings_clear_uninstalled_app_configs_summary">Ця опція дозволяє створити конфігурацію без залишків, але вам доведеться переналаштувати програми після їх повторного встановлення.</string>
     <string name="settings_no_undone_warning">Цю дію не можна буде скасувати.</string>
-    <string name="settings_package_query_workaround">Альтернативний запит пакету</string>
-    <string name="settings_package_query_workaround_summary">Не вмикати дану опцію, якщо ви бачите в цій програмі перелік пакетів.</string>
     <string name="settings_launcher_icon">Іконка лаунчера</string>
     <string name="settings_error_only_log">Лишень помилки</string>
     <string name="settings_disable_hooks">Disable functions</string>
