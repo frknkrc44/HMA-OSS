@@ -34,8 +34,8 @@
     <string name="apply">Terapkan</string>
     <string name="follow_system">Sistem</string>
     <!-- Home -->
-    <string name="home_xposed_activated">Modul Diaktifkan [%s]</string>
-    <string name="home_xposed_not_activated">Modul Tidak Diaktifkan</string>
+    <string name="home_xposed_activated">Modul Aktif [%s]</string>
+    <string name="home_xposed_not_activated">Modul Tidak Aktif</string>
     <string name="home_xposed_service_on">Layanan sistem sedang berjalan [%d]</string>
     <string name="home_xposed_service_off">Layanan sistem tidak berjalan</string>
     <string name="home_xposed_filter_count">HMA-OSS telah memfilter total %d permintaan</string>
@@ -57,10 +57,10 @@
     <string name="home_update">Memperbarui: %s</string>
     <string name="home_migrate_data_fix_button">Perbaiki masalahnya</string>
     <string name="home_migrate_data">Migrasikan Data</string>
-    <string name="home_migrate_data_summary">Anda juga akan diminta menghapus HMA/HMAL di kedua opsi. Apakah Anda ingin memigrasikan data lama?</string>
+    <string name="home_migrate_data_summary">Anda juga akan diminta mencopot HMA/HMAL di kedua opsi. Apakah Anda ingin memigrasikan data lama?</string>
     <string name="home_migrate_data_failed">Gagal menyalin data atau menemukan lebih dari satu HMA/HMAL.</string>
     <string name="home_migrate_data_completed">Selesai! Anda perlu memulai ulang perangkat Anda.</string>
-    <string name="home_migrate_uninstall_only">Hanya menghapus</string>
+    <string name="home_migrate_uninstall_only">Hanya mencopot</string>
     <!-- Backup & Restore -->
     <string name="backup_restore_backup_settings">Setelan cadangan</string>
     <string name="backup_restore_restore_settings">Setelan pemulihan</string>
@@ -109,10 +109,10 @@
     <string name="app_extra_apps_invisible_count">%d aplikasi tambahan tidak terlihat</string>
     <string name="app_warning_risky_package_title">Paket berisiko</string>
     <string name="app_warning_risky_package_desc">Paket ini ditandai sebagai berisiko dan dapat menyebabkan masalah pada aplikasi tersembunyi. Apakah Anda ingin melanjutkan?</string>
-    <string name="app_spoof">Spoofing</string>
-    <string name="app_hide_installation_source">Spoof sumber pemasangan</string>
+    <string name="app_spoof">Pemalsuan (Spoofing)</string>
+    <string name="app_hide_installation_source">Palsukan sumber pemasangan</string>
     <string name="app_hide_installation_source_desc">Semua aplikasi pengguna akan di-spoof seolah-olah terpasang di Play Store untuk aplikasi ini</string>
-    <string name="app_hide_installation_source_system">Spoof aplikasi sistem juga</string>
+    <string name="app_hide_installation_source_system">Palsukan aplikasi sistem juga</string>
     <string name="app_hide_installation_source_system_desc">Semua aplikasi sistem akan di-spoof seolah-olah terpasang tanpa alasan apa pun untuk aplikasi ini</string>
     <string name="app_exclude_target_installation_source">Kecualikan aplikasi target</string>
     <string name="app_exclude_target_installation_source_desc">Anda dapat mengaktifkannya jika aplikasi ini tidak tersedia di Play Store</string>
@@ -182,7 +182,7 @@
     <string name="settings_disable_activity_launch_protection">Nonaktifkan proteksi peluncuran aktivitas</string>
     <string name="settings_disable_activity_launch_protection_summary">Tombol ini akan menonaktifkan semua proteksi peluncuran aktivitas. Jika Anda tidak yakin, jangan aktifkan.</string>
     <string name="settings_system_wallpaper">Gunakan wallpaper sistem</string>
-    <string name="settings_clear_uninstalled_app_configs">Bersihkan konfig aplikasi terhapus</string>
+    <string name="settings_clear_uninstalled_app_configs">Bersihkan konfig aplikasi dicopot</string>
     <string name="settings_clear_uninstalled_app_configs_summary">Opsi ini memungkinkan Anda membuat konfigurasi tanpa sisa tetapi Anda harus mengonfigurasi ulang aplikasi saat Anda memasangnya lagi.</string>
     <string name="settings_no_undone_warning">Tindakan ini tidak dapat dibatalkan.</string>
     <string name="settings_package_query_workaround">Pencarian paket alternatif</string>
@@ -207,7 +207,7 @@
     <string name="settings_pure_black_dark_theme">Tema gelap hitam pekat</string>
     <string name="settings_pure_black_dark_theme_summary">Gunakan tema hitam pekat jika tema gelap diaktifkan</string>
     <string name="settings_service">Layanan</string>
-    <string name="settings_reset_default">Setel ulang ke setelan bawaan</string>
+    <string name="settings_reset_default">Atur ulang ke setelan bawaan</string>
     <string name="settings_reset_default_summary">Opsi ini memungkinkan Anda menghapus seluruh konfigurasi dan memulai dari awal</string>
     <string name="settings_irreversible_confirmation">Tindakan ini tidak dapat dibatalkan. Apakah Anda yakin?</string>
     <string name="settings_is_clean_env_summary">Hapus cache layanan sistem di /data/misc/hide_my_applist_*. Ini artinya Anda harus membuka aplikasi modul secara manual sekali setelah proses mulai ulang berikutnya untuk mengaktifkan intersepsi, dan hitungan intersepsi juga akan dibersihkan.</string>
@@ -265,7 +265,7 @@
     <string name="dark_theme">Tema gelap</string>
     <string name="dark_theme_off">Selalu nonaktif</string>
     <string name="dark_theme_on">Selalu aktif</string>
-    <string name="sick_mode_title">Mode sakit diaktifkan</string>
+    <string name="sick_mode_title">Mode sakit aktif</string>
     <string name="sick_mode_description">HMA-OSS mendeteksi modul yang kemungkinan tidak kompatibel dan membatasi fungsinya</string>
     <string name="sick_mode_notice">Konfig HMA/HMAL kompatibel dengan HMA-OSS dan Anda dapat mulai menggunakannya dengan konfig yang sudah ada, tetapi Anda perlu mencopot pemasangan HMA/HMAL lalu melakukan mulai ulang terlebih dahulu</string>
 </resources>
