@@ -1,7 +1,6 @@
 package org.frknkrc44.hma_oss.zygote.hook
 
 import android.content.AttributionSource
-import android.content.ContentResolver
 import android.database.Cursor
 import android.database.MatrixCursor
 import android.net.Uri
@@ -52,20 +51,8 @@ class ContentProviderHook : IFrameworkHook {
 
                 var database = segments[0]
 
-                if (segments.size >= 2 || args != null) {
-                    val name = if (segments.size >= 2) {
-                        segments[1]
-                    } else {
-                        val querySel = args!!.getString(ContentResolver.QUERY_ARG_SQL_SELECTION)
-                        val query = querySel?.split(" ")
-                            ?.map { it.substringBeforeLast("=").trim() }
-
-                        logD(TAG) { "@spoofSettings QUERY caller: $caller, querySel: $querySel, query: $query" }
-
-                        val idx = query?.indexOfFirst { it == "name" } ?: return@hookAfter
-
-                        args.getStringArray(ContentResolver.QUERY_ARG_SQL_SELECTION_ARGS)!![idx]
-                    }
+                if (segments.size >= 2) {
+                    val name = segments[1]
 
                     logD(TAG) { "@spoofSettings QUERY received caller: $caller, database: $database, name: $name, args: $args" }
 
@@ -117,13 +104,11 @@ class ContentProviderHook : IFrameworkHook {
                     while (result.moveToNext()) {
                         val name = result.getString(columns.keys.indexOf("name"))
 
-                        // skip when the entry is not a member of this database
                         val dbName = getOverriddenDatabaseName(database, name)
-                        if (dbName != database) continue
 
                         keyColumn.add(name)
 
-                        val replacement = service.getSpoofedSetting(caller, name, database)
+                        val replacement = service.getSpoofedSetting(caller, name, dbName)
                         val value = if (replacement != null) {
                             logD(TAG) { "@spoofSettings QUERY $name in $database replaced for $caller" }
 
