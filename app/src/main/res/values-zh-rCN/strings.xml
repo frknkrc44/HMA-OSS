@@ -114,7 +114,7 @@
     <string name="app_hide_installation_source_desc">对此应用，将所有其他应用（包括自身）伪装为通过Play商店安装（不会伪装系统应用）</string>
     <string name="app_hide_installation_source_system">同时伪装系统应用</string>
     <string name="app_hide_installation_source_system_desc">将所有系统应用伪装为无安装来源</string>
-    <string name="app_exclude_target_installation_source">排除此应用自身</string>
+    <string name="app_exclude_target_installation_source">排除此应用</string>
     <string name="app_exclude_target_installation_source_desc">此应用将显示为原有安装来源（如果此应用没有上架Play商店，可以启用此项）</string>
     <string name="app_force_stop_warning">配置已保存，需要重启目标应用</string>
     <string name="app_invert_activity_launch_protection">可疑Activity拦截特例</string>
@@ -159,7 +159,7 @@
     <string name="settings_module">模块</string>
     <string name="settings_overwrite">覆盖</string>
     <string name="settings_overwritten">已覆盖</string>
-    <string name="settings_overwrite_summary">勾选后，此类别的选项将被强制启用</string>
+    <string name="settings_overwrite_summary">打开开关后，对应功能将被强制启用，否则将使用默认值</string>
     <string name="settings_default_value">默认值：%s</string>
     <string name="settings_data_isolation">数据隔离</string>
     <string name="settings_data_isolation_summary">App data：%s\nVold app data：%s\n强制隔离数据：%s</string>
@@ -169,7 +169,7 @@
     <string name="settings_warning">警告</string>
     <string name="settings_vold_warning">启用 AOSP 隔离应用私有目录功能。这可以增强隐藏效果，但可能会导致稳定性问题。此功能在 AOSP 中已被废弃，可能无法正常工作。</string>
     <string name="settings_change_require_root">此操作需要 Root 权限</string>
-    <string name="settings_need_reboot">操作已完成，需要重启设备。</string>
+    <string name="settings_need_reboot">此更改需要重启手机后才能生效</string>
     <string name="settings_permission_denied">权限不足</string>
     <string name="settings_force_mount_data">强制隔离应用数据目录</string>
     <string name="settings_force_mount_data_summary">强制启用 API 30 (Android 11) 以上 AOSP 应用数据目录隔离功能，对于 Target API 低于 30 的应用默认禁用</string>

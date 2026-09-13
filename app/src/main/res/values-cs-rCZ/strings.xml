@@ -28,8 +28,8 @@
     <string name="yes">Ano</string>
     <string name="no">Ne</string>
     <string name="search">Hledat</string>
-    <string name="system">System</string>
-    <string name="add">Add</string>
+    <string name="system">Systém</string>
+    <string name="add">Přidat</string>
     <string name="edit">Upravit</string>
     <string name="apply">Použít</string>
     <string name="follow_system">Follow system</string>
@@ -55,17 +55,17 @@
     <string name="home_exported">Zálohovaná konfigurace</string>
     <string name="home_new_update">K dispozici nová aktualizace: %s</string>
     <string name="home_update">Aktualizace: %s</string>
-    <string name="home_migrate_data_fix_button">Fix the issue</string>
-    <string name="home_migrate_data">Migrate data</string>
-    <string name="home_migrate_data_summary">You will also be prompted to uninstall HMA/HMAL in both options. Do you want to migrate the old data?</string>
-    <string name="home_migrate_data_failed">Failed to copy the data or found more than one HMA/HMAL.</string>
-    <string name="home_migrate_data_completed">Done! You need to reboot your device.</string>
-    <string name="home_migrate_uninstall_only">Uninstall only</string>
+    <string name="home_migrate_data_fix_button">Opravit problém</string>
+    <string name="home_migrate_data">Přenést data</string>
+    <string name="home_migrate_data_summary">Budete také vyzváni k odinstalaci HMA/HMAL v obou možnostech. Chcete přesunout stará data?</string>
+    <string name="home_migrate_data_failed">Kopírování dat selhalo nebo bylo nalezeno více než jedno HMA/HMAL.</string>
+    <string name="home_migrate_data_completed">Hotovo! Zařízení je třeba restartovat.</string>
+    <string name="home_migrate_uninstall_only">Pouze odinstalovat</string>
     <!-- Backup & Restore -->
     <string name="backup_restore_backup_settings">Backup settings</string>
     <string name="backup_restore_restore_settings">Restore settings</string>
     <string name="backup_restore_apps">App configs</string>
-    <string name="backup_restore_templates">Templates</string>
+    <string name="backup_restore_templates">Šablony</string>
     <string name="backup_restore_settings_templates">Settings templates</string>
     <string name="backup_restore_append">Append</string>
     <string name="backup_restore_items_count">%d items</string>
@@ -79,7 +79,7 @@
     <string name="list_sort_by_update_time">Podle času aktualizace</string>
     <string name="list_empty_no_enabled">Try enabling hiding for apps with this template\'s work mode and apps will appear here</string>
     <string name="list_empty_no_apps">No applications found, maybe you didn\'t allow this app to query all packages</string>
-    <string name="list_empty_preset">No applications added in this preset</string>
+    <string name="list_empty_preset">Do této předvolby nebyly přidány žádné aplikace</string>
     <!-- Manage templates -->
     <string name="template_usage_hint">Vytvořte šablony pro „neklidné“ aplikace a ovládejte seznam aplikací, které mohou vidět.\n\nČerná listina (doporučeno): aplikace vybrané v šabloně budou pro aplikace používající šablonu neviditelné.\nWhitellist: aplikace, které nejsou vybrány v šabloně, budou neviditelné pro aplikace používající šablonu.</string>
     <string name="template_new_blacklist">Vytvořte šablonu černé listiny</string>
@@ -98,7 +98,7 @@
     <string name="app_enable_hide">Povolit skrytí</string>
     <string name="app_template_config">Konfigurace šablony</string>
     <string name="app_choose_template">Vyberte šablonu</string>
-    <string name="app_choose_preset">Choose preset</string>
+    <string name="app_choose_preset">Vyberte předvolbu</string>
     <string name="app_exclude_system_apps">Vyloučit systémové aplikace</string>
     <string name="app_exclude_system_apps_summary">Tuto možnost vypněte pouze v případě, že je to opravdu nutné. Pokud je deaktivován, pravděpodobně způsobí pád</string>
     <string name="app_template_using">Používá %d šablon</string>
@@ -107,8 +107,8 @@
     <string name="app_settings_template_using">Using %d settings templates</string>
     <string name="app_extra_apps_visible_count">%d dalších aplikací je viditelných</string>
     <string name="app_extra_apps_invisible_count">%d dalších aplikaci je skryto</string>
-    <string name="app_warning_risky_package_title">Risky package</string>
-    <string name="app_warning_risky_package_desc">This package is marked as risky and you can cause issues on hidden apps. Do you want to continue?</string>
+    <string name="app_warning_risky_package_title">Rizikový balíček</string>
+    <string name="app_warning_risky_package_desc">Tento balíček je označen jako riskantní a může způsobit problémy ve skrytých aplikacích. Chcete pokračovat?</string>
     <string name="app_spoof">Spoofing</string>
     <string name="app_hide_installation_source">Spoof installation sources</string>
     <string name="app_hide_installation_source_desc">All of user apps will be spoofed as installed over Play Store for this application</string>
