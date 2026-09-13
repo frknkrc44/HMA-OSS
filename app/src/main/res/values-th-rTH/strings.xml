@@ -190,8 +190,6 @@ Vold ข้อมูลแอป: %s
     <string name="settings_clear_uninstalled_app_configs">ล้างการตั้งค่าแอปที่ถอนการติดตั้งแล้ว</string>
     <string name="settings_clear_uninstalled_app_configs_summary">ตัวเลือกนี้ช่วยให้คุณสร้างการตั้งค่าใหม่โดยไม่มีข้อมูลตกค้าง แต่คุณจะต้องตั้งค่าแอปใหม่เมื่อทำการติดตั้งอีกครั้ง</string>
     <string name="settings_no_undone_warning">การกระทำนี้ไม่สามารถย้อนกลับได้</string>
-    <string name="settings_package_query_workaround">ทางเลือกการค้นหาแพ็กเกจ</string>
-    <string name="settings_package_query_workaround_summary">อย่าเปิดใช้งานตัวเลือกนี้หากคุณเห็นรายการแพ็กเกจในแอปนี้ถูกต้องอยู่แล้ว</string>
     <string name="settings_launcher_icon">ไอคอนตัวเรียกใช้งาน</string>
     <string name="settings_error_only_log">บันทึกเฉพาะข้อผิดพลาด</string>
     <string name="settings_disable_hooks">Disable functions</string>

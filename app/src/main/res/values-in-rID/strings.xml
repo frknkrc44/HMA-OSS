@@ -185,8 +185,6 @@
     <string name="settings_clear_uninstalled_app_configs">Bersihkan konfig aplikasi terhapus</string>
     <string name="settings_clear_uninstalled_app_configs_summary">Opsi ini memungkinkan Anda membuat konfigurasi tanpa sisa tetapi Anda harus mengonfigurasi ulang aplikasi saat Anda memasangnya lagi.</string>
     <string name="settings_no_undone_warning">Tindakan ini tidak dapat dibatalkan.</string>
-    <string name="settings_package_query_workaround">Pencarian paket alternatif</string>
-    <string name="settings_package_query_workaround_summary">Jangan aktifkan opsi ini jika daftar paket sudah tampil dengan benar.</string>
     <string name="settings_launcher_icon">Ikon aplikasi</string>
     <string name="settings_error_only_log">Log khusus error</string>
     <string name="settings_disable_hooks">Nonaktifkan fungsi</string>

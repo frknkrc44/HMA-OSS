@@ -3,8 +3,8 @@ package icu.nullptr.hidemyapplist.common
 import android.content.Context
 import android.os.Build
 import android.os.SystemProperties
+import icu.nullptr.hidemyapplist.common.Utils.isPackageAvailable
 import org.frknkrc44.hma_oss.common.BuildConfig
-import java.lang.reflect.Field
 
 object OSUtils {
     private val PACKAGES_TO_CHECK = listOf(
@@ -15,6 +15,8 @@ object OSUtils {
     )
 
     fun collectOSInfo(context: Context, serviceVersion: String?) = buildString {
+        val pkgMgr = context.packageManager
+
         append("HMA-OSS Log")
         append("\nApp version: ")
         append("${BuildConfig.APP_VERSION_NAME} (${BuildConfig.APP_VERSION_CODE})")
@@ -29,36 +31,28 @@ object OSUtils {
         append("]\nIs HyperOS: ")
         append(SystemProperties.get("ro.mi.os.version.incremental").isNotBlank())
         append("\nIs MIUI: ")
-        append(isPackageExists(context, "com.miui.system"))
+        append(pkgMgr.isPackageAvailable("com.miui.system"))
         append("\nIs oplus: ")
         append(SystemProperties.get("ro.build.version.oplusrom").isNotBlank())
         append("\nIs Samsung: ")
         append(isSamsung())
         append("\nIs Pixel: ")
-        append(isPackageExists(context, "com.google.android.apps.customization.pixel"))
+        append(pkgMgr.isPackageAvailable("com.google.android.apps.customization.pixel"))
 
         PACKAGES_TO_CHECK.forEach {
             append("\nIs $it available: ")
-            append(isPackageExists(context, it))
+            append(pkgMgr.isPackageAvailable(it))
         }
     }
 
     fun isSamsung(): Boolean {
         try {
-            val semPlatformIntField: Field =
+            val semPlatformIntField =
                 Build.VERSION::class.java.getDeclaredField("SEM_PLATFORM_INT")
             semPlatformIntField.isAccessible = true
             return semPlatformIntField.getInt(null) >= 0
         } catch (_: Throwable) {
             return false
-        }
-    }
-
-    fun isPackageExists(context: Context, packageName: String): Boolean {
-        return try {
-            context.packageManager.getPackageUid(packageName, 0) > 0
-        } catch (_: Throwable) {
-            false
         }
     }
 }

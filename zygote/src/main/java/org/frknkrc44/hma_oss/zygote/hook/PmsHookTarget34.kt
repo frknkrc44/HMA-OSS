@@ -6,7 +6,6 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import icu.nullptr.hidemyapplist.common.Constants.VENDING_PACKAGE_NAME
 import icu.nullptr.hidemyapplist.common.Utils
-import org.frknkrc44.hma_oss.zygote.service.BulkHooker
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackageNameFromPackageSettings
@@ -63,7 +62,7 @@ class PmsHookTarget34 : PmsHookTargetBase() {
     override fun load() {
         logI(TAG) { "Load hook" }
 
-        BulkHooker.instance.apply {
+        hooker.apply {
             hookBefore(
                 APPS_FILTER_IMPL_CLASS,
                 "shouldFilterApplication",
@@ -72,7 +71,7 @@ class PmsHookTarget34 : PmsHookTargetBase() {
                     methodName,
                     { frame.getArgument(2) as Int? },
                     { getPackageNameFromPackageSettings(frame.getArgument(4)) },
-                    {
+                    { _, it ->
                         Utils.binderLocalScope {
                             getPackagesForUidMethod.invoke(frame.getArgument(1), it) as Array<String>?
                         }

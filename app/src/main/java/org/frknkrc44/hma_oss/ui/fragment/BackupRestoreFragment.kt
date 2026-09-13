@@ -13,6 +13,7 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.common.CollectionUtils.removeIf
+import icu.nullptr.hidemyapplist.common.CollectionUtils.sync
 import icu.nullptr.hidemyapplist.common.Constants.CONFIG_VERSION_NO_SETTINGS
 import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.common.Utils.cleanRemnantsFromConfig
@@ -85,28 +86,15 @@ class BackupRestoreFragment : Fragment(R.layout.fragment_backup_restore) {
                 return@restore
             }
 
-            runCatching {
+            try {
                 val backupContent = contentResolver
                     .openInputStream(uri)!!.reader().use { it.readText() }
                 importedConfig = JsonConfig.parse(backupContent)
                 loadScreenContents()
-            }.onFailure {
-                it.printStackTrace()
+            } catch (cause: Throwable) {
+                cause.printStackTrace()
                 navController.navigateUp()
-                MaterialAlertDialogBuilder(requireContext())
-                    .setCancelable(false)
-                    .setTitle(R.string.home_import_failed)
-                    .setMessage(it.message)
-                    .setPositiveButton(android.R.string.ok, null)
-                    .setNegativeButton(R.string.show_crash_log) { _, _ ->
-                        MaterialAlertDialogBuilder(requireActivity())
-                            .setCancelable(false)
-                            .setTitle(R.string.home_import_failed)
-                            .setMessage(it.stackTraceToString())
-                            .setPositiveButton(android.R.string.ok, null)
-                            .show()
-                    }
-                    .show()
+                onImportFailed(cause)
             }
         }
 
@@ -136,7 +124,7 @@ class BackupRestoreFragment : Fragment(R.layout.fragment_backup_restore) {
     }
 
     @SuppressLint("DefaultLocale")
-    @Suppress("deprecation")
+    @Suppress("DEPRECATION")
     private fun reloadScreenContents() {
         binding.manageApps.subText = getString(
             R.string.backup_restore_items_count,
@@ -282,54 +270,47 @@ class BackupRestoreFragment : Fragment(R.layout.fragment_backup_restore) {
         dialog.show()
     }
 
-    private fun onRestore() = clearNotImportedItems {
-        if (!overwriteApps || !overwriteTemplates) {
-            val config = ConfigManager.getRawConfig(false)
+    private fun onRestore() = try {
+        clearNotImportedItems {
+            if (!overwriteApps || !overwriteTemplates) {
+                val config = ConfigManager.getRawConfig(false)
 
-            if (!overwriteApps) {
-                config.scope.map {
-                    importedConfig.scope.putIfAbsent(it.key, it.value)
+                if (!overwriteApps) {
+                    config.scope.map {
+                        importedConfig.scope.putIfAbsent(it.key, it.value)
+                    }
+                }
+
+                if (!overwriteTemplates) {
+                    config.templates.map {
+                        importedConfig.templates.putIfAbsent(it.key, it.value)
+                    }
+                }
+
+                if (!overwriteSettingsTemplates) {
+                    config.settingsTemplates.map {
+                        importedConfig.settingsTemplates.putIfAbsent(it.key, it.value)
+                    }
                 }
             }
 
-            if (!overwriteTemplates) {
-                config.templates.map {
-                    importedConfig.templates.putIfAbsent(it.key, it.value)
-                }
+            if (!includeSettings || importedConfig.configVersion == CONFIG_VERSION_NO_SETTINGS) {
+                val currentConfig = ConfigManager.getRawConfig(true)
+
+                currentConfig.scope.sync(importedConfig.scope)
+                currentConfig.templates.sync(importedConfig.templates)
+                currentConfig.settingsTemplates.sync(importedConfig.settingsTemplates)
+
+                ConfigManager.importConfig(currentConfig.toString())
+            } else {
+                ConfigManager.importConfig(importedConfig.toString())
             }
 
-            if (!overwriteSettingsTemplates) {
-                config.settingsTemplates.map {
-                    importedConfig.settingsTemplates.putIfAbsent(it.key, it.value)
-                }
-            }
+            showToast(android.R.string.ok)
+            navController.navigateUp()
         }
-
-        if (!includeSettings || importedConfig.configVersion == CONFIG_VERSION_NO_SETTINGS) {
-            val currentConfig = ConfigManager.getRawConfig(true)
-
-            with(currentConfig.scope) {
-                clear()
-                putAll(importedConfig.scope)
-            }
-
-            with(currentConfig.templates) {
-                clear()
-                putAll(importedConfig.templates)
-            }
-
-            with(currentConfig.settingsTemplates) {
-                clear()
-                putAll(importedConfig.settingsTemplates)
-            }
-
-            ConfigManager.importConfig(currentConfig.toString())
-        } else {
-            ConfigManager.importConfig(importedConfig.toString())
-        }
-
-        showToast(android.R.string.ok)
-        navController.navigateUp()
+    } catch (cause: Throwable) {
+        onImportFailed(cause)
     }
 
     private fun clearNotImportedItems(onFinish: () -> Unit) {
@@ -378,5 +359,22 @@ class BackupRestoreFragment : Fragment(R.layout.fragment_backup_restore) {
         } else {
             onRestore()
         }
+    }
+
+    private fun onImportFailed(cause: Throwable) {
+        MaterialAlertDialogBuilder(requireContext())
+            .setCancelable(false)
+            .setTitle(R.string.home_import_failed)
+            .setMessage(cause.message)
+            .setPositiveButton(android.R.string.ok, null)
+            .setNegativeButton(R.string.show_crash_log) { _, _ ->
+                MaterialAlertDialogBuilder(requireActivity())
+                    .setCancelable(false)
+                    .setTitle(R.string.home_import_failed)
+                    .setMessage(cause.stackTraceToString())
+                    .setPositiveButton(android.R.string.ok, null)
+                    .show()
+            }
+            .show()
     }
 }

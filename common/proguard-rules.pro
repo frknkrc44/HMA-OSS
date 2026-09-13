@@ -26,3 +26,5 @@
 -keepattributes RuntimeVisibleAnnotations,AnnotationDefault
 
 -keep class icu.nullptr.hidemyapplist.common.** { *; }
+-dontwarn android.**
+-dontwarn com.android.**

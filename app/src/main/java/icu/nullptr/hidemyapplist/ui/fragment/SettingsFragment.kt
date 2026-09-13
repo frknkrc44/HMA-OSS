@@ -15,6 +15,7 @@ import androidx.preference.MultiSelectListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceDataStore
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceGroup
 import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreferenceCompat
 import com.google.android.material.color.DynamicColors
@@ -23,6 +24,7 @@ import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.MyApp.Companion.hmaApp
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.JsonConfig
+import icu.nullptr.hidemyapplist.common.OSUtils
 import icu.nullptr.hidemyapplist.common.PropertyUtils
 import icu.nullptr.hidemyapplist.data.AppConstants
 import icu.nullptr.hidemyapplist.service.ConfigManager
@@ -108,7 +110,6 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                 "forceMountData" -> ConfigManager.forceMountData
                 "enableInternet" -> PrefManager.enableInternet == Constants.ENABLE_INTERNET_ON
                 "disableUpdate" -> PrefManager.disableUpdate
-                "packageQueryWorkaround" -> ConfigManager.packageQueryWorkaround
                 "webViewProtection" -> ConfigManager.webViewProtection
                 else -> throw IllegalArgumentException("Invalid key: $key")
             }
@@ -154,7 +155,6 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                 "appDataIsolation" -> ConfigManager.altAppDataIsolation = value
                 "voldAppDataIsolation" -> ConfigManager.altVoldAppDataIsolation = value
                 "skipSystemAppDataIsolation" -> ConfigManager.skipSystemAppDataIsolation = value
-                "packageQueryWorkaround" -> ConfigManager.packageQueryWorkaround = value
                 "webViewProtection" -> ConfigManager.webViewProtection = value
                 else -> throw IllegalArgumentException("Invalid key: $key")
             }
@@ -223,6 +223,14 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                     !enabled
                 }
             }
+
+            findPreference<PreferenceGroup>("categoryOverwrite")?.let {
+                it.isVisible = !OSUtils.isSamsung()
+            }
+
+            findPreference<PreferenceGroup>("categoryVoldAppDataIsolation")?.let {
+                it.isVisible = !OSUtils.isSamsung()
+            }
         }
     }
 
@@ -258,7 +266,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
             }
         }
 
-        @Suppress("deprecation")
+        @Suppress("DEPRECATION")
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             preferenceManager.preferenceDataStore = SettingsPreferenceDataStore()
             setPreferencesFromResource(R.xml.settings, rootKey)

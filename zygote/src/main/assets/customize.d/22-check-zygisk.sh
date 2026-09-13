@@ -42,6 +42,7 @@ find_zygisk "rezygisk" "ReZygisk"
 find_zygisk "admirepowered" "Zygisk Mod"
 find_zygisk "zygisk_on_ksu" "Zygisk on KernelSU"
 find_zygisk "yukizygisk" "YukiZygisk"
+find_zygisk "onyxzygisk" "OnyxZygisk"
 
 if [ -z "$ZYGISK_NAME" ]
 then

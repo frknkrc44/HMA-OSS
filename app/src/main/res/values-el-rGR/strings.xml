@@ -185,8 +185,6 @@
     <string name="settings_clear_uninstalled_app_configs">Εκκαθάριση διαμορφώσεων απεγκατεστημένης εφαρμογής</string>
     <string name="settings_clear_uninstalled_app_configs_summary">Αυτή η επιλογή σάς επιτρέπει να δημιουργήσετε μια διαμόρφωση χωρίς υπολείμματα, αλλά θα πρέπει να επαναρυθμίσετε τις εφαρμογές όταν τις εγκαταστήσετε ξανά.</string>
     <string name="settings_no_undone_warning">Αυτή η ενέργεια δεν μπορεί να αναιρεθεί.</string>
-    <string name="settings_package_query_workaround">Εναλλακτικός έλεγχος πακέτων</string>
-    <string name="settings_package_query_workaround_summary">Μην ενεργοποιήσετε αυτήν την επιλογή εάν βλέπετε σωστά τη λίστα πακέτων σε αυτήν την εφαρμογή.</string>
     <string name="settings_launcher_icon">Εικονίδιο εκκίνησης</string>
     <string name="settings_error_only_log">Αρχείο καταγραφής μόνο για σφάλματα</string>
     <string name="settings_disable_hooks">Απενεργοποίηση λειτουργιών</string>

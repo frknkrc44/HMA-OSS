@@ -6,6 +6,8 @@
 - [BetterKnownInstalled](https://github.com/Pixel-Props/BetterKnownInstalled) - package installer spoofing idea
 - [0bbedCode](https://github.com/0bbedCode) - ID checker
 - [vova7878](https://github.com/vova7878) - ZygoteLoader, AndroidVMTools and PanamaPort
+- [RikkaW](https://github.com/RikkaApps) - stubs
+- [ReZygisk](https://github.com/PerformanC/ReZygisk) - status update scripts
 - All translators
 - All root community
 - You (if you are not a robot 🤖)

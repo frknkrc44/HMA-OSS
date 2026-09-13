@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <PreferenceCategory android:title="@string/settings_overwrite">
+    <PreferenceCategory
+        android:title="@string/settings_overwrite"
+        android:key="categoryOverwrite">
         <SwitchPreferenceCompat
             android:icon="@drawable/ic_outline_layers_24"
             android:key="appDataIsolation"
@@ -20,6 +22,7 @@
 
     <PreferenceCategory
         android:title="@string/settings_vold_app_data_isolation"
+        android:key="categoryVoldAppDataIsolation"
         android:dependency="voldAppDataIsolation">
 
         <SwitchPreferenceCompat

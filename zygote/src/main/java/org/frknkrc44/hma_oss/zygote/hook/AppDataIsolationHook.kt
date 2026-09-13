@@ -4,9 +4,8 @@ import android.annotation.SuppressLint
 import android.os.Build
 import android.os.SystemProperties
 import androidx.annotation.RequiresApi
+import icu.nullptr.hidemyapplist.common.OSUtils
 import org.frknkrc44.hma_oss.common.BuildConfig
-import org.frknkrc44.hma_oss.zygote.service.BulkHooker
-import org.frknkrc44.hma_oss.zygote.service.HMAService.Companion.service
 import org.frknkrc44.hma_oss.zygote.service.SystemServerHook
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
@@ -45,18 +44,16 @@ class AppDataIsolationHook : IFrameworkHook {
         )
     }
 
-    private val isAltIsolationEnabled get() = config?.let {
+    private val isAltIsolationEnabled get() = !OSUtils.isSamsung() && config.let {
         it.altAppDataIsolation || it.altVoldAppDataIsolation
-    } ?: false
-
-    private val config get() = service?.config
+    }
 
     @SuppressLint("PrivateApi")
     override fun load() {
         if (!isAltIsolationEnabled) return
         logI(TAG) { "Load hook" }
 
-        BulkHooker.instance.apply {
+        hooker.apply {
             hookBefore(
                 PROCESS_LIST_CLASS,
                 "startProcess",
@@ -65,7 +62,7 @@ class AppDataIsolationHook : IFrameworkHook {
                     Class.forName(PROCESS_LIST_CLASS, true, SystemServerHook.classLoader)
                 }.getOrNull()
 
-                if (config?.altAppDataIsolation ?: false) {
+                if (config.altAppDataIsolation) {
                     val isEnabled = getBooleanField(
                         frame.thisObject,
                         APPDATA_ISOLATION_ENABLED,
@@ -84,7 +81,7 @@ class AppDataIsolationHook : IFrameworkHook {
                     }
                 }
 
-                if (config?.altVoldAppDataIsolation ?: false && !voldHookSkipped) {
+                if (config.altVoldAppDataIsolation && !voldHookSkipped) {
                     val fuseEnabled = SystemProperties.getBoolean(FUSE_PROP, false)
 
                     if (!fuseEnabled) {
@@ -115,7 +112,7 @@ class AppDataIsolationHook : IFrameworkHook {
                 PROCESS_LIST_CLASS,
                 "needsStorageDataIsolation",
             ) { _, frame, returnValue ->
-                if (config?.altVoldAppDataIsolation ?: false) {
+                if (config.altVoldAppDataIsolation) {
                     val app = frame.args.find { it?.javaClass?.simpleName == "ProcessRecord" }!!
                     val uid = runCatching {
                         getIntField(app, "uid")
@@ -123,9 +120,9 @@ class AppDataIsolationHook : IFrameworkHook {
                         getIntField(app, "uid", processRecordIntClass)
                     }
 
-                    val apps = getCallingApps(uid)
+                    val apps = getCallingApps(pms, uid)
 
-                    if (config?.detailLog ?: false) {
+                    if (config.detailLog) {
                         val processName = runCatching {
                             getObjectField(app, "processName")
                         }.getOrElse {
@@ -154,13 +151,13 @@ class AppDataIsolationHook : IFrameworkHook {
                         return@hookAfter
                     }
 
-                    if (apps.any { service?.isAppDataIsolationExcluded(it) ?: false }) {
+                    if (apps.any { service.isAppDataIsolationExcluded(it) }) {
                         returnValue.result = false
                         return@hookAfter
                     }
 
-                    if (config?.skipSystemAppDataIsolation ?: false) {
-                        val isSystemApp = service?.systemApps?.any { apps.contains(it) } ?: false
+                    if (config.skipSystemAppDataIsolation) {
+                        val isSystemApp = systemApps.any { apps.contains(it) }
                         logD(TAG) { "@needsStorageDataIsolation $uid and ${apps.contentToString()} - isSystemApp: $isSystemApp" }
 
                         if (isSystemApp) {
@@ -175,7 +172,7 @@ class AppDataIsolationHook : IFrameworkHook {
                 STORAGE_MANAGER_SERVICE_CLASS,
                 "onVolumeStateChangedLocked",
             ) { _, frame, _ ->
-                if (config?.altVoldAppDataIsolation ?: false && !voldHookSkipped) {
+                if (config.altVoldAppDataIsolation && !voldHookSkipped) {
                     val fuseEnabled = SystemProperties.getBoolean(FUSE_PROP, false)
 
                     if (!fuseEnabled) {
@@ -205,7 +202,7 @@ class AppDataIsolationHook : IFrameworkHook {
                 STORAGE_MANAGER_SERVICE_CLASS,
                 "remountAppStorageDirs",
             ) { _, frame, _ ->
-                if (!voldHookSkipped && config?.altVoldAppDataIsolation ?: false && config?.skipSystemAppDataIsolation ?: false) {
+                if (!voldHookSkipped && config.altVoldAppDataIsolation && config.skipSystemAppDataIsolation) {
                     @Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN")
                     val pidPkgMap = frame.getArgument(1) as Map<*, *>
                     val keysToRemove = mutableSetOf<Any>()
@@ -214,7 +211,7 @@ class AppDataIsolationHook : IFrameworkHook {
                         val pid = entry.key
                         val packageName = entry.value as String
 
-                        if (packageName in service!!.systemApps || packageName == BuildConfig.APP_PACKAGE_NAME) {
+                        if (packageName in systemApps || packageName == BuildConfig.APP_PACKAGE_NAME) {
                             logD(TAG) { "@remountAppStorageDirs SYSTEM $pid - $packageName is marked to remove" }
                             keysToRemove += pid
                             break

@@ -4,14 +4,14 @@ interface IHMAService {
 
     // void stopService(boolean cleanEnv) = 0;
 
-    void writeConfig(String json) = 1;
+    // void writeConfig(String json) = 1;
 
     // config version
     int getServiceVersion() = 2;
 
     int getFilterCount() = 3;
 
-    String getLogs() = 4;
+    // String getLogs() = 4;
 
     void clearLogs() = 5;
 
@@ -19,7 +19,7 @@ interface IHMAService {
 
     String[] getPackagesForPreset(String presetName) = 7;
 
-    String readConfig() = 8;
+    // String readConfig() = 8;
 
     void forceStop(String packageName, int userId) = 9;
 

@@ -3,10 +3,11 @@ package icu.nullptr.hidemyapplist.ui.adapter
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
+import icu.nullptr.hidemyapplist.common.CollectionUtils.sync
 import icu.nullptr.hidemyapplist.service.PrefManager
+import icu.nullptr.hidemyapplist.ui.util.get
 import icu.nullptr.hidemyapplist.ui.view.AppItemView
 import icu.nullptr.hidemyapplist.util.PackageHelper
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.frknkrc44.hma_oss.BuildConfig
 
@@ -23,7 +24,7 @@ abstract class AppSelectAdapter(
         override fun performFiltering(constraint: CharSequence): FilterResults {
             return runBlocking {
                 val constraintLowered = constraint.toString().trim().lowercase()
-                val filteredList = PackageHelper.appList.first().filter {
+                val filteredList = PackageHelper.appList.get().filter {
                     if (firstFilter?.invoke(it) == false) return@filter false
                     if (!PrefManager.appFilter_showSystem && PackageHelper.isSystem(it)) return@filter false
                     if (it == BuildConfig.APPLICATION_ID && hideMyself) return@filter false
@@ -37,17 +38,15 @@ abstract class AppSelectAdapter(
 
         @Suppress("UNCHECKED_CAST", "NotifyDataSetChanged")
         override fun publishResults(constraint: CharSequence, results: FilterResults) {
-            val values = results.values
-            if (values != null) {
-                filteredList = values as List<String>
-                notifyDataSetChanged()
-            }
+            val elements = results.values as? List<String> ?: return
+            filteredList.sync(elements)
+            notifyDataSetChanged()
         }
     }
 
     private val mFilter = AppFilter()
 
-    protected var filteredList: List<String> = listOf()
+    protected val filteredList: MutableList<String> = mutableListOf()
 
     override fun getItemCount() = filteredList.size
 

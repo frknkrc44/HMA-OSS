@@ -2,6 +2,6 @@
 <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
     android:importantForAccessibility="no"
     android:layout_weight="0"
-    android:layout_width="@dimen/profile_badge_size"
-    android:layout_height="@dimen/profile_badge_size"
+    android:layout_width="@dimen/vector_icon_size"
+    android:layout_height="@dimen/vector_icon_size"
     android:src="@drawable/more_vert_24px" />

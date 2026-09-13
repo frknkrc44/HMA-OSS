@@ -65,6 +65,7 @@ class RootAppsPreset(private val appPresets: AppPresets) : BasePreset(NAME) {
         "com.tester.wpswpatester",
         "com.paget96.lsandroid",
         "ua.polodarb.gmsflags",
+        "ua.polodarb.gmsflags.reborn",
         "com.tortel.syslog",
         "com.jhc.detach",
         "com.sunilpaulmathew.debloater",
@@ -194,7 +195,7 @@ class RootAppsPreset(private val appPresets: AppPresets) : BasePreset(NAME) {
             val manifestStr = appPresets.readManifest(key, zipFile)
 
             // Check for whitelists
-            if (packageName.containsMultiple(*WHITELISTS)) {
+            if (manifestStr.containsMultiple(*WHITELISTS)) {
                 return@checkSplitPackages false
             }
 

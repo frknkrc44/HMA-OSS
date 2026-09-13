@@ -2,12 +2,21 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!--
+        This permission is used for:
+        - Check the updates
+        - Load the translator images
+
+        And it is your choice to enable its functionality in the app's settings
+    -->
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- This permission is used for make the package list changed listener work -->
     <uses-permission
         android:name="android.permission.QUERY_ALL_PACKAGES"
         tools:ignore="PackageVisibilityPolicy,QueryAllPackagesPermission" />
 
+    <!-- This permission is used for uninstalling the conflicted packages -->
     <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
 
     <application
