@@ -185,8 +185,6 @@
     <string name="settings_clear_uninstalled_app_configs">清除残留配置</string>
     <string name="settings_clear_uninstalled_app_configs_summary">清除已卸载应用的配置，重新安装应用后需要重新进行配置</string>
     <string name="settings_no_undone_warning">此操作无法撤销</string>
-    <string name="settings_package_query_workaround">修复应用列表</string>
-    <string name="settings_package_query_workaround_summary">修复某些设备中无法显示应用列表的问题，如果能正常显示应用列表，请勿开启</string>
     <string name="settings_launcher_icon">桌面图标</string>
     <string name="settings_error_only_log">精简日志</string>
     <string name="settings_disable_hooks">禁用注入点</string>
