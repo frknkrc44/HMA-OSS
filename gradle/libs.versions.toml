@@ -1,14 +1,15 @@
 [versions]
 #noinspection GradleDependency,AndroidGradlePluginVersion
 agp = "8.13.2"
-kotlin = "2.4.10"
+#noinspection NewerVersionAvailable
+kotlin = "2.3.21"
 material = "1.14.0"
 hidden-api = "4.4.0"
-androidx-navigation = "2.10.0"
+androidx-navigation = "2.10.1"
 vbpd = "2.0.4"
 r8_annotations = "v1.0.1"
 zygoteloader = "bf5078e182"
-coil = "3.6.0"
+coil = "3.6.2"
 
 [plugins]
 agp-app = { id = "com.android.application", version.ref = "agp" }
