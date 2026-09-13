@@ -186,8 +186,6 @@
     <string name="settings_clear_uninstalled_app_configs">حذف إعدادات التطبيقات المحذوفة</string>
     <string name="settings_clear_uninstalled_app_configs_summary">هذا الخِيار يسمح لك بإنشاء ملف اعداد بدون تلك الإعدادات لكن سيتعين عليك إعادة ضبطهم حينما تقوم بتثبيت تلك التطبيقات مرة أخرى.</string>
     <string name="settings_no_undone_warning">هذا الخيار لا يمكن التراجع فيه.</string>
-    <string name="settings_package_query_workaround">استعلام الحزمة البديلة</string>
-    <string name="settings_package_query_workaround_summary">لا تقم بتمكين هذا الخيار إذا كنت ترى قائمة الحزم في هذا التطبيق بشكل صحيح.</string>
     <string name="settings_launcher_icon">أيقونة التطبيق</string>
     <string name="settings_error_only_log">تسجيل الأخطاء فقط</string>
     <string name="settings_disable_hooks">تعطيل الوظائف</string>
