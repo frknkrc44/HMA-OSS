@@ -94,20 +94,7 @@ class BackupRestoreFragment : Fragment(R.layout.fragment_backup_restore) {
             } catch (cause: Throwable) {
                 cause.printStackTrace()
                 navController.navigateUp()
-                MaterialAlertDialogBuilder(requireContext())
-                    .setCancelable(false)
-                    .setTitle(R.string.home_import_failed)
-                    .setMessage(cause.message)
-                    .setPositiveButton(android.R.string.ok, null)
-                    .setNegativeButton(R.string.show_crash_log) { _, _ ->
-                        MaterialAlertDialogBuilder(requireActivity())
-                            .setCancelable(false)
-                            .setTitle(R.string.home_import_failed)
-                            .setMessage(cause.stackTraceToString())
-                            .setPositiveButton(android.R.string.ok, null)
-                            .show()
-                    }
-                    .show()
+                onImportFailed(cause)
             }
         }
 
@@ -283,43 +270,47 @@ class BackupRestoreFragment : Fragment(R.layout.fragment_backup_restore) {
         dialog.show()
     }
 
-    private fun onRestore() = clearNotImportedItems {
-        if (!overwriteApps || !overwriteTemplates) {
-            val config = ConfigManager.getRawConfig(false)
+    private fun onRestore() = try {
+        clearNotImportedItems {
+            if (!overwriteApps || !overwriteTemplates) {
+                val config = ConfigManager.getRawConfig(false)
 
-            if (!overwriteApps) {
-                config.scope.map {
-                    importedConfig.scope.putIfAbsent(it.key, it.value)
+                if (!overwriteApps) {
+                    config.scope.map {
+                        importedConfig.scope.putIfAbsent(it.key, it.value)
+                    }
+                }
+
+                if (!overwriteTemplates) {
+                    config.templates.map {
+                        importedConfig.templates.putIfAbsent(it.key, it.value)
+                    }
+                }
+
+                if (!overwriteSettingsTemplates) {
+                    config.settingsTemplates.map {
+                        importedConfig.settingsTemplates.putIfAbsent(it.key, it.value)
+                    }
                 }
             }
 
-            if (!overwriteTemplates) {
-                config.templates.map {
-                    importedConfig.templates.putIfAbsent(it.key, it.value)
-                }
+            if (!includeSettings || importedConfig.configVersion == CONFIG_VERSION_NO_SETTINGS) {
+                val currentConfig = ConfigManager.getRawConfig(true)
+
+                currentConfig.scope.sync(importedConfig.scope)
+                currentConfig.templates.sync(importedConfig.templates)
+                currentConfig.settingsTemplates.sync(importedConfig.settingsTemplates)
+
+                ConfigManager.importConfig(currentConfig.toString())
+            } else {
+                ConfigManager.importConfig(importedConfig.toString())
             }
 
-            if (!overwriteSettingsTemplates) {
-                config.settingsTemplates.map {
-                    importedConfig.settingsTemplates.putIfAbsent(it.key, it.value)
-                }
-            }
+            showToast(android.R.string.ok)
+            navController.navigateUp()
         }
-
-        if (!includeSettings || importedConfig.configVersion == CONFIG_VERSION_NO_SETTINGS) {
-            val currentConfig = ConfigManager.getRawConfig(true)
-
-            currentConfig.scope.sync(importedConfig.scope)
-            currentConfig.templates.sync(importedConfig.templates)
-            currentConfig.settingsTemplates.sync(importedConfig.settingsTemplates)
-
-            ConfigManager.importConfig(currentConfig.toString())
-        } else {
-            ConfigManager.importConfig(importedConfig.toString())
-        }
-
-        showToast(android.R.string.ok)
-        navController.navigateUp()
+    } catch (cause: Throwable) {
+        onImportFailed(cause)
     }
 
     private fun clearNotImportedItems(onFinish: () -> Unit) {
@@ -368,5 +359,22 @@ class BackupRestoreFragment : Fragment(R.layout.fragment_backup_restore) {
         } else {
             onRestore()
         }
+    }
+
+    private fun onImportFailed(cause: Throwable) {
+        MaterialAlertDialogBuilder(requireContext())
+            .setCancelable(false)
+            .setTitle(R.string.home_import_failed)
+            .setMessage(cause.message)
+            .setPositiveButton(android.R.string.ok, null)
+            .setNegativeButton(R.string.show_crash_log) { _, _ ->
+                MaterialAlertDialogBuilder(requireActivity())
+                    .setCancelable(false)
+                    .setTitle(R.string.home_import_failed)
+                    .setMessage(cause.stackTraceToString())
+                    .setPositiveButton(android.R.string.ok, null)
+                    .show()
+            }
+            .show()
     }
 }
