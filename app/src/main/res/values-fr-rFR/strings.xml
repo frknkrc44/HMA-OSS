@@ -185,8 +185,6 @@
     <string name="settings_clear_uninstalled_app_configs">Suppression des configurations des applications désinstallées</string>
     <string name="settings_clear_uninstalled_app_configs_summary">Permet de créer des configurations sans persistance post-désinstallation, une reconfiguration des applications sera alors nécessaire en cas de réinstallation de ces applications.</string>
     <string name="settings_no_undone_warning">Cette action ne peut pas être annulée.</string>
-    <string name="settings_package_query_workaround">Méthode de récupération alternative des packages</string>
-    <string name="settings_package_query_workaround_summary">Ne pas activer si la liste des packages s\'affiche correctement dans cette application.</string>
     <string name="settings_launcher_icon">Icône du lanceur</string>
     <string name="settings_error_only_log">Journal d\'erreurs uniquement</string>
     <string name="settings_disable_hooks">Désactivation de fonctionnalités</string>
