@@ -133,16 +133,14 @@ class AppPresets private constructor() {
                 if (appInfo == null)
                     appInfo = pms.getPackageInfoCompat(packageName, 0, 0)?.applicationInfo
 
-                if (appInfo != null) {
-                    try {
-                        if (it.value.addPackageInfoPreset(appInfo!!)) {
-                            onModifyCache(it.key)
-                            loggerFunction?.invoke(Log.DEBUG) { "Package $packageName added into ${it.key}!" }
-                            addedInAList = true
-                        }
-                    } catch (cause: Throwable) {
-                        loggerFunction?.invoke(Log.ERROR) { cause.toString() }
+                try {
+                    if (appInfo != null && it.value.addPackageInfoPreset(appInfo)) {
+                        onModifyCache(it.key)
+                        loggerFunction?.invoke(Log.DEBUG) { "Package $packageName added into ${it.key}!" }
+                        addedInAList = true
                     }
+                } catch (cause: Throwable) {
+                    loggerFunction?.invoke(Log.ERROR) { cause.toString() }
                 }
             }
         }
