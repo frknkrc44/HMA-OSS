@@ -596,10 +596,16 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
                     // Handle app presets if the app is removed entirely
                     if (!pms.findApp(packageName)) {
+                        var removedFromPresets = false
+
                         handlePackageRemoved(packageName) { preset ->
                             if (dataHolder.removeFromPresetCache(preset, packageName)) {
-                                writePresetCache()
+                                removedFromPresets = true
                             }
+                        }
+
+                        if (removedFromPresets) {
+                            writePresetCache()
                         }
                     }
                 }
