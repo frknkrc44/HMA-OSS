@@ -1,6 +1,7 @@
 package org.frknkrc44.hma_oss.zygote.hook
 
 import android.content.AttributionSource
+import android.content.ContentResolver
 import android.database.Cursor
 import android.database.MatrixCursor
 import android.net.Uri
@@ -128,6 +129,36 @@ class ContentProviderHook : IFrameworkHook {
                                 columns[otherCol]!!.add(other)
                             }
                         }
+                    }
+
+                    // The loop above only REPLACES rows that already exist in the real settings
+                    // table. Spoof-only keys (synthetic, with no real backing row) therefore vanish
+                    // on the bulk-all and name-selection paths, while getString/appended-path/call
+                    // still inject them per key - an inconsistency a caller can observe by reading a
+                    // setting through more than one path and comparing. Append the missing spoofed
+                    // keys here; when the query restricts by name (selection name=?), only those.
+                    try {
+                        val already = HashSet<String?>(keyColumn)
+                        val sel = args?.getString(ContentResolver.QUERY_ARG_SQL_SELECTION)
+                        val selArgs = args?.getStringArray(ContentResolver.QUERY_ARG_SQL_SELECTION_ARGS)
+                        val wantedNames: Set<String>? =
+                            if (sel != null && sel.contains("name") && selArgs != null && selArgs.isNotEmpty())
+                                selArgs.toHashSet() else null
+                        for (item in service.getAllSpoofedSettings(caller, database)) {
+                            if (item.name in already) continue
+                            if (wantedNames != null && item.name !in wantedNames) continue
+                            keyColumn.add(item.name)
+                            valueColumn.add(item.value)
+                            if (columns.size > 2) {
+                                for (otherCol in columns.keys.filter { it !in NV_PAIR }) {
+                                    columns[otherCol]!!.add(null)
+                                }
+                            }
+                            filteredEntryCount++
+                            logD(TAG) { "@spoofSettings LIST_QUERY added synthetic ${item.name} in $database for $caller" }
+                        }
+                    } catch (t: Throwable) {
+                        logD(TAG) { "@spoofSettings LIST_QUERY synthetic-append error: $t" }
                     }
 
                     service.increaseSettingsFilterCount(caller, filteredEntryCount)

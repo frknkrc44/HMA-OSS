@@ -371,6 +371,38 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         return null
     }
 
+    /**
+     * All of a caller's spoofed settings, so the LIST_QUERY (bulk/selection) branch can ADD the
+     * spoof-only keys (synthetic ones that are not real rows). Without this, a caller that reads via
+     * bulk-all/selection sees a value different from getString/appended-path/call - an observable
+     * inconsistency. Templates apply to any store (like getSpoofedSetting, which matches by name
+     * without checking the database); presets apply only to their own store.
+     */
+    fun getAllSpoofedSettings(caller: String?, database: String): List<ReplacementItem> {
+        if (caller == null) return emptyList()
+        // 1) collect the candidate NAMES (templates + presets); 2) resolve each through
+        //    getSpoofedSetting (same logic as getString: first-non-null across templates, per-database
+        //    for presets), keeping only the ones that RESOLVE to a non-null value - otherwise we would
+        //    add passthrough keys (null) or the wrong value from a template shadowing another (the
+        //    last-wins bug). This way bulk/selection matches getString/appended/call EXACTLY.
+        val names = LinkedHashSet<String>()
+        val templates = getEnabledSettingsTemplates(caller)
+        for ((key, value) in config.settingsTemplates) {
+            if (key in templates) for (item in value.settingsList) names.add(item.name)
+        }
+        val presets = getEnabledSettingsPresets(caller)
+        for (presetName in presets) {
+            val preset = SettingsPresets.instance.getPresetByName(presetName) ?: continue
+            for (item in preset.settingsKVPairs) names.add(item.name)
+        }
+        val out = ArrayList<ReplacementItem>()
+        for (name in names) {
+            val r = getSpoofedSetting(caller, name, database) ?: continue
+            if (r.value != null) out.add(r)
+        }
+        return out
+    }
+
     fun getEnabledSettingsTemplates(caller: String?) =
         config.scope[caller]?.applySettingTemplates ?: setOf()
 
