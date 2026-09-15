@@ -15,17 +15,14 @@ import androidx.preference.MultiSelectListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceDataStore
 import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.PreferenceGroup
 import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreferenceCompat
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
 import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.MyApp.Companion.hmaApp
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.JsonConfig
-import icu.nullptr.hidemyapplist.common.OSUtils
 import icu.nullptr.hidemyapplist.common.PropertyUtils
 import icu.nullptr.hidemyapplist.data.AppConstants
 import icu.nullptr.hidemyapplist.service.ConfigManager
@@ -194,11 +191,14 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
             setPreferencesFromResource(R.xml.settings_data_isolation, rootKey)
 
             findPreference<SwitchPreferenceCompat>("appDataIsolation")?.let {
+                it.isEnabled = !PropertyUtils.isAppDataIsolationEnabled
+
                 it.summary = getString(R.string.settings_need_reboot) + "\n\n" +
                         getString(
                             R.string.settings_default_value,
                             PropertyUtils.isAppDataIsolationEnabled.enabledString(resources)
                         )
+
                 it.setOnPreferenceChangeListener { _, _ ->
                     showNeedRebootToast()
 
@@ -207,6 +207,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
             }
 
             findPreference<SwitchPreferenceCompat>("voldAppDataIsolation")?.let {
+                it.isEnabled = !PropertyUtils.isVoldAppDataIsolationEnabled
+
                 it.summary = getString(R.string.settings_need_reboot) + "\n\n" +
                         getString(
                             R.string.settings_default_value,
