@@ -381,8 +381,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.manageTemplates.root.isVisible = isHooks
         binding.managePresets.root.isVisible = isHooks
         binding.navBulkConfigWizard.root.isVisible = isHooks
-        binding.navLogs.root.isVisible = isWorking // allow taking logs on NO_HOOKS or CRASHED status
-        binding.navSettings.root.isVisible = isHooks
+        binding.navLogs.root.isVisible = isWorking
+        binding.navSettings.root.isVisible = isWorking
         (binding.backupConfig.parent as ViewGroup).isVisible = isHooks
     }
 
