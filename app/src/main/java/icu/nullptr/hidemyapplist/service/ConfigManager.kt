@@ -135,7 +135,6 @@ object ConfigManager {
         set(elements) {
             config.disabledHooks.sync(elements)
             saveConfig()
-            showToast(R.string.settings_need_reboot)
         }
 
     var ignoredPackagesForPresets: Set<String>

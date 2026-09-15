@@ -5,7 +5,6 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.clearFragmentResultListener
@@ -19,6 +18,7 @@ import androidx.preference.PreferenceDataStore
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.common.AppPresets
 import icu.nullptr.hidemyapplist.common.CollectionUtils.sync
@@ -200,7 +200,7 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
 
         fun showForceStopWarning() {
             if (pack.mode == AppConstants.APP_CONFIG_MODE_SINGLE) {
-                showToast(R.string.app_force_stop_warning, Toast.LENGTH_LONG)
+                showToast(R.string.app_force_stop_warning, Snackbar.LENGTH_LONG)
             }
         }
     }

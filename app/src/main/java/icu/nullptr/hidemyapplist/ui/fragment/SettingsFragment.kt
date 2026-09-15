@@ -20,6 +20,7 @@ import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreferenceCompat
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.MyApp.Companion.hmaApp
 import icu.nullptr.hidemyapplist.common.Constants
@@ -36,6 +37,7 @@ import icu.nullptr.hidemyapplist.ui.util.navigate
 import icu.nullptr.hidemyapplist.ui.util.recreateMainActivity
 import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
+import icu.nullptr.hidemyapplist.ui.util.showNeedRebootToast
 import icu.nullptr.hidemyapplist.ui.util.showToast
 import icu.nullptr.hidemyapplist.ui.util.withAnimations
 import icu.nullptr.hidemyapplist.util.ConfigUtils.Companion.getLocale
@@ -196,6 +198,11 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                             R.string.settings_default_value,
                             PropertyUtils.isAppDataIsolationEnabled.enabledString(resources)
                         )
+                it.setOnPreferenceChangeListener { _, _ ->
+                    showNeedRebootToast()
+
+                    true
+                }
             }
 
             findPreference<SwitchPreferenceCompat>("voldAppDataIsolation")?.let {
@@ -212,6 +219,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                             .setTitle(R.string.settings_warning)
                             .setMessage(R.string.settings_vold_warning)
                             .setPositiveButton(android.R.string.ok) { _, _ ->
+                                showNeedRebootToast()
+
                                 it.isChecked = true
                             }
                             .setNegativeButton(android.R.string.cancel) { _, _ ->
@@ -220,7 +229,12 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                             .setCancelable(false)
                             .show()
                     }
-                    !enabled
+
+                    (!enabled).apply {
+                        if (this) {
+                            showNeedRebootToast()
+                        }
+                    }
                 }
             }
 
@@ -453,6 +467,12 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                     "${it.className.substringAfterLast('.')} -> ${it.methodName}($displayedArgCount)"
                 }.toTypedArray()
                 entryValues = allHooks.map { it.toString() }.toTypedArray()
+
+                setOnPreferenceChangeListener { _, _ ->
+                    showNeedRebootToast()
+
+                    true
+                }
             }
 
             findPreference<Preference>("resetDefault")?.setOnPreferenceClickListener {
