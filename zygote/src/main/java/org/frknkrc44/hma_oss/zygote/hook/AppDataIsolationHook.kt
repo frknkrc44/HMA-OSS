@@ -44,7 +44,7 @@ class AppDataIsolationHook : IFrameworkHook {
         )
     }
 
-    private val isAltIsolationEnabled get() = !OSUtils.isSamsung() && config.let {
+    private val isAltIsolationEnabled get() = config.let {
         it.altAppDataIsolation || it.altVoldAppDataIsolation
     }
 

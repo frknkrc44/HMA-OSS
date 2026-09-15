@@ -96,14 +96,14 @@ object ConfigManager {
         }
 
     var altAppDataIsolation: Boolean
-        get() = !OSUtils.isSamsung() && config.altAppDataIsolation
+        get() = config.altAppDataIsolation
         set(value) {
             config.altAppDataIsolation = value
             saveConfig()
         }
 
     var altVoldAppDataIsolation: Boolean
-        get() = !OSUtils.isSamsung() && config.altVoldAppDataIsolation
+        get() = config.altVoldAppDataIsolation
         set(value) {
             config.altVoldAppDataIsolation = value
             saveConfig()

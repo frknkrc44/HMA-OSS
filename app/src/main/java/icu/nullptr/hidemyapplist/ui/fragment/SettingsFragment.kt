@@ -40,6 +40,7 @@ import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import icu.nullptr.hidemyapplist.ui.util.showNeedRebootToast
 import icu.nullptr.hidemyapplist.ui.util.showToast
 import icu.nullptr.hidemyapplist.ui.util.withAnimations
+import icu.nullptr.hidemyapplist.ui.util.withDisableButton
 import icu.nullptr.hidemyapplist.util.ConfigUtils.Companion.getLocale
 import icu.nullptr.hidemyapplist.util.PackageHelper.findEnabledAppComponent
 import icu.nullptr.hidemyapplist.util.SuUtils
@@ -227,6 +228,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                                 it.isChecked = false
                             }
                             .setCancelable(false)
+                            .create()
+                            .withDisableButton()
                             .show()
                     }
 
@@ -236,14 +239,6 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                         }
                     }
                 }
-            }
-
-            findPreference<PreferenceGroup>("categoryOverwrite")?.let {
-                it.isVisible = !OSUtils.isSamsung()
-            }
-
-            findPreference<PreferenceGroup>("categoryVoldAppDataIsolation")?.let {
-                it.isVisible = !OSUtils.isSamsung()
             }
         }
     }
