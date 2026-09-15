@@ -12,7 +12,7 @@ STATUS_FILE=$(ls -1 /data/misc/hide_my_applist_*/status.json 2>/dev/null | head 
 if [ -z "$STATUS_FILE" ] || [ ! -s "$STATUS_FILE" ]; then
     MODE=""
 else
-    MODE=$(sed -n 's/.*"workMode"[[:space:]]*:[[:space:]]*\([-0-9]*\).*/\1/p' "$STATUS_FILE")
+    MODE=$(sed -n 's/.*"workMode"[[:space:]]*:[[:space:]]*\([0-9]+\).*/\1/p' "$STATUS_FILE")
 fi
 
 case "$MODE" in
@@ -20,7 +20,6 @@ case "$MODE" in
     2) STATUS="[⚠️ Sick mode - Disabled hooks]" ;;
     3) STATUS="[⏳ Loading]" ;;
     4) STATUS="[❌ System service crashed]"  ;;
-    -*) STATUS="[❌ Not loaded - Unknown error]" ;;
     *) STATUS="[❓ Unknown]" ;;
 esac
 
