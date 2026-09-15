@@ -1,6 +1,7 @@
 package org.frknkrc44.hma_oss.zygote.hook
 
 import android.content.AttributionSource
+import android.content.ContentResolver
 import android.database.Cursor
 import android.database.MatrixCursor
 import android.net.Uri
@@ -81,7 +82,7 @@ class ContentProviderHook : IFrameworkHook {
                 } else {
                     logD(TAG) { "@spoofSettings LIST_QUERY received caller: $caller, database: $database" }
 
-                    val result = returnValue.result as? Cursor? ?: return@hookAfter
+                    val result = returnValue.result as? Cursor ?: return@hookAfter
 
                     val columns = mutableMapOf<String, MutableList<String?>>().apply {
                         for (i in 0 ..< result.columnCount) {
@@ -127,6 +128,35 @@ class ContentProviderHook : IFrameworkHook {
 
                                 columns[otherCol]!!.add(other)
                             }
+                        }
+                    }
+
+                    if (args != null) {
+                        val querySel = args.getString(ContentResolver.QUERY_ARG_SQL_SELECTION)
+                        val query = querySel?.split(" ")?.map { rule ->
+                            rule.substringBefore("=").trim()
+                        }
+
+                        logD(TAG) { "@spoofSettings LIST_QUERY_WKEY caller: $caller, querySel: $querySel, query: $query" }
+
+                        val idx = query?.indexOfFirst { it == "name" } ?: return@hookAfter
+                        val name = args.getStringArray(ContentResolver.QUERY_ARG_SQL_SELECTION_ARGS)!![idx]
+
+                        logD(TAG) { "@spoofSettings LIST_QUERY_WKEY caller: $caller, name: $name, names: $keyColumn, values: $valueColumn" }
+
+                        val dbName = getOverriddenDatabaseName(database, name)
+                        val replacement = service.getSpoofedSetting(caller, name, dbName)
+                        if (replacement != null) {
+                            logD(TAG) { "@spoofSettings LIST_QUERY_WKEY $name in $database replaced for $caller" }
+                            val keyIndex = keyColumn.indexOfFirst { it == name }
+                            if (keyIndex < 0) {
+                                keyColumn.add(name)
+                                valueColumn.add(replacement.value)
+                            } else {
+                                valueColumn[keyIndex] = replacement.value
+                            }
+
+                            filteredEntryCount++
                         }
                     }
 

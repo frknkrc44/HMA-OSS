@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Build
 import android.os.SystemProperties
 import androidx.annotation.RequiresApi
-import icu.nullptr.hidemyapplist.common.OSUtils
+import icu.nullptr.hidemyapplist.common.PropertyUtils
 import org.frknkrc44.hma_oss.common.BuildConfig
 import org.frknkrc44.hma_oss.zygote.service.SystemServerHook
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
@@ -44,8 +44,9 @@ class AppDataIsolationHook : IFrameworkHook {
         )
     }
 
-    private val isAltIsolationEnabled get() = !OSUtils.isSamsung() && config.let {
-        it.altAppDataIsolation || it.altVoldAppDataIsolation
+    private val isAltIsolationEnabled get() = config.let {
+        (!PropertyUtils.isAppDataIsolationEnabled && it.altAppDataIsolation) ||
+        (!PropertyUtils.isVoldAppDataIsolationEnabled && it.altVoldAppDataIsolation)
     }
 
     @SuppressLint("PrivateApi")

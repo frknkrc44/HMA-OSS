@@ -27,7 +27,8 @@ object ContentProviderUtils {
                 if (SettingsSystem.movedToSecure?.contains(name) ?: false) {
                     return SETTINGS_SECURE
                 } else if (SettingsSystem.movedToGlobal?.contains(name) ?: false ||
-                    SettingsSystem.movedToSecureThenGlobal?.contains(name) ?: false) {
+                    SettingsSystem.movedToSecureThenGlobal?.contains(name) ?: false ||
+                    SettingsSystem.extraMovedToGlobal.contains(name)) {
                     return SETTINGS_GLOBAL
                 }
             }
@@ -63,6 +64,10 @@ object ContentProviderUtils {
                 ) as? HashSet<String>
             }.getOrNull()
         }
+
+        val extraMovedToGlobal = setOf(
+            Settings.Global.DEVELOPMENT_SETTINGS_ENABLED,
+        )
     }
 
     private object SettingsSecure {

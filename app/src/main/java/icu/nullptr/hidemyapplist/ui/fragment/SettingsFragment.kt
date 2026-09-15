@@ -15,7 +15,6 @@ import androidx.preference.MultiSelectListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceDataStore
 import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.PreferenceGroup
 import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreferenceCompat
 import com.google.android.material.color.DynamicColors
@@ -24,7 +23,6 @@ import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.MyApp.Companion.hmaApp
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.JsonConfig
-import icu.nullptr.hidemyapplist.common.OSUtils
 import icu.nullptr.hidemyapplist.common.PropertyUtils
 import icu.nullptr.hidemyapplist.data.AppConstants
 import icu.nullptr.hidemyapplist.service.ConfigManager
@@ -36,8 +34,10 @@ import icu.nullptr.hidemyapplist.ui.util.navigate
 import icu.nullptr.hidemyapplist.ui.util.recreateMainActivity
 import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
+import icu.nullptr.hidemyapplist.ui.util.showNeedRebootToast
 import icu.nullptr.hidemyapplist.ui.util.showToast
 import icu.nullptr.hidemyapplist.ui.util.withAnimations
+import icu.nullptr.hidemyapplist.ui.util.withDisableButton
 import icu.nullptr.hidemyapplist.util.ConfigUtils.Companion.getLocale
 import icu.nullptr.hidemyapplist.util.PackageHelper.findEnabledAppComponent
 import icu.nullptr.hidemyapplist.util.SuUtils
@@ -191,14 +191,24 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
             setPreferencesFromResource(R.xml.settings_data_isolation, rootKey)
 
             findPreference<SwitchPreferenceCompat>("appDataIsolation")?.let {
+                it.isEnabled = !PropertyUtils.isAppDataIsolationEnabled
+
                 it.summary = getString(R.string.settings_need_reboot) + "\n\n" +
                         getString(
                             R.string.settings_default_value,
                             PropertyUtils.isAppDataIsolationEnabled.enabledString(resources)
                         )
+
+                it.setOnPreferenceChangeListener { _, _ ->
+                    showNeedRebootToast()
+
+                    true
+                }
             }
 
             findPreference<SwitchPreferenceCompat>("voldAppDataIsolation")?.let {
+                it.isEnabled = !PropertyUtils.isVoldAppDataIsolationEnabled
+
                 it.summary = getString(R.string.settings_need_reboot) + "\n\n" +
                         getString(
                             R.string.settings_default_value,
@@ -212,24 +222,25 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                             .setTitle(R.string.settings_warning)
                             .setMessage(R.string.settings_vold_warning)
                             .setPositiveButton(android.R.string.ok) { _, _ ->
+                                showNeedRebootToast()
+
                                 it.isChecked = true
                             }
                             .setNegativeButton(android.R.string.cancel) { _, _ ->
                                 it.isChecked = false
                             }
                             .setCancelable(false)
+                            .create()
+                            .withDisableButton()
                             .show()
                     }
-                    !enabled
+
+                    (!enabled).apply {
+                        if (this) {
+                            showNeedRebootToast()
+                        }
+                    }
                 }
-            }
-
-            findPreference<PreferenceGroup>("categoryOverwrite")?.let {
-                it.isVisible = !OSUtils.isSamsung()
-            }
-
-            findPreference<PreferenceGroup>("categoryVoldAppDataIsolation")?.let {
-                it.isVisible = !OSUtils.isSamsung()
             }
         }
     }
@@ -453,6 +464,12 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                     "${it.className.substringAfterLast('.')} -> ${it.methodName}($displayedArgCount)"
                 }.toTypedArray()
                 entryValues = allHooks.map { it.toString() }.toTypedArray()
+
+                setOnPreferenceChangeListener { _, _ ->
+                    showNeedRebootToast()
+
+                    true
+                }
             }
 
             findPreference<Preference>("resetDefault")?.setOnPreferenceClickListener {

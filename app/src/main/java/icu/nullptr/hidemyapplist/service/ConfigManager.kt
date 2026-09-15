@@ -5,12 +5,10 @@ import android.util.Log
 import icu.nullptr.hidemyapplist.common.CollectionUtils.removeIfWithCount
 import icu.nullptr.hidemyapplist.common.CollectionUtils.sync
 import icu.nullptr.hidemyapplist.common.JsonConfig
-import icu.nullptr.hidemyapplist.common.OSUtils
+import icu.nullptr.hidemyapplist.common.PropertyUtils
 import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
 import icu.nullptr.hidemyapplist.service.ServiceClient.log
-import icu.nullptr.hidemyapplist.ui.util.showToast
 import icu.nullptr.hidemyapplist.util.PackageHelper
-import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.common.BuildConfig
 
 object ConfigManager {
@@ -96,14 +94,14 @@ object ConfigManager {
         }
 
     var altAppDataIsolation: Boolean
-        get() = !OSUtils.isSamsung() && config.altAppDataIsolation
+        get() = !PropertyUtils.isAppDataIsolationEnabled && config.altAppDataIsolation
         set(value) {
             config.altAppDataIsolation = value
             saveConfig()
         }
 
     var altVoldAppDataIsolation: Boolean
-        get() = !OSUtils.isSamsung() && config.altVoldAppDataIsolation
+        get() = !PropertyUtils.isVoldAppDataIsolationEnabled && config.altVoldAppDataIsolation
         set(value) {
             config.altVoldAppDataIsolation = value
             saveConfig()
@@ -135,7 +133,6 @@ object ConfigManager {
         set(elements) {
             config.disabledHooks.sync(elements)
             saveConfig()
-            showToast(R.string.settings_need_reboot)
         }
 
     var ignoredPackagesForPresets: Set<String>
