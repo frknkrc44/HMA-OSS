@@ -23,7 +23,7 @@ object UserManagerUtils {
                 excludePreCreated = false,
             )
 
-            return try {
+            try {
                 mutableSetOf<Int>().apply {
                     for (user in users) {
                         userService!!.getProfileIds(
