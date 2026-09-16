@@ -44,8 +44,8 @@
     <string name="home_download_test_app_title">Télécharger l\'application de test</string>
     <string name="home_download_test_app_message">Nous avons développé une application de test de détection séparée. La télécharger ?</string>
     <string name="home_backup_and_restore">Sauvegarde et restauration</string>
-    <string name="home_backup_config">Sauvegarder la configuration</string>
-    <string name="home_restore_config">Restaurer la configuration</string>
+    <string name="home_backup_config">Sauvegarde</string>
+    <string name="home_restore_config">Restauration</string>
     <string name="home_import_successful">Importation réussie</string>
     <string name="home_import_failed">Échec de l\'importation</string>
     <string name="home_import_app_version_too_old">Version du module antérieure à celle de la sauvegarde</string>
@@ -72,7 +72,7 @@
     <!-- App select -->
     <string name="list_show_system">Applications système</string>
     <string name="list_sorting">Tri</string>
-    <string name="list_reverse_order">Ordre inversé</string>
+    <string name="list_reverse_order">Ordre inverse</string>
     <string name="list_sort_by_label">Par nom d\'application</string>
     <string name="list_sort_by_package_name">Par nom de package</string>
     <string name="list_sort_by_install_time">Par date d\'installation</string>
@@ -96,8 +96,8 @@
     <string name="template_apps_invisible_count">%d applications invisibilisées</string>
     <!-- App settings -->
     <string name="app_enable_hide">Activer le masquage</string>
-    <string name="app_template_config">Configuration du modèle</string>
-    <string name="app_choose_template">Choisir le modèle</string>
+    <string name="app_template_config">Configuration des modèles</string>
+    <string name="app_choose_template">Choisir le(s) modèle(s)</string>
     <string name="app_choose_preset">Sélection des préréglages</string>
     <string name="app_exclude_system_apps">Exclusion des applications système</string>
     <string name="app_exclude_system_apps_summary">Ne désactiver cette option qu\'en cas d\'absolue nécessité. Sa désactivation est susceptible de provoquer des plantages</string>
@@ -118,9 +118,9 @@
     <string name="app_exclude_target_installation_source_desc">Activer si cette application n\'est pas disponible sur le Play Store</string>
     <string name="app_force_stop_warning">Ne pas oublier de forcer l\'arrêt de l\'application cible après avoir enregistré la configuration</string>
     <string name="app_invert_activity_launch_protection">Inversion de la protection contre le lancement d\'activité</string>
-    <string name="app_invert_activity_launch_protection_desc">Cette option inversera l\'option \"Interrompre l\'activité de l\'appli si elle est inutilisée\" dans les paramètres de l\'appareil.</string>
+    <string name="app_invert_activity_launch_protection_desc">Cette option inversera l\'option \"Interrompre l\'activité de l\'application si elle n\'est pas utilisée\" dans les paramètres de l\'application sur l\'appareil.</string>
     <string name="app_global_activity_launch_protection_state">L\'option de protection globale est : %s</string>
-    <string name="app_force_stop_launch">Forcer l\'arrêt et démarrer</string>
+    <string name="app_force_stop_launch">Forcer l\'arrêt et relancer</string>
     <string name="app_launch">Démarrer</string>
     <string name="app_launch_failed">Échec du démarrage de l\'application. Pour plus de détails, consulter les journaux d\'erreurs</string>
     <string name="app_restrict_zygote_permissions">Restriction des permissions de Zygote</string>
@@ -131,7 +131,7 @@
     <string name="title_preset_manage">Affichage des préréglages</string>
     <string name="title_ignored_apps_for_presets">Applications ignorées</string>
     <string name="preset_xposed">Modules LSPosed/Xposed</string>
-    <string name="preset_root_apps">Gestionnaires de root/Applications rootées</string>
+    <string name="preset_root_apps">Gestionnaires de root/Applications \"root\"</string>
     <string name="preset_custom_rom">Applications des ROM personnalisées</string>
     <string name="preset_sus_apps">Applications suspectes</string>
     <string name="preset_detector_apps">Applications de détection/vérification</string>
@@ -178,38 +178,38 @@
     <string name="settings_hide_icon">Masquage de l\'icône du module dans le lanceur</string>
     <string name="settings_hide_icon_summary">L\'ouverture de l\'application est toujours possible depuis le gestionnaire de root</string>
     <string name="settings_bypass_risky_package_warning">Désactivation de l\'avertissement de signalement de packages à risque</string>
-    <string name="settings_bypass_risky_package_warning_summary">Note : Les développeurs ne sont pas responsables des problèmes liés à l\'utilisation de packages d\'applications à risque avant ou après l\'activation de cette fonctionnalité</string>
+    <string name="settings_bypass_risky_package_warning_summary">Note : Les développeurs ne sont pas responsables des problèmes liés à l\'utilisation de packages d\'applications à risque avant ou après l\'activation de cette option</string>
     <string name="settings_disable_activity_launch_protection">Désactivation de la protection contre le lancement d\'activités</string>
     <string name="settings_disable_activity_launch_protection_summary">Cette option désactive toutes les protections startActivity. En cas de doute, ne pas l\'activer.</string>
-    <string name="settings_system_wallpaper">Utiliser le fond d\'écran du système</string>
+    <string name="settings_system_wallpaper">Utiliser l\'image de fond d\'écran du système</string>
     <string name="settings_clear_uninstalled_app_configs">Suppression des configurations des applications désinstallées</string>
-    <string name="settings_clear_uninstalled_app_configs_summary">Permet de créer des configurations sans persistance post-désinstallation, une reconfiguration des applications sera alors nécessaire en cas de réinstallation de ces applications.</string>
+    <string name="settings_clear_uninstalled_app_configs_summary">Permet de créer des configurations sans persistance post-désinstallation, une reconfiguration des applications sera alors nécessaire en cas de réinstallation de ces applications</string>
     <string name="settings_no_undone_warning">Cette action ne peut pas être annulée.</string>
     <string name="settings_launcher_icon">Icône du lanceur</string>
     <string name="settings_error_only_log">Journal d\'erreurs uniquement</string>
     <string name="settings_disable_hooks">Désactivation de fonctionnalités</string>
     <string name="settings_disable_hooks_summary">Permet de désactiver certaines fonctionnalités lorsqu\'elles entrent en conflit avec d\'autres modules</string>
     <string name="settings_enable_internet">Activation de la connexion Internet</string>
-    <string name="settings_enable_internet_summary">Lorsque désactivé, cette application perd toute fonctionnalité nécessitant un accès à Internet.</string>
+    <string name="settings_enable_internet_summary">Lorsque désactivé, cette application perd toute fonctionnalité nécessitant un accès à Internet</string>
     <string name="settings_default_config">Configuration d\'\'application pour les nouvelles applications</string>
-    <string name="settings_default_config_summary">Appliquera la configuration définie à toutes les nouvelles applications installées, mais conserve la configuration existante pour les nouvelles applications si des paramètres ont appliqués avant l\'activation de cette option.</string>
+    <string name="settings_default_config_summary">Appliquera la configuration définie à toutes les nouvelles applications installées, mais conserve la configuration existante pour les nouvelles applications si des paramètres ont appliqués avant l\'activation de cette option</string>
     <string name="settings_webview_protection">Protection WebView</string>
-    <string name="settings_webview_protection_summary">Ajoute une protection supplémentaire pour les plantages provoqués par le masquage/ciblage du composant système WebView ou des navigateurs Web</string>
+    <string name="settings_webview_protection_summary">Ajoute une protection supplémentaire contre les plantages provoqués par le masquage/ciblage du composant système WebView ou des navigateurs Web</string>
     <string name="settings_language">Langue</string>
     <string name="settings_translate">Participer à la traduction</string>
     <string name="settings_translate_summary">Nous aider à traduire %s dans votre langue</string>
     <string name="settings_theme">Thème</string>
-    <string name="settings_system_theme_color">Thème de couleurs du système</string>
+    <string name="settings_system_theme_color">Couleur du thème système</string>
     <string name="settings_theme_color">Couleur du thème</string>
     <string name="settings_dark_theme">Thème sombre</string>
-    <string name="settings_pure_black_dark_theme">Thème sombre noir profond</string>
+    <string name="settings_pure_black_dark_theme">Thème sombre avec noir profond</string>
     <string name="settings_pure_black_dark_theme_summary">Utilise un noir profond lorsque le thème sombre est activé</string>
     <string name="settings_service">Maintenance</string>
     <string name="settings_reset_default">Rétablissement des valeurs par défaut</string>
-    <string name="settings_reset_default_summary">Efface l\'intégralité de la configuration pour repartir à zéro</string>
+    <string name="settings_reset_default_summary">Efface l\'intégralité de la configuration pour repartir de zéro</string>
     <string name="settings_irreversible_confirmation">Action irréversible. Confirmer ?</string>
     <string name="settings_is_clean_env_summary">Supprime le cache du service système dans /data/misc/hide_my_applist_*. Le module devra être relancé manuellement après le prochain redémarrage pour permettre l\'activation des interceptions, le compteur d\'interceptions sera également réinitialisé.</string>
-    <string name="settings_force_clean_env">Nettoyage forcé de l\'environnement (root)</string>
+    <string name="settings_force_clean_env">Nettoyage forcé de l\'environnement d\'exécution (root)</string>
     <string name="settings_force_clean_env_summary">N\'utiliser qu\'en cas d\'échec de démarrage du service système, sinon tenter de rétablir les valeurs par défaut.</string>
     <string name="settings_force_clean_env_toast_successful">Environnement d\'exécution nettoyé</string>
     <string name="settings_update">Mises à jour</string>
@@ -217,23 +217,24 @@
     <string name="settings_receive_beta_update">Recevoir les mises à jour bêta</string>
     <string name="settings_receive_beta_update_summary">Les versions bêta peuvent être instables</string>
     <!-- Bulk config wizard -->
-    <string name="title_bulk_config_wizard">Assistant de configuration en masse</string>
+    <string name="title_bulk_config_wizard">Configuration en masse</string>
     <!-- About -->
     <string name="about_description">
-        Bien qu\'il soit incorrect de détecter l\'installation d\'applications spécifiques, toutes les applications utilisant des privilèges root ne savent pas masquer leur présence par un nom de package aléatoire. Ces applications (comme certaines applications de masquage de localisation ou d\'isolation de stockage) lorsqu\'elles sont détectées, révèlent le \"rootage\" de l\'appareil.\n\nDans le même temps, certaines applications intelligentes utilisent diverses failles pour récupérer la liste des applications installées.\n\nCe module fournit certaines méthodes pour tester si vos applications sont correctement masquées. Il est également capable de fonctionner comme un module Zygisk pour cacher des applications ou rejeter les demandes de détection d\'applications afin de protéger votre vie privée.
+        Détecter l\'installation d\'applications spécifiques n\'est pas une pratique très correcte, d\'autant plus que beaucoup d\'applications s\'exécutant avec des privilèges root ne savent pas masquer leur présence par un nom de package aléatoire. 
+Ces applications (comme certaines applications de masquage de localisation ou d\'isolation de stockage) lorsqu\'elles sont détectées, peuvent révéler que l\'appareil est \"rooté\".\n\nCertaines applications incluent dans leur code des méthodes exploitant des failles leur permettant de récupérer la liste des applications installées.\n\nCe module permet de tester si vos applications sont correctement masquées. Il est également capable de fonctionner comme un module Zygisk pour cacher des applications ou rejeter les demandes de détection d\'applications afin de protéger votre vie privée.
     </string>
     <string name="about_fork_description">
-        Le projet HMA originel est passé en code fermé et son dernier code public ne contenait pas certaines de ses dernières modifications, nous avons donc créé ce fork pour pouvoir poursuivre à nouveau son développement en open source.
+        Le projet HMA originel est passé en code fermé et son dernier code public ne contenait pas certaines de ses dernières modifications, nous avons donc créé ce fork pour poursuivre son développement en open source.
     </string>
     <string name="about_how_to_use_title">Comment utiliser ce module</string>
     <string name="about_how_to_use_description_1">
-        Créer des modèles dans \"Gestion des modèles\"\nAppliquer ensuite les modèles aux application dans \"Gestion des applications\". (Il est également possible de sélectionner des applications supplémentaires pour les cibler.)
+        Créer des modèles dans \"Gestion des modèles\"\nAppliquer ensuite les modèles aux application dans \"Gestion des applications\". (Il est également possible de sélectionner des applications supplémentaires pour les cibler)
     </string>
     <string name="about_how_to_use_description_2">
-        Modification de configuration appliquée en temps réel.
+        Les modifications de configuration sont appliquées en temps réel.
     </string>
     <string name="about_how_to_use_description_3">
-        Cette application fait désormais office de gestionnaire du module Zygisk. Un module Zygisk distinct est par conséquent nécessaire pour que ce gestionnaire fonctionne.
+        Cette application fait désormais office de gestionnaire du module Zygisk. Un module Zygisk distinct doit par conséquent être installé et activé pour que ce gestionnaire fonctionne.
     </string>
     <string name="about_translator">Traducteurs</string>
     <string name="about_developer">Développeurs</string>
