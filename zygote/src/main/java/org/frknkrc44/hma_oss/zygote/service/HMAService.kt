@@ -8,7 +8,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.ParcelFileDescriptor
 import android.os.RemoteException
-import android.os.UserHandle
 import android.provider.Settings
 import icu.nullptr.hidemyapplist.common.AppPresets
 import icu.nullptr.hidemyapplist.common.CollectionUtils.removeIf
@@ -58,7 +57,6 @@ import org.frknkrc44.hma_oss.zygote.util.PackageManagerUtils.isConflictingModule
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.findAndVerifyAppSignature
 import org.frknkrc44.hma_oss.zygote.util.UserManagerUtils
 import rikka.hidden.compat.ActivityManagerApis
-import rikka.hidden.compat.UserManagerApis
 import java.io.File
 import java.io.FileInputStream
 import java.lang.reflect.Modifier
@@ -667,7 +665,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
         val apps = mutableListOf<ApplicationInfo>().apply {
             binderLocalScope {
-                UserManagerApis.getUserIdsNoThrow().forEach { id ->
+                UserManagerUtils.userIds.forEach { id ->
                     addAll(pms.getInstalledApplicationsCompat(0L, id))
                 }
             }
