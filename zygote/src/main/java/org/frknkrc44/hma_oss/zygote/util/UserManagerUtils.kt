@@ -17,11 +17,22 @@ object UserManagerUtils {
 
     val userIds get(): IntArray {
         return try {
-            getUsers(
+            val users = getUsers(
                 excludePartial = false,
                 excludeDying = false,
                 excludePreCreated = false,
-            ).map { it.id }.toIntArray()
+            )
+
+            return try {
+                mutableSetOf<Int>().apply {
+                    for (user in users) {
+                        userService!!.getProfileIds(
+                            user.id, false).forEach(::add)
+                    }
+                }.toIntArray()
+            } catch (_: Throwable) {
+                users.map { it.id }.toIntArray()
+            }
         } catch (_: Throwable) {
             intArrayOf(0)
         }
