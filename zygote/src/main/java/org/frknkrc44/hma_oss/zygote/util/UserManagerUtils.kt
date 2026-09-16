@@ -1,11 +1,12 @@
 package org.frknkrc44.hma_oss.zygote.util
 
+import android.content.Context
 import android.content.pm.UserInfo
 import android.os.IUserManager
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.waitForService
 
 object UserManagerUtils {
-    private val userService by lazy { waitForService("user") as? IUserManager }
+    private val userService by lazy { waitForService(Context.USER_SERVICE) as? IUserManager }
 
     fun getUsers(excludePartial: Boolean, excludeDying: Boolean, excludePreCreated: Boolean): List<UserInfo> {
         return try {
