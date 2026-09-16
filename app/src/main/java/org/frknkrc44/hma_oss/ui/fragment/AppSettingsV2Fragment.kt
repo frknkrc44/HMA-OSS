@@ -24,6 +24,7 @@ import icu.nullptr.hidemyapplist.common.AppPresets
 import icu.nullptr.hidemyapplist.common.CollectionUtils.sync
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.JsonConfig
+import icu.nullptr.hidemyapplist.common.OSUtils
 import icu.nullptr.hidemyapplist.common.SettingsPresets
 import icu.nullptr.hidemyapplist.data.AppConstants
 import icu.nullptr.hidemyapplist.service.ConfigManager
@@ -291,8 +292,14 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
 
                 true
             }
-            findPreference<SwitchPreferenceCompat>("excludeVoldIsolation")?.let {
-                it.isEnabled = ConfigManager.altVoldAppDataIsolation
+            findPreference<Preference>("categoryVoldAppDataIsolation")?.let {
+                it.isVisible = !OSUtils.isSamsung()
+
+                if (it.isVisible) {
+                    findPreference<SwitchPreferenceCompat>("excludeVoldIsolation")?.let {
+                        it.isEnabled = ConfigManager.altVoldAppDataIsolation
+                    }
+                }
             }
             findPreference<SwitchPreferenceCompat>("invertActivityLaunchProtection")?.let {
                 it.summary = getString(R.string.app_invert_activity_launch_protection_desc) + "\n\n" +
