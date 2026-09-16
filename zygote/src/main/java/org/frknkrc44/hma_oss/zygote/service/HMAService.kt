@@ -195,8 +195,8 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
             )
 
             moduleStatusFile.writeText(encoder.encodeToString(json))
-        } catch (_: Throwable) {
-            // ignore
+        } catch (cause: Throwable) {
+            logE(TAG, cause) { "An error occurred while writing the status JSON" }
         }
     }
 
