@@ -6,8 +6,6 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
-import android.os.UserHandle
-import android.os.UserManager
 import android.util.Log
 import androidx.core.content.res.ResourcesCompat
 import icu.nullptr.hidemyapplist.MyApp.Companion.hmaApp
@@ -93,16 +91,15 @@ object PackageHelper {
             isRefreshing.emit(true)
             val cache = withContext(Dispatchers.IO) {
                 val pm = hmaApp.packageManager
-                val um = hmaApp.getSystemService(Context.USER_SERVICE) as UserManager
-                val profiles = um.userProfiles
+                val profiles = ServiceClient.userProfiles ?: intArrayOf(0)
 
                 mutableMapOf<String, PackageCache>().also { cacheMap ->
-                    for (userProfile: UserHandle in profiles) {
-                        val packages = ServiceClient.getPackageNames(userProfile.hashCode()) ?: arrayOf<String>()
+                    for (userProfile: Int in profiles) {
+                        val packages = ServiceClient.getPackageNames(userProfile) ?: arrayOf<String>()
                         for (packageName in packages) {
                             if (packageName in Constants.packagesShouldNotHide) continue
                             val packageInfo = try {
-                                ServiceClient.getPackageInfo(packageName, userProfile.hashCode())!!
+                                ServiceClient.getPackageInfo(packageName, userProfile)!!
                             } catch (e: Throwable) {
                                 ServiceClient.log(Log.DEBUG, TAG,
                                     "Cannot get package details for $packageName\n${e.stackTraceToString()}")
@@ -113,13 +110,13 @@ object PackageHelper {
                                 val label = pm.getApplicationLabel(appInfo).toString()
                                 val icon = loadAppIconFromAppInfo(appInfo)
                                 if (cacheMap.containsKey(packageName)) {
-                                    cacheMap[packageName]?.userIds?.add(userProfile.hashCode())
+                                    cacheMap[packageName]?.userIds?.add(userProfile)
                                 } else {
                                     cacheMap[packageName] = PackageCache(
                                         packageInfo,
                                         label,
                                         icon,
-                                        HashSet<Int>().apply { add(userProfile.hashCode()) }
+                                        HashSet<Int>().apply { add(userProfile) }
                                     )
                                 }
                             }

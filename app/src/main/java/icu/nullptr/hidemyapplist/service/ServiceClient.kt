@@ -147,4 +147,6 @@ object ServiceClient : IHMAService, IBinder.DeathRecipient {
         service?.reloadConfigFromFile()
         ConfigManager.init()
     }
+
+    override fun getUserProfiles() = service?.userProfiles
 }
