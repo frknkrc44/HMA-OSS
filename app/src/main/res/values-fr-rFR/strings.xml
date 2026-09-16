@@ -81,7 +81,7 @@
     <string name="list_empty_no_apps">Aucune application trouvée, cette application ne dispose peut-être pas de la permission d\'obtenir les informations relatives aux applications installées</string>
     <string name="list_empty_preset">Aucune application ajoutée dans ce préréglage</string>
     <!-- Manage templates -->
-    <string name="template_usage_hint">Établit des modèles pour les applications \"sensibles\" afin de contrôler la liste d\'applications qu\'elles peuvent obtenir.\n\nListe noire (recommandée) : les applications sélectionnées dans le modèle seront invisibles aux applications qui appliquent le modèle.\nListe blanche : les applications non sélectionnées dans le modèle seront invisibles aux applications qui l\'appliquent.</string>
+    <string name="template_usage_hint">Établir des modèles pour les applications \"sensibles\" afin de contrôler la liste d\'applications qu\'elles peuvent obtenir.\n\nListe noire (recommandée) : les applications sélectionnées dans le modèle seront invisibles aux applications qui appliquent le modèle.\nListe blanche : les applications non sélectionnées dans le modèle seront invisibles aux applications qui l\'appliquent.</string>
     <string name="template_new_blacklist">Créer un modèle de liste noire</string>
     <string name="template_new_whitelist">Créer un modèle de liste blanche</string>
     <string name="template_new_setting">Créer un modèle de paramètres</string>
@@ -221,7 +221,7 @@
     <!-- About -->
     <string name="about_description">
         Détecter l\'installation d\'applications spécifiques n\'est pas une pratique très correcte, d\'autant plus que beaucoup d\'applications s\'exécutant avec des privilèges root ne savent pas masquer leur présence par un nom de package aléatoire. 
-Ces applications (comme certaines applications de masquage de localisation ou d\'isolation de stockage) lorsqu\'elles sont détectées, peuvent révéler que l\'appareil est \"rooté\".\n\nCertaines applications incluent dans leur code des méthodes exploitant des failles leur permettant de récupérer la liste des applications installées.\n\nCe module permet de tester si vos applications sont correctement masquées. Il est également capable de fonctionner comme un module Zygisk pour cacher des applications ou rejeter les demandes de détection d\'applications afin de protéger votre vie privée.
+Ces applications (comme certaines applications de masquage de localisation ou d\'isolation de stockage) lorsqu\'elles sont détectées, peuvent révéler que l\'appareil est \"rooté\".\n\nCertaines applications incluent dans leur code des méthodes exploitant des failles leur permettant de récupérer la liste des applications installées.\n\nCe module permet de tester si vos applications sont correctement masquées pour se protéger de cette pratique. Il est également capable de fonctionner comme un module Zygisk pour cacher des applications ou rejeter les demandes de détection d\'applications afin de protéger votre vie privée.
     </string>
     <string name="about_fork_description">
         Le projet HMA originel est passé en code fermé et son dernier code public ne contenait pas certaines de ses dernières modifications, nous avons donc créé ce fork pour poursuivre son développement en open source.
@@ -266,5 +266,5 @@ Ces applications (comme certaines applications de masquage de localisation ou d\
     <string name="dark_theme_on">Activé</string>
     <string name="sick_mode_title">Mode dégradé activé</string>
     <string name="sick_mode_description">HMA-OSS a détecté des modules susceptibles de provoquer des conflits et a limité ses fonctionnalités</string>
-    <string name="sick_mode_notice">Les configurations de HMA/HMAL sont compatibles avec HMA-OSS. Il est par conséquent possible de commencer à les utiliser avec la configuration existante, à condition de d\'abord désinstaller HMA/HMAL puis de redémarrer l\'appareil</string>
+    <string name="sick_mode_notice">Les configurations de HMA/HMAL sont compatibles avec HMA-OSS. Il est par conséquent possible de commencer à les utiliser avec la configuration existante, à condition de d\'abord désinstaller HMA/HMAL puis de redémarrer l\'appareil.</string>
 </resources>
