@@ -1,7 +1,6 @@
 package org.frknkrc44.hma_oss.zygote.hook
 
 import android.content.AttributionSource
-import android.content.ContentResolver
 import android.database.Cursor
 import android.database.MatrixCursor
 import android.net.Uri

@@ -3,6 +3,7 @@
 package org.frknkrc44.hma_oss.zygote.util
 
 import android.provider.Settings
+import icu.nullptr.hidemyapplist.common.CollectionUtils.contains
 import icu.nullptr.hidemyapplist.common.Constants.SETTINGS_GLOBAL
 import icu.nullptr.hidemyapplist.common.Constants.SETTINGS_SECURE
 import icu.nullptr.hidemyapplist.common.Constants.SETTINGS_SYSTEM
@@ -10,18 +11,18 @@ import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getStaticObjectField
 
 object ContentProviderUtils {
     fun getOverriddenDatabaseName(database: String, name: String): String {
-        if (SettingsSecure.movedToGlobal?.contains(name) ?: false ||
-            SettingsSystem.movedToGlobal?.contains(name) ?: false ||
-            SettingsSystem.movedToSecureThenGlobal?.contains(name) ?: false) {
+        if (SettingsSecure.movedToGlobal.contains(name) ||
+            SettingsSystem.movedToGlobal.contains(name) ||
+            SettingsSystem.movedToSecureThenGlobal.contains(name)) {
             return SETTINGS_GLOBAL
         }
 
-        if (SettingsGlobal.movedToSecure?.contains(name) ?: false ||
-            SettingsSystem.movedToSecure?.contains(name) ?: false) {
+        if (SettingsGlobal.movedToSecure.contains(name) ||
+            SettingsSystem.movedToSecure.contains(name)) {
             return SETTINGS_SECURE
         }
 
-        if (SettingsGlobal.movedToSystem?.contains(name) ?: false) {
+        if (SettingsGlobal.movedToSystem.contains(name)) {
             return SETTINGS_SYSTEM
         }
 
