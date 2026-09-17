@@ -104,11 +104,9 @@ class ContentProviderHook : IFrameworkHook {
 
                     while (result.moveToNext()) {
                         val name = result.getString(columns.keys.indexOf("name"))
-
-                        val dbName = getOverriddenDatabaseName(database, name)
-
                         keyColumn.add(name)
 
+                        val dbName = getOverriddenDatabaseName(database, name)
                         val replacement = service.getSpoofedSetting(caller, name, dbName)
                         val value = if (replacement != null) {
                             logD(TAG) { "@spoofSettings QUERY $name in $database replaced for $caller" }
@@ -128,35 +126,6 @@ class ContentProviderHook : IFrameworkHook {
 
                                 columns[otherCol]!!.add(other)
                             }
-                        }
-                    }
-
-                    if (args != null) {
-                        val querySel = args.getString(ContentResolver.QUERY_ARG_SQL_SELECTION)
-                        val query = querySel?.split(" ")?.map { rule ->
-                            rule.substringBefore("=").trim()
-                        }
-
-                        logD(TAG) { "@spoofSettings LIST_QUERY_WKEY caller: $caller, querySel: $querySel, query: $query" }
-
-                        val idx = query?.indexOfFirst { it == "name" } ?: return@hookAfter
-                        val name = args.getStringArray(ContentResolver.QUERY_ARG_SQL_SELECTION_ARGS)!![idx]
-
-                        logD(TAG) { "@spoofSettings LIST_QUERY_WKEY caller: $caller, name: $name, names: $keyColumn, values: $valueColumn" }
-
-                        val dbName = getOverriddenDatabaseName(database, name)
-                        val replacement = service.getSpoofedSetting(caller, name, dbName)
-                        if (replacement != null) {
-                            logD(TAG) { "@spoofSettings LIST_QUERY_WKEY $name in $database replaced for $caller" }
-                            val keyIndex = keyColumn.indexOfFirst { it == name }
-                            if (keyIndex < 0) {
-                                keyColumn.add(name)
-                                valueColumn.add(replacement.value)
-                            } else {
-                                valueColumn[keyIndex] = replacement.value
-                            }
-
-                            filteredEntryCount++
                         }
                     }
 

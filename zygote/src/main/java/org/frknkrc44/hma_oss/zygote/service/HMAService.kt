@@ -355,7 +355,9 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
         val templates = getEnabledSettingsTemplates(caller)
         val replacement = config.settingsTemplates.firstNotNullOfOrNull { (key, value) ->
-            if (key in templates) value.settingsList.firstOrNull { it.name == name } else null
+            if (key in templates) value.settingsList.firstOrNull {
+                it.name == name && it.database == database
+            } else null
         }
         if (replacement != null) return replacement
 
