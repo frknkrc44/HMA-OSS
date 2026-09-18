@@ -228,7 +228,7 @@ Ces applications (comme certaines applications de masquage de localisation ou d\
     </string>
     <string name="about_how_to_use_title">Comment utiliser ce module</string>
     <string name="about_how_to_use_description_1">
-        Créer des modèles dans \"Gestion des modèles\"\nAppliquer ensuite les modèles aux application dans \"Gestion des applications\". (Il est également possible de sélectionner des applications supplémentaires pour les cibler)
+        Créer des modèles dans \"Gestion des modèles\"\nAppliquer ensuite les modèles aux applications dans \"Gestion des applications\". (Il est également possible de sélectionner des applications supplémentaires pour les cibler)
     </string>
     <string name="about_how_to_use_description_2">
         Les modifications de configuration sont appliquées en temps réel.
@@ -238,7 +238,7 @@ Ces applications (comme certaines applications de masquage de localisation ou d\
     </string>
     <string name="about_translator">Traducteurs</string>
     <string name="about_developer">Développeurs</string>
-    <string name="about_support">Support et retours d\'expérience</string>
+    <string name="about_support">Assistance et retours d\'expérience</string>
     <string name="about_open_source">Licences open source</string>
     <!-- Colors -->
     <string name="color_sakura">Sakura</string>
