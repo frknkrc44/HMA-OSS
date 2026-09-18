@@ -32,6 +32,7 @@
 - [Türkçe](README_tr.md)
 - [日本語](README_ja.md)
 - **Indonesia**
+- [Português](README_pt.md)
 
 ## Tentang modul ini
 
