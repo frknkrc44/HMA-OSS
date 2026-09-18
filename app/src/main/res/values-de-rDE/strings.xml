@@ -119,7 +119,7 @@
     <string name="app_force_stop_warning">Vergessen Sie nicht, die Ziel-App nach dem Speichern der Konfiguration zu beenden</string>
     <string name="app_invert_activity_launch_protection">Aktivitätsstartschutz umkehren</string>
     <string name="app_invert_activity_launch_protection_desc">Diese Option wird die Auswahl \"Aktivitätsstartschutz deaktivieren\" in den Einstellungen umkehren.</string>
-    <string name="app_global_activity_launch_protection_state">Der Schutz ist %s global</string>
+    <string name="app_global_activity_launch_protection_state">Der Schutz ist global %s</string>
     <string name="app_force_stop_launch">Stop und Start erzwingen</string>
     <string name="app_launch">Start</string>
     <string name="app_launch_failed">App-Start fehlgeschlagen, überprüfen Sie die Logs für weitere Details</string>
@@ -223,7 +223,7 @@
     </string>
     <string name="about_fork_description">        Das ursprüngliche HMA-Projekt wurde geschlossen und der neueste Code enthielt keine der neuesten Änderungen so habe ich diesen Fork erstellt, um ihn wieder als Open-Source fortzusetzen.
     </string>
-    <string name="about_how_to_use_title">Wie verwendet man dieses Modul</string>
+    <string name="about_how_to_use_title">Wie benutze ich dieses Modul</string>
     <string name="about_how_to_use_description_1">        Du kannst Vorlagen unter \"Vorlagen verwalten\" erstellen.\nWende diese dann unter \"Apps verwalten\" an. (Du kannst außerdem extra Apps für Ziele einstellen.)\nWähle nur und wirklich NUR \"System Framework\" in Xposed aus.</string>
     <string name="about_how_to_use_description_2">        Config modification effective in real time.
     </string>
@@ -256,7 +256,7 @@
     <string name="dark_theme">Dunkles Thema</string>
     <string name="dark_theme_off">Immer aus</string>
     <string name="dark_theme_on">Immer aktiviert</string>
-    <string name="sick_mode_title">Sick mode is activated</string>
+    <string name="sick_mode_title">Sick Modus ist aktiviert</string>
     <string name="sick_mode_description">HMA-OSS erkannte möglicherweise widersprüchliche Module und beschränkte seine Funktionalität</string>
     <string name="sick_mode_notice">HMA/HMAL Konfigurationen sind kompatibel mit HMA-OSS und Sie können mit Ihrer existierenden Konfiguration beginnen, aber Sie müssen HMA/HMAL deinstallieren und dann zuerst neu starten</string>
 </resources>
