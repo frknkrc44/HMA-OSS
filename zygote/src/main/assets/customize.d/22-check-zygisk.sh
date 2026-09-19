@@ -9,7 +9,7 @@
 
 # default language
 ZYGISK_DETECTED_MSG(){
-    echo "- Found $1 framework"
+    ui_print "- Found $1 framework"
 }
 FALLBACK_ZYGISK_NAME="Zygisk"
 ZYGISK_MULTI_ERR="! Multiple Zygisk frameworks were found. Aborting installation to prevent conflicts"
@@ -18,31 +18,25 @@ ZYGISK_NOT_FOUND_ERR="! No known Zygisk frameworks (e.g. ZygiskNext) is found, H
 # language pack
 if echo "$SYSTEM_LANG" | grep -q "zh"; then
     ZYGISK_DETECTED_MSG(){
-        echo "- 检测到 $1 框架"
+        ui_print "- 检测到 $1 框架"
     }
     ZYGISK_MULTI_ERR="! 检测到多个 Zygisk 框架, 为了避免冲突, 安装程序已退出"
     ZYGISK_NOT_FOUND_ERR="! 未找到已知的 Zygisk 框架 (例如 ZygiskNext), HMA-OSS 需要 Zygisk 才能正常运行, 安装程序已退出"
 fi
 
-
-find_zygisk(){
-    if [ -d "/data/adb/modules/$1" ] || [ -d "/data/adb/modules_update/$1" ]; then
-        [ -f "/data/adb/modules/$1/disable" ] && return
-        [ -f "/data/adb/modules/$1/remove" ] && return
-
-        [ ! -z "$ZYGISK_NAME" ] && abort "$ZYGISK_MULTI_ERR"
-
-        ZYGISK_NAME="$2"
+for folder in $(echo /data/adb/modules/*)
+do
+    if ([ -f "$folder/disable" ] || [ -f "$folder/remove" ])
+    then
+        continue
     fi
-}
 
-# add known zygisk frameworks here...
-find_zygisk "zygisksu" "ZygiskNext / NeoZygisk"
-find_zygisk "rezygisk" "ReZygisk"
-find_zygisk "admirepowered" "Zygisk Mod"
-find_zygisk "zygisk_on_ksu" "Zygisk on KernelSU"
-find_zygisk "yukizygisk" "YukiZygisk"
-find_zygisk "onyxzygisk" "OnyxZygisk"
+    if ([ -f "$folder/bin/zygiskd" ] || [ -f "$folder/bin/zygiskd64" ])
+    then
+        [ ! -z "$ZYGISK_NAME" ] && abort "$ZYGISK_MULTI_ERR"
+        ZYGISK_NAME=$(grep "name=" $folder/module.prop | cut -f2 -d"=")
+    fi
+done
 
 if [ -z "$ZYGISK_NAME" ]
 then
@@ -64,5 +58,5 @@ fi
 if [ -z "$ZYGISK_NAME" ]; then
     abort "$ZYGISK_NOT_FOUND_ERR"
 else
-    ui_print "$(ZYGISK_DETECTED_MSG "$ZYGISK_NAME")"
+    ZYGISK_DETECTED_MSG "$ZYGISK_NAME"
 fi

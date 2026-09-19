@@ -1,13 +1,11 @@
 package org.frknkrc44.hma_oss.zygote.util
 
-import android.content.Context.USER_SERVICE
 import android.content.pm.IPackageManager
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Binder
 import android.os.Build
 import android.os.IBinder
-import android.os.IUserManager
 import android.os.ServiceManager
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.JsonConfig
@@ -22,7 +20,6 @@ import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.callMethod
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.findField
-import rikka.hidden.compat.UserManagerApis
 
 object ServiceUtils {
     private const val TAG = "ServiceUtils"
@@ -71,21 +68,7 @@ object ServiceUtils {
 
     fun findAndVerifyAppSignature(pms: IPackageManager): Int {
         try {
-            val userService = waitForService(USER_SERVICE)
-
-            val userManager = IUserManager.Stub.asInterface(userService)
-            val profiles = mutableSetOf<Int>().also { set ->
-                val userIds = UserManagerApis.getUserIdsNoThrow()
-
-                try {
-                    userIds.forEach {
-                        val profiles = userManager.getProfileIds(it, false)
-                        profiles.forEach { pId -> set.add(pId) }
-                    }
-                } catch (_: Throwable) {
-                    set.addAll(userIds)
-                }
-            }
+            val profiles = UserManagerUtils.userIds
 
             for (uid in profiles) {
                 logV(TAG) { "@findAndVerifyAppSignature: checking for uid $uid" }

@@ -55,4 +55,6 @@ interface IHMAService {
     boolean migrateData(String packageName) = 24;
 
     void reloadConfigFromFile() = 25;
+
+    int[] getUserProfiles() = 26;
 }

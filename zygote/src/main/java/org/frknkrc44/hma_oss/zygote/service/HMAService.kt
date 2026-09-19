@@ -55,10 +55,9 @@ import org.frknkrc44.hma_oss.zygote.util.PackageManagerUtils.findApp
 import org.frknkrc44.hma_oss.zygote.util.PackageManagerUtils.getLaunchIntentForPackageAsUser
 import org.frknkrc44.hma_oss.zygote.util.PackageManagerUtils.isConflictingModuleInstalled
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.findAndVerifyAppSignature
+import org.frknkrc44.hma_oss.zygote.util.UserManagerUtils
 import rikka.hidden.compat.ActivityManagerApis
-import rikka.hidden.compat.UserManagerApis
 import java.io.File
-import java.io.FileInputStream
 import java.lang.reflect.Modifier
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
@@ -195,8 +194,8 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
             )
 
             moduleStatusFile.writeText(encoder.encodeToString(json))
-        } catch (_: Throwable) {
-            // ignore
+        } catch (cause: Throwable) {
+            logE(TAG, cause) { "An error occurred while writing the status JSON" }
         }
     }
 
@@ -355,7 +354,9 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
         val templates = getEnabledSettingsTemplates(caller)
         val replacement = config.settingsTemplates.firstNotNullOfOrNull { (key, value) ->
-            if (key in templates) value.settingsList.firstOrNull { it.name == name } else null
+            if (key in templates) value.settingsList.firstOrNull {
+                it.name == name && it.database == database
+            } else null
         }
         if (replacement != null) return replacement
 
@@ -665,7 +666,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
         val apps = mutableListOf<ApplicationInfo>().apply {
             binderLocalScope {
-                UserManagerApis.getUserIdsNoThrow().forEach { id ->
+                UserManagerUtils.userIds.forEach { id ->
                     addAll(pms.getInstalledApplicationsCompat(0L, id))
                 }
             }
@@ -733,17 +734,14 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     }
 
     override fun writeFD(type: Int, fd: ParcelFileDescriptor) {
-        val receiveStream = FileInputStream(fd.fileDescriptor)
-
         when (type) {
             PARCEL_TYPE_CONFIG -> {
-                writeConfig(receiveStream.readBytes().decodeToString())
+                ParcelFileDescriptor.AutoCloseInputStream(fd).use { input ->
+                    writeConfig(input.bufferedReader(Charsets.UTF_8).readText())
+                }
             }
             else -> throw RemoteException("Invalid type for write: $type")
         }
-
-        receiveStream.close()
-        fd.close()
     }
 
     override fun getManagerWorkMode() = managerWorkMode
@@ -800,4 +798,6 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
         config = loading
     }
+
+    override fun getUserProfiles() = binderLocalScope { UserManagerUtils.userIds }
 }

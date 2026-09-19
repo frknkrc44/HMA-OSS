@@ -81,7 +81,7 @@ class ContentProviderHook : IFrameworkHook {
                 } else {
                     logD(TAG) { "@spoofSettings LIST_QUERY received caller: $caller, database: $database" }
 
-                    val result = returnValue.result as? Cursor? ?: return@hookAfter
+                    val result = returnValue.result as? Cursor ?: return@hookAfter
 
                     val columns = mutableMapOf<String, MutableList<String?>>().apply {
                         for (i in 0 ..< result.columnCount) {
@@ -103,11 +103,9 @@ class ContentProviderHook : IFrameworkHook {
 
                     while (result.moveToNext()) {
                         val name = result.getString(columns.keys.indexOf("name"))
-
-                        val dbName = getOverriddenDatabaseName(database, name)
-
                         keyColumn.add(name)
 
+                        val dbName = getOverriddenDatabaseName(database, name)
                         val replacement = service.getSpoofedSetting(caller, name, dbName)
                         val value = if (replacement != null) {
                             logD(TAG) { "@spoofSettings QUERY $name in $database replaced for $caller" }

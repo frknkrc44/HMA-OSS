@@ -12,6 +12,7 @@ object ZygoteConstants {
     const val APPS_FILTER_CLASS = "com.android.server.pm.AppsFilter"
     const val APPS_FILTER_IMPL_CLASS = "com.android.server.pm.AppsFilterImpl"
     const val STORAGE_MANAGER_SERVICE_CLASS = "com.android.server.StorageManagerService"
+    const val STORAGE_MANAGER_SERVICE_LIFECYCLE_CLASS = $$"com.android.server.StorageManagerService$Lifecycle"
     const val ACCESSIBILITY_SERVICE_CLASS = "com.android.server.accessibility.AccessibilityManagerService"
     const val CONTENT_PROVIDER_TRANSPORT_CLASS = $$"android.content.ContentProvider$Transport"
     const val IMM_SERVICE_CLASS = "com.android.server.inputmethod.InputMethodManagerService"

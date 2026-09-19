@@ -27,7 +27,7 @@ import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.ui.util.AccessibilityUtils
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.attrDrawable
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.homeItemBackgroundColor
-import icu.nullptr.hidemyapplist.ui.util.dp2Px
+import icu.nullptr.hidemyapplist.ui.util.dpToPx
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
 import icu.nullptr.hidemyapplist.util.PackageHelper.findEnabledAppComponent
@@ -105,7 +105,7 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
             background = LayerDrawable(arrayOf(
                 GradientDrawable().apply {
                     setColor(0)
-                    cornerRadius = dp2Px(resources, 24)
+                    cornerRadius = 24.dpToPx
                 },
                 attrDrawable(android.R.attr.selectableItemBackground),
             ))

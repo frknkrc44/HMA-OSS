@@ -6,7 +6,6 @@ import android.content.pm.ResolveInfo
 import icu.nullptr.hidemyapplist.common.Utils.conflictedModules
 import org.frknkrc44.hma_oss.zygote.util.ContextUtils.packageManager
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.callMethodWithTypes
-import rikka.hidden.compat.UserManagerApis
 
 object PackageManagerUtils {
     fun IPackageManager.isConflictingModuleInstalled(): Boolean {
@@ -59,5 +58,5 @@ object PackageManagerUtils {
     ) as List<ResolveInfo>?
 
     fun IPackageManager.findApp(packageName: String) =
-        UserManagerApis.getUserIdsNoThrow().any { isPackageAvailable(packageName, it) }
+        UserManagerUtils.userIds.any { isPackageAvailable(packageName, it) }
 }

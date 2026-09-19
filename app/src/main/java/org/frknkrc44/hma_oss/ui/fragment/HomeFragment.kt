@@ -32,7 +32,7 @@ import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.attrDrawable
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.getColor
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.homeItemBackgroundColor
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.themeColor
-import icu.nullptr.hidemyapplist.ui.util.dp2Px
+import icu.nullptr.hidemyapplist.ui.util.dpToPx
 import icu.nullptr.hidemyapplist.ui.util.isTestBuild
 import icu.nullptr.hidemyapplist.ui.util.navigate
 import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
@@ -72,7 +72,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 dialog.setView(Chronometer(context).apply {
                     layoutParams = ViewGroup.LayoutParams(-1, -2)
                     base = elapsedRealtime() + 3000
-                    textSize = dp2Px(resources, 24)
+                    textSize = 24.dpToPx
                     gravity = Gravity.CENTER
                     typeface = Typeface.SERIF
                     onChronometerTickListener = {
@@ -105,9 +105,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         with(binding.howToUse.root.parent as ViewGroup) {
             val childCount = childCount
 
-            val softCorner: Float = dp2Px(resources, 24)
-            val squareCorner: Float = dp2Px(resources, 8)
-            val pad = dp2Px(resources, 16).toInt()
+            val softCorner = 24.dpToPx
+            val squareCorner = 8.dpToPx
+            val pad = 16.dpToPx.toInt()
 
             for (i in 0..< childCount) {
                 getChildAt(i).apply {
@@ -381,8 +381,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.manageTemplates.root.isVisible = isHooks
         binding.managePresets.root.isVisible = isHooks
         binding.navBulkConfigWizard.root.isVisible = isHooks
-        binding.navLogs.root.isVisible = isWorking // allow taking logs on NO_HOOKS or CRASHED status
-        binding.navSettings.root.isVisible = isHooks
+        binding.navLogs.root.isVisible = isWorking
+        binding.navSettings.root.isVisible = isWorking
         (binding.backupConfig.parent as ViewGroup).isVisible = isHooks
     }
 
