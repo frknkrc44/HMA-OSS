@@ -29,21 +29,25 @@
 
 - [English](README.md)
 - [中文（简体）](README_zh_CN.md)
-- **Türkçe**
+- [Türkçe](README_tr.md)
 - [日本語](README_ja.md)
 - [Indonesia](README_id.md)
-- [Português](README_pt.md)
+- **Português**
 
-## Bu modül hakkında
+## Sobre este módulo
 
-Belirli uygulamaların kurulu olup olmadığını tespit etmek kötü bir yöntem sayılabilir ve root erişimine sahip her uygulama rastgele paket adı desteği sağlamaz. Bu durumda root erişimine sahip uygulamalar (Sahte Konum ve Depolama İzolasyonu gibi) tespit edilirse, cihazın rootlu olduğu tespit edilir.
+Embora não seja uma boa prática detectar a instalação de apps específicos, nem todo app que usa root oferece suporte a nome de pacote aleatório. Neste caso, se apps com ligações ao root (como Fake Location e Storage Isolation) forem detectados, isso equivale a detectar que o dispositivo está com root.
 
-Ayrıca bazı uygulamalar uygulama listenizi ele geçirmek, parmak izi verileri olarak kullanmak veya başka kötü niyetli amaçlar için çeşitli açıklardan yararlanır.
+Além disso, alguns apps usam diversas brechas para obter sua lista de apps, com o intuito de usá-la como dado de fingerprinting (rastreamento) ou para outros fins maliciosos.
 
-Bu modül, uygulamaları gizlemek veya uygulama listesi isteklerini reddetmek için çalışabilen bir Zygisk modülüdür.
+Este módulo pode funcionar como um módulo Zygisk para esconder apps ou recusar solicitações da lista de apps.
 
-## Çeviriye katkıda bulunmak istiyorum
-[Buraya tıklayarak](https://crowdin.com/project/frknkrc44-hma-oss) çeviriye katkıda bulunabilirsiniz. 
+## Sobre o HMA-OSS
 
-## Güncelleme detayları
-[Commit sayfası](https://github.com/frknkrc44/HMA-OSS/commits)  
+https://github.com/frknkrc44/HMA-OSS/wiki
+
+## Quero contribuir com a tradução
+Você pode contribuir com a tradução [aqui](https://crowdin.com/project/frknkrc44-hma-oss).
+
+## Registro de atualizações
+[Referência à página de commits](https://github.com/frknkrc44/HMA-OSS/commits)
