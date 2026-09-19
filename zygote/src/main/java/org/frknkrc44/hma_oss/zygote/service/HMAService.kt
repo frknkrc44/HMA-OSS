@@ -58,7 +58,6 @@ import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.findAndVerifyAppSignature
 import org.frknkrc44.hma_oss.zygote.util.UserManagerUtils
 import rikka.hidden.compat.ActivityManagerApis
 import java.io.File
-import java.io.FileInputStream
 import java.lang.reflect.Modifier
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
@@ -735,17 +734,14 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     }
 
     override fun writeFD(type: Int, fd: ParcelFileDescriptor) {
-        val receiveStream = FileInputStream(fd.fileDescriptor)
-
         when (type) {
             PARCEL_TYPE_CONFIG -> {
-                writeConfig(receiveStream.readBytes().decodeToString())
+                ParcelFileDescriptor.AutoCloseInputStream(fd).use { input ->
+                    writeConfig(input.bufferedReader(Charsets.UTF_8).readText())
+                }
             }
             else -> throw RemoteException("Invalid type for write: $type")
         }
-
-        receiveStream.close()
-        fd.close()
     }
 
     override fun getManagerWorkMode() = managerWorkMode

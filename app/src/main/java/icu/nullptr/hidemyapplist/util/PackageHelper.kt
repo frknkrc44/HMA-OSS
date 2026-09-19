@@ -15,7 +15,7 @@ import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.asDrawable
 import icu.nullptr.hidemyapplist.ui.util.asComponentName
 import icu.nullptr.hidemyapplist.ui.util.get
-import icu.nullptr.hidemyapplist.util.ConfigUtils.Companion.getLocale
+import icu.nullptr.hidemyapplist.util.ConfigUtils.getLocale
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.first

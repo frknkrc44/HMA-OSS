@@ -39,7 +39,7 @@ import icu.nullptr.hidemyapplist.ui.util.showNeedRebootToast
 import icu.nullptr.hidemyapplist.ui.util.showToast
 import icu.nullptr.hidemyapplist.ui.util.withAnimations
 import icu.nullptr.hidemyapplist.ui.util.withDisableButton
-import icu.nullptr.hidemyapplist.util.ConfigUtils.Companion.getLocale
+import icu.nullptr.hidemyapplist.util.ConfigUtils.getLocale
 import icu.nullptr.hidemyapplist.util.PackageHelper.findEnabledAppComponent
 import icu.nullptr.hidemyapplist.util.SuUtils
 import kotlinx.coroutines.launch

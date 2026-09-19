@@ -4,10 +4,9 @@ import android.os.Bundle
 import android.os.IBinder
 import android.os.ParcelFileDescriptor
 import android.util.Log
-import icu.nullptr.hidemyapplist.MyApp.Companion.hmaApp
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.IHMAService
-import java.io.File
+import icu.nullptr.hidemyapplist.util.FDUtils.writeIntoPipe
 import java.io.FileInputStream
 import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
@@ -78,13 +77,7 @@ object ServiceClient : IHMAService, IBinder.DeathRecipient {
                 parcelFD.close()
             }
         }
-        set(text) {
-            val configFile = File("${hmaApp.filesDir.absolutePath}/temp_config.json")
-            configFile.writeText(text)
-
-            val parcelFD = ParcelFileDescriptor.open(configFile, ParcelFileDescriptor.MODE_READ_ONLY)
-            writeFD(Constants.PARCEL_TYPE_CONFIG, parcelFD)
-        }
+        set(text) = writeFD(Constants.PARCEL_TYPE_CONFIG, writeIntoPipe(text))
 
     fun forceStop(packageName: String) {
         forceStop(packageName, 0)
