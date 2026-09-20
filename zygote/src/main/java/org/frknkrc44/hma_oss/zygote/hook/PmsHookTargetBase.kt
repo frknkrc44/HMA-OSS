@@ -5,13 +5,13 @@ import android.content.pm.PackageManager
 import android.os.Binder
 import android.os.Build
 import icu.nullptr.hidemyapplist.common.CollectionUtils.firstOrNullWithType
-import icu.nullptr.hidemyapplist.common.CollectionUtils.lastOrNullWithType
 import icu.nullptr.hidemyapplist.common.CollectionUtils.lastWithType
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.Constants.VENDING_PACKAGE_NAME
 import icu.nullptr.hidemyapplist.common.OSUtils
 import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
 import icu.nullptr.hidemyapplist.common.Utils.getUserFromCallingUid
+import org.frknkrc44.hma_oss.zygote.service.ReturnValue
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
@@ -21,7 +21,6 @@ import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.callMethod
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.COMPUTER_ENGINE_CLASS
-import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.MATCH_ANY_USER
 import java.util.concurrent.atomic.AtomicReference
 
 abstract class PmsHookTargetBase : IFrameworkHook {
@@ -51,17 +50,17 @@ abstract class PmsHookTargetBase : IFrameworkHook {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 // Samsung related fix
                 if (OSUtils.isSamsung()) {
-                    hookBefore(
+                    hookAfter(
                         COMPUTER_ENGINE_CLASS,
                         "generatePackageInfo",
                     ) { methodName, frame, returnValue ->
                         applyPackageHiding(
                             methodName,
-                            frame.args.lastOrNullWithType() ?: 0L,
+                            returnValue,
                             { Binder.getCallingUid() },
                             { getPackageNameFromPackageSettings(frame.getArgument(1)) },
                             ::getCallingApps,
-                            { returnValue.result = null },
+                            null,
                         )
                     }
                 }
@@ -74,39 +73,39 @@ abstract class PmsHookTargetBase : IFrameworkHook {
                 ) { methodName, frame, returnValue ->
                     applyPackageHiding(
                         methodName,
-                        frame.args.lastOrNullWithType() ?: 0L,
+                        returnValue,
                         { Binder.getCallingUid() },
                         { getPackageNameFromPackageSettings(frame.getArgument(2)) },
                         ::getCallingApps,
-                        { returnValue.result = null },
+                        null,
                     )
                 }
 
-                hookBefore(
+                hookAfter(
                     COMPUTER_ENGINE_CLASS,
                     "getPackageInfoInternal",
                 ) { methodName, frame, returnValue ->
                     applyPackageHiding(
                         methodName,
-                        frame.args.lastOrNullWithType() ?: 0L,
+                        returnValue,
                         { frame.args.firstOrNullWithType() },
                         { frame.args.firstOrNullWithType() },
                         ::getCallingApps,
-                        { returnValue.result = null },
+                        null,
                     )
                 }
 
-                hookBefore(
+                hookAfter(
                     COMPUTER_ENGINE_CLASS,
                     "getApplicationInfoInternal",
                 ) { methodName, frame, returnValue ->
                     applyPackageHiding(
                         methodName,
-                        frame.args.lastOrNullWithType() ?: 0L,
+                        returnValue,
                         { frame.args.firstOrNullWithType() },
                         { frame.args.firstOrNullWithType() },
                         ::getCallingApps,
-                        { returnValue.result = null },
+                        null,
                     )
                 }
 
@@ -212,20 +211,21 @@ abstract class PmsHookTargetBase : IFrameworkHook {
 
     inline fun applyPackageHiding(
         methodName: String,
-        flags: Long,
+        returnValue: ReturnValue,
         findCallingUid: () -> Int?,
         findTargetApp: () -> String?,
         findCallingApps: (IPackageManager, Int) -> Array<String>?,
-        applyReturnValue: () -> Unit,
+        valueForHiding: Any?,
     ) {
+        if (returnValue.throwable != null) return
+
         val callingUid = findCallingUid()
         if (callingUid == null || callingUid == Constants.UID_SYSTEM) return
-        if ((flags or MATCH_ANY_USER) != 0L) return
 
         val targetApp = findTargetApp() ?: return
         logV(TAG) { "@$methodName incoming query: $callingUid => $targetApp" }
         if (dataHolder.shouldHideFromUid(callingUid, targetApp) == true) {
-            applyReturnValue()
+            returnValue.result = valueForHiding
             service.increasePMFilterCount(callingUid)
             logD(TAG) { "@$methodName caller cache: $callingUid, target: $targetApp" }
             return
@@ -235,7 +235,7 @@ abstract class PmsHookTargetBase : IFrameworkHook {
         val caller = callingApps?.firstOrNull { service.shouldHide(it, targetApp, callingUserId) }
         if (caller != null) {
             logD(TAG) { "@$methodName caller: $callingUid $caller, target: $targetApp" }
-            applyReturnValue()
+            returnValue.result = valueForHiding
             val last = lastFilteredApp.getAndSet(caller)
             if (last != caller) logI(TAG) { "@$methodName: query from $caller" }
             dataHolder.putShouldHideUidCache(callingUid, caller, targetApp)
