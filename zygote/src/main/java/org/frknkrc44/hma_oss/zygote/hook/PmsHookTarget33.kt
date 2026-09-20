@@ -64,6 +64,7 @@ class PmsHookTarget33 : PmsHookTargetBase() {
             ) { methodName, frame, returnValue ->
                 applyPackageHiding(
                     methodName,
+                    0L,
                     { frame.getArgument(2) as Int? },
                     { getPackageNameFromPackageSettings(frame.getArgument(4)) },
                     { _, it ->

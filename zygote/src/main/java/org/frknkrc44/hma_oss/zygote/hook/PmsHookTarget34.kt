@@ -69,6 +69,7 @@ class PmsHookTarget34 : PmsHookTargetBase() {
             ) { methodName, frame, returnValue ->
                 applyPackageHiding(
                     methodName,
+                    0L,
                     { frame.getArgument(2) as Int? },
                     { getPackageNameFromPackageSettings(frame.getArgument(4)) },
                     { _, it ->
@@ -94,6 +95,7 @@ class PmsHookTarget34 : PmsHookTargetBase() {
             ) { methodName, frame, returnValue ->
                 applyPackageHiding(
                     methodName,
+                    0L,
                     { Binder.getCallingUid() },
                     { frame.getArgument(1) as? String },
                     ::getCallingApps,

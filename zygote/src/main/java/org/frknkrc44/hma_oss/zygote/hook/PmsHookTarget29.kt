@@ -1,8 +1,10 @@
 package org.frknkrc44.hma_oss.zygote.hook
 
+import icu.nullptr.hidemyapplist.common.CollectionUtils.firstOrNullWithType
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackageNameFromPackageSettings
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.PACKAGE_MANAGER_SERVICE_CLASS
 
@@ -26,6 +28,7 @@ class PmsHookTarget29 : PmsHookTargetBase() {
             ) { methodName, frame, returnValue ->
                 applyPackageHiding(
                     methodName,
+                    0L,
                     { frame.getArgument(2) as Int? },
                     { getPackageNameFromPackageSettings(frame.getArgument(1)) },
                     ::getCallingApps,
@@ -39,6 +42,7 @@ class PmsHookTarget29 : PmsHookTargetBase() {
             ) { methodName, frame, returnValue ->
                 applyPackageHiding(
                     methodName,
+                    frame.args.firstOrNullWithType<Int>()?.toLong() ?: 0L,
                     { frame.getArgument(4) as Int? },
                     { frame.getArgument(1) as String? },
                     ::getCallingApps,
@@ -52,6 +56,7 @@ class PmsHookTarget29 : PmsHookTargetBase() {
             ) { methodName, frame, returnValue ->
                 applyPackageHiding(
                     methodName,
+                    frame.args.firstOrNullWithType<Int>()?.toLong() ?: 0L,
                     { frame.getArgument(3) as Int? },
                     { frame.getArgument(1) as String? },
                     ::getCallingApps,

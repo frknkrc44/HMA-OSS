@@ -3,10 +3,12 @@ package org.frknkrc44.hma_oss.zygote.hook
 import android.os.Binder
 import android.os.Build
 import androidx.annotation.RequiresApi
+import icu.nullptr.hidemyapplist.common.CollectionUtils.firstOrNullWithType
 import icu.nullptr.hidemyapplist.common.Constants.VENDING_PACKAGE_NAME
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackageNameFromPackageSettings
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.findConstructor
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.APPS_FILTER_CLASS
@@ -51,6 +53,7 @@ class PmsHookTarget30 : PmsHookTargetBase() {
             ) { methodName, frame, returnValue ->
                 applyPackageHiding(
                     methodName,
+                    0L,
                     { Binder.getCallingUid() },
                     { frame.getArgument(1) as String? },
                     ::getCallingApps,
@@ -64,6 +67,7 @@ class PmsHookTarget30 : PmsHookTargetBase() {
             ) { methodName, frame, returnValue ->
                 applyPackageHiding(
                     methodName,
+                    0L,
                     { frame.getArgument(1) as Int },
                     { getPackageNameFromPackageSettings(frame.getArgument(3)) },
                     ::getCallingApps,
@@ -77,6 +81,7 @@ class PmsHookTarget30 : PmsHookTargetBase() {
             ) { methodName, frame, returnValue ->
                 applyPackageHiding(
                     methodName,
+                    frame.args.firstOrNullWithType<Int>()?.toLong() ?: 0L,
                     { frame.getArgument(4) as? Int },
                     { frame.getArgument(1) as? String },
                     ::getCallingApps,
@@ -90,6 +95,7 @@ class PmsHookTarget30 : PmsHookTargetBase() {
             ) { methodName, frame, returnValue ->
                 applyPackageHiding(
                     methodName,
+                    frame.args.firstOrNullWithType<Int>()?.toLong() ?: 0L,
                     { frame.getArgument(3) as? Int },
                     { frame.getArgument(1) as? String },
                     ::getCallingApps,
