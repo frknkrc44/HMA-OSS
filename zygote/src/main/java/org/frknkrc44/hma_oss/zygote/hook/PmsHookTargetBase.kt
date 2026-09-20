@@ -118,7 +118,7 @@ abstract class PmsHookTargetBase : IFrameworkHook {
 
                     applyInstallerHiding(
                         methodName,
-                        { callingUid },
+                        callingUid,
                         fta@{
                             val pkg = frame.args.lastOrNull {
                                 it?.javaClass?.simpleName in androidPkgClazzNames
@@ -145,7 +145,7 @@ abstract class PmsHookTargetBase : IFrameworkHook {
                 ) { methodName, frame, returnValue ->
                     applyInstallerHiding(
                         methodName,
-                        { frame.args.firstOrNullWithType() ?: Binder.getCallingUid() },
+                        frame.args.firstOrNullWithType() ?: Binder.getCallingUid(),
                         { frame.args.firstOrNullWithType() },
                     ) {
                         when (it) {
@@ -161,7 +161,7 @@ abstract class PmsHookTargetBase : IFrameworkHook {
                 ) { methodName, frame, returnValue ->
                     applyInstallerHiding(
                         methodName,
-                        { Binder.getCallingUid() },
+                        Binder.getCallingUid(),
                         { frame.getArgument(1) as? String },
                     ) {
                         when (it) {
@@ -179,7 +179,7 @@ abstract class PmsHookTargetBase : IFrameworkHook {
                 ) { methodName, frame, returnValue ->
                     applyInstallerHiding(
                         methodName,
-                        { Binder.getCallingUid() },
+                        Binder.getCallingUid(),
                         { frame.getArgument(1) as? String },
                     ) {
                         when (it) {
@@ -197,7 +197,7 @@ abstract class PmsHookTargetBase : IFrameworkHook {
                 ) { methodName, frame, returnValue ->
                     applyInstallerHiding(
                         methodName,
-                        { Binder.getCallingUid() },
+                        Binder.getCallingUid(),
                         { frame.getArgument(1) as? String }
                     ) {
                         when (it) {
@@ -243,13 +243,12 @@ abstract class PmsHookTargetBase : IFrameworkHook {
         }
     }
 
-    fun applyInstallerHiding(
+    inline fun applyInstallerHiding(
         methodName: String,
-        findCallingUid: () -> Int?,
+        callingUid: Int,
         findTargetApp: () -> String?,
         applyReturnValue: (Int) -> Unit,
     ) {
-        val callingUid = findCallingUid() ?: return
         if (callingUid == Constants.UID_SYSTEM) return
 
         val callingApps = getCallingApps(pms, callingUid)
