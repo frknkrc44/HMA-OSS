@@ -19,21 +19,25 @@ class MyApp : Application() {
     val globalScope = CoroutineScope(Dispatchers.Default)
     var updateDialogSkipped: Boolean = false
 
-    @Suppress("DEPRECATION")
     fun loadConfiguration() {
         if (ServiceClient.serviceVersion > 0) {
             ConfigManager.init()
-
-            AppCompatDelegate.setDefaultNightMode(PrefManager.darkTheme)
-            val config = resources.configuration
-            config.setLocale(getLocale())
-            resources.updateConfiguration(config, resources.displayMetrics)
         }
+    }
+
+    @Suppress("DEPRECATION")
+    fun loadPreferences() {
+        AppCompatDelegate.setDefaultNightMode(PrefManager.darkTheme)
+
+        val config = resources.configuration
+        config.setLocale(getLocale())
+        resources.updateConfiguration(config, resources.displayMetrics)
     }
 
     override fun onCreate() {
         super.onCreate()
         hmaApp = this
+        loadPreferences()
         AppChangeReceiver.register(this)
 
         val handler = Thread.getDefaultUncaughtExceptionHandler()
