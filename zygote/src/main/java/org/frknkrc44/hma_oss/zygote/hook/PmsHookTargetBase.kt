@@ -144,7 +144,7 @@ abstract class PmsHookTargetBase : IFrameworkHook {
                 ) { methodName, frame, returnValue ->
                     applyInstallerHiding(
                         methodName,
-                        frame.args.firstOrNullWithType() ?: Binder.getCallingUid(),
+                        Binder.getCallingUid(),
                         { frame.args.firstOrNullWithType() },
                     ) {
                         when (it) {
@@ -191,7 +191,11 @@ abstract class PmsHookTargetBase : IFrameworkHook {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 hookBefore(
-                    service.pms.javaClass.name,
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+                        service.pms.javaClass.name
+                    } else {
+                        COMPUTER_ENGINE_CLASS
+                    },
                     "getInstallSourceInfo",
                 ) { methodName, frame, returnValue ->
                     applyInstallerHiding(
