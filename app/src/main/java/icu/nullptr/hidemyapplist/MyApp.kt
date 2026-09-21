@@ -29,11 +29,11 @@ class MyApp : Application() {
     fun loadPreferences() {
         AppCompatDelegate.setDefaultNightMode(PrefManager.darkTheme)
 
-        reloadLocale()
+        reloadLocale(getLocale())
     }
 
     @Suppress("DEPRECATION")
-    fun reloadLocale(locale: Locale = getLocale()) {
+    fun reloadLocale(locale: Locale) {
         val config = resources.configuration
         config.setLocale(locale)
         resources.updateConfiguration(config, resources.displayMetrics)
