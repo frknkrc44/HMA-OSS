@@ -53,7 +53,7 @@ class PmsHookTarget31 : PmsHookTargetBase() {
                     methodName,
                     returnValue,
                     { Binder.getCallingUid() },
-                    { frame.getArgument(1) as String? },
+                    { frame.getArgument(1) as? String },
                     ::getCallingApps,
                     null,
                 )
@@ -66,8 +66,8 @@ class PmsHookTarget31 : PmsHookTargetBase() {
                 applyPackageHiding(
                     methodName,
                     returnValue,
-                    { frame.getArgument(2) as Int? },
-                    { frame.getArgument(1) as String? },
+                    { frame.getArgument(2) as? Int },
+                    { frame.getArgument(1) as? String },
                     ::getCallingApps,
                     null,
                 )
@@ -80,8 +80,8 @@ class PmsHookTarget31 : PmsHookTargetBase() {
                 applyPackageHiding(
                     methodName,
                     returnValue,
-                    { frame.getArgument(4) as Int? },
-                    { frame.getArgument(1) as String? },
+                    { frame.getArgument(4) as? Int },
+                    { frame.getArgument(1) as? String },
                     ::getCallingApps,
                     null,
                 )
@@ -94,8 +94,8 @@ class PmsHookTarget31 : PmsHookTargetBase() {
                 applyPackageHiding(
                     methodName,
                     returnValue,
-                    { frame.getArgument(3) as Int? },
-                    { frame.getArgument(1) as String? },
+                    { frame.getArgument(3) as? Int },
+                    { frame.getArgument(1) as? String },
                     ::getCallingApps,
                     null,
                 )
@@ -108,7 +108,7 @@ class PmsHookTarget31 : PmsHookTargetBase() {
                 applyPackageHiding(
                     methodName,
                     returnValue,
-                    { frame.getArgument(1) as Int? },
+                    { frame.getArgument(1) as? Int },
                     { getPackageNameFromPackageSettings(frame.getArgument(3)) },
                     ::getCallingApps,
                     true,

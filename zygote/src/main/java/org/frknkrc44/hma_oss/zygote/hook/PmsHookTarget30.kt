@@ -53,7 +53,7 @@ class PmsHookTarget30 : PmsHookTargetBase() {
                     methodName,
                     returnValue,
                     { Binder.getCallingUid() },
-                    { frame.getArgument(1) as String? },
+                    { frame.getArgument(1) as? String },
                     ::getCallingApps,
                     null,
                 )

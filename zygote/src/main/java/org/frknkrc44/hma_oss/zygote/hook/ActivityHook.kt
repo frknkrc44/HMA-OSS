@@ -68,7 +68,7 @@ class ActivityHook : IFrameworkHook {
                     "applyPostResolutionFilter",
                 ) { methodName, frame, _ ->
                     @Suppress("UNCHECKED_CAST") // I know what I do
-                    val list = frame.args[1] as List<ResolveInfo>?
+                    val list = frame.args[1] as? List<ResolveInfo>
                     if (list.isNullOrEmpty()) return@hookBefore
 
                     val callingUid = frame.args.firstWithType<Int>()

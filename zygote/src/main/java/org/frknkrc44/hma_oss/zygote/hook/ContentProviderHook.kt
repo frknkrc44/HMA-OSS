@@ -154,8 +154,8 @@ class ContentProviderHook : IFrameworkHook {
                 if (caller == null) return@hookBefore
 
                 val nameIdx = frame.args.indexOfLast { it is String }
-                val name = frame.args[nameIdx] as String?
-                val method = frame.args[nameIdx - 1] as String?
+                val name = frame.args[nameIdx] as? String
+                val method = frame.args[nameIdx - 1] as? String
 
                 logD(TAG) { "@spoofSettings CALL received caller: ${callingApps.contentToString()}, method: $method, name: $name" }
 

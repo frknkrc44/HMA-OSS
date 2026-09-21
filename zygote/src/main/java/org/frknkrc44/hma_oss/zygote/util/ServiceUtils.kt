@@ -44,7 +44,7 @@ object ServiceUtils {
         if (packageSettings == null) return null
 
         return try {
-            callMethod(packageSettings, "getPackageName") as String?
+            callMethod(packageSettings, "getPackageName") as? String
         } catch (_: Throwable) {
             runCatching {
                 findField(

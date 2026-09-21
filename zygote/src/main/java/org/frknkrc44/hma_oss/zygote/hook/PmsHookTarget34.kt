@@ -70,11 +70,11 @@ class PmsHookTarget34 : PmsHookTargetBase() {
                 applyPackageHiding(
                     methodName,
                     returnValue,
-                    { frame.getArgument(2) as Int? },
+                    { frame.getArgument(2) as? Int },
                     { getPackageNameFromPackageSettings(frame.getArgument(4)) },
                     { _, it ->
                         Utils.binderLocalScope {
-                            getPackagesForUidMethod.invoke(frame.getArgument(1), it) as Array<String>?
+                            getPackagesForUidMethod.invoke(frame.getArgument(1), it) as? Array<String>
                         }
                     },
                     true,

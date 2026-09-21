@@ -55,7 +55,7 @@ object PackageManagerUtils {
             Int::class.javaPrimitiveType!!,
         ),
         arrayOf(intent, /* flags */ 0, userId)
-    ) as List<ResolveInfo>?
+    ) as? List<ResolveInfo>
 
     fun IPackageManager.findApp(packageName: String) =
         UserManagerUtils.userIds.any { isPackageAvailable(packageName, it) }
