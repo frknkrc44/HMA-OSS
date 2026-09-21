@@ -10,6 +10,7 @@ import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.util.ConfigUtils.getLocale
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import java.util.Locale
 
 class MyApp : Application() {
     companion object {
@@ -25,12 +26,16 @@ class MyApp : Application() {
         }
     }
 
-    @Suppress("DEPRECATION")
     fun loadPreferences() {
         AppCompatDelegate.setDefaultNightMode(PrefManager.darkTheme)
 
+        reloadLocale()
+    }
+
+    @Suppress("DEPRECATION")
+    fun reloadLocale(locale: Locale = getLocale()) {
         val config = resources.configuration
-        config.setLocale(getLocale())
+        config.setLocale(locale)
         resources.updateConfiguration(config, resources.displayMetrics)
     }
 

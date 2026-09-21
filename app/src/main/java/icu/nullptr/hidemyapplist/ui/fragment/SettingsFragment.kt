@@ -282,7 +282,6 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
             }
         }
 
-        @Suppress("DEPRECATION")
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             preferenceManager.preferenceDataStore = SettingsPreferenceDataStore()
             setPreferencesFromResource(R.xml.settings, rootKey)
@@ -307,10 +306,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                     it.summary = if (!TextUtils.isEmpty(locale.script)) locale.getDisplayScript(userLocale) else locale.getDisplayName(userLocale)
                 }
                 it.setOnPreferenceChangeListener { _, newValue ->
-                    val locale = getLocale(newValue as String)
-                    val config = resources.configuration
-                    config.setLocale(locale)
-                    hmaApp.resources.updateConfiguration(config, resources.displayMetrics)
+                    hmaApp.reloadLocale(getLocale(newValue as String))
                     recreateMainActivity()
                     true
                 }
