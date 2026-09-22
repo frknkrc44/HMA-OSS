@@ -18,7 +18,6 @@ import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getIntField
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getObjectField
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getStaticIntField
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.setArgument
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.thisObject
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.ACTIVITY_STACK_SUPERVISOR_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.ACTIVITY_STARTER_CLASS
@@ -63,16 +62,16 @@ class ActivityHook : IFrameworkHook {
             }
 
             if (!OSUtils.isSamsung()) {
-                hookBefore(
+                hookAfter(
                     aPRFClazz,
                     "applyPostResolutionFilter",
-                ) { methodName, frame, _ ->
+                ) { methodName, frame, returnValue ->
                     @Suppress("UNCHECKED_CAST") // I know what I do
-                    val list = frame.args[1] as? List<ResolveInfo>
-                    if (list.isNullOrEmpty()) return@hookBefore
+                    val list = returnValue.result as? List<ResolveInfo>
+                    if (list.isNullOrEmpty()) return@hookAfter
 
                     val callingUid = frame.args.firstWithType<Int>()
-                    if (callingUid == Constants.UID_SYSTEM) return@hookBefore
+                    if (callingUid == Constants.UID_SYSTEM) return@hookAfter
 
                     val callingUserId = getUserFromCallingUid(callingUid)
                     val callingApps = getCallingApps(pms, callingUid)
@@ -92,10 +91,17 @@ class ActivityHook : IFrameworkHook {
                             }
                         }
 
-                        if (filteredList.size != list.size) {
-                            frame.setArgument(1, filteredList.toList())
+                        val removed = list.size - filteredList.size
+                        if (removed > 0) {
+                            returnValue.result = filteredList
 
-                            service.increasePMFilterCount(caller, list.size - filteredList.size)
+                            // one ui uses the list it passed in instead of the returned one,
+                            // so drop the entries from that object too
+                            (list as? MutableList<ResolveInfo>)?.let {
+                                runCatching { it.retainAll(filteredList.toSet()) }
+                            }
+
+                            service.increasePMFilterCount(caller, removed)
                         }
                     }
                 }
