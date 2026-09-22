@@ -29,6 +29,9 @@ object ZygoteConstants {
     const val BROADCAST_HELPER_CLASS = "com.android.server.pm.BroadcastHelper"
     const val PACKAGE_MONITOR_CLASS = "com.android.internal.content.PackageMonitor"
     const val SERVICE_RECORD_CLASS = "com.android.server.am.ServiceRecord"
+    const val BROADCAST_QUEUE_CLASS = "com.android.server.am.BroadcastQueue"
+    const val BROADCAST_QUEUE_IMPL_CLASS = "com.android.server.am.BroadcastQueueImpl"
+    const val BROADCAST_PROCESS_QUEUE_CLASS = "com.android.server.am.BroadcastProcessQueue"
 
     const val CONSTRUCTOR_METHOD_NAME = "<init>"
 
