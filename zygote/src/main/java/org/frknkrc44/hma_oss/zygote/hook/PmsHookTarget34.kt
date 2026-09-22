@@ -24,7 +24,7 @@ class PmsHookTarget34 : PmsHookTarget33() {
                 listOf("getArchivedPackageInternal", "getArchivedPackage"),
             ) ?: return@apply
 
-            hookBefore(
+            hookAfter(
                 altNames.declaringClass.name,
                 altNames.name,
             ) { methodName, frame, returnValue ->
