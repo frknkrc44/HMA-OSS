@@ -127,6 +127,7 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
         with(binding.listHmaOss) {
             addDevItem(this, R.drawable.cont_fk, "frknkrc44", "HMA-OSS Developer", "https://github.com/frknkrc44")
             addDevItem(this, R.drawable.cont_oukaromf, "OukaroMF", "HMA-OSS Alt Icon Designer", "https://github.com/OukaroMF")
+            addDevItem(this, R.drawable.cont_chunqiu, "longze", "HMA-OSS Contributor", null)
         }
 
         // Original HMA devs
@@ -159,7 +160,7 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
         }
     }
 
-    fun addDevItem(layout: LinearLayout, @DrawableRes avatarResId: Int, name: String, desc: String, url: String) {
+    fun addDevItem(layout: LinearLayout, @DrawableRes avatarResId: Int, name: String, desc: String, url: String?) {
         val newLayout = FragmentAboutListItemBinding.inflate(layoutInflater)
         setOnClickUrl(newLayout.root, url)
 
@@ -206,7 +207,9 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
         layout.addView(newLayout.root)
     }
 
-    fun setOnClickUrl(view: View, url: String) {
+    fun setOnClickUrl(view: View, url: String?) {
+        if (url == null) return
+
         view.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data = url.toUri()
