@@ -37,6 +37,10 @@ import org.frknkrc44.hma_oss.zygote.hook.BroadcastHook
 import org.frknkrc44.hma_oss.zygote.hook.ContentProviderHook
 import org.frknkrc44.hma_oss.zygote.hook.IFrameworkHook
 import org.frknkrc44.hma_oss.zygote.hook.ImmHook
+import org.frknkrc44.hma_oss.zygote.hook.InstallerHookTarget29
+import org.frknkrc44.hma_oss.zygote.hook.InstallerHookTarget30
+import org.frknkrc44.hma_oss.zygote.hook.InstallerHookTarget33
+import org.frknkrc44.hma_oss.zygote.hook.InstallerHookTarget34
 import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget29
 import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget30
 import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget31
@@ -290,14 +294,19 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             frameworkHooks.add(PmsHookTarget34())
+            frameworkHooks.add(InstallerHookTarget34())
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             frameworkHooks.add(PmsHookTarget33())
+            frameworkHooks.add(InstallerHookTarget33())
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             frameworkHooks.add(PmsHookTarget31())
+            frameworkHooks.add(InstallerHookTarget30())
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             frameworkHooks.add(PmsHookTarget30())
+            frameworkHooks.add(InstallerHookTarget30())
         } else {
             frameworkHooks.add(PmsHookTarget29())
+            frameworkHooks.add(InstallerHookTarget29())
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {

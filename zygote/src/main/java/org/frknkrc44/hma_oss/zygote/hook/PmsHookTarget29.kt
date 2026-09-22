@@ -7,12 +7,7 @@ import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.PACKAGE_MANAGER_SERVICE_CLASS
 
 class PmsHookTarget29 : PmsHookTargetBase() {
-
     override val TAG = "PmsHookTarget29"
-
-    // not required until SDK 30
-    override val fakeSystemPackageInstallSourceInfo = null
-    override val fakeUserPackageInstallSourceInfo = null
 
     @Suppress("UNCHECKED_CAST")
     override fun load() {
@@ -62,7 +57,5 @@ class PmsHookTarget29 : PmsHookTargetBase() {
                 )
             }
         }
-
-        super.load()
     }
 }

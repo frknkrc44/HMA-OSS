@@ -1,23 +1,25 @@
 package org.frknkrc44.hma_oss.zygote.hook
 
-import android.content.pm.PackageInstaller
+import android.os.Binder
 import android.os.Build
 import androidx.annotation.RequiresApi
-import icu.nullptr.hidemyapplist.common.Constants.VENDING_PACKAGE_NAME
+import icu.nullptr.hidemyapplist.common.CollectionUtils.firstOrNullWithType
+import icu.nullptr.hidemyapplist.common.OSUtils
 import icu.nullptr.hidemyapplist.common.Utils
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackageNameFromPackageSettings
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.findConstructor
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.findMethod
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.APPS_FILTER_IMPL_CLASS
+import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.COMPUTER_ENGINE_CLASS
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-class PmsHookTarget33 : PmsHookTargetBase() {
-
+open class PmsHookTarget33 : PmsHookTargetBase() {
     override val TAG = "PmsHookTarget33"
 
-    private val getPackagesForUidMethod by lazy {
+    protected open val getPackagesForUidMethod by lazy {
         findMethod(
             "com.android.server.pm.Computer",
             "getPackagesForUid",
@@ -27,37 +29,70 @@ class PmsHookTarget33 : PmsHookTargetBase() {
         )
     }
 
-    override val fakeSystemPackageInstallSourceInfo: Any by lazy {
-        findConstructor(
-            "android.content.pm.InstallSourceInfo",
-            5,
-        )!!.newInstance(
-            null,
-            null,
-            null,
-            null,
-            PackageInstaller.PACKAGE_SOURCE_UNSPECIFIED,
-        )
-    }
-
-    override val fakeUserPackageInstallSourceInfo: Any by lazy {
-        findConstructor(
-            "android.content.pm.InstallSourceInfo",
-            5,
-        )!!.newInstance(
-            VENDING_PACKAGE_NAME,
-            psPackageInfo?.signingInfo,
-            VENDING_PACKAGE_NAME,
-            VENDING_PACKAGE_NAME,
-            PackageInstaller.PACKAGE_SOURCE_STORE,
-        )
-    }
-
     @Suppress("UNCHECKED_CAST")
     override fun load() {
         logI(TAG) { "Load hook" }
 
         hooker.apply {
+            // Samsung related fix
+            if (OSUtils.isSamsung()) {
+                hookAfter(
+                    COMPUTER_ENGINE_CLASS,
+                    "generatePackageInfo",
+                ) { methodName, frame, returnValue ->
+                    applyPackageHiding(
+                        methodName,
+                        returnValue,
+                        { Binder.getCallingUid() },
+                        { getPackageNameFromPackageSettings(frame.getArgument(1)) },
+                        ::getCallingApps,
+                        null,
+                    )
+                }
+            } else {
+                hookBefore(
+                    COMPUTER_ENGINE_CLASS,
+                    "addPackageHoldingPermissions",
+                ) { methodName, frame, returnValue ->
+                    applyPackageHiding(
+                        methodName,
+                        returnValue,
+                        { Binder.getCallingUid() },
+                        { getPackageNameFromPackageSettings(frame.getArgument(2)) },
+                        ::getCallingApps,
+                        null,
+                    )
+                }
+            }
+
+            hookAfter(
+                COMPUTER_ENGINE_CLASS,
+                "getPackageInfoInternal",
+            ) { methodName, frame, returnValue ->
+                applyPackageHiding(
+                    methodName,
+                    returnValue,
+                    { frame.args.firstOrNullWithType() },
+                    { frame.args.firstOrNullWithType() },
+                    ::getCallingApps,
+                    null,
+                )
+            }
+
+            hookAfter(
+                COMPUTER_ENGINE_CLASS,
+                "getApplicationInfoInternal",
+            ) { methodName, frame, returnValue ->
+                applyPackageHiding(
+                    methodName,
+                    returnValue,
+                    { frame.args.firstOrNullWithType() },
+                    { frame.args.firstOrNullWithType() },
+                    ::getCallingApps,
+                    null,
+                )
+            }
+
             hookBefore(
                 APPS_FILTER_IMPL_CLASS,
                 "shouldFilterApplication",
@@ -76,7 +111,5 @@ class PmsHookTarget33 : PmsHookTargetBase() {
                 )
             }
         }
-
-        super.load()
     }
 }

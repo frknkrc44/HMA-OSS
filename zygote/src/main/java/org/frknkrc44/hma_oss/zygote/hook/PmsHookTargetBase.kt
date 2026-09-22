@@ -1,217 +1,18 @@
 package org.frknkrc44.hma_oss.zygote.hook
 
 import android.content.pm.IPackageManager
-import android.content.pm.PackageManager
-import android.os.Binder
-import android.os.Build
-import icu.nullptr.hidemyapplist.common.CollectionUtils.firstOrNullWithType
-import icu.nullptr.hidemyapplist.common.CollectionUtils.lastWithType
 import icu.nullptr.hidemyapplist.common.Constants
-import icu.nullptr.hidemyapplist.common.Constants.VENDING_PACKAGE_NAME
-import icu.nullptr.hidemyapplist.common.OSUtils
-import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
 import icu.nullptr.hidemyapplist.common.Utils.getUserFromCallingUid
 import org.frknkrc44.hma_oss.zygote.service.ReturnValue
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
-import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
-import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackageNameFromPackageSettings
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.callMethod
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
-import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.COMPUTER_ENGINE_CLASS
 import java.util.concurrent.atomic.AtomicReference
 
 abstract class PmsHookTargetBase : IFrameworkHook {
 
-    private val androidPkgClazzNames = arrayOf("AndroidPackage", "PackageImpl")
-
     @PublishedApi
     internal val lastFilteredApp: AtomicReference<String?> = AtomicReference(null)
-
-    protected val psPackageInfo by lazy {
-        try {
-            pms.getPackageInfoCompat(
-                VENDING_PACKAGE_NAME,
-                PackageManager.GET_SIGNING_CERTIFICATES.toLong(),
-                0
-            )
-        } catch (_: Throwable) {
-            null
-        }
-    }
-
-    abstract val fakeSystemPackageInstallSourceInfo: Any?
-    abstract val fakeUserPackageInstallSourceInfo: Any?
-
-    override fun load() {
-        hooker.apply {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                // Samsung related fix
-                if (OSUtils.isSamsung()) {
-                    hookAfter(
-                        COMPUTER_ENGINE_CLASS,
-                        "generatePackageInfo",
-                    ) { methodName, frame, returnValue ->
-                        applyPackageHiding(
-                            methodName,
-                            returnValue,
-                            { Binder.getCallingUid() },
-                            { getPackageNameFromPackageSettings(frame.getArgument(1)) },
-                            ::getCallingApps,
-                            null,
-                        )
-                    }
-                }
-
-                // Samsung devices can fail to get this hook working,
-                // but it is okay due to generatePackageInfo hook
-                hookBefore(
-                    COMPUTER_ENGINE_CLASS,
-                    "addPackageHoldingPermissions",
-                ) { methodName, frame, returnValue ->
-                    applyPackageHiding(
-                        methodName,
-                        returnValue,
-                        { Binder.getCallingUid() },
-                        { getPackageNameFromPackageSettings(frame.getArgument(2)) },
-                        ::getCallingApps,
-                        null,
-                    )
-                }
-
-                hookAfter(
-                    COMPUTER_ENGINE_CLASS,
-                    "getPackageInfoInternal",
-                ) { methodName, frame, returnValue ->
-                    applyPackageHiding(
-                        methodName,
-                        returnValue,
-                        { frame.args.firstOrNullWithType() },
-                        { frame.args.firstOrNullWithType() },
-                        ::getCallingApps,
-                        null,
-                    )
-                }
-
-                hookAfter(
-                    COMPUTER_ENGINE_CLASS,
-                    "getApplicationInfoInternal",
-                ) { methodName, frame, returnValue ->
-                    applyPackageHiding(
-                        methodName,
-                        returnValue,
-                        { frame.args.firstOrNullWithType() },
-                        { frame.args.firstOrNullWithType() },
-                        ::getCallingApps,
-                        null,
-                    )
-                }
-
-                hookBefore(
-                    COMPUTER_ENGINE_CLASS,
-                    "isCallerInstallerOfRecord",
-                ) { methodName, frame, returnValue ->
-                    val callingUid = frame.args.lastWithType<Int>()
-
-                    applyInstallerHiding(
-                        methodName,
-                        callingUid,
-                        fta@{
-                            val pkg = frame.args.lastOrNull {
-                                it?.javaClass?.simpleName in androidPkgClazzNames
-                            } ?: return@fta null
-                            callMethod(pkg,
-                                if (pkg.javaClass.simpleName == "PackageImpl") {
-                                    "getManifestPackageName"
-                                } else {
-                                    "getPackageName"
-                                }
-                            ) as? String
-                        }
-                    ) {
-                        when (it) {
-                            Constants.FAKE_INSTALLATION_SOURCE_USER -> returnValue.result = callingUid == psPackageInfo?.applicationInfo?.uid
-                            Constants.FAKE_INSTALLATION_SOURCE_SYSTEM -> returnValue.result = false
-                        }
-                    }
-                }
-
-                hookBefore(
-                    COMPUTER_ENGINE_CLASS,
-                    "getInstallerPackageName",
-                ) { methodName, frame, returnValue ->
-                    applyInstallerHiding(
-                        methodName,
-                        Binder.getCallingUid(),
-                        { frame.args.firstOrNullWithType() },
-                    ) {
-                        when (it) {
-                            Constants.FAKE_INSTALLATION_SOURCE_USER -> returnValue.result = VENDING_PACKAGE_NAME
-                            Constants.FAKE_INSTALLATION_SOURCE_SYSTEM -> returnValue.result = null
-                        }
-                    }
-                }
-            } else {
-                hookBefore(
-                    service.pms.javaClass.name,
-                    "getInstallerPackageName",
-                ) { methodName, frame, returnValue ->
-                    applyInstallerHiding(
-                        methodName,
-                        Binder.getCallingUid(),
-                        { frame.getArgument(1) as? String },
-                    ) {
-                        when (it) {
-                            Constants.FAKE_INSTALLATION_SOURCE_USER -> returnValue.result = VENDING_PACKAGE_NAME
-                            Constants.FAKE_INSTALLATION_SOURCE_SYSTEM -> returnValue.result = null
-                        }
-                    }
-                }
-            }
-
-            if (service.pmn != null) {
-                hookBefore(
-                    service.pmn!!.javaClass.name,
-                    "getInstallerForPackage",
-                ) { methodName, frame, returnValue ->
-                    applyInstallerHiding(
-                        methodName,
-                        Binder.getCallingUid(),
-                        { frame.getArgument(1) as? String },
-                    ) {
-                        when (it) {
-                            Constants.FAKE_INSTALLATION_SOURCE_USER -> returnValue.result = VENDING_PACKAGE_NAME
-                            Constants.FAKE_INSTALLATION_SOURCE_SYSTEM -> returnValue.result = "preload"
-                        }
-                    }
-                }
-            }
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                hookBefore(
-                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-                        service.pms.javaClass.name
-                    } else {
-                        COMPUTER_ENGINE_CLASS
-                    },
-                    "getInstallSourceInfo",
-                ) { methodName, frame, returnValue ->
-                    applyInstallerHiding(
-                        methodName,
-                        Binder.getCallingUid(),
-                        { frame.getArgument(1) as? String }
-                    ) {
-                        when (it) {
-                            Constants.FAKE_INSTALLATION_SOURCE_USER -> returnValue.result = fakeUserPackageInstallSourceInfo
-                            Constants.FAKE_INSTALLATION_SOURCE_SYSTEM -> returnValue.result = fakeSystemPackageInstallSourceInfo
-                        }
-                    }
-                }
-            }
-        }
-    }
 
     inline fun applyPackageHiding(
         methodName: String,
@@ -244,32 +45,6 @@ abstract class PmsHookTargetBase : IFrameworkHook {
             if (last != caller) logI(TAG) { "@$methodName: query from $caller" }
             dataHolder.putShouldHideUidCache(callingUid, caller, targetApp)
             service.increasePMFilterCount(caller)
-        }
-    }
-
-    inline fun applyInstallerHiding(
-        methodName: String,
-        callingUid: Int,
-        findTargetApp: () -> String?,
-        applyReturnValue: (Int) -> Unit,
-    ) {
-        if (callingUid == Constants.UID_SYSTEM) return
-
-        val callingApps = getCallingApps(pms, callingUid)
-        val callingUser = getUserFromCallingUid(callingUid)
-
-        val query = findTargetApp() ?: return
-
-        for (caller in callingApps) {
-            val isHide = service.shouldHideInstallationSource(caller, query, callingUser)
-            if (isHide == Constants.FAKE_INSTALLATION_SOURCE_DISABLED) continue
-
-            logD(TAG) { "@$methodName: Applied installer hiding for $caller - $callingUid => $isHide" }
-
-            applyReturnValue(isHide)
-
-            service.increaseInstallerFilterCount(caller)
-            break
         }
     }
 }
