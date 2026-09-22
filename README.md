@@ -33,6 +33,7 @@
 - [日本語](README_ja.md)
 - [Indonesia](README_id.md)
 - [Português](README_pt.md)
+- [Français](README_fr.md)
 
 ## About this module
 
