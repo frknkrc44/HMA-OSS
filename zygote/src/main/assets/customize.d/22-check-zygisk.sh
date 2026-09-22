@@ -24,18 +24,14 @@ if echo "$SYSTEM_LANG" | grep -q "zh"; then
     ZYGISK_NOT_FOUND_ERR="! 未找到已知的 Zygisk 框架 (例如 ZygiskNext), HMA-OSS 需要 Zygisk 才能正常运行, 安装程序已退出"
 fi
 
-for folder in $(echo /data/adb/modules/*)
+for folder in /data/adb/modules/* /data/adb/modules_update/*
 do
-    if ([ -f "$folder/disable" ] || [ -f "$folder/remove" ])
-    then
-        continue
-    fi
+    ([ -f "$folder/disable" ] || [ -f "$folder/remove" ]) && continue
+    [ ! -f "$folder/bin/zygiskd" ] && [ ! -f "$folder/bin/zygiskd64" ] && continue
 
-    if ([ -f "$folder/bin/zygiskd" ] || [ -f "$folder/bin/zygiskd64" ])
-    then
-        [ ! -z "$ZYGISK_NAME" ] && abort "$ZYGISK_MULTI_ERR"
-        ZYGISK_NAME=$(grep "name=" $folder/module.prop | cut -f2 -d"=")
-    fi
+    NAME=$(grep "^name=" "$folder/module.prop" | cut -f2 -d"=")
+    [ -n "$ZYGISK_NAME" ] && [ "$NAME" != "$ZYGISK_NAME" ] && abort "$ZYGISK_MULTI_ERR"
+    ZYGISK_NAME=$NAME
 done
 
 if [ -z "$ZYGISK_NAME" ]
