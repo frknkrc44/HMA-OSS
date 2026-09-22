@@ -191,9 +191,9 @@
     <string name="settings_disable_hooks_summary">Permet de désactiver certaines fonctionnalités lorsqu\'elles entrent en conflit avec d\'autres modules</string>
     <string name="settings_enable_internet">Activation de la connexion Internet</string>
     <string name="settings_enable_internet_summary">Lorsque désactivé, cette application perd toute fonctionnalité nécessitant un accès à Internet</string>
-    <string name="settings_default_config">Configuration d\'\'application pour les nouvelles applications</string>
+    <string name="settings_default_config">Configuration d\'application pour les nouvelles applications</string>
     <string name="settings_default_config_summary">Appliquera la configuration définie à toutes les nouvelles applications installées, mais conserve la configuration existante pour les nouvelles applications si des paramètres ont appliqués avant l\'activation de cette option</string>
-    <string name="settings_webview_protection">Protection WebView</string>
+    <string name="settings_webview_protection">Protection de WebView</string>
     <string name="settings_webview_protection_summary">Ajoute une protection supplémentaire contre les plantages provoqués par le masquage/ciblage du composant système WebView ou des navigateurs Web</string>
     <string name="settings_language">Langue</string>
     <string name="settings_translate">Participer à la traduction</string>
@@ -207,7 +207,7 @@
     <string name="settings_service">Maintenance</string>
     <string name="settings_reset_default">Rétablissement des valeurs par défaut</string>
     <string name="settings_reset_default_summary">Efface l\'intégralité de la configuration pour repartir de zéro</string>
-    <string name="settings_irreversible_confirmation">Action irréversible. Confirmer ?</string>
+    <string name="settings_irreversible_confirmation">Cette action est irréversible. Confirmer ?</string>
     <string name="settings_is_clean_env_summary">Supprime le cache du service système dans /data/misc/hide_my_applist_*. Le module devra être relancé manuellement après le prochain redémarrage pour permettre l\'activation des interceptions, le compteur d\'interceptions sera également réinitialisé.</string>
     <string name="settings_force_clean_env">Nettoyage forcé de l\'environnement d\'exécution (root)</string>
     <string name="settings_force_clean_env_summary">N\'utiliser qu\'en cas d\'échec de démarrage du service système, sinon tenter de rétablir les valeurs par défaut.</string>
@@ -215,7 +215,7 @@
     <string name="settings_update">Mises à jour</string>
     <string name="settings_disable_update">Désactivation des notifications de mise à jour</string>
     <string name="settings_receive_beta_update">Recevoir les mises à jour bêta</string>
-    <string name="settings_receive_beta_update_summary">Les versions bêta peuvent être instables</string>
+    <string name="settings_receive_beta_update_summary">Les versions bêta de l\'application peuvent être instables</string>
     <!-- Bulk config wizard -->
     <string name="title_bulk_config_wizard">Configuration en masse</string>
     <!-- About -->
@@ -228,7 +228,7 @@ Ces applications (comme certaines applications de masquage de localisation ou d\
     </string>
     <string name="about_how_to_use_title">Comment utiliser ce module</string>
     <string name="about_how_to_use_description_1">
-        Créer des modèles dans \"Gestion des modèles\"\nAppliquer ensuite les modèles aux applications dans \"Gestion des applications\". (Il est également possible de sélectionner des applications supplémentaires pour les cibler)
+        Créer des modèles dans \"Gestion des modèles\"\nAppliquer ensuite les modèles aux applications dans \"Gestion des applications\" (il est également possible de sélectionner des applications supplémentaires pour les cibler).
     </string>
     <string name="about_how_to_use_description_2">
         Les modifications de configuration sont appliquées en temps réel.
