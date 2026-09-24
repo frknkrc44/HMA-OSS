@@ -36,13 +36,13 @@
     <!-- Home -->
     <string name="home_xposed_activated">Module actif [%s]</string>
     <string name="home_xposed_not_activated">Module désactivé</string>
-    <string name="home_xposed_service_on">Service système en fonctionnement [%d]</string>
+    <string name="home_xposed_service_on">Service système en cours d\'exécution[%d]</string>
     <string name="home_xposed_service_off">Service système arrêté</string>
     <string name="home_xposed_filter_count">HMA-OSS a filtré un total de %d requêtes</string>
     <string name="home_manage">Gérer</string>
     <string name="home_detection_test">Test de détection</string>
     <string name="home_download_test_app_title">Télécharger l\'application de test</string>
-    <string name="home_download_test_app_message">Nous avons développé une application de test de détection séparée. La télécharger ?</string>
+    <string name="home_download_test_app_message">Nous avons développé une application dédiée aux tests de dépistage individuels et y avons transféré les tests de dépistage. La télécharger dès maintenant ?</string>
     <string name="home_backup_and_restore">Sauvegarde et restauration</string>
     <string name="home_backup_config">Sauvegarde</string>
     <string name="home_restore_config">Restauration</string>
