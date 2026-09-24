@@ -3,6 +3,7 @@ package icu.nullptr.hidemyapplist.common
 import android.content.pm.ApplicationInfo
 import android.content.pm.IPackageManager
 import android.util.Log
+import icu.nullptr.hidemyapplist.common.CollectionUtils.sync
 import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
 import icu.nullptr.hidemyapplist.common.Utils.isSystemApp
 import icu.nullptr.hidemyapplist.common.app_presets.AccessibilityAppsPreset
@@ -17,6 +18,7 @@ import java.util.zip.ZipFile
 
 class AppPresets private constructor() {
     private val presetList = mutableMapOf<String, BasePreset>()
+    private val allAppsCache = mutableSetOf<String>()
 
     private val manifestDataCache = mutableMapOf<String, String>()
 
@@ -59,14 +61,18 @@ class AppPresets private constructor() {
             getPresetByName(presetName)?.packageNames?.addAll(elements)
         }
         RiskyPackageUtils.instance.importCache(cache.riskyPackageCache)
+        allAppsCache.addAll(cache.allAppsList)
     }
 
     fun exportCache() = PresetCache().apply {
         presetList.forEach { (k, v) -> cache[k] = v.packageNames.toMutableList() }
         riskyPackageCache.addAll(RiskyPackageUtils.instance.exportCache())
+        allAppsList.addAll(allAppsCache)
     }
 
     fun reloadPresets(appsList: List<ApplicationInfo>, fromScratch: Boolean) {
+        val appPackageNames = appsList.map { it.packageName }
+
         if (!fromScratch) {
             val packageNames = appsList.mapTo(HashSet()) { it.packageName }
             RiskyPackageUtils.instance.removeAppsFromListIfNotExists(packageNames)
@@ -75,17 +81,18 @@ class AppPresets private constructor() {
                 preset.packageNames.removeIf { it !in packageNames }
             }
 
-            // fromScratch = false is only called at boot process, we can return safely
-            return
+            if ((appPackageNames - allAppsCache).isEmpty()) {
+                return
+            }
+        } else {
+            RiskyPackageUtils.instance.clearAppList()
+            presetList.values.forEach { it.clearPackageList() }
         }
-
-        RiskyPackageUtils.instance.clearAppList()
-        presetList.values.forEach { it.clearPackageList() }
 
         appsList.forEach { appInfo ->
             val packageName = appInfo.packageName
 
-            if (packageName == "android") return@forEach
+            if (packageName in Constants.packagesShouldNotHide) return@forEach
 
             try {
                 RiskyPackageUtils.instance.tryToAddIntoGMSConnectionList(appInfo) {
@@ -110,6 +117,7 @@ class AppPresets private constructor() {
             }
         }
 
+        allAppsCache.sync(appPackageNames)
         manifestDataCache.clear()
     }
 
@@ -121,6 +129,8 @@ class AppPresets private constructor() {
         packageName: String,
         onModifyCache: (preset: String) -> Unit,
     ) {
+        allAppsCache.add(packageName)
+
         if (presetList.any { it.value.containsPackage(packageName) }) {
             return
         }
@@ -165,6 +175,8 @@ class AppPresets private constructor() {
         packageName: String,
         onModifyCache: (preset: String) -> Unit,
         ): Boolean {
+        allAppsCache.remove(packageName)
+
         var itWasInAList = false
 
         presetList.forEach {
