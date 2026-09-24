@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="title_home">Accueil</string>
-    <string name="title_logs">Journal</string>
+    <string name="title_home">Page d’accueil</string>
+    <string name="title_logs">Journaux</string>
     <string name="title_settings">Paramètres</string>
-    <string name="title_template_manage">Gestion des modèles</string>
+    <string name="title_template_manage">Gérer les modèles</string>
     <string name="title_template_settings">Paramètres du modèle</string>
     <string name="title_settings_template_conf">Configuration du modèle de paramètres</string>
     <string name="title_app_manage">Gestion des applications</string>
