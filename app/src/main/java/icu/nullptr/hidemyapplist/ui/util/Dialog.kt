@@ -6,14 +6,19 @@ import androidx.appcompat.app.AlertDialog
 
 fun AlertDialog.withDisableButton(disabledButtonId: Int = AlertDialog.BUTTON_POSITIVE, seconds: Int = 5): AlertDialog {
     val tick = 1000L
+    var countDownTimer: CountDownTimer? = null
+
+    setOnDismissListener {
+        countDownTimer?.cancel()
+    }
 
     setOnShowListener {
         val disabledBtn = getButton(disabledButtonId)
-        val btnText = disabledBtn.text
-
         disabledBtn.isEnabled = false
 
-        object : CountDownTimer(seconds * tick, tick) {
+        countDownTimer = object : CountDownTimer(seconds * tick, tick) {
+            val btnText = disabledBtn.text
+
             override fun onFinish() {
                 disabledBtn.text = btnText
                 disabledBtn.isEnabled = true
@@ -25,7 +30,9 @@ fun AlertDialog.withDisableButton(disabledButtonId: Int = AlertDialog.BUTTON_POS
 
                 disabledBtn.text = "$btnText ($secondsLeft)"
             }
-        }.start()
+        }
+
+        countDownTimer.start()
     }
 
     return this
