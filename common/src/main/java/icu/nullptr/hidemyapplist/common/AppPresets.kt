@@ -71,17 +71,16 @@ class AppPresets private constructor() {
     }
 
     fun reloadPresets(appsList: List<ApplicationInfo>, fromScratch: Boolean) {
-        val appPackageNames = appsList.map { it.packageName }
+        val packageNames = appsList.mapTo(HashSet()) { it.packageName }
 
         if (!fromScratch) {
-            val packageNames = appsList.mapTo(HashSet()) { it.packageName }
             RiskyPackageUtils.instance.removeAppsFromListIfNotExists(packageNames)
 
             presetList.values.forEach { preset ->
                 preset.packageNames.removeIf { it !in packageNames }
             }
 
-            if ((appPackageNames - allAppsCache).isEmpty()) {
+            if ((packageNames - allAppsCache).isEmpty()) {
                 return
             }
         } else {
@@ -117,7 +116,7 @@ class AppPresets private constructor() {
             }
         }
 
-        allAppsCache.sync(appPackageNames)
+        allAppsCache.sync(packageNames)
         manifestDataCache.clear()
     }
 
