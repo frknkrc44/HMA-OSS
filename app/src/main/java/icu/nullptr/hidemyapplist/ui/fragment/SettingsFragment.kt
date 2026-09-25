@@ -15,7 +15,6 @@ import androidx.preference.MultiSelectListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceDataStore
 import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.PreferenceGroup
 import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreferenceCompat
 import com.google.android.material.color.DynamicColors
@@ -36,9 +35,11 @@ import icu.nullptr.hidemyapplist.ui.util.navigate
 import icu.nullptr.hidemyapplist.ui.util.recreateMainActivity
 import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
+import icu.nullptr.hidemyapplist.ui.util.showNeedRebootToast
 import icu.nullptr.hidemyapplist.ui.util.showToast
 import icu.nullptr.hidemyapplist.ui.util.withAnimations
-import icu.nullptr.hidemyapplist.util.ConfigUtils.Companion.getLocale
+import icu.nullptr.hidemyapplist.ui.util.withDisableButton
+import icu.nullptr.hidemyapplist.util.ConfigUtils.getLocale
 import icu.nullptr.hidemyapplist.util.PackageHelper.findEnabledAppComponent
 import icu.nullptr.hidemyapplist.util.SuUtils
 import kotlinx.coroutines.launch
@@ -191,14 +192,24 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
             setPreferencesFromResource(R.xml.settings_data_isolation, rootKey)
 
             findPreference<SwitchPreferenceCompat>("appDataIsolation")?.let {
+                it.isEnabled = !PropertyUtils.isAppDataIsolationEnabled
+
                 it.summary = getString(R.string.settings_need_reboot) + "\n\n" +
                         getString(
                             R.string.settings_default_value,
                             PropertyUtils.isAppDataIsolationEnabled.enabledString(resources)
                         )
+
+                it.setOnPreferenceChangeListener { _, _ ->
+                    showNeedRebootToast()
+
+                    true
+                }
             }
 
             findPreference<SwitchPreferenceCompat>("voldAppDataIsolation")?.let {
+                it.isEnabled = !PropertyUtils.isVoldAppDataIsolationEnabled
+
                 it.summary = getString(R.string.settings_need_reboot) + "\n\n" +
                         getString(
                             R.string.settings_default_value,
@@ -212,23 +223,28 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                             .setTitle(R.string.settings_warning)
                             .setMessage(R.string.settings_vold_warning)
                             .setPositiveButton(android.R.string.ok) { _, _ ->
+                                showNeedRebootToast()
+
                                 it.isChecked = true
                             }
                             .setNegativeButton(android.R.string.cancel) { _, _ ->
                                 it.isChecked = false
                             }
                             .setCancelable(false)
+                            .create()
+                            .withDisableButton()
                             .show()
                     }
-                    !enabled
+
+                    (!enabled).apply {
+                        if (this) {
+                            showNeedRebootToast()
+                        }
+                    }
                 }
             }
 
-            findPreference<PreferenceGroup>("categoryOverwrite")?.let {
-                it.isVisible = !OSUtils.isSamsung()
-            }
-
-            findPreference<PreferenceGroup>("categoryVoldAppDataIsolation")?.let {
+            findPreference<Preference>("categoryVoldAppDataIsolation")?.let {
                 it.isVisible = !OSUtils.isSamsung()
             }
         }
@@ -266,7 +282,6 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
             }
         }
 
-        @Suppress("DEPRECATION")
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             preferenceManager.preferenceDataStore = SettingsPreferenceDataStore()
             setPreferencesFromResource(R.xml.settings, rootKey)
@@ -291,10 +306,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                     it.summary = if (!TextUtils.isEmpty(locale.script)) locale.getDisplayScript(userLocale) else locale.getDisplayName(userLocale)
                 }
                 it.setOnPreferenceChangeListener { _, newValue ->
-                    val locale = getLocale(newValue as String)
-                    val config = resources.configuration
-                    config.setLocale(locale)
-                    hmaApp.resources.updateConfiguration(config, resources.displayMetrics)
+                    hmaApp.reloadLocale(getLocale(newValue as String))
                     recreateMainActivity()
                     true
                 }
@@ -453,6 +465,12 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                     "${it.className.substringAfterLast('.')} -> ${it.methodName}($displayedArgCount)"
                 }.toTypedArray()
                 entryValues = allHooks.map { it.toString() }.toTypedArray()
+
+                setOnPreferenceChangeListener { _, _ ->
+                    showNeedRebootToast()
+
+                    true
+                }
             }
 
             findPreference<Preference>("resetDefault")?.setOnPreferenceClickListener {

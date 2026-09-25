@@ -37,6 +37,10 @@ import org.frknkrc44.hma_oss.zygote.hook.BroadcastHook
 import org.frknkrc44.hma_oss.zygote.hook.ContentProviderHook
 import org.frknkrc44.hma_oss.zygote.hook.IFrameworkHook
 import org.frknkrc44.hma_oss.zygote.hook.ImmHook
+import org.frknkrc44.hma_oss.zygote.hook.InstallerHookTarget29
+import org.frknkrc44.hma_oss.zygote.hook.InstallerHookTarget30
+import org.frknkrc44.hma_oss.zygote.hook.InstallerHookTarget33
+import org.frknkrc44.hma_oss.zygote.hook.InstallerHookTarget34
 import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget29
 import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget30
 import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget31
@@ -55,10 +59,9 @@ import org.frknkrc44.hma_oss.zygote.util.PackageManagerUtils.findApp
 import org.frknkrc44.hma_oss.zygote.util.PackageManagerUtils.getLaunchIntentForPackageAsUser
 import org.frknkrc44.hma_oss.zygote.util.PackageManagerUtils.isConflictingModuleInstalled
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.findAndVerifyAppSignature
+import org.frknkrc44.hma_oss.zygote.util.UserManagerUtils
 import rikka.hidden.compat.ActivityManagerApis
-import rikka.hidden.compat.UserManagerApis
 import java.io.File
-import java.io.FileInputStream
 import java.lang.reflect.Modifier
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
@@ -195,8 +198,8 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
             )
 
             moduleStatusFile.writeText(encoder.encodeToString(json))
-        } catch (_: Throwable) {
-            // ignore
+        } catch (cause: Throwable) {
+            logE(TAG, cause) { "An error occurred while writing the status JSON" }
         }
     }
 
@@ -291,14 +294,19 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             frameworkHooks.add(PmsHookTarget34())
+            frameworkHooks.add(InstallerHookTarget34())
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             frameworkHooks.add(PmsHookTarget33())
+            frameworkHooks.add(InstallerHookTarget33())
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             frameworkHooks.add(PmsHookTarget31())
+            frameworkHooks.add(InstallerHookTarget30())
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             frameworkHooks.add(PmsHookTarget30())
+            frameworkHooks.add(InstallerHookTarget30())
         } else {
             frameworkHooks.add(PmsHookTarget29())
+            frameworkHooks.add(InstallerHookTarget29())
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -355,7 +363,9 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
         val templates = getEnabledSettingsTemplates(caller)
         val replacement = config.settingsTemplates.firstNotNullOfOrNull { (key, value) ->
-            if (key in templates) value.settingsList.firstOrNull { it.name == name } else null
+            if (key in templates) value.settingsList.firstOrNull {
+                it.name == name && it.database == database
+            } else null
         }
         if (replacement != null) return replacement
 
@@ -665,7 +675,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
         val apps = mutableListOf<ApplicationInfo>().apply {
             binderLocalScope {
-                UserManagerApis.getUserIdsNoThrow().forEach { id ->
+                UserManagerUtils.userIds.forEach { id ->
                     addAll(pms.getInstalledApplicationsCompat(0L, id))
                 }
             }
@@ -733,17 +743,14 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     }
 
     override fun writeFD(type: Int, fd: ParcelFileDescriptor) {
-        val receiveStream = FileInputStream(fd.fileDescriptor)
-
         when (type) {
             PARCEL_TYPE_CONFIG -> {
-                writeConfig(receiveStream.readBytes().decodeToString())
+                ParcelFileDescriptor.AutoCloseInputStream(fd).use { input ->
+                    writeConfig(input.bufferedReader(Charsets.UTF_8).readText())
+                }
             }
             else -> throw RemoteException("Invalid type for write: $type")
         }
-
-        receiveStream.close()
-        fd.close()
     }
 
     override fun getManagerWorkMode() = managerWorkMode
@@ -800,4 +807,6 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
         config = loading
     }
+
+    override fun getUserProfiles() = binderLocalScope { UserManagerUtils.userIds }
 }

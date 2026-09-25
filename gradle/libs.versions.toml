@@ -8,8 +8,8 @@ hidden-api = "4.4.0"
 androidx-navigation = "2.10.1"
 vbpd = "2.0.4"
 r8_annotations = "v1.0.1"
-zygoteloader = "bf5078e182"
-coil = "3.6.2"
+zygoteloader = "2a2160f"
+coil = "3.6.3"
 
 [plugins]
 agp-app = { id = "com.android.application", version.ref = "agp" }

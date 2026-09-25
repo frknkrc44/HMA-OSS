@@ -7,9 +7,10 @@ import icu.nullptr.hidemyapplist.receiver.AppChangeReceiver
 import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.service.ServiceClient
-import icu.nullptr.hidemyapplist.util.ConfigUtils.Companion.getLocale
+import icu.nullptr.hidemyapplist.util.ConfigUtils.getLocale
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import java.util.Locale
 
 class MyApp : Application() {
     companion object {
@@ -19,21 +20,29 @@ class MyApp : Application() {
     val globalScope = CoroutineScope(Dispatchers.Default)
     var updateDialogSkipped: Boolean = false
 
-    @Suppress("DEPRECATION")
     fun loadConfiguration() {
         if (ServiceClient.serviceVersion > 0) {
             ConfigManager.init()
-
-            AppCompatDelegate.setDefaultNightMode(PrefManager.darkTheme)
-            val config = resources.configuration
-            config.setLocale(getLocale())
-            resources.updateConfiguration(config, resources.displayMetrics)
         }
+    }
+
+    fun loadPreferences() {
+        AppCompatDelegate.setDefaultNightMode(PrefManager.darkTheme)
+
+        reloadLocale(getLocale())
+    }
+
+    @Suppress("DEPRECATION")
+    fun reloadLocale(locale: Locale) {
+        val config = resources.configuration
+        config.setLocale(locale)
+        resources.updateConfiguration(config, resources.displayMetrics)
     }
 
     override fun onCreate() {
         super.onCreate()
         hmaApp = this
+        loadPreferences()
         AppChangeReceiver.register(this)
 
         val handler = Thread.getDefaultUncaughtExceptionHandler()

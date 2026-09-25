@@ -48,4 +48,6 @@ object CollectionUtils {
         clear()
         putAll(from)
     }
+
+    inline fun <reified T> HashSet<T>?.contains(value: T) = this?.contains(value) ?: false
 }

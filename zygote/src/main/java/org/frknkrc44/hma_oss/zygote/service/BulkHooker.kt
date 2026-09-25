@@ -107,6 +107,7 @@ class BulkHooker {
         clazz: String,
         methodName: String,
         argumentCount: Int = PARAMETER_COUNT_UNKNOWN,
+        handleAfterThrows: Boolean = false,
         hook: (methodName: String, frame: EmulatedStackFrame, returnValue: ReturnValue) -> Unit,
     ) = addHook(clazz, methodName, argumentCount) { original, frame ->
         val value = ReturnValue()
@@ -122,10 +123,12 @@ class BulkHooker {
             value.result = frame.accessor().getValue(RETURN_VALUE_IDX)
         }
 
-        try {
-            hook(methodName, frame, value)
-        } catch (it: Throwable) {
-            logE(ZygoteEntry.TAG, it) { it.message ?: "Unknown error on hook" }
+        if (handleAfterThrows || value.throwable == null) {
+            try {
+                hook(methodName, frame, value)
+            } catch (it: Throwable) {
+                logE(ZygoteEntry.TAG, it) { it.message ?: "Unknown error on hook" }
+            }
         }
 
         value.throwable?.let {

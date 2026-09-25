@@ -12,6 +12,7 @@ object ZygoteConstants {
     const val APPS_FILTER_CLASS = "com.android.server.pm.AppsFilter"
     const val APPS_FILTER_IMPL_CLASS = "com.android.server.pm.AppsFilterImpl"
     const val STORAGE_MANAGER_SERVICE_CLASS = "com.android.server.StorageManagerService"
+    const val STORAGE_MANAGER_SERVICE_LIFECYCLE_CLASS = $$"com.android.server.StorageManagerService$Lifecycle"
     const val ACCESSIBILITY_SERVICE_CLASS = "com.android.server.accessibility.AccessibilityManagerService"
     const val CONTENT_PROVIDER_TRANSPORT_CLASS = $$"android.content.ContentProvider$Transport"
     const val IMM_SERVICE_CLASS = "com.android.server.inputmethod.InputMethodManagerService"
@@ -28,6 +29,9 @@ object ZygoteConstants {
     const val BROADCAST_HELPER_CLASS = "com.android.server.pm.BroadcastHelper"
     const val PACKAGE_MONITOR_CLASS = "com.android.internal.content.PackageMonitor"
     const val SERVICE_RECORD_CLASS = "com.android.server.am.ServiceRecord"
+    const val BROADCAST_QUEUE_CLASS = "com.android.server.am.BroadcastQueue"
+    const val BROADCAST_QUEUE_IMPL_CLASS = "com.android.server.am.BroadcastQueueImpl"
+    const val BROADCAST_PROCESS_QUEUE_CLASS = "com.android.server.am.BroadcastProcessQueue"
 
     const val CONSTRUCTOR_METHOD_NAME = "<init>"
 

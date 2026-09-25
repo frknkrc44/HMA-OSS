@@ -111,5 +111,6 @@ object Constants {
         "com.android.providers.settings",
         "com.google.android.providers.media.module",
         "com.google.android.permissioncontroller",
+        "com.miui.securitycenter",
     )
 }
