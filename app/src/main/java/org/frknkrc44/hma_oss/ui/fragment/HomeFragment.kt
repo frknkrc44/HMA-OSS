@@ -24,7 +24,13 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.MyApp.Companion.hmaApp
-import icu.nullptr.hidemyapplist.common.Constants
+import icu.nullptr.hidemyapplist.common.Constants.ENABLE_INTERNET_OFF
+import icu.nullptr.hidemyapplist.common.Constants.ENABLE_INTERNET_ON
+import icu.nullptr.hidemyapplist.common.Constants.ENABLE_INTERNET_UNKNOWN
+import icu.nullptr.hidemyapplist.common.Constants.MANAGER_WORK_MODE_CRASHED
+import icu.nullptr.hidemyapplist.common.Constants.MANAGER_WORK_MODE_LOADING
+import icu.nullptr.hidemyapplist.common.Constants.MANAGER_WORK_MODE_NO_HOOKS
+import icu.nullptr.hidemyapplist.common.Constants.MANAGER_WORK_MODE_UNKNOWN
 import icu.nullptr.hidemyapplist.data.fetchLatestUpdate
 import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.service.ServiceClient
@@ -307,13 +313,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     fun loadEnabledIndicator(serviceVersion: Int, workMode: Int) {
         hmaApp.loadConfiguration()
 
-        val isWorking = serviceVersion > 0 && workMode != Constants.MANAGER_WORK_MODE_UNKNOWN
-        val isCrashed = workMode == Constants.MANAGER_WORK_MODE_CRASHED
-        val isNoHooks = isCrashed || workMode == Constants.MANAGER_WORK_MODE_NO_HOOKS
+        val isWorking = serviceVersion > 0 && workMode != MANAGER_WORK_MODE_UNKNOWN
+        val isCrashed = workMode == MANAGER_WORK_MODE_CRASHED
+        val isNoHooks = isCrashed || workMode == MANAGER_WORK_MODE_NO_HOOKS
+        val isVersionMismatch = ServiceClient.serviceVersionName != BuildConfig.VERSION_NAME
 
         var color = when {
             !isWorking -> getColor(R.color.invalid)
             isNoHooks -> getColor(R.color.md_theme_material_amber_light_error)
+            isVersionMismatch -> themeColor(android.R.attr.colorError)
             else -> themeColor(android.R.attr.colorPrimary)
         }
 
@@ -342,13 +350,18 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         navigate(R.id.nav_fix_issue)
                     }
                 } else {
-                    val image = when(workMode) {
-                        Constants.MANAGER_WORK_MODE_LOADING -> R.drawable.sentiment_stressed_24px
+                    val image = when {
+                        isVersionMismatch -> R.drawable.sentiment_worried_24px
+                        workMode == MANAGER_WORK_MODE_LOADING -> R.drawable.sentiment_stressed_24px
                         else -> R.drawable.sentiment_calm_24px
                     }
                     setStatusIcon(image)
 
-                    val versionNameSimple = ServiceClient.serviceVersionName ?: BuildConfig.VERSION_NAME
+                    val versionNameSimple = if (isVersionMismatch) {
+                        "${ServiceClient.serviceVersionName} - ${BuildConfig.VERSION_NAME}"
+                    } else {
+                        ServiceClient.serviceVersionName
+                    }
                     moduleStatus.text =
                         getString(R.string.home_xposed_activated, versionNameSimple)
                     root.setOnLongClickListener {
@@ -392,7 +405,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun loadDialogs() {
-        if (PrefManager.enableInternet == Constants.ENABLE_INTERNET_UNKNOWN) {
+        if (PrefManager.enableInternet == ENABLE_INTERNET_UNKNOWN) {
             loadEnableInternetDialog()
             return
         }
@@ -406,17 +419,17 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             .setTitle(R.string.settings_enable_internet)
             .setMessage(R.string.settings_enable_internet_summary)
             .setPositiveButton(R.string.yes) { _, _ ->
-                PrefManager.enableInternet = Constants.ENABLE_INTERNET_ON
+                PrefManager.enableInternet = ENABLE_INTERNET_ON
                 loadUpdateDialog()
             }
             .setNegativeButton(R.string.no) { _, _ ->
-                PrefManager.enableInternet = Constants.ENABLE_INTERNET_OFF
+                PrefManager.enableInternet = ENABLE_INTERNET_OFF
             }
             .show()
     }
 
     private fun loadUpdateDialog() {
-        if (PrefManager.enableInternet != Constants.ENABLE_INTERNET_ON ||
+        if (PrefManager.enableInternet != ENABLE_INTERNET_ON ||
             hmaApp.updateDialogSkipped || PrefManager.disableUpdate || isTestBuild) {
             return
         }
