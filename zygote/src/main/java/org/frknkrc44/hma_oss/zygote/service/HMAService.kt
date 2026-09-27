@@ -58,6 +58,7 @@ import org.frknkrc44.hma_oss.zygote.util.Logcat.logWithLevel
 import org.frknkrc44.hma_oss.zygote.util.PackageManagerUtils.findApp
 import org.frknkrc44.hma_oss.zygote.util.PackageManagerUtils.getLaunchIntentForPackageAsUser
 import org.frknkrc44.hma_oss.zygote.util.PackageManagerUtils.isConflictingModuleInstalled
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.ensureFileIsRW
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.findAndVerifyAppSignature
 import org.frknkrc44.hma_oss.zygote.util.UserManagerUtils
 import rikka.hidden.compat.ActivityManagerApis
@@ -197,6 +198,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
                 "managerUid" to appUid,
             )
 
+            ensureFileIsRW(moduleStatusFile, true)
             moduleStatusFile.writeText(encoder.encodeToString(json))
         } catch (cause: Throwable) {
             logE(TAG, cause) { "An error occurred while writing the status JSON" }
@@ -514,6 +516,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
                     return
                 }
                 config = newConfig
+                ensureFileIsRW(configFile, true)
                 configFile.writeText(json)
                 dataHolder.clearUidCache()
 
@@ -538,6 +541,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
             }
 
             try {
+                ensureFileIsRW(filterCountFile, true)
                 filterCountFile.writeText(detailedFilterStats)
                 logD(TAG) { "Filter count synced" }
             } catch (cause: Throwable) {
@@ -691,6 +695,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
     fun writePresetCache() {
         try {
+            ensureFileIsRW(presetCacheFileNew, true)
             presetCacheFileNew.writeText(dataHolder.presetCache.toString())
             logD(TAG) { "Preset cache synced" }
         } catch (cause: Throwable) {
@@ -733,6 +738,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     override fun readFD(type: Int): ParcelFileDescriptor {
         return when (type) {
             PARCEL_TYPE_LOG -> {
+                ensureFileIsRW(logFile, false)
                 ParcelFileDescriptor.open(logFile, ParcelFileDescriptor.MODE_READ_ONLY)
             }
             PARCEL_TYPE_CONFIG -> {
