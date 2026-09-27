@@ -96,8 +96,7 @@
         <provider
             android:name="icu.nullptr.hidemyapplist.service.ServiceProvider"
             android:authorities="${applicationId}.ServiceProvider"
-            android:exported="true"
-            tools:ignore="ExportedContentProvider" />
+            android:exported="false" />
 
     </application>
 </manifest>

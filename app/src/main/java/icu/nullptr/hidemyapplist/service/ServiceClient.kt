@@ -6,8 +6,8 @@ import android.os.ParcelFileDescriptor
 import android.util.Log
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.IHMAService
+import icu.nullptr.hidemyapplist.util.FDUtils.readFromPipe
 import icu.nullptr.hidemyapplist.util.FDUtils.writeIntoPipe
-import java.io.FileInputStream
 import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
 import java.lang.reflect.Proxy
@@ -27,8 +27,10 @@ object ServiceClient : IHMAService, IBinder.DeathRecipient {
 
     @Volatile
     private var service: IHMAService? = null
+    private var provider: ServiceProvider? = null
 
-    fun linkService(binder: IBinder) {
+    fun linkService(provider: ServiceProvider, binder: IBinder) {
+        this.provider = provider
         service = Proxy.newProxyInstance(
             javaClass.classLoader,
             arrayOf(IHMAService::class.java),
@@ -49,12 +51,8 @@ object ServiceClient : IHMAService, IBinder.DeathRecipient {
     override fun getFilterCount() = service?.filterCount ?: 0
 
     val logs get(): String {
-        val parcelFD = readFD(Constants.PARCEL_TYPE_LOG) ?: return ""
-        val readStream = FileInputStream(parcelFD.fileDescriptor)
-        return readStream.readBytes().decodeToString().also {
-            readStream.close()
-            parcelFD.close()
-        }
+        val descriptor = readFD(Constants.PARCEL_TYPE_LOG) ?: return ""
+        return readFromPipe(descriptor)
     }
 
     override fun clearLogs() {
@@ -70,14 +68,13 @@ object ServiceClient : IHMAService, IBinder.DeathRecipient {
 
     var config: String
         get() {
-            val parcelFD = service?.readFD(Constants.PARCEL_TYPE_CONFIG) ?: return "{}"
-            val readStream = FileInputStream(parcelFD.fileDescriptor)
-            return readStream.readBytes().decodeToString().also {
-                readStream.close()
-                parcelFD.close()
-            }
+            val descriptor = service?.readFD(Constants.PARCEL_TYPE_CONFIG) ?: return "{}"
+            return readFromPipe(descriptor)
         }
-        set(text) = writeFD(Constants.PARCEL_TYPE_CONFIG, writeIntoPipe(text))
+        set(text) = writeFD(
+            Constants.PARCEL_TYPE_CONFIG,
+            writeIntoPipe(provider ?: return, text),
+        )
 
     fun forceStop(packageName: String) {
         forceStop(packageName, 0)
