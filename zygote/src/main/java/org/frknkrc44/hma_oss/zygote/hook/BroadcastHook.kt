@@ -94,7 +94,7 @@ class BroadcastHook : IFrameworkHook {
 
             val resultTo = getObjectField(record, "resultTo") as? IIntentReceiver
             val haveATarget = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                getObjectField(record, "callerApp") != null
+                true // getObjectField(record, "callerApp") != null
             } else {
                 getObjectField(record, "resultToApp") != null
             }
