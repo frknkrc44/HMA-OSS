@@ -213,15 +213,6 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
             }
         }
 
-        // remove the old preset cache
-        presetCacheFileOld.also {
-            try {
-                if (it.exists()) it.delete()
-            } catch (cause: Throwable) {
-                logW(TAG, cause) { "Failed to delete preset cache, skip it" }
-            }
-        }
-
         if (!configFile.exists()) {
             logI(TAG) { "Config file not found" }
             return
@@ -231,7 +222,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
             val json = configFile.readText()
             JsonConfig.parse(json)
         } catch (cause: Throwable) {
-            logW(TAG, cause) { "Failed to parse config.json, skip it" }
+            logW(TAG, cause) { "Failed to parse config json, skip it" }
 
             config
         }
@@ -258,7 +249,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
             val json = filterCountFile.readText()
             FilterHolder.parse(json)
         }.getOrElse {
-            logE(TAG, it) { "Failed to parse filter_count.json" }
+            logE(TAG, it) { "Failed to parse filter count" }
             return
         }
         dataHolder.filterHolder = loading
@@ -266,6 +257,15 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     }
 
     private fun loadPresetCache() {
+        // remove the old preset cache
+        presetCacheFileOld.also {
+            try {
+                if (it.exists()) it.delete()
+            } catch (cause: Throwable) {
+                logW(TAG, cause) { "Failed to delete preset cache, skip it" }
+            }
+        }
+
         var isFileAvailable = presetCacheFileNew.exists()
 
         if (isFileAvailable) {
@@ -521,8 +521,8 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
                 dataHolder.filterHolder
                     .filterCounts.removeIf { key, _ -> !config.scope.containsKey(key) }
                 logD(TAG) { "Config synced" }
-            } catch (_: Throwable) {
-                // ignore
+            } catch (cause: Throwable) {
+                logE(TAG, cause) { "An error occurred while writing config" }
             }
         }
 
@@ -540,8 +540,8 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
             try {
                 filterCountFile.writeText(detailedFilterStats)
                 logD(TAG) { "Filter count synced" }
-            } catch (_: Throwable) {
-                // ignore
+            } catch (cause: Throwable) {
+                logE(TAG, cause) { "An error occurred while writing filter count" }
             }
         }
     }
