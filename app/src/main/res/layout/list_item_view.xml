@@ -28,6 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:textAppearance="?textAppearanceBodyLarge"
+            android:inputType="textNoSuggestions"
             tools:text="@tools:sample/full_names" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -37,6 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:textAppearance="?textAppearanceBodyMedium"
+            android:inputType="textNoSuggestions"
             tools:text="@tools:sample/full_names" />
     </LinearLayout>
 

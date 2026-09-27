@@ -39,6 +39,7 @@
             android:layout_marginVertical="2dp"
             android:fontFamily="monospace"
             android:textAppearance="?textAppearanceBodySmall"
+            android:inputType="textNoSuggestions"
             tools:text="HMA service initialized" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -47,6 +48,7 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textAppearance="?textAppearanceBodySmall"
+            android:inputType="textNoSuggestions"
             tools:text="19-19 11:45:14" />
     </LinearLayout>
 </LinearLayout>
