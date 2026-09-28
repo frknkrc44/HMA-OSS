@@ -124,7 +124,9 @@ object ServiceUtils {
                 !item.className.containsMultiple(
                     "BulkHooker",
                     "com.v7878",
+                    "io.github.libxposed",
                     "MethodHandle",
+                    "org.matrix.vector",
                     BuildConfig.APP_PACKAGE_NAME,
                 ) && !item.fileName.containsMultiple(
                     "r8-map-id-",

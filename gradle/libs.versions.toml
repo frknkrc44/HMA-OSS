@@ -10,6 +10,7 @@ vbpd = "2.0.4"
 r8_annotations = "v1.0.1"
 zygoteloader = "2a2160f"
 coil = "3.6.3"
+libxposed = "102.0.0"
 
 [plugins]
 agp-app = { id = "com.android.application", version.ref = "agp" }
@@ -23,6 +24,8 @@ materialthemebuilder = { id = "dev.rikka.tools.materialthemebuilder", version = 
 com-github-aerathstuff-zygoteloader = { id = "com.github.aerath-stuff.ZygoteLoader", version.ref = "zygoteloader" }
 
 [libraries]
+libxposed-api = { module = "io.github.libxposed:api", version.ref = "libxposed" }
+junit = { module = "junit:junit", version = "4.13.2" }
 androidx-appcompat-appcompat = { group = "androidx.appcompat", name = "appcompat", version = "1.8.0" }
 androidx-annotation-jvm = { group = "androidx.annotation", name = "annotation-jvm", version = "1.10.0" }
 androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "androidx-navigation" }

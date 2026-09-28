@@ -39,5 +39,6 @@ include(
     ":app",
     ":common",
     ":stub",
+    ":xposed",
     ":zygote",
 )

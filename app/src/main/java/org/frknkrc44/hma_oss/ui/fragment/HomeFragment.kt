@@ -372,7 +372,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     }
 
                     serviceStatus.text =
-                        getString(R.string.home_xposed_service_on, serviceVersion)
+                        getString(R.string.home_xposed_service_on, serviceVersion) +
+                                " · " + when (ServiceClient.backend) {
+                                    "xposed" -> "Xposed" + (ServiceClient.backendApiVersion?.let { " $it" } ?: "")
+                                    "zygisk" -> "Zygisk"
+                                    else -> "?"
+                                }
                     filterCount.visibility = View.VISIBLE
                     filterCount.text =
                         getString(R.string.home_xposed_filter_count, ServiceClient.filterCount)
