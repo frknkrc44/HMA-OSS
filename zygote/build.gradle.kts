@@ -42,12 +42,20 @@ afterEvaluate {
 
         val outSrcDir = layout.buildDirectory.dir("generated/source/signInfo/${variantLowered}")
         val outSrc = outSrcDir.get().file("org/frknkrc44/hma_oss/zygote/Magic.java")
+        val managerApk = project(":app").layout.buildDirectory.file(
+            "outputs/apk/$variantLowered/${rootProject.name}-${android.defaultConfig.versionName}-${variantLowered}.apk"
+        )
+        val embeddedManagerApk = File(android.sourceSets[variantLowered].assets.srcDirs.first(), "manager.apk")
         val signInfoTask = tasks.register("generate${variantCapped}SignInfo") {
             description = "Generate signature info for verification"
 
-            outputs.file(outSrc)
+            // The Zygisk archive embeds the matching manager APK. A standalone
+            // :zygote:assembleRelease must build it, not require a prior :app run.
+            dependsOn(":app:assemble$variantCapped")
+            inputs.file(managerApk)
+            outputs.files(outSrc, embeddedManagerApk)
             doLast {
-                addManagerApp(variantLowered)
+                managerApk.get().asFile.copyTo(embeddedManagerApk, overwrite = true)
 
                 val sign = android.buildTypes[variantLowered].signingConfig
                 outSrc.asFile.parentFile.mkdirs()
@@ -70,28 +78,18 @@ afterEvaluate {
             }
         }
         variant.registerJavaGeneratingTask(signInfoTask, outSrcDir.get().asFile)
+        // Both the wrapper APK and Magisk ZIP consume the copied manager.apk.
+        // Its generation must finish before either task reads variant assets.
+        tasks.named("merge${variantCapped}Assets") { dependsOn(signInfoTask) }
+        tasks.matching { it.name == "mergeMagisk$variantCapped" }.configureEach {
+            dependsOn(signInfoTask)
+        }
 
         val kotlinCompileTask = tasks.findByName("compile${variantCapped}Kotlin") as KotlinCompile
         kotlinCompileTask.dependsOn(signInfoTask)
         val srcSet = objects.sourceDirectorySet("magic", "magic").srcDir(outSrcDir)
         kotlinCompileTask.source(srcSet)
     }
-}
-
-fun addManagerApp(variant: String) {
-    val builtFile = File(
-        layout.buildDirectory.get().asFile.toString().replace(project.name, "app"),
-        "outputs/apk/$variant/${rootProject.name}-${android.defaultConfig.versionName}-${variant}.apk",
-    )
-
-    if (!builtFile.exists()) {
-        throw GradleException("The manager app for $variant ($builtFile) is not built yet")
-    }
-
-    builtFile.copyTo(
-        File(android.sourceSets[variant].assets.srcDirs.first(), "manager.apk"),
-        overwrite = true,
-    )
 }
 
 zygisk {

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="xposed_module_description" translatable="false">Application visibility controls with Zygisk or libxposed</string>
+</resources>

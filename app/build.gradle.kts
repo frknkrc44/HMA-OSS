@@ -179,6 +179,7 @@ fun generateSupportedLocales(): String {
 
 dependencies {
     implementation(projects.common)
+    implementation(projects.xposed)
 
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)

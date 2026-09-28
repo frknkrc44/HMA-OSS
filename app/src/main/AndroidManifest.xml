@@ -21,6 +21,7 @@
 
     <application
         android:name="icu.nullptr.hidemyapplist.MyApp"
+        android:description="@string/xposed_module_description"
         android:allowBackup="true"
         android:fullBackupOnly="true"
         android:enableOnBackInvokedCallback="true"

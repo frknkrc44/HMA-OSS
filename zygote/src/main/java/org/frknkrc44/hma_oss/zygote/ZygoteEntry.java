@@ -10,6 +10,7 @@ import com.v7878.r8.annotations.DoNotShrinkType;
 import com.v7878.zygisk.ZygoteLoader;
 
 import org.frknkrc44.hma_oss.common.BuildConfig;
+import icu.nullptr.hidemyapplist.common.BackendRegistry;
 import org.frknkrc44.hma_oss.zygote.service.SystemServerHook;
 
 @SuppressWarnings("all")
@@ -27,6 +28,10 @@ public class ZygoteEntry {
     @DoNotObfuscate
     @DoNotShrink
     public static void main() throws Throwable {
+        if (!BackendRegistry.claim("zygisk")) {
+            logILegacy(TAG, "Backend already active: " + BackendRegistry.owner());
+            return;
+        }
         logILegacy(TAG, String.format("Injected into %s - %s", ZygoteLoader.getPackageName(), BuildConfig.APP_VERSION_NAME));
 
         try {
