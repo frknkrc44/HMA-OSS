@@ -34,7 +34,7 @@
     <string name="apply">Appliquer</string>
     <string name="follow_system">Utilise les paramètres du système</string>
     <!-- Home -->
-    <string name="home_xposed_activated">Module actif [%s]</string>
+    <string name="home_xposed_activated">Module activé [%s]</string>
     <string name="home_xposed_not_activated">Module désactivé</string>
     <string name="home_xposed_service_on">Service système en cours d\'exécution[%d]</string>
     <string name="home_xposed_service_off">Service système arrêté</string>
@@ -42,7 +42,7 @@
     <string name="home_manage">Gérer</string>
     <string name="home_detection_test">Test de détection</string>
     <string name="home_download_test_app_title">Télécharger l\'application de test</string>
-    <string name="home_download_test_app_message">Nous avons développé une application dédiée aux tests de détection et y avons transféré les fonctionnalités de test. La télécharger maintenant ?</string>
+    <string name="home_download_test_app_message">Nous avons développé une application dédiée aux tests de détection individuels et y avons transféré les fonctionnalités de ceux-ci. La télécharger maintenant ?</string>
     <string name="home_backup_and_restore">Sauvegarde et restauration</string>
     <string name="home_backup_config">Sauvegarde</string>
     <string name="home_restore_config">Restauration</string>
@@ -106,7 +106,7 @@
     <string name="app_settings_preset_using">%d préréglage(s) de paramètres utilisé(s)</string>
     <string name="app_settings_template_using">%d modèle(s) de paramètres utilisé(s)</string>
     <string name="app_extra_apps_visible_count">%d application(s) additionnelle(s) visible(s)</string>
-    <string name="app_extra_apps_invisible_count">%d application(s) additionnelle(s) invisible(s)</string>
+    <string name="app_extra_apps_invisible_count">%d application(s) supplémentaire(s) invisible(s)</string>
     <string name="app_warning_risky_package_title">Package à risque</string>
     <string name="app_warning_risky_package_desc">Ce package d\'application est indiqué comme étant à risque et peut causer des problèmes aux applications masquées. Continuer ?</string>
     <string name="app_spoof">Usurpation</string>
@@ -192,7 +192,7 @@
     <string name="settings_enable_internet">Activation de la connexion Internet</string>
     <string name="settings_enable_internet_summary">Lorsque désactivé, cette application perd toute fonctionnalité nécessitant un accès à Internet</string>
     <string name="settings_default_config">Configuration d\'application pour les nouvelles applications</string>
-    <string name="settings_default_config_summary">Appliquera la configuration définie à toutes les nouvelles applications installées, mais conserve la configuration existante pour les nouvelles applications si des paramètres ont été appliqués avant l\'activation de cette option</string>
+    <string name="settings_default_config_summary">Cela permettra d\'appliquer la configuration définie à toutes les nouvelles applications, tout en conservant la configuration existante pour celles-ci si vous aviez déjà effectué des modifications auparavant.</string>
     <string name="settings_webview_protection">Protection de WebView</string>
     <string name="settings_webview_protection_summary">Ajoute une protection supplémentaire contre les plantages provoqués par le masquage/ciblage du composant système WebView ou des navigateurs Web</string>
     <string name="settings_language">Langue</string>
