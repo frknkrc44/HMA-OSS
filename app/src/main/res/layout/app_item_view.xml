@@ -21,31 +21,28 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <com.google.android.material.textview.MaterialTextView
+        <TextView
             android:id="@+id/label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?textAppearanceBodyLarge"
-            android:inputType="textNoSuggestions"
             tools:text="@tools:sample/full_names" />
 
-        <com.google.android.material.textview.MaterialTextView
+        <TextView
             android:id="@+id/enabled"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:text="@string/enabled"
             android:textColor="?colorPrimary"
-            android:inputType="textNoSuggestions"
             android:visibility="gone"
             tools:visibility="visible" />
 
-        <com.google.android.material.textview.MaterialTextView
+        <TextView
             android:id="@+id/package_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
-            android:inputType="textNoSuggestions"
             tools:text="com.example.app" />
     </LinearLayout>
 

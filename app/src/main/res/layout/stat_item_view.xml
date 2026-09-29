@@ -13,7 +13,8 @@
         android:layout_marginTop="@dimen/item_padding_mini"
         android:layout_marginBottom="@dimen/item_padding_mini2x"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:id="@+id/icon"
@@ -22,7 +23,7 @@
             tools:ignore="ContentDescription"
             tools:src="@tools:sample/avatars" />
 
-        <com.google.android.material.textview.MaterialTextView
+        <TextView
             android:id="@+id/tag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,14 +46,13 @@
             android:layout_width="@dimen/vector_icon_size"
             android:layout_height="@dimen/vector_icon_size" />
 
-        <com.google.android.material.textview.MaterialTextView
+        <TextView
             android:id="@+id/count_pkg_mgr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/item_padding_mini"
             android:fontFamily="monospace"
             android:textAppearance="?textAppearanceTitleSmall"
-            android:inputType="textNoSuggestions"
             tools:text="736" />
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -62,14 +62,13 @@
             android:layout_width="@dimen/vector_icon_size"
             android:layout_height="@dimen/vector_icon_size" />
 
-        <com.google.android.material.textview.MaterialTextView
+        <TextView
             android:id="@+id/count_act_launch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/item_padding_mini"
             android:fontFamily="monospace"
             android:textAppearance="?textAppearanceTitleSmall"
-            android:inputType="textNoSuggestions"
             tools:text="127" />
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -79,14 +78,13 @@
             android:layout_width="@dimen/vector_icon_size"
             android:layout_height="@dimen/vector_icon_size" />
 
-        <com.google.android.material.textview.MaterialTextView
+        <TextView
             android:id="@+id/count_settings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/item_padding_mini"
             android:fontFamily="monospace"
             android:textAppearance="?textAppearanceTitleSmall"
-            android:inputType="textNoSuggestions"
             tools:text="565" />
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -96,14 +94,13 @@
             android:layout_width="@dimen/vector_icon_size"
             android:layout_height="@dimen/vector_icon_size" />
 
-        <com.google.android.material.textview.MaterialTextView
+        <TextView
             android:id="@+id/count_installers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/item_padding_mini"
             android:fontFamily="monospace"
             android:textAppearance="?textAppearanceTitleSmall"
-            android:inputType="textNoSuggestions"
             tools:text="65" />
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -113,14 +110,13 @@
             android:layout_width="@dimen/vector_icon_size"
             android:layout_height="@dimen/vector_icon_size" />
 
-        <com.google.android.material.textview.MaterialTextView
+        <TextView
             android:id="@+id/count_others"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/item_padding_mini"
             android:fontFamily="monospace"
             android:textAppearance="?textAppearanceTitleSmall"
-            android:inputType="textNoSuggestions"
             tools:text="3" />
     </LinearLayout>
 </LinearLayout>
