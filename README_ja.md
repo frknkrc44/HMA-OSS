@@ -32,6 +32,8 @@
 - [Türkçe](README_tr.md)
 - **日本語**
 - [Indonesia](README_id.md)
+- [Português](README_pt.md)
+- [Français](README_fr.md)
 
 ## このモジュールについて
 

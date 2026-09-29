@@ -31,20 +31,24 @@
 - [中文（简体）](README_zh_CN.md)
 - [Türkçe](README_tr.md)
 - [日本語](README_ja.md)
-- **Indonesia**
-- [Português](README_pt.md)
+- [Indonesia](README_id.md)
+- **Português**
 - [Français](README_fr.md)
 
-## Tentang modul ini
+## Sobre este módulo
 
-Meskipun merupakan praktik yang buruk untuk mendeteksi pemasangan aplikasi tertentu, tidak semua aplikasi yang menggunakan root menyediakan dukungan nama paket acak. Dalam kasus ini, jika aplikasi yang terkait dengan root (seperti Fake Location dan Storage Isolation) terdeteksi, itu sama saja dengan mendeteksi bahwa perangkat telah di-root.
+Embora não seja uma boa prática detectar a instalação de apps específicos, nem todo app que usa root oferece suporte a nome de pacote aleatório. Neste caso, se apps com ligações ao root (como Fake Location e Storage Isolation) forem detectados, isso equivale a detectar que o dispositivo está com root.
 
-Selain itu, beberapa aplikasi menggunakan berbagai celah untuk memperoleh daftar aplikasi anda, untuk menggunakannya sebagai data fingerprinting atau untuk tujuan lain yang tidak diinginkan.
+Além disso, alguns apps usam diversas brechas para obter sua lista de apps, com o intuito de usá-la como dado de fingerprinting (rastreamento) ou para outros fins maliciosos.
 
-Modul ini dapat berfungsi sebagai modul Zygisk untuk menyembunyikan aplikasi atau menolak permintaan daftar aplikasi.
+Este módulo pode funcionar como um módulo Zygisk para esconder apps ou recusar solicitações da lista de apps.
 
-## Saya ingin berkontribusi dalam terjemahan
-Anda dapat berkontribusi dalam penerjemahan [Di Sini](https://crowdin.com/project/frknkrc44-hma-oss).
+## Sobre o HMA-OSS
 
-## Catatan pembaruan
-[Referensi ke halaman commit](https://github.com/frknkrc44/HMA-OSS/commits)  
+https://github.com/frknkrc44/HMA-OSS/wiki
+
+## Quero contribuir com a tradução
+Você pode contribuir com a tradução [aqui](https://crowdin.com/project/frknkrc44-hma-oss).
+
+## Registro de atualizações
+[Referência à página de commits](https://github.com/frknkrc44/HMA-OSS/commits)
