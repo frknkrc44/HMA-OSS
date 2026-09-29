@@ -40,7 +40,7 @@
         android:gravity="center_vertical"
         android:paddingVertical="@dimen/item_padding_mini">
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <ImageView
             android:importantForAccessibility="no"
             android:src="@drawable/package_2_24px"
             android:layout_width="@dimen/vector_icon_size"
@@ -55,7 +55,7 @@
             android:textAppearance="?textAppearanceTitleSmall"
             tools:text="736" />
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <ImageView
             android:importantForAccessibility="no"
             android:src="@drawable/rocket_launch_24px"
             android:layout_marginStart="@dimen/item_padding_mini"
@@ -71,7 +71,7 @@
             android:textAppearance="?textAppearanceTitleSmall"
             tools:text="127" />
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <ImageView
             android:importantForAccessibility="no"
             android:src="@drawable/outline_settings_24"
             android:layout_marginStart="@dimen/item_padding_mini"
@@ -87,7 +87,7 @@
             android:textAppearance="?textAppearanceTitleSmall"
             tools:text="565" />
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <ImageView
             android:importantForAccessibility="no"
             android:src="@drawable/outline_shop_24"
             android:layout_marginStart="@dimen/item_padding_mini"
@@ -103,7 +103,7 @@
             android:textAppearance="?textAppearanceTitleSmall"
             tools:text="65" />
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <ImageView
             android:importantForAccessibility="no"
             android:src="@drawable/baseline_help_outline_24"
             android:layout_marginStart="@dimen/item_padding_mini"
