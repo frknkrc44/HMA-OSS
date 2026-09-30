@@ -5,7 +5,7 @@
     <string name="title_settings">Setelan</string>
     <string name="title_template_manage">Kelola templat</string>
     <string name="title_template_settings">Setelan templat</string>
-    <string name="title_settings_template_conf">Konfigurasi templat pengaturan</string>
+    <string name="title_settings_template_conf">Konfigurasi templat setelan</string>
     <string name="title_app_manage">Kelola aplikasi</string>
     <string name="title_app_select">Pilih aplikasi</string>
     <string name="title_app_settings">Setelan aplikasi</string>
@@ -28,7 +28,7 @@
     <string name="yes">Ya</string>
     <string name="no">Tidak</string>
     <string name="search">Cari</string>
-    <string name="system">System</string>
+    <string name="system">Sistem</string>
     <string name="add">Tambahkan</string>
     <string name="edit">Sunting</string>
     <string name="apply">Terapkan</string>
@@ -45,7 +45,7 @@
     <string name="home_download_test_app_message">Kami telah mengembangkan aplikasi uji deteksi individual dan memigrasikan uji deteksi ke dalamnya. Apakah Anda ingin mengunduhnya sekarang?</string>
     <string name="home_backup_and_restore">Cadangkan &amp; Pulihkan</string>
     <string name="home_backup_config">Cadangkan konfig</string>
-    <string name="home_restore_config">Pulihkan konfigurasi</string>
+    <string name="home_restore_config">Pulihkan konfig</string>
     <string name="home_import_successful">Impor berhasil</string>
     <string name="home_import_failed">Impor gagal</string>
     <string name="home_import_app_version_too_old">Versi modul lebih rendah dari cadangan</string>
@@ -63,10 +63,10 @@
     <string name="home_migrate_uninstall_only">Copot pemasangan saja</string>
     <!-- Backup & Restore -->
     <string name="backup_restore_backup_settings">Setelan cadangan</string>
-    <string name="backup_restore_restore_settings">Pulihkan pengaturan</string>
+    <string name="backup_restore_restore_settings">Setelan pemulihan</string>
     <string name="backup_restore_apps">Konfigurasi aplikasi</string>
     <string name="backup_restore_templates">Templat</string>
-    <string name="backup_restore_settings_templates">Templat pengaturan</string>
+    <string name="backup_restore_settings_templates">Templat setelan</string>
     <string name="backup_restore_append">Tambahkan</string>
     <string name="backup_restore_items_count">%d item</string>
     <!-- App select -->
@@ -84,7 +84,7 @@
     <string name="template_usage_hint">Buat templat untuk aplikasi \"gelisah\", kendalikan daftar aplikasi yang dapat mereka peroleh.\n\nBlacklist (disarankan): aplikasi yang dipilih dalam templat tidak akan terlihat oleh aplikasi yang menerapkan templat.\nDaftar putih:aplikasi yang tidak dipilih dalam templat tidak akan terlihat oleh aplikasi yang menerapkan templat.</string>
     <string name="template_new_blacklist">Buat templat daftar hitam</string>
     <string name="template_new_whitelist">Buat templat daftar putih</string>
-    <string name="template_new_setting">Buat templat pengaturan</string>
+    <string name="template_new_setting">Buat templat setelan</string>
     <string name="template_delete">Apakah Anda yakin akan menghapus templatnya?</string>
     <string name="template_name">Nama templat</string>
     <string name="template_name_invalid">Nama tidak valid</string>
@@ -104,13 +104,13 @@
     <string name="app_template_using">Menggunakan %d templat</string>
     <string name="app_preset_using">Menggunakan %d preset</string>
     <string name="app_settings_preset_using">Menggunakan %d preset setelan</string>
-    <string name="app_settings_template_using">Menggunakan %d templat pengaturan</string>
+    <string name="app_settings_template_using">Menggunakan %d templat setelan</string>
     <string name="app_extra_apps_visible_count">%d aplikasi tambahan terlihat</string>
     <string name="app_extra_apps_invisible_count">%d aplikasi tambahan tidak terlihat</string>
     <string name="app_warning_risky_package_title">Paket berisiko</string>
     <string name="app_warning_risky_package_desc">Paket ini ditandai sebagai berisiko dan Anda dapat menyebabkan masalah pada aplikasi tersembunyi. Apakah Anda ingin melanjutkan?</string>
     <string name="app_spoof">Pemalsuan (Spoofing)</string>
-    <string name="app_hide_installation_source">Memalsukan sumber instalasi</string>
+    <string name="app_hide_installation_source">Palsukan sumber pemasangan</string>
     <string name="app_hide_installation_source_desc">Semua aplikasi pengguna akan di-spoof seolah-olah terpasang di Play Store untuk aplikasi ini</string>
     <string name="app_hide_installation_source_system">Palsukan aplikasi sistem juga</string>
     <string name="app_hide_installation_source_system_desc">Semua aplikasi sistem akan di-spoof seolah-olah terpasang tanpa alasan apa pun untuk aplikasi ini</string>
