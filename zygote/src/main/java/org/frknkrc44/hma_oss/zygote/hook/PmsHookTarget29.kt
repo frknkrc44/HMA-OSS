@@ -7,12 +7,7 @@ import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.PACKAGE_MANAGER_SERVICE_CLASS
 
 class PmsHookTarget29 : PmsHookTargetBase() {
-
     override val TAG = "PmsHookTarget29"
-
-    // not required until SDK 30
-    override val fakeSystemPackageInstallSourceInfo = null
-    override val fakeUserPackageInstallSourceInfo = null
 
     @Suppress("UNCHECKED_CAST")
     override fun load() {
@@ -26,40 +21,41 @@ class PmsHookTarget29 : PmsHookTargetBase() {
             ) { methodName, frame, returnValue ->
                 applyPackageHiding(
                     methodName,
-                    { frame.getArgument(2) as Int? },
+                    returnValue,
+                    { frame.getArgument(2) as? Int },
                     { getPackageNameFromPackageSettings(frame.getArgument(1)) },
                     ::getCallingApps,
-                    { returnValue.result = true },
+                    true,
                 )
             }
 
-            hookBefore(
+            hookAfter(
                 PACKAGE_MANAGER_SERVICE_CLASS,
                 "getPackageInfoInternal",
             ) { methodName, frame, returnValue ->
                 applyPackageHiding(
                     methodName,
-                    { frame.getArgument(4) as Int? },
-                    { frame.getArgument(1) as String? },
+                    returnValue,
+                    { frame.getArgument(4) as? Int },
+                    { frame.getArgument(1) as? String },
                     ::getCallingApps,
-                    { returnValue.result = null },
+                    null,
                 )
             }
 
-            hookBefore(
+            hookAfter(
                 PACKAGE_MANAGER_SERVICE_CLASS,
                 "getApplicationInfoInternal",
             ) { methodName, frame, returnValue ->
                 applyPackageHiding(
                     methodName,
-                    { frame.getArgument(3) as Int? },
-                    { frame.getArgument(1) as String? },
+                    returnValue,
+                    { frame.getArgument(3) as? Int },
+                    { frame.getArgument(1) as? String },
                     ::getCallingApps,
-                    { returnValue.result = null },
+                    null,
                 )
             }
         }
-
-        super.load()
     }
 }

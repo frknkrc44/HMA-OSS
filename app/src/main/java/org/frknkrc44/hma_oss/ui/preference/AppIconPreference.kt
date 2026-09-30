@@ -53,7 +53,7 @@ class AppIconPreference(context: Context, attrs: AttributeSet?) : Preference(con
                         id = idx
                         gravity = Gravity.CENTER_VERTICAL
                         text = ""
-                        buttonDrawable = allAppIcons[idx].first.asDrawable(context)
+                        buttonDrawable = allAppIcons[idx].first.asDrawable(context, 64)
                         buttonTintList = null
                         buttonTintMode = PorterDuff.Mode.SRC_ATOP
                     }

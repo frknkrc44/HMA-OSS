@@ -27,16 +27,19 @@ class LogAdapter(context: Context) : RecyclerView.Adapter<LogAdapter.ViewHolder>
 
         fun parseLog(text: String): LogItem? {
             val matcher = pattern.matcher(text)
-            matcher.find()
-            val level = matcher.group(1) ?: return null
-            if (level in debugLevels && PrefManager.logFilter_level > 0 ||
-                level == "INFO" && PrefManager.logFilter_level > 1 ||
-                level == "WARN" && PrefManager.logFilter_level > 2
-            ) return null
-            val date = matcher.group(2) ?: return null
-            val tag = matcher.group(3) ?: return null
-            val message = matcher.group(4) ?: return null
-            return LogItem(level, date, tag, message)
+            if (matcher.matches()) {
+                val level = matcher.group(1) ?: return null
+                if (level in debugLevels && PrefManager.logFilter_level > 0 ||
+                    level == "INFO" && PrefManager.logFilter_level > 1 ||
+                    level == "WARN" && PrefManager.logFilter_level > 2
+                ) return null
+                val date = matcher.group(2) ?: return null
+                val tag = matcher.group(3) ?: return null
+                val message = matcher.group(4) ?: return null
+                return LogItem(level, date, tag, message)
+            }
+
+            return null
         }
     }
 

@@ -7,12 +7,14 @@ MODDIR="${0%/*}"
 ORIG_DESC=$(grep "^description=" "$MODDIR/module.prop.bak" | cut -d= -f2-)
 ORIG_DESC_FIX=$(printf '%s\n' "$ORIG_DESC" | sed 's/[&/\]/\\&/g')
 
-STATUS_FILE=$(ls -1 /data/misc/hide_my_applist_*/status.json 2>/dev/null | head -n 1)
+STATUS_FILE=$(printf '%s' /data/misc/hide_my_applist_*/status.json)
+
+echo "Status file: $STATUS_FILE"
 
 if [ -z "$STATUS_FILE" ] || [ ! -s "$STATUS_FILE" ]; then
-    MODE=""
+    MODE="0"
 else
-    MODE=$(sed -n 's/.*"workMode"[[:space:]]*:[[:space:]]*\([-0-9]*\).*/\1/p' "$STATUS_FILE")
+    MODE=$(grep -o '"workMode":[0-9]*' $STATUS_FILE | cut -f2 -d:)
 fi
 
 case "$MODE" in
@@ -20,8 +22,9 @@ case "$MODE" in
     2) STATUS="[⚠️ Sick mode - Disabled hooks]" ;;
     3) STATUS="[⏳ Loading]" ;;
     4) STATUS="[❌ System service crashed]"  ;;
-    -*) STATUS="[❌ Not loaded - Unknown error]" ;;
     *) STATUS="[❓ Unknown]" ;;
 esac
+
+echo "Detected status: $STATUS"
 
 sed -i "s/^description=.*/description=$STATUS $ORIG_DESC_FIX/" "$MODDIR/module.prop"

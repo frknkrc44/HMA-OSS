@@ -22,7 +22,7 @@ class ServiceProvider : ContentProvider() {
     override fun call(method: String, arg: String?, extras: Bundle?): Bundle? {
         if (callingPackage != "android") return null
         val binder = extras?.getBinder("binder") ?: return null
-        ServiceClient.linkService(binder)
+        ServiceClient.linkService(this, binder)
         return Bundle()
     }
 }

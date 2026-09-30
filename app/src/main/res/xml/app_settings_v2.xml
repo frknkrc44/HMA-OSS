@@ -42,6 +42,7 @@
 
     <PreferenceCategory
         android:dependency="enableHide"
+        android:key="categoryVoldAppDataIsolation"
         android:title="@string/settings_vold_app_data_isolation">
         <SwitchPreferenceCompat
             android:icon="@drawable/baseline_call_split_24"

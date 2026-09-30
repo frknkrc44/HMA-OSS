@@ -37,6 +37,10 @@ import org.frknkrc44.hma_oss.zygote.hook.BroadcastHook
 import org.frknkrc44.hma_oss.zygote.hook.ContentProviderHook
 import org.frknkrc44.hma_oss.zygote.hook.IFrameworkHook
 import org.frknkrc44.hma_oss.zygote.hook.ImmHook
+import org.frknkrc44.hma_oss.zygote.hook.InstallerHookTarget29
+import org.frknkrc44.hma_oss.zygote.hook.InstallerHookTarget30
+import org.frknkrc44.hma_oss.zygote.hook.InstallerHookTarget33
+import org.frknkrc44.hma_oss.zygote.hook.InstallerHookTarget34
 import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget29
 import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget30
 import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget31
@@ -54,11 +58,11 @@ import org.frknkrc44.hma_oss.zygote.util.Logcat.logWithLevel
 import org.frknkrc44.hma_oss.zygote.util.PackageManagerUtils.findApp
 import org.frknkrc44.hma_oss.zygote.util.PackageManagerUtils.getLaunchIntentForPackageAsUser
 import org.frknkrc44.hma_oss.zygote.util.PackageManagerUtils.isConflictingModuleInstalled
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.ensureFileIsRW
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.findAndVerifyAppSignature
+import org.frknkrc44.hma_oss.zygote.util.UserManagerUtils
 import rikka.hidden.compat.ActivityManagerApis
-import rikka.hidden.compat.UserManagerApis
 import java.io.File
-import java.io.FileInputStream
 import java.lang.reflect.Modifier
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
@@ -194,9 +198,10 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
                 "managerUid" to appUid,
             )
 
+            ensureFileIsRW(moduleStatusFile, true)
             moduleStatusFile.writeText(encoder.encodeToString(json))
-        } catch (_: Throwable) {
-            // ignore
+        } catch (cause: Throwable) {
+            logE(TAG, cause) { "An error occurred while writing the status JSON" }
         }
     }
 
@@ -210,15 +215,6 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
             }
         }
 
-        // remove the old preset cache
-        presetCacheFileOld.also {
-            try {
-                if (it.exists()) it.delete()
-            } catch (cause: Throwable) {
-                logW(TAG, cause) { "Failed to delete preset cache, skip it" }
-            }
-        }
-
         if (!configFile.exists()) {
             logI(TAG) { "Config file not found" }
             return
@@ -228,7 +224,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
             val json = configFile.readText()
             JsonConfig.parse(json)
         } catch (cause: Throwable) {
-            logW(TAG, cause) { "Failed to parse config.json, skip it" }
+            logW(TAG, cause) { "Failed to parse config json, skip it" }
 
             config
         }
@@ -255,7 +251,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
             val json = filterCountFile.readText()
             FilterHolder.parse(json)
         }.getOrElse {
-            logE(TAG, it) { "Failed to parse filter_count.json" }
+            logE(TAG, it) { "Failed to parse filter count" }
             return
         }
         dataHolder.filterHolder = loading
@@ -263,6 +259,15 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     }
 
     private fun loadPresetCache() {
+        // remove the old preset cache
+        presetCacheFileOld.also {
+            try {
+                if (it.exists()) it.delete()
+            } catch (cause: Throwable) {
+                logW(TAG, cause) { "Failed to delete preset cache, skip it" }
+            }
+        }
+
         var isFileAvailable = presetCacheFileNew.exists()
 
         if (isFileAvailable) {
@@ -291,14 +296,19 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             frameworkHooks.add(PmsHookTarget34())
+            frameworkHooks.add(InstallerHookTarget34())
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             frameworkHooks.add(PmsHookTarget33())
+            frameworkHooks.add(InstallerHookTarget33())
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             frameworkHooks.add(PmsHookTarget31())
+            frameworkHooks.add(InstallerHookTarget30())
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             frameworkHooks.add(PmsHookTarget30())
+            frameworkHooks.add(InstallerHookTarget30())
         } else {
             frameworkHooks.add(PmsHookTarget29())
+            frameworkHooks.add(InstallerHookTarget29())
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -355,7 +365,9 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
         val templates = getEnabledSettingsTemplates(caller)
         val replacement = config.settingsTemplates.firstNotNullOfOrNull { (key, value) ->
-            if (key in templates) value.settingsList.firstOrNull { it.name == name } else null
+            if (key in templates) value.settingsList.firstOrNull {
+                it.name == name && it.database == database
+            } else null
         }
         if (replacement != null) return replacement
 
@@ -504,6 +516,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
                     return
                 }
                 config = newConfig
+                ensureFileIsRW(configFile, true)
                 configFile.writeText(json)
                 dataHolder.clearUidCache()
 
@@ -511,8 +524,8 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
                 dataHolder.filterHolder
                     .filterCounts.removeIf { key, _ -> !config.scope.containsKey(key) }
                 logD(TAG) { "Config synced" }
-            } catch (_: Throwable) {
-                // ignore
+            } catch (cause: Throwable) {
+                logE(TAG, cause) { "An error occurred while writing config" }
             }
         }
 
@@ -528,10 +541,11 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
             }
 
             try {
+                ensureFileIsRW(filterCountFile, true)
                 filterCountFile.writeText(detailedFilterStats)
                 logD(TAG) { "Filter count synced" }
-            } catch (_: Throwable) {
-                // ignore
+            } catch (cause: Throwable) {
+                logE(TAG, cause) { "An error occurred while writing filter count" }
             }
         }
     }
@@ -665,7 +679,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
         val apps = mutableListOf<ApplicationInfo>().apply {
             binderLocalScope {
-                UserManagerApis.getUserIdsNoThrow().forEach { id ->
+                UserManagerUtils.userIds.forEach { id ->
                     addAll(pms.getInstalledApplicationsCompat(0L, id))
                 }
             }
@@ -681,6 +695,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
     fun writePresetCache() {
         try {
+            ensureFileIsRW(presetCacheFileNew, true)
             presetCacheFileNew.writeText(dataHolder.presetCache.toString())
             logD(TAG) { "Preset cache synced" }
         } catch (cause: Throwable) {
@@ -723,6 +738,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     override fun readFD(type: Int): ParcelFileDescriptor {
         return when (type) {
             PARCEL_TYPE_LOG -> {
+                ensureFileIsRW(logFile, false)
                 ParcelFileDescriptor.open(logFile, ParcelFileDescriptor.MODE_READ_ONLY)
             }
             PARCEL_TYPE_CONFIG -> {
@@ -733,17 +749,14 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     }
 
     override fun writeFD(type: Int, fd: ParcelFileDescriptor) {
-        val receiveStream = FileInputStream(fd.fileDescriptor)
-
         when (type) {
             PARCEL_TYPE_CONFIG -> {
-                writeConfig(receiveStream.readBytes().decodeToString())
+                ParcelFileDescriptor.AutoCloseInputStream(fd).use { input ->
+                    writeConfig(input.bufferedReader(Charsets.UTF_8).readText())
+                }
             }
             else -> throw RemoteException("Invalid type for write: $type")
         }
-
-        receiveStream.close()
-        fd.close()
     }
 
     override fun getManagerWorkMode() = managerWorkMode
@@ -800,4 +813,6 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
         config = loading
     }
+
+    override fun getUserProfiles() = binderLocalScope { UserManagerUtils.userIds }
 }

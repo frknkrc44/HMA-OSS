@@ -85,7 +85,7 @@
             android:name=".MainActivityLauncherAlt4"
             android:exported="true"
             android:enabled="false"
-            android:icon="@mipmap/ic_launcher_alt_5"
+            android:icon="@mipmap/ic_launcher_alt_4"
             android:targetActivity="org.frknkrc44.hma_oss.ui.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -96,8 +96,7 @@
         <provider
             android:name="icu.nullptr.hidemyapplist.service.ServiceProvider"
             android:authorities="${applicationId}.ServiceProvider"
-            android:exported="true"
-            tools:ignore="ExportedContentProvider" />
+            android:exported="false" />
 
     </application>
 </manifest>

@@ -1,14 +1,16 @@
 package org.frknkrc44.hma_oss.zygote.util
 
-import android.content.Context.USER_SERVICE
 import android.content.pm.IPackageManager
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Binder
 import android.os.Build
 import android.os.IBinder
-import android.os.IUserManager
+import android.os.RemoteException
 import android.os.ServiceManager
+import android.system.ErrnoException
+import android.system.Os
+import android.system.OsConstants
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.common.PropertyUtils
@@ -22,10 +24,11 @@ import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.callMethod
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.findField
-import rikka.hidden.compat.UserManagerApis
+import java.io.File
 
 object ServiceUtils {
     private const val TAG = "ServiceUtils"
+    private val fileFlags = OsConstants.R_OK or OsConstants.W_OK
 
     @Throws(InterruptedException::class)
     fun waitForService(name: String?): IBinder? {
@@ -47,7 +50,7 @@ object ServiceUtils {
         if (packageSettings == null) return null
 
         return try {
-            callMethod(packageSettings, "getPackageName") as String?
+            callMethod(packageSettings, "getPackageName") as? String
         } catch (_: Throwable) {
             runCatching {
                 findField(
@@ -71,21 +74,7 @@ object ServiceUtils {
 
     fun findAndVerifyAppSignature(pms: IPackageManager): Int {
         try {
-            val userService = waitForService(USER_SERVICE)
-
-            val userManager = IUserManager.Stub.asInterface(userService)
-            val profiles = mutableSetOf<Int>().also { set ->
-                val userIds = UserManagerApis.getUserIdsNoThrow()
-
-                try {
-                    userIds.forEach {
-                        val profiles = userManager.getProfileIds(it, false)
-                        profiles.forEach { pId -> set.add(pId) }
-                    }
-                } catch (_: Throwable) {
-                    set.addAll(userIds)
-                }
-            }
+            val profiles = UserManagerUtils.userIds
 
             for (uid in profiles) {
                 logV(TAG) { "@findAndVerifyAppSignature: checking for uid $uid" }
@@ -153,4 +142,14 @@ object ServiceUtils {
 
     fun isAppDataIsolationEnabled(config: JsonConfig) =
         PropertyUtils.isAppDataIsolationEnabled || config.altAppDataIsolation
+
+    fun ensureFileIsRW(file: File, skipNoEntry: Boolean) {
+        try {
+            if (Os.access(file.absolutePath, fileFlags)) return
+        } catch (cause: ErrnoException) {
+            if (skipNoEntry && cause.errno == OsConstants.ENOENT) return
+        } catch (_: Throwable) {}
+
+        throw RemoteException("${file.absolutePath} is not accessible by the current UID")
+    }
 }

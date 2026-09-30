@@ -84,6 +84,7 @@ class LogsFragment(
                             }
                             cur.clear()
                         }
+                        if (cur.isNotEmpty()) cur.append('\n')
                         cur.append(line)
                     }
                     if (cur.isNotEmpty()) {

@@ -87,7 +87,7 @@ val appVerName by extra(gitVersionName)
 val configVerCode by extra(93)
 
 @Suppress("unused")
-val serviceVerCode by extra(102)
+val serviceVerCode by extra(105)
 
 @Suppress("unused")
 val minBackupVerCode by extra(65)
