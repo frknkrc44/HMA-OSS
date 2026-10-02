@@ -523,6 +523,13 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
                 // remove filter counts for apps if they are not in config
                 dataHolder.filterHolder
                     .filterCounts.removeIf { key, _ -> !config.scope.containsKey(key) }
+
+                // When visibility cache injection is active, the per-query hooks are not
+                // installed, so a config change must be pushed into the system matrix.
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && VisibilityCacheInjector.active) {
+                    VisibilityCacheInjector.onConfigChanged()
+                }
+
                 logD(TAG) { "Config synced" }
             } catch (cause: Throwable) {
                 logE(TAG, cause) { "An error occurred while writing config" }

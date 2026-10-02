@@ -6,6 +6,7 @@ import androidx.annotation.RequiresApi
 import icu.nullptr.hidemyapplist.common.CollectionUtils.firstOrNullWithType
 import icu.nullptr.hidemyapplist.common.OSUtils
 import icu.nullptr.hidemyapplist.common.Utils
+import org.frknkrc44.hma_oss.zygote.service.VisibilityCacheInjector
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackageNameFromPackageSettings
@@ -32,6 +33,14 @@ open class PmsHookTarget33 : PmsHookTargetBase() {
     @Suppress("UNCHECKED_CAST")
     override fun load() {
         logI(TAG) { "Load hook" }
+
+        VisibilityCacheInjector.attach(service)
+        if (VisibilityCacheInjector.active) {
+            logI(TAG) { "Visibility cache injection active, skipping per-query visibility hooks" }
+            VisibilityCacheInjector.installReapplyHooks(hooker)
+            VisibilityCacheInjector.syncAll()
+            return
+        }
 
         hooker.apply {
             // Samsung related fix
