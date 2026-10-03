@@ -32,7 +32,7 @@
 
             </LinearLayout>
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <ImageView
                 android:layout_centerInParent="true"
                 android:id="@+id/app_icon"
                 android:layout_width="96dp"
@@ -50,7 +50,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp">
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <ImageView
                 android:id="@+id/back_button"
                 android:src="@drawable/baseline_arrow_back_24"
                 android:background="?attr/selectableItemBackground"

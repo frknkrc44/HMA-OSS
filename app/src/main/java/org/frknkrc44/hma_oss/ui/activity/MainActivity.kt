@@ -33,18 +33,30 @@ class MainActivity : AppCompatActivity() {
         // Source: https://github.com/androidx/androidx/blob/c0f9aabcf6f32029249ac7647711744b68e2a003/activity/activity/src/main/java/androidx/activity/EdgeToEdge.kt#L299
         window.isNavigationBarContrastEnforced = !PrefManager.systemWallpaper
 
-        DynamicColors.applyToActivityIfAvailable(
-            this,
-            DynamicColorsOptions.Builder().also {
-                if (!ThemeUtils.isSystemAccent)
-                    it.setThemeOverlay(ThemeUtils.getColorThemeStyleRes(this))
-            }.build()
-        )
+        if (DynamicColors.isDynamicColorAvailable()) {
+            DynamicColors.applyToActivityIfAvailable(
+                this,
+                DynamicColorsOptions.Builder().also {
+                    if (!ThemeUtils.isSystemAccent)
+                        it.setThemeOverlay(ThemeUtils.getColorThemeStyleRes(this))
+                }.build()
+            )
+        } else {
+            theme.applyStyle(ThemeUtils.getColorThemeStyleRes(this), true)
+        }
 
         currentConfiguration = resources.configuration
 
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+    }
+
+    override fun onApplyThemeResource(theme: Resources.Theme, resid: Int, first: Boolean) {
+        super.onApplyThemeResource(theme, resid, first)
+
+        theme.applyStyle(ThemeUtils.getOverlayThemeStyleRes(this), true)
+
+        applyWallpaperBackgroundColor()
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
@@ -56,17 +68,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         currentConfiguration = newConfig
-    }
-
-    override fun onApplyThemeResource(theme: Resources.Theme, resid: Int, first: Boolean) {
-        super.onApplyThemeResource(theme, resid, first)
-        if (!DynamicColors.isDynamicColorAvailable()) {
-            theme.applyStyle(ThemeUtils.getColorThemeStyleRes(this), true)
-        }
-
-        theme.applyStyle(ThemeUtils.getOverlayThemeStyleRes(this), true)
-
-        applyWallpaperBackgroundColor()
     }
 
     override fun onSupportNavigateUp(): Boolean {

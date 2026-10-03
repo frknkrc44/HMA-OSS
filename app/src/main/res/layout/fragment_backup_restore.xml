@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.fragment.BackupRestoreFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:background="@android:color/transparent"
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:elevation="0dp" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Switch
+            android:id="@+id/switch_settings"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+            android:layout_marginVertical="@dimen/item_padding_mini2x"
+            android:layout_marginHorizontal="@dimen/item_padding_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/title_settings"
+            android:thumb="@drawable/switch_thumb"
+            android:track="@drawable/switch_track"
+            android:background="@null"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+        <Switch
+            android:id="@+id/switch_trim_config"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+            android:layout_marginVertical="@dimen/item_padding_mini2x"
+            android:layout_marginHorizontal="@dimen/item_padding_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_clear_uninstalled_app_configs"
+            android:thumb="@drawable/switch_thumb"
+            android:track="@drawable/switch_track"
+            android:background="@null"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+        <icu.nullptr.hidemyapplist.ui.view.ListItemView
+            android:id="@+id/manage_apps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:buttonText="@string/edit_list"
+            app:icon="@drawable/outline_android_24" />
+
+        <Switch
+            android:id="@+id/switch_overwrite_apps"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+            android:layout_marginHorizontal="@dimen/item_padding_horizontal"
+            android:paddingStart="@dimen/app_icon_size"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_overwrite"
+            android:thumb="@drawable/switch_thumb"
+            android:track="@drawable/switch_track"
+            android:background="@null"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+        <icu.nullptr.hidemyapplist.ui.view.ListItemView
+            android:id="@+id/template_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:buttonText="@string/edit_list"
+            app:icon="@drawable/ic_outline_layers_24" />
+
+        <Switch
+            android:id="@+id/switch_overwrite_templates"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+            android:layout_marginHorizontal="@dimen/item_padding_horizontal"
+            android:paddingStart="@dimen/app_icon_size"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_overwrite"
+            android:thumb="@drawable/switch_thumb"
+            android:track="@drawable/switch_track"
+            android:background="@null"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+        <icu.nullptr.hidemyapplist.ui.view.ListItemView
+            android:id="@+id/settings_template_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:buttonText="@string/edit_list"
+            app:icon="@drawable/outline_settings_24" />
+
+        <Switch
+            android:id="@+id/switch_overwrite_settings_templates"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+            android:layout_marginHorizontal="@dimen/item_padding_horizontal"
+            android:paddingStart="@dimen/app_icon_size"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_overwrite"
+            android:thumb="@drawable/switch_thumb"
+            android:track="@drawable/switch_track"
+            android:background="@null"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+    </LinearLayout>
+</LinearLayout>

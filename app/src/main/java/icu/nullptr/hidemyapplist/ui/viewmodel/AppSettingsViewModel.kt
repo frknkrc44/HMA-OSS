@@ -18,8 +18,9 @@ class AppSettingsViewModel(val pack: Pack) : ViewModel() {
     class Pack(
         val app: String,
         var enabled: Boolean,
-        val bulkConfig: Boolean,
+        val mode: Int,
         val bulkApps: Array<String>?,
-        val config: JsonConfig.AppConfig
+        val config: JsonConfig.AppConfig,
+        val customSubtitle: String?,
     )
 }

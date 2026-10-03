@@ -1,0 +1,818 @@
+package org.frknkrc44.hma_oss.zygote.service
+
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.content.pm.ApplicationInfo
+import android.content.pm.IPackageManager
+import android.os.Build
+import android.os.Bundle
+import android.os.ParcelFileDescriptor
+import android.os.RemoteException
+import android.provider.Settings
+import icu.nullptr.hidemyapplist.common.AppPresets
+import icu.nullptr.hidemyapplist.common.CollectionUtils.removeIf
+import icu.nullptr.hidemyapplist.common.Constants
+import icu.nullptr.hidemyapplist.common.Constants.PARCEL_TYPE_CONFIG
+import icu.nullptr.hidemyapplist.common.Constants.PARCEL_TYPE_LOG
+import icu.nullptr.hidemyapplist.common.FilterHolder
+import icu.nullptr.hidemyapplist.common.IHMAService
+import icu.nullptr.hidemyapplist.common.JsonConfig
+import icu.nullptr.hidemyapplist.common.PresetCache
+import icu.nullptr.hidemyapplist.common.RiskyPackageUtils
+import icu.nullptr.hidemyapplist.common.SettingsPresets
+import icu.nullptr.hidemyapplist.common.Utils.binderLocalScope
+import icu.nullptr.hidemyapplist.common.Utils.cleanRemnantsFromConfig
+import icu.nullptr.hidemyapplist.common.Utils.conflictedModules
+import icu.nullptr.hidemyapplist.common.Utils.encoder
+import icu.nullptr.hidemyapplist.common.Utils.generateRandomString
+import icu.nullptr.hidemyapplist.common.Utils.getInstalledApplicationsCompat
+import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
+import icu.nullptr.hidemyapplist.common.Utils.isSystemApp
+import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
+import org.frknkrc44.hma_oss.common.BuildConfig
+import org.frknkrc44.hma_oss.zygote.hook.AccessibilityHook
+import org.frknkrc44.hma_oss.zygote.hook.ActivityHook
+import org.frknkrc44.hma_oss.zygote.hook.AppDataIsolationHook
+import org.frknkrc44.hma_oss.zygote.hook.BroadcastHook
+import org.frknkrc44.hma_oss.zygote.hook.ContentProviderHook
+import org.frknkrc44.hma_oss.zygote.hook.IFrameworkHook
+import org.frknkrc44.hma_oss.zygote.hook.ImmHook
+import org.frknkrc44.hma_oss.zygote.hook.InstallerHookTarget29
+import org.frknkrc44.hma_oss.zygote.hook.InstallerHookTarget30
+import org.frknkrc44.hma_oss.zygote.hook.InstallerHookTarget33
+import org.frknkrc44.hma_oss.zygote.hook.InstallerHookTarget34
+import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget29
+import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget30
+import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget31
+import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget33
+import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget34
+import org.frknkrc44.hma_oss.zygote.hook.PmsPackageEventsHook
+import org.frknkrc44.hma_oss.zygote.hook.ZygoteHook
+import org.frknkrc44.hma_oss.zygote.util.BrowserUtils.getDefaultBrowser
+import org.frknkrc44.hma_oss.zygote.util.BrowserUtils.getWebviewProvider
+import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
+import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
+import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
+import org.frknkrc44.hma_oss.zygote.util.Logcat.logW
+import org.frknkrc44.hma_oss.zygote.util.Logcat.logWithLevel
+import org.frknkrc44.hma_oss.zygote.util.PackageManagerUtils.findApp
+import org.frknkrc44.hma_oss.zygote.util.PackageManagerUtils.getLaunchIntentForPackageAsUser
+import org.frknkrc44.hma_oss.zygote.util.PackageManagerUtils.isConflictingModuleInstalled
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.ensureFileIsRW
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.findAndVerifyAppSignature
+import org.frknkrc44.hma_oss.zygote.util.UserManagerUtils
+import rikka.hidden.compat.ActivityManagerApis
+import java.io.File
+import java.lang.reflect.Modifier
+import java.nio.file.Files
+import java.nio.file.StandardCopyOption
+import kotlin.io.path.Path
+
+class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
+
+    companion object {
+        private const val TAG = "HMA-Service"
+    }
+
+    @Volatile
+    private var logcatAvailable = false
+
+    val hooker = BulkHooker()
+    val dataHolder = HMAServiceDataHolder()
+
+    private var managerWorkMode: Int = Constants.MANAGER_WORK_MODE_UNKNOWN
+
+    private lateinit var dataDir: String
+    private lateinit var configFile: File
+    private lateinit var presetCacheFileOld: File
+    private lateinit var presetCacheFileNew: File
+    private lateinit var filterCountFile: File
+    private lateinit var logFile: File
+    private lateinit var oldLogFile: File
+    private lateinit var moduleStatusFile: File
+
+    private val configLock = Any()
+    private val loggerLock = Any()
+    val systemApps = mutableSetOf<String>()
+    private val frameworkHooks = mutableSetOf<IFrameworkHook>()
+    internal var appUid = 0
+        private set
+
+    var config = JsonConfig().apply { detailLog = true }
+        private set
+
+    init {
+        managerWorkMode = if (pms.isConflictingModuleInstalled()) {
+            logE(TAG) { "Conflicting module detected, skipping hook" }
+            Constants.MANAGER_WORK_MODE_NO_HOOKS
+        } else {
+            Constants.MANAGER_WORK_MODE_LOADING
+        }
+
+        searchDataDir()
+        saveModuleStatus()
+        UserService.service = this
+        loadFilterCount()
+        loadConfig()
+
+        appUid = findAndVerifyAppSignature(pms)
+
+        if (managerWorkMode != Constants.MANAGER_WORK_MODE_NO_HOOKS) {
+            installHooks()
+
+            if (hooker.hooksWasCrashed) {
+                managerWorkMode = Constants.MANAGER_WORK_MODE_CRASHED
+            } else {
+                AppPresets.instance.loggerFunction = { level, msg ->
+                    logWithLevel(level, "AppPresets", msg = msg)
+                }
+                loadPresetCache()
+
+                managerWorkMode = Constants.MANAGER_WORK_MODE_OK
+            }
+
+            saveModuleStatus()
+        }
+
+        logI(TAG) { "HMA service initialized in mode $managerWorkMode" }
+    }
+
+    private fun searchDataDir() {
+        File("/data/system").list()?.forEach {
+            if (it.startsWith("hide_my_applist")) {
+                if (!this::dataDir.isInitialized) {
+                    val newDir = File("/data/misc/$it")
+                    File("/data/system/$it").renameTo(newDir)
+                    dataDir = newDir.path
+                } else {
+                    File("/data/system/$it").deleteRecursively()
+                }
+            }
+        }
+        File("/data/misc").list()?.forEach {
+            if (it.startsWith("hide_my_applist")) {
+                if (!this::dataDir.isInitialized) {
+                    dataDir = "/data/misc/$it"
+                } else if (dataDir != "/data/misc/$it") {
+                    File("/data/misc/$it").deleteRecursively()
+                }
+            }
+        }
+        if (!this::dataDir.isInitialized) {
+            dataDir = "/data/misc/hide_my_applist_" + generateRandomString(
+                16,
+                ('a'..'z').toList()
+            )
+        }
+
+        val logDir = File(dataDir, "log").apply { mkdirs() }
+        configFile = File(dataDir, "config.json")
+        presetCacheFileOld = File(dataDir, "preset_cache.json")
+        presetCacheFileNew = File(dataDir, "preset_cache_v2.json")
+        filterCountFile = File(dataDir, "filter_count.json")
+        logFile = File(logDir, "runtime.log")
+        oldLogFile = File(logDir, "old.log")
+        moduleStatusFile = File(dataDir, "status.json")
+
+        clearLogs()
+
+        logcatAvailable = true
+        logI(TAG) { "Data dir: $dataDir" }
+
+        try {
+            // make the map issues easier to debug
+            Files.copy(
+                Path("/proc/self/maps"),
+                Path(dataDir, "maps_module_thread.txt"),
+                StandardCopyOption.REPLACE_EXISTING,
+            )
+        } catch (cause: Throwable) {
+            logE(TAG, cause) { "An error occurred while copying the map file" }
+        }
+    }
+
+    fun saveModuleStatus() {
+        try {
+            val json = mapOf(
+                "workMode" to managerWorkMode,
+                "managerUid" to appUid,
+            )
+
+            ensureFileIsRW(moduleStatusFile, true)
+            moduleStatusFile.writeText(encoder.encodeToString(json))
+        } catch (cause: Throwable) {
+            logE(TAG, cause) { "An error occurred while writing the status JSON" }
+        }
+    }
+
+    private fun loadConfig() {
+        // remove the old filter count
+        File("$dataDir/filter_count").also {
+            try {
+                if (it.exists()) it.delete()
+            } catch (cause: Throwable) {
+                logW(TAG, cause) { "Failed to delete filter count, skip it" }
+            }
+        }
+
+        if (!configFile.exists()) {
+            logI(TAG) { "Config file not found" }
+            return
+        }
+
+        val loading = try {
+            val json = configFile.readText()
+            JsonConfig.parse(json)
+        } catch (cause: Throwable) {
+            logW(TAG, cause) { "Failed to parse config json, skip it" }
+
+            config
+        }
+
+        if (loading.configVersion != BuildConfig.CONFIG_VERSION) {
+            logW(TAG) { "Config version mismatch, need to reload" }
+            return
+        }
+
+        if (config != loading) {
+            loading.cleanRemnantsFromConfig()
+            config = loading
+        }
+
+        logI(TAG) { "Config loaded" }
+    }
+
+    private fun loadFilterCount() {
+        if (!filterCountFile.exists()) {
+            logI(TAG) { "Filter count file not found" }
+            return
+        }
+        val loading = runCatching {
+            val json = filterCountFile.readText()
+            FilterHolder.parse(json)
+        }.getOrElse {
+            logE(TAG, it) { "Failed to parse filter count" }
+            return
+        }
+        dataHolder.filterHolder = loading
+        logI(TAG) { "Filter counts loaded" }
+    }
+
+    private fun loadPresetCache() {
+        // remove the old preset cache
+        presetCacheFileOld.also {
+            try {
+                if (it.exists()) it.delete()
+            } catch (cause: Throwable) {
+                logW(TAG, cause) { "Failed to delete preset cache, skip it" }
+            }
+        }
+
+        var isFileAvailable = presetCacheFileNew.exists()
+
+        if (isFileAvailable) {
+            val loading = runCatching {
+                val json = presetCacheFileNew.readText()
+                PresetCache.parse(json)
+            }.getOrElse {
+                logE(TAG, it) { "Failed to parse preset cache V2" }
+                isFileAvailable = false
+                null
+            }
+
+            if (loading != null) {
+                AppPresets.instance.importCache(loading)
+            }
+        }
+
+        reloadPresets(!isFileAvailable)
+    }
+
+    private fun installHooks() {
+        pms.allPackages.filterTo(systemApps) {
+            pms.getPackageInfoCompat(
+                it, 0L, 0)?.applicationInfo?.isSystemApp() ?: false
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            frameworkHooks.add(PmsHookTarget34())
+            frameworkHooks.add(InstallerHookTarget34())
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            frameworkHooks.add(PmsHookTarget33())
+            frameworkHooks.add(InstallerHookTarget33())
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            frameworkHooks.add(PmsHookTarget31())
+            frameworkHooks.add(InstallerHookTarget30())
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            frameworkHooks.add(PmsHookTarget30())
+            frameworkHooks.add(InstallerHookTarget30())
+        } else {
+            frameworkHooks.add(PmsHookTarget29())
+            frameworkHooks.add(InstallerHookTarget29())
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            frameworkHooks.add(AppDataIsolationHook())
+        }
+
+        frameworkHooks.add(ActivityHook())
+        frameworkHooks.add(BroadcastHook())
+        frameworkHooks.add(PmsPackageEventsHook())
+        frameworkHooks.add(AccessibilityHook())
+        frameworkHooks.add(ContentProviderHook())
+        frameworkHooks.add(ImmHook())
+        frameworkHooks.add(ZygoteHook())
+
+        frameworkHooks.forEach(IFrameworkHook::load)
+        logI(TAG) { "Hooks installed" }
+    }
+
+    fun increasePMFilterCount(callingUid: Int?, amount: Int = 1) = dataHolder.increaseFilterCount(
+        callingUid, amount, FilterHolder.FilterType.PACKAGE_MANAGER, ::writeFilterCount
+    )
+
+    fun increasePMFilterCount(caller: String?, amount: Int = 1) = dataHolder.increaseFilterCount(
+        caller, amount, FilterHolder.FilterType.PACKAGE_MANAGER, ::writeFilterCount
+    )
+
+    fun increaseALFilterCount(caller: String?, amount: Int = 1) = dataHolder.increaseFilterCount(
+        caller, amount, FilterHolder.FilterType.ACTIVITY_LAUNCH, ::writeFilterCount
+    )
+
+    fun increaseInstallerFilterCount(caller: String?, amount: Int = 1) = dataHolder.increaseFilterCount(
+        caller, amount, FilterHolder.FilterType.INSTALLER, ::writeFilterCount
+    )
+
+    fun increaseSettingsFilterCount(caller: String?, amount: Int = 1) = dataHolder.increaseFilterCount(
+        caller, amount, FilterHolder.FilterType.SETTINGS, ::writeFilterCount
+    )
+
+    fun increaseOthersFilterCount(caller: String?, amount: Int = 1) = dataHolder.increaseFilterCount(
+        caller, amount, FilterHolder.FilterType.OTHERS, ::writeFilterCount
+    )
+
+    fun isHookEnabled(packageName: String?) = config.scope.containsKey(packageName)
+
+    fun isAnySettingsReplacementsEnabled(packageName: String?) = config.scope[packageName]?.let {
+        it.applySettingsPresets.isNotEmpty() || it.applySettingTemplates.isNotEmpty()
+    } ?: false
+
+    fun isAppDataIsolationExcluded(packageName: String?) =
+        config.scope[packageName]?.excludeVoldIsolation ?: false
+
+    fun getSpoofedSetting(caller: String?, name: String?, database: String): ReplacementItem? {
+        if (caller == null || name == null) return null
+
+        val templates = getEnabledSettingsTemplates(caller)
+        val replacement = config.settingsTemplates.firstNotNullOfOrNull { (key, value) ->
+            if (key in templates) value.settingsList.firstOrNull {
+                it.name == name && it.database == database
+            } else null
+        }
+        if (replacement != null) return replacement
+
+        val presets = getEnabledSettingsPresets(caller)
+        if (presets.isNotEmpty()) {
+            for (presetName in presets) {
+                val preset = SettingsPresets.instance.getPresetByName(presetName)
+                val replacement = preset?.getSpoofedValue(name)
+                if (replacement?.database == database) return replacement
+            }
+        }
+
+        return null
+    }
+
+    fun getEnabledSettingsTemplates(caller: String?) =
+        config.scope[caller]?.applySettingTemplates ?: setOf()
+
+    fun getEnabledSettingsPresets(caller: String?) =
+        config.scope[caller]?.applySettingsPresets ?: setOf()
+
+    fun isAppInGMSIgnoredPackages(caller: String, query: String) =
+        (caller in Constants.gmsPackages) && RiskyPackageUtils.instance.appHasGMSConnection(query)
+
+    fun shouldHide(caller: String?, query: String?, userId: Int): Boolean {
+        if (caller == null || query == null) return false
+        if (caller == BuildConfig.APP_PACKAGE_NAME) return false
+        if (caller in Constants.packagesShouldNotHide || query in Constants.packagesShouldNotHide) return false
+        if (caller == query) return false
+        val appConfig = config.scope[caller] ?: return false
+
+        if (config.webViewProtection) {
+            // check for current webview
+            val webviewProvider = getWebviewProvider()
+            if (webviewProvider == caller || webviewProvider == query) return false
+
+            // check for current browser
+            val currentBrowser = getDefaultBrowser(pmn, userId)
+            if (currentBrowser == caller || currentBrowser == query) return false
+        }
+
+        if (query in appConfig.extraAppList) return !appConfig.useWhitelist
+        if (query in appConfig.extraOppositeAppList) return appConfig.useWhitelist
+
+        for (tplName in appConfig.applyTemplates) {
+            val tpl = config.templates[tplName] ?: continue
+            if (query in tpl.appList) {
+                if (isAppInGMSIgnoredPackages(caller, query)) return false
+
+                return !appConfig.useWhitelist
+            }
+        }
+
+        if (query !in config.ignoredPackagesForPresets) {
+            for (presetName in appConfig.applyPresets) {
+                if (AppPresets.instance.containsPackage(presetName, query)) {
+                    // Do not hide apps from Play Store if they are connected to GMS
+                    val overriddenCaller = if (caller == Constants.VENDING_PACKAGE_NAME) {
+                        Constants.GMS_PACKAGE_NAME
+                    } else {
+                        caller
+                    }
+
+                    return !isAppInGMSIgnoredPackages(overriddenCaller, query)
+                }
+            }
+        }
+
+        if (appConfig.useWhitelist && appConfig.excludeSystemApps && query in systemApps) return false
+
+        return appConfig.useWhitelist
+    }
+
+    fun getRestrictedZygotePermissions(caller: String?) =
+        config.scope[caller]?.restrictedZygotePermissions
+
+    fun shouldHideActivityLaunch(caller: String?, query: String?, userId: Int): Boolean {
+        val appConfig = config.scope[caller]
+        if (appConfig != null && shouldHide(caller, query, userId)) {
+            return if (appConfig.invertActivityLaunchProtection) {
+                config.disableActivityLaunchProtection
+            } else {
+                !config.disableActivityLaunchProtection
+            }
+        }
+
+        return false
+    }
+
+    fun shouldHideInstallationSource(caller: String?, query: String?, callingUser: Int): Int {
+        if (caller == null || query == null) return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
+        if (caller == BuildConfig.APP_PACKAGE_NAME) return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
+        val appConfig = config.scope[caller] ?: return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
+        if (!appConfig.hideInstallationSource) return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
+        logD(TAG) { "@shouldHideInstallationSource $caller: $query" }
+        if (caller == query && appConfig.excludeTargetInstallationSource) return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
+
+        try {
+            val installed = pms.isPackageAvailable(query, callingUser)
+            logD(TAG) { "@shouldHideInstallationSource UID for $caller, ${callingUser}: $query, $installed" }
+            if (!installed) return Constants.FAKE_INSTALLATION_SOURCE_DISABLED // invalid package installation source request
+        } catch (cause: Throwable) {
+            logD(TAG, cause) { "@shouldHideInstallationSource UID error for $caller, $callingUser" }
+            return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
+        }
+
+        return if (query in systemApps) {
+            if (appConfig.hideSystemInstallationSource) {
+                Constants.FAKE_INSTALLATION_SOURCE_SYSTEM
+            } else {
+                Constants.FAKE_INSTALLATION_SOURCE_DISABLED
+            }
+        } else {
+            Constants.FAKE_INSTALLATION_SOURCE_USER
+        }
+    }
+
+    fun ensureManagerWorkModeOK(silent: Boolean = false): Boolean {
+        if (managerWorkMode == Constants.MANAGER_WORK_MODE_NO_HOOKS) {
+            if (!silent) logW(TAG) { "Cannot write while in no hooks mode" }
+            return false
+        }
+
+        return true
+    }
+
+    fun addLog(parsedMsg: String) {
+        if (!ensureManagerWorkModeOK(true)) return
+
+        synchronized(loggerLock) {
+            if (!logcatAvailable) return
+            if (logFile.length() / 1024 > config.maxLogSize) clearLogs()
+            logFile.appendText(parsedMsg)
+        }
+    }
+
+    fun writeConfig(json: String) {
+        if (!ensureManagerWorkModeOK()) return
+
+        synchronized(configLock) {
+            try {
+                val newConfig = JsonConfig.parse(json)
+                newConfig.cleanRemnantsFromConfig()
+                if (newConfig.configVersion != BuildConfig.CONFIG_VERSION) {
+                    logW(TAG) { "Sync config: version mismatch, need reboot" }
+                    return
+                }
+                config = newConfig
+                ensureFileIsRW(configFile, true)
+                configFile.writeText(json)
+                dataHolder.clearUidCache()
+
+                // remove filter counts for apps if they are not in config
+                dataHolder.filterHolder
+                    .filterCounts.removeIf { key, _ -> !config.scope.containsKey(key) }
+                logD(TAG) { "Config synced" }
+            } catch (cause: Throwable) {
+                logE(TAG, cause) { "An error occurred while writing config" }
+            }
+        }
+
+        writeFilterCount(true)
+    }
+
+    private fun writeFilterCount(force: Boolean = false) {
+        if (!ensureManagerWorkModeOK()) return
+
+        synchronized(configLock) {
+            if (!force && dataHolder.filterHolder.totalCount % 100 != 0) {
+                return
+            }
+
+            try {
+                ensureFileIsRW(filterCountFile, true)
+                filterCountFile.writeText(detailedFilterStats)
+                logD(TAG) { "Filter count synced" }
+            } catch (cause: Throwable) {
+                logE(TAG, cause) { "An error occurred while writing filter count" }
+            }
+        }
+    }
+
+    override fun getServiceVersion() = BuildConfig.SERVICE_VERSION
+
+    override fun getFilterCount() = dataHolder.filterHolder.totalCount
+
+    override fun clearLogs() {
+        if (!ensureManagerWorkModeOK()) return
+
+        synchronized(loggerLock) {
+            oldLogFile.delete()
+            logFile.renameTo(oldLogFile)
+            logFile.createNewFile()
+        }
+    }
+
+    override fun handlePackageEvent(eventType: String?, packageName: String?, extras: Bundle?) {
+        if (eventType == null || packageName == null) return
+
+        AppPresets.instance.apply {
+            when (eventType) {
+                Intent.ACTION_PACKAGE_ADDED -> {
+                    if (packageName == BuildConfig.APP_PACKAGE_NAME && appUid < 0) {
+                        appUid = findAndVerifyAppSignature(pms)
+                    }
+
+                    /**
+                     * - Ignore when the default config was not available
+                     * - Ignore for the manager app
+                     * - Ignore for the package updates
+                     * - Ignore when the target app had a config
+                     */
+                    val isDefConfigApplied = config.defaultConfig != null &&
+                            packageName != BuildConfig.APP_PACKAGE_NAME &&
+                            extras?.getBoolean(Intent.EXTRA_REPLACING) != true &&
+                            config.scope.putIfAbsent(packageName, config.defaultConfig!!) == null
+
+                    if (isDefConfigApplied) {
+                        writeConfig(config.toString())
+                    }
+
+                    // Handle app presets
+                    handlePackageAdded(pms, packageName) { preset ->
+                        if (dataHolder.addIntoPresetCache(preset, packageName)) {
+                            writePresetCache()
+                        }
+                    }
+                }
+                Intent.ACTION_PACKAGE_REMOVED -> {
+                    // ignore package updates
+                    if (extras?.getBoolean(Intent.EXTRA_REPLACING) == true) {
+                        return
+                    }
+
+                    if (packageName == BuildConfig.APP_PACKAGE_NAME && appUid >= 0) {
+                        logI(TAG) { "The manager app is uninstalled, looking for alternatives" }
+
+                        appUid = findAndVerifyAppSignature(pms)
+                    }
+
+                    // Handle app presets if the app is removed entirely
+                    if (!pms.findApp(packageName)) {
+                        var removedFromPresets = false
+
+                        handlePackageRemoved(packageName) { preset ->
+                            if (dataHolder.removeFromPresetCache(preset, packageName)) {
+                                removedFromPresets = true
+                            }
+                        }
+
+                        if (removedFromPresets) {
+                            writePresetCache()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    override fun getPackagesForPreset(presetName: String) =
+        AppPresets.instance.getPresetByName(presetName)?.packages?.toTypedArray()
+
+    override fun forceStop(packageName: String?, userId: Int) {
+        binderLocalScope {
+            try {
+                ActivityManagerApis.forceStopPackage(packageName, userId)
+            } catch (cause: Throwable) {
+                logE(TAG, cause) { "An error occurred while force stopping the package" }
+            }
+        }
+    }
+
+    override fun log(level: Int, tag: String, message: String) {
+        logWithLevel(level, tag) { message }
+    }
+
+    override fun getPackageNames(userId: Int) = binderLocalScope {
+        pms.getAllPackages().filter { packageName ->
+            pms.isPackageAvailable(packageName, userId)
+        }.toTypedArray()
+    }
+
+    override fun getPackageInfo(
+        packageName: String,
+        userId: Int
+    ) = binderLocalScope {
+        pms.getPackageInfoCompat(packageName, 0L, userId)
+    }
+
+    override fun listAllSettings(databaseName: String): Array<String> {
+        val settingClass = when (databaseName) {
+            Constants.SETTINGS_GLOBAL -> Settings.Global::class.java
+            Constants.SETTINGS_SECURE -> Settings.Secure::class.java
+            Constants.SETTINGS_SYSTEM -> Settings.System::class.java
+            else -> throw IllegalArgumentException("Invalid database name $databaseName")
+        }
+
+        val readableVariables = settingClass.declaredFields.mapNotNull { field ->
+            if (Modifier.isStatic(field.modifiers) && field.type.simpleName == "String") field.get(null) as String else null
+        }
+
+        return readableVariables.sorted().toTypedArray()
+    }
+
+    override fun getLogFileLocation(): String = logFile.absolutePath
+
+    private fun reloadPresets(fromScratch: Boolean) {
+        logI(TAG) { "Reloading presets " + if (fromScratch) "from scratch" else "over cache" }
+
+        val apps = mutableListOf<ApplicationInfo>().apply {
+            binderLocalScope {
+                UserManagerUtils.userIds.forEach { id ->
+                    addAll(pms.getInstalledApplicationsCompat(0L, id))
+                }
+            }
+        }
+
+        AppPresets.instance.reloadPresets(apps, fromScratch)
+        logI(TAG) { "All presets are loaded" }
+
+        dataHolder.presetCache = AppPresets.instance.exportCache()
+
+        writePresetCache()
+    }
+
+    fun writePresetCache() {
+        try {
+            ensureFileIsRW(presetCacheFileNew, true)
+            presetCacheFileNew.writeText(dataHolder.presetCache.toString())
+            logD(TAG) { "Preset cache synced" }
+        } catch (cause: Throwable) {
+            logE(TAG, cause) { "Failed to write into preset cache file" }
+        }
+    }
+
+    override fun reloadPresetsFromScratch() = reloadPresets(true)
+
+    override fun getDetailedFilterStats() = dataHolder.filterHolder.toString()
+
+    override fun clearFilterStats() {
+        synchronized(configLock) {
+            dataHolder.filterHolder.filterCounts.clear()
+        }
+
+        writeFilterCount(true)
+    }
+
+    override fun getServiceVersionName() = BuildConfig.APP_VERSION_NAME
+
+    override fun getLoadedHooks(): Array<String> {
+        val hookList = mutableListOf<String>()
+
+        for ((className, hookElements) in hooker.hooks) {
+            for (element in hookElements) {
+                hookList.add(
+                    JsonConfig.HookItem(
+                        className,
+                        element.methodName,
+                        element.argumentCount,
+                    ).toString()
+                )
+            }
+        }
+
+        return hookList.toTypedArray()
+    }
+
+    override fun readFD(type: Int): ParcelFileDescriptor {
+        return when (type) {
+            PARCEL_TYPE_LOG -> {
+                ensureFileIsRW(logFile, false)
+                ParcelFileDescriptor.open(logFile, ParcelFileDescriptor.MODE_READ_ONLY)
+            }
+            PARCEL_TYPE_CONFIG -> {
+                ParcelFileDescriptor.open(configFile, ParcelFileDescriptor.MODE_READ_ONLY)
+            }
+            else -> throw RemoteException("Invalid type for read: $type")
+        }
+    }
+
+    override fun writeFD(type: Int, fd: ParcelFileDescriptor) {
+        when (type) {
+            PARCEL_TYPE_CONFIG -> {
+                ParcelFileDescriptor.AutoCloseInputStream(fd).use { input ->
+                    writeConfig(input.bufferedReader(Charsets.UTF_8).readText())
+                }
+            }
+            else -> throw RemoteException("Invalid type for write: $type")
+        }
+    }
+
+    override fun getManagerWorkMode() = managerWorkMode
+
+    override fun startMainActivityAsUser(packageName: String, userId: Int) = binderLocalScope {
+        val pkgInfo = pms.getPackageInfoCompat(packageName, 0, userId)
+                ?: throw RemoteException("Cannot find package info for $packageName")
+
+        if (pkgInfo.applicationInfo?.enabled == true) {
+            val intentToLaunch = getLaunchIntentForPackageAsUser(packageName, userId)
+            if (intentToLaunch != null) {
+                ActivityManagerApis.startActivity(intentToLaunch, null, userId)
+            } else {
+                throw RemoteException("No main activity found to launch this app")
+            }
+        } else {
+            throw RemoteException("Package is disabled")
+        }
+    }
+
+    override fun migrateData(packageName: String): Boolean {
+        if (packageName !in conflictedModules) return false
+
+        @SuppressLint("SdCardPath")
+        fun getDataFile(): File? {
+            // Android 11+
+            val dataMirror = File("/data_mirror/data_ce/null/0/$packageName/files/config.json")
+            if (dataMirror.exists()) return dataMirror
+
+            // Android 10-
+            val data = File("/data/data/$packageName/files/config.json")
+            if (data.exists()) return data
+
+            return null
+        }
+
+        val dataFile = getDataFile() ?: return false
+
+        val bytes = dataFile.readBytes()
+        configFile.writeBytes(bytes)
+
+        return true
+    }
+
+    override fun reloadConfigFromFile() {
+        val loading = runCatching {
+            assert(configFile.exists())
+            val json = configFile.readText()
+            JsonConfig.parse(json)
+        }.getOrElse {
+            logE(TAG, it) { "Failed to parse config.json" }
+            return
+        }
+
+        config = loading
+    }
+
+    override fun getUserProfiles() = binderLocalScope { UserManagerUtils.userIds }
+}

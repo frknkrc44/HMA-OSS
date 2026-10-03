@@ -1,0 +1,157 @@
+package org.frknkrc44.hma_oss.zygote.util
+
+import android.content.pm.IPackageManager
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
+import android.os.Binder
+import android.os.Build
+import android.os.IBinder
+import android.os.RemoteException
+import android.os.ServiceManager
+import android.system.ErrnoException
+import android.system.Os
+import android.system.OsConstants
+import icu.nullptr.hidemyapplist.common.Constants
+import icu.nullptr.hidemyapplist.common.JsonConfig
+import icu.nullptr.hidemyapplist.common.PropertyUtils
+import icu.nullptr.hidemyapplist.common.Utils.binderLocalScope
+import icu.nullptr.hidemyapplist.common.Utils.containsMultiple
+import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
+import org.frknkrc44.hma_oss.common.BuildConfig
+import org.frknkrc44.hma_oss.zygote.Magic
+import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
+import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
+import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.callMethod
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.findField
+import java.io.File
+
+object ServiceUtils {
+    private const val TAG = "ServiceUtils"
+    private val fileFlags = OsConstants.R_OK or OsConstants.W_OK
+
+    @Throws(InterruptedException::class)
+    fun waitForService(name: String?): IBinder? {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            return ServiceManager.waitForService(name)
+        }
+
+        var service: IBinder? = null
+        var count = 0
+
+        do {
+            Thread.sleep(250)
+        } while ((ServiceManager.getService(name).also { service = it }) == null && ++count < 100)
+
+        return service
+    }
+
+    fun getPackageNameFromPackageSettings(packageSettings: Any?): String? {
+        if (packageSettings == null) return null
+
+        return try {
+            callMethod(packageSettings, "getPackageName") as? String
+        } catch (_: Throwable) {
+            runCatching {
+                findField(
+                    packageSettings::class.java,
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) "mName" else "name"
+                )?.apply { isAccessible = true }?.get(packageSettings) as? String
+            }.getOrNull()
+        }
+    }
+
+    fun getCallingApps(pms: IPackageManager): Array<String> {
+        return getCallingApps(pms, Binder.getCallingUid())
+    }
+
+    fun getCallingApps(pms: IPackageManager, callingUid: Int): Array<String> {
+        if (callingUid == Constants.UID_SYSTEM) return arrayOf()
+        return binderLocalScope {
+            pms.getPackagesForUid(callingUid)
+        } ?: arrayOf()
+    }
+
+    fun findAndVerifyAppSignature(pms: IPackageManager): Int {
+        try {
+            val profiles = UserManagerUtils.userIds
+
+            for (uid in profiles) {
+                logV(TAG) { "@findAndVerifyAppSignature: checking for uid $uid" }
+
+                val packageInfo = runCatching {
+                    pms.getPackageInfoCompat(
+                        BuildConfig.APP_PACKAGE_NAME,
+                        PackageManager.GET_SIGNING_CERTIFICATES.toLong(),
+                        uid,
+                    )
+                }.getOrNull()
+                if (packageInfo == null) continue
+
+                if (verifyAppSignature(packageInfo)) {
+                    val appUid = packageInfo.applicationInfo!!.uid
+
+                    logI(TAG) { "The manager app signature is verified successfully, uid: $appUid" }
+
+                    return appUid
+                } else {
+                    throw AssertionError("The manager app is modified, skipping")
+                }
+            }
+        } catch (e: Throwable) {
+            logE(TAG, e) { "Fatal: Cannot get package details\nCompile this app from source with your changes" }
+
+            return -1
+        }
+
+        logE(TAG) { "The manager app is not found, skipping" }
+
+        return -1
+    }
+
+    private fun verifyAppSignature(packageInfo: PackageInfo): Boolean {
+        val other = packageInfo.signingInfo
+            ?.signingCertificateHistory?.lastOrNull()?.toByteArray() ?: return false
+
+        return Magic.magicNumbers.contentEquals(other)
+    }
+
+    fun clearStackTraces(throwableIn: Throwable?) {
+        var throwable: Throwable? = throwableIn
+
+        while (throwable != null) {
+            val newTrace = throwable.stackTrace.filter { item ->
+                !item.className.containsMultiple(
+                    "BulkHooker",
+                    "com.v7878",
+                    "io.github.libxposed",
+                    "MethodHandle",
+                    "org.matrix.vector",
+                    BuildConfig.APP_PACKAGE_NAME,
+                ) && !item.fileName.containsMultiple(
+                    "r8-map-id-",
+                    "dex-id-",
+                )
+            }
+
+            if (newTrace.size != throwable.stackTrace.size) {
+                throwable.stackTrace = newTrace.toTypedArray()
+            }
+
+            throwable = throwable.cause
+        }
+    }
+
+    fun isAppDataIsolationEnabled(config: JsonConfig) =
+        PropertyUtils.isAppDataIsolationEnabled || config.altAppDataIsolation
+
+    fun ensureFileIsRW(file: File, skipNoEntry: Boolean) {
+        try {
+            if (Os.access(file.absolutePath, fileFlags)) return
+        } catch (cause: ErrnoException) {
+            if (skipNoEntry && cause.errno == OsConstants.ENOENT) return
+        } catch (_: Throwable) {}
+
+        throw RemoteException("${file.absolutePath} is not accessible by the current UID")
+    }
+}

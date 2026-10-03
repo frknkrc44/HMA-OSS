@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="title_home">Dom</string>
+    <string name="title_home">Strona Główna</string>
     <string name="title_logs">Logi</string>
     <string name="title_settings">Ustawienia</string>
     <string name="title_template_manage">Menedżer szablonów</string>
@@ -38,7 +38,6 @@
     <string name="home_xposed_not_activated">Moduł nie aktywowany</string>
     <string name="home_xposed_service_on">Uruchomiono usługę systemową [%d]</string>
     <string name="home_xposed_service_off">Usługa systemowa nie jest uruchomiona</string>
-    <string name="home_xposed_service_old">Moduł zaktualizowany, wymaga reboota</string>
     <string name="home_xposed_filter_count">HMA-OSS przefiltrowało %d zapytań</string>
     <string name="home_manage">Zarządzaj</string>
     <string name="home_detection_test">Test wykrywalności</string>
@@ -56,6 +55,20 @@
     <string name="home_exported">Backupowanie configu</string>
     <string name="home_new_update">Nowa aktualizacja jest dostępna: %s</string>
     <string name="home_update">Aktualizacja: %s</string>
+    <string name="home_migrate_data_fix_button">Napraw problem</string>
+    <string name="home_migrate_data">Migruj dane</string>
+    <string name="home_migrate_data_summary">Zostanie wyświetlony komunikat, aby odinstalować HMA/HMAL w przypadku obu opcji. Czy chcesz zmigrować stare dane z tych aplikacji?</string>
+    <string name="home_migrate_data_failed">Nie udało się skopiować danych albo znaleźć więcej niż jednej instancji HMA/HMAL.</string>
+    <string name="home_migrate_data_completed">Zrobione! Musisz uruchomić ponownie urządzenie.</string>
+    <string name="home_migrate_uninstall_only">Tylko odinstaluj</string>
+    <!-- Backup & Restore -->
+    <string name="backup_restore_backup_settings">Ustawienia backapu</string>
+    <string name="backup_restore_restore_settings">Ustawienia przywracania</string>
+    <string name="backup_restore_apps">Konfiguracje aplikacji</string>
+    <string name="backup_restore_templates">Szablony</string>
+    <string name="backup_restore_settings_templates">Szablony ustawień</string>
+    <string name="backup_restore_append">Dopisz</string>
+    <string name="backup_restore_items_count">%d elementów</string>
     <!-- App select -->
     <string name="list_show_system">Pokaż aplikacje systemowe</string>
     <string name="list_sorting">Sortowanie</string>
@@ -116,6 +129,7 @@
     <string name="title_preset">Presety</string>
     <string name="title_settings_preset">Presety ustawień</string>
     <string name="title_preset_manage">Pokaż presety</string>
+    <string name="title_ignored_apps_for_presets">Ignorowane aplikacje</string>
     <string name="preset_xposed">Moduły LSPosed/Xposed</string>
     <string name="preset_root_apps">Menedżery Root/Aplikacje zrootowane</string>
     <string name="preset_custom_rom">Aplikacje custom ROMu</string>
@@ -171,12 +185,16 @@
     <string name="settings_clear_uninstalled_app_configs">Wyczyść configi odinstalowanym aplikacją</string>
     <string name="settings_clear_uninstalled_app_configs_summary">Ta opcja pozwala na utworzenie konfiguracji bez pozostałości, ale będziesz musiał ponownie skonfigurować aplikacje po ich ponownym zainstalowaniu.</string>
     <string name="settings_no_undone_warning">Tej akcji nie da się cofnąć.</string>
-    <string name="settings_package_query_workaround">Alternatywne zapytanie o paczki</string>
-    <string name="settings_package_query_workaround_summary">Nie włączaj tej opcji, jeżeli widzisz listę paczek w tej aplikacji poprawnie.</string>
     <string name="settings_launcher_icon">Ikona w launcherze</string>
     <string name="settings_error_only_log">Tylko logi typu error</string>
+    <string name="settings_disable_hooks">Wyłącz hooki modułu</string>
+    <string name="settings_disable_hooks_summary">Możesz wyłączyć niektóre hooki modułu, jeżeli one konfliktują z innymi modułami</string>
     <string name="settings_enable_internet">Włącz połączenie z Internetem</string>
     <string name="settings_enable_internet_summary">Ta aplikacja straci wszystkie internetowe i powiązane z tym funkcje, kiedy wyłączysz tę opcję.</string>
+    <string name="settings_default_config">Konfiguracja dla nowych aplikacji</string>
+    <string name="settings_default_config_summary">Ta opcja zastosuje zdefiniowany config dla wszystkich nowych aplikacji, ale zachowa istniejącą konfiguracje dla nowych aplikacji, jeżeli coś zostało zaaplikowane na nich wcześniej.</string>
+    <string name="settings_webview_protection">Ochrona WebView</string>
+    <string name="settings_webview_protection_summary">To doda dodatkową ochronę dla crashy spowodowanych przez ukrywanie/targetowanie WebView albo przeglądarek</string>
     <string name="settings_language">Język</string>
     <string name="settings_translate">Weź udział w tłumaczeniu</string>
     <string name="settings_translate_summary">Pomóż nam przetłumaczyć %s na Twój język</string>
@@ -187,9 +205,9 @@
     <string name="settings_pure_black_dark_theme">Czysta czerń ciemnego motywu</string>
     <string name="settings_pure_black_dark_theme_summary">Użyj motywu czystej czerni, gdy motyw ciemny jest włączony</string>
     <string name="settings_service">Usługa</string>
-    <string name="settings_stop_system_service">Zatrzymaj systemową usługę</string>
-    <string name="settings_stop_system_service_summary">Wymaga reboota aby zrestartować usługę</string>
-    <string name="settings_is_clean_env">Wyczyścić środowisko runtime w tym samym czasie?</string>
+    <string name="settings_reset_default">Zresetuj do domyślnych</string>
+    <string name="settings_reset_default_summary">Ta opcja pozwala Ci wyczyścić całą konfigurację i zacząć od zera</string>
+    <string name="settings_irreversible_confirmation">Ta akcja jest nieodwracalna. Jesteś tego pewien?</string>
     <string name="settings_is_clean_env_summary">Usuwa cache systemowej usługi w lokalizacji /data/misc/hide_my_applist_*. To oznacza, że będziesz musiał uruchomić aplikację modułu manualnie po następnym reboocie, aby włączyć przechwytywanie a licznik przechwyceń również zostanie wyczyszczony.</string>
     <string name="settings_force_clean_env">Wymuś wyczyszczenie środowiska runtime (root)</string>
     <string name="settings_force_clean_env_summary">Użyj, tylko gdy usługa systemowa zalicza faila przy starcie, w przeciwnym wypadku powinieneś kliknąć opcję powyżej.</string>
@@ -208,8 +226,11 @@
     </string>
     <string name="about_how_to_use_description_2">Zmiany konfiguracji obowiązują w czasie rzeczywistym.
     </string>
+    <string name="about_how_to_use_description_3">
+Ta aplikacja zachowuje się jak menadżer dla modułu Zygisk od teraz. Potrzebujesz osobnego modułu Zygisk, aby ten menadżer działał
+    </string>
     <string name="about_translator">Tłumacze</string>
-    <string name="about_developer">Developer</string>
+    <string name="about_developer">Deweloperzy</string>
     <string name="about_support">Wsparcie i opinie</string>
     <string name="about_open_source">Licencje Open Source</string>
     <!-- Colors -->
@@ -236,4 +257,7 @@
     <string name="dark_theme">Motyw ciemny</string>
     <string name="dark_theme_off">Zawsze wył.</string>
     <string name="dark_theme_on">Zawsze włą.</string>
+    <string name="sick_mode_title">Tryb \"Sick\" jest aktywny</string>
+    <string name="sick_mode_description">HMA-OSS wykrył potencjalny konflikt modułów i ograniczył ich funkcjonalność</string>
+    <string name="sick_mode_notice">Konfiguracje HMA/HMAL są kompatybilne z HMA-OSS i możesz zacząć używać go z Twoim istniejącymi konfiguracjami, ale najpierw musisz odinstalować HMA/HMAL i zrebootować telefon</string>
 </resources>

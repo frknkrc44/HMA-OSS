@@ -4,6 +4,7 @@ import android.content.ContentProvider
 import android.content.ContentValues
 import android.net.Uri
 import android.os.Bundle
+import icu.nullptr.hidemyapplist.common.BackendRegistry
 
 class ServiceProvider : ContentProvider() {
 
@@ -22,7 +23,12 @@ class ServiceProvider : ContentProvider() {
     override fun call(method: String, arg: String?, extras: Bundle?): Bundle? {
         if (callingPackage != "android") return null
         val binder = extras?.getBinder("binder") ?: return null
-        ServiceClient.linkService(binder)
+        ServiceClient.linkService(
+            this,
+            binder,
+            extras.getString(BackendRegistry.EXTRA_BACKEND) ?: "zygisk",
+            extras.getInt(BackendRegistry.EXTRA_API_VERSION).takeIf { it > 0 },
+        )
         return Bundle()
     }
 }

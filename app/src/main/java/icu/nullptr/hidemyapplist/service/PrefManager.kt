@@ -108,12 +108,12 @@ object PrefManager {
         set(value) = pref.edit { putInt(PREF_ENABLE_INTERNET, value) }
 
     fun setEnableInternet(value: Boolean) {
-        enableInternet = if (value) {
-            Constants.ENABLE_INTERNET_ON
-        } else {
-            Constants.ENABLE_INTERNET_OFF
+            enableInternet = if (value) {
+                    Constants.ENABLE_INTERNET_ON
+                } else {
+                    Constants.ENABLE_INTERNET_OFF
+                }
         }
-    }
 
     var disableUpdate: Boolean
         get() = pref.getBoolean(PREF_DISABLE_UPDATE, false)

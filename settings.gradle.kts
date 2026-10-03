@@ -1,3 +1,5 @@
+import kotlin.io.path.Path
+
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
@@ -5,6 +7,8 @@ pluginManagement {
         gradlePluginPortal()
         google()
         mavenCentral()
+        mavenLocal()
+        maven("https://jitpack.io")
         maven("https://mirrors.cloud.tencent.com/nexus/repository/maven-public")
         maven("https://maven.aliyun.com/repository/public")
     }
@@ -15,10 +19,17 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        mavenLocal()
+        maven("https://jitpack.io")
         maven("https://mirrors.cloud.tencent.com/nexus/repository/maven-public")
         maven("https://maven.aliyun.com/repository/public")
-        maven("https://jitpack.io")
-        maven("https://api.xposed.info/")
+    }
+
+    versionCatalogs {
+        create("androidvmtools") {
+            from(files(
+                Path(rootDir.path, "external", "AndroidVMTools", "gradle", "libs.versions.toml")))
+        }
     }
 }
 
@@ -27,5 +38,7 @@ rootProject.name = "HMA-OSS"
 include(
     ":app",
     ":common",
-    ":xposed"
+    ":stub",
+    ":xposed",
+    ":zygote",
 )

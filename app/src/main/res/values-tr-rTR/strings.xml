@@ -38,7 +38,6 @@
     <string name="home_xposed_not_activated">Modül Etkin Değil</string>
     <string name="home_xposed_service_on">Sistem servisi çalışıyor [%d]</string>
     <string name="home_xposed_service_off">Sistem servisi çalışmıyor</string>
-    <string name="home_xposed_service_old">Modül güncellendi, yeniden başlatma gerekiyor</string>
     <string name="home_xposed_filter_count">HMA-OSS toplam %d isteği filtreledi</string>
     <string name="home_manage">Yönet</string>
     <string name="home_detection_test">Tespit testi</string>
@@ -56,6 +55,20 @@
     <string name="home_exported">Yapılandırma yedeklendi</string>
     <string name="home_new_update">Yeni güncelleme mevcut: %s</string>
     <string name="home_update">Güncelleme: %s</string>
+    <string name="home_migrate_data_fix_button">Sorunu düzelt</string>
+    <string name="home_migrate_data">Veriyi aktar</string>
+    <string name="home_migrate_data_summary">İki seçenekte de HMA/HMAL\'yi kaldırmaya yönlendirileceksiniz. Eski veriyi geri yüklemek istiyor musunuz?</string>
+    <string name="home_migrate_data_failed">Veriyi kopyalama başarısız oldu ya da birden fazla HMA/HMAL bulundu.</string>
+    <string name="home_migrate_data_completed">Başarılı! Cihazınızı yeniden başlatın.</string>
+    <string name="home_migrate_uninstall_only">Sadece kaldır</string>
+    <!-- Backup & Restore -->
+    <string name="backup_restore_backup_settings">Ayarları yedekle</string>
+    <string name="backup_restore_restore_settings">Ayarları geri yükle</string>
+    <string name="backup_restore_apps">Uygulama yapılandırmaları</string>
+    <string name="backup_restore_templates">Şablonlar</string>
+    <string name="backup_restore_settings_templates">Ayarlar şablonları</string>
+    <string name="backup_restore_append">Birleştir</string>
+    <string name="backup_restore_items_count">%d öğe</string>
     <!-- App select -->
     <string name="list_show_system">Sistem uygulamalarını göster</string>
     <string name="list_sorting">Sıralama</string>
@@ -116,6 +129,7 @@
     <string name="title_preset">Ön ayarlar</string>
     <string name="title_settings_preset">Ayarlar ön ayarları</string>
     <string name="title_preset_manage">Ön ayarları göster</string>
+    <string name="title_ignored_apps_for_presets">Yoksayılan uygulamalar</string>
     <string name="preset_xposed">LSPosed/Xposed modülleri</string>
     <string name="preset_root_apps">Root yöneticileri/Rootlu uygulamalar</string>
     <string name="preset_custom_rom">Özel ROM uygulamaları</string>
@@ -171,12 +185,16 @@
     <string name="settings_clear_uninstalled_app_configs">Kaldırılmış uygulama yapılandırmalarını temizle</string>
     <string name="settings_clear_uninstalled_app_configs_summary">Bu seçenek kalıntılar olmadan bir yapılandırma oluşturmanıza izin verir ancak uygulamaları tekrar kurduğunuzda bir daha yapılandırmalısınız.</string>
     <string name="settings_no_undone_warning">Bu işlem geri alınamaz.</string>
-    <string name="settings_package_query_workaround">Alternatif paket sorgusu</string>
-    <string name="settings_package_query_workaround_summary">Uygulama içindeki paket listesi doğru şekilde görünüyorsa bu özelliği etkinleştirmeyin.</string>
     <string name="settings_launcher_icon">Başlatıcı simgesi</string>
     <string name="settings_error_only_log">Sadece hataları kaydet</string>
+    <string name="settings_disable_hooks">Özellikleri devre dışı bırak</string>
+    <string name="settings_disable_hooks_summary">Diğer modüllerle çakışan bir fonksiyon varsa bunları devre dışı bırakabilirsiniz</string>
     <string name="settings_enable_internet">Internet bağlantısını etkinleştir</string>
     <string name="settings_enable_internet_summary">Bu uygulama özelliği kapattığınızda Internet\'e bağımlı bütün özelliklerini kaybedecek.</string>
+    <string name="settings_default_config">Yeni uygulamalar için varsayılan yapılandırma</string>
+    <string name="settings_default_config_summary">Burada ayarlanan yapılandırma önceden yapılandırılmamış bütün yeni uygulamalara uygulanacak.</string>
+    <string name="settings_webview_protection">WebView koruması</string>
+    <string name="settings_webview_protection_summary">Bu seçenek yanlışlıkla tarayıcı ya da WebView sağlayıcılarını hedef aldığınızda ya da gizlediğinizde oluşabilecek çökmeleri önler</string>
     <string name="settings_language">Dil</string>
     <string name="settings_translate">Çeviriye katkıda bulun</string>
     <string name="settings_translate_summary">%s’i kendi dilinize çevirmemize yardımcı olun</string>
@@ -187,9 +205,9 @@
     <string name="settings_pure_black_dark_theme">Saf siyah koyu tema</string>
     <string name="settings_pure_black_dark_theme_summary">Koyu tema etkinse saf siyah temayı kullan</string>
     <string name="settings_service">Servis</string>
-    <string name="settings_stop_system_service">Sistem servisini durdur</string>
-    <string name="settings_stop_system_service_summary">Servisi yeniden başlatmak için yeniden başlatma gerekiyor</string>
-    <string name="settings_is_clean_env">Aynı zamanda çalışma zamanı ortamını da temizlemek istiyor musunuz?</string>
+    <string name="settings_reset_default">Varsayılanlara sıfırla</string>
+    <string name="settings_reset_default_summary">Bu seçenek bütün yapılandırmayı temizleyip baştan başlamanızı sağlar</string>
+    <string name="settings_irreversible_confirmation">Bu eylem geri alınamaz. Emin misiniz?</string>
     <string name="settings_is_clean_env_summary">/data/misc/hide_my_applist_* içindeki sistem servisi önbelleğini kaldırır. Bu, bir sonraki yeniden başlatmadan sonra modül uygulaması el ile başlatılmalıdır ve müdahale sayımları da temizlenecektir.</string>
     <string name="settings_force_clean_env">Çalışma zamanı ortamını zorla temizle (root)</string>
     <string name="settings_force_clean_env_summary">Sadece sistem servisi başlatılamazsa bu seçeneği kullanın, aksi takdirde yukarıdaki seçeneği tıklayın.</string>
@@ -209,6 +227,9 @@
     <string name="about_how_to_use_description_1">        \"Şablonları Yönet\" bölümünde şablonlar oluşturabilirsiniz.\nSonra \"Uygulamaları Yönet\" bölümünde uygulamalara şablonları uygulayabilirsiniz. (Hedefler için ek uygulamalar da seçebilirsiniz.)\nXposed modül kapsamında/beyaz listede YALNIZCA \"Sistem Çerçevesi\"ni işaretlemelisiniz.
     </string>
     <string name="about_how_to_use_description_2">        Yapılandırma değişiklikleri gerçek zamanlı olarak etkilidir.
+    </string>
+    <string name="about_how_to_use_description_3">
+        Bu uygulama artık Zygisk modülünün bir yöneticisi olarak çalışıyor ve bu yöneticinin çalışması için ayrı bir Zygisk modülüne ihtiyacınız olacak.
     </string>
     <string name="about_translator">Çevirmen</string>
     <string name="about_developer">Geliştirici</string>
@@ -238,4 +259,7 @@
     <string name="dark_theme">Koyu tema</string>
     <string name="dark_theme_off">Her zaman kapalı</string>
     <string name="dark_theme_on">Her zaman açık</string>
+    <string name="sick_mode_title">Hasta modu etkin</string>
+    <string name="sick_mode_description">HMA-OSS potansiyel çakışabilecek modüller bulduğundan ötürü özelliklerini kısıtladı</string>
+    <string name="sick_mode_notice">HMA/HMAL yapılandırmaları HMA-OSS ile uyumludur ve önceki yapılandırma yedeğini bu modülde kullanabilirsiniz ancak öncesinde HMA/HMAL\'yi kaldırıp yeniden başlatmanız gerekiyor</string>
 </resources>

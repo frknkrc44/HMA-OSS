@@ -2,14 +2,26 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!--
+        This permission is used for:
+        - Check the updates
+        - Load the translator images
+
+        And it is your choice to enable its functionality in the app's settings
+    -->
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- This permission is used for make the package list changed listener work -->
     <uses-permission
         android:name="android.permission.QUERY_ALL_PACKAGES"
         tools:ignore="PackageVisibilityPolicy,QueryAllPackagesPermission" />
 
+    <!-- This permission is used for uninstalling the conflicted packages -->
+    <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
+
     <application
         android:name="icu.nullptr.hidemyapplist.MyApp"
+        android:description="@string/xposed_module_description"
         android:allowBackup="true"
         android:fullBackupOnly="true"
         android:enableOnBackInvokedCallback="true"
@@ -22,12 +34,7 @@
             android:name="org.frknkrc44.hma_oss.ui.activity.MainActivity"
             android:exported="true"
             android:configChanges="assetsPaths|colorMode|density|fontScale|fontWeightAdjustment|grammaticalGender|keyboard|keyboardHidden|layoutDirection|locale|mcc|mnc|navigation|orientation|resourcesUnused|screenLayout|screenSize|smallestScreenSize|touchscreen|uiMode"
-            android:windowSoftInputMode="adjustPan">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="de.robv.android.xposed.category.MODULE_SETTINGS" />
-            </intent-filter>
-        </activity>
+            android:windowSoftInputMode="adjustPan" />
 
         <activity-alias
             android:name=".MainActivityLauncher"
@@ -79,7 +86,7 @@
             android:name=".MainActivityLauncherAlt4"
             android:exported="true"
             android:enabled="false"
-            android:icon="@mipmap/ic_launcher_alt_5"
+            android:icon="@mipmap/ic_launcher_alt_4"
             android:targetActivity="org.frknkrc44.hma_oss.ui.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -90,20 +97,7 @@
         <provider
             android:name="icu.nullptr.hidemyapplist.service.ServiceProvider"
             android:authorities="${applicationId}.ServiceProvider"
-            android:exported="true"
-            tools:ignore="ExportedContentProvider" />
+            android:exported="false" />
 
-        <meta-data
-            android:name="xposedmodule"
-            android:value="true" />
-        <meta-data
-            android:name="xposeddescription"
-            android:value="Hide your app list, settings, package installers and more." />
-        <meta-data
-            android:name="xposedminversion"
-            android:value="82" />
-        <meta-data
-            android:name="xposedscope"
-            android:resource="@array/xposed_scope" />
     </application>
 </manifest>

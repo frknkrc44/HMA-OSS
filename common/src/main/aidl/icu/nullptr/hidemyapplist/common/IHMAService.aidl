@@ -2,16 +2,16 @@ package icu.nullptr.hidemyapplist.common;
 
 interface IHMAService {
 
-    void stopService(boolean cleanEnv) = 0;
+    // void stopService(boolean cleanEnv) = 0;
 
-    void writeConfig(String json) = 1;
+    // void writeConfig(String json) = 1;
 
     // config version
     int getServiceVersion() = 2;
 
     int getFilterCount() = 3;
 
-    String getLogs() = 4;
+    // String getLogs() = 4;
 
     void clearLogs() = 5;
 
@@ -19,7 +19,7 @@ interface IHMAService {
 
     String[] getPackagesForPreset(String presetName) = 7;
 
-    String readConfig() = 8;
+    // String readConfig() = 8;
 
     void forceStop(String packageName, int userId) = 9;
 
@@ -42,10 +42,19 @@ interface IHMAService {
     // service version
     String getServiceVersionName() = 18;
 
-    // only used for Zygisk
-    // String[] getLoadedHooks() = 19;
+    String[] getLoadedHooks() = 19;
 
     ParcelFileDescriptor readFD(int type) = 20;
 
     void writeFD(int type, in ParcelFileDescriptor fd) = 21;
+
+    int getManagerWorkMode() = 22;
+
+    void startMainActivityAsUser(String packageName, int userId) = 23;
+
+    boolean migrateData(String packageName) = 24;
+
+    void reloadConfigFromFile() = 25;
+
+    int[] getUserProfiles() = 26;
 }

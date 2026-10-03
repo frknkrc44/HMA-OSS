@@ -13,12 +13,6 @@
     <a href="https://github.com/frknkrc44/HMA-OSS/releases/latest" style="text-decoration:none">
       <img src="https://img.shields.io/github/v/release/frknkrc44/HMA-OSS?label=Release">
     </a>
-    <a href="https://apt.izzysoft.de/fdroid/index/apk/org.frknkrc44.hma_oss" style="text-decoration:none">
-      <img src="https://img.shields.io/endpoint?url=https://apt.izzysoft.de/fdroid/api/v1/shield/org.frknkrc44.hma_oss&label=IzzyOnDroid">
-    </a>
-    <a href="https://shields.rbtlog.dev/org.frknkrc44.hma_oss" style="text-decoration:none">
-      <img src="https://shields.rbtlog.dev/simple/org.frknkrc44.hma_oss">
-    </a>
     <a href="https://github.com/frknkrc44/HMA-OSS/releases/latest" style="text-decoration:none">
       <img src="https://img.shields.io/github/downloads/frknkrc44/HMA-OSS/total">
     </a>
@@ -38,6 +32,8 @@
 - [Türkçe](README_tr.md)
 - [日本語](README_ja.md)
 - **Indonesia**
+- [Português](README_pt.md)
+- [Français](README_fr.md)
 
 ## Tentang modul ini
 
@@ -45,7 +41,7 @@ Meskipun merupakan praktik yang buruk untuk mendeteksi pemasangan aplikasi terte
 
 Selain itu, beberapa aplikasi menggunakan berbagai celah untuk memperoleh daftar aplikasi anda, untuk menggunakannya sebagai data fingerprinting atau untuk tujuan lain yang tidak diinginkan.
 
-Modul ini dapat berfungsi sebagai modul Xposed untuk menyembunyikan aplikasi atau menolak permintaan daftar aplikasi.
+Modul ini dapat berfungsi sebagai modul Zygisk untuk menyembunyikan aplikasi atau menolak permintaan daftar aplikasi.
 
 ## Saya ingin berkontribusi dalam terjemahan
 Anda dapat berkontribusi dalam penerjemahan [Di Sini](https://crowdin.com/project/frknkrc44-hma-oss).

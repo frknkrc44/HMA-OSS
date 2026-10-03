@@ -38,7 +38,6 @@
     <string name="home_xposed_not_activated">Modulo non attivato</string>
     <string name="home_xposed_service_on">Servizio di sistema in esecuzione [%d]</string>
     <string name="home_xposed_service_off">Servizio di sistema stoppato</string>
-    <string name="home_xposed_service_old">Modulo aggiornato, in attesa di riavvio</string>
     <string name="home_xposed_filter_count">HMA-OSS ha filtrato in totale %d richieste</string>
     <string name="home_manage">Gestisci</string>
     <string name="home_detection_test">Test di rilevamento</string>
@@ -56,6 +55,20 @@
     <string name="home_exported">Configurazione salvata</string>
     <string name="home_new_update">Nuovo aggiornamento disponibile: %s</string>
     <string name="home_update">Aggiornamento: %s</string>
+    <string name="home_migrate_data_fix_button">Risolvi il problema</string>
+    <string name="home_migrate_data">Migra dati</string>
+    <string name="home_migrate_data_summary">In entrambe le opzioni ti verrà anche chiesto di disinstallare HMA/HMAL. Vuoi migrare i vecchi dati?</string>
+    <string name="home_migrate_data_failed">Impossibile copiare i dati o trovato più di un HMA/HMAL.</string>
+    <string name="home_migrate_data_completed">Fatto! Devi riavviare il dispositivo.</string>
+    <string name="home_migrate_uninstall_only">Solo disinstallazione</string>
+    <!-- Backup & Restore -->
+    <string name="backup_restore_backup_settings">Impostazioni backup</string>
+    <string name="backup_restore_restore_settings">Ripristina impostazioni</string>
+    <string name="backup_restore_apps">Configurazioni app</string>
+    <string name="backup_restore_templates">Modelli</string>
+    <string name="backup_restore_settings_templates">Impostazioni modelli</string>
+    <string name="backup_restore_append">Aggiungi</string>
+    <string name="backup_restore_items_count">%d elementi</string>
     <!-- App select -->
     <string name="list_show_system">Mostra app di sistema</string>
     <string name="list_sorting">Ordinamento</string>
@@ -116,6 +129,7 @@
     <string name="title_preset">Presets</string>
     <string name="title_settings_preset">Impostazioni preset</string>
     <string name="title_preset_manage">Mostra preset</string>
+    <string name="title_ignored_apps_for_presets">App ignorate</string>
     <string name="preset_xposed">Moduli LSPosed/Xposed</string>
     <string name="preset_root_apps">Root managers/Rooted apps</string>
     <string name="preset_custom_rom">App ROM custom</string>
@@ -171,12 +185,16 @@
     <string name="settings_clear_uninstalled_app_configs">Cancella le configurazioni delle app disinstallate</string>
     <string name="settings_clear_uninstalled_app_configs_summary">Questa opzione consente di creare una configurazione senza residui, ma sarà necessario riconfigurare le app quando le installerai di nuovo.</string>
     <string name="settings_no_undone_warning">Questa azione non può essere annullata.</string>
-    <string name="settings_package_query_workaround">Interrogazione alternativa del pacchetto</string>
-    <string name="settings_package_query_workaround_summary">Non abilitare questa opzione se vedi correttamente l\'elenco dei pacchetti in questa app.</string>
     <string name="settings_launcher_icon">Icona launcher</string>
     <string name="settings_error_only_log">Registro solo errori</string>
+    <string name="settings_disable_hooks">Disabilita funzioni</string>
+    <string name="settings_disable_hooks_summary">È possibile disabilitare alcune funzioni quando sono in conflitto con altri moduli</string>
     <string name="settings_enable_internet">Abilita connessione Internet</string>
     <string name="settings_enable_internet_summary">Questa app perderà tutte le funzionalità relative a Internet quando hai disabilitato questa opzione.</string>
+    <string name="settings_default_config">Configurazione app per nuove app</string>
+    <string name="settings_default_config_summary">Questa opzione applicherà la configurazione definita a tutte le nuove app, ma manterrà la configurazione esistente per le nuove app se ne hai applicata una in precedenza.</string>
+    <string name="settings_webview_protection">Protezione WebView</string>
+    <string name="settings_webview_protection_summary">Questo aggiungerà ulteriore protezione contro gli arresti anomali causati dall\'occultamento/targeting di WebView o dei browser</string>
     <string name="settings_language">Lingua</string>
     <string name="settings_translate">Aiuta a tradurre</string>
     <string name="settings_translate_summary">Aiutaci a tradurre %s nella tua lingua</string>
@@ -187,9 +205,9 @@
     <string name="settings_pure_black_dark_theme">Tema nero</string>
     <string name="settings_pure_black_dark_theme_summary">Usa tema nero se il tema scuro è abilitato</string>
     <string name="settings_service">Servizio</string>
-    <string name="settings_stop_system_service">Stoppa servizio di sistema</string>
-    <string name="settings_stop_system_service_summary">È necessario riavviare per riavviare il servizio</string>
-    <string name="settings_is_clean_env">Pulire l\'ambiente di runtime allo stesso tempo?</string>
+    <string name="settings_reset_default">Reimposta predefinite</string>
+    <string name="settings_reset_default_summary">Questa opzione consente di cancellare tutta la configurazione e iniziare da zero</string>
+    <string name="settings_irreversible_confirmation">Questa azione è irreversibile. Sei sicuro?</string>
     <string name="settings_is_clean_env_summary">Rimuove la cache del servizio di sistema in /data/misc/hide_my_applist_*. Questo significa che è necessario avviare l\'app del modulo una volta manualmente dopo il prossimo riavvio per abilitare le intercettazioni e anche i conteggi delle intercettazioni verranno resettati.</string>
     <string name="settings_force_clean_env">Forza pulizia ambiente runtime (root)</string>
     <string name="settings_force_clean_env_summary">Solo se il servizio di sistema non riesce ad avviarsi, altrimenti devi cliccare l\'opzione sopra.</string>
@@ -209,6 +227,9 @@
     <string name="about_how_to_use_description_1">        Puoi creare template in \"Gestione template\".\nPoi applica i template alle app in \"Gestione app\". (Puoi anche selezionare app extra come target.)\nDovresti controllare e SOLO controllare \"System Framework\" in Xposed module scope / whitelist.
     </string>
     <string name="about_how_to_use_description_2">        Modifiche alla configurazione sono effettive in tempo reale.
+    </string>
+    <string name="about_how_to_use_description_3">
+Questa applicazione funge da manager del modulo Zygisk, quindi è necessario un modulo Zygisk separato per far funzionare questo manager.
     </string>
     <string name="about_translator">Traduzione</string>
     <string name="about_developer">Sviluppatore</string>
@@ -238,4 +259,7 @@
     <string name="dark_theme">Tema dark</string>
     <string name="dark_theme_off">Sempre spento</string>
     <string name="dark_theme_on">Sempre acceso</string>
+    <string name="sick_mode_title">Modalità malattia attivata</string>
+    <string name="sick_mode_description">HMA-OSS ha rilevato moduli potenzialmente in conflitto e ne ha limitato la funzionalità</string>
+    <string name="sick_mode_notice">Le configurazioni HMA/HMAL sono compatibili con HMA-OSS e puoi iniziare a usare con la tua configurazione esistente, ma devi disinstallare HMA/HMAL poi riavviare all\'inizio</string>
 </resources>

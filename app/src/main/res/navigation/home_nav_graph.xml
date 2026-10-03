@@ -10,14 +10,14 @@
         android:label="@string/title_home" />
 
     <fragment
-        android:id="@+id/nav_logs"
-        android:name="icu.nullptr.hidemyapplist.ui.fragment.LogsFragment"
-        android:label="@string/title_logs" />
+        android:id="@+id/nav_fix_issue"
+        android:name="org.frknkrc44.hma_oss.ui.fragment.FixIssueFragment"
+        android:label="@string/home_migrate_data_fix_button" />
 
     <fragment
-        android:id="@+id/nav_stats"
-        android:name="org.frknkrc44.hma_oss.ui.fragment.StatsFragment"
-        android:label="@string/title_filter_logs" />
+        android:id="@+id/nav_logs"
+        android:name="org.frknkrc44.hma_oss.ui.fragment.TabbedLogsFragment"
+        android:label="@string/title_logs" />
 
     <fragment
         android:id="@+id/nav_settings"
@@ -156,7 +156,7 @@
             app:argType="string" />
 
         <argument
-            android:name="bulkConfig"
+            android:name="inputConfig"
             app:argType="string"
             app:nullable="true"
             android:defaultValue="@null" />
@@ -168,9 +168,15 @@
             android:defaultValue="@null" />
 
         <argument
-            android:name="bulkConfigMode"
-            app:argType="boolean"
-            android:defaultValue="false" />
+            android:name="mode"
+            app:argType="integer"
+            android:defaultValue="0" />
+
+        <argument
+            android:name="customSubtitle"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
 
     </fragment>
 
@@ -201,6 +207,16 @@
         <argument
             android:name="checked"
             app:argType="string[]" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_backup_restore"
+        android:name="org.frknkrc44.hma_oss.ui.fragment.BackupRestoreFragment">
+
+        <argument
+            android:name="isBackupMode"
+            app:argType="boolean" />
 
     </fragment>
 

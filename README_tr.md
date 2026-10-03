@@ -13,12 +13,6 @@
     <a href="https://github.com/frknkrc44/HMA-OSS/releases/latest" style="text-decoration:none">
       <img src="https://img.shields.io/github/v/release/frknkrc44/HMA-OSS?label=Release">
     </a>
-    <a href="https://apt.izzysoft.de/fdroid/index/apk/org.frknkrc44.hma_oss" style="text-decoration:none">
-      <img src="https://img.shields.io/endpoint?url=https://apt.izzysoft.de/fdroid/api/v1/shield/org.frknkrc44.hma_oss&label=IzzyOnDroid">
-    </a>
-    <a href="https://shields.rbtlog.dev/org.frknkrc44.hma_oss" style="text-decoration:none">
-      <img src="https://shields.rbtlog.dev/simple/org.frknkrc44.hma_oss">
-    </a>
     <a href="https://github.com/frknkrc44/HMA-OSS/releases/latest" style="text-decoration:none">
       <img src="https://img.shields.io/github/downloads/frknkrc44/HMA-OSS/total">
     </a>
@@ -38,6 +32,8 @@
 - **Türkçe**
 - [日本語](README_ja.md)
 - [Indonesia](README_id.md)
+- [Português](README_pt.md)
+- [Français](README_fr.md)
 
 ## Bu modül hakkında
 
@@ -45,7 +41,7 @@ Belirli uygulamaların kurulu olup olmadığını tespit etmek kötü bir yönte
 
 Ayrıca bazı uygulamalar uygulama listenizi ele geçirmek, parmak izi verileri olarak kullanmak veya başka kötü niyetli amaçlar için çeşitli açıklardan yararlanır.
 
-Bu modül, uygulamaları gizlemek veya uygulama listesi isteklerini reddetmek için çalışabilen bir Xposed modülüdür.
+Bu modül, uygulamaları gizlemek veya uygulama listesi isteklerini reddetmek için çalışabilen bir Zygisk modülüdür.
 
 ## Çeviriye katkıda bulunmak istiyorum
 [Buraya tıklayarak](https://crowdin.com/project/frknkrc44-hma-oss) çeviriye katkıda bulunabilirsiniz. 
