@@ -1,6 +1,7 @@
 [versions]
 agp = "9.4.1"
-kotlin = "2.4.20"
+#noinspection NewerVersionAvailable
+kotlin = "2.3.+"
 material = "1.14.0"
 hidden-api = "4.4.0"
 androidx-navigation = "2.10.2"
