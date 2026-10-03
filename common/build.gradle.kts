@@ -1,16 +1,15 @@
 plugins {
     alias(libs.plugins.agp.lib)
     alias(libs.plugins.refine)
-    alias(libs.plugins.kotlin)
     alias(libs.plugins.kotlin.serialization)
 }
 
-val configVerCode: Int by rootProject.extra
-val serviceVerCode: Int by rootProject.extra
-val minBackupVerCode: Int by rootProject.extra
-val appPackageName: String by rootProject.extra
-val appVerName: String by rootProject.extra
-val appVerCode: Int by rootProject.extra
+val configVerCode =  rootProject.extra["configVerCode"] as Int
+val serviceVerCode = rootProject.extra["serviceVerCode"] as Int
+val minBackupVerCode = rootProject.extra["minBackupVerCode"] as Int
+val appPackageName = rootProject.extra["appPackageName"] as String
+val appVerName = rootProject.extra["appVerName"] as String
+val appVerCode = rootProject.extra["appVerCode"] as Int
 
 android {
     namespace = "$appPackageName.common"
