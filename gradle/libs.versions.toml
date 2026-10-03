@@ -5,7 +5,7 @@ agp = "8.13.2"
 kotlin = "2.3.21"
 material = "1.14.0"
 hidden-api = "4.4.0"
-androidx-navigation = "2.10.1"
+androidx-navigation = "2.10.2"
 vbpd = "2.0.4"
 r8_annotations = "v1.0.1"
 zygoteloader = "2a2160f"
@@ -24,7 +24,7 @@ com-github-aerathstuff-zygoteloader = { id = "com.github.aerath-stuff.ZygoteLoad
 
 [libraries]
 androidx-appcompat-appcompat = { group = "androidx.appcompat", name = "appcompat", version = "1.8.0" }
-androidx-annotation-jvm = { group = "androidx.annotation", name = "annotation-jvm", version = "1.10.0" }
+androidx-annotation-jvm = { group = "androidx.annotation", name = "annotation-jvm", version = "1.11.0" }
 androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "androidx-navigation" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidx-navigation" }
 androidx-preference-ktx = { module = "androidx.preference:preference-ktx", version = "1.2.1" }
