@@ -156,6 +156,8 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
             clipToOutline = true
 
             addLibraryItem(this, "ZygoteLoader (fork)", "MIT License", "https://github.com/aerath-stuff/ZygoteLoader")
+            addLibraryItem(this, "AndroidVMTools (fork)", "MIT License", "https://github.com/aerath-stuff/AndroidVMTools")
+            addLibraryItem(this, "PanamaPort (fork)", "MIT License", "https://github.com/aerath-stuff/PanamaPort")
             addLibraryItem(this, "Coil", "Apache-2.0 License", "https://github.com/coil-kt/coil")
         }
     }

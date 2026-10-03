@@ -1,5 +1,7 @@
+import com.android.build.api.dsl.ApkSigningConfig
 import com.android.build.api.dsl.ApplicationExtension
-import com.android.build.gradle.BaseExtension
+import com.android.build.api.dsl.CommonExtension
+import com.android.build.api.dsl.LibraryExtension
 import java.util.Properties
 
 plugins {
@@ -21,13 +23,14 @@ fun String.execute(currentWorkingDir: File = file("./")): String {
 val localProperties = Properties()
 localProperties.load(file("local.properties").inputStream())
 val ciBuild = providers.environmentVariable("CI").isPresent
-val officialBuild by extra(localProperties.getProperty("officialBuild", "false") == "true")
+val officialBuild = localProperties.getProperty("officialBuild", "false") == "true"
+extra["officialBuild"] = officialBuild
 
-@Suppress("unused")
-val crowdinProjectId: String by extra(localProperties.getProperty("crowdinProjectId", ""))
+val crowdinProjectId: String = localProperties.getProperty("crowdinProjectId", "")
+extra["crowdinProjectId"] = crowdinProjectId
 
-@Suppress("unused")
-val crowdinApiKey: String by extra(localProperties.getProperty("crowdinApiKey", ""))
+val crowdinApiKey: String = localProperties.getProperty("crowdinApiKey", "")
+extra["crowdinApiKey"] = crowdinApiKey
 
 fun getUncommittedSuffix(): String {
     if (officialBuild) return ""
@@ -71,11 +74,18 @@ val gitCommitCount = "git rev-list refs/remotes/origin/master --count".execute()
 // 432 is the count of commits before license changed
 val gitCommitCountAfterOss = gitCommitCount - 432
 
-val minSdkVer by extra(29)
-val targetSdkVer by extra(37)
+val minSdkVer = 29
+extra["minSdkVer"] = minSdkVer
+val targetSdkVer = 37
+extra["targetSdkVer"] = targetSdkVer
 
-val appVerCode by extra(gitCommitCount + 0x6f7373) // commit count + 0xOSS
-val appVerName by extra(gitVersionName)
+val minorSdkVer = 2
+extra["minorSdkVer"] = minorSdkVer
+
+val appVerCode = gitCommitCount + 0x6f7373 // commit count + 0xOSS
+extra["appVerCode"] = appVerCode
+val appVerName = gitVersionName
+extra["appVerName"] = appVerName
 
 /*
  * configVerCode, serviceVerCode and minBackupVerCode is used by other build.gradle.kts files
@@ -83,20 +93,20 @@ val appVerName by extra(gitVersionName)
  * DO NOT REMOVE THESE LINES
 */
 
-@Suppress("unused")
-val configVerCode by extra(93)
+val configVerCode = 93
+extra["configVerCode"] = configVerCode
 
-@Suppress("unused")
-val serviceVerCode by extra(105)
+val serviceVerCode = 105
+extra["serviceVerCode"] = serviceVerCode
 
-@Suppress("unused")
-val minBackupVerCode by extra(65)
+val minBackupVerCode = 65
+extra["minBackupVerCode"] = minBackupVerCode
 
-@Suppress("unused")
-val appPackageName by extra("org.frknkrc44.hma_oss")
+val appPackageName = "org.frknkrc44.hma_oss"
+extra["appPackageName"] = appPackageName
 
-@Suppress("unused")
-val localBuild by extra(localProperties.getProperty("localBuild", "false") == "true")
+val localBuild = localProperties.getProperty("localBuild", "false") == "true"
+extra["localBuild"] = localBuild
 
 val androidSourceCompatibility = JavaVersion.VERSION_21
 val androidTargetCompatibility = JavaVersion.VERSION_21
@@ -106,50 +116,54 @@ tasks.register("clean", Delete::class) {
     delete(rootProject.layout.buildDirectory)
 }
 
+fun Project.createProvidedSigningConfig(android: CommonExtension): ApkSigningConfig? {
+    val keystorePath = localProperties.getProperty("fileDir") ?: return null
+
+    logger.lifecycle("Using provided signing key")
+
+    return android.signingConfigs.create("config").apply {
+        storeFile = file(keystorePath)
+        storePassword = localProperties.getProperty("storePassword")
+        keyAlias = localProperties.getProperty("keyAlias")
+        keyPassword = localProperties.getProperty("keyPassword")
+    }
+}
+
+private fun CommonExtension.applySharedAndroidConfig() {
+    compileSdk {
+        version = release(targetSdkVer) {
+            minorApiLevel = minorSdkVer
+        }
+    }
+
+    compileOptions.sourceCompatibility = androidSourceCompatibility
+    compileOptions.targetCompatibility = androidTargetCompatibility
+}
+
 fun Project.configureBaseExtension() {
-    extensions.findByType<BaseExtension>()?.run {
-        compileSdkVersion(targetSdkVer)
+    extensions.findByType<ApplicationExtension>()?.run {
+        applySharedAndroidConfig()
 
         defaultConfig {
             minSdk = minSdkVer
             targetSdk = targetSdkVer
             versionCode = appVerCode
             versionName = appVerName
-
-            consumerProguardFiles("proguard-rules.pro")
         }
 
-        val config = localProperties.getProperty("fileDir")?.let {
-            logger.lifecycle("Using provided signing key")
-
-            signingConfigs.create("config") {
-                storeFile = file(it)
-                storePassword = localProperties.getProperty("storePassword")
-                keyAlias = localProperties.getProperty("keyAlias")
-                keyPassword = localProperties.getProperty("keyPassword")
-            }
-        }
+        val providedSigningConfig = createProvidedSigningConfig(this)
 
         buildTypes {
             all {
-                signingConfig = config ?: signingConfigs["debug"]
+                signingConfig = providedSigningConfig ?: signingConfigs.getByName("debug")
             }
             named("release") {
                 isMinifyEnabled = true
-                proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            }
-        }
-
-        compileOptions {
-            sourceCompatibility = androidSourceCompatibility
-            targetCompatibility = androidTargetCompatibility
-        }
-    }
-
-    extensions.findByType<ApplicationExtension>()?.run {
-        buildTypes {
-            named("release") {
                 isShrinkResources = true
+                proguardFiles(
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro",
+                )
             }
         }
 
@@ -158,6 +172,30 @@ fun Project.configureBaseExtension() {
             includeInApk = false
             // Disables dependency metadata when building Android App Bundles (for Google Play)
             includeInBundle = false
+        }
+    }
+
+    extensions.findByType<LibraryExtension>()?.run {
+        applySharedAndroidConfig()
+
+        defaultConfig {
+            minSdk = minSdkVer
+            consumerProguardFiles("proguard-rules.pro")
+        }
+
+        val providedSigningConfig = createProvidedSigningConfig(this)
+
+        buildTypes {
+            all {
+                signingConfig = providedSigningConfig ?: signingConfigs.getByName("debug")
+            }
+            named("release") {
+                isMinifyEnabled = true
+                proguardFiles(
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro",
+                )
+            }
         }
     }
 }
