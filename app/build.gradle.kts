@@ -7,56 +7,19 @@ import java.net.URL
 plugins {
     alias(libs.plugins.agp.app)
     alias(libs.plugins.refine)
-    alias(libs.plugins.kotlin)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.nav.safeargs.kotlin)
-    alias(libs.plugins.materialthemebuilder)
 }
 
-materialThemeBuilder {
-    themes {
-        for ((name, color) in listOf(
-            "Red" to "F44336",
-            "Pink" to "E91E63",
-            "Purple" to "9C27B0",
-            "DeepPurple" to "673AB7",
-            "Indigo" to "3F51B5",
-            "Blue" to "2196F3",
-            "LightBlue" to "03A9F4",
-            "Cyan" to "00BCD4",
-            "Teal" to "009688",
-            "Green" to "4FAF50",
-            "LightGreen" to "8BC3A4",
-            "Lime" to "CDDC39",
-            "Yellow" to "FFEB3B",
-            "Amber" to "FFC107",
-            "Orange" to "FF9800",
-            "DeepOrange" to "FF5722",
-            "Brown" to "795548",
-            "BlueGrey" to "607D8F",
-            "Sakura" to "FF9CA8"
-        )) {
-            create("Material$name") {
-                lightThemeFormat = "ThemeOverlay.Light.%s"
-                darkThemeFormat = "ThemeOverlay.Dark.%s"
-                primaryColor = "#$color"
-            }
-        }
-    }
-    // Add Material Design 3 color tokens (such as palettePrimary100) in generated theme
-    // rikka.material >= 2.0.0 provides such attributes
-    generatePalette = false
-}
-
-val appPackageName: String by rootProject.extra
-val crowdinProjectId: String by rootProject.extra
-val crowdinApiKey: String by rootProject.extra
-val localBuild: Boolean by rootProject.extra
-val officialBuild: Boolean by rootProject.extra
+val appPackageName = rootProject.extra["appPackageName"] as String
+val crowdinProjectId = rootProject.extra["crowdinProjectId"] as String
+val crowdinApiKey = rootProject.extra["crowdinApiKey"] as String
+val localBuild = rootProject.extra["localBuild"] as Boolean
+val officialBuild = rootProject.extra["officialBuild"] as Boolean
 
 @Suppress("DEPRECATION")
 afterEvaluate {
-    val srcDir = android.sourceSets["main"].assets.srcDirs.first()
+    val srcDir = file(android.sourceSets["main"].assets.directories.first())
     logger.lifecycle("Asset dir: $srcDir")
     if (!srcDir.exists()) srcDir.mkdirs()
 
@@ -158,7 +121,7 @@ fun generateSupportedLocales(): String {
 
     appendLangCode("SYSTEM")
 
-    fileTree(android.sourceSets["main"].res.srcDirs.first()).files.mapNotNull {
+    fileTree(android.sourceSets["main"].res.directories.first()).files.mapNotNull {
         if (it.name == "strings.xml") {
             val baseName = it.parent.substringAfterLast(File.separator)
             if (baseName == "values") {

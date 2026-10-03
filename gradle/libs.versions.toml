@@ -1,6 +1,6 @@
 [versions]
 #noinspection GradleDependency,AndroidGradlePluginVersion
-agp = "8.13.2"
+agp = "9.4.1"
 #noinspection NewerVersionAvailable
 kotlin = "2.3.21"
 material = "1.14.0"
@@ -18,8 +18,6 @@ kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 nav-safeargs-kotlin = { id = "androidx.navigation.safeargs.kotlin", version.ref = "androidx-navigation" }
 refine = { id = "dev.rikka.tools.refine", version = "4.4.0" }
-# do not update until https://github.com/RikkaApps/MaterialThemeBuilder/pull/13 merged
-materialthemebuilder = { id = "dev.rikka.tools.materialthemebuilder", version = "1.5.1" }
 com-github-aerathstuff-zygoteloader = { id = "com.github.aerath-stuff.ZygoteLoader", version.ref = "zygoteloader" }
 
 [libraries]
