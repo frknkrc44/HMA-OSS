@@ -29,6 +29,10 @@ android {
     }
 }
 
+kotlin {
+    jvmToolchain(21)
+}
+
 tasks.clean {
     for (item in arrayOf("debug", "release")) {
         delete(File(android.sourceSets[item].assets.srcDirs.first(), "manager.apk"))
