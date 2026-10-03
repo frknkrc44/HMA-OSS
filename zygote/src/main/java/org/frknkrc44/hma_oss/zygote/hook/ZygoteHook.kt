@@ -72,7 +72,10 @@ class ZygoteHook : IFrameworkHook {
     }
 
     private fun hookIntoZygoteProcess(frame: EmulatedStackFrame) {
-        if (frame.type().parameterCount() < 3) {
+        val isModern = frame.type().parameterCount() < 3
+        logD(TAG) { "@startZygoteProcess: Starting ${frame.args.contentToString()}, modern: $isModern" }
+
+        if (isModern) {
             hookIntoZygoteProcessModern(frame)
         } else {
             hookIntoZygoteProcessLegacy(frame)
@@ -81,8 +84,6 @@ class ZygoteHook : IFrameworkHook {
 
     @Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN")
     private fun hookIntoZygoteProcessLegacy(frame: EmulatedStackFrame) {
-        logD(TAG) { "@startZygoteProcessLegacy: Starting ${frame.args.contentToString()}" }
-
         val caller = frame.args.lastOrNullWithType<String>() ?: return
         val isHookEnabled = service.isHookEnabled(caller)
         if (!isHookEnabled) return
@@ -107,14 +108,8 @@ class ZygoteHook : IFrameworkHook {
 
         if (pair.second < 0) return
 
-        var perms = service.getRestrictedZygotePermissions(caller) ?: return
+        val perms = getRestrictedZygotePermissions(caller) ?: return
         if (perms.isNotEmpty()) {
-            perms = perms.filter {
-                // reject if not available in GID_PAIRS, or it is APP_ZYGOTE_GID
-                Constants.GID_PAIRS.containsValue(it) || it == Constants.APP_ZYGOTE_GID
-            }
-            if (perms.isEmpty()) return
-
             val gIDs = frame.args[pair.second] as? IntArray ?: return
 
             logD(TAG) { "@startZygoteProcessLegacy: GIDs are ${gIDs.contentToString()}, removing $perms now" }
@@ -127,24 +122,25 @@ class ZygoteHook : IFrameworkHook {
      * This method is added on Android 17 QPR3 Beta 1
      */
     private fun hookIntoZygoteProcessModern(frame: EmulatedStackFrame) {
-        logD(TAG) { "@startZygoteProcessModern: Starting ${frame.args.contentToString()}" }
         val processParams = frame.getArgument(1) as ProcessParams
 
         val caller = processParams.packageName
         val isHookEnabled = service.isHookEnabled(caller)
         if (!isHookEnabled) return
 
-        fun makeProcessParamsBuilder(processParams: ProcessParams): ProcessParams.Builder {
-            val constructor = ProcessParams.Builder::class.java.getDeclaredConstructor(
-                ProcessParams::class.java
-            )
+        fun makeProcessParamsBuilder(): ProcessParams.Builder {
+            val constructor = ProcessParams.Builder::class.java
+                .getDeclaredConstructor(ProcessParams::class.java)
             ArtMethodUtils.makeExecutablePublic(constructor)
-            return constructor.newInstance(processParams) as ProcessParams.Builder
+            return (constructor.newInstance(processParams) as ProcessParams.Builder).apply {
+                // they don't set zygotePolicyFlags in that constructor, so an override maybe required
+                setZygotePolicyFlags(processParams.zygotePolicyFlags)
+            }
         }
 
         var builder: ProcessParams.Builder? = null
-        if (processParams.targetSdkVersion < Build.VERSION_CODES.R) {
-            builder = makeProcessParamsBuilder(processParams)
+        if (processParams.targetSdkVersion < Build.VERSION_CODES.R && processParams.isTopApp) {
+            builder = makeProcessParamsBuilder()
             builder.setBindMountAppsData(true)
         }
 
@@ -156,19 +152,12 @@ class ZygoteHook : IFrameworkHook {
             return runFinish()
         }
 
-        var perms = service.getRestrictedZygotePermissions(caller) ?: return runFinish()
+        val perms = getRestrictedZygotePermissions(caller) ?: return runFinish()
         if (perms.isNotEmpty()) {
-            perms = perms.filter {
-                // reject if not available in GID_PAIRS, or it is APP_ZYGOTE_GID
-                Constants.GID_PAIRS.containsValue(it) || it == Constants.APP_ZYGOTE_GID
-            }
-            if (perms.isEmpty()) return runFinish()
-
-            if (builder == null) builder = makeProcessParamsBuilder(processParams)
             val gIDs = processParams.gids
-
             logD(TAG) { "@startZygoteProcessModern: GIDs are ${gIDs.contentToString()}, removing $perms now" }
 
+            if (builder == null) builder = makeProcessParamsBuilder()
             builder.setGids(gIDs.filter { it !in perms }.toIntArray())
             service.increaseOthersFilterCount(caller)
         }
@@ -204,5 +193,12 @@ class ZygoteHook : IFrameworkHook {
         }
 
         return Pair(false, gIDsVarIndex)
+    }
+
+    private fun getRestrictedZygotePermissions(caller: String): List<Int>? {
+        return service.getRestrictedZygotePermissions(caller)?.filter {
+            // reject if not available in GID_PAIRS, or it is APP_ZYGOTE_GID
+            Constants.GID_PAIRS.containsValue(it) || it == Constants.APP_ZYGOTE_GID
+        }
     }
 }
