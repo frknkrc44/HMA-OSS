@@ -158,7 +158,6 @@ dependencies {
 
     implementation(libs.androidx.annotation.jvm)
     implementation(libs.io.github.vova7878.r8annotations)
-    implementation(libs.dev.rikka.hidden.compat)
 
     api(androidvmtools.panama.core)
     api(androidvmtools.panama.unsafe)

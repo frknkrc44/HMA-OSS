@@ -6,7 +6,6 @@ import java.net.URL
 
 plugins {
     alias(libs.plugins.agp.app)
-    alias(libs.plugins.refine)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.nav.safeargs.kotlin)
 }
@@ -89,10 +88,6 @@ android {
         viewBinding = true
     }
 
-    base {
-        archivesName = "${rootProject.name}-${defaultConfig.versionName!!.replace("/", "_")}"
-    }
-
     packaging {
         dex.useLegacyPackaging = true
         resources {
@@ -104,6 +99,10 @@ android {
             )
         }
     }
+}
+
+base {
+    archivesName = "${rootProject.name}-${android.defaultConfig.versionName!!.replace("/", "_")}"
 }
 
 kotlin {
@@ -151,7 +150,6 @@ dependencies {
     implementation(libs.io.coilkt.coil3.coil.network.okhttp)
     implementation(libs.dev.androidbroadcast.vbpd)
     implementation(libs.dev.androidbroadcast.vbpd.reflection)
-    implementation(libs.dev.rikka.hidden.compat)
 
     implementation(libs.androidx.appcompat.appcompat)
     implementation(libs.material)

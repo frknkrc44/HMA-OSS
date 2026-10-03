@@ -3,7 +3,6 @@ agp = "9.4.1"
 #noinspection NewerVersionAvailable
 kotlin = "2.3.+"
 material = "1.14.0"
-hidden-api = "4.4.0"
 androidx-navigation = "2.10.2"
 vbpd = "2.0.4"
 r8_annotations = "v1.0.1"
@@ -16,7 +15,6 @@ agp-lib = { id = "com.android.library", version.ref = "agp" }
 kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 nav-safeargs-kotlin = { id = "androidx.navigation.safeargs.kotlin", version.ref = "androidx-navigation" }
-refine = { id = "dev.rikka.tools.refine", version = "4.4.0" }
 com-github-aerathstuff-zygoteloader = { id = "com.github.aerath-stuff.ZygoteLoader", version.ref = "zygoteloader" }
 
 [libraries]
@@ -28,7 +26,6 @@ androidx-preference-ktx = { module = "androidx.preference:preference-ktx", versi
 androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version = "1.2.0" }
 dev-androidbroadcast-vbpd = { module = "dev.androidbroadcast.vbpd:vbpd", version.ref = "vbpd" }
 dev-androidbroadcast-vbpd-reflection = { module = "dev.androidbroadcast.vbpd:vbpd-reflection", version.ref = "vbpd" }
-dev-rikka-hidden-compat = { module = "dev.rikka.hidden:compat", version.ref = "hidden-api" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.11.0" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
 io-github-vova7878-r8annotations = { module = "io.github.vova7878:R8Annotations", version.ref = "r8_annotations" }
