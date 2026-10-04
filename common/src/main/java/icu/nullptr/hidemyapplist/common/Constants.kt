@@ -7,7 +7,6 @@ object Constants {
     const val GMS_PACKAGE_NAME = "com.google.android.gms"
     const val GSF_PACKAGE_NAME = "com.google.android.gsf"
     const val VENDING_PACKAGE_NAME = "com.android.vending"
-    const val ANDROID_PACKAGE_NAME = "android"
     const val TRANSLATE_URL = "https://crowdin.com/project/frknkrc44-hma-oss"
 
     const val UID_SYSTEM = 1000
@@ -27,8 +26,16 @@ object Constants {
     const val ENABLE_INTERNET_OFF = 1
     const val ENABLE_INTERNET_ON = 2
 
+    const val MANAGER_WORK_MODE_UNKNOWN = 0
+    const val MANAGER_WORK_MODE_OK = 1
+    const val MANAGER_WORK_MODE_NO_HOOKS = 2
+    const val MANAGER_WORK_MODE_LOADING = 3
+    const val MANAGER_WORK_MODE_CRASHED = 4
+
     const val PARCEL_TYPE_LOG = 0
     const val PARCEL_TYPE_CONFIG = 1
+
+    const val CONFIG_VERSION_NO_SETTINGS = -100
 
     /**
      * Defines the GID for the group that allows write access to the internal media storage.
@@ -73,6 +80,11 @@ object Constants {
      */
     const val SHARED_USER_GID: Int = 9997
 
+    /**
+     * Defines the app zygote UID/GID
+     */
+    const val APP_ZYGOTE_GID: Int = 3009
+
     val GID_PAIRS = mapOf(
         "SDCARD_RW_GID" to SDCARD_RW_GID,
         "MEDIA_RW_GID" to MEDIA_RW_GID,
@@ -82,6 +94,7 @@ object Constants {
         "EXT_OBB_RW_GID" to EXT_OBB_RW_GID,
         "INET_GID" to INET_GID,
         "SHARED_USER_GID" to SHARED_USER_GID,
+        "APP_ZYGOTE_GID" to APP_ZYGOTE_GID,
     )
 
     val packagesShouldNotHide = setOf(
@@ -96,7 +109,8 @@ object Constants {
         "com.android.providers.media",
         "com.android.providers.media.module",
         "com.android.providers.settings",
-        "com.google.android.webview",
-        "com.google.android.providers.media.module"
+        "com.google.android.providers.media.module",
+        "com.google.android.permissioncontroller",
+        "com.miui.securitycenter",
     )
 }

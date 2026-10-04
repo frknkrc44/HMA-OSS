@@ -1,7 +1,10 @@
 package org.frknkrc44.hma_oss.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.clearFragmentResultListener
 import androidx.fragment.app.setFragmentResultListener
@@ -9,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.common.JsonConfig
+import icu.nullptr.hidemyapplist.data.AppConstants
 import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.ui.fragment.ScopeFragmentArgs
@@ -35,6 +39,8 @@ class BulkConfigWizardFragment : Fragment(R.layout.fragment_bulk_config_wizard) 
             title = getString(R.string.title_bulk_config_wizard),
             navigationIcon = R.drawable.baseline_arrow_back_24,
             navigationOnClick = { navController.navigateUp() },
+            menuRes = R.menu.menu_bulk_config_wizard,
+            onMenuOptionSelected = this::onMenuOptionSelected,
         )
 
         binding.appliedApps.setOnClickListener {
@@ -56,8 +62,8 @@ class BulkConfigWizardFragment : Fragment(R.layout.fragment_bulk_config_wizard) 
             }
             val args = AppSettingsV2FragmentArgs(
                 packageName = "bulk_config",
-                bulkConfig = viewModel.appConfig.value?.toString(),
-                bulkConfigMode = true,
+                inputConfig = viewModel.appConfig.value?.toString(),
+                mode = AppConstants.APP_CONFIG_MODE_BULK_CONFIG,
                 bulkConfigApps = viewModel.appliedAppList.value.toTypedArray(),
             )
             navigate(R.id.nav_app_settings, args.toBundle())
@@ -95,5 +101,15 @@ class BulkConfigWizardFragment : Fragment(R.layout.fragment_bulk_config_wizard) 
         }
 
         setEdge2EdgeFlags(binding.root)
+    }
+
+    private fun onMenuOptionSelected(item: MenuItem) {
+        when (item.itemId) {
+            R.id.menu_info -> {
+                startActivity(Intent(Intent.ACTION_VIEW).apply {
+                    data = "https://github.com/frknkrc44/HMA-OSS/wiki/About-HMA%E2%80%90OSS#bulk-config-wizard".toUri()
+                })
+            }
+        }
     }
 }

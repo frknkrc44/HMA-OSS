@@ -28,17 +28,16 @@
     <string name="yes">Ano</string>
     <string name="no">Ne</string>
     <string name="search">Hledat</string>
-    <string name="system">System</string>
-    <string name="add">Add</string>
-    <string name="edit">Edit</string>
-    <string name="apply">Apply</string>
+    <string name="system">Systém</string>
+    <string name="add">Přidat</string>
+    <string name="edit">Upravit</string>
+    <string name="apply">Použít</string>
     <string name="follow_system">Follow system</string>
     <!-- Home -->
     <string name="home_xposed_activated">Modul aktivní [%s]</string>
     <string name="home_xposed_not_activated">Modul není aktivován</string>
     <string name="home_xposed_service_on">Systémová služba běží [%d]</string>
     <string name="home_xposed_service_off">Systémová služba neběží</string>
-    <string name="home_xposed_service_old">Modul aktualizován, je třeba restartovat</string>
     <string name="home_xposed_filter_count">HMA-OSS odfiltroval celkem %d požadavků</string>
     <string name="home_manage">Spravovat</string>
     <string name="home_detection_test">Detekční test</string>
@@ -56,6 +55,20 @@
     <string name="home_exported">Zálohovaná konfigurace</string>
     <string name="home_new_update">K dispozici nová aktualizace: %s</string>
     <string name="home_update">Aktualizace: %s</string>
+    <string name="home_migrate_data_fix_button">Opravit problém</string>
+    <string name="home_migrate_data">Přenést data</string>
+    <string name="home_migrate_data_summary">Budete také vyzváni k odinstalaci HMA/HMAL v obou možnostech. Chcete přesunout stará data?</string>
+    <string name="home_migrate_data_failed">Kopírování dat selhalo nebo bylo nalezeno více než jedno HMA/HMAL.</string>
+    <string name="home_migrate_data_completed">Hotovo! Zařízení je třeba restartovat.</string>
+    <string name="home_migrate_uninstall_only">Pouze odinstalovat</string>
+    <!-- Backup & Restore -->
+    <string name="backup_restore_backup_settings">Backup settings</string>
+    <string name="backup_restore_restore_settings">Restore settings</string>
+    <string name="backup_restore_apps">App configs</string>
+    <string name="backup_restore_templates">Šablony</string>
+    <string name="backup_restore_settings_templates">Settings templates</string>
+    <string name="backup_restore_append">Append</string>
+    <string name="backup_restore_items_count">%d items</string>
     <!-- App select -->
     <string name="list_show_system">Zobrazit systémové aplikace</string>
     <string name="list_sorting">Řazení</string>
@@ -66,7 +79,7 @@
     <string name="list_sort_by_update_time">Podle času aktualizace</string>
     <string name="list_empty_no_enabled">Try enabling hiding for apps with this template\'s work mode and apps will appear here</string>
     <string name="list_empty_no_apps">No applications found, maybe you didn\'t allow this app to query all packages</string>
-    <string name="list_empty_preset">No applications added in this preset</string>
+    <string name="list_empty_preset">Do této předvolby nebyly přidány žádné aplikace</string>
     <!-- Manage templates -->
     <string name="template_usage_hint">Vytvořte šablony pro „neklidné“ aplikace a ovládejte seznam aplikací, které mohou vidět.\n\nČerná listina (doporučeno): aplikace vybrané v šabloně budou pro aplikace používající šablonu neviditelné.\nWhitellist: aplikace, které nejsou vybrány v šabloně, budou neviditelné pro aplikace používající šablonu.</string>
     <string name="template_new_blacklist">Vytvořte šablonu černé listiny</string>
@@ -85,7 +98,7 @@
     <string name="app_enable_hide">Povolit skrytí</string>
     <string name="app_template_config">Konfigurace šablony</string>
     <string name="app_choose_template">Vyberte šablonu</string>
-    <string name="app_choose_preset">Choose preset</string>
+    <string name="app_choose_preset">Vyberte předvolbu</string>
     <string name="app_exclude_system_apps">Vyloučit systémové aplikace</string>
     <string name="app_exclude_system_apps_summary">Tuto možnost vypněte pouze v případě, že je to opravdu nutné. Pokud je deaktivován, pravděpodobně způsobí pád</string>
     <string name="app_template_using">Používá %d šablon</string>
@@ -94,8 +107,8 @@
     <string name="app_settings_template_using">Using %d settings templates</string>
     <string name="app_extra_apps_visible_count">%d dalších aplikací je viditelných</string>
     <string name="app_extra_apps_invisible_count">%d dalších aplikaci je skryto</string>
-    <string name="app_warning_risky_package_title">Risky package</string>
-    <string name="app_warning_risky_package_desc">This package is marked as risky and you can cause issues on hidden apps. Do you want to continue?</string>
+    <string name="app_warning_risky_package_title">Rizikový balíček</string>
+    <string name="app_warning_risky_package_desc">Tento balíček je označen jako riskantní a může způsobit problémy ve skrytých aplikacích. Chcete pokračovat?</string>
     <string name="app_spoof">Spoofing</string>
     <string name="app_hide_installation_source">Spoof installation sources</string>
     <string name="app_hide_installation_source_desc">All of user apps will be spoofed as installed over Play Store for this application</string>
@@ -109,14 +122,15 @@
     <string name="app_global_activity_launch_protection_state">Protection is %s globally</string>
     <string name="app_force_stop_launch">Force stop and launch</string>
     <string name="app_launch">Launch</string>
-    <string name="app_launch_failed">App launch failed, check logs for more details</string>
+    <string name="app_launch_failed">Spuštění aplikace se nezdařilo, zkontrolujte záznamy pro více informací</string>
     <string name="app_restrict_zygote_permissions">Restrict Zygote permissions</string>
     <string name="app_restrict_zygote_permissions_desc">This option can cause crashes or false positives, choose wisely.</string>
     <!-- Presets -->
     <string name="title_preset">Presets</string>
     <string name="title_settings_preset">Settings presets</string>
     <string name="title_preset_manage">Show presets</string>
-    <string name="preset_xposed">LSPosed/Xposed modules</string>
+    <string name="title_ignored_apps_for_presets">Ignored apps</string>
+    <string name="preset_xposed">LSPosed/Xposed moduly</string>
     <string name="preset_root_apps">Root managers/Rooted apps</string>
     <string name="preset_custom_rom">Custom ROM apps</string>
     <string name="preset_sus_apps">Suspicious apps</string>
@@ -171,12 +185,16 @@
     <string name="settings_clear_uninstalled_app_configs">Clear uninstalled app configs</string>
     <string name="settings_clear_uninstalled_app_configs_summary">This option allows you to create a config without remnants but you\'ll have to reconfigure apps when you installed them again.</string>
     <string name="settings_no_undone_warning">This action cannot be undone.</string>
-    <string name="settings_package_query_workaround">Alternative package query</string>
-    <string name="settings_package_query_workaround_summary">Don\'t enable this option if you see the package list in this app correctly.</string>
     <string name="settings_launcher_icon">Launcher icon</string>
     <string name="settings_error_only_log">Error-only log</string>
+    <string name="settings_disable_hooks">Disable functions</string>
+    <string name="settings_disable_hooks_summary">You can disable some of the functions when they conflict with other modules</string>
     <string name="settings_enable_internet">Enable Internet connection</string>
     <string name="settings_enable_internet_summary">This app will lose all of Internet-related functionality when you disabled this option.</string>
+    <string name="settings_default_config">App config for new apps</string>
+    <string name="settings_default_config_summary">This will apply the defined config to all of new apps but will keep the existing configuration for new apps if you applied something before.</string>
+    <string name="settings_webview_protection">WebView protection</string>
+    <string name="settings_webview_protection_summary">This will add extra protection for crashes caused by hiding/targeting WebView or browsers</string>
     <string name="settings_language">Jazyk</string>
     <string name="settings_translate">Podílet se na překladu</string>
     <string name="settings_translate_summary">Pomozte nám přeložit %s do vašeho jazyka</string>
@@ -187,9 +205,9 @@
     <string name="settings_pure_black_dark_theme">Čistý černý tmavý motiv</string>
     <string name="settings_pure_black_dark_theme_summary">Pokud je povolen tmavý motiv, použijte čistě černý motiv</string>
     <string name="settings_service">Služba</string>
-    <string name="settings_stop_system_service">Zastavit systémovou službu</string>
-    <string name="settings_stop_system_service_summary">K restartování služby je třeba restartovat</string>
-    <string name="settings_is_clean_env">Vyčistit runtime prostředí ve stejnou dobu?</string>
+    <string name="settings_reset_default">Reset to defaults</string>
+    <string name="settings_reset_default_summary">This option allows you to clear whole config and begin from scratch</string>
+    <string name="settings_irreversible_confirmation">This action is irreversible. Are you sure?</string>
     <string name="settings_is_clean_env_summary">Odeberte mezipaměť systémové služby v /data/misc/hide_my_applist_*. To znamená, že musíte po příštím restartu spustit aplikaci modulu jednou ručně, abyste povolili odposlechy a počty odposlechů budou také vyčištěny.</string>
     <string name="settings_force_clean_env">Force clean runtime environment (root)</string>
     <string name="settings_force_clean_env_summary">Only if system service fails to start, otherwise you should click the above option.</string>
@@ -209,6 +227,9 @@
     <string name="about_how_to_use_description_1">        You can create templates in \"Template manage\".\nThen apply the templates to apps in \"App manage\". (You can also select extra apps for targets.)\nYou should and ONLY should check \"System Framework\" in Xposed module scope / whitelist.
     </string>
     <string name="about_how_to_use_description_2">        Config modification effective in real time.
+    </string>
+    <string name="about_how_to_use_description_3">
+        This application acts like a manager of the Zygisk module from now, so you need a separate Zygisk module to make this manager work.
     </string>
     <string name="about_translator">Translator</string>
     <string name="about_developer">Developer</string>
@@ -238,4 +259,7 @@
     <string name="dark_theme">Dark theme</string>
     <string name="dark_theme_off">Always off</string>
     <string name="dark_theme_on">Always on</string>
+    <string name="sick_mode_title">Sick mode is activated</string>
+    <string name="sick_mode_description">HMA-OSS detected possibly conflictable modules and limited its functionality</string>
+    <string name="sick_mode_notice">HMA/HMAL configs are compatible with HMA-OSS and you can begin to use with your existing config but you need to uninstall HMA/HMAL then reboot at first</string>
 </resources>

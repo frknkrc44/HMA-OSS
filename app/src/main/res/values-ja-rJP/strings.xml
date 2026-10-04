@@ -7,14 +7,14 @@
     <string name="title_template_settings">テンプレートの設定</string>
     <string name="title_settings_template_conf">設定テンプレートの構成</string>
     <string name="title_app_manage">アプリの管理</string>
-    <string name="title_app_select">アプリの選択</string>
+    <string name="title_app_select">アプリを選択</string>
     <string name="title_app_settings">アプリの設定</string>
     <string name="title_about">このアプリについて</string>
     <string name="title_about_fork">このフォークについて</string>
     <string name="do_not_dual">HMA をセカンダリユーザーにインストールしないでください</string>
-    <string name="show_crash_log">クラッシュログの表示</string>
+    <string name="show_crash_log">クラッシュログを表示</string>
     <string name="config_damaged">設定ファイルが破損しています。アプリデータを削除してください</string>
-    <string name="edit_list">リストの編集</string>
+    <string name="edit_list">リストを編集</string>
     <string name="delete">削除</string>
     <string name="enabled">有効</string>
     <string name="disabled">無効</string>
@@ -38,7 +38,6 @@
     <string name="home_xposed_not_activated">モジュールは無効です</string>
     <string name="home_xposed_service_on">システムサービスが実行中 [%d]</string>
     <string name="home_xposed_service_off">システムサービスは実行されていません</string>
-    <string name="home_xposed_service_old">モジュールが更新されました。再起動してください</string>
     <string name="home_xposed_filter_count">HMA-OSS は合計 %d 件のリクエストをフィルタリングしました</string>
     <string name="home_manage">管理</string>
     <string name="home_detection_test">検出のテスト</string>
@@ -56,9 +55,23 @@
     <string name="home_exported">設定をバックアップしました</string>
     <string name="home_new_update">利用可能なアップデート: %s</string>
     <string name="home_update">アップデート: %s</string>
+    <string name="home_migrate_data_fix_button">問題を修正</string>
+    <string name="home_migrate_data">データの移行</string>
+    <string name="home_migrate_data_summary">どちらのオプションでも HMA/HMAL をアンインストールするように求められます。古いデータを移行しますか？</string>
+    <string name="home_migrate_data_failed">データのコピーに失敗したか、複数の HMA/HMAL が見つかりました。</string>
+    <string name="home_migrate_data_completed">データの移行が完了しました！デバイスを再起動する必要があります。</string>
+    <string name="home_migrate_uninstall_only">アンインストールのみ</string>
+    <!-- Backup & Restore -->
+    <string name="backup_restore_backup_settings">設定をバックアップ</string>
+    <string name="backup_restore_restore_settings">設定を復元</string>
+    <string name="backup_restore_apps">アプリ設定</string>
+    <string name="backup_restore_templates">テンプレート</string>
+    <string name="backup_restore_settings_templates">設定テンプレート</string>
+    <string name="backup_restore_append">増分復元</string>
+    <string name="backup_restore_items_count">%d 個の項目</string>
     <!-- App select -->
     <string name="list_show_system">システムアプリを表示</string>
-    <string name="list_sorting">並び替え</string>
+    <string name="list_sorting">並べ替え</string>
     <string name="list_reverse_order">逆順</string>
     <string name="list_sort_by_label">アプリ名</string>
     <string name="list_sort_by_package_name">パッケージ名</string>
@@ -116,13 +129,14 @@
     <string name="title_preset">プリセット</string>
     <string name="title_settings_preset">プリセット設定</string>
     <string name="title_preset_manage">プリセットを表示</string>
+    <string name="title_ignored_apps_for_presets">除外したアプリ</string>
     <string name="preset_xposed">LSPosed/Xposed モジュール</string>
     <string name="preset_root_apps">Root マネージャー/Rooted アプリ</string>
     <string name="preset_custom_rom">カスタム ROM アプリ</string>
     <string name="preset_sus_apps">不審なアプリ</string>
     <string name="preset_detector_apps">検出器/チェッカーアプリ</string>
     <string name="preset_shizuku_dhizuku">Shizuku/Dhizuku アプリ</string>
-    <string name="preset_accessibility_apps">Accessibility apps</string>
+    <string name="preset_accessibility_apps">アクセシビリティアプリ</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">アクセシビリティ</string>
     <string name="settings_preset_dev_options">開発者向けオプション</string>
@@ -135,8 +149,8 @@
     <string name="settings_templates_custom">カスタム設定</string>
     <string name="settings_templates_random_ssaid">ランダム SSAID</string>
     <!-- Logs -->
-    <string name="logs_save">ログの保存</string>
-    <string name="logs_clear">ログの消去</string>
+    <string name="logs_save">ログを保存</string>
+    <string name="logs_clear">ログを消去</string>
     <string name="logs_empty">保存するログがありません</string>
     <string name="logs_saved">ログを保存しました</string>
     <!-- Filter logs -->
@@ -149,7 +163,7 @@
     <string name="settings_default_value">デフォルト値: %s</string>
     <string name="settings_data_isolation">データ分離</string>
     <string name="settings_data_isolation_summary">アプリデータ: %s\nVold アプリデータ: %s\n強制マウント: %s</string>
-    <string name="settings_data_isolation_unsupported">このオプションは Android 11 以上で使用できます</string>
+    <string name="settings_data_isolation_unsupported">このオプションは Android 11 以降でのみ利用可能です</string>
     <string name="settings_app_data_isolation">アプリのデータ分離</string>
     <string name="settings_vold_app_data_isolation">Vold アプリのデータ分離</string>
     <string name="settings_warning">警告</string>
@@ -162,7 +176,7 @@
     <string name="settings_detail_log">デバッグ用詳細ログ</string>
     <string name="settings_max_log_size">ロガーのバッファサイズ</string>
     <string name="settings_hide_icon">ランチャー上のアイコンを非表示</string>
-    <string name="settings_hide_icon_summary">LSPosed マネージャーで引き続きアプリを開くことができます</string>
+    <string name="settings_hide_icon_summary">Root マネージャーからアプリを開くこともできます</string>
     <string name="settings_bypass_risky_package_warning">危険なパッケージの警告を無視</string>
     <string name="settings_bypass_risky_package_warning_summary">この機能を有効にする前後で、危険なパッケージに関する問題が発生した場合、開発者は一切責任を負わないことをご了承ください</string>
     <string name="settings_disable_activity_launch_protection">アクティビティ起動保護を無効化</string>
@@ -171,12 +185,16 @@
     <string name="settings_clear_uninstalled_app_configs">アンインストール済みのアプリの設定を消去</string>
     <string name="settings_clear_uninstalled_app_configs_summary">このオプションを使用すると、残骸を残さずに設定ファイルを作成できますが、アプリを再インストールした際には再設定が必要になります。</string>
     <string name="settings_no_undone_warning">この操作は取り消せません。</string>
-    <string name="settings_package_query_workaround">代替パッケージクエリ</string>
-    <string name="settings_package_query_workaround_summary">このアプリでパッケージリストが正しく表示されている場合は、このオプションを有効にしないでください。</string>
     <string name="settings_launcher_icon">ランチャーアイコン</string>
     <string name="settings_error_only_log">エラーのみのログ</string>
-    <string name="settings_enable_internet">Enable Internet connection</string>
-    <string name="settings_enable_internet_summary">This app will lose all of Internet-related functionality when you disabled this option.</string>
+    <string name="settings_disable_hooks">機能を無効化</string>
+    <string name="settings_disable_hooks_summary">他のモジュールと競合する場合、一部の機能を無効にすることができます</string>
+    <string name="settings_enable_internet">インターネット接続を有効化</string>
+    <string name="settings_enable_internet_summary">このオプションを無効にすると、このアプリはインターネット関連の機能をすべて失います。</string>
+    <string name="settings_default_config">新規アプリへの設定</string>
+    <string name="settings_default_config_summary">これにより、定義された設定がすべての新しいアプリに適用されますが、以前に何らかの設定を適用していた場合は、新しいアプリでも既存の設定が維持されます。</string>
+    <string name="settings_webview_protection">WebView の保護</string>
+    <string name="settings_webview_protection_summary">これにより、WebView やブラウザを非表示にしたり、それらをターゲットにしたりすることによって引き起こされるクラッシュに対する保護が強化されます</string>
     <string name="settings_language">言語</string>
     <string name="settings_translate">翻訳に参加</string>
     <string name="settings_translate_summary">%s をあなたの言語に翻訳するのにご協力ください</string>
@@ -187,9 +205,9 @@
     <string name="settings_pure_black_dark_theme">ピュアブラックテーマ</string>
     <string name="settings_pure_black_dark_theme_summary">ダークテーマが有効になっている場合、ピュアブラックテーマを使用します</string>
     <string name="settings_service">サービス</string>
-    <string name="settings_stop_system_service">システムサービスを停止</string>
-    <string name="settings_stop_system_service_summary">サービスを再開するには再起動が必要です</string>
-    <string name="settings_is_clean_env">実行環境のクリーンアップをしますか？</string>
+    <string name="settings_reset_default">デフォルトにリセット</string>
+    <string name="settings_reset_default_summary">このオプションを使用すると、設定をすべて消去して最初からやり直すことができます</string>
+    <string name="settings_irreversible_confirmation">この操作は元に戻せません。実行してもよろしいですか？</string>
     <string name="settings_is_clean_env_summary">/data/misc/hide_my_applist_* のシステムサービスキャッシュを削除します。つまり、インターセプトを有効にするには、次回の再起動後にモジュールアプリを手動で 1 回起動する必要があり、インターセプトカウントも消去されます。</string>
     <string name="settings_force_clean_env">クリーンな実行環境を強制する (root)</string>
     <string name="settings_force_clean_env_summary">システムサービスの開始に失敗した場合のみ、それ以外の場合は上記のオプションをクリックする必要があります。</string>
@@ -201,14 +219,20 @@
     <!-- Bulk config wizard -->
     <string name="title_bulk_config_wizard">一括設定ウィザード</string>
     <!-- About -->
-    <string name="about_description">        特定のアプリのインストールを検出することは正しくありませんが、root 権限を使用するすべてのアプリがランダムなパッケージ名に対応しているわけではありません。この場合、root 権限を使用しているアプリ (Fake Location や Storage Isolation など) の検出は、root 権限自体が検出されることと同等です。\n\n同時に、一部のスマートアプリは、さまざまな抜け穴を使用してアプリリストを取得して、ユーザーの行動特性を分析する場合があります。\n\nこのモジュールは、アプリリストを適切に非表示にしているかどうかを検証する方法をいくつか提供します。また、Xposed モジュールとして動作することで、特定のアプリを非表示にしたり、アプリリストの取得要求を拒否したりして、プライバシーを保護することも可能です。
+    <string name="about_description">
+        特定のアプリのインストールを検出することは好ましい方法ではありませんが、root 権限を使用するすべてのアプリがランダムなパッケージ名に対応しているとは限りません。このような場合、Fake Location や Storage Isolation などの root 権限に関連するアプリが検出されると、そのデバイスは root 化されているものとみなされます。\n\n一方で、一部のスマートアプリはさまざまな抜け穴を利用してアプリリストを取得し、それに基づいてユーザープロフィールを作成しています。\n\nこのモジュールは、アプリリストが適切に非表示になっているかどうかをテストするためのいくつかの方法を提供します。また、Zygisk モジュールとして動作することで、特定のアプリを非表示にしたり、アプリリストの取得要求を拒否したりすることで、プライバシーを保護することもできます。
     </string>
     <string name="about_fork_description">        オリジナルの HMA プロジェクトはクローズドソースになり、最新版のコードには一部の重要な変更点が反映されていませんでした。そこで、再びオープンソースとして継続していくために、このフォーク版を作成しました。
     </string>
     <string name="about_how_to_use_title">このモジュールの使用方法</string>
-    <string name="about_how_to_use_description_1">        「テンプレートの管理」でテンプレートを作成できます。\n作成したテンプレートは、「アプリの管理」でアプリに適用できます。(対象アプリを追加選択することもできます。)\nXposed モジュールのスコープ/ホワイトリストで「システム フレームワーク」のみにチェックを入れてください。
+    <string name="about_how_to_use_description_1">
+        「テンプレートの管理」でテンプレートを作成できます。\n作成したテンプレートは、「アプリの管理」でアプリに適用できます。（対象とするアプリを追加で選択することもできます。）
     </string>
-    <string name="about_how_to_use_description_2">        設定変更はリアルタイムで行われます。
+    <string name="about_how_to_use_description_2">
+        設定変更はリアルタイムで反映されます。
+    </string>
+    <string name="about_how_to_use_description_3">
+        このアプリは今後、Zygisk モジュールのマネージャーとして機能するため、このマネージャーを動作させるには別途 Zygisk モジュールが必要です。
     </string>
     <string name="about_translator">翻訳者</string>
     <string name="about_developer">開発者</string>
@@ -238,4 +262,7 @@
     <string name="dark_theme">ダークテーマ</string>
     <string name="dark_theme_off">常にオフ</string>
     <string name="dark_theme_on">常にオン</string>
+    <string name="sick_mode_title">セーフモードが有効になっています</string>
+    <string name="sick_mode_description">HMA-OSS は、競合の可能性があるモジュールを検出し、その機能を制限しました</string>
+    <string name="sick_mode_notice">HMA/HMAL の設定は HMA-OSS と互換性があり、既存の設定を維持して使用を開始できますが、最初に HMA/HMAL をアンインストールしてから再起動する必要があります</string>
 </resources>

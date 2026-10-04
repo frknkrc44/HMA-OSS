@@ -38,7 +38,6 @@
     <string name="home_xposed_not_activated">الإضافة غير مفعلة</string>
     <string name="home_xposed_service_on">خدمة النظام تعمل [%d]</string>
     <string name="home_xposed_service_off">خدمة النظام متوقفة</string>
-    <string name="home_xposed_service_old">تم تحديث الإضافة، تحتاج إلى إعادة التشغيل</string>
     <string name="home_xposed_filter_count">HMA-OSS قام بتصفية إجمالي %d من الطلبات</string>
     <string name="home_manage">الإدارة</string>
     <string name="home_detection_test">اختبار الاكتشاف</string>
@@ -56,6 +55,20 @@
     <string name="home_exported">تم النسخ الاحتياطي للإعدادات</string>
     <string name="home_new_update">تحديث جديد متوفر: %s</string>
     <string name="home_update">تحديث: %s</string>
+    <string name="home_migrate_data_fix_button">إصلاح المشكل</string>
+    <string name="home_migrate_data">نقل البيانات</string>
+    <string name="home_migrate_data_summary">سيُطلب منك أيضًا إلغاء تثبيت HMA/HMAL في كلتا الحالتين. هل تريد نقل البيانات القديمة؟</string>
+    <string name="home_migrate_data_failed">تعذر نسخ البيانات، أو تم العثور على أكثر من نسخة من HMA/HMAL.</string>
+    <string name="home_migrate_data_completed">تم! يلزم إعادة تشغيل جهازك.</string>
+    <string name="home_migrate_uninstall_only">إلغاء التثبيت فقط</string>
+    <!-- Backup & Restore -->
+    <string name="backup_restore_backup_settings">نسخ احتياطي للإعدادات</string>
+    <string name="backup_restore_restore_settings">استعادة الإعدادات</string>
+    <string name="backup_restore_apps">تعديلات التطبيق</string>
+    <string name="backup_restore_templates">القوالب</string>
+    <string name="backup_restore_settings_templates">قوالب الإعدادات</string>
+    <string name="backup_restore_append">إرفاق</string>
+    <string name="backup_restore_items_count">%d عناصر</string>
     <!-- App select -->
     <string name="list_show_system">إظهار تطبيقات النظام</string>
     <string name="list_sorting">الترتيب حسب</string>
@@ -116,6 +129,7 @@
     <string name="title_preset">الإعدادات المسبقة</string>
     <string name="title_settings_preset">الضبط المسبق</string>
     <string name="title_preset_manage">إظهار الضبط المسبق</string>
+    <string name="title_ignored_apps_for_presets">التطبيقات المُتجاهلة</string>
     <string name="preset_xposed">إضافات Xposed/LSPosed</string>
     <string name="preset_root_apps">تطبيقات روت/تطبيقات إدارة روت</string>
     <string name="preset_custom_rom">تطبيقات الروم المخصص</string>
@@ -172,12 +186,16 @@
     <string name="settings_clear_uninstalled_app_configs">حذف إعدادات التطبيقات المحذوفة</string>
     <string name="settings_clear_uninstalled_app_configs_summary">هذا الخِيار يسمح لك بإنشاء ملف اعداد بدون تلك الإعدادات لكن سيتعين عليك إعادة ضبطهم حينما تقوم بتثبيت تلك التطبيقات مرة أخرى.</string>
     <string name="settings_no_undone_warning">هذا الخيار لا يمكن التراجع فيه.</string>
-    <string name="settings_package_query_workaround">استعلام الحزمة البديلة</string>
-    <string name="settings_package_query_workaround_summary">لا تقم بتمكين هذا الخيار إذا كنت ترى قائمة الحزم في هذا التطبيق بشكل صحيح.</string>
     <string name="settings_launcher_icon">أيقونة التطبيق</string>
     <string name="settings_error_only_log">تسجيل الأخطاء فقط</string>
+    <string name="settings_disable_hooks">تعطيل الوظائف</string>
+    <string name="settings_disable_hooks_summary">يمكنك تعطيل بعض الوظائف عندما تتعارض مع وحدات أخرى</string>
     <string name="settings_enable_internet">تفعيل الوصول إلى الإنترنت</string>
     <string name="settings_enable_internet_summary">سيفقد هذا التطبيق جميع وظائفه المتعلقة بالإنترنت عند تعطيل هذا الخيار.</string>
+    <string name="settings_default_config">إعدادات للتطبيقات الجديدة</string>
+    <string name="settings_default_config_summary">هذا سيطبق التكوين المحدد على جميع التطبيقات الجديدة ولكن سيبقي التكوين الحالي للتطبيقات الجديدة إذا قمت بتطبيق شيء من قبل.</string>
+    <string name="settings_webview_protection">حماية WebView</string>
+    <string name="settings_webview_protection_summary">سيؤدي هذا إلى إضافة حماية إضافية للأعطال الناجمة عن إخفاء/استهداف WebView أو المتصفحات</string>
     <string name="settings_language">اللغة</string>
     <string name="settings_translate">المشاركة في التَّرْجَمَة</string>
     <string name="settings_translate_summary">ساعدنا في ترجمة %s إلى لغتك</string>
@@ -188,9 +206,9 @@
     <string name="settings_pure_black_dark_theme">الثيم الأسود الخالص</string>
     <string name="settings_pure_black_dark_theme_summary">استخدم السمة السوداء الخالصة إذا كان المظهر الداكن مُفعل</string>
     <string name="settings_service">الخدمة</string>
-    <string name="settings_stop_system_service">إيقاف خدمة النظام</string>
-    <string name="settings_stop_system_service_summary">تحتاج إلى إعادة تشغيل الجهاز لإعادة تشغيل الخدمة</string>
-    <string name="settings_is_clean_env">تنظيف بيئة التشغيل في نفس الوقت؟</string>
+    <string name="settings_reset_default">إعادة التعيين إلى الإعدادات الافتراضية</string>
+    <string name="settings_reset_default_summary">يتيح لك هذا الخِيار مسح جميع الإعدادات والبدء من جديد</string>
+    <string name="settings_irreversible_confirmation">لا يمكن التراجع عن هذا الإجراء. هل أنت متأكد؟</string>
     <string name="settings_is_clean_env_summary">إزالة التخزين المؤقت لخدمة النظام في /data/misc/hide_my_applist_*. هذا يعني أنك ستحتاج إلى تشغيل الإضافة مرة واحدة يدويا بعد إعادة التشغيل التالي حتي تعمل الاعتراضات، وسيتم أيضا تنظيف عمليات الاعتراض.</string>
     <string name="settings_force_clean_env">إجبار تنظيف بيئة العمل (روت)</string>
     <string name="settings_force_clean_env_summary">فقط إذا فشلت خدمة النظام في البَدْء، وإلا يجب عليك أن تضغط على الخِيار أعلاه.</string>
@@ -207,6 +225,7 @@
     <string name="about_how_to_use_title">كيفية استخدام هذه الإضافة</string>
     <string name="about_how_to_use_description_1">يمكنك إنشاء قوالب من \"إدارة القوالب\".\nثم تطبيق هذه القوالب على التطبيقات من \"إدارة التطبيقات\".(يمكنك أيضا اختيار تطبيقات إضافية للتطبيقات المستهدفة.)\n ينبغي فقط فحص \"إطار النظام\" من نطاق وحدة إكسبوسد/القائمة البيضاء.    </string>
     <string name="about_how_to_use_description_2">تعديل التكوين يطبق في الوقت الفعلى.    </string>
+    <string name="about_how_to_use_description_3">هذا التطبيق يمثل مديرًا لإضافة الـZygisk من الأن فصاعدًا، لذلك ستحتاج لإضافة Zygisk لجعل هذا التطبيق يعمل</string>
     <string name="about_translator">المترجم</string>
     <string name="about_developer">المطور</string>
     <string name="about_support">الدعم والمراجعات</string>
@@ -235,4 +254,7 @@
     <string name="dark_theme">سمة مظلمة</string>
     <string name="dark_theme_off">غلق دائما</string>
     <string name="dark_theme_on">تفعيل دائما</string>
+    <string name="sick_mode_title">تم تفعيل وضع Sick mode</string>
+    <string name="sick_mode_description">اكتشف HMA-OSS إضافات يمكن أن تكون متعارضة وقللت من وظائفها</string>
+    <string name="sick_mode_notice">إعدادات HMA/HMAL متوافقة مع HMA-OSS ويمكنك البدء في الاستخدام مع التكوين الحالي الخاص بك ولكن تحتاج إلى إلغاء تثبيت HMA/HMAL ثم إعادة التشغيل في البداية</string>
 </resources>

@@ -15,8 +15,12 @@ object AppConstants {
         R.mipmap.ic_launcher_alt   to COMPONENT_NAME_ALT,
         R.mipmap.ic_launcher_alt_2 to COMPONENT_NAME_ALT_2,
         R.mipmap.ic_launcher_alt_3 to COMPONENT_NAME_ALT_3,
-        R.mipmap.ic_launcher_alt_5 to COMPONENT_NAME_ALT_4,
+        R.mipmap.ic_launcher_alt_4 to COMPONENT_NAME_ALT_4,
     )
 
     const val UPDATE_CHECK_URL = "https://api.github.com/repos/frknkrc44/HMA-OSS/releases/latest"
+
+    const val APP_CONFIG_MODE_SINGLE = 0
+    const val APP_CONFIG_MODE_BULK_CONFIG = 1
+    const val APP_CONFIG_MODE_DEFAULT_CONFIG = 2
 }

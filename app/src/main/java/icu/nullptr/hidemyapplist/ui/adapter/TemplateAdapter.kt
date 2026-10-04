@@ -35,6 +35,7 @@ class TemplateAdapter(
                             else R.drawable.baseline_assignment_24
                         }
                         ConfigManager.PTType.SETTINGS -> R.drawable.baseline_settings_24
+                        else -> R.drawable.unfold_more_24px
                     }
                 )
                 text = info.name

@@ -22,7 +22,7 @@
         android:gravity="center_vertical"
         android:layout_height="match_parent">
 
-        <com.google.android.material.textview.MaterialTextView
+        <TextView
             android:id="@+id/text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
             android:textAppearance="?textAppearanceBodyLarge"
             tools:text="@tools:sample/full_names" />
 
-        <com.google.android.material.textview.MaterialTextView
+        <TextView
             android:id="@+id/subText"
             android:visibility="gone"
             android:layout_width="match_parent"

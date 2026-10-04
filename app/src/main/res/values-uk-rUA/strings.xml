@@ -38,7 +38,6 @@
     <string name="home_xposed_not_activated">Модуль не активовано</string>
     <string name="home_xposed_service_on">Системна служба працює [%d]</string>
     <string name="home_xposed_service_off">Системна служба не працює</string>
-    <string name="home_xposed_service_old">Модуль оновлено, потрібно перезавантажити</string>
     <string name="home_xposed_filter_count">HMA-OSS відфільтрував %d запитів</string>
     <string name="home_manage">Керувати</string>
     <string name="home_detection_test">Перевірка на виявлення</string>
@@ -56,6 +55,20 @@
     <string name="home_exported">Створено файл із налаштуваннями модуля</string>
     <string name="home_new_update">Доступне нове оновлення: %s</string>
     <string name="home_update">Оновити: %s</string>
+    <string name="home_migrate_data_fix_button">Fix the issue</string>
+    <string name="home_migrate_data">Migrate data</string>
+    <string name="home_migrate_data_summary">You will also be prompted to uninstall HMA/HMAL in both options. Do you want to migrate the old data?</string>
+    <string name="home_migrate_data_failed">Failed to copy the data or found more than one HMA/HMAL.</string>
+    <string name="home_migrate_data_completed">Done! You need to reboot your device.</string>
+    <string name="home_migrate_uninstall_only">Uninstall only</string>
+    <!-- Backup & Restore -->
+    <string name="backup_restore_backup_settings">Backup settings</string>
+    <string name="backup_restore_restore_settings">Restore settings</string>
+    <string name="backup_restore_apps">App configs</string>
+    <string name="backup_restore_templates">Templates</string>
+    <string name="backup_restore_settings_templates">Settings templates</string>
+    <string name="backup_restore_append">Append</string>
+    <string name="backup_restore_items_count">%d items</string>
     <!-- App select -->
     <string name="list_show_system">Показати системні додатки</string>
     <string name="list_sorting">Сортування</string>
@@ -116,13 +129,14 @@
     <string name="title_preset">Шаблони</string>
     <string name="title_settings_preset">Шаблони налаштувань</string>
     <string name="title_preset_manage">Показати шаблони</string>
+    <string name="title_ignored_apps_for_presets">Ignored apps</string>
     <string name="preset_xposed">Модулі LSPosed/Xposed</string>
     <string name="preset_root_apps">Рут-менеджери / Рутовані програми</string>
     <string name="preset_custom_rom">Програми кастомних прошивок</string>
     <string name="preset_sus_apps">Підозрілі програми</string>
     <string name="preset_detector_apps">Програми Детектори/Перевірки</string>
     <string name="preset_shizuku_dhizuku">Програми Shizuku/Dhizuku</string>
-    <string name="preset_accessibility_apps">Accessibility apps</string>
+    <string name="preset_accessibility_apps">Програми для спеціальних можливостей</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Спеціальні можливості</string>
     <string name="settings_preset_dev_options">Параметри розробника</string>
@@ -171,12 +185,16 @@
     <string name="settings_clear_uninstalled_app_configs">Очистити налаштування вилучених програм</string>
     <string name="settings_clear_uninstalled_app_configs_summary">Ця опція дозволяє створити конфігурацію без залишків, але вам доведеться переналаштувати програми після їх повторного встановлення.</string>
     <string name="settings_no_undone_warning">Цю дію не можна буде скасувати.</string>
-    <string name="settings_package_query_workaround">Альтернативний запит пакету</string>
-    <string name="settings_package_query_workaround_summary">Не вмикати дану опцію, якщо ви бачите в цій програмі перелік пакетів.</string>
     <string name="settings_launcher_icon">Іконка лаунчера</string>
     <string name="settings_error_only_log">Лишень помилки</string>
-    <string name="settings_enable_internet">Enable Internet connection</string>
-    <string name="settings_enable_internet_summary">This app will lose all of Internet-related functionality when you disabled this option.</string>
+    <string name="settings_disable_hooks">Disable functions</string>
+    <string name="settings_disable_hooks_summary">You can disable some of the functions when they conflict with other modules</string>
+    <string name="settings_enable_internet">Увімкнути підключення до Інтернету</string>
+    <string name="settings_enable_internet_summary">Цей додаток втратить усі пов\'язані з Інтернетом функції, коли ви відключите цю опцію.</string>
+    <string name="settings_default_config">App config for new apps</string>
+    <string name="settings_default_config_summary">This will apply the defined config to all of new apps but will keep the existing configuration for new apps if you applied something before.</string>
+    <string name="settings_webview_protection">WebView protection</string>
+    <string name="settings_webview_protection_summary">This will add extra protection for crashes caused by hiding/targeting WebView or browsers</string>
     <string name="settings_language">Мова</string>
     <string name="settings_translate">Участь у перекладі</string>
     <string name="settings_translate_summary">Допоможіть нам перекласти %s вашою мовою</string>
@@ -187,9 +205,9 @@
     <string name="settings_pure_black_dark_theme">Чорна тема</string>
     <string name="settings_pure_black_dark_theme_summary">Використовуйте чорну тему, якщо темну тему ввімкнено</string>
     <string name="settings_service">Служба</string>
-    <string name="settings_stop_system_service">Зупинити системну службу</string>
-    <string name="settings_stop_system_service_summary">Потрібне перезавантаження, щоб перезапустити службу</string>
-    <string name="settings_is_clean_env">Очистити також середовище виконання?</string>
+    <string name="settings_reset_default">Reset to defaults</string>
+    <string name="settings_reset_default_summary">This option allows you to clear whole config and begin from scratch</string>
+    <string name="settings_irreversible_confirmation">This action is irreversible. Are you sure?</string>
     <string name="settings_is_clean_env_summary">Видаліть кеш системної служби в /data/misc/hide_my_applist_*. Це означає, що вам потрібно один раз запустити програму модуля вручну після наступного перезавантаження, щоб увімкнути перехоплення, і кількість перехоплень також буде очищено.</string>
     <string name="settings_force_clean_env">Примусово очистити середовище виконання (root)</string>
     <string name="settings_force_clean_env_summary">Лише якщо не вдається запустити системну службу, інакше вам слід натиснути вищезазначену опцію.</string>
@@ -208,6 +226,9 @@
     <string name="about_how_to_use_description_1">        Ви можете створювати шаблони в «Керування шаблонами».\nПотім застосуйте шаблони до додатків у «Керування додатками». (Ви також можете вибрати додаткові додатки для цілей.)\nВи повинні й ТІЛЬКИ повинні перевірити «System Framework» в області/білому списку модуля Xposed.
     </string>
     <string name="about_how_to_use_description_2">        Модифікація конфігурації діє в режимі реального часу.
+    </string>
+    <string name="about_how_to_use_description_3">
+        This application acts like a manager of the Zygisk module from now, so you need a separate Zygisk module to make this manager work.
     </string>
     <string name="about_translator">Переклад</string>
     <string name="about_developer">Розробник</string>
@@ -237,4 +258,7 @@
     <string name="dark_theme">Темна тема</string>
     <string name="dark_theme_off">Завжди вимкнено</string>
     <string name="dark_theme_on">Завжди ввімкнено</string>
+    <string name="sick_mode_title">Sick mode is activated</string>
+    <string name="sick_mode_description">HMA-OSS detected possibly conflictable modules and limited its functionality</string>
+    <string name="sick_mode_notice">HMA/HMAL configs are compatible with HMA-OSS and you can begin to use with your existing config but you need to uninstall HMA/HMAL then reboot at first</string>
 </resources>

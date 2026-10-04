@@ -2,6 +2,8 @@ package org.frknkrc44.hma_oss.ui.adapter
 
 import android.view.ViewGroup
 import android.widget.Filter
+import icu.nullptr.hidemyapplist.common.CollectionUtils.sync
+import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.adapter.AppSelectAdapter
 import icu.nullptr.hidemyapplist.ui.view.AppItemView
@@ -14,8 +16,10 @@ class AppPresetAdapter(
     var packages = mutableListOf<String>()
 
     fun updateList() {
-        packages.clear()
-        packages += ServiceClient.getPackagesForPreset(presetName)?.toList() ?: listOf()
+        packages.sync(ServiceClient.getPackagesForPreset(presetName) ?: arrayOf())
+
+        // do not show ignored packages visually, they will be ignored in the service too
+        packages -= ConfigManager.ignoredPackagesForPresets
     }
 
     inner class ViewHolder(view: AppItemView) : AppSelectAdapter.ViewHolder(view) {
@@ -49,7 +53,7 @@ class AppPresetAdapter(
                     try {
                         val label = PackageHelper.loadAppLabel(it)
                         return@filter label.lowercase().contains(constraintLowered)
-                    } catch (e: Throwable) {
+                    } catch (_: Throwable) {
                         return@filter false
                     }
                 }
@@ -60,11 +64,9 @@ class AppPresetAdapter(
 
         @Suppress("UNCHECKED_CAST", "NotifyDataSetChanged")
         override fun publishResults(constraint: CharSequence, results: FilterResults) {
-            val values = results.values
-            if (values != null) {
-                filteredList = values as List<String>
-                notifyDataSetChanged()
-            }
+            val elements = results.values as? List<String> ?: return
+            filteredList.sync(elements)
+            notifyDataSetChanged()
         }
     }
 

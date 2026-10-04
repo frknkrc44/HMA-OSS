@@ -38,7 +38,6 @@
     <string name="home_xposed_not_activated">โมดูลยังไม่ได้เปิดใช้งาน</string>
     <string name="home_xposed_service_on">บริการระบบกำลังทำงาน [%d]</string>
     <string name="home_xposed_service_off">บริการระบบไม่ทำงาน</string>
-    <string name="home_xposed_service_old">โมดูลได้รับการอัปเดต จำเป็นต้องรีบูต</string>
     <string name="home_xposed_filter_count">HMA-OSS ได้กรองคำขอทั้งหมด %d รายการ</string>
     <string name="home_manage">จัดการ</string>
     <string name="home_detection_test">ทดสอบการตรวจจับ</string>
@@ -56,6 +55,20 @@
     <string name="home_exported">สำรองการตั้งค่าแล้ว</string>
     <string name="home_new_update">มีอัปเดตใหม่: %s</string>
     <string name="home_update">อัปเดต: %s</string>
+    <string name="home_migrate_data_fix_button">แก้ไขปัญหา</string>
+    <string name="home_migrate_data">ย้ายข้อมูล</string>
+    <string name="home_migrate_data_summary">คุณจะได้รับแจ้งให้ถอนการติดตั้ง HMA/HMAL ในทั้งสองตัวเลือก คุณต้องการย้ายข้อมูลเก่าหรือไม่?</string>
+    <string name="home_migrate_data_failed">ไม่สามารถคัดลอกข้อมูลได้ หรือพบ HMA/HMAL มากกว่าหนึ่งรายการ</string>
+    <string name="home_migrate_data_completed">เสร็จสิ้น! คุณต้องรีบูตอุปกรณ์</string>
+    <string name="home_migrate_uninstall_only">ถอนการติดตั้งเท่านั้น</string>
+    <!-- Backup & Restore -->
+    <string name="backup_restore_backup_settings">สำรองข้อมูลการตั้งค่า</string>
+    <string name="backup_restore_restore_settings">กู้คืนการตั้งค่า</string>
+    <string name="backup_restore_apps">การตั้งค่าแอป</string>
+    <string name="backup_restore_templates">เทมเพลต</string>
+    <string name="backup_restore_settings_templates">เทมเพลตการตั้งค่า</string>
+    <string name="backup_restore_append">เพิ่มต่อท้าย</string>
+    <string name="backup_restore_items_count">%d รายการ</string>
     <!-- App select -->
     <string name="list_show_system">แสดงแอประบบ</string>
     <string name="list_sorting">การจัดเรียง</string>
@@ -119,13 +132,14 @@
     <string name="title_preset">พรีเซ็ต</string>
     <string name="title_settings_preset">พรีเซ็ตการตั้งค่า</string>
     <string name="title_preset_manage">แสดงพรีเซ็ต</string>
+    <string name="title_ignored_apps_for_presets">แอปที่ถูกละเว้น</string>
     <string name="preset_xposed">โมดูล LSPosed / Xposed</string>
     <string name="preset_root_apps">ตัวจัดการ Root / แอปที่รูทแล้ว</string>
     <string name="preset_custom_rom">แอป Custom ROM</string>
     <string name="preset_sus_apps">แอปที่น่าสงสัย</string>
     <string name="preset_detector_apps">แอปตรวจจับ / ตรวจสอบ</string>
     <string name="preset_shizuku_dhizuku">แอป Shizuku / Dhizuku</string>
-    <string name="preset_accessibility_apps">Accessibility apps</string>
+    <string name="preset_accessibility_apps">แอปช่วยการเข้าถึง</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">การช่วยการเข้าถึง</string>
     <string name="settings_preset_dev_options">ตัวเลือกสำหรับนักพัฒนา</string>
@@ -176,12 +190,16 @@ Vold ข้อมูลแอป: %s
     <string name="settings_clear_uninstalled_app_configs">ล้างการตั้งค่าแอปที่ถอนการติดตั้งแล้ว</string>
     <string name="settings_clear_uninstalled_app_configs_summary">ตัวเลือกนี้ช่วยให้คุณสร้างการตั้งค่าใหม่โดยไม่มีข้อมูลตกค้าง แต่คุณจะต้องตั้งค่าแอปใหม่เมื่อทำการติดตั้งอีกครั้ง</string>
     <string name="settings_no_undone_warning">การกระทำนี้ไม่สามารถย้อนกลับได้</string>
-    <string name="settings_package_query_workaround">ทางเลือกการค้นหาแพ็กเกจ</string>
-    <string name="settings_package_query_workaround_summary">อย่าเปิดใช้งานตัวเลือกนี้หากคุณเห็นรายการแพ็กเกจในแอปนี้ถูกต้องอยู่แล้ว</string>
     <string name="settings_launcher_icon">ไอคอนตัวเรียกใช้งาน</string>
     <string name="settings_error_only_log">บันทึกเฉพาะข้อผิดพลาด</string>
-    <string name="settings_enable_internet">Enable Internet connection</string>
-    <string name="settings_enable_internet_summary">This app will lose all of Internet-related functionality when you disabled this option.</string>
+    <string name="settings_disable_hooks">ปิดใช้งานฟังก์ชัน</string>
+    <string name="settings_disable_hooks_summary">คุณสามารถปิดใช้งานฟังก์ชันบางอย่างได้เมื่อฟังก์ชันเหล่านั้นขัดแย้งกับโมดูลอื่น</string>
+    <string name="settings_enable_internet">เปิดการเชื่อมต่ออินเทอร์เน็ต</string>
+    <string name="settings_enable_internet_summary">แอปนี้จะสูญเสียความสามารถทั้งหมดที่เกี่ยวข้องกับอินเทอร์เน็ต เมื่อคุณปิดใช้งานตัวเลือกนี้</string>
+    <string name="settings_default_config">การตั้งค่าแอปสำหรับแอปใหม่</string>
+    <string name="settings_default_config_summary">การตั้งค่านี้จะนำการตั้งค่าที่กำหนดไปใช้กับแอปใหม่ทั้งหมด แต่จะคงการตั้งค่าเดิมไว้สำหรับแอปใหม่ที่คุณเคยกำหนดการตั้งค่าไว้ก่อนหน้านี้</string>
+    <string name="settings_webview_protection">การป้องกัน WebView</string>
+    <string name="settings_webview_protection_summary">เพิ่มการป้องกันเพิ่มเติมจากข้อขัดข้องที่เกิดจากการซ่อนหรือกำหนดเป้าหมาย WebView หรือเบราว์เซอร์</string>
     <string name="settings_language">ภาษา</string>
     <string name="settings_translate">เข้าร่วมการแปลภาษา</string>
     <string name="settings_translate_summary">ช่วยเราแปล %s เป็นภาษาของคุณ</string>
@@ -192,9 +210,9 @@ Vold ข้อมูลแอป: %s
     <string name="settings_pure_black_dark_theme">ธีมมืดสีดำสนิท</string>
     <string name="settings_pure_black_dark_theme_summary">ใช้ธีมสีดำสนิทเมื่อเปิดใช้งานธีมมืด</string>
     <string name="settings_service">บริการ</string>
-    <string name="settings_stop_system_service">หยุดบริการของระบบ</string>
-    <string name="settings_stop_system_service_summary">ต้องรีบูตเพื่อเริ่มบริการใหม่</string>
-    <string name="settings_is_clean_env">ล้างสภาพแวดล้อมการทำงานพร้อมกันหรือไม่?</string>
+    <string name="settings_reset_default">รีเซ็ตเป็นค่าเริ่มต้น</string>
+    <string name="settings_reset_default_summary">ตัวเลือกนี้ช่วยให้คุณล้างการตั้งค่าทั้งหมดและเริ่มต้นใหม่ตั้งแต่ต้น</string>
+    <string name="settings_irreversible_confirmation">การดำเนินการนี้ไม่สามารถย้อนกลับได้ คุณแน่ใจหรือไม่?</string>
     <string name="settings_is_clean_env_summary">ลบแคชของ system service ใน /data/misc/hide_my_applist_* ซึ่งหมายความว่าคุณต้องเปิดแอปโมดูลด้วยตนเองหนึ่งครั้งหลังจากรีบูตครั้งถัดไป เพื่อเปิดใช้งานการดักจับ และจำนวนการดักจับจะถูกล้างด้วย</string>
     <string name="settings_force_clean_env">บังคับล้างสภาพแวดล้อมการทำงาน (รูท)</string>
     <string name="settings_force_clean_env_summary">ใช้เฉพาะกรณีที่ system service ไม่สามารถเริ่มทำงานได้ มิฉะนั้นควรกดตัวเลือกด้านบน</string>
@@ -217,6 +235,7 @@ Vold ข้อมูลแอป: %s
 จากนั้นนำเทมเพลตไปใช้กับแอปในเมนู \"จัดการแอป\"(คุณสามารถเลือกแอปเพิ่มเติมสำหรับเป้าหมายได้)
 คุณควร และต้องเลือกเพียง \"System Framework\"ในขอบเขต / ไวท์ลิสต์ของโมดูล Xposed เท่านั้น</string>
     <string name="about_how_to_use_description_2">การแก้ไขการตั้งค่าจะมีผลทันทีแบบเรียลไทม์</string>
+    <string name="about_how_to_use_description_3">แอปพลิเคชันนี้ทำหน้าที่เป็นตัวจัดการโมดูล Zygisk ดังนั้นคุณจำเป็นต้องติดตั้งโมดูล Zygisk แยกต่างหากเพื่อให้ตัวจัดการนี้ทำงานได้</string>
     <string name="about_translator">ผู้แปล</string>
     <string name="about_developer">ผู้พัฒนา</string>
     <string name="about_support">การสนับสนุนและข้อเสนอแนะ</string>
@@ -245,4 +264,7 @@ Vold ข้อมูลแอป: %s
     <string name="dark_theme">ธีมมืด</string>
     <string name="dark_theme_off">ปิดตลอดเวลา</string>
     <string name="dark_theme_on">เปิดตลอดเวลา</string>
+    <string name="sick_mode_title">เปิดใช้งานโหมดปัญหา</string>
+    <string name="sick_mode_description">HMA-OSS ตรวจพบโมดูลที่อาจขัดแย้งกันและได้จำกัดการทำงานบางส่วน</string>
+    <string name="sick_mode_notice">การตั้งค่า HMA/HMAL สามารถใช้งานร่วมกับ HMA-OSS ได้ และคุณสามารถเริ่มใช้งานด้วยการตั้งค่าเดิมของคุณได้ แต่ต้องถอนการติดตั้ง HMA/HMAL แล้วรีบูตเครื่องก่อน</string>
 </resources>

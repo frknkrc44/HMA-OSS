@@ -5,20 +5,20 @@
     <string name="title_settings">Setelan</string>
     <string name="title_template_manage">Kelola templat</string>
     <string name="title_template_settings">Setelan templat</string>
-    <string name="title_settings_template_conf">Konfigurasi setelan templat</string>
+    <string name="title_settings_template_conf">Konfigurasi templat pengaturan</string>
     <string name="title_app_manage">Kelola aplikasi</string>
     <string name="title_app_select">Pilih aplikasi</string>
     <string name="title_app_settings">Setelan aplikasi</string>
     <string name="title_about">Tentang</string>
     <string name="title_about_fork">Tentang cabang ini</string>
-    <string name="do_not_dual">Jangan pasang HMA pada pengguna kedua</string>
+    <string name="do_not_dual">Jangan menginstal HMA ke pengguna sekunder</string>
     <string name="show_crash_log">Tampilkan log kerusakan</string>
     <string name="config_damaged">Berkas konfig rusak. Harap bersihkan data aplikasi</string>
-    <string name="edit_list">Edit daftar</string>
+    <string name="edit_list">Sunting daftar</string>
     <string name="delete">Hapus</string>
     <string name="enabled">Aktif</string>
     <string name="disabled">Nonaktif</string>
-    <string name="work_mode">Mode kerja</string>
+    <string name="work_mode">Mode fungsi</string>
     <string name="blacklist">Daftar hitam</string>
     <string name="whitelist">Daftar putih</string>
     <string name="application">Aplikasi</string>
@@ -28,99 +28,113 @@
     <string name="yes">Ya</string>
     <string name="no">Tidak</string>
     <string name="search">Cari</string>
-    <string name="system">Sistem</string>
+    <string name="system">System</string>
     <string name="add">Tambahkan</string>
-    <string name="edit">Ubah</string>
+    <string name="edit">Sunting</string>
     <string name="apply">Terapkan</string>
-    <string name="follow_system">Sistem</string>
+    <string name="follow_system">Ikuti sistem</string>
     <!-- Home -->
     <string name="home_xposed_activated">Modul Aktif [%s]</string>
     <string name="home_xposed_not_activated">Modul Tidak Aktif</string>
-    <string name="home_xposed_service_on">Layanan sistem sedang berjalan [%d]</string>
+    <string name="home_xposed_service_on">Layanan sistem berjalan [%d]</string>
     <string name="home_xposed_service_off">Layanan sistem tidak berjalan</string>
-    <string name="home_xposed_service_old">Modul diperbarui, perlu mulai ulang</string>
-    <string name="home_xposed_filter_count">HMA-OSS telah menyaring total %d permintaan</string>
+    <string name="home_xposed_filter_count">HMA-OSS telah memfilter total %d permintaan</string>
     <string name="home_manage">Kelola</string>
-    <string name="home_detection_test">Uji deteksi</string>
+    <string name="home_detection_test">Tes deteksi</string>
     <string name="home_download_test_app_title">Unduh aplikasi uji</string>
-    <string name="home_download_test_app_message">Kami telah mengembangkan aplikasi uji deteksi individual dan memindahkan uji deteksi ke dalamnya. Ingin mengunduhnya sekarang?</string>
+    <string name="home_download_test_app_message">Kami telah mengembangkan aplikasi uji deteksi individual dan memigrasikan uji deteksi ke dalamnya. Apakah Anda ingin mengunduhnya sekarang?</string>
     <string name="home_backup_and_restore">Cadangkan &amp; Pulihkan</string>
     <string name="home_backup_config">Cadangkan konfig</string>
-    <string name="home_restore_config">Pulihkan konfig</string>
+    <string name="home_restore_config">Pulihkan konfigurasi</string>
     <string name="home_import_successful">Impor berhasil</string>
     <string name="home_import_failed">Impor gagal</string>
-    <string name="home_import_app_version_too_old">Versi modul lebih rendah dari versi cadangan</string>
+    <string name="home_import_app_version_too_old">Versi modul lebih rendah dari cadangan</string>
     <string name="home_import_backup_version_too_old">Versi cadangan terlalu lama</string>
     <string name="home_import_file_damaged">Berkas cadangan rusak</string>
     <string name="home_export_failed">Ekspor gagal</string>
     <string name="home_exported">Konfig dicadangkan</string>
     <string name="home_new_update">Pembaruan tersedia: %s</string>
-    <string name="home_update">Memperbarui: %s</string>
+    <string name="home_update">Pembaruan: %s</string>
+    <string name="home_migrate_data_fix_button">Perbaiki masalah</string>
+    <string name="home_migrate_data">Migrasi data</string>
+    <string name="home_migrate_data_summary">Anda juga akan diminta untuk mencopot pemasangan HMA/HMAL di kedua opsi. Apakah Anda ingin memigrasikan data lama?</string>
+    <string name="home_migrate_data_failed">Gagal menyalin data atau menemukan lebih dari satu HMA/HMAL.</string>
+    <string name="home_migrate_data_completed">Selesai! Anda perlu me-reboot perangkat Anda.</string>
+    <string name="home_migrate_uninstall_only">Copot pemasangan saja</string>
+    <!-- Backup & Restore -->
+    <string name="backup_restore_backup_settings">Setelan cadangan</string>
+    <string name="backup_restore_restore_settings">Pulihkan pengaturan</string>
+    <string name="backup_restore_apps">Konfigurasi aplikasi</string>
+    <string name="backup_restore_templates">Templat</string>
+    <string name="backup_restore_settings_templates">Templat pengaturan</string>
+    <string name="backup_restore_append">Tambahkan</string>
+    <string name="backup_restore_items_count">%d item</string>
     <!-- App select -->
-    <string name="list_show_system">Tampilkan apl sistem</string>
-    <string name="list_sorting">Urutkan</string>
-    <string name="list_reverse_order">Terbalik</string>
-    <string name="list_sort_by_label">Nama apl</string>
-    <string name="list_sort_by_package_name">Nama paket</string>
-    <string name="list_sort_by_install_time">Waktu pemasangan</string>
-    <string name="list_sort_by_update_time">Waktu pembaruan</string>
-    <string name="list_empty_no_enabled">Coba aktifkan penyembunyian untuk apl dengan mode kerja templat ini dan apl akan muncul di sini</string>
-    <string name="list_empty_no_apps">Tidak ada apl yang ditemukan, mungkin Anda tidak mengizinkan apl ini untuk mengakses semua paket</string>
-    <string name="list_empty_preset">Tidak ada apl yang ditambahkan dalam preset ini</string>
+    <string name="list_show_system">Tampilkan aplikasi sistem</string>
+    <string name="list_sorting">Menyortir</string>
+    <string name="list_reverse_order">Urutan terbalik</string>
+    <string name="list_sort_by_label">Nama aplikasi</string>
+    <string name="list_sort_by_package_name">Berdasarkan nama paket</string>
+    <string name="list_sort_by_install_time">Dengan waktu pemasangan</string>
+    <string name="list_sort_by_update_time">Berdasarkan waktu pembaruan</string>
+    <string name="list_empty_no_enabled">Coba aktifkan penyembunyian untuk aplikasi dengan mode fungsi templat ini dan aplikasi akan muncul di sini</string>
+    <string name="list_empty_no_apps">Tidak ada aplikasi yang ditemukan, mungkin Anda tidak mengizinkan aplikasi ini untuk menanyakan semua paket</string>
+    <string name="list_empty_preset">Tidak ada aplikasi yang ditambahkan saat ini</string>
     <!-- Manage templates -->
-    <string name="template_usage_hint">Buat templat untuk apl \"bermasalah\", guna mengontrol akses daftar apl.\n\nDaftar hitam (disarankan): apl yang dipilih dalam templat tidak akan terlihat dari apl yang menerapkan templat tersebut.\nDaftar putih: apl yang tidak dipilih dalam templat tidak akan terlihat oleh apl yang menerapkan templat tersebut.</string>
+    <string name="template_usage_hint">Buat templat untuk aplikasi \"gelisah\", kendalikan daftar aplikasi yang dapat mereka peroleh.\n\nBlacklist (disarankan): aplikasi yang dipilih dalam templat tidak akan terlihat oleh aplikasi yang menerapkan templat.\nDaftar putih:aplikasi yang tidak dipilih dalam templat tidak akan terlihat oleh aplikasi yang menerapkan templat.</string>
     <string name="template_new_blacklist">Buat templat daftar hitam</string>
     <string name="template_new_whitelist">Buat templat daftar putih</string>
-    <string name="template_new_setting">Buat templat setelan</string>
-    <string name="template_delete">Apakah Anda yakin ingin menghapus templat tersebut?</string>
+    <string name="template_new_setting">Buat templat pengaturan</string>
+    <string name="template_delete">Apakah Anda yakin akan menghapus templatnya?</string>
     <string name="template_name">Nama templat</string>
     <string name="template_name_invalid">Nama tidak valid</string>
     <string name="template_delete_title">Hapus Templat</string>
     <string name="template_name_already_exist">Nama templat sudah ada</string>
-    <string name="template_applied_count">Diterapkan ke %d apl</string>
+    <string name="template_applied_count">Diterapkan ke %d aplikasi</string>
     <string name="template_setting_count">%d setelan ditambahkan</string>
-    <string name="template_apps_visible_count">%d apl terlihat</string>
-    <string name="template_apps_invisible_count">%d apl tidak terlihat</string>
+    <string name="template_apps_visible_count">%d aplikasi terlihat</string>
+    <string name="template_apps_invisible_count">%d aplikasi tidak terlihat</string>
     <!-- App settings -->
     <string name="app_enable_hide">Aktifkan penyembunyian</string>
     <string name="app_template_config">Konfigurasi templat</string>
     <string name="app_choose_template">Pilih templat</string>
     <string name="app_choose_preset">Pilih preset</string>
-    <string name="app_exclude_system_apps">Kecualikan apl sistem</string>
-    <string name="app_exclude_system_apps_summary">Nonaktifkan opsi ini hanya jika benar-benar diperlukan. Kemungkinan menyebabkan kerusakan jika dinonaktifkan</string>
+    <string name="app_exclude_system_apps">Kecualikan aplikasi sistem</string>
+    <string name="app_exclude_system_apps_summary">Matikan opsi ini hanya jika benar-benar diperlukan. Kemungkinan akan menyebabkan crash dengan menonaktifkannya</string>
     <string name="app_template_using">Menggunakan %d templat</string>
     <string name="app_preset_using">Menggunakan %d preset</string>
     <string name="app_settings_preset_using">Menggunakan %d preset setelan</string>
-    <string name="app_settings_template_using">Menggunakan templat setelan %d</string>
-    <string name="app_extra_apps_visible_count">%d apl tambahan terlihat</string>
-    <string name="app_extra_apps_invisible_count">%d apl tambahan tidak terlihat</string>
+    <string name="app_settings_template_using">Menggunakan %d templat pengaturan</string>
+    <string name="app_extra_apps_visible_count">%d aplikasi tambahan terlihat</string>
+    <string name="app_extra_apps_invisible_count">%d aplikasi tambahan tidak terlihat</string>
     <string name="app_warning_risky_package_title">Paket berisiko</string>
-    <string name="app_warning_risky_package_desc">Paket ini ditandai sebagai berisiko dan dapat menyebabkan masalah pada aplikasi tersembunyi. Apakah Anda ingin melanjutkan?</string>
-    <string name="app_spoof">Spoofing</string>
-    <string name="app_hide_installation_source">Spoof sumber pemasangan</string>
-    <string name="app_hide_installation_source_desc">Semua apl pengguna akan di-spoof seolah-olah terpasang di Play Store untuk apl ini</string>
-    <string name="app_hide_installation_source_system">Spoof apl sistem juga</string>
-    <string name="app_hide_installation_source_system_desc">Semua apl sistem akan di-spoof seolah-olah terpasang tanpa alasan apa pun untuk apl ini</string>
-    <string name="app_exclude_target_installation_source">Kecualikan target apl</string>
-    <string name="app_exclude_target_installation_source_desc">Anda dapat mengaktifkannya jika apl ini tidak tersedia di Play Store</string>
-    <string name="app_force_stop_warning">Jangan lupa untuk menghentikan paksa target apl setelah menyimpan konfigurasi</string>
+    <string name="app_warning_risky_package_desc">Paket ini ditandai sebagai berisiko dan Anda dapat menyebabkan masalah pada aplikasi tersembunyi. Apakah Anda ingin melanjutkan?</string>
+    <string name="app_spoof">Pemalsuan (Spoofing)</string>
+    <string name="app_hide_installation_source">Memalsukan sumber instalasi</string>
+    <string name="app_hide_installation_source_desc">Semua aplikasi pengguna akan di-spoof seolah-olah terpasang di Play Store untuk aplikasi ini</string>
+    <string name="app_hide_installation_source_system">Palsukan aplikasi sistem juga</string>
+    <string name="app_hide_installation_source_system_desc">Semua aplikasi sistem akan di-spoof seolah-olah terpasang tanpa alasan apa pun untuk aplikasi ini</string>
+    <string name="app_exclude_target_installation_source">Kecualikan aplikasi target</string>
+    <string name="app_exclude_target_installation_source_desc">Anda dapat mengaktifkannya jika aplikasi ini tidak tersedia di Play Store</string>
+    <string name="app_force_stop_warning">Jangan lupa untuk paksa henti aplikasi target setelah menyimpan konfigurasi</string>
     <string name="app_invert_activity_launch_protection">Ubah proteksi peluncuran aktivitas</string>
     <string name="app_invert_activity_launch_protection_desc">Opsi ini akan mengubah pilihan \"Nonaktifkan proteksi peluncuran aktivitas\" di setelan.</string>
     <string name="app_global_activity_launch_protection_state">Proteksi %s secara global</string>
-    <string name="app_force_stop_launch">Paksa berhenti dan luncurkan</string>
+    <string name="app_force_stop_launch">Paksa henti dan luncurkan</string>
     <string name="app_launch">Luncurkan</string>
-    <string name="app_launch_failed">Peluncuran apl gagal, periksa log untuk detail lebih lanjut</string>
+    <string name="app_launch_failed">Peluncuran aplikasi gagal, periksa log untuk detail lebih lanjut</string>
     <string name="app_restrict_zygote_permissions">Batasi izin Zygote aplikasi</string>
     <string name="app_restrict_zygote_permissions_desc">Opsi ini dapat menyebabkan kerusakan atau deteksi palsu. Gunakan dengan bijak.</string>
     <!-- Presets -->
     <string name="title_preset">Preset</string>
     <string name="title_settings_preset">Preset setelan</string>
     <string name="title_preset_manage">Tampilan preset</string>
+    <string name="title_ignored_apps_for_presets">Aplikasi yang diabaikan</string>
     <string name="preset_xposed">Modul LSPosed/Xposed</string>
-    <string name="preset_root_apps">Manajer root/Apl root</string>
-    <string name="preset_custom_rom">Apl ROM kustom</string>
-    <string name="preset_sus_apps">Apl mencurigakan</string>
-    <string name="preset_detector_apps">Apl Detektor/Checker</string>
+    <string name="preset_root_apps">Manajer root/Aplikasi root</string>
+    <string name="preset_custom_rom">Aplikasi ROM kustom</string>
+    <string name="preset_sus_apps">Aplikasi mencurigakan</string>
+    <string name="preset_detector_apps">Aplikasi Detektor/Checker</string>
     <string name="preset_shizuku_dhizuku">Shizuku</string>
     <string name="preset_accessibility_apps">Aplikasi aksesibilitas</string>
     <!-- Settings preset names -->
@@ -128,7 +142,7 @@
     <string name="settings_preset_dev_options">Opsi pengembang</string>
     <string name="settings_preset_input_method">Alat input</string>
     <!-- Settings templates -->
-    <string name="settings_templates_database">Setelan database</string>
+    <string name="settings_templates_database">Basis data setelan</string>
     <string name="settings_templates_name">Nama setelan</string>
     <string name="settings_templates_value">Nilai setelan</string>
     <!-- Settings templates - basic configuration types -->
@@ -136,7 +150,7 @@
     <string name="settings_templates_random_ssaid">SSAID acak</string>
     <!-- Logs -->
     <string name="logs_save">Simpan log</string>
-    <string name="logs_clear">Hapus log</string>
+    <string name="logs_clear">Bersihkan log</string>
     <string name="logs_empty">Tidak ada log tersimpan</string>
     <string name="logs_saved">Log disimpan</string>
     <!-- Filter logs -->
@@ -148,35 +162,39 @@
     <string name="settings_overwrite_summary">Item kategori ini akan dipaksa aktif jika tombol diaktifkan</string>
     <string name="settings_default_value">Nilai bawaan: %s</string>
     <string name="settings_data_isolation">Isolasi data</string>
-    <string name="settings_data_isolation_summary">Data apl: %s\nVold data apl: %s\nPaksa mount: %s</string>
+    <string name="settings_data_isolation_summary">Data aplikasi: %s\nData aplikasi vold: %s\nPaksa mount: %s</string>
     <string name="settings_data_isolation_unsupported">Opsi ini hanya tersedia di Android 11 dan di atasnya</string>
-    <string name="settings_app_data_isolation">Isolasi data apl</string>
-    <string name="settings_vold_app_data_isolation">Isolasi Vold data apl</string>
+    <string name="settings_app_data_isolation">Isolasi data aplikasi</string>
+    <string name="settings_vold_app_data_isolation">Isolasi data aplikasi vold</string>
     <string name="settings_warning">Peringatan</string>
-    <string name="settings_vold_warning">Ini akan mengaktifkan fitur AOSP yang membuat direktori penyimpanan eksternal pribadi apl terisolasi. Ini dapat membantu meningkatkan penyembunyian apl meskipun dapat menyebabkan masalah stabilitas. Fitur ini dapat berhenti berfungsi kapan saja karena ditinggalkan oleh AOSP.</string>
+    <string name="settings_vold_warning">Ini akan mengaktifkan fitur AOSP yang membuat direktori penyimpanan eksternal pribadi aplikasi terisolasi. Ini dapat membantu meningkatkan penyembunyian aplikasi meskipun dapat menyebabkan masalah stabilitas. Fitur ini dapat berhenti berfungsi kapan saja karena ditinggalkan oleh AOSP.</string>
     <string name="settings_change_require_root">Perubahan diperlukan izin root</string>
     <string name="settings_need_reboot">Perubahan diperlukan mulai ulang</string>
     <string name="settings_permission_denied">Izin ditolak</string>
-    <string name="settings_force_mount_data">Paksa isolasi data untuk semua apl</string>
-    <string name="settings_force_mount_data_summary">Isolasi data dinonaktifkan untuk apl target API yang lebih rendah dari 30 secara bawaan</string>
+    <string name="settings_force_mount_data">Paksa isolasi data untuk semua aplikasi</string>
+    <string name="settings_force_mount_data_summary">Isolasi data dinonaktifkan secara bawaan untuk aplikasi target API di bawah 30</string>
     <string name="settings_detail_log">Log detail untuk debugging</string>
     <string name="settings_max_log_size">Ukuran buffer log</string>
-    <string name="settings_hide_icon">Sembunyikan ikon modul di launcher</string>
-    <string name="settings_hide_icon_summary">Anda masih dapat membuka apl di manajer Xposed</string>
+    <string name="settings_hide_icon">Sembunyikan ikon modul di peluncur</string>
+    <string name="settings_hide_icon_summary">Anda masih dapat membuka aplikasi di manajer root</string>
     <string name="settings_bypass_risky_package_warning">Abaikan paket berisiko</string>
     <string name="settings_bypass_risky_package_warning_summary">Perlu diketahui bahwa pengembang tidak bertanggung jawab atas masalah terkait paket berisiko sebelum atau setelah Anda mengaktifkan fitur ini</string>
     <string name="settings_disable_activity_launch_protection">Nonaktifkan proteksi peluncuran aktivitas</string>
     <string name="settings_disable_activity_launch_protection_summary">Tombol ini akan menonaktifkan semua proteksi peluncuran aktivitas. Jika Anda tidak yakin, jangan aktifkan.</string>
     <string name="settings_system_wallpaper">Gunakan wallpaper sistem</string>
-    <string name="settings_clear_uninstalled_app_configs">Bersihkan konfig apl terhapus</string>
-    <string name="settings_clear_uninstalled_app_configs_summary">Opsi ini memungkinkan Anda membuat konfigurasi tanpa sisa tetapi Anda harus mengonfigurasi ulang apl saat Anda memasangnya lagi.</string>
+    <string name="settings_clear_uninstalled_app_configs">Bersihkan konfig aplikasi dicopot</string>
+    <string name="settings_clear_uninstalled_app_configs_summary">Opsi ini memungkinkan Anda membuat konfigurasi tanpa sisa tetapi Anda harus mengonfigurasi ulang aplikasi saat Anda memasangnya lagi.</string>
     <string name="settings_no_undone_warning">Tindakan ini tidak dapat dibatalkan.</string>
-    <string name="settings_package_query_workaround">Pencarian paket alternatif</string>
-    <string name="settings_package_query_workaround_summary">Jangan aktifkan opsi ini jika daftar paket sudah tampil dengan benar.</string>
     <string name="settings_launcher_icon">Ikon aplikasi</string>
     <string name="settings_error_only_log">Log khusus error</string>
+    <string name="settings_disable_hooks">Nonaktifkan fungsi</string>
+    <string name="settings_disable_hooks_summary">Anda dapat menonaktifkan beberapa fungsi jika fungsi tersebut bertentangan dengan modul lain</string>
     <string name="settings_enable_internet">Aktifkan koneksi internet</string>
     <string name="settings_enable_internet_summary">Aplikasi ini akan kehilangan semua fungsi yang berhubungan dengan internet jika Anda menonaktifkan opsi ini.</string>
+    <string name="settings_default_config">Konfig aplikasi untuk aplikasi baru</string>
+    <string name="settings_default_config_summary">Ini akan menerapkan konfigurasi yang telah ditentukan ke semua aplikasi baru, tetapi akan mempertahankan konfigurasi yang ada untuk aplikasi baru jika Anda telah menerapkan sesuatu sebelumnya.</string>
+    <string name="settings_webview_protection">Proteksi WebView</string>
+    <string name="settings_webview_protection_summary">Ini akan menambahkan proteksi ekstra terhadap kerusakan yang disebabkan oleh penyembunyian/penargetan WebView atau browser</string>
     <string name="settings_language">Bahasa</string>
     <string name="settings_translate">Berpartisipasi dalam terjemahan</string>
     <string name="settings_translate_summary">Bantu kami menerjemahkan %s ke bahasa Anda</string>
@@ -187,11 +205,11 @@
     <string name="settings_pure_black_dark_theme">Tema gelap hitam pekat</string>
     <string name="settings_pure_black_dark_theme_summary">Gunakan tema hitam pekat jika tema gelap diaktifkan</string>
     <string name="settings_service">Layanan</string>
-    <string name="settings_stop_system_service">Hentikan layanan sistem</string>
-    <string name="settings_stop_system_service_summary">Perlu mulai ulang untuk memulai kembali layanan</string>
-    <string name="settings_is_clean_env">Bersihkan lingkungan runtime pada saat yang bersamaan?</string>
-    <string name="settings_is_clean_env_summary">Hapus cache layanan sistem di /data/misc/hide_my_applist_*. Setelah mulai ulang berikutnya, Diperlukan membuka apl modul sekali secara manual untuk mengaktifkan intersepsi, dan jumlah intersepsi juga akan dihapus.</string>
-    <string name="settings_force_clean_env">Paksa bersihkan lingkungan runtime (root)</string>
+    <string name="settings_reset_default">Atur ulang ke setelan bawaan</string>
+    <string name="settings_reset_default_summary">Opsi ini memungkinkan Anda menghapus seluruh konfigurasi dan memulai dari awal</string>
+    <string name="settings_irreversible_confirmation">Tindakan ini tidak dapat dibatalkan. Apakah Anda yakin?</string>
+    <string name="settings_is_clean_env_summary">Hapus cache layanan sistem di /data/misc/hide_my_applist_*. Ini artinya Anda harus membuka aplikasi modul secara manual sekali setelah proses mulai ulang berikutnya untuk mengaktifkan intersepsi, dan hitungan intersepsi juga akan dibersihkan.</string>
+    <string name="settings_force_clean_env">Bersihkan paksa lingkungan runtime (root)</string>
     <string name="settings_force_clean_env_summary">Hanya jika layanan sistem gagal untuk memulai, jika tidak, Anda harus mengetuk opsi di atas.</string>
     <string name="settings_force_clean_env_toast_successful">Lingkungan runtime dibersihkan</string>
     <string name="settings_update">Pembaruan</string>
@@ -201,14 +219,21 @@
     <!-- Bulk config wizard -->
     <string name="title_bulk_config_wizard">Asisten konfigurasi massal</string>
     <!-- About -->
-    <string name="about_description">        Meskipun tidak tepat untuk mendeteksi pemasangan aplikasi tertentu, tidak semua aplikasi yang menggunakan root mendukung nama paket acak. Dalam kasus ini, aplikasi terdeteksi yang menggunakan root (seperti Pemalsuan Lokasi dan Isolasi Data) dianggap sama dengan root itu sendiri.\n\nPada saat yang sama, beberapa aplikasi cerdas memanfaatkan celah untuk mendapatkan daftar aplikasi Anda, sehingga mereka bisa membangun profil tentang Anda.\n\nModul ini menyediakan beberapa metode untuk menguji apakah Anda telah menyembunyikan daftar aplikasi dengan baik. Selain itu, dapat berfungsi sebagai modul Xposed untuk menyembunyikan aplikasi tertentu atau menolak permintaan daftar aplikasi guna melindungi privasi Anda.
+    <string name="about_description">
+        Meskipun tidak tepat untuk mendeteksi pemasangan aplikasi tertentu, tidak semua aplikasi yang menggunakan root mendukung nama paket acak. Dalam kasus ini, aplikasi terdeteksi yang menggunakan root (seperti Pemalsuan Lokasi dan Isolasi Data) dianggap sama dengan root itu sendiri.\n\nPada saat yang sama, beberapa aplikasi cerdas memanfaatkan celah untuk mendapatkan daftar aplikasi Anda, sehingga mereka bisa membangun profil tentang Anda.\n\nModul ini menyediakan beberapa metode untuk menguji apakah Anda telah menyembunyikan daftar aplikasi dengan baik. Selain itu, dapat berfungsi sebagai modul Zygisk untuk menyembunyikan aplikasi tertentu atau menolak permintaan daftar aplikasi guna melindungi privasi Anda.
     </string>
-    <string name="about_fork_description">        Proyek HMA asli telah menjadi sumber tertutup dan kode terbaru mereka tidak memuat beberapa perubahan terbaru, jadi saya membuat percabangan ini untuk melanjutkannya sebagai sumber terbuka lagi.
+    <string name="about_fork_description">
+        Proyek HMA asli telah menjadi sumber tertutup dan kode terbaru mereka tidak memuat beberapa perubahan terbaru, jadi saya membuat percabangan ini untuk melanjutkannya sebagai sumber terbuka lagi.
     </string>
     <string name="about_how_to_use_title">Cara menggunakan modul ini</string>
-    <string name="about_how_to_use_description_1">        Anda dapat membuat templat di \"Kelola templat\".\nKemudian terapkan templat ke aplikasi di \"Kelola aplikasi\". (Anda juga dapat memilih aplikasi tambahan untuk target.)\nAnda harus dan HANYA mengaktifkan \"Kerangka Kerja Sistem\" dalam cakupan modul Xposed / daftar putih.
+    <string name="about_how_to_use_description_1">
+        Anda dapat membuat templat di \"Kelola templat\".\nKemudian terapkan templat ke aplikasi di \"Kelola aplikasi\". (Anda juga dapat memilih aplikasi tambahan sebagai target.)
     </string>
-    <string name="about_how_to_use_description_2">        Perubahan konfigurasi efektif secara real time.
+    <string name="about_how_to_use_description_2">
+        Perubahan konfigurasi efektif secara real time.
+    </string>
+    <string name="about_how_to_use_description_3">
+        Aplikasi ini bertindak sebagai manajer modul Zygisk mulai sekarang, jadi Anda memerlukan modul Zygisk terpisah agar manajer ini berfungsi.
     </string>
     <string name="about_translator">Penerjemah</string>
     <string name="about_developer">Pengembang</string>
@@ -238,4 +263,7 @@
     <string name="dark_theme">Tema gelap</string>
     <string name="dark_theme_off">Selalu nonaktif</string>
     <string name="dark_theme_on">Selalu aktif</string>
+    <string name="sick_mode_title">Mode sakit aktif</string>
+    <string name="sick_mode_description">HMA-OSS mendeteksi modul yang kemungkinan tidak kompatibel dan membatasi fungsinya</string>
+    <string name="sick_mode_notice">Konfig HMA/HMAL kompatibel dengan HMA-OSS dan Anda dapat mulai menggunakannya dengan konfig yang sudah ada, tetapi Anda perlu mencopot pemasangan HMA/HMAL lalu melakukan mulai ulang terlebih dahulu</string>
 </resources>
