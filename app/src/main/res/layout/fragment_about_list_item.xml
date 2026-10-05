@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="?selectableItemBackground"
     android:orientation="horizontal"
     android:paddingHorizontal="@dimen/item_padding_vertical"
@@ -12,6 +13,7 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginEnd="@dimen/item_padding_vertical"
+        android:layout_weight="0"
         android:importantForAccessibility="no" />
 
     <LinearLayout
@@ -19,6 +21,7 @@
         android:gravity="center"
         android:orientation="vertical"
         android:layout_width="match_parent"
+        android:layout_weight="1"
         android:layout_height="?listPreferredItemHeightLarge">
 
         <TextView
@@ -34,5 +37,28 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        style="?attr/materialIconButtonFilledTonalStyle"
+        android:id="@+id/about_donate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/item_padding_mini2x"
+        android:layout_weight="0"
+        android:visibility="gone"
+        app:icon="@drawable/volunteer_activism_24px"
+        app:opticalCenterEnabled="true"
+        android:importantForAccessibility="no" />
+
+    <com.google.android.material.button.MaterialButton
+        style="?attr/materialIconButtonFilledTonalStyle"
+        android:id="@+id/about_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:visibility="gone"
+        app:icon="@drawable/outline_info_24"
+        app:opticalCenterEnabled="true"
+        android:importantForAccessibility="no" />
 
 </LinearLayout>
