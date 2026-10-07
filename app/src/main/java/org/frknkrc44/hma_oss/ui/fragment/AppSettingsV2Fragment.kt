@@ -41,10 +41,10 @@ import icu.nullptr.hidemyapplist.ui.util.showToast
 import icu.nullptr.hidemyapplist.ui.util.withAnimations
 import icu.nullptr.hidemyapplist.ui.viewmodel.AppSettingsViewModel
 import icu.nullptr.hidemyapplist.util.PackageHelper
-import org.frknkrc44.hma_oss.BuildConfig
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentSettingsBinding
 import org.frknkrc44.hma_oss.databinding.LayoutListEmptyBinding
+import org.frknkrc44.hma_oss.ui.util.PresetUtils
 
 class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
     companion object {
@@ -292,10 +292,10 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
 
                 true
             }
-            findPreference<Preference>("categoryVoldAppDataIsolation")?.let {
-                it.isVisible = !OSUtils.isSamsung()
+            findPreference<Preference>("categoryVoldAppDataIsolation")?.let { category ->
+                category.isVisible = !OSUtils.isSamsung()
 
-                if (it.isVisible) {
+                if (category.isVisible) {
                     findPreference<SwitchPreferenceCompat>("excludeVoldIsolation")?.let {
                         it.isEnabled = ConfigManager.altVoldAppDataIsolation
                     }
@@ -461,11 +461,7 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
                 val presetNames = AppPresets.instance.presetNames
                 val presetTranslations = presetNames.map { name ->
                     try {
-                        val id = resources.getIdentifier(
-                            "preset_${name}",
-                            "string",
-                            BuildConfig.APPLICATION_ID
-                        )
+                        val id = PresetUtils.presetMap[name] ?: 0
 
                         return@map if (id != 0) { getString(id) } else { name }
                     } catch (_: Throwable) {}
@@ -526,11 +522,7 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
                 val presetNames = SettingsPresets.instance.presetNames
                 val presetTranslations = presetNames.map { name ->
                     try {
-                        val id = resources.getIdentifier(
-                            "settings_preset_${name}",
-                            "string",
-                            BuildConfig.APPLICATION_ID
-                        )
+                        val id = PresetUtils.settingsPresetMap[name] ?: 0
 
                         return@map if (id != 0) { getString(id) } else { name }
                     } catch (_: Throwable) {}
