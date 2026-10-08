@@ -1,7 +1,9 @@
 package org.frknkrc44.hma_oss.zygote.util;
 
+import static org.frknkrc44.hma_oss.zygote.util.Logcat.logE;
 import static org.frknkrc44.hma_oss.zygote.util.ServiceUtils.waitForService;
 
+import android.app.Activity;
 import android.app.IActivityManager;
 import android.app.IUidObserver;
 import android.content.Context;
@@ -13,6 +15,9 @@ import android.system.Os;
 
 import androidx.annotation.Nullable;
 
+import org.frknkrc44.hma_oss.zygote.ZygoteEntry;
+
+@SuppressWarnings("all")
 public class ActivityManagerUtils {
     private ActivityManagerUtils() {}
 
@@ -20,6 +25,16 @@ public class ActivityManagerUtils {
 
     public static void forceStopPackage(String packageName, int userId) throws RemoteException {
         getActivityManager().forceStopPackage(packageName, userId);
+    }
+
+    public static int startActivityNoThrow(Intent intent, int userId) {
+        try {
+            return startActivity(intent, userId);
+        } catch (Throwable e) {
+            logE(ZygoteEntry.TAG, e, () -> "Cannot start activity");
+        }
+
+        return Activity.RESULT_CANCELED;
     }
 
     public static int startActivity(Intent intent, int userId) throws RemoteException {
@@ -52,7 +67,7 @@ public class ActivityManagerUtils {
 
     private static IActivityManager getActivityManager() {
         if (sActivityManager == null) {
-            sActivityManager = (IActivityManager) waitForService(Context.ACTIVITY_SERVICE);
+            sActivityManager = IActivityManager.Stub.asInterface(waitForService(Context.ACTIVITY_SERVICE));
         }
 
         return sActivityManager;

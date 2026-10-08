@@ -45,7 +45,11 @@ public class ServiceUtils {
 
     public static void binderLocalScopeNoReturn(Runnable block) {
         final var identity = Binder.clearCallingIdentity();
-        block.run();
+        try {
+            block.run();
+        } catch (Throwable e) {
+            logE(TAG, e, () -> "An error occurred while binderLocalScopeNoReturn");
+        }
         Binder.restoreCallingIdentity(identity);
     }
 

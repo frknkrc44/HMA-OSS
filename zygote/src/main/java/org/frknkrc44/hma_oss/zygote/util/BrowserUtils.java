@@ -86,6 +86,7 @@ public class BrowserUtils {
             return (String) callMethod(
                     getPackageManager(),
                     "getDefaultBrowserPackageNameAsUser",
+                    new Class[]{int.class},
                     userId
             );
         } catch (Throwable e) {

@@ -11,6 +11,7 @@ import android.os.RemoteException;
 
 import androidx.annotation.Nullable;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public class PackageManagerUtils {
@@ -28,7 +29,7 @@ public class PackageManagerUtils {
 
     @SuppressWarnings("SequencedCollectionMethodCanBeUsed")
     @Nullable
-    public static Intent getLaunchIntentForPackageAsUser(String packageName, int userId) {
+    public static Intent getLaunchIntentForPackageAsUser(String packageName, int userId) throws InvocationTargetException, IllegalAccessException {
         final var intentToResolve = new Intent(Intent.ACTION_MAIN);
         intentToResolve.addCategory(Intent.CATEGORY_INFO);
         intentToResolve.setPackage(packageName);
@@ -58,16 +59,13 @@ public class PackageManagerUtils {
     // I am lazy to call IPackageManager
     @SuppressWarnings("all")
     @Nullable
-    private static List<ResolveInfo> queryIntentActivitiesAsUser(Intent intent, int userId) {
-        try {
-            return (List<ResolveInfo>) callMethod(
-                    getPackageManager(),
-                    "queryIntentActivitiesAsUser",
-                    intent, 0, userId
-            );
-        } catch (Throwable ignored) {
-            return null;
-        }
+    private static List<ResolveInfo> queryIntentActivitiesAsUser(Intent intent, int userId) throws InvocationTargetException, IllegalAccessException {
+        return (List<ResolveInfo>) callMethod(
+                getPackageManager(),
+                "queryIntentActivitiesAsUser",
+                new Class[]{Intent.class, int.class, int.class},
+                intent, 0, userId
+        );
     }
 
     public static boolean findApp(IPackageManager pms, String packageName) throws RemoteException {

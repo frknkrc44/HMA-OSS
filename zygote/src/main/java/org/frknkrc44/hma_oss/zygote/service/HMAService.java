@@ -939,19 +939,21 @@ public class HMAService extends IHMAService.Stub {
 
     @Override
     public void startMainActivityAsUser(String packageName, int userId) throws RemoteException {
-        final var packageInfo = Utils.getPackageInfoCompat(pms, packageName, 0, userId);
-        if (packageInfo == null) throw new RemoteException("Cannot find package info for " + packageName);
+        binderLocalScopeNoReturn(() -> {
+            final var packageInfo = Utils.getPackageInfoCompat(pms, packageName, 0, userId);
+            if (packageInfo == null) throw new RuntimeException("Cannot find package info for " + packageName);
 
-        if (packageInfo.applicationInfo != null && packageInfo.applicationInfo.enabled) {
-            final var intent = getLaunchIntentForPackageAsUser(packageName, userId);
-            if (intent != null) {
-                ActivityManagerUtils.startActivity(intent, userId);
+            if (packageInfo.applicationInfo != null && packageInfo.applicationInfo.enabled) {
+                try {
+                    final var intent = getLaunchIntentForPackageAsUser(packageName, userId);
+                    ActivityManagerUtils.startActivityNoThrow(intent, userId);
+                } catch (Throwable e) {
+                    throw new RuntimeException(e);
+                }
             } else {
-                throw new RemoteException("No main activity found to launch this app");
+                throw new RuntimeException(packageName + " is disabled");
             }
-        } else {
-            throw new RemoteException(packageName + " is disabled");
-        }
+        });
     }
 
     @Override

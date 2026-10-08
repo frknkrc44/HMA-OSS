@@ -157,6 +157,12 @@ public class ZLUtils {
     public static Object callMethod(Object obj, String name, Object... args)
             throws InvocationTargetException, IllegalAccessException {
         final var argTypes = extractArgTypes(args);
+        return callMethod(obj, name, argTypes, args);
+    }
+
+    @Nullable
+    public static Object callMethod(Object obj, String name, Class<?>[] argTypes, Object... args)
+            throws InvocationTargetException, IllegalAccessException {
         final var method = getDeclaredMethod(obj.getClass(), name, argTypes);
         method.setAccessible(true);
         return method.invoke(obj, args);
