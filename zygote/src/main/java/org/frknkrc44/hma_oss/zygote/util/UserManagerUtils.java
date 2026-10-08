@@ -1,7 +1,5 @@
 package org.frknkrc44.hma_oss.zygote.util;
 
-import static org.frknkrc44.hma_oss.zygote.ZygoteEntry.TAG;
-import static org.frknkrc44.hma_oss.zygote.util.Logcat.logV;
 import static org.frknkrc44.hma_oss.zygote.util.ServiceUtils.waitForService;
 
 import android.content.Context;
@@ -23,25 +21,12 @@ public class UserManagerUtils {
         try {
             return userManager.getUsers(excludeDying);
         } catch (Throwable e) {
-            // noinspection ConstantValue
-            if (!(e instanceof NoSuchMethodException)) {
-                logV(TAG, e, () -> "An unknown error occurred while executing getUsers");
-
-                throw new RemoteException(e.getMessage());
+            try {
+                return userManager.getUsers(excludePartial, excludeDying, excludePreCreated);
+            } catch (Throwable x) {
+                return new ArrayList<>();
             }
         }
-
-        try {
-            return userManager.getUsers(excludePartial, excludeDying, excludePreCreated);
-        } catch (Throwable e) {
-            if (!(e instanceof NoSuchMethodException)) {
-                logV(TAG, e, () -> "An unknown error occurred while executing getUsers");
-
-                throw new RemoteException(e.getMessage());
-            }
-        }
-
-        return new ArrayList<>();
     }
 
     public static int[] getUserIds() throws RemoteException {
