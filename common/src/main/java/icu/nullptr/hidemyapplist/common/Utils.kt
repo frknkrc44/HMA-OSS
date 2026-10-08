@@ -19,18 +19,13 @@ object Utils {
             .joinToString("")
     }
 
+    @JvmStatic
     fun generateRandomHex(length: Int) = generateRandomString(
         length,
         ('a' .. 'f') + ('0' .. '9'),
     )
 
-    fun <T> binderLocalScope(block: () -> T): T {
-        val identity = Binder.clearCallingIdentity()
-        val result = block()
-        Binder.restoreCallingIdentity(identity)
-        return result
-    }
-
+    @JvmStatic
     fun IPackageManager.getInstalledApplicationsCompat(flags: Long, userId: Int): List<ApplicationInfo> {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             this.getInstalledApplications(flags, userId)
@@ -47,6 +42,7 @@ object Utils {
         }
     }
 
+    @JvmStatic
     fun IPackageManager.getPackageInfoCompat(packageName: String, flags: Long, userId: Int): PackageInfo? {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             this.getPackageInfo(packageName, flags, userId)
@@ -55,18 +51,21 @@ object Utils {
         }
     }
 
+    @JvmStatic
     fun String?.startsWithMultiple(vararg targets: String): Boolean {
         if (isNullOrEmpty() || targets.isEmpty()) return false
 
         return targets.any { startsWith(it) }
     }
 
+    @JvmStatic
     fun String?.endsWithMultiple(vararg targets: String): Boolean {
         if (isNullOrEmpty() || targets.isEmpty()) return false
 
         return targets.any { endsWith(it) }
     }
 
+    @JvmStatic
     fun String?.containsMultiple(vararg targets: String): Boolean {
         if (isNullOrEmpty() || targets.isEmpty()) return false
 
@@ -96,6 +95,7 @@ object Utils {
         }
     }
 
+    @JvmStatic
     fun JsonConfig.cleanRemnantsFromConfig() {
         // STEP 1: Remove empty app and settings templates
         templates.removeIf { _, template -> template.appList.isEmpty() }
@@ -120,10 +120,12 @@ object Utils {
         false
     }
 
+    @JvmStatic
     fun ApplicationInfo.isSystemApp() = flags and ApplicationInfo.FLAG_SYSTEM != 0 ||
             flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP != 0
 
-    val conflictedModules = arrayOf(
+    @JvmField
+    val conflictedModules = listOf(
         "com.tsng.hidemyapplist",
         "com.google.android.hmal",
     )

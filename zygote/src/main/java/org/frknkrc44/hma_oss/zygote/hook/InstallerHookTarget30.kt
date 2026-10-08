@@ -48,7 +48,7 @@ class InstallerHookTarget30 : InstallerHookTarget29() {
                 applyInstallerHiding(
                     methodName,
                     Binder.getCallingUid(),
-                    { frame.getArgument(1) as? String }
+                    { getArgument(frame, 1) as? String }
                 ) {
                     when (it) {
                         FAKE_INSTALLATION_SOURCE_USER -> returnValue.result = fakeUserPackageInstallSourceInfo

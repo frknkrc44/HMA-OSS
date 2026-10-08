@@ -1,7 +1,6 @@
 [versions]
 agp = "9.4.1"
-#noinspection NewerVersionAvailable
-kotlin = "2.3.+"
+kotlin = "2.4.20"
 material = "1.14.0"
 androidx-navigation = "2.10.2"
 vbpd = "2.0.4"

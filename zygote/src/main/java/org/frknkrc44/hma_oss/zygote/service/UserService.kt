@@ -21,6 +21,7 @@ object UserService {
 
     private val managerAppUid get() = service?.appUid ?: -1
 
+    @JvmStatic
     var service: HMAService? = null
 
     private val uidObserver = object : UidObserverAdapter() {
@@ -32,7 +33,7 @@ object UserService {
             try {
                 val userId = getUserFromCallingUid(uid)
 
-                logD(TAG) { "Calculated user id: $userId" }
+                logD(TAG, null) { "Calculated user id: $userId" }
 
                 val provider = ActivityManagerUtils.getContentProviderExternal(
                     Constants.PROVIDER_AUTHORITY, userId, null, null)
@@ -50,10 +51,10 @@ object UserService {
                     provider?.call("android", Constants.PROVIDER_AUTHORITY, "", null, extras)
                 }
                 if (reply == null) {
-                    logE(TAG) { "Failed to send binder to app" }
+                    logE(TAG, null) { "Failed to send binder to app" }
                     return
                 }
-                logI(TAG) { "Send binder to app" }
+                logI(TAG, null) { "Send binder to app" }
             } catch (e: Throwable) {
                 logE(TAG, e) { "onUidActive" }
             }
@@ -63,7 +64,7 @@ object UserService {
     fun register(pms: IPackageManager, pmn: Any?) {
         assert(service == null) { "You cannot register the service more than once" }
 
-        logI(TAG) { "Initialize HMAService - Version ${BuildConfig.APP_VERSION_NAME}" }
+        logI(TAG, null) { "Initialize HMAService - Version ${BuildConfig.APP_VERSION_NAME}" }
 
         waitForService("activity")
         ActivityManagerUtils.registerUidObserver(
@@ -73,7 +74,7 @@ object UserService {
             null
         )
 
-        logI(TAG) { "Registered observer" }
+        logI(TAG, null) { "Registered observer" }
 
         HMAService(pms, pmn)
     }

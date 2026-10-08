@@ -23,7 +23,7 @@ open class InstallerHookTarget29 : InstallerHookTargetBase() {
                 applyInstallerHiding(
                     methodName,
                     Binder.getCallingUid(),
-                    { frame.getArgument(1) as? String },
+                    { getArgument(frame, 1) as? String },
                 ) {
                     when (it) {
                         Constants.FAKE_INSTALLATION_SOURCE_USER -> returnValue.result = VENDING_PACKAGE_NAME

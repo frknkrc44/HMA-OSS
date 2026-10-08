@@ -7,10 +7,11 @@ import com.v7878.unsafe.invoke.EmulatedStackFrame
 import icu.nullptr.hidemyapplist.common.CollectionUtils.firstOrNullWithType
 import icu.nullptr.hidemyapplist.common.Utils.generateRandomHex
 import org.frknkrc44.hma_oss.common.BuildConfig
+import org.frknkrc44.hma_oss.zygote.service.HookCallback
 import org.frknkrc44.hma_oss.zygote.service.ReturnValue
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.dumpArgs
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getIntField
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getObjectField
@@ -26,20 +27,22 @@ class BroadcastHook : IFrameworkHook {
     override val TAG = "BroadcastHook"
 
     override fun load() {
-        logI(TAG) { "Load hook" }
+        logI(TAG, null) { "Load hook" }
 
         hooker.apply {
+            val callback = Callback()
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
                 hookBefore(
                     BROADCAST_PROCESS_QUEUE_CLASS,
                     "enqueueOutgoingBroadcast",
-                    hook = ::enqueueBroadcastLocked,
+                    callback,
                 )
 
                 hookBefore(
                     BROADCAST_PROCESS_QUEUE_CLASS,
                     "enqueueOrReplaceBroadcast",
-                    hook = ::enqueueBroadcastLocked,
+                    callback,
                 )
             } else {
                 val targetClass = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
@@ -51,13 +54,13 @@ class BroadcastHook : IFrameworkHook {
                 hookBefore(
                     targetClass,
                     "enqueueParallelBroadcastLocked",
-                    hook = ::enqueueBroadcastLocked,
+                    callback,
                 )
 
                 hookBefore(
                     targetClass,
                     "enqueueOrderedBroadcastLocked",
-                    hook = ::enqueueBroadcastLocked,
+                    callback,
                 )
             }
 
@@ -70,32 +73,30 @@ class BroadcastHook : IFrameworkHook {
                 },
                 "broadcastIntentLocked",
             ) { _, frame, _ ->
-                val intent = frame.args.firstOrNullWithType<Intent>() ?: return@hookBefore
+                val intent = dumpArgs(frame, true).firstOrNullWithType<Intent>() ?: return@hookBefore
                 changeUsbStateBroadcast(intent)
             }
         }
     }
 
-    private fun enqueueBroadcastLocked(
-        methodName: String,
-        frame: EmulatedStackFrame,
-        @Suppress("unused") returnValue: ReturnValue,
-    ) {
-        val record = frame.getArgument(1)
-        val caller = getObjectField(record, "callerPackage") as? String ?: return
-        val component = getObjectField(record, "targetComp") as? ComponentName ?: return
-        val targetApp = component.packageName
-        val userId = getIntField(record, "userId")
+    private inner class Callback : HookCallback {
+        override fun accept(methodName: String?, frame: EmulatedStackFrame?, returnValue: ReturnValue?) {
+            val record = getArgument(frame, 1)
+            val caller = getObjectField(record, "callerPackage") as? String ?: return
+            val component = getObjectField(record, "targetComp") as? ComponentName ?: return
+            val targetApp = component.packageName
+            val userId = getIntField(record, "userId")
 
-        if (service.shouldHideActivityLaunch(caller, targetApp, userId)) {
-            logD(TAG) { "@$methodName: insecure query from $caller, target: $component" }
+            if (service.shouldHideActivityLaunch(caller, targetApp, userId)) {
+                logD(TAG, null) { "@$methodName: insecure query from $caller, target: $component" }
 
-            (getObjectField(record, "intent") as Intent).apply {
-                this.component = null
-                this.`package` = "${BuildConfig.APP_PACKAGE_NAME}.${generateRandomHex(4)}"
+                (getObjectField(record, "intent") as Intent).apply {
+                    this.component = null
+                    this.`package` = "${BuildConfig.APP_PACKAGE_NAME}.${generateRandomHex(4)}"
+                }
+
+                service.increaseALFilterCount(caller)
             }
-
-            service.increaseALFilterCount(caller)
         }
     }
 

@@ -24,24 +24,25 @@ import kotlin.concurrent.thread
 object SystemServerHook {
     private const val TAG = "SystemServerHook"
 
+    @JvmStatic
     var classLoader: ClassLoader? = null
 
     @Throws(Throwable::class)
     fun onSystemServer(loader: ClassLoader?) {
         assert(loader != null) { "Class loader is null, aborting!" }
 
-        logV(TAG) { "Class loader found: $loader" }
+        logV(TAG, null) { "Class loader found: $loader" }
 
         classLoader = loader
 
         thread {
             val pms = waitForService(PACKAGE_MANAGER_SERVICE) as IPackageManager
             val pmn = waitForService(PACKAGE_MANAGER_NATIVE_SERVICE)
-            logD(TAG) { "Got pms: $pms, $pmn" }
+            logD(TAG, null) { "Got pms: $pms, $pmn" }
 
             try {
                 UserService.register(pms, pmn)
-                logI(TAG) { "User service started" }
+                logI(TAG, null) { "User service started" }
             } catch (cause: Throwable) {
                 logE(TAG, cause) { "System service crashed" }
             }
@@ -53,7 +54,7 @@ object SystemServerHook {
     @JvmStatic
     fun init() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            logI(TAG) { "Trying to invoke 12+ mode" }
+            logI(TAG, null) { "Trying to invoke 12+ mode" }
 
             try {
                 val loader = callStaticMethod(
@@ -70,7 +71,7 @@ object SystemServerHook {
             }
         }
 
-        logI(TAG) { "Trying to invoke 11- mode" }
+        logI(TAG, null) { "Trying to invoke 11- mode" }
 
         val method = getDeclaredMethod(
             Class.forName(RUNTIME_INIT_CLASS), "findStaticMain",

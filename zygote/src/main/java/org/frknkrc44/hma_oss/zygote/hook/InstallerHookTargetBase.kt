@@ -30,7 +30,7 @@ abstract class InstallerHookTargetBase : IFrameworkHook {
     }
 
     override fun load() {
-        logI(TAG) { "Load hook" }
+        logI(TAG, null) { "Load hook" }
 
         hooker.apply {
             if (service.pmn != null) {
@@ -41,7 +41,7 @@ abstract class InstallerHookTargetBase : IFrameworkHook {
                     applyInstallerHiding(
                         methodName,
                         Binder.getCallingUid(),
-                        { frame.getArgument(1) as? String },
+                        { getArgument(frame, 1) as? String },
                     ) {
                         when (it) {
                             Constants.FAKE_INSTALLATION_SOURCE_USER -> returnValue.result = VENDING_PACKAGE_NAME
@@ -71,7 +71,7 @@ abstract class InstallerHookTargetBase : IFrameworkHook {
             val isHide = service.shouldHideInstallationSource(caller, query, callingUser)
             if (isHide == Constants.FAKE_INSTALLATION_SOURCE_DISABLED) continue
 
-            logD(TAG) { "@$methodName: Applied installer hiding for $caller - $callingUid => $isHide" }
+            logD(TAG, null) { "@$methodName: Applied installer hiding for $caller - $callingUid => $isHide" }
 
             applyReturnValue(isHide)
 

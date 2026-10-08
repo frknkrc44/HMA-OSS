@@ -28,21 +28,21 @@ abstract class PmsHookTargetBase : IFrameworkHook {
         if (callingUid == null || callingUid == Constants.UID_SYSTEM) return
 
         val targetApp = findTargetApp() ?: return
-        logV(TAG) { "@$methodName incoming query: $callingUid => $targetApp" }
+        logV(TAG, null) { "@$methodName incoming query: $callingUid => $targetApp" }
         if (dataHolder.shouldHideFromUid(callingUid, targetApp) == true) {
             returnValue.result = valueForHiding
             service.increasePMFilterCount(callingUid)
-            logD(TAG) { "@$methodName caller cache: $callingUid, target: $targetApp" }
+            logD(TAG, null) { "@$methodName caller cache: $callingUid, target: $targetApp" }
             return
         }
         val callingUserId = getUserFromCallingUid(callingUid)
         val callingApps = findCallingApps(pms, callingUid)
         val caller = callingApps?.firstOrNull { service.shouldHide(it, targetApp, callingUserId) }
         if (caller != null) {
-            logD(TAG) { "@$methodName caller: $callingUid $caller, target: $targetApp" }
+            logD(TAG, null) { "@$methodName caller: $callingUid $caller, target: $targetApp" }
             returnValue.result = valueForHiding
             val last = lastFilteredApp.getAndSet(caller)
-            if (last != caller) logI(TAG) { "@$methodName: query from $caller" }
+            if (last != caller) logI(TAG, null) { "@$methodName: query from $caller" }
             dataHolder.putShouldHideUidCache(callingUid, caller, targetApp)
             service.increasePMFilterCount(caller)
         }

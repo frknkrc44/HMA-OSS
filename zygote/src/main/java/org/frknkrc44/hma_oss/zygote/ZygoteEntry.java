@@ -1,7 +1,6 @@
 package org.frknkrc44.hma_oss.zygote;
 
-import static org.frknkrc44.hma_oss.zygote.util.Logcat.logELegacy;
-import static org.frknkrc44.hma_oss.zygote.util.Logcat.logILegacy;
+import static org.frknkrc44.hma_oss.zygote.util.Logcat.logI;
 
 import com.v7878.r8.annotations.DoNotObfuscate;
 import com.v7878.r8.annotations.DoNotObfuscateType;
@@ -27,13 +26,13 @@ public class ZygoteEntry {
     @DoNotObfuscate
     @DoNotShrink
     public static void main() throws Throwable {
-        logILegacy(TAG, String.format("Injected into %s - %s", ZygoteLoader.getPackageName(), BuildConfig.APP_VERSION_NAME));
+        logI(TAG, null, () -> String.format("Injected into %s - %s", ZygoteLoader.getPackageName(), BuildConfig.APP_VERSION_NAME));
 
         try {
             SystemServerHook.init();
-            logILegacy(TAG, "Done");
+            logI(TAG, null, () -> "Done");
         } catch (Throwable th) {
-            logELegacy(TAG, "An exception occurred while SystemServerHook init", th);
+            logI(TAG, th, () -> "An exception occurred while SystemServerHook init");
         }
     }
 }

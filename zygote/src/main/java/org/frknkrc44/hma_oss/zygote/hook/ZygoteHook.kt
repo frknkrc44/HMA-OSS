@@ -11,9 +11,8 @@ import icu.nullptr.hidemyapplist.common.Constants
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.isAppDataIsolationEnabled
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.argTypes
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.dumpArgTypes
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.dumpArgs
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.setArgument
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.shortyEquals
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.CONSTRUCTOR_METHOD_NAME
@@ -47,15 +46,16 @@ class ZygoteHook : IFrameworkHook {
                     SERVICE_RECORD_CLASS,
                     CONSTRUCTOR_METHOD_NAME,
                 ) { _, frame, _ ->
-                    val caller = frame.args.firstOrNullWithType<String>() ?: return@hookBefore
+                    val args = dumpArgs(frame, true)
+                    val caller = args.firstOrNullWithType<String>() ?: return@hookBefore
                     val perms = service.getRestrictedZygotePermissions(caller) ?: return@hookBefore
                     if (!perms.contains(Constants.APP_ZYGOTE_GID)) return@hookBefore
 
-                    val serviceInfo = frame.args.firstOrNullWithType<ServiceInfo>() ?: return@hookBefore
+                    val serviceInfo = args.firstOrNullWithType<ServiceInfo>() ?: return@hookBefore
                     if (serviceInfo.flags and ServiceInfo.FLAG_ISOLATED_PROCESS == 0) return@hookBefore
                     if (serviceInfo.flags and ServiceInfo.FLAG_NATIVE_SERVICE != 0) return@hookBefore
 
-                    logD(TAG) { "@serviceRecord: Isolated process becomes app zygote process for $caller service" }
+                    logD(TAG, null) { "@serviceRecord: Isolated process becomes app zygote process for $caller service" }
                     serviceInfo.flags = serviceInfo.flags or ServiceInfo.FLAG_USE_APP_ZYGOTE
                 }
             }
@@ -73,35 +73,37 @@ class ZygoteHook : IFrameworkHook {
 
     private fun hookIntoZygoteProcess(frame: EmulatedStackFrame) {
         val isModern = frame.type().parameterCount() < 3
-        logD(TAG) { "@startZygoteProcess: Starting ${frame.args.contentToString()}, modern: $isModern" }
+        val args = dumpArgs(frame, true)
+        logD(TAG, null) { "@startZygoteProcess: Starting ${args.contentToString()}, modern: $isModern" }
 
         if (isModern) {
-            hookIntoZygoteProcessModern(frame)
+            hookIntoZygoteProcessModern(frame, args)
         } else {
-            hookIntoZygoteProcessLegacy(frame)
+            hookIntoZygoteProcessLegacy(frame, args)
         }
     }
 
     @Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN")
-    private fun hookIntoZygoteProcessLegacy(frame: EmulatedStackFrame) {
-        val caller = frame.args.lastOrNullWithType<String>() ?: return
+    private fun hookIntoZygoteProcessLegacy(frame: EmulatedStackFrame, args: Array<Any>) {
+        val caller = args.lastOrNullWithType<String>() ?: return
         val isHookEnabled = service.isHookEnabled(caller)
         if (!isHookEnabled) return
 
         // another plan for PlatformCompatHook
-        val pair = getForceMountArgs(frame, caller)
+        val argTypes = dumpArgTypes(frame, true)
+        val pair = getForceMountArgs(frame, caller, args, argTypes)
         if (pair.first) {
-            val lastMapIndex = frame.argTypes.indexOfLast {
+            val lastMapIndex = argTypes.indexOfLast {
                 it == java.util.Map::class.java
             }
             if (lastMapIndex >= 0) {
                 // enable bindMountAppsData after checks
                 val bindMountAppsDataIndex = lastMapIndex + 1
-                if (frame.shortyEquals(bindMountAppsDataIndex, 'Z')) {
+                if (shortyEquals(frame, bindMountAppsDataIndex, 'Z')) {
                     val last = lastForceMountedApp.getAndSet(caller)
-                    if (last != caller) logI(TAG) { "@startZygoteProcessLegacy: force mountAppsData for $caller" }
-                    frame.setArgument(bindMountAppsDataIndex, true)
-                    logD(TAG) { "@startZygoteProcessLegacy: mountAppsData argument overridden for $caller" }
+                    if (last != caller) logI(TAG, null) { "@startZygoteProcessLegacy: force mountAppsData for $caller" }
+                    setArgument(frame, bindMountAppsDataIndex, true)
+                    logD(TAG, null) { "@startZygoteProcessLegacy: mountAppsData argument overridden for $caller" }
                 }
             }
         }
@@ -110,10 +112,10 @@ class ZygoteHook : IFrameworkHook {
 
         val perms = getRestrictedZygotePermissions(caller) ?: return
         if (perms.isNotEmpty()) {
-            val gIDs = frame.args[pair.second] as? IntArray ?: return
+            val gIDs = args[pair.second] as? IntArray ?: return
 
-            logD(TAG) { "@startZygoteProcessLegacy: GIDs are ${gIDs.contentToString()}, removing $perms now" }
-            frame.setArgument(pair.second, gIDs.filter { it !in perms }.toIntArray())
+            logD(TAG, null) { "@startZygoteProcessLegacy: GIDs are ${gIDs.contentToString()}, removing $perms now" }
+            setArgument(frame, pair.second, gIDs.filter { it !in perms }.toIntArray())
             service.increaseOthersFilterCount(caller)
         }
     }
@@ -121,8 +123,8 @@ class ZygoteHook : IFrameworkHook {
     /**
      * This method is added on Android 17 QPR3 Beta 1
      */
-    private fun hookIntoZygoteProcessModern(frame: EmulatedStackFrame) {
-        val processParams = frame.getArgument(1) as ProcessParams
+    private fun hookIntoZygoteProcessModern(frame: EmulatedStackFrame, args: Array<Any>) {
+        val processParams = args[0] as ProcessParams
 
         val caller = processParams.packageName
         val isHookEnabled = service.isHookEnabled(caller)
@@ -145,7 +147,7 @@ class ZygoteHook : IFrameworkHook {
         }
 
         fun runFinish() {
-            builder?.let { frame.setArgument(1, it.build()) }
+            builder?.let { setArgument(frame, 1, it.build()) }
         }
 
         if (processParams.gids == null) {
@@ -155,7 +157,7 @@ class ZygoteHook : IFrameworkHook {
         val perms = getRestrictedZygotePermissions(caller) ?: return runFinish()
         if (perms.isNotEmpty()) {
             val gIDs = processParams.gids
-            logD(TAG) { "@startZygoteProcessModern: GIDs are ${gIDs.contentToString()}, removing $perms now" }
+            logD(TAG, null) { "@startZygoteProcessModern: GIDs are ${gIDs.contentToString()}, removing $perms now" }
 
             if (builder == null) builder = makeProcessParamsBuilder()
             builder.setGids(gIDs.filter { it !in perms }.toIntArray())
@@ -165,9 +167,14 @@ class ZygoteHook : IFrameworkHook {
         runFinish()
     }
 
-    private fun getForceMountArgs(frame: EmulatedStackFrame, caller: String): Pair<Boolean, Int> {
+    private fun getForceMountArgs(
+        frame: EmulatedStackFrame,
+        caller: String,
+        args: Array<Any>,
+        argTypes: Array<Class<*>>
+    ): Pair<Boolean, Int> {
         var gIDsVarIndex = -1
-        for ((i, clazz) in frame.argTypes.withIndex()) {
+        for ((i, clazz) in argTypes.withIndex()) {
             if (clazz == IntArray::class.java) {
                 gIDsVarIndex = i
                 continue
@@ -180,7 +187,7 @@ class ZygoteHook : IFrameworkHook {
             }
 
             if (clazz == String::class.java) {
-                val targetSDKVar = frame.args[i - 1]
+                val targetSDKVar = args[i - 1]
                 if (targetSDKVar is Int && targetSDKVar >= 30) {
                     return Pair(false, gIDsVarIndex)
                 }
@@ -188,7 +195,7 @@ class ZygoteHook : IFrameworkHook {
 
             if (clazz == LongArray::class.java) {
                 val isTopAppIndex = i - 1
-                return Pair(frame.args[isTopAppIndex] == true, gIDsVarIndex)
+                return Pair(args[isTopAppIndex] == true, gIDsVarIndex)
             }
         }
 

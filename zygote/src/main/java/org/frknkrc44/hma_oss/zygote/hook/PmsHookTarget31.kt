@@ -15,7 +15,7 @@ class PmsHookTarget31 : PmsHookTargetBase() {
     override val TAG = "PmsHookTarget31"
 
     override fun load() {
-        logI(TAG) { "Load hook" }
+        logI(TAG, null) { "Load hook" }
 
         hooker.apply {
             hookBefore(
@@ -26,7 +26,7 @@ class PmsHookTarget31 : PmsHookTargetBase() {
                     methodName,
                     returnValue,
                     { Binder.getCallingUid() },
-                    { frame.getArgument(1) as? String },
+                    { getArgument(frame, 1) as? String },
                     ::getCallingApps,
                     null,
                 )
@@ -39,8 +39,8 @@ class PmsHookTarget31 : PmsHookTargetBase() {
                 applyPackageHiding(
                     methodName,
                     returnValue,
-                    { frame.getArgument(2) as? Int },
-                    { frame.getArgument(1) as? String },
+                    { getArgument(frame, 2) as? Int },
+                    { getArgument(frame, 1) as? String },
                     ::getCallingApps,
                     null,
                 )
@@ -53,8 +53,8 @@ class PmsHookTarget31 : PmsHookTargetBase() {
                 applyPackageHiding(
                     methodName,
                     returnValue,
-                    { frame.getArgument(4) as? Int },
-                    { frame.getArgument(1) as? String },
+                    { getArgument(frame, 4) as? Int },
+                    { getArgument(frame, 1) as? String },
                     ::getCallingApps,
                     null,
                 )
@@ -67,8 +67,8 @@ class PmsHookTarget31 : PmsHookTargetBase() {
                 applyPackageHiding(
                     methodName,
                     returnValue,
-                    { frame.getArgument(3) as? Int },
-                    { frame.getArgument(1) as? String },
+                    { getArgument(frame, 3) as? Int },
+                    { getArgument(frame, 1) as? String },
                     ::getCallingApps,
                     null,
                 )
@@ -81,8 +81,8 @@ class PmsHookTarget31 : PmsHookTargetBase() {
                 applyPackageHiding(
                     methodName,
                     returnValue,
-                    { frame.getArgument(1) as? Int },
-                    { getPackageNameFromPackageSettings(frame.getArgument(3)) },
+                    { getArgument(frame, 1) as? Int },
+                    { getPackageNameFromPackageSettings(getArgument(frame, 3)) },
                     ::getCallingApps,
                     true,
                 )

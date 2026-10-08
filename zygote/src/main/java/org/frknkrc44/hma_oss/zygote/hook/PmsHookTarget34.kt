@@ -32,7 +32,7 @@ class PmsHookTarget34 : PmsHookTarget33() {
                     methodName,
                     returnValue,
                     { Binder.getCallingUid() },
-                    { frame.getArgument(1) as? String },
+                    { getArgument(frame, 1) as? String },
                     ::getCallingApps,
                     null,
                 )

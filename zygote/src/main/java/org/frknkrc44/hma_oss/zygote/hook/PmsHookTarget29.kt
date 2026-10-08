@@ -11,19 +11,19 @@ class PmsHookTarget29 : PmsHookTargetBase() {
 
     @Suppress("UNCHECKED_CAST")
     override fun load() {
-        logI(TAG) { "Load hook" }
+        logI(TAG, null) { "Load hook" }
 
         hooker.apply {
             hookBefore(
                 service.pms::class.java.name,
                 "filterAppAccessLPr",
-                argumentCount = 5,
+                5,
             ) { methodName, frame, returnValue ->
                 applyPackageHiding(
                     methodName,
                     returnValue,
-                    { frame.getArgument(2) as? Int },
-                    { getPackageNameFromPackageSettings(frame.getArgument(1)) },
+                    { getArgument(frame, 2) as? Int },
+                    { getPackageNameFromPackageSettings(getArgument(frame, 1)) },
                     ::getCallingApps,
                     true,
                 )
@@ -36,8 +36,8 @@ class PmsHookTarget29 : PmsHookTargetBase() {
                 applyPackageHiding(
                     methodName,
                     returnValue,
-                    { frame.getArgument(4) as? Int },
-                    { frame.getArgument(1) as? String },
+                    { getArgument(frame, 4) as? Int },
+                    { getArgument(frame, 1) as? String },
                     ::getCallingApps,
                     null,
                 )
@@ -50,8 +50,8 @@ class PmsHookTarget29 : PmsHookTargetBase() {
                 applyPackageHiding(
                     methodName,
                     returnValue,
-                    { frame.getArgument(3) as? Int },
-                    { frame.getArgument(1) as? String },
+                    { getArgument(frame, 3) as? Int },
+                    { getArgument(frame, 1) as? String },
                     ::getCallingApps,
                     null,
                 )

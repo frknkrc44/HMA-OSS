@@ -2,6 +2,7 @@ package org.frknkrc44.hma_oss.zygote.hook
 
 import org.frknkrc44.hma_oss.zygote.service.UserService
 
+@Suppress("HasPlatformType")
 interface IFrameworkHook {
     @Suppress("PropertyName")
     val TAG: String

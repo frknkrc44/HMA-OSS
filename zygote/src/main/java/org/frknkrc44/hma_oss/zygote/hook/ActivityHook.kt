@@ -12,12 +12,12 @@ import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.dumpArgs
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getIntField
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getObjectField
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getStaticIntField
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.thisObject
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getThisObject
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.ACTIVITY_STACK_SUPERVISOR_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.ACTIVITY_STARTER_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.ACTIVITY_TASK_SUPERVISOR_CLASS
@@ -38,7 +38,7 @@ class ActivityHook : IFrameworkHook {
     }
 
     override fun load() {
-        logI(TAG) { "Load hook" }
+        logI(TAG, null) { "Load hook" }
 
         hooker.apply {
             hookBefore(
@@ -49,7 +49,7 @@ class ActivityHook : IFrameworkHook {
                 },
                 "checkStartAnyActivityPermission",
             ) { methodName, frame, _ ->
-                logV(TAG) { "$methodName: ${frame.args.contentToString()}" }
+                logV(TAG, null) { "$methodName: ${dumpArgs(frame, false).contentToString()}" }
 
                 // just an empty hook that does nothing
             }
@@ -68,23 +68,24 @@ class ActivityHook : IFrameworkHook {
                 val list = returnValue.result as? List<ResolveInfo>
                 if (list.isNullOrEmpty()) return@hookAfter
 
-                val callingUid = frame.args.firstWithType<Int>()
+                val args = dumpArgs(frame, true)
+                val callingUid = args.firstWithType<Int>()
                 if (callingUid == Constants.UID_SYSTEM) return@hookAfter
 
                 val callingUserId = getUserFromCallingUid(callingUid)
                 val callingApps = getCallingApps(pms, callingUid)
                 val caller = callingApps.firstOrNull { service.isHookEnabled(it) }
                 if (caller != null) {
-                    logV(TAG) { "@$methodName: $caller requested a resolve info" }
+                    logV(TAG, null) { "@$methodName: $caller requested a resolve info" }
 
                     val filteredList = list.filter { resolveInfo ->
                         val targetApp = resolveInfo.getPackageName()
 
-                        logV(TAG) { "@$methodName: Checking $targetApp for $caller" }
+                        logV(TAG, null) { "@$methodName: Checking $targetApp for $caller" }
 
                         (!service.shouldHideActivityLaunch(caller, targetApp, callingUserId)).apply {
                             if (!this) {
-                                logD(TAG) { "@$methodName: insecure query from $caller, target: $targetApp" }
+                                logD(TAG, null) { "@$methodName: insecure query from $caller, target: $targetApp" }
                             }
                         }
                     }
@@ -116,14 +117,14 @@ class ActivityHook : IFrameworkHook {
                             ACTIVITY_STARTER_CLASS,
                             "executeRequest",
                         ) { _, frame, returnValue ->
-                            val request = frame.getArgument(1)
+                            val request = getArgument(frame, 1)
                             val callingUserId = getUserFromCallingUid(getIntField(request, "callingUid"))
                             val caller = getObjectField(request, "callingPackage") as? String ?: return@hookBefore
                             val intent = getObjectField(request, "intent") as? Intent ?: return@hookBefore
                             val targetApp = intent.component?.packageName
 
                             if (service.shouldHideActivityLaunch(caller, targetApp, callingUserId)) {
-                                logD(TAG) { "@executeRequest: insecure query from $caller, target: ${intent.component}" }
+                                logD(TAG, null) { "@executeRequest: insecure query from $caller, target: ${intent.component}" }
                                 returnValue.result = fakeReturnCode
                                 service.increaseALFilterCount(caller)
                             }
@@ -134,13 +135,14 @@ class ActivityHook : IFrameworkHook {
                             "startActivity",
                         ) { _, frame, returnValue ->
                             // we have no way other than hardcoding, it is 13th argument in AOSP code
-                            val callingUserId = getUserFromCallingUid(frame.getArgument(13) as Int)
-                            val caller = frame.args.firstOrNullWithType<String>() ?: return@hookBefore
-                            val intent = frame.args.firstOrNullWithType<Intent>() ?: return@hookBefore
+                            val args = dumpArgs(frame, true)
+                            val callingUserId = getUserFromCallingUid(args[12] as Int)
+                            val caller = args.firstOrNullWithType<String>() ?: return@hookBefore
+                            val intent = args.firstOrNullWithType<Intent>() ?: return@hookBefore
                             val targetApp = intent.component?.packageName
 
                             if (service.shouldHideActivityLaunch(caller, targetApp, callingUserId)) {
-                                logD(TAG) { "@startActivity: insecure query from $caller, target: ${intent.component}" }
+                                logD(TAG, null) { "@startActivity: insecure query from $caller, target: ${intent.component}" }
                                 returnValue.result = fakeReturnCode
                                 service.increaseALFilterCount(caller)
                             }
@@ -151,14 +153,14 @@ class ActivityHook : IFrameworkHook {
                         ACTIVITY_STARTER_CLASS,
                         "execute",
                     ) { _, frame, returnValue ->
-                        val request = getObjectField(frame.thisObject, "mRequest") ?: return@hookBefore
+                        val request = getObjectField(getThisObject(frame), "mRequest") ?: return@hookBefore
                         val callingUserId = getUserFromCallingUid(getIntField(request, "callingUid"))
                         val caller = getObjectField(request, "callingPackage") as? String ?: return@hookBefore
                         val intent = getObjectField(request, "intent") as? Intent ?: return@hookBefore
                         val targetApp = intent.component?.packageName
 
                         if (service.shouldHideActivityLaunch(caller, targetApp, callingUserId)) {
-                            logD(TAG) { "@executeRequest: insecure query from $caller, target: ${intent.component}" }
+                            logD(TAG, null) { "@executeRequest: insecure query from $caller, target: ${intent.component}" }
                             returnValue.result = fakeReturnCode
                             service.increaseALFilterCount(caller)
                         }

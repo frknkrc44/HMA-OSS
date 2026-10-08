@@ -13,7 +13,7 @@ class PmsPackageEventsHook : IFrameworkHook {
     override val TAG = "PmsPackageEventsHook"
 
     override fun load() {
-        logI(TAG) { "Load hook" }
+        logI(TAG, null) { "Load hook" }
 
         hooker.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -24,9 +24,9 @@ class PmsPackageEventsHook : IFrameworkHook {
                     hookedMethodName,
                 ) { _, frame, _ ->
                     service.handlePackageEvent(
-                        frame.getArgument(1) as? String,
-                        frame.getArgument(2) as? String,
-                        frame.getArgument(3) as? Bundle,
+                        getArgument(frame, 1) as? String,
+                        getArgument(frame, 2) as? String,
+                        getArgument(frame, 3) as? Bundle,
                     )
                 }
 
@@ -35,7 +35,7 @@ class PmsPackageEventsHook : IFrameworkHook {
                         PACKAGE_MONITOR_CLASS,
                         "onReceive",
                     ) { _, frame, _ ->
-                        val intent = frame.getArgument(2) as? Intent ?: return@hookBefore
+                        val intent = getArgument(frame, 2) as? Intent ?: return@hookBefore
 
                         service.handlePackageEvent(
                             intent.action,
@@ -50,9 +50,9 @@ class PmsPackageEventsHook : IFrameworkHook {
                     "sendPackageBroadcast",
                 ) { _, frame, _ ->
                     service.handlePackageEvent(
-                        frame.getArgument(1) as? String,
-                        frame.getArgument(2) as? String,
-                        frame.getArgument(3) as? Bundle,
+                        getArgument(frame, 1) as? String,
+                        getArgument(frame, 2) as? String,
+                        getArgument(frame, 3) as? Bundle,
                     )
                 }
             }
