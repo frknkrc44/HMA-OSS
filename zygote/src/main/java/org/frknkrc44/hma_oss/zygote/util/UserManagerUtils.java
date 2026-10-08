@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.pm.UserInfo;
 import android.os.IUserManager;
 import android.os.RemoteException;
+import android.util.ArraySet;
 
 import java.util.List;
 
@@ -25,13 +26,18 @@ public class UserManagerUtils {
     public static int[] getUserIds() {
         try {
             final var users = getUsers(false, false, false);
-            final var idArr = new int[users.size()];
+            final var ids = new ArraySet<Integer>();
 
-            for (int i = 0; i < idArr.length; i++) {
-                idArr[i] = users.get(i).id;
+            for (int i = 0; i < users.size(); i++) {
+                final var id = users.get(i).id;
+                ids.add(id);
+
+                for (int item : userManager.getProfileIds(id, false)) {
+                    ids.add(item);
+                }
             }
 
-            return idArr;
+            return ids.stream().mapToInt(Integer::intValue).toArray();
         } catch (Throwable ignored) {
             return new int[] { 0 };
         }
