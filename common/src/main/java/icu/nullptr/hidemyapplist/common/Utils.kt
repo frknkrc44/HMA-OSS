@@ -128,6 +128,7 @@ object Utils {
     val conflictedModules = listOf(
         "com.tsng.hidemyapplist",
         "com.google.android.hmal",
+        "cn.geektang.privacyspace",
     )
 
     val encoder = Json {
