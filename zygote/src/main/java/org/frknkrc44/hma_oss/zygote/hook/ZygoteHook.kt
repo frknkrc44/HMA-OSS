@@ -72,8 +72,8 @@ class ZygoteHook : IFrameworkHook {
     }
 
     private fun hookIntoZygoteProcess(frame: EmulatedStackFrame) {
-        val isModern = frame.type().parameterCount() < 3
         val args = dumpArgs(frame, true)
+        val isModern = args.size < 3
         logD(TAG, null) { "@startZygoteProcess: Starting ${args.contentToString()}, modern: $isModern" }
 
         if (isModern) {
