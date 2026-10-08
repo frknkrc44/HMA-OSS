@@ -863,7 +863,7 @@ public class HMAService extends IHMAService.Stub {
 
     @Override
     public String getDetailedFilterStats() throws RemoteException {
-        return dataHolder.getPresetCache().toString();
+        return dataHolder.getFilterHolder().toString();
     }
 
     @Override
