@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="?selectableItemBackground"
     android:orientation="horizontal"
     android:paddingHorizontal="@dimen/item_padding_vertical"
@@ -38,27 +37,27 @@
 
     </LinearLayout>
 
-    <com.google.android.material.button.MaterialButton
-        style="?attr/materialIconButtonFilledTonalStyle"
+    <ImageButton
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="@dimen/item_padding_mini2x"
         android:id="@+id/about_donate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/item_padding_mini2x"
         android:layout_weight="0"
         android:visibility="gone"
-        app:icon="@drawable/volunteer_activism_24px"
-        app:opticalCenterEnabled="true"
+        android:src="@drawable/volunteer_activism_24px"
         android:importantForAccessibility="no" />
 
-    <com.google.android.material.button.MaterialButton
-        style="?attr/materialIconButtonFilledTonalStyle"
+    <ImageButton
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="@dimen/item_padding_mini2x"
         android:id="@+id/about_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="0"
         android:visibility="gone"
-        app:icon="@drawable/outline_info_24"
-        app:opticalCenterEnabled="true"
+        android:src="@drawable/outline_info_24"
         android:importantForAccessibility="no" />
 
 </LinearLayout>
