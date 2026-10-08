@@ -91,7 +91,7 @@ class ZygoteHook : IFrameworkHook {
 
         // another plan for PlatformCompatHook
         val argTypes = dumpArgTypes(frame, true)
-        val pair = getForceMountArgs(frame, caller, args, argTypes)
+        val pair = getForceMountArgs(caller, args, argTypes)
         if (pair.first) {
             val lastMapIndex = argTypes.indexOfLast {
                 it == java.util.Map::class.java
@@ -168,7 +168,6 @@ class ZygoteHook : IFrameworkHook {
     }
 
     private fun getForceMountArgs(
-        frame: EmulatedStackFrame,
         caller: String,
         args: Array<Any>,
         argTypes: Array<Class<*>>
