@@ -828,8 +828,12 @@ public class HMAService extends IHMAService.Stub {
         final var apps = binderLocalScope(() -> {
             final var retList = new ArrayList<ApplicationInfo>();
 
-            for (var id : UserManagerUtils.getUserIds()) {
-                retList.addAll(getInstalledApplicationsCompat(pms, 0, id));
+            try {
+                for (var id : UserManagerUtils.getUserIds()) {
+                    retList.addAll(getInstalledApplicationsCompat(pms, 0, id));
+                }
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
             }
 
             return retList;
@@ -977,7 +981,13 @@ public class HMAService extends IHMAService.Stub {
 
     @Override
     public int[] getUserProfiles() throws RemoteException {
-        return UserManagerUtils.getUserIds();
+        return binderLocalScope(() -> {
+            try {
+                return UserManagerUtils.getUserIds();
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     @SuppressWarnings("SdCardPath")
