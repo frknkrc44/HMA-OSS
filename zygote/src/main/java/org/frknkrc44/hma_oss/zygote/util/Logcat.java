@@ -43,7 +43,7 @@ public class Logcat {
     }
 
     public static void logWithLevel(int level, String tag, @Nullable Throwable cause, Supplier<String> message) {
-        final var service = UserService.getService();
+        final var service = UserService.service;
         if (service != null) {
             if (level != Log.ERROR && service.config.getErrorOnlyLog()) return;
             if (level <= Log.DEBUG && !service.config.getDetailLog()) return;

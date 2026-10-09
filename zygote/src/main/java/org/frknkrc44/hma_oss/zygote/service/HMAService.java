@@ -135,7 +135,7 @@ public class HMAService extends IHMAService.Stub {
 
         searchDataDir();
         saveModuleStatus();
-        UserService.setService(this);
+        UserService.service = this;
         loadFilterCount();
         loadConfig();
 

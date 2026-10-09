@@ -3,6 +3,7 @@ package org.frknkrc44.hma_oss.zygote.util;
 public class ZygoteConstants {
     private ZygoteConstants() {}
 
+    public static final String ACTIVITY_MANAGER_CLASS = "android.app.ActivityManager";
     public static final String SYSTEM_SERVER_CLASS = "com.android.server.SystemServer";
     public static final String RUNTIME_INIT_CLASS = "com.android.internal.os.RuntimeInit";
     public static final String ZYGOTE_INIT_CLASS = "com.android.internal.os.ZygoteInit";

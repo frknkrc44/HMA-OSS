@@ -168,7 +168,7 @@ public class BulkHooker {
 
         Class<?> currentClass;
         try {
-            currentClass = Class.forName(clazz, true, SystemServerHook.getClassLoader());
+            currentClass = Class.forName(clazz, true, ZygoteEntry.classLoader);
         } catch (ClassNotFoundException e) {
             logE(ZygoteEntry.TAG, e, () -> "Class " + clazz + " not found");
 
@@ -256,7 +256,7 @@ public class BulkHooker {
         for (var clazz : clazzNames) {
             Class<?> currentClass;
             try {
-                currentClass = Class.forName(clazz, true, SystemServerHook.getClassLoader());
+                currentClass = Class.forName(clazz, true, ZygoteEntry.classLoader);
             } catch (ClassNotFoundException e) {
                 logE(ZygoteEntry.TAG, e, () -> "Class " + clazz + " not found");
 

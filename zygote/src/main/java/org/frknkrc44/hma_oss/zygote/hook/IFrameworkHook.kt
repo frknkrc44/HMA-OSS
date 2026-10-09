@@ -7,7 +7,7 @@ interface IFrameworkHook {
     @Suppress("PropertyName")
     val TAG: String
 
-    val service get() = UserService.service!!
+    val service get() = UserService.service
     val hooker get() = service.hooker
     val dataHolder get() = service.dataHolder
     val pms get() = service.pms

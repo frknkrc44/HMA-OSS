@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 
 import com.v7878.unsafe.invoke.EmulatedStackFrame;
 
-import org.frknkrc44.hma_oss.zygote.service.SystemServerHook;
+import org.frknkrc44.hma_oss.zygote.ZygoteEntry;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -184,7 +184,7 @@ public class ZLUtils {
 
     @Nullable
     public static Constructor<?> findConstructor(String className, int argumentCount) throws ClassNotFoundException {
-        final var clazz = Class.forName(className, true, SystemServerHook.getClassLoader());
+        final var clazz = Class.forName(className, true, ZygoteEntry.classLoader);
 
         for (var constructor : clazz.getConstructors()) {
             if (argumentCount < 0 || constructor.getParameterCount() == argumentCount) {
@@ -199,7 +199,7 @@ public class ZLUtils {
     public static Method findMethod(String className, String methodName, boolean isDeclared, boolean systemClassLoader, Class<?>... args)
             throws NoSuchMethodException, ClassNotFoundException {
         final var clazz = systemClassLoader
-                ? Class.forName(className, true, SystemServerHook.getClassLoader())
+                ? Class.forName(className, true, ZygoteEntry.classLoader)
                 : Class.forName(className);
 
         return isDeclared

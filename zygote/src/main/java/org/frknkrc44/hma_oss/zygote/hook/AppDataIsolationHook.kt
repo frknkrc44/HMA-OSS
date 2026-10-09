@@ -7,7 +7,7 @@ import androidx.annotation.RequiresApi
 import icu.nullptr.hidemyapplist.common.OSUtils
 import icu.nullptr.hidemyapplist.common.PropertyUtils
 import org.frknkrc44.hma_oss.common.BuildConfig
-import org.frknkrc44.hma_oss.zygote.service.SystemServerHook
+import org.frknkrc44.hma_oss.zygote.ZygoteEntry
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
@@ -42,7 +42,7 @@ class AppDataIsolationHook : IFrameworkHook {
         Class.forName(
             PROCESS_RECORD_INTERNAL_CLASS,
             true,
-            SystemServerHook.classLoader,
+            ZygoteEntry.classLoader,
         )
     }
 
@@ -62,7 +62,7 @@ class AppDataIsolationHook : IFrameworkHook {
                 "startProcess",
             ) { _, frame, _ ->
                 val processListClazz = runCatching {
-                    Class.forName(PROCESS_LIST_CLASS, true, SystemServerHook.classLoader)
+                    Class.forName(PROCESS_LIST_CLASS, true, ZygoteEntry.classLoader)
                 }.getOrNull()
 
                 if (config.altAppDataIsolation) {
