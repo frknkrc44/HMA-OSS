@@ -20,8 +20,6 @@ public class ZygoteConstants {
     public static final String IMM_SERVICE_CLASS = "com.android.server.inputmethod.InputMethodManagerService";
     public static final String IMM_IMPL_CLASS = "com.android.server.inputmethod.IInputMethodManagerImpl";
     public static final String ACTIVITY_STARTER_CLASS = "com.android.server.wm.ActivityStarter";
-    public static final String ACTIVITY_TASK_SUPERVISOR_CLASS = "com.android.server.wm.ActivityTaskSupervisor";
-    public static final String ACTIVITY_STACK_SUPERVISOR_CLASS = "com.android.server.wm.ActivityStackSupervisor";
     public static final String ZYGOTE_PROCESS_CLASS = "android.os.ZygoteProcess";
     public static final String NATIVE_ZYGOTE_PROCESS_CLASS = "android.os.NativeZygoteProcess";
     public static final String PROCESS_LIST_CLASS = "com.android.server.am.ProcessList";
@@ -34,6 +32,7 @@ public class ZygoteConstants {
     public static final String BROADCAST_QUEUE_CLASS = "com.android.server.am.BroadcastQueue";
     public static final String BROADCAST_QUEUE_IMPL_CLASS = "com.android.server.am.BroadcastQueueImpl";
     public static final String BROADCAST_PROCESS_QUEUE_CLASS = "com.android.server.am.BroadcastProcessQueue";
+    public static final String INSTALL_SOURCE_INFO_CLASS = "android.content.pm.InstallSourceInfo";
 
     public static final String CONSTRUCTOR_METHOD_NAME = "<init>";
 

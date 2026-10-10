@@ -20,6 +20,8 @@ import org.frknkrc44.hma_oss.common.BuildConfig;
 import org.frknkrc44.hma_oss.zygote.util.ActivityManagerUtils;
 import org.frknkrc44.hma_oss.zygote.util.UidObserverAdapter;
 
+import java.lang.reflect.InvocationTargetException;
+
 import icu.nullptr.hidemyapplist.common.Constants;
 
 public class UserService {
@@ -74,7 +76,7 @@ public class UserService {
         }
     };
 
-    public static void register(IPackageManager pms, Object pmn) throws ClassNotFoundException, IllegalAccessException, RemoteException {
+    public static void register(IPackageManager pms, Object pmn) throws ClassNotFoundException, IllegalAccessException, RemoteException, InvocationTargetException, NoSuchMethodException, InstantiationException {
         assert service == null : "You cannot register the service more than once";
 
         logI(TAG, null, () -> "Initialize HMAService - Version " + BuildConfig.APP_VERSION_NAME);

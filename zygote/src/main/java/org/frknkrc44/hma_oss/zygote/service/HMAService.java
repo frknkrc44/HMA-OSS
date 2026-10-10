@@ -19,7 +19,6 @@ import static org.frknkrc44.hma_oss.zygote.util.PackageManagerUtils.isConflictin
 import static org.frknkrc44.hma_oss.zygote.util.ServiceUtils.binderLocalScope;
 import static org.frknkrc44.hma_oss.zygote.util.ServiceUtils.binderLocalScopeNoReturn;
 import static org.frknkrc44.hma_oss.zygote.util.ServiceUtils.findAndVerifyAppSignature;
-
 import static icu.nullptr.hidemyapplist.common.Utils.cleanRemnantsFromConfig;
 import static icu.nullptr.hidemyapplist.common.Utils.conflictedModules;
 import static icu.nullptr.hidemyapplist.common.Utils.generateRandomHex;
@@ -39,12 +38,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.frknkrc44.hma_oss.common.BuildConfig;
+import org.frknkrc44.hma_oss.zygote.hook.ABaseFrameworkHook;
 import org.frknkrc44.hma_oss.zygote.hook.AccessibilityHook;
 import org.frknkrc44.hma_oss.zygote.hook.ActivityHook;
 import org.frknkrc44.hma_oss.zygote.hook.AppDataIsolationHook;
 import org.frknkrc44.hma_oss.zygote.hook.BroadcastHook;
 import org.frknkrc44.hma_oss.zygote.hook.ContentProviderHook;
-import org.frknkrc44.hma_oss.zygote.hook.IFrameworkHook;
 import org.frknkrc44.hma_oss.zygote.hook.ImmHook;
 import org.frknkrc44.hma_oss.zygote.hook.InstallerHookTarget29;
 import org.frknkrc44.hma_oss.zygote.hook.InstallerHookTarget30;
@@ -55,7 +54,8 @@ import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget30;
 import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget31;
 import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget33;
 import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget34;
-import org.frknkrc44.hma_oss.zygote.hook.PmsPackageEventsHook;
+import org.frknkrc44.hma_oss.zygote.hook.PmsPEHookTarget29;
+import org.frknkrc44.hma_oss.zygote.hook.PmsPEHookTarget33;
 import org.frknkrc44.hma_oss.zygote.hook.ZygoteHook;
 import org.frknkrc44.hma_oss.zygote.util.ActivityManagerUtils;
 import org.frknkrc44.hma_oss.zygote.util.UserManagerUtils;
@@ -64,6 +64,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -88,7 +89,6 @@ import icu.nullptr.hidemyapplist.common.SettingsPresets;
 import icu.nullptr.hidemyapplist.common.Utils;
 import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem;
 
-@SuppressWarnings("RedundantThrows")
 public class HMAService extends IHMAService.Stub {
     private static final String TAG = "HMA-Java-Service";
     private static final String DATA_DIR_PREFIX = "hide_my_applist";
@@ -115,12 +115,12 @@ public class HMAService extends IHMAService.Stub {
     private final Object configLock = new Object();
     private final Object loggerLock = new Object();
     public final HashSet<String> systemApps = new HashSet<>();
-    private final HashSet<IFrameworkHook> frameworkHooks = new HashSet<>();
+    private final HashSet<ABaseFrameworkHook> frameworkHooks = new HashSet<>();
     int appUid = -1;
 
     public JsonConfig config = new JsonConfig();
 
-    HMAService(IPackageManager pms, Object pmn) {
+    HMAService(IPackageManager pms, Object pmn) throws ClassNotFoundException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, InstantiationException {
         this.pms = pms;
         this.pmn = pmn;
 
@@ -317,7 +317,7 @@ public class HMAService extends IHMAService.Stub {
         reloadPresets(!isFileAvailable);
     }
 
-    private void installHooks() {
+    private void installHooks() throws ClassNotFoundException, IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException {
         try {
             for (var packageName : pms.getAllPackages()) {
                 final var packageInfo = Utils.getPackageInfoCompat(pms, packageName, 0, 0);
@@ -354,13 +354,19 @@ public class HMAService extends IHMAService.Stub {
 
         frameworkHooks.add(new ActivityHook());
         frameworkHooks.add(new BroadcastHook());
-        frameworkHooks.add(new PmsPackageEventsHook());
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            frameworkHooks.add(new PmsPEHookTarget33());
+        } else {
+            frameworkHooks.add(new PmsPEHookTarget29());
+        }
+
         frameworkHooks.add(new AccessibilityHook());
         frameworkHooks.add(new ContentProviderHook());
         frameworkHooks.add(new ImmHook());
         frameworkHooks.add(new ZygoteHook());
 
-        frameworkHooks.forEach(IFrameworkHook::load);
+        frameworkHooks.forEach(ABaseFrameworkHook::load);
         logI(TAG, null, () -> "Hooks installed");
     }
 

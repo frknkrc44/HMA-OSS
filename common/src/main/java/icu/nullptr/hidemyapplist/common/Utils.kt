@@ -34,6 +34,7 @@ object Utils {
         }.list
     }
 
+    @JvmStatic
     fun IPackageManager.getPackageUidCompat(packageName: String, flags: Long, userId: Int): Int {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             this.getPackageUid(packageName, flags, userId)
@@ -72,6 +73,7 @@ object Utils {
         return targets.any { contains(it) }
     }
 
+    @JvmStatic
     fun ResolveInfo.getPackageName(): String {
         return resolvePackageName ?:
             activityInfo?.packageName ?:
@@ -110,6 +112,7 @@ object Utils {
         }
     }
 
+    @JvmStatic
     fun getCallingUser() = getUserFromCallingUid(Binder.getCallingUid())
 
     @JvmStatic

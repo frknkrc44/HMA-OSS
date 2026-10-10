@@ -86,6 +86,7 @@ object Constants {
      */
     const val APP_ZYGOTE_GID: Int = 3009
 
+    @JvmField
     val GID_PAIRS = mapOf(
         "SDCARD_RW_GID" to SDCARD_RW_GID,
         "MEDIA_RW_GID" to MEDIA_RW_GID,

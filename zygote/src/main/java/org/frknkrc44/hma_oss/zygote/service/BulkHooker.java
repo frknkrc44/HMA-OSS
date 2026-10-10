@@ -1,6 +1,7 @@
 package org.frknkrc44.hma_oss.zygote.service;
 
 import static com.v7878.unsafe.invoke.EmulatedStackFrame.RETURN_VALUE_IDX;
+import static org.frknkrc44.hma_oss.zygote.service.UserService.service;
 import static org.frknkrc44.hma_oss.zygote.util.Logcat.logD;
 import static org.frknkrc44.hma_oss.zygote.util.Logcat.logE;
 import static org.frknkrc44.hma_oss.zygote.util.Logcat.logI;
@@ -21,6 +22,7 @@ import com.v7878.vmtools.HookTransformer;
 import com.v7878.vmtools.Hooks;
 
 import org.frknkrc44.hma_oss.zygote.ZygoteEntry;
+import org.frknkrc44.hma_oss.zygote.callback.HookCallback;
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils;
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils;
 
@@ -71,10 +73,12 @@ public class BulkHooker {
             return;
         }
 
-        // TODO: Implement "in disabled hooks" mechanism
-        final var inDisabledHooks = false;
+        final var inDisabledHooks = service.config.getDisabledHooks().stream()
+                .anyMatch(e ->
+                        e.getClassName().equals(clazz) &&
+                                e.getMethodName().equals(methodName)
+                );
 
-        // noinspection ConstantValue
         if (inDisabledHooks) {
             logI(ZygoteEntry.TAG, null, () -> "Disabled hook: " + clazz + " -> " + methodName + "(" + argumentCount + ")");
             return;
@@ -88,12 +92,66 @@ public class BulkHooker {
         }
     }
 
+    public void addHookOnMethod(Method method, HookTransformer impl) {
+        final var clazz = method.getDeclaringClass().getName();
+        final var methodName = method.getName();
+        final var argumentCount = method.getParameterCount() + 1; // add thisObject
+
+        final var inDisabledHooks = service.config.getDisabledHooks().stream()
+                .anyMatch(e ->
+                        e.getClassName().equals(clazz) &&
+                                e.getMethodName().equals(methodName)
+                );
+
+        if (inDisabledHooks) {
+            logI(ZygoteEntry.TAG, null, () -> "Disabled hook: " + clazz + " -> " + methodName + "(" + argumentCount + ")");
+            return;
+        }
+
+        final var element = new HookElement(impl, methodName, argumentCount);
+        if (applyHookInternal(clazz, method, element)) {
+            hooks.computeIfAbsent(clazz, key -> new CopyOnWriteArrayList<>()).add(element);
+        } else if (!hooksWasCrashed) {
+            logI(ZygoteEntry.TAG, null, () -> "Invalid hook: " + clazz + " -> " + methodName + "(" + argumentCount + ")");
+        }
+    }
+
+    public void hookBefore(Method method, HookCallback hook) {
+        final var clazz = method.getDeclaringClass().getName();
+        final var methodName = method.getName();
+
+        addHookOnMethod(method, hookBeforeCommon(clazz, methodName, hook));
+    }
+
     public void hookBefore(String clazz, String methodName, HookCallback hook) {
         hookBefore(clazz, methodName, PARAMETER_COUNT_UNKNOWN, hook);
     }
 
     public void hookBefore(String clazz, String methodName, int argumentCount, HookCallback hook) {
-        addHook(clazz, methodName, argumentCount, (original, frame) -> {
+        addHook(clazz, methodName, argumentCount, hookBeforeCommon(clazz, methodName, hook));
+    }
+
+    public void hookAfter(Method method, HookCallback hook) {
+        hookAfter(method, false, hook);
+    }
+
+    public void hookAfter(Method method, boolean handleAfterThrows, HookCallback hook) {
+        final var clazz = method.getDeclaringClass().getName();
+        final var methodName = method.getName();
+
+        addHookOnMethod(method, hookAfterCommon(clazz, methodName, handleAfterThrows, hook));
+    }
+
+    public void hookAfter(String clazz, String methodName, HookCallback hook) {
+        hookAfter(clazz, methodName, PARAMETER_COUNT_UNKNOWN, false, hook);
+    }
+
+    public void hookAfter(String clazz, String methodName, int argumentCount, boolean handleAfterThrows, HookCallback hook) {
+        addHook(clazz, methodName, argumentCount, hookAfterCommon(clazz, methodName, handleAfterThrows, hook));
+    }
+
+    private HookTransformer hookBeforeCommon(String clazz, String methodName, HookCallback hook) {
+        return (original, frame) -> {
             final var value = new ReturnValue(null);
 
             try {
@@ -120,15 +178,11 @@ public class BulkHooker {
             if (value.isReplaced()) {
                 ZLUtils.setReturnValue(frame, value.getResult());
             }
-        });
+        };
     }
 
-    public void hookAfter(String clazz, String methodName, HookCallback hook) {
-        hookAfter(clazz, methodName, PARAMETER_COUNT_UNKNOWN, false, hook);
-    }
-
-    public void hookAfter(String clazz, String methodName, int argumentCount, boolean handleAfterThrows, HookCallback hook) {
-        addHook(clazz, methodName, argumentCount, (original, frame) -> {
+    private HookTransformer hookAfterCommon(String clazz, String methodName, boolean handleAfterThrows, HookCallback hook) {
+        return (original, frame) -> {
             final var value = new ReturnValue(null);
 
             try {
@@ -157,7 +211,7 @@ public class BulkHooker {
             }
 
             ZLUtils.setReturnValue(frame, value.getResult());
-        });
+        };
     }
 
     private boolean applyHook(String clazz, HookElement element) {
@@ -175,37 +229,44 @@ public class BulkHooker {
             return false;
         }
 
-        while (!element.hookFinished && currentClass != null && currentClass != Object.class) {
+        while (currentClass != null && currentClass != Object.class) {
             final var executable = resolveExecutable(currentClass, element.methodName, element.argumentCount);
-            if (executable != null) {
-                Pair<Long, Long> memoryAddresses;
 
-                try {
-                    memoryAddresses = Hooks.hook(
-                            executable, Hooks.EntryPointType.DIRECT,
-                            element.impl, Hooks.EntryPointType.DIRECT
-                    );
-
-                    logD(ZygoteEntry.TAG, null, () -> "Hooked on " + clazz + " -> " + element.methodName + "(" + element.argumentCount + ")");
-                } catch (Throwable e) {
-                    logE(ZygoteEntry.TAG, e, () -> "Hook " + clazz + " -> " + element.methodName + "(" + element.argumentCount + ") crashed!");
-
-                    hooksWasCrashed = true;
-
-                    return false;
-                }
-
-                logV(ZygoteEntry.TAG, null, () -> "Memory address map: " + memoryAddresses);
-
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-                    element.memoryAddresses = memoryAddresses;
-                    element.executable = executable;
-                }
-
-                element.hookFinished = true;
-            }
+            if (applyHookInternal(clazz, executable, element)) break;
 
             currentClass = currentClass.getSuperclass();
+        }
+
+        return element.hookFinished;
+    }
+
+    private boolean applyHookInternal(String clazz, Executable executable, HookElement element) {
+        if (executable != null) {
+            Pair<Long, Long> memoryAddresses;
+
+            try {
+                memoryAddresses = Hooks.hook(
+                        executable, Hooks.EntryPointType.DIRECT,
+                        element.impl, Hooks.EntryPointType.DIRECT
+                );
+
+                logD(ZygoteEntry.TAG, null, () -> "Hooked on " + clazz + " -> " + element.methodName + "(" + element.argumentCount + ")");
+            } catch (Throwable e) {
+                logE(ZygoteEntry.TAG, e, () -> "Hook " + clazz + " -> " + element.methodName + "(" + element.argumentCount + ") crashed!");
+
+                hooksWasCrashed = true;
+
+                return false;
+            }
+
+            logV(ZygoteEntry.TAG, null, () -> "Memory address map: " + memoryAddresses);
+
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+                element.memoryAddresses = memoryAddresses;
+                element.executable = executable;
+            }
+
+            element.hookFinished = true;
         }
 
         return element.hookFinished;

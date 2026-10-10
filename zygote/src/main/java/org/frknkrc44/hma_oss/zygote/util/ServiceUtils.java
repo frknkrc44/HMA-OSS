@@ -22,6 +22,7 @@ import androidx.annotation.Nullable;
 
 import org.frknkrc44.hma_oss.common.BuildConfig;
 import org.frknkrc44.hma_oss.zygote.Magic;
+import org.frknkrc44.hma_oss.zygote.callback.CallerCheckerCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -168,7 +169,7 @@ public class ServiceUtils {
                             "BulkHooker", "com.v7878", "MethodHandle", BuildConfig.APP_PACKAGE_NAME
                     ) || containsMultiple(
                             e.getFileName(),
-                            "r8-map-id-", "dex-id-"
+                            "r8-map-id-", "dex-id-", "ReplaceMePls"
                     )
             );
 
@@ -182,5 +183,16 @@ public class ServiceUtils {
 
     public static boolean isAppDataIsolationEnabled(JsonConfig config) {
         return PropertyUtils.isAppDataIsolationEnabled() || config.getAltAppDataIsolation();
+    }
+
+    @Nullable
+    public static String getScopedCaller(String[] callingApps, CallerCheckerCallback checker) {
+        for (String caller : callingApps) {
+            if (checker.accept(caller)) {
+                return caller;
+            }
+        }
+
+        return null;
     }
 }
