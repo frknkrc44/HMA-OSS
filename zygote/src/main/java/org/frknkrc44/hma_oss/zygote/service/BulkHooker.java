@@ -12,6 +12,7 @@ import static org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.CONSTRUCTOR_METH
 import android.os.Build;
 import android.util.Pair;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.v7878.unsafe.ArtMethodUtils;
@@ -116,7 +117,9 @@ public class BulkHooker {
         }
     }
 
-    public void hookBefore(Method method, HookCallback hook) {
+    public void hookBefore(@Nullable Method method, @NonNull HookCallback hook) {
+        if (method == null) return;
+
         final var clazz = method.getDeclaringClass().getName();
         final var methodName = method.getName();
 
@@ -131,11 +134,13 @@ public class BulkHooker {
         addHook(clazz, methodName, argumentCount, hookBeforeCommon(clazz, methodName, hook));
     }
 
-    public void hookAfter(Method method, HookCallback hook) {
+    public void hookAfter(@Nullable Method method, @NonNull HookCallback hook) {
         hookAfter(method, false, hook);
     }
 
-    public void hookAfter(Method method, boolean handleAfterThrows, HookCallback hook) {
+    public void hookAfter(@Nullable Method method, boolean handleAfterThrows, @NonNull HookCallback hook) {
+        if (method == null) return;
+
         final var clazz = method.getDeclaringClass().getName();
         final var methodName = method.getName();
 

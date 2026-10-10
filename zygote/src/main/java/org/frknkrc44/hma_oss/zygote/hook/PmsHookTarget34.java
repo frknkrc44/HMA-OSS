@@ -28,19 +28,16 @@ public class PmsHookTarget34 extends PmsHookTarget33 {
                 List.of(PACKAGE_MANAGER_SERVICE_CLASS),
                 List.of("getArchivedPackageInternal", "getArchivedPackage")
         );
-
-        if (getAPMethod != null) {
-            service.hooker.hookAfter(
-                    getAPMethod,
-                    (methodName, frame, returnValue) -> applyPackageHiding(
-                            methodName,
-                            returnValue,
-                            Binder::getCallingUid,
-                            () -> (String) getArgument(frame, 1),
-                            callingUid -> getCallingApps(service.pms, callingUid),
-                            null
-                    )
-            );
-        }
+        service.hooker.hookAfter(
+                getAPMethod,
+                (methodName, frame, returnValue) -> applyPackageHiding(
+                        methodName,
+                        returnValue,
+                        Binder::getCallingUid,
+                        () -> (String) getArgument(frame, 1),
+                        callingUid -> getCallingApps(service.pms, callingUid),
+                        null
+                )
+        );
     }
 }

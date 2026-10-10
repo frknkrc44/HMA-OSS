@@ -73,157 +73,145 @@ public class ImmHook extends ABaseFrameworkHook {
                 List.of(IMM_SERVICE_CLASS, IMM_IMPL_CLASS),
                 List.of("getCurrentInputMethodInfoAsUser")
         );
-        if (currentIMMethod != null) {
-            service.hooker.hookBefore(
-                    currentIMMethod,
-                    (methodName, frame, returnValue) -> {
-                        final var callingApps = getCallingApps(service.pms);
+        service.hooker.hookBefore(
+                currentIMMethod,
+                (methodName, frame, returnValue) -> {
+                    final var callingApps = getCallingApps(service.pms);
 
-                        final var caller = getScopedCaller(callingApps, this::callerIsSpoofed);
-                        if (caller == null) return;
+                    final var caller = getScopedCaller(callingApps, this::callerIsSpoofed);
+                    if (caller == null) return;
 
-                        logD(TAG, null, () -> String.format(
-                                "@%s: spoofed input method for %s",
-                                methodName, caller
-                        ));
+                    logD(TAG, null, () -> String.format(
+                            "@%s: spoofed input method for %s",
+                            methodName, caller
+                    ));
 
-                        final var fakeIMInfo = getFakeInputMethodInfo(caller);
-                        // noinspection all - we have no potential NPEs for this method
-                        final var handle = (int) getArgument(frame, 1);
-                        if (isIMNotExists(fakeIMInfo.getPackageName(), handle)) {
-                            warnNotInstalledKeyboard(methodName, fakeIMInfo.getPackageName());
-                        }
-
-                        returnValue.setResult(fakeIMInfo);
-                        service.increaseSettingsFilterCount(caller);
+                    final var fakeIMInfo = getFakeInputMethodInfo(caller);
+                    // noinspection all - we have no potential NPEs for this method
+                    final var handle = (int) getArgument(frame, 1);
+                    if (isIMNotExists(fakeIMInfo.getPackageName(), handle)) {
+                        warnNotInstalledKeyboard(methodName, fakeIMInfo.getPackageName());
                     }
-            );
-        }
+
+                    returnValue.setResult(fakeIMInfo);
+                    service.increaseSettingsFilterCount(caller);
+                }
+        );
 
         final var getIMMethod = (Method) service.hooker.findAltMethod(
                 List.of(IMM_SERVICE_CLASS),
                 List.of("getInputMethodList", "getInputMethodListInternal")
         );
-        if (getIMMethod != null) {
-            service.hooker.hookAfter(
-                    getIMMethod,
-                    (methodName, frame, returnValue) -> {
-                        logD(TAG, null, () -> "@" + methodName + ": hook init");
+        service.hooker.hookAfter(
+                getIMMethod,
+                (methodName, frame, returnValue) -> {
+                    logD(TAG, null, () -> "@" + methodName + ": hook init");
 
-                        final var result = returnValue.getResult();
-                        if (result == null) return;
+                    final var result = returnValue.getResult();
+                    if (result == null) return;
 
-                        final var args = dumpArgs(frame, true);
-                        logD(TAG, null, () -> String.format(
-                                "@%s: Result: %s Args: %s",
-                                methodName, result, Arrays.toString(args)
-                        ));
+                    final var args = dumpArgs(frame, true);
+                    logD(TAG, null, () -> String.format(
+                            "@%s: Result: %s Args: %s",
+                            methodName, result, Arrays.toString(args)
+                    ));
 
-                        final var ints = Arrays.stream(args)
-                                .filter(e -> e instanceof Integer)
-                                .mapToInt(e -> ((Integer) e).intValue())
-                                .toArray();
-                        int callingUid = -1;
-                        if (ints.length > 2) {
-                            for (var i : ints) {
-                                if (i > 999) {
-                                    callingUid = i;
-                                    break;
-                                }
+                    final var ints = Arrays.stream(args)
+                            .filter(e -> e instanceof Integer)
+                            .mapToInt(e -> ((Integer) e).intValue())
+                            .toArray();
+                    int callingUid = -1;
+                    if (ints.length > 2) {
+                        for (var i : ints) {
+                            if (i > 999) {
+                                callingUid = i;
+                                break;
                             }
                         }
-
-                        if (callingUid < 0) {
-                            callingUid = Binder.getCallingUid();
-                        }
-
-                        if (service.config.getDetailLog()) {
-                            int finalCallingUid = callingUid;
-                            logD(TAG, null, () -> String.format(Locale.US,
-                                    "@%s:  Caller ID: %d",
-                                    methodName, finalCallingUid
-                            ));
-                        }
-
-                        if (getReturnType(frame) == InputMethodInfoSafeList.class) {
-                            final var toExtract = (InputMethodInfoSafeList) result;
-                            final var extracted = InputMethodInfoSafeList.extractFrom(toExtract);
-                            final var newList = calculateReturnedInputMethodList(callingUid, extracted);
-                            returnValue.setResult(InputMethodInfoSafeList.create(newList));
-                        } else {
-                            returnValue.setResult(calculateReturnedInputMethodList(
-                                    callingUid, (List<InputMethodInfo>) result
-                            ));
-                        }
                     }
-            );
-        }
+
+                    if (callingUid < 0) {
+                        callingUid = Binder.getCallingUid();
+                    }
+
+                    if (service.config.getDetailLog()) {
+                        int finalCallingUid = callingUid;
+                        logD(TAG, null, () -> String.format(Locale.US,
+                                "@%s:  Caller ID: %d",
+                                methodName, finalCallingUid
+                        ));
+                    }
+
+                    if (getReturnType(frame) == InputMethodInfoSafeList.class) {
+                        final var toExtract = (InputMethodInfoSafeList) result;
+                        final var extracted = InputMethodInfoSafeList.extractFrom(toExtract);
+                        final var newList = calculateReturnedInputMethodList(callingUid, extracted);
+                        returnValue.setResult(InputMethodInfoSafeList.create(newList));
+                    } else {
+                        returnValue.setResult(calculateReturnedInputMethodList(
+                                callingUid, (List<InputMethodInfo>) result
+                        ));
+                    }
+                }
+        );
 
         final var getEnabledIMMethod = (Method) service.hooker.findAltMethod(
                 List.of(IMM_SERVICE_CLASS),
                 List.of("getEnabledInputMethodList", "getEnabledInputMethodListInternal")
         );
-        if (getEnabledIMMethod != null) {
-            service.hooker.hookBefore(
-                    getEnabledIMMethod,
-                    (methodName, frame, returnValue) -> {
-                        final var callingApps = getCallingApps(service.pms);
+        service.hooker.hookBefore(
+                getEnabledIMMethod,
+                (methodName, frame, returnValue) -> {
+                    final var callingApps = getCallingApps(service.pms);
 
-                        final var caller = getScopedCaller(callingApps, this::callerIsSpoofed);
-                        if (caller == null) return;
+                    final var caller = getScopedCaller(callingApps, this::callerIsSpoofed);
+                    if (caller == null) return;
 
-                        logD(TAG, null, () -> String.format(
-                                "@%s: spoofed input method for %s",
-                                methodName, caller
-                        ));
+                    logD(TAG, null, () -> String.format(
+                            "@%s: spoofed input method for %s",
+                            methodName, caller
+                    ));
 
-                        final var fakeIMInfo = getFakeInputMethodInfo(caller);
-                        if (isIMNotExists(fakeIMInfo.getPackageName(), getCallingUser())) {
-                            warnNotInstalledKeyboard(methodName, fakeIMInfo.getPackageName());
-                        }
-
-                        final var list = List.of(fakeIMInfo);
-                        final var returnType = getReturnType(frame);
-                        if (returnType == InputMethodInfoSafeList.class) {
-                            returnValue.setResult(InputMethodInfoSafeList.create(list));
-                        } else {
-                            returnValue.setResult(list);
-                        }
-
-                        service.increaseSettingsFilterCount(caller);
+                    final var fakeIMInfo = getFakeInputMethodInfo(caller);
+                    if (isIMNotExists(fakeIMInfo.getPackageName(), getCallingUser())) {
+                        warnNotInstalledKeyboard(methodName, fakeIMInfo.getPackageName());
                     }
-            );
-        }
+
+                    final var list = List.of(fakeIMInfo);
+                    final var returnType = getReturnType(frame);
+                    if (returnType == InputMethodInfoSafeList.class) {
+                        returnValue.setResult(InputMethodInfoSafeList.create(list));
+                    } else {
+                        returnValue.setResult(list);
+                    }
+
+                    service.increaseSettingsFilterCount(caller);
+                }
+        );
 
         final var getCurrentIMSTMethod = (Method) service.hooker.findAltMethod(
                 List.of(IMM_SERVICE_CLASS, IMM_IMPL_CLASS),
                 List.of("getCurrentInputMethodSubtype")
         );
-        if (getCurrentIMSTMethod != null) {
-            service.hooker.hookBefore(
-                    getCurrentIMSTMethod,
-                    (methodName, frame, returnValue) -> subtypeHook(methodName, returnValue)
-            );
-        }
+        service.hooker.hookBefore(
+                getCurrentIMSTMethod,
+                (methodName, frame, returnValue) -> subtypeHook(methodName, returnValue)
+        );
 
         final var getLastIMSTMethod = (Method) service.hooker.findAltMethod(
                 List.of(IMM_SERVICE_CLASS, IMM_IMPL_CLASS),
                 List.of("getLastInputMethodSubtype")
         );
-        if (getLastIMSTMethod != null) {
-            service.hooker.hookBefore(
-                    getLastIMSTMethod,
-                    (methodName, frame, returnValue) -> subtypeHook(methodName, returnValue)
-            );
-        }
+        service.hooker.hookBefore(
+                getLastIMSTMethod,
+                (methodName, frame, returnValue) -> subtypeHook(methodName, returnValue)
+        );
 
         final var getEnabledIMSLMethod = (Method) service.hooker.findAltMethod(
                 List.of(IMM_SERVICE_CLASS, IMM_IMPL_CLASS),
                 List.of("getEnabledInputMethodSubtypeListInternal", "getEnabledInputMethodSubtypeList")
         );
-        if (getEnabledIMSLMethod != null) {
-            service.hooker.hookBefore(getEnabledIMSLMethod, this::subtypeListHook);
-        }
+        service.hooker.hookBefore(getEnabledIMSLMethod, this::subtypeListHook);
     }
 
     @NonNull
