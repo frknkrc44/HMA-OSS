@@ -59,7 +59,7 @@ public class PmsHookTarget33 extends PmsHookTargetBase {
                 )
         );
 
-        service.hooker.hookBefore(
+        service.hooker.hookAfter(
                 COMPUTER_ENGINE_CLASS,
                 "getPackageInfoInternal",
                 (methodName, frame, returnValue) -> {
@@ -76,7 +76,7 @@ public class PmsHookTarget33 extends PmsHookTargetBase {
                 }
         );
 
-        service.hooker.hookBefore(
+        service.hooker.hookAfter(
                 COMPUTER_ENGINE_CLASS,
                 "getApplicationInfoInternal",
                 (methodName, frame, returnValue) -> {

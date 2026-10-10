@@ -59,7 +59,7 @@ public class PmsHookTarget31 extends PmsHookTargetBase {
                 )
         );
 
-        service.hooker.hookBefore(
+        service.hooker.hookAfter(
                 PMS_COMPUTER_TRACKER_CLASS,
                 "getPackageInfoInternal",
                 (methodName, frame, returnValue) -> applyPackageHiding(
@@ -72,7 +72,7 @@ public class PmsHookTarget31 extends PmsHookTargetBase {
                 )
         );
 
-        service.hooker.hookBefore(
+        service.hooker.hookAfter(
                 PMS_COMPUTER_TRACKER_CLASS,
                 "getApplicationInfoInternal",
                 (methodName, frame, returnValue) -> applyPackageHiding(
