@@ -16,7 +16,7 @@ import java.util.List;
 @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 public class PmsHookTarget34 extends PmsHookTarget33 {
 
-    public PmsHookTarget34() throws ClassNotFoundException, NoSuchMethodException {
+    public PmsHookTarget34() {
         super("PmsHookTarget34");
     }
 
@@ -29,16 +29,18 @@ public class PmsHookTarget34 extends PmsHookTarget33 {
                 List.of("getArchivedPackageInternal", "getArchivedPackage")
         );
 
-        service.hooker.hookAfter(
-                getAPMethod,
-                (methodName, frame, returnValue) -> applyPackageHiding(
-                        methodName,
-                        returnValue,
-                        Binder::getCallingUid,
-                        () -> (String) getArgument(frame, 1),
-                        callingUid -> getCallingApps(service.pms, callingUid),
-                        null
-                )
-        );
+        if (getAPMethod != null) {
+            service.hooker.hookAfter(
+                    getAPMethod,
+                    (methodName, frame, returnValue) -> applyPackageHiding(
+                            methodName,
+                            returnValue,
+                            Binder::getCallingUid,
+                            () -> (String) getArgument(frame, 1),
+                            callingUid -> getCallingApps(service.pms, callingUid),
+                            null
+                    )
+            );
+        }
     }
 }
