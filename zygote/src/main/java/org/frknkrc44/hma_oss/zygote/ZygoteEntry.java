@@ -13,6 +13,7 @@ import static org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.RUNTIME_INIT_CLA
 import static org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.SYSTEM_SERVER_CLASS;
 import static org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.ZYGOTE_INIT_CLASS;
 
+import android.annotation.SuppressLint;
 import android.content.pm.IPackageManager;
 import android.os.Build;
 
@@ -23,19 +24,15 @@ import com.v7878.r8.annotations.DoNotObfuscate;
 import com.v7878.r8.annotations.DoNotObfuscateType;
 import com.v7878.r8.annotations.DoNotShrink;
 import com.v7878.r8.annotations.DoNotShrinkType;
-import com.v7878.unsafe.invoke.EmulatedStackFrame;
-import com.v7878.vmtools.HookTransformer;
 import com.v7878.vmtools.Hooks;
 import com.v7878.zygisk.ZygoteLoader;
 
 import org.frknkrc44.hma_oss.common.BuildConfig;
 import org.frknkrc44.hma_oss.zygote.service.UserService;
 
-import java.lang.invoke.MethodHandle;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-@SuppressWarnings("all")
 @DoNotObfuscateType
 @DoNotShrinkType
 public class ZygoteEntry {
@@ -48,10 +45,12 @@ public class ZygoteEntry {
 
     @DoNotObfuscate
     @DoNotShrink
-    public static void premain() throws Throwable {
+    public static void premain() {
         logI(TAG, null, () -> String.format("Injecting into %s - %s", ZygoteLoader.getPackageName(), BuildConfig.APP_VERSION_NAME));
     }
 
+    @SuppressLint("PrivateApi")
+    @SuppressWarnings("ConfusingMainMethod")
     @DoNotObfuscate
     @DoNotShrink
     public static void main() throws Throwable {
@@ -64,8 +63,8 @@ public class ZygoteEntry {
                         "getOrCreateSystemServerClassLoader"
                 );
 
-                if (loader != null && loader instanceof ClassLoader classLoader) {
-                    onSystemServer(classLoader);
+                if (loader instanceof ClassLoader cl) {
+                    onSystemServer(cl);
 
                     return;
                 } else {
@@ -84,17 +83,14 @@ public class ZygoteEntry {
                 String.class, String[].class, ClassLoader.class
         );
 
-        Hooks.hook(method, Hooks.EntryPointType.CURRENT, new HookTransformer() {
-            @Override
-            public void transform(MethodHandle original, EmulatedStackFrame frame) throws Throwable {
-                try {
-                    final var accessor = frame.accessor();
-                    if (SYSTEM_SERVER_CLASS.equals(accessor.getReference(0))) {
-                        onSystemServer((ClassLoader) accessor.getReference(2));
-                    }
-                } catch (Throwable e) {
-                    logE(TAG, e, () -> "An exception occurred while findStaticMain");
+        Hooks.hook(method, Hooks.EntryPointType.CURRENT, (original, frame) -> {
+            try {
+                final var accessor = frame.accessor();
+                if (SYSTEM_SERVER_CLASS.equals(accessor.getReference(0))) {
+                    onSystemServer(accessor.getReference(2));
                 }
+            } catch (Throwable e) {
+                logE(TAG, e, () -> "An exception occurred while findStaticMain");
             }
         }, Hooks.EntryPointType.DIRECT);
     }

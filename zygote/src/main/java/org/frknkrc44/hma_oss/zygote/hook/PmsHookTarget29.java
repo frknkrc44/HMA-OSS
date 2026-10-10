@@ -12,6 +12,7 @@ public class PmsHookTarget29 extends PmsHookTargetBase {
         super("PmsHookTarget29");
     }
 
+    @SuppressWarnings("DataFlowIssue")
     @Override
     public void load() {
         super.load();

@@ -144,6 +144,7 @@ public class ImmHook extends ABaseFrameworkHook {
                         final var newList = calculateReturnedInputMethodList(callingUid, extracted);
                         returnValue.setResult(InputMethodInfoSafeList.create(newList));
                     } else {
+                        // noinspection unchecked
                         returnValue.setResult(calculateReturnedInputMethodList(
                                 callingUid, (List<InputMethodInfo>) result
                         ));

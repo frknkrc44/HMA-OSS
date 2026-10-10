@@ -231,6 +231,7 @@ public class ZygoteHook extends ABaseFrameworkHook {
         return perms;
     }
 
+    @SuppressWarnings("JavaReflectionMemberAccess")
     private ProcessParams.Builder makeProcessParamsBuilder(ProcessParams params) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException {
         final var constructor = ProcessParams.Builder.class.getDeclaredConstructor(ProcessParams.class);
         ArtMethodUtils.makeExecutablePublic(constructor);

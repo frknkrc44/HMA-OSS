@@ -18,6 +18,7 @@ public class InstallerHookTarget34 extends InstallerHookTarget33 {
         super("InstallerHookTarget34");
     }
 
+    @SuppressWarnings("DataFlowIssue")
     @Override
     protected Object getFakeSystemPackageInstallSourceInfo()
             throws ClassNotFoundException, InvocationTargetException, IllegalAccessException, InstantiationException {
@@ -33,6 +34,7 @@ public class InstallerHookTarget34 extends InstallerHookTarget33 {
         );
     }
 
+    @SuppressWarnings("DataFlowIssue")
     @Override
     protected Object getFakeUserPackageInstallSourceInfo()
             throws ClassNotFoundException, InvocationTargetException, IllegalAccessException, InstantiationException {

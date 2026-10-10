@@ -17,7 +17,7 @@ public class UserManagerUtils {
     private static final IUserManager userManager =
             IUserManager.Stub.asInterface(waitForService(Context.USER_SERVICE));
 
-    public static List<UserInfo> getUsers(boolean excludePartial, boolean excludeDying, boolean excludePreCreated) throws RemoteException {
+    public static List<UserInfo> getUsers(boolean excludePartial, boolean excludeDying, boolean excludePreCreated) {
         try {
             return userManager.getUsers(excludeDying);
         } catch (Throwable e) {

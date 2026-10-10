@@ -12,6 +12,7 @@ public class PmsPEHookTarget29 extends ABaseFrameworkHook {
         super("PmsPEHookTarget29");
     }
 
+    @SuppressWarnings("DataFlowIssue")
     @Override
     public void load() {
         super.load();

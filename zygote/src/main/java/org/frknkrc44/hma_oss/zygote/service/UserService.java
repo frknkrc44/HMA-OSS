@@ -33,7 +33,7 @@ public class UserService {
 
     private static final UidObserverAdapter uidObserver = new UidObserverAdapter() {
         @Override
-        public void onUidActive(int uid) throws RemoteException {
+        public void onUidActive(int uid) {
             final var appUid = getManagerAppUid();
 
             if (appUid < 0 || uid != appUid) {
@@ -76,7 +76,7 @@ public class UserService {
         }
     };
 
-    public static void register(IPackageManager pms, Object pmn) throws ClassNotFoundException, IllegalAccessException, RemoteException, InvocationTargetException, NoSuchMethodException, InstantiationException {
+    public static void register(IPackageManager pms, Object pmn) throws ClassNotFoundException, IllegalAccessException, RemoteException, InvocationTargetException, InstantiationException {
         assert service == null : "You cannot register the service more than once";
 
         logI(TAG, null, () -> "Initialize HMAService - Version " + BuildConfig.APP_VERSION_NAME);

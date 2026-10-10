@@ -174,6 +174,7 @@ public class ContentProviderHook extends ABaseFrameworkHook {
 
                         final var cursor = new MatrixCursor(columnKeys.toArray(new String[0]), columns.size());
                         if (!columns.isEmpty()) {
+                            @SuppressWarnings("OptionalGetWithoutIsPresent")
                             final var columnKSize = columns.values().stream().findFirst().get().size();
                             for (int i = 0; i < columnKSize; i++) {
                                 final var innerList = new ArrayList<String>();

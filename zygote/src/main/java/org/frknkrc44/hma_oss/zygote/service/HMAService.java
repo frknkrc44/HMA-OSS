@@ -120,7 +120,7 @@ public class HMAService extends IHMAService.Stub {
 
     public JsonConfig config = new JsonConfig();
 
-    HMAService(IPackageManager pms, Object pmn) throws ClassNotFoundException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, InstantiationException {
+    HMAService(IPackageManager pms, Object pmn) throws ClassNotFoundException, IllegalAccessException, InvocationTargetException, InstantiationException {
         this.pms = pms;
         this.pmn = pmn;
 
@@ -317,7 +317,7 @@ public class HMAService extends IHMAService.Stub {
         reloadPresets(!isFileAvailable);
     }
 
-    private void installHooks() throws ClassNotFoundException, IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException {
+    private void installHooks() throws ClassNotFoundException, IllegalAccessException, InvocationTargetException, InstantiationException {
         try {
             for (var packageName : pms.getAllPackages()) {
                 final var packageInfo = Utils.getPackageInfoCompat(pms, packageName, 0, 0);
@@ -657,12 +657,12 @@ public class HMAService extends IHMAService.Stub {
     }
 
     @Override
-    public int getServiceVersion() throws RemoteException {
+    public int getServiceVersion() {
         return BuildConfig.SERVICE_VERSION;
     }
 
     @Override
-    public int getFilterCount() throws RemoteException {
+    public int getFilterCount() {
         return dataHolder.getFilterHolder().getTotalCount();
     }
 
@@ -752,7 +752,7 @@ public class HMAService extends IHMAService.Stub {
     }
 
     @Override
-    public String[] getPackagesForPreset(String presetName) throws RemoteException {
+    public String[] getPackagesForPreset(String presetName) {
         final var appPresets = AppPresets.Companion.getInstance();
         final var preset = appPresets.getPresetByName(presetName);
         if (preset == null) return new String[0];
@@ -760,7 +760,7 @@ public class HMAService extends IHMAService.Stub {
     }
 
     @Override
-    public void forceStop(String packageName, int userId) throws RemoteException {
+    public void forceStop(String packageName, int userId) {
         binderLocalScopeNoReturn(() -> {
             try {
                 ActivityManagerUtils.forceStopPackage(packageName, userId);
@@ -771,12 +771,12 @@ public class HMAService extends IHMAService.Stub {
     }
 
     @Override
-    public void log(int level, String tag, String message) throws RemoteException {
+    public void log(int level, String tag, String message) {
         logWithLevel(level, tag, null, () -> message);
     }
 
     @Override
-    public String[] getPackageNames(int userId) throws RemoteException {
+    public String[] getPackageNames(int userId) {
         return binderLocalScope(() -> {
             final var list = new HashSet<String>();
 
@@ -797,7 +797,7 @@ public class HMAService extends IHMAService.Stub {
     }
 
     @Override
-    public PackageInfo getPackageInfo(String packageName, int userId) throws RemoteException {
+    public PackageInfo getPackageInfo(String packageName, int userId) {
         return binderLocalScope(() -> Utils.getPackageInfoCompat(pms, packageName, 0, userId));
     }
 
@@ -824,7 +824,7 @@ public class HMAService extends IHMAService.Stub {
     }
 
     @Override
-    public String getLogFileLocation() throws RemoteException {
+    public String getLogFileLocation() {
         return logFile.getAbsolutePath();
     }
 
@@ -863,17 +863,17 @@ public class HMAService extends IHMAService.Stub {
     }
 
     @Override
-    public void reloadPresetsFromScratch() throws RemoteException {
+    public void reloadPresetsFromScratch() {
         reloadPresets(true);
     }
 
     @Override
-    public String getDetailedFilterStats() throws RemoteException {
+    public String getDetailedFilterStats() {
         return dataHolder.getFilterHolder().toString();
     }
 
     @Override
-    public void clearFilterStats() throws RemoteException {
+    public void clearFilterStats() {
         synchronized (configLock) {
             dataHolder.getFilterHolder().getFilterCounts().clear();
         }
@@ -882,12 +882,12 @@ public class HMAService extends IHMAService.Stub {
     }
 
     @Override
-    public String getServiceVersionName() throws RemoteException {
+    public String getServiceVersionName() {
         return BuildConfig.APP_VERSION_NAME;
     }
 
     @Override
-    public String[] getLoadedHooks() throws RemoteException {
+    public String[] getLoadedHooks() {
         final var hookList = new ArrayList<String>();
 
         for (var entry : hooker.hooks.entrySet()) {
@@ -944,7 +944,7 @@ public class HMAService extends IHMAService.Stub {
     }
 
     @Override
-    public void startMainActivityAsUser(String packageName, int userId) throws RemoteException {
+    public void startMainActivityAsUser(String packageName, int userId) {
         binderLocalScopeNoReturn(() -> {
             final var packageInfo = Utils.getPackageInfoCompat(pms, packageName, 0, userId);
             if (packageInfo == null) throw new RuntimeException("Cannot find package info for " + packageName);
@@ -988,7 +988,7 @@ public class HMAService extends IHMAService.Stub {
     }
 
     @Override
-    public int[] getUserProfiles() throws RemoteException {
+    public int[] getUserProfiles() {
         return binderLocalScope(() -> {
             try {
                 return UserManagerUtils.getUserIds();

@@ -2,7 +2,6 @@ package org.frknkrc44.hma_oss.zygote.util;
 
 import android.app.IUidObserver;
 import android.os.Parcel;
-import android.os.RemoteException;
 
 /**
  * Copied from Rikka's HiddenApi project, because that
@@ -13,7 +12,7 @@ public class UidObserverAdapter extends IUidObserver.Stub {
      * Report that there are no longer any processes running for an uid.
      */
     @Override
-    public void onUidGone(int uid, boolean disabled) throws RemoteException {
+    public void onUidGone(int uid, boolean disabled) {
 
     }
 
@@ -21,7 +20,7 @@ public class UidObserverAdapter extends IUidObserver.Stub {
      * Report that an uid is now active (no longer idle).
      */
     @Override
-    public void onUidActive(int uid) throws RemoteException {
+    public void onUidActive(int uid) {
 
     }
 
@@ -30,12 +29,12 @@ public class UidObserverAdapter extends IUidObserver.Stub {
      * a sufficient period of time, or all of its processes have gone away.
      */
     @Override
-    public void onUidIdle(int uid, boolean disabled) throws RemoteException {
+    public void onUidIdle(int uid, boolean disabled) {
 
     }
 
     @Override
-    public void onUidStateChanged(int uid, int procState, long procStateSeq) throws RemoteException {
+    public void onUidStateChanged(int uid, int procState, long procStateSeq) {
         onUidStateChanged(uid, procState, procStateSeq, 0);
     }
 
@@ -50,7 +49,7 @@ public class UidObserverAdapter extends IUidObserver.Stub {
      * Added from API 30 (11)
      */
     @Override
-    public void onUidStateChanged(int uid, int procState, long procStateSeq, int capability) throws RemoteException {
+    public void onUidStateChanged(int uid, int procState, long procStateSeq, int capability) {
 
     }
 
@@ -63,13 +62,13 @@ public class UidObserverAdapter extends IUidObserver.Stub {
      * running processes is no longer cached, or it no longer has any actively running processes.
      */
     @Override
-    public void onUidCachedChanged(int uid, boolean cached) throws RemoteException {
+    public void onUidCachedChanged(int uid, boolean cached) {
 
     }
 
     @SuppressWarnings("NullableProblems")
     @Override
-    protected boolean onTransact(int code, Parcel data, Parcel reply, int flags) throws RemoteException {
+    protected boolean onTransact(int code, Parcel data, Parcel reply, int flags) {
         try {
             return super.onTransact(code, data, reply, flags);
         } catch (Throwable ignored) {
