@@ -587,9 +587,9 @@ public class HMAService extends IHMAService.Stub {
                 : Constants.FAKE_INSTALLATION_SOURCE_USER;
     }
 
-    private boolean isManagerWorkModeNotOK(boolean silent) {
+    private boolean isManagerWorkModeNotOK() {
         if (managerWorkMode != Constants.MANAGER_WORK_MODE_OK) {
-            if (!silent) logW(TAG, null, () -> "Cannot write while in no hooks mode");
+            logW(TAG, null, () -> "Cannot write while in no hooks mode");
             return true;
         }
 
@@ -605,7 +605,7 @@ public class HMAService extends IHMAService.Stub {
     }
 
     public void writeConfig(String json) {
-        if (isManagerWorkModeNotOK(false)) return;
+        if (isManagerWorkModeNotOK()) return;
 
         synchronized (configLock) {
             try {
@@ -636,7 +636,7 @@ public class HMAService extends IHMAService.Stub {
     }
 
     private void writeFilterCount(boolean force) {
-        if (isManagerWorkModeNotOK(false)) return;
+        if (isManagerWorkModeNotOK()) return;
 
         synchronized (configLock) {
             if (!force && dataHolder.getFilterHolder().getTotalCount() % 100 != 0) {
