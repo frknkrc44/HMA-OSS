@@ -2,9 +2,43 @@ package icu.nullptr.hidemyapplist.common.util;
 
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Set;
+
+import icu.nullptr.hidemyapplist.common.callback.RemoveIfCallbackMap;
+import icu.nullptr.hidemyapplist.common.callback.RemoveIfCallbackSet;
 
 public class CollectionUtils {
     private CollectionUtils() {}
+
+    public static <K, V> int removeIf(Map<K, V> map, RemoveIfCallbackMap<K, V> predicate) {
+        final var iterator = map.entrySet().iterator();
+
+        var removedCount = 0;
+        while (iterator.hasNext()) {
+            final var item = iterator.next();
+            if (predicate.accept(item.getKey(), item.getValue())) {
+                iterator.remove();
+                removedCount++;
+            }
+        }
+
+        return removedCount;
+    }
+
+    public static <K> int removeIf(Set<K> set, RemoveIfCallbackSet<K> predicate) {
+        final var iterator = set.iterator();
+
+        var removedCount = 0;
+        while (iterator.hasNext()) {
+            final var item = iterator.next();
+            if (predicate.accept(item)) {
+                iterator.remove();
+                removedCount++;
+            }
+        }
+
+        return removedCount;
+    }
 
     public static <T> T firstWithType(Object[] items, Class<? extends T> clazz) {
         return firstWithType(items, clazz, false);

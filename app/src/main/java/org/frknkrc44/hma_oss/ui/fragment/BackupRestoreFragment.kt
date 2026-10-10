@@ -12,11 +12,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dev.androidbroadcast.vbpd.viewBinding
-import icu.nullptr.hidemyapplist.common.CollectionUtils.removeIf
-import icu.nullptr.hidemyapplist.common.CollectionUtils.sync
 import icu.nullptr.hidemyapplist.common.Constants.CONFIG_VERSION_NO_SETTINGS
 import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.common.Utils.cleanRemnantsFromConfig
+import icu.nullptr.hidemyapplist.common.util.CollectionUtils.removeIf
 import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.ui.util.contentResolver
 import icu.nullptr.hidemyapplist.ui.util.navController
@@ -28,6 +27,7 @@ import kotlinx.coroutines.launch
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentBackupRestoreBinding
 import org.frknkrc44.hma_oss.databinding.LayoutListEmptyBinding
+import org.frknkrc44.hma_oss.util.CollectionUtils.sync
 import java.util.Date
 import java.util.Locale
 
@@ -314,15 +314,15 @@ class BackupRestoreFragment : Fragment(R.layout.fragment_backup_restore) {
     }
 
     private fun clearNotImportedItems(onFinish: () -> Unit) {
-        importedConfig.scope.removeIf { pkg, _ ->
+        removeIf(importedConfig.scope) { pkg, _ ->
             !markedForBackup[BRCategory.APP]!!.contains(pkg)
         }
 
-        importedConfig.templates.removeIf { template, _ ->
+        removeIf(importedConfig.templates) { template, _ ->
             !markedForBackup[BRCategory.TEMPLATE]!!.contains(template)
         }
 
-        importedConfig.settingsTemplates.removeIf { template, _ ->
+        removeIf(importedConfig.settingsTemplates) { template, _ ->
             !markedForBackup[BRCategory.SETTINGS_TEMPLATE]!!.contains(template)
         }
 

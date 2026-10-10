@@ -2,14 +2,14 @@ package icu.nullptr.hidemyapplist.service
 
 import android.os.Build
 import android.util.Log
-import icu.nullptr.hidemyapplist.common.CollectionUtils.removeIfWithCount
-import icu.nullptr.hidemyapplist.common.CollectionUtils.sync
 import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.common.PropertyUtils
 import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
+import icu.nullptr.hidemyapplist.common.util.CollectionUtils.removeIf
 import icu.nullptr.hidemyapplist.service.ServiceClient.log
 import icu.nullptr.hidemyapplist.util.PackageHelper
 import org.frknkrc44.hma_oss.common.BuildConfig
+import org.frknkrc44.hma_oss.util.CollectionUtils.sync
 
 object ConfigManager {
     /**
@@ -270,18 +270,18 @@ object ConfigManager {
         PackageHelper.invalidateCache { throwable ->
             if (throwable == null) {
                 // --- STEP 1: Clear uninstalled app configs ---
-                val scopeRemoveCount = inConfig.scope.removeIfWithCount { packageName, _ ->
+                val scopeRemoveCount = removeIf(inConfig.scope) { packageName, _ ->
                     !PackageHelper.exists(packageName)
                 }
 
                 // --- STEP 2: Clear uninstalled apps from extra app lists ---
                 var cleanedAppCount = 0
                 inConfig.scope.values.forEach { config ->
-                    cleanedAppCount += config.extraAppList.removeIfWithCount { packageName ->
+                    cleanedAppCount += removeIf(config.extraAppList) { packageName ->
                         !PackageHelper.exists(packageName)
                     }
 
-                    cleanedAppCount += config.extraOppositeAppList.removeIfWithCount { packageName ->
+                    cleanedAppCount += removeIf(config.extraOppositeAppList) { packageName ->
                         !PackageHelper.exists(packageName)
                     }
                 }

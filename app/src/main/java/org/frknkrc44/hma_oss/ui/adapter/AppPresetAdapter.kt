@@ -2,13 +2,13 @@ package org.frknkrc44.hma_oss.ui.adapter
 
 import android.view.ViewGroup
 import android.widget.Filter
-import icu.nullptr.hidemyapplist.common.CollectionUtils.sync
 import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.adapter.AppSelectAdapter
 import icu.nullptr.hidemyapplist.ui.view.AppItemView
 import icu.nullptr.hidemyapplist.util.PackageHelper
 import kotlinx.coroutines.runBlocking
+import org.frknkrc44.hma_oss.util.CollectionUtils.sync
 
 class AppPresetAdapter(
     private val presetName: String

@@ -21,7 +21,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.common.AppPresets
-import icu.nullptr.hidemyapplist.common.CollectionUtils.sync
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.common.OSUtils
@@ -45,6 +44,7 @@ import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentSettingsBinding
 import org.frknkrc44.hma_oss.databinding.LayoutListEmptyBinding
 import org.frknkrc44.hma_oss.ui.util.PresetUtils
+import org.frknkrc44.hma_oss.util.CollectionUtils.sync
 
 class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
     companion object {

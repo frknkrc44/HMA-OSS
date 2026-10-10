@@ -76,7 +76,6 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import icu.nullptr.hidemyapplist.common.AppPresets;
-import icu.nullptr.hidemyapplist.common.CollectionUtils;
 import icu.nullptr.hidemyapplist.common.Constants;
 import icu.nullptr.hidemyapplist.common.FilterHolder;
 import icu.nullptr.hidemyapplist.common.IHMAService;
@@ -88,6 +87,7 @@ import icu.nullptr.hidemyapplist.common.RiskyPackageUtils;
 import icu.nullptr.hidemyapplist.common.SettingsPresets;
 import icu.nullptr.hidemyapplist.common.Utils;
 import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem;
+import icu.nullptr.hidemyapplist.common.util.CollectionUtils;
 
 public class HMAService extends IHMAService.Stub {
     private static final String TAG = "HMA-Java-Service";
@@ -619,7 +619,7 @@ public class HMAService extends IHMAService.Stub {
                 // remove filter counts for apps if they are not in config
                 CollectionUtils.removeIf(
                         dataHolder.getFilterHolder().getFilterCounts(),
-                        (key, value) -> config.getScope().containsKey(key)
+                        (k, v) -> !config.getScope().containsKey(k)
                 );
 
                 logD(TAG, null, () -> "Config synced");
