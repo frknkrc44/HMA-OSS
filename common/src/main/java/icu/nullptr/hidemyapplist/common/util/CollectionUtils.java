@@ -1,5 +1,6 @@
 package icu.nullptr.hidemyapplist.common.util;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
@@ -38,6 +39,11 @@ public class CollectionUtils {
         }
 
         return removedCount;
+    }
+
+    public static <K> void sync(Set<K> set, Collection<K> collection) {
+        set.clear();
+        set.addAll(collection);
     }
 
     public static <T> T firstWithType(Object[] items, Class<? extends T> clazz) {

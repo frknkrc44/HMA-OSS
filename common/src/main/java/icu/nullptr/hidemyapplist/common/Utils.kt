@@ -7,7 +7,7 @@ import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.os.Binder
 import android.os.Build
-import icu.nullptr.hidemyapplist.common.CollectionUtils.removeIf
+import icu.nullptr.hidemyapplist.common.util.CollectionUtils.removeIf
 import kotlinx.serialization.json.Json
 import java.util.zip.ZipFile
 
@@ -100,8 +100,8 @@ object Utils {
     @JvmStatic
     fun JsonConfig.cleanRemnantsFromConfig() {
         // STEP 1: Remove empty app and settings templates
-        templates.removeIf { _, template -> template.appList.isEmpty() }
-        settingsTemplates.removeIf { _, template -> template.settingsList.isEmpty() }
+        removeIf(templates) { _, template -> template.appList.isEmpty() }
+        removeIf(settingsTemplates) { _, template -> template.settingsList.isEmpty() }
 
         // STEP 2: Remove mismatching items
         for (app in scope.values) {

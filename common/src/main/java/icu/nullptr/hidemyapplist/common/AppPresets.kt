@@ -3,7 +3,6 @@ package icu.nullptr.hidemyapplist.common
 import android.content.pm.ApplicationInfo
 import android.content.pm.IPackageManager
 import android.util.Log
-import icu.nullptr.hidemyapplist.common.CollectionUtils.sync
 import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
 import icu.nullptr.hidemyapplist.common.Utils.isSystemApp
 import icu.nullptr.hidemyapplist.common.app_presets.AccessibilityAppsPreset
@@ -14,6 +13,7 @@ import icu.nullptr.hidemyapplist.common.app_presets.RootAppsPreset
 import icu.nullptr.hidemyapplist.common.app_presets.SDhizukuAppsPreset
 import icu.nullptr.hidemyapplist.common.app_presets.SuspiciousAppsPreset
 import icu.nullptr.hidemyapplist.common.app_presets.XposedModulesPreset
+import icu.nullptr.hidemyapplist.common.util.CollectionUtils.sync
 import java.util.zip.ZipFile
 
 class AppPresets private constructor() {
@@ -116,7 +116,7 @@ class AppPresets private constructor() {
             }
         }
 
-        allAppsCache.sync(packageNames)
+        sync(allAppsCache, packageNames)
         manifestDataCache.clear()
     }
 
