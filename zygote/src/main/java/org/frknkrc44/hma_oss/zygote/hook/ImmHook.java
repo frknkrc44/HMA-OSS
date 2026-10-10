@@ -116,15 +116,11 @@ public class ImmHook extends ABaseFrameworkHook {
                             methodName, result, Arrays.toString(args)
                     ));
 
-                    final var ints = Arrays.stream(args)
-                            .filter(e -> e instanceof Integer)
-                            .mapToInt(e -> ((Integer) e).intValue())
-                            .toArray();
                     int callingUid = -1;
-                    if (ints.length > 2) {
-                        for (var i : ints) {
-                            if (i > 999) {
-                                callingUid = i;
+                    for (var item : args) {
+                        if (item instanceof Integer in) {
+                            if (in > 999) {
+                                callingUid = in;
                                 break;
                             }
                         }

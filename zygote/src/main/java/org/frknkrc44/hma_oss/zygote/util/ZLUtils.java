@@ -195,18 +195,6 @@ public class ZLUtils {
         return null;
     }
 
-    @NonNull
-    public static Method findMethod(String className, String methodName, boolean isDeclared, boolean systemClassLoader, Class<?>... args)
-            throws NoSuchMethodException, ClassNotFoundException {
-        final var clazz = systemClassLoader
-                ? Class.forName(className, true, ZygoteEntry.classLoader)
-                : Class.forName(className);
-
-        return isDeclared
-                ? clazz.getDeclaredMethod(methodName, args)
-                : clazz.getMethod(methodName, args);
-    }
-
     @Nullable
     public static Field findField(Class<?> clazz, String fieldName) {
         while (clazz != null && clazz != Object.class) {
