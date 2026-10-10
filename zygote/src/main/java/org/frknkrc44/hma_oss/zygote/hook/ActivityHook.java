@@ -27,7 +27,6 @@ import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.os.RemoteException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import icu.nullptr.hidemyapplist.common.Constants;
@@ -78,9 +77,10 @@ public class ActivityHook extends ABaseFrameworkHook {
                             methodName, caller
                     ));
 
-                    final var removedList = new ArrayList<ResolveInfo>();
-                    for (ResolveInfo info : list) {
-                        final var targetApp = getPackageName(info);
+                    final var iterator = list.iterator();
+                    var removedCount = 0;
+                    while (iterator.hasNext()) {
+                        final var targetApp = getPackageName(iterator.next());
 
                         logV(TAG, null, () -> String.format(
                                 "@%s: Checking %s for %s",
@@ -96,16 +96,13 @@ public class ActivityHook extends ABaseFrameworkHook {
                                     methodName, caller, targetApp
                             ));
 
-                            removedList.add(info);
+                            iterator.remove();
+                            removedCount++;
                         }
                     }
 
-                    if (!removedList.isEmpty()) {
-                        // OneUI uses the list it passed in instead of the returned one,
-                        // so drop the entries from that object instead
-                        list.removeAll(removedList);
-
-                        service.increasePMFilterCount(caller, removedList.size());
+                    if (removedCount > 0) {
+                        service.increasePMFilterCount(caller, removedCount);
 
                         returnValue.setResult(list);
                     }
