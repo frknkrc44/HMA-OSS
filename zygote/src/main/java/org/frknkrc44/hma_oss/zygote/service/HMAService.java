@@ -597,8 +597,6 @@ public class HMAService extends IHMAService.Stub {
     }
 
     public void addLog(String parsedMsg) throws IOException, RemoteException {
-        if (isManagerWorkModeNotOK(true)) return;
-
         synchronized (loggerLock) {
             if (!logcatAvailable) return;
             if (logFile.length() / 1024 > config.getMaxLogSize()) clearLogs();
@@ -669,8 +667,6 @@ public class HMAService extends IHMAService.Stub {
     @SuppressWarnings("all")
     @Override
     public void clearLogs() throws RemoteException {
-        if (isManagerWorkModeNotOK(false)) return;
-
         synchronized (loggerLock) {
             oldLogFile.delete();
             logFile.renameTo(oldLogFile);
