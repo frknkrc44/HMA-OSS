@@ -6,12 +6,15 @@ import static org.frknkrc44.hma_oss.zygote.util.Logcat.logD;
 import static org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps;
 import static org.frknkrc44.hma_oss.zygote.util.ZLUtils.dumpArgs;
 import static org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.CONTENT_PROVIDER_TRANSPORT_CLASS;
+import static icu.nullptr.hidemyapplist.common.Utils.getUserFromCallingUid;
 import static icu.nullptr.hidemyapplist.common.util.CollectionUtils.firstWithType;
 
 import android.content.AttributionSource;
+import android.content.ComponentName;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
+import android.os.Binder;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.RemoteException;
@@ -43,7 +46,7 @@ public class ContentProviderHook extends ABaseFrameworkHook {
                     final var args = dumpArgs(frame, true);
                     final var callingApps = getCallingPackages(args);
                     final var caller = Arrays.stream(callingApps)
-                            .filter(item -> service.isAnySettingsReplacementsEnabled(item))
+                            .filter(item -> service.isAnySettingsReplacementsEnabled(item) || service.isHookEnabled(item))
                             .findFirst()
                             .orElse(null);
                     if (caller == null) return;
@@ -102,13 +105,18 @@ public class ContentProviderHook extends ABaseFrameworkHook {
                             final var nameInColumns = columnNames.contains("name");
                             final var valueInColumns = columnNames.contains("value");
 
+                            String value = replacement.getValue();
+                            if (Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES.equals(name)) {
+                                value = sanitizeAccessibilityServices(value, caller);
+                            }
+
                             final String[] returnedArr;
                             if (nameInColumns && valueInColumns) {
-                                returnedArr = new String[] { replacement.getName(), replacement.getValue() };
+                                returnedArr = new String[] { replacement.getName(), value };
                             } else if (nameInColumns) {
                                 returnedArr = new String[] { replacement.getName() };
                             } else if (valueInColumns) {
-                                returnedArr = new String[] { replacement.getValue() };
+                                returnedArr = new String[] { value };
                             } else {
                                 return;
                             }
@@ -158,6 +166,14 @@ public class ContentProviderHook extends ABaseFrameworkHook {
                                 value = result.getString(columnKeys.indexOf("value"));
                             }
 
+                            if (Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES.equals(name)) {
+                                final var sanitized = sanitizeAccessibilityServices(value, caller);
+                                if (replacement == null && value != null && !value.equals(sanitized)) {
+                                    filteredEntryCount++;
+                                }
+                                value = sanitized;
+                            }
+
                             valueColumn.add(value);
 
                             if (columns.size() > 2) {
@@ -190,14 +206,14 @@ public class ContentProviderHook extends ABaseFrameworkHook {
                 }
         );
 
-        service.hooker.hookBefore(
+        service.hooker.hookAfter(
                 CONTENT_PROVIDER_TRANSPORT_CLASS,
                 "call",
                 (methodName, frame, returnValue) -> {
                     final var args = dumpArgs(frame, true);
                     final var callingApps = getCallingPackages(args);
                     final var caller = Arrays.stream(callingApps)
-                            .filter(item -> service.isAnySettingsReplacementsEnabled(item))
+                            .filter(item -> service.isAnySettingsReplacementsEnabled(item) || service.isHookEnabled(item))
                             .findFirst()
                             .orElse(null);
                     if (caller == null) return;
@@ -216,6 +232,8 @@ public class ContentProviderHook extends ABaseFrameworkHook {
                         }
                     }
 
+                    if (method == null || name == null) return;
+
                     if (service.config.getDetailLog()) {
                         final var finalName = name;
                         final var finalMethod = method;
@@ -229,8 +247,12 @@ public class ContentProviderHook extends ABaseFrameworkHook {
                             final var database = method.substring(method.indexOf('_') + 1);
                             final var replacement = service.getSpoofedSetting(caller, name, database);
                             if (replacement != null) {
+                                String value = replacement.getValue();
+                                if (Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES.equals(name)) {
+                                    value = sanitizeAccessibilityServices(value, caller);
+                                }
                                 final var ret = new Bundle();
-                                ret.putString(Settings.NameValueTable.VALUE, replacement.getValue());
+                                ret.putString(Settings.NameValueTable.VALUE, value);
                                 ret.putInt("_generation_index", -1);
                                 returnValue.setResult(ret);
 
@@ -241,11 +263,42 @@ public class ContentProviderHook extends ABaseFrameworkHook {
                                 }
 
                                 service.increaseSettingsFilterCount(caller);
+                            } else if (Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES.equals(name) && "secure".equals(database)) {
+                                if (returnValue.getResult() instanceof Bundle ret) {
+                                    final var raw = ret.getString(Settings.NameValueTable.VALUE);
+                                    if (raw != null && !raw.isEmpty()) {
+                                        final var sanitized = sanitizeAccessibilityServices(raw, caller);
+                                        if (!raw.equals(sanitized)) {
+                                            final var newRet = new Bundle();
+                                            newRet.putString(Settings.NameValueTable.VALUE, sanitized);
+                                            newRet.putInt("_generation_index", -1);
+                                            returnValue.setResult(newRet);
+                                            service.increaseSettingsFilterCount(caller);
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
                 }
         );
+    }
+
+    private String sanitizeAccessibilityServices(String rawServices, String caller) {
+        if (rawServices == null || rawServices.isEmpty()) return rawServices;
+        final var callingUserId = getUserFromCallingUid(Binder.getCallingUid());
+        final var components = rawServices.split(":");
+        final var filtered = new ArrayList<String>();
+        for (var compStr : components) {
+            final var trimmed = compStr.trim();
+            if (trimmed.isEmpty()) continue;
+            final var comp = ComponentName.unflattenFromString(trimmed);
+            final var pkg = comp != null ? comp.getPackageName() : trimmed.split("/")[0];
+            if (!service.shouldHide(caller, pkg, callingUserId)) {
+                filtered.add(trimmed);
+            }
+        }
+        return String.join(":", filtered);
     }
 
     private String[] getCallingPackages(Object[] args) {
