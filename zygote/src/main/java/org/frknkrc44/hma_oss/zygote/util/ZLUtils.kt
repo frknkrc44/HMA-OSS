@@ -4,7 +4,6 @@ import com.v7878.unsafe.Reflection.getDeclaredField
 import com.v7878.unsafe.Reflection.getDeclaredMethod
 import com.v7878.unsafe.invoke.EmulatedStackFrame
 import com.v7878.unsafe.invoke.EmulatedStackFrame.RETURN_VALUE_IDX
-import icu.nullptr.hidemyapplist.common.lazyWithReceiver
 import org.frknkrc44.hma_oss.zygote.service.SystemServerHook
 import java.lang.reflect.Constructor
 import java.lang.reflect.Field
@@ -19,19 +18,19 @@ object ZLUtils {
     /**
      * @return The first argument
      */
-    val EmulatedStackFrame.thisObject by lazyWithReceiver { getArgument(0) }
+    val EmulatedStackFrame.thisObject get() = getArgument(0)
 
     /**
      * - `args[0]: thisObject`
      * - `args[1:]: function args`
      */
-    val EmulatedStackFrame.args by lazyWithReceiver { dumpArgs() }
+    val EmulatedStackFrame.args get() = dumpArgs()
 
     /**
      * - `argTypes[0]: thisObject`
      * - `argTypes[1:]: function args`
      */
-    val EmulatedStackFrame.argTypes by lazyWithReceiver { dumpArgTypes() }
+    val EmulatedStackFrame.argTypes get() = dumpArgTypes()
 
     internal fun EmulatedStackFrame.dumpArgs(skipFirst: Boolean = false): Array<Any?> {
         return mutableListOf<Any?>().let {
@@ -107,10 +106,10 @@ object ZLUtils {
         }
     }
 
-    fun getStaticObjectField(className: String, name: String) = getDeclaredField(
+    inline fun <reified T> getStaticObjectField(className: String, name: String): T? = getDeclaredField(
         Class.forName(className),
         name,
-    ).get(null)
+    ).get(null) as? T
 
     fun getStaticIntField(className: String, name: String) = getDeclaredField(
         Class.forName(className),

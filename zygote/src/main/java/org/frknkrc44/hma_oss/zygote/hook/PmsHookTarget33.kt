@@ -69,11 +69,13 @@ open class PmsHookTarget33 : PmsHookTargetBase() {
                 COMPUTER_ENGINE_CLASS,
                 "getPackageInfoInternal",
             ) { methodName, frame, returnValue ->
+                val args = frame.args
+
                 applyPackageHiding(
                     methodName,
                     returnValue,
-                    { frame.args.firstOrNullWithType() },
-                    { frame.args.firstOrNullWithType() },
+                    { args.firstOrNullWithType() },
+                    { args.firstOrNullWithType() },
                     ::getCallingApps,
                     null,
                 )
@@ -83,11 +85,13 @@ open class PmsHookTarget33 : PmsHookTargetBase() {
                 COMPUTER_ENGINE_CLASS,
                 "getApplicationInfoInternal",
             ) { methodName, frame, returnValue ->
+                val args = frame.args
+                
                 applyPackageHiding(
                     methodName,
                     returnValue,
-                    { frame.args.firstOrNullWithType() },
-                    { frame.args.firstOrNullWithType() },
+                    { args.firstOrNullWithType() },
+                    { args.firstOrNullWithType() },
                     ::getCallingApps,
                     null,
                 )

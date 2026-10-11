@@ -55,13 +55,14 @@ open class InstallerHookTarget33 : InstallerHookTargetBase() {
                 COMPUTER_ENGINE_CLASS,
                 "isCallerInstallerOfRecord",
             ) { methodName, frame, returnValue ->
-                val callingUid = frame.args.lastWithType<Int>()
+                val args = frame.args
+                val callingUid = args.lastWithType<Int>()
 
                 applyInstallerHiding(
                     methodName,
                     callingUid,
                     fta@{
-                        val pkg = frame.args.lastOrNull {
+                        val pkg = args.lastOrNull {
                             it?.javaClass?.simpleName in androidPkgClazzNames
                         } ?: return@fta null
                         callMethod(pkg,

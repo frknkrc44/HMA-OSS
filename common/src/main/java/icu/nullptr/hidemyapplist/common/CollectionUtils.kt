@@ -49,5 +49,5 @@ object CollectionUtils {
         putAll(from)
     }
 
-    inline fun <reified T> HashSet<T>?.contains(value: T) = this?.contains(value) ?: false
+    inline fun <reified T> Collection<T>?.contains(value: T) = this?.contains(value) ?: false
 }

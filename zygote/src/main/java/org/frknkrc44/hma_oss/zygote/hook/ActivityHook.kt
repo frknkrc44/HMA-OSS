@@ -134,9 +134,10 @@ class ActivityHook : IFrameworkHook {
                             "startActivity",
                         ) { _, frame, returnValue ->
                             // we have no way other than hardcoding, it is 13th argument in AOSP code
-                            val callingUserId = getUserFromCallingUid(frame.getArgument(13) as Int)
-                            val caller = frame.args.firstOrNullWithType<String>() ?: return@hookBefore
-                            val intent = frame.args.firstOrNullWithType<Intent>() ?: return@hookBefore
+                            val args = frame.args
+                            val callingUserId = getUserFromCallingUid(args[13] as Int)
+                            val caller = args.firstOrNullWithType<String>() ?: return@hookBefore
+                            val intent = args.firstOrNullWithType<Intent>() ?: return@hookBefore
                             val targetApp = intent.component?.packageName
 
                             if (service.shouldHideActivityLaunch(caller, targetApp, callingUserId)) {
