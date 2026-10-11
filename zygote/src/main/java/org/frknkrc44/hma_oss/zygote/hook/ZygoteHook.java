@@ -118,7 +118,7 @@ public class ZygoteHook extends ABaseFrameworkHook {
         final var argTypes = dumpArgTypes(frame, true);
         final var pair = getForceMountArgs(caller, args, argTypes);
         if (pair.first) {
-            for (int i = 0; i < argTypes.length; i++) {
+            for (int i = argTypes.length - 1; i >= 0; i--) {
                 final var clazz = argTypes[i];
                 if (clazz == Map.class) {
                     final var bindMountAppsDataIndex = i + 1;
