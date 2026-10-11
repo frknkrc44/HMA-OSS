@@ -3,11 +3,11 @@ package org.frknkrc44.hma_oss.zygote.hook
 import android.content.Intent
 import android.content.pm.ResolveInfo
 import android.os.Build
-import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.firstOrNullWithType
-import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.firstWithType
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.Utils.getPackageName
 import icu.nullptr.hidemyapplist.common.Utils.getUserFromCallingUid
+import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.firstOrNullWithType
+import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.firstWithType
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
