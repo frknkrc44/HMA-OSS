@@ -17,12 +17,8 @@ import static org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.PROCESS_RECORD_I
 import static org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.STORAGE_MANAGER_SERVICE_CLASS;
 import static org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.STORAGE_MANAGER_SERVICE_LIFECYCLE_CLASS;
 
-import static icu.nullptr.hidemyapplist.common.util.CollectionUtils.firstWithType;
-
 import android.annotation.SuppressLint;
 import android.os.SystemProperties;
-
-import com.android.server.am.ProcessRecord;
 
 import org.frknkrc44.hma_oss.common.BuildConfig;
 import org.frknkrc44.hma_oss.zygote.ZygoteEntry;
@@ -172,7 +168,14 @@ public class AppDataIsolationHook extends ABaseFrameworkHook {
                         "needsStorageDataIsolation",
                         (methodName, frame, returnValue) -> {
                             final var args = dumpArgs(frame, true);
-                            final var record = firstWithType(args, ProcessRecord.class);
+                            Object record = null;
+                            for (var arg : args) {
+                                if ("ProcessRecord".equals(arg.getClass().getSimpleName())) {
+                                    record = arg;
+                                    break;
+                                }
+                            }
+                            if (record == null) return;
 
                             final var uid = getIntFieldFromClazz(record, "uid");
                             final var apps = getCallingApps(service.pms, uid);
