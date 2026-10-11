@@ -130,6 +130,8 @@ public class ZygoteHook extends ABaseFrameworkHook {
                         setArgument(frame, bindMountAppsDataIndex, true);
                         logD(TAG, null, () -> "@startZygoteProcessLegacy: mountAppsData argument overridden for " + caller);
                     }
+
+                    break;
                 }
             }
         }
@@ -211,8 +213,9 @@ public class ZygoteHook extends ABaseFrameworkHook {
 
             if (clazz == long[].class) {
                 final var isTopAppIndex = i - 1;
-                final var isTopApp = (boolean) args[isTopAppIndex];
-                return new Pair<>(isTopApp, gIDsVarIndex);
+                if (args[isTopAppIndex] instanceof Boolean isTopApp) {
+                    return new Pair<>(isTopApp, gIDsVarIndex);
+                }
             }
         }
 
