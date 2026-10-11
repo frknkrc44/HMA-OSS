@@ -120,7 +120,7 @@ public class HMAService extends IHMAService.Stub {
 
     public JsonConfig config = new JsonConfig();
 
-    HMAService(IPackageManager pms, Object pmn) throws ClassNotFoundException, IllegalAccessException, InvocationTargetException, InstantiationException {
+    HMAService(IPackageManager pms, Object pmn) throws ClassNotFoundException, IllegalAccessException, InvocationTargetException, InstantiationException, RemoteException {
         this.pms = pms;
         this.pmn = pmn;
 
@@ -289,7 +289,7 @@ public class HMAService extends IHMAService.Stub {
         }
     }
 
-    private void loadPresetCache() {
+    private void loadPresetCache() throws RemoteException {
         try {
             ensureFileIsRW(presetCacheFileOld, true);
 
@@ -772,7 +772,7 @@ public class HMAService extends IHMAService.Stub {
     }
 
     @Override
-    public String[] getPackageNames(int userId) {
+    public String[] getPackageNames(int userId) throws RemoteException {
         return binderLocalScope(() -> {
             final var list = new HashSet<String>();
 
@@ -793,7 +793,7 @@ public class HMAService extends IHMAService.Stub {
     }
 
     @Override
-    public PackageInfo getPackageInfo(String packageName, int userId) {
+    public PackageInfo getPackageInfo(String packageName, int userId) throws RemoteException {
         return binderLocalScope(() -> Utils.getPackageInfoCompat(pms, packageName, 0, userId));
     }
 
@@ -824,7 +824,7 @@ public class HMAService extends IHMAService.Stub {
         return logFile.getAbsolutePath();
     }
 
-    private void reloadPresets(boolean fromScratch) {
+    private void reloadPresets(boolean fromScratch) throws RemoteException {
         logI(TAG, null, () -> "Reloading presets " + (fromScratch ? "from scratch" : "over cache"));
 
         final var apps = binderLocalScope(() -> {
@@ -859,7 +859,7 @@ public class HMAService extends IHMAService.Stub {
     }
 
     @Override
-    public void reloadPresetsFromScratch() {
+    public void reloadPresetsFromScratch() throws RemoteException {
         reloadPresets(true);
     }
 
@@ -984,7 +984,7 @@ public class HMAService extends IHMAService.Stub {
     }
 
     @Override
-    public int[] getUserProfiles() {
+    public int[] getUserProfiles() throws RemoteException {
         return binderLocalScope(() -> {
             try {
                 return UserManagerUtils.getUserIds();

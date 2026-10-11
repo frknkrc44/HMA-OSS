@@ -22,11 +22,11 @@ import androidx.annotation.Nullable;
 
 import org.frknkrc44.hma_oss.common.BuildConfig;
 import org.frknkrc44.hma_oss.zygote.Magic;
+import org.frknkrc44.hma_oss.zygote.callback.BinderLocalScopeCallback;
 import org.frknkrc44.hma_oss.zygote.callback.CallerCheckerCallback;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
 
 import icu.nullptr.hidemyapplist.common.Constants;
 import icu.nullptr.hidemyapplist.common.JsonConfig;
@@ -37,11 +37,22 @@ public class ServiceUtils {
 
     private static final String TAG = "ServiceUtils";
 
-    public static <T> T binderLocalScope(Supplier<T> block) {
+    public static <T> T binderLocalScope(BinderLocalScopeCallback<T> block) throws RemoteException {
         final var identity = Binder.clearCallingIdentity();
-        final var result = block.get();
+        final var result = block.accept();
         Binder.restoreCallingIdentity(identity);
         return result;
+    }
+
+    @Nullable
+    public static <T> T binderLocalScopeNoThrow(BinderLocalScopeCallback<T> block) {
+        try {
+            return binderLocalScope(block);
+        } catch (Throwable e) {
+            logE(TAG, e, () -> "An error occurred while binderLocalScopeNoThrow");
+        }
+
+        return null;
     }
 
     public static void binderLocalScopeNoReturn(Runnable block) {
@@ -100,7 +111,7 @@ public class ServiceUtils {
     public static String[] getCallingApps(IPackageManager pms, int callingUid) throws RemoteException {
         if (callingUid == Constants.UID_SYSTEM) return new String[0];
 
-        return pms.getPackagesForUid(callingUid);
+        return binderLocalScope(() -> pms.getPackagesForUid(callingUid));
     }
 
     public static int findAndVerifyAppSignature(IPackageManager pms) {

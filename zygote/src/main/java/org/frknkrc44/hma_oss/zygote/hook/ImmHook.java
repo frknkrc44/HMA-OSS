@@ -7,6 +7,7 @@ import static org.frknkrc44.hma_oss.zygote.util.Logcat.logD;
 import static org.frknkrc44.hma_oss.zygote.util.Logcat.logV;
 import static org.frknkrc44.hma_oss.zygote.util.Logcat.logW;
 import static org.frknkrc44.hma_oss.zygote.util.ServiceUtils.binderLocalScope;
+import static org.frknkrc44.hma_oss.zygote.util.ServiceUtils.binderLocalScopeNoThrow;
 import static org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps;
 import static org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getScopedCaller;
 import static org.frknkrc44.hma_oss.zygote.util.ZLUtils.dumpArgs;
@@ -262,7 +263,7 @@ public class ImmHook extends ABaseFrameworkHook {
 
     @Nullable
     private InputMethodInfo resolveIMInfo(String packageName) {
-        return binderLocalScope(() -> {
+        return binderLocalScopeNoThrow(() -> {
             final var imManager = (InputMethodManager)
                     getApplication().getSystemService(Context.INPUT_METHOD_SERVICE);
 
@@ -350,7 +351,7 @@ public class ImmHook extends ABaseFrameworkHook {
         service.increaseSettingsFilterCount(caller);
     }
 
-    private boolean isIMNotExists(String packageName, int userId) {
+    private boolean isIMNotExists(String packageName, int userId) throws RemoteException {
         if (service.systemApps.contains(packageName)) return false;
 
         return binderLocalScope(() ->

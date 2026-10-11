@@ -3,7 +3,7 @@ package org.frknkrc44.hma_oss.zygote.util;
 import static org.frknkrc44.hma_oss.zygote.util.ContextUtils.getContentResolver;
 import static org.frknkrc44.hma_oss.zygote.util.ContextUtils.getPackageManager;
 import static org.frknkrc44.hma_oss.zygote.util.Logcat.logD;
-import static org.frknkrc44.hma_oss.zygote.util.ServiceUtils.binderLocalScope;
+import static org.frknkrc44.hma_oss.zygote.util.ServiceUtils.binderLocalScopeNoThrow;
 import static org.frknkrc44.hma_oss.zygote.util.ZLUtils.callMethod;
 import static org.frknkrc44.hma_oss.zygote.util.ZLUtils.getObjectField;
 import static org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.WEBVIEW_PROVIDER_KEY;
@@ -39,7 +39,7 @@ public class BrowserUtils {
     @SuppressWarnings("DataFlowIssue")
     @Nullable
     public static String getWebviewProvider() {
-        return binderLocalScope(() -> {
+        return binderLocalScopeNoThrow(() -> {
             try {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                     return getWebViewUpdateService().getCurrentWebViewPackage().packageName;
