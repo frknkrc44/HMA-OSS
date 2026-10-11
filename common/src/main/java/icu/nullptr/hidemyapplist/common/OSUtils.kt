@@ -45,7 +45,6 @@ object OSUtils {
         }
     }
 
-    @JvmStatic
     fun isSamsung(): Boolean {
         try {
             val semPlatformIntField =

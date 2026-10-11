@@ -11,9 +11,8 @@ object Constants {
 
     const val UID_SYSTEM = 1000
 
-    @JvmStatic
-    val gmsPackages = listOf(GMS_PACKAGE_NAME, GSF_PACKAGE_NAME)
-    val riskyPackages = listOf(VENDING_PACKAGE_NAME) + gmsPackages
+    val gmsPackages = arrayOf(GMS_PACKAGE_NAME, GSF_PACKAGE_NAME)
+    val riskyPackages = arrayOf(VENDING_PACKAGE_NAME) + gmsPackages
 
     const val SETTINGS_GLOBAL = "global"
     const val SETTINGS_SYSTEM = "system"
@@ -86,7 +85,6 @@ object Constants {
      */
     const val APP_ZYGOTE_GID: Int = 3009
 
-    @JvmField
     val GID_PAIRS = mapOf(
         "SDCARD_RW_GID" to SDCARD_RW_GID,
         "MEDIA_RW_GID" to MEDIA_RW_GID,
@@ -99,7 +97,6 @@ object Constants {
         "APP_ZYGOTE_GID" to APP_ZYGOTE_GID,
     )
 
-    @JvmStatic
     val packagesShouldNotHide = setOf(
         "android",
         "android.media",
