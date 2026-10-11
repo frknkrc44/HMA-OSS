@@ -7,7 +7,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import icu.nullptr.hidemyapplist.common.CollectionUtils.firstWithType
+import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.firstWithType
 import org.frknkrc44.hma_oss.zygote.util.ContentProviderUtils.getOverriddenDatabaseName
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils

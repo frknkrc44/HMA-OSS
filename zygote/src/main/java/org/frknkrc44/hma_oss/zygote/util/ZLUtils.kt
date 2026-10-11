@@ -18,7 +18,7 @@ object ZLUtils {
     /**
      * @return The first argument
      */
-    val EmulatedStackFrame.thisObject get() = getArgument(0)
+    val EmulatedStackFrame.thisObject get() = getArgument(0)!!
 
     /**
      * - `args[0]: thisObject`
@@ -66,11 +66,11 @@ object ZLUtils {
      * - `index == 0: thisObject`
      * - `index >= 1: function args`
      */
-    fun EmulatedStackFrame.getArgument(index: Int): Any {
+    fun EmulatedStackFrame.getArgument(index: Int): Any? {
         val accessor = accessor()
 
         return when (accessor.getArgumentShorty(index)) {
-            'L' -> accessor.getReference(index)
+            'L' -> accessor.getReference(index) as Any?
             'Z' -> accessor.getBoolean(index)
             'B' -> accessor.getByte(index)
             'C' -> accessor.getChar(index)

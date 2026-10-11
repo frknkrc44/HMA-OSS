@@ -4,7 +4,7 @@ import android.content.ComponentName
 import android.content.Intent
 import android.os.Build
 import com.v7878.unsafe.invoke.EmulatedStackFrame
-import icu.nullptr.hidemyapplist.common.CollectionUtils.firstOrNullWithType
+import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.firstOrNullWithType
 import icu.nullptr.hidemyapplist.common.Utils.generateRandomHex
 import org.frknkrc44.hma_oss.common.BuildConfig
 import org.frknkrc44.hma_oss.zygote.service.ReturnValue
@@ -81,7 +81,7 @@ class BroadcastHook : IFrameworkHook {
         frame: EmulatedStackFrame,
         @Suppress("unused") returnValue: ReturnValue,
     ) {
-        val record = frame.getArgument(1)
+        val record = frame.getArgument(1) ?: return
         val caller = getObjectField(record, "callerPackage") as? String ?: return
         val component = getObjectField(record, "targetComp") as? ComponentName ?: return
         val targetApp = component.packageName

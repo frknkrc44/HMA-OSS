@@ -3,8 +3,8 @@ package org.frknkrc44.hma_oss.zygote.hook
 import android.content.Intent
 import android.content.pm.ResolveInfo
 import android.os.Build
-import icu.nullptr.hidemyapplist.common.CollectionUtils.firstOrNullWithType
-import icu.nullptr.hidemyapplist.common.CollectionUtils.firstWithType
+import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.firstOrNullWithType
+import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.firstWithType
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.Utils.getPackageName
 import icu.nullptr.hidemyapplist.common.Utils.getUserFromCallingUid
@@ -116,7 +116,7 @@ class ActivityHook : IFrameworkHook {
                             ACTIVITY_STARTER_CLASS,
                             "executeRequest",
                         ) { _, frame, returnValue ->
-                            val request = frame.getArgument(1)
+                            val request = frame.getArgument(1) ?: return@hookBefore
                             val callingUserId = getUserFromCallingUid(getIntField(request, "callingUid"))
                             val caller = getObjectField(request, "callingPackage") as? String ?: return@hookBefore
                             val intent = getObjectField(request, "intent") as? Intent ?: return@hookBefore
