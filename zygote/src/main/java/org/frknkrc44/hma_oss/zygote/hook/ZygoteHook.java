@@ -96,7 +96,7 @@ public class ZygoteHook extends ABaseFrameworkHook {
     }
 
     private void hookIntoZygoteProcess(EmulatedStackFrame frame) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
-        final var args = dumpArgs(frame, true);
+        final var args = dumpArgs(frame, false);
         final var isModern = args.length < 3;
         logD(TAG, null, () -> "@startZygoteProcess: Starting " + Arrays.toString(args) + ", modern: " + isModern);
 
@@ -115,7 +115,7 @@ public class ZygoteHook extends ABaseFrameworkHook {
         if (!isHookEnabled) return;
 
         // another plan for PlatformCompatHook
-        final var argTypes = dumpArgTypes(frame, true);
+        final var argTypes = dumpArgTypes(frame, false);
         final var pair = getForceMountArgs(caller, args, argTypes);
         if (pair.first) {
             for (int i = argTypes.length - 1; i >= 0; i--) {
