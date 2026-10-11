@@ -20,6 +20,27 @@ data class FilterHolder(
                 installerCount +
                 settingsCount +
                 othersCount
+
+        fun increasePackageManagerCount(amount: Int) {
+            packageManagerCount += amount
+        }
+
+        fun increaseActivityLaunchCount(amount: Int) {
+            activityLaunchCount += amount
+        }
+
+        fun increaseInstallerCount(amount: Int) {
+            installerCount += amount
+        }
+
+        fun increaseSettingsCount(amount: Int) {
+            settingsCount += amount
+        }
+
+        fun increaseOthersCount(amount: Int) {
+            othersCount += amount
+        }
+
     }
 
     val totalCount: Int get() = filterCounts.values.sumOf { it.totalCount }

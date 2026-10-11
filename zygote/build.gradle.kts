@@ -1,17 +1,15 @@
 import com.android.ide.common.signing.KeystoreHelper
 import com.v7878.zygisk.gradle.ZygoteLoader
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import java.io.PrintStream
 import java.util.Locale
 import kotlin.io.path.Path
 
 plugins {
     alias(libs.plugins.agp.app)
-    alias(libs.plugins.kotlin)
     alias(libs.plugins.com.github.aerathstuff.zygoteloader)
 }
 
-val appPackageName: String by rootProject.extra
+val appPackageName = rootProject.extra["appPackageName"] as String
+val appVerName = rootProject.extra["appVerName"] as String
 
 android {
     namespace = "$appPackageName.zygote"
@@ -23,75 +21,120 @@ android {
     sourceSets {
         getByName("main") {
             java {
-                srcDirs(Path(rootDir.path, "external", "AndroidVMTools", "src", "main", "java"))
+                directories.add(
+                    Path(rootDir.path, "external", "AndroidVMTools", "src", "main", "java").toString()
+                )
             }
         }
     }
 }
 
-tasks.clean {
-    for (item in arrayOf("debug", "release")) {
-        delete(File(android.sourceSets[item].assets.srcDirs.first(), "manager.apk"))
+kotlin {
+    jvmToolchain(21)
+}
+
+abstract class CopyManagerAppTask : DefaultTask() {
+
+    @get:InputFile
+    abstract val managerApk: RegularFileProperty
+
+    @get:OutputDirectory
+    abstract val outputDir: DirectoryProperty
+
+    @TaskAction
+    fun copyManagerApp() {
+        managerApk.get().asFile.copyTo(
+            outputDir.get().file("manager.apk").asFile,
+            overwrite = true,
+        )
     }
 }
 
-afterEvaluate {
-    android.applicationVariants.forEach { variant ->
+abstract class GenerateSignInfoTask : DefaultTask() {
+
+    @get:OutputDirectory
+    abstract val outputDir: DirectoryProperty
+
+    @get:Input
+    @get:Optional
+    abstract val storeType: Property<String>
+
+    @get:InputFile
+    @get:Optional
+    abstract val storeFile: RegularFileProperty
+
+    @get:Input
+    @get:Optional
+    abstract val keyAlias: Property<String>
+
+    @get:Internal
+    abstract val storePassword: Property<String>
+
+    @get:Internal
+    abstract val keyPassword: Property<String>
+
+    @TaskAction
+    fun generate() {
+        val certificateInfo = KeystoreHelper.getCertificateInfo(
+            storeType.orNull,
+            storeFile.asFile.orNull,
+            storePassword.orNull,
+            keyPassword.orNull,
+            keyAlias.orNull,
+        )
+
+        val outSrc = outputDir.get().file("org/frknkrc44/hma_oss/zygote/Magic.java").asFile
+        outSrc.parentFile.mkdirs()
+
+        val bytes = certificateInfo.certificate.encoded
+        outSrc.writeText(
+            buildString {
+                appendLine("package org.frknkrc44.hma_oss.zygote;")
+                appendLine("public final class Magic {")
+                appendLine("public static final byte[] magicNumbers = {")
+                appendLine(bytes.joinToString(",") { it.toString() })
+                appendLine("};")
+                appendLine("}")
+            }
+        )
+    }
+}
+
+androidComponents {
+    onVariants { variant ->
         val variantCapped = variant.name.replaceFirstChar { it.titlecase(Locale.ROOT) }
         val variantLowered = variant.name.lowercase(Locale.ROOT)
 
-        val outSrcDir = layout.buildDirectory.dir("generated/source/signInfo/${variantLowered}")
-        val outSrc = outSrcDir.get().file("org/frknkrc44/hma_oss/zygote/Magic.java")
-        val signInfoTask = tasks.register("generate${variantCapped}SignInfo") {
-            description = "Generate signature info for verification"
+        val managerApkFile = rootProject.layout.projectDirectory.file(
+            "app/build/outputs/apk/$variantLowered/${rootProject.name}-$appVerName-$variantLowered.apk"
+        )
 
-            outputs.file(outSrc)
-            doLast {
-                addManagerApp(variantLowered)
+        val copyManagerApp = tasks.register<CopyManagerAppTask>("copy${variantCapped}ManagerApp") {
+            description = "Copies the manager APK into the $variantLowered module assets"
 
-                val sign = android.buildTypes[variantLowered].signingConfig
-                outSrc.asFile.parentFile.mkdirs()
-                val certificateInfo = KeystoreHelper.getCertificateInfo(
-                    sign?.storeType,
-                    sign?.storeFile,
-                    sign?.storePassword,
-                    sign?.keyPassword,
-                    sign?.keyAlias
-                )
-                PrintStream(outSrc.asFile).apply {
-                    println("package org.frknkrc44.hma_oss.zygote;")
-                    println("public final class Magic {")
-                    print("public static final byte[] magicNumbers = {")
-                    val bytes = certificateInfo.certificate.encoded
-                    print(bytes.joinToString(",") { it.toString() })
-                    println("};")
-                    println("}")
-                }
-            }
+            dependsOn(":app:assemble$variantCapped")
+            managerApk.set(managerApkFile)
         }
-        variant.registerJavaGeneratingTask(signInfoTask, outSrcDir.get().asFile)
+        variant.sources.assets?.addGeneratedSourceDirectory(
+            copyManagerApp,
+            CopyManagerAppTask::outputDir,
+        )
 
-        val kotlinCompileTask = tasks.findByName("compile${variantCapped}Kotlin") as KotlinCompile
-        kotlinCompileTask.dependsOn(signInfoTask)
-        val srcSet = objects.sourceDirectorySet("magic", "magic").srcDir(outSrcDir)
-        kotlinCompileTask.source(srcSet)
+        val sign = android.buildTypes[variantLowered].signingConfig
+        val generateSignInfo = tasks.register<GenerateSignInfoTask>("generate${variantCapped}SignInfo") {
+            description = "Generates the signature info used to verify the manager APK"
+
+            storeType.set(sign?.storeType)
+            storeFile.set(sign?.storeFile)
+            storePassword.set(sign?.storePassword)
+            keyAlias.set(sign?.keyAlias)
+            keyPassword.set(sign?.keyPassword)
+        }
+        variant.sources.java?.addGeneratedSourceDirectory(
+            generateSignInfo,
+            GenerateSignInfoTask::outputDir,
+        )
     }
-}
-
-fun addManagerApp(variant: String) {
-    val builtFile = File(
-        layout.buildDirectory.get().asFile.toString().replace(project.name, "app"),
-        "outputs/apk/$variant/${rootProject.name}-${android.defaultConfig.versionName}-${variant}.apk",
-    )
-
-    if (!builtFile.exists()) {
-        throw GradleException("The manager app for $variant ($builtFile) is not built yet")
-    }
-
-    builtFile.copyTo(
-        File(android.sourceSets[variant].assets.srcDirs.first(), "manager.apk"),
-        overwrite = true,
-    )
 }
 
 zygisk {
@@ -115,7 +158,6 @@ dependencies {
 
     implementation(libs.androidx.annotation.jvm)
     implementation(libs.io.github.vova7878.r8annotations)
-    implementation(libs.dev.rikka.hidden.compat)
 
     api(androidvmtools.panama.core)
     api(androidvmtools.panama.unsafe)

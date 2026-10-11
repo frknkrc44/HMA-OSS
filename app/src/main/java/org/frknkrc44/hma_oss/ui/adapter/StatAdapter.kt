@@ -3,10 +3,10 @@ package org.frknkrc44.hma_oss.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import icu.nullptr.hidemyapplist.common.CollectionUtils.sync
 import icu.nullptr.hidemyapplist.common.FilterHolder
 import icu.nullptr.hidemyapplist.util.PackageHelper
 import org.frknkrc44.hma_oss.databinding.StatItemViewBinding
+import org.frknkrc44.hma_oss.util.CollectionUtils.sync
 
 class StatAdapter(private val onBeginWaitForRefresh: (StatAdapter) -> Unit) : RecyclerView.Adapter<StatAdapter.ViewHolder>() {
 

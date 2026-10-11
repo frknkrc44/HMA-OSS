@@ -3,13 +3,13 @@ package icu.nullptr.hidemyapplist.ui.adapter
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
-import icu.nullptr.hidemyapplist.common.CollectionUtils.sync
 import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.ui.util.get
 import icu.nullptr.hidemyapplist.ui.view.AppItemView
 import icu.nullptr.hidemyapplist.util.PackageHelper
 import kotlinx.coroutines.runBlocking
 import org.frknkrc44.hma_oss.BuildConfig
+import org.frknkrc44.hma_oss.util.CollectionUtils.sync
 
 abstract class AppSelectAdapter(
     private val hideMyself: Boolean,

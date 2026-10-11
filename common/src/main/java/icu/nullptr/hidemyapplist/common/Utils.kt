@@ -7,7 +7,7 @@ import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.os.Binder
 import android.os.Build
-import icu.nullptr.hidemyapplist.common.CollectionUtils.removeIf
+import icu.nullptr.hidemyapplist.common.util.CollectionUtils.removeIf
 import kotlinx.serialization.json.Json
 import java.util.zip.ZipFile
 
@@ -19,18 +19,13 @@ object Utils {
             .joinToString("")
     }
 
+    @JvmStatic
     fun generateRandomHex(length: Int) = generateRandomString(
         length,
         ('a' .. 'f') + ('0' .. '9'),
     )
 
-    fun <T> binderLocalScope(block: () -> T): T {
-        val identity = Binder.clearCallingIdentity()
-        val result = block()
-        Binder.restoreCallingIdentity(identity)
-        return result
-    }
-
+    @JvmStatic
     fun IPackageManager.getInstalledApplicationsCompat(flags: Long, userId: Int): List<ApplicationInfo> {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             this.getInstalledApplications(flags, userId)
@@ -39,6 +34,7 @@ object Utils {
         }.list
     }
 
+    @JvmStatic
     fun IPackageManager.getPackageUidCompat(packageName: String, flags: Long, userId: Int): Int {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             this.getPackageUid(packageName, flags, userId)
@@ -47,6 +43,7 @@ object Utils {
         }
     }
 
+    @JvmStatic
     fun IPackageManager.getPackageInfoCompat(packageName: String, flags: Long, userId: Int): PackageInfo? {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             this.getPackageInfo(packageName, flags, userId)
@@ -55,24 +52,28 @@ object Utils {
         }
     }
 
+    @JvmStatic
     fun String?.startsWithMultiple(vararg targets: String): Boolean {
         if (isNullOrEmpty() || targets.isEmpty()) return false
 
         return targets.any { startsWith(it) }
     }
 
+    @JvmStatic
     fun String?.endsWithMultiple(vararg targets: String): Boolean {
         if (isNullOrEmpty() || targets.isEmpty()) return false
 
         return targets.any { endsWith(it) }
     }
 
+    @JvmStatic
     fun String?.containsMultiple(vararg targets: String): Boolean {
         if (isNullOrEmpty() || targets.isEmpty()) return false
 
         return targets.any { contains(it) }
     }
 
+    @JvmStatic
     fun ResolveInfo.getPackageName(): String {
         return resolvePackageName ?:
             activityInfo?.packageName ?:
@@ -96,10 +97,11 @@ object Utils {
         }
     }
 
+    @JvmStatic
     fun JsonConfig.cleanRemnantsFromConfig() {
         // STEP 1: Remove empty app and settings templates
-        templates.removeIf { _, template -> template.appList.isEmpty() }
-        settingsTemplates.removeIf { _, template -> template.settingsList.isEmpty() }
+        removeIf(templates) { _, template -> template.appList.isEmpty() }
+        removeIf(settingsTemplates) { _, template -> template.settingsList.isEmpty() }
 
         // STEP 2: Remove mismatching items
         for (app in scope.values) {
@@ -110,8 +112,10 @@ object Utils {
         }
     }
 
+    @JvmStatic
     fun getCallingUser() = getUserFromCallingUid(Binder.getCallingUid())
 
+    @JvmStatic
     fun getUserFromCallingUid(uid: Int) = uid / 100000
 
     fun PackageManager.isPackageAvailable(packageName: String) = try {
@@ -120,12 +124,15 @@ object Utils {
         false
     }
 
+    @JvmStatic
     fun ApplicationInfo.isSystemApp() = flags and ApplicationInfo.FLAG_SYSTEM != 0 ||
             flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP != 0
 
-    val conflictedModules = arrayOf(
+    @JvmField
+    val conflictedModules = listOf(
         "com.tsng.hidemyapplist",
         "com.google.android.hmal",
+        "cn.geektang.privacyspace",
     )
 
     val encoder = Json {

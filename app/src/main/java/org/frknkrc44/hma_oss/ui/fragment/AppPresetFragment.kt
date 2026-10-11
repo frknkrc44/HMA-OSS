@@ -5,13 +5,13 @@ import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import icu.nullptr.hidemyapplist.MyApp.Companion.hmaApp
-import icu.nullptr.hidemyapplist.common.CollectionUtils.sync
 import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.ui.fragment.AppSelectFragment
 import icu.nullptr.hidemyapplist.util.PackageHelper
 import icu.nullptr.hidemyapplist.util.PackageHelper.Comparators
 import kotlinx.coroutines.launch
 import org.frknkrc44.hma_oss.ui.adapter.AppPresetAdapter
+import org.frknkrc44.hma_oss.util.CollectionUtils.sync
 
 class AppPresetFragment : AppSelectFragment() {
 

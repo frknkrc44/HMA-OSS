@@ -22,3 +22,6 @@
 
 -keep class org.frknkrc44.hma_oss.zygote.ZygoteEntry { premain(); main(); }
 -dontwarn com.v7878.r8.annotations.KeepCodeAttribute
+
+-renamesourcefileattribute ReplaceMePls
+-keepattributes SourceFile,LineNumberTable

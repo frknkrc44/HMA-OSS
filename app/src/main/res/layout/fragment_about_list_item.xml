@@ -12,6 +12,7 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginEnd="@dimen/item_padding_vertical"
+        android:layout_weight="0"
         android:importantForAccessibility="no" />
 
     <LinearLayout
@@ -19,6 +20,7 @@
         android:gravity="center"
         android:orientation="vertical"
         android:layout_width="match_parent"
+        android:layout_weight="1"
         android:layout_height="?listPreferredItemHeightLarge">
 
         <TextView
@@ -34,5 +36,28 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
+
+    <ImageButton
+        android:background="?selectableItemBackground"
+        android:padding="@dimen/item_padding_mini2x"
+        android:id="@+id/about_donate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/item_padding_mini2x"
+        android:layout_weight="0"
+        android:visibility="gone"
+        android:src="@drawable/volunteer_activism_24px"
+        android:importantForAccessibility="no" />
+
+    <ImageButton
+        android:background="?selectableItemBackground"
+        android:padding="@dimen/item_padding_mini2x"
+        android:id="@+id/about_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:visibility="gone"
+        android:src="@drawable/outline_info_24"
+        android:importantForAccessibility="no" />
 
 </LinearLayout>
