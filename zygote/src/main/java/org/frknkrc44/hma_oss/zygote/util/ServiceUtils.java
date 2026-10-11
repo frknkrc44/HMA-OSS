@@ -111,7 +111,10 @@ public class ServiceUtils {
     public static String[] getCallingApps(IPackageManager pms, int callingUid) throws RemoteException {
         if (callingUid == Constants.UID_SYSTEM) return new String[0];
 
-        return binderLocalScope(() -> pms.getPackagesForUid(callingUid));
+        final var result = binderLocalScope(() -> pms.getPackagesForUid(callingUid));
+        return result != null
+                ? result
+                : new String[0];
     }
 
     public static int findAndVerifyAppSignature(IPackageManager pms) {
