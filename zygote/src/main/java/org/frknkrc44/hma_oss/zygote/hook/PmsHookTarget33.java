@@ -7,7 +7,7 @@ import static org.frknkrc44.hma_oss.zygote.util.ZLUtils.dumpArgs;
 import static org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument;
 import static org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.APPS_FILTER_IMPL_CLASS;
 import static org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.COMPUTER_ENGINE_CLASS;
-import static icu.nullptr.hidemyapplist.common.util.CollectionUtils.firstWithType;
+import static icu.nullptr.hidemyapplist.common.util.CollectionUtils.firstOrNullWithType;
 
 import android.os.Binder;
 import android.os.Build;
@@ -69,8 +69,8 @@ public class PmsHookTarget33 extends PmsHookTargetBase {
                     applyPackageHiding(
                             methodName,
                             returnValue,
-                            () -> firstWithType(args, int.class),
-                            () -> firstWithType(args, String.class),
+                            () -> firstOrNullWithType(args, int.class),
+                            () -> firstOrNullWithType(args, String.class),
                             callingUid -> getCallingApps(service.pms, callingUid),
                             null
                     );
@@ -86,8 +86,8 @@ public class PmsHookTarget33 extends PmsHookTargetBase {
                     applyPackageHiding(
                             methodName,
                             returnValue,
-                            () -> firstWithType(args, int.class),
-                            () -> firstWithType(args, String.class),
+                            () -> firstOrNullWithType(args, int.class),
+                            () -> firstOrNullWithType(args, String.class),
                             callingUid -> getCallingApps(service.pms, callingUid),
                             null
                     );
