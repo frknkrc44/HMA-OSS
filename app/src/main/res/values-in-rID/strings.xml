@@ -108,7 +108,7 @@
     <string name="app_extra_apps_visible_count">%d aplikasi tambahan terlihat</string>
     <string name="app_extra_apps_invisible_count">%d aplikasi tambahan tidak terlihat</string>
     <string name="app_warning_risky_package_title">Paket berisiko</string>
-    <string name="app_warning_risky_package_desc">Paket ini ditandai sebagai berisiko dan Anda dapat menyebabkan masalah pada aplikasi tersembunyi. Apakah Anda ingin melanjutkan?</string>
+    <string name="app_warning_risky_package_desc">Paket ini ditandai sebagai berisiko dan dapat menyebabkan masalah pada aplikasi tersembunyi. Apakah Anda ingin melanjutkan?</string>
     <string name="app_spoof">Pemalsuan (Spoofing)</string>
     <string name="app_hide_installation_source">Palsukan sumber pemasangan</string>
     <string name="app_hide_installation_source_desc">Semua aplikasi pengguna akan dipalsukan seolah-olah terpasang di Play Store untuk aplikasi ini</string>
@@ -159,7 +159,7 @@
     <string name="settings_module">Modul</string>
     <string name="settings_overwrite">Timpa</string>
     <string name="settings_overwritten">Ditimpa</string>
-    <string name="settings_overwrite_summary">Item kategori ini akan dipaksa aktif jika tombol diaktifkan</string>
+    <string name="settings_overwrite_summary">Item kategori ini akan dipaksa aktif jika tombol dicentang</string>
     <string name="settings_default_value">Nilai bawaan: %s</string>
     <string name="settings_data_isolation">Isolasi data</string>
     <string name="settings_data_isolation_summary">Data aplikasi: %s\nData aplikasi vold: %s\nPaksa mount: %s</string>
@@ -175,7 +175,7 @@
     <string name="settings_force_mount_data_summary">Isolasi data dinonaktifkan secara bawaan untuk aplikasi target API di bawah 30</string>
     <string name="settings_detail_log">Log detail untuk debugging</string>
     <string name="settings_max_log_size">Ukuran buffer log</string>
-    <string name="settings_hide_icon">Sembunyikan ikon modul di peluncur</string>
+    <string name="settings_hide_icon">Sembunyikan ikon modul di layar utama</string>
     <string name="settings_hide_icon_summary">Anda masih dapat membuka aplikasi di manajer root</string>
     <string name="settings_bypass_risky_package_warning">Abaikan paket berisiko</string>
     <string name="settings_bypass_risky_package_warning_summary">Perlu diketahui bahwa pengembang tidak bertanggung jawab atas masalah terkait paket berisiko sebelum atau setelah Anda mengaktifkan fitur ini</string>
