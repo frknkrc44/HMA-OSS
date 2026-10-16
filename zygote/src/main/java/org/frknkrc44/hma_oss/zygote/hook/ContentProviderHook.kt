@@ -7,8 +7,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import com.v7878.unsafe.invoke.EmulatedStackFrame
-import icu.nullptr.hidemyapplist.common.CollectionUtils.firstWithType
+import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.firstWithType
 import org.frknkrc44.hma_oss.zygote.util.ContentProviderUtils.getOverriddenDatabaseName
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils
@@ -29,24 +28,25 @@ class ContentProviderHook : IFrameworkHook {
                 CONTENT_PROVIDER_TRANSPORT_CLASS,
                 "query",
             ) { _, frame, returnValue ->
-                val callingApps = getCallingPackages(frame)
+                val args = frame.args
+                val callingApps = getCallingPackages(args)
 
                 val caller = callingApps.firstOrNull { service.isAnySettingsReplacementsEnabled(it) }
                 if (caller == null) return@hookAfter
 
-                val uriIdx = frame.args.indexOfFirst { it is Uri }
-                val uri = frame.args[uriIdx] as Uri
+                val uriIdx = args.indexOfFirst { it is Uri }
+                val uri = args[uriIdx] as Uri
 
                 if (uri.authority != "settings") return@hookAfter
 
                 val segments = uri.pathSegments
                 if (segments.isEmpty()) return@hookAfter
 
-                val projection = frame.args[uriIdx + 1] as? Array<String>
-                val args = frame.args[uriIdx + 2] as? Bundle
+                val projection = args[uriIdx + 1] as? Array<String>
+                val projArgs = args[uriIdx + 2] as? Bundle
 
                 logD(TAG) {
-                    "@spoofSettings QUERY in ${callingApps.contentToString()}: $uri, ${projection?.contentToString()}, $args"
+                    "@spoofSettings QUERY in ${callingApps.contentToString()}: $uri, ${projection?.contentToString()}, $projArgs"
                 }
 
                 var database = segments[0]
@@ -54,7 +54,7 @@ class ContentProviderHook : IFrameworkHook {
                 if (segments.size >= 2) {
                     val name = segments[1]
 
-                    logD(TAG) { "@spoofSettings QUERY received caller: $caller, database: $database, name: $name, args: $args" }
+                    logD(TAG) { "@spoofSettings QUERY received caller: $caller, database: $database, name: $name, args: $projArgs" }
 
                     database = getOverriddenDatabaseName(database, name)
 
@@ -149,13 +149,14 @@ class ContentProviderHook : IFrameworkHook {
                 CONTENT_PROVIDER_TRANSPORT_CLASS,
                 "call",
             ) { _, frame, returnValue ->
-                val callingApps = getCallingPackages(frame)
+                val args = frame.args
+                val callingApps = getCallingPackages(args)
                 val caller = callingApps.firstOrNull { service.isAnySettingsReplacementsEnabled(it) }
                 if (caller == null) return@hookBefore
 
-                val nameIdx = frame.args.indexOfLast { it is String }
-                val name = frame.args[nameIdx] as? String
-                val method = frame.args[nameIdx - 1] as? String
+                val nameIdx = args.indexOfLast { it is String }
+                val name = args[nameIdx] as? String
+                val method = args[nameIdx - 1] as? String
 
                 logD(TAG) { "@spoofSettings CALL received caller: ${callingApps.contentToString()}, method: $method, name: $name" }
 
@@ -178,12 +179,12 @@ class ContentProviderHook : IFrameworkHook {
         }
     }
 
-    private fun getCallingPackages(frame: EmulatedStackFrame): Array<String> = try {
+    private fun getCallingPackages(args: Array<Any?>): Array<String> = try {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            val attrSource = frame.args.firstWithType<AttributionSource>()
+            val attrSource = args.firstWithType<AttributionSource>()
             arrayOf(attrSource.packageName!!)
         } else {
-            arrayOf(frame.args.firstWithType<String>())
+            arrayOf(args.firstWithType<String>())
         }
     } catch (_: Throwable) {
         ServiceUtils.getCallingApps(pms)

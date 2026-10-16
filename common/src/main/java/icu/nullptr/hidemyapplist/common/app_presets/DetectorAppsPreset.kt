@@ -37,6 +37,7 @@ class DetectorAppsPreset  : BasePreset(NAME) {
         "com.longz.detector",
         "com.anycheck.app",
         "by.sheerboy.femboydetector",
+        "com.juanma0511.rootdetector",
 
         // Add more detector apps (thanks @Yurii0307)
         "com.lingqing.detector",

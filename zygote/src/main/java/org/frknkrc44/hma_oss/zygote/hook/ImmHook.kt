@@ -128,11 +128,12 @@ class ImmHook : IFrameworkHook {
                 ) { methodName, frame, returnValue ->
                     logD(TAG) { "@$methodName: hook init" }
 
+                    val args = frame.args
                     val currentResult = returnValue.result ?: return@hookAfter
-                    logD(TAG) { "@$methodName: Result: $currentResult Args: ${frame.args.contentToString()}" }
+                    logD(TAG) { "@$methodName: Result: $currentResult Args: ${args.contentToString()}" }
 
-                    val callingUid = if (frame.args.count { it is Int } > 2) {
-                        frame.args.lastOrNull { it is Int && it > 999 } as? Int ?: return@hookAfter
+                    val callingUid = if (args.count { it is Int } > 2) {
+                        args.lastOrNull { it is Int && it > 999 } as? Int ?: return@hookAfter
                     } else {
                         Binder.getCallingUid()
                     }

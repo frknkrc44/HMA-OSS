@@ -48,6 +48,7 @@ import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget33
 import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget34
 import org.frknkrc44.hma_oss.zygote.hook.PmsPackageEventsHook
 import org.frknkrc44.hma_oss.zygote.hook.ZygoteHook
+import org.frknkrc44.hma_oss.zygote.util.ActivityManagerUtils
 import org.frknkrc44.hma_oss.zygote.util.BrowserUtils.getDefaultBrowser
 import org.frknkrc44.hma_oss.zygote.util.BrowserUtils.getWebviewProvider
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
@@ -61,7 +62,6 @@ import org.frknkrc44.hma_oss.zygote.util.PackageManagerUtils.isConflictingModule
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.ensureFileIsRW
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.findAndVerifyAppSignature
 import org.frknkrc44.hma_oss.zygote.util.UserManagerUtils
-import rikka.hidden.compat.ActivityManagerApis
 import java.io.File
 import java.lang.reflect.Modifier
 import java.nio.file.Files
@@ -633,7 +633,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     override fun forceStop(packageName: String?, userId: Int) {
         binderLocalScope {
             try {
-                ActivityManagerApis.forceStopPackage(packageName, userId)
+                ActivityManagerUtils.forceStopPackage(packageName!!, userId)
             } catch (cause: Throwable) {
                 logE(TAG, cause) { "An error occurred while force stopping the package" }
             }
@@ -768,7 +768,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         if (pkgInfo.applicationInfo?.enabled == true) {
             val intentToLaunch = getLaunchIntentForPackageAsUser(packageName, userId)
             if (intentToLaunch != null) {
-                ActivityManagerApis.startActivity(intentToLaunch, null, userId)
+                ActivityManagerUtils.startActivity(intentToLaunch, userId)
             } else {
                 throw RemoteException("No main activity found to launch this app")
             }
