@@ -49,6 +49,7 @@ class LogsFragment(
                         OSUtils.collectOSInfo(
                             requireContext(),
                             ServiceClient.serviceVersionName,
+                            ServiceClient.managerWorkMode,
                         ).toByteArray()
                     )
                     output.write("\n\n".toByteArray())

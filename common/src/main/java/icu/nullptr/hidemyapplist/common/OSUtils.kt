@@ -14,7 +14,7 @@ object OSUtils {
         "com.google.android.ext.shared",
     )
 
-    fun collectOSInfo(context: Context, serviceVersion: String?) = buildString {
+    fun collectOSInfo(context: Context, serviceVersion: String?, workMode: Int) = buildString {
         val pkgMgr = context.packageManager
 
         append("HMA-OSS Log")
@@ -22,6 +22,8 @@ object OSUtils {
         append("${BuildConfig.APP_VERSION_NAME} (${BuildConfig.APP_VERSION_CODE})")
         append("\nService version: ")
         append(serviceVersion)
+        append("\nWork mode: ")
+        append(workMode)
         append("\nFingerprint: ")
         append(Build.FINGERPRINT)
         append("\nAndroid SDK: ")
