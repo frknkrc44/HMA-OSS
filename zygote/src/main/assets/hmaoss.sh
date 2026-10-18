@@ -10,6 +10,28 @@ set -e
 #         module.prop, making it not have traces of its old status.
 
 MODDIR=/data/adb/modules/hma_oss_zygisk
+ACTION="$MODDIR/action.sh"
+ACTION_BAK="$MODDIR/action.sh.bak"
+DISABLE="$MODDIR/disable"
+
+# If disabled, hide the action button and keep the description from showing a stale status.
+if [ -f "$DISABLE" ]; then
+    if [ -f "$ACTION" ] && [ ! -f "$ACTION_BAK" ]; then
+        mv "$ACTION" "$ACTION_BAK"
+    fi
+
+    ORIG_DESC=$(grep '^description=' "$MODDIR/module.prop.bak" | cut -d= -f2-)
+    if [ -n "$ORIG_DESC" ]; then
+        sed -i "s/^description=.*/description=[⛔ Module Disabled - enable and reboot] $ORIG_DESC/" "$MODDIR/module.prop"
+    fi
+
+    exit 0
+fi
+
+# If enabled, restore the action button if it was hidden during a previous disabled boot.
+if [ -f "$ACTION_BAK" ] && [ ! -f "$ACTION" ]; then
+    mv "$ACTION_BAK" "$ACTION"
+fi
 
 # INFO: Resets HMA-OSS's module.prop to its default state which is saved upon installation.
 cp "$MODDIR/module.prop.bak" "$MODDIR/module.prop"
