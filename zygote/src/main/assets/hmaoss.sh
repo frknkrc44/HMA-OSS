@@ -20,10 +20,8 @@ if [ -f "$DISABLE" ]; then
         mv "$ACTION" "$ACTION_BAK"
     fi
 
-    ORIG_DESC=$(grep '^description=' "$MODDIR/module.prop.bak" | cut -d= -f2-)
-    if [ -n "$ORIG_DESC" ]; then
-        sed -i "s/^description=.*/description=[⛔ Module Disabled - enable and reboot] $ORIG_DESC/" "$MODDIR/module.prop"
-    fi
+    # Restore the original description instead of keeping a stale service status.
+    cp "$MODDIR/module.prop.bak" "$MODDIR/module.prop"
 
     exit 0
 fi
