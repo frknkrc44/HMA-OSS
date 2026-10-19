@@ -19,14 +19,9 @@ class PmsHookTarget34 : PmsHookTarget33() {
             // AOSP exploit - https://github.com/aosp-mirror/platform_frameworks_base/commit/5bc482bd99ea18fe0b4064d486b29d5ae2d65139
             // Only 14 QPR2+ has this method
             // UPDATE: Samsung adds getArchivedPackage instead of getArchivedPackageInternal
-            val altNames = findAltMethod(
+            hookAfter(
                 listOf(PACKAGE_MANAGER_SERVICE_CLASS),
                 listOf("getArchivedPackageInternal", "getArchivedPackage"),
-            ) ?: return@apply
-
-            hookAfter(
-                altNames.declaringClass.name,
-                altNames.name,
             ) { methodName, frame, returnValue ->
                 applyPackageHiding(
                     methodName,

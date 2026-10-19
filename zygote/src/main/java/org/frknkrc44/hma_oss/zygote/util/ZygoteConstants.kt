@@ -46,4 +46,6 @@ object ZygoteConstants {
 
     const val GBOARD_PACKAGE_NAME = "com.google.android.inputmethod.latin"
     const val GBOARD_CLASS_NAME = "com.android.inputmethod.latin.LatinIME"
+
+    const val PARAMETER_COUNT_UNKNOWN = -1
 }

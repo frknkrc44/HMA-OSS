@@ -19,6 +19,7 @@ import org.frknkrc44.hma_oss.zygote.util.ZLUtils.dumpArgs
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.setReturnValue
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.CONSTRUCTOR_METHOD_NAME
+import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.PARAMETER_COUNT_UNKNOWN
 import java.lang.invoke.MethodHandle
 import java.lang.reflect.Executable
 import java.lang.reflect.Method
@@ -26,10 +27,6 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CopyOnWriteArrayList
 
 class BulkHooker {
-    private companion object {
-        const val PARAMETER_COUNT_UNKNOWN = -1
-    }
-
     var hooksWasCrashed = false
 
     internal val hooks = ConcurrentHashMap<String, CopyOnWriteArrayList<HookElement>>()
@@ -39,10 +36,37 @@ class BulkHooker {
     private fun findHookElement(clazz: String, method: String) =
         hooks[clazz]?.firstOrNull { it.methodName == method }
 
-    private fun addHook(clazz: String, methodName: String, argumentCount: Int, impl: HookTransformer) {
+    @PublishedApi
+    internal fun addHook(clazz: String, methodName: String, argumentCount: Int, impl: HookTransformer) {
+        val element = preAddHook(clazz, methodName, argumentCount, impl)
+
+        if (element != null && applyHook(clazz, element)) {
+            hooks.computeIfAbsent(clazz) { CopyOnWriteArrayList() }.add(element)
+        } else if (!hooksWasCrashed) {
+            logI(ZygoteEntry.TAG) { "Invalid hook removed: $clazz -> $methodName($argumentCount)" }
+        }
+    }
+
+    @PublishedApi
+    internal fun addHookOnMethod(executable: Executable, impl: HookTransformer) {
+        val methodName = executable.name
+        val clazz = executable.declaringClass.name
+        val argumentCount = executable.parameterCount
+
+        val element = preAddHook(clazz, methodName, argumentCount, impl)
+
+        if (element != null && hookExecutable(executable, element)) {
+            hooks.computeIfAbsent(clazz) { CopyOnWriteArrayList() }.add(element)
+        } else if (!hooksWasCrashed) {
+            logI(ZygoteEntry.TAG) { "Invalid hook removed: $clazz -> $methodName($argumentCount)" }
+        }
+    }
+
+    private fun preAddHook(clazz: String, methodName: String, argumentCount: Int, impl: HookTransformer): HookElement? {
         val isConstructorHook = methodName == CONSTRUCTOR_METHOD_NAME
         if (isConstructorHook && Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
             logI(ZygoteEntry.TAG) { "Constructor hook removed for Android 12-: $clazz -> $methodName($argumentCount)" }
+            return null
         }
 
         val inDisabledHooks = service?.config?.disabledHooks?.any {
@@ -53,28 +77,47 @@ class BulkHooker {
 
         if (inDisabledHooks == true) {
             logI(ZygoteEntry.TAG) { "Disabled hook: $clazz -> $methodName($argumentCount)" }
-            return
+            return null
         }
 
-        val element = HookElement(
+        return HookElement(
             impl = impl,
             methodName = methodName,
             argumentCount = argumentCount,
         )
+    }
 
-        if (applyHook(clazz, element)) {
-            hooks.computeIfAbsent(clazz) { CopyOnWriteArrayList() }.add(element)
-        } else if (!hooksWasCrashed) {
-            logI(ZygoteEntry.TAG) { "Invalid hook removed: $clazz -> $methodName($argumentCount)" }
+    inline fun hookBefore(
+        clazzNames: List<String>,
+        methodNames: List<String>,
+        argumentCount: Int = PARAMETER_COUNT_UNKNOWN,
+        crossinline hook: (methodName: String, frame: EmulatedStackFrame, returnValue: ReturnValue) -> Unit,
+    ) = findAltMethod(clazzNames, methodNames, argumentCount)?.let { executable ->
+        addHookOnMethod(executable) { original, frame ->
+            val methodName = executable.name
+            val clazz = executable.declaringClass.name
+
+            hookBeforeCommon(clazz, methodName, original, frame, hook)
         }
     }
 
-    internal fun hookBefore(
+    inline fun hookBefore(
         clazz: String,
         methodName: String,
         argumentCount: Int = PARAMETER_COUNT_UNKNOWN,
-        hook: (methodName: String, frame: EmulatedStackFrame, returnValue: ReturnValue) -> Unit,
+        crossinline hook: (methodName: String, frame: EmulatedStackFrame, returnValue: ReturnValue) -> Unit,
     ) = addHook(clazz, methodName, argumentCount) { original, frame ->
+        hookBeforeCommon(clazz, methodName, original, frame, hook)
+    }
+
+    @PublishedApi
+    internal inline fun hookBeforeCommon(
+        clazz: String,
+        methodName: String,
+        original: MethodHandle,
+        frame: EmulatedStackFrame,
+        crossinline hook: (methodName: String, frame: EmulatedStackFrame, returnValue: ReturnValue) -> Unit,
+    ) {
         val value = ReturnValue()
 
         try {
@@ -103,13 +146,40 @@ class BulkHooker {
         }
     }
 
-    internal fun hookAfter(
+    inline fun hookAfter(
+        clazzNames: List<String>,
+        methodNames: List<String>,
+        argumentCount: Int = PARAMETER_COUNT_UNKNOWN,
+        handleAfterThrows: Boolean = false,
+        crossinline hook: (methodName: String, frame: EmulatedStackFrame, returnValue: ReturnValue) -> Unit,
+    ) = findAltMethod(clazzNames, methodNames, argumentCount)?.let { executable ->
+        addHookOnMethod(executable) { original, frame ->
+            val methodName = executable.name
+            val clazz = executable.declaringClass.name
+
+            hookAfterCommon(clazz, methodName, handleAfterThrows, original, frame, hook)
+        }
+    }
+
+    inline fun hookAfter(
         clazz: String,
         methodName: String,
         argumentCount: Int = PARAMETER_COUNT_UNKNOWN,
         handleAfterThrows: Boolean = false,
-        hook: (methodName: String, frame: EmulatedStackFrame, returnValue: ReturnValue) -> Unit,
+        crossinline hook: (methodName: String, frame: EmulatedStackFrame, returnValue: ReturnValue) -> Unit,
     ) = addHook(clazz, methodName, argumentCount) { original, frame ->
+        hookAfterCommon(clazz, methodName, handleAfterThrows, original, frame, hook)
+    }
+
+    @PublishedApi
+    internal inline fun hookAfterCommon(
+        clazz: String,
+        methodName: String,
+        handleAfterThrows: Boolean = false,
+        original: MethodHandle,
+        frame: EmulatedStackFrame,
+        crossinline hook: (methodName: String, frame: EmulatedStackFrame, returnValue: ReturnValue) -> Unit,
+    ) {
         val value = ReturnValue()
 
         try {
@@ -145,10 +215,8 @@ class BulkHooker {
         element: HookElement,
         loader: ClassLoader? = SystemServerHook.classLoader,
     ): Boolean {
-        // do not apply next hooks when the previous one was crashed
-        if (hooksWasCrashed) {
-            return false
-        }
+        // do not apply next hooks when the previous hook was crashed
+        if (hooksWasCrashed) return false
 
         var curClazz = try {
             Class.forName(clazz, true, loader)
@@ -162,33 +230,8 @@ class BulkHooker {
             curClazz != null &&
             curClazz.javaClass.simpleName != "Object"
         ) {
-            resolveExecutable(curClazz, element.methodName, element.argumentCount)?.let { executable ->
-                logD(ZygoteEntry.TAG) { "Hooked constructor: $executable" }
-
-                val memoryAddresses = try {
-                    Hooks.hook(
-                        executable, Hooks.EntryPointType.DIRECT,
-                        element.impl, Hooks.EntryPointType.DIRECT
-                    )
-                } catch (e: Throwable) {
-                    logE(ZygoteEntry.TAG, e) {
-                        "Hook $clazz -> ${element.methodName}(${element.argumentCount}) crashed!"
-                    }
-
-                    hooksWasCrashed = true
-
-                    return false
-                }
-
-                logV(ZygoteEntry.TAG) { "Memory address map: $memoryAddresses" }
-
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-                    element.memoryAddresses = memoryAddresses
-                    element.method = executable
-                }
-
-                element.hookFinished = true
-            }
+            val executable = resolveExecutable(curClazz, element.methodName, element.argumentCount)
+            if (hookExecutable(executable, element)) return true
 
             curClazz = curClazz.superclass
         }
@@ -196,7 +239,40 @@ class BulkHooker {
         return element.hookFinished
     }
 
-    private fun invokeExactCompat(
+    private fun hookExecutable(executable: Executable?, element: HookElement): Boolean {
+        // do not apply next hooks when null object received or the previous hook was crashed
+        if (executable == null || hooksWasCrashed) return false
+
+        logD(ZygoteEntry.TAG) { "Hooked constructor: $executable" }
+
+        val memoryAddresses = try {
+            Hooks.hook(
+                executable, Hooks.EntryPointType.DIRECT,
+                element.impl, Hooks.EntryPointType.DIRECT
+            )
+        } catch (e: Throwable) {
+            logE(ZygoteEntry.TAG, e) {
+                "Hook ${executable.declaringClass} -> ${element.methodName}(${element.argumentCount}) crashed!"
+            }
+
+            hooksWasCrashed = true
+
+            return false
+        }
+
+        logV(ZygoteEntry.TAG) { "Memory address map: $memoryAddresses" }
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+            element.memoryAddresses = memoryAddresses
+            element.method = executable
+        }
+
+        element.hookFinished = true
+        return true
+    }
+
+    @PublishedApi
+    internal fun invokeExactCompat(
         clazz: String,
         methodName: String,
         original: MethodHandle,
@@ -226,7 +302,8 @@ class BulkHooker {
         }
     }
 
-    fun findAltMethod(
+    @PublishedApi
+    internal fun findAltMethod(
         clazzNames: List<String>,
         methodNames: List<String>,
         argumentCount: Int = PARAMETER_COUNT_UNKNOWN,
