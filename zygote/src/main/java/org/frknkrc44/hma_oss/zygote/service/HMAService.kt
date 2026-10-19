@@ -415,9 +415,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         for (tplName in appConfig.applyTemplates) {
             val tpl = config.templates[tplName] ?: continue
             if (query in tpl.appList) {
-                if (isAppInGMSIgnoredPackages(caller, query)) return false
-
-                return !appConfig.useWhitelist
+                return !isAppInGMSIgnoredPackages(caller, query) && !appConfig.useWhitelist
             }
         }
 
@@ -446,15 +444,11 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
     fun shouldHideActivityLaunch(caller: String?, query: String?, userId: Int): Boolean {
         val appConfig = config.scope[caller]
-        if (appConfig != null && shouldHide(caller, query, userId)) {
-            return if (appConfig.invertActivityLaunchProtection) {
-                config.disableActivityLaunchProtection
-            } else {
-                !config.disableActivityLaunchProtection
-            }
+        return appConfig != null && shouldHide(caller, query, userId) && if (appConfig.invertActivityLaunchProtection) {
+            config.disableActivityLaunchProtection
+        } else {
+            !config.disableActivityLaunchProtection
         }
-
-        return false
     }
 
     fun shouldHideInstallationSource(caller: String?, query: String?, callingUser: Int): Int {
@@ -550,7 +544,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         }
     }
 
-    override fun getServiceVersion() = BuildConfig.SERVICE_VERSION
+    override fun getServiceVersion() = BuildConfig.APP_VERSION_CODE
 
     override fun getFilterCount() = dataHolder.filterHolder.totalCount
 
@@ -721,12 +715,12 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         val hookList = mutableListOf<String>()
 
         for ((className, hookElements) in hooker.hooks) {
-            for (element in hookElements) {
+            for ((_, methodName, _, _, _, argumentCount) in hookElements) {
                 hookList.add(
                     JsonConfig.HookItem(
                         className,
-                        element.methodName,
-                        element.argumentCount,
+                        methodName,
+                        argumentCount,
                     ).toString()
                 )
             }

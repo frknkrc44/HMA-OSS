@@ -4,7 +4,6 @@ plugins {
 }
 
 val configVerCode =  rootProject.extra["configVerCode"] as Int
-val serviceVerCode = rootProject.extra["serviceVerCode"] as Int
 val minBackupVerCode = rootProject.extra["minBackupVerCode"] as Int
 val appPackageName = rootProject.extra["appPackageName"] as String
 val appVerName = rootProject.extra["appVerName"] as String
@@ -20,7 +19,6 @@ android {
 
     defaultConfig {
         buildConfigField("int", "CONFIG_VERSION", configVerCode.toString())
-        buildConfigField("int", "SERVICE_VERSION", serviceVerCode.toString())
         buildConfigField("int", "MIN_BACKUP_VERSION", minBackupVerCode.toString())
         buildConfigField("String", "APP_PACKAGE_NAME", "\"$appPackageName\"")
         buildConfigField("String", "APP_VERSION_NAME", "\"$appVerName\"")

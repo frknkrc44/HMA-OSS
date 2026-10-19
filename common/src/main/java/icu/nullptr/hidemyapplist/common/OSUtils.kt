@@ -16,6 +16,8 @@ object OSUtils {
 
     fun collectOSInfo(context: Context, serviceVersion: String?, workMode: Int) = buildString {
         val pkgMgr = context.packageManager
+        val isHOS = SystemProperties.get("ro.mi.os.version.incremental").isNotBlank()
+        val isMIUI = pkgMgr.isPackageAvailable("com.miui.system")
 
         append("HMA-OSS Log")
         append("\nApp version: ")
@@ -30,10 +32,8 @@ object OSUtils {
         append("${Build.VERSION.SDK_INT} (P ${Build.VERSION.PREVIEW_SDK_INT})")
         append("\nKnown codenames: [")
         append(SystemProperties.get("ro.build.version.known_codenames"))
-        append("]\nIs HyperOS: ")
-        append(SystemProperties.get("ro.mi.os.version.incremental").isNotBlank())
-        append("\nIs MIUI: ")
-        append(pkgMgr.isPackageAvailable("com.miui.system"))
+        append("]\nIs MIUI/HyperOS: ")
+        append(isHOS || isMIUI)
         append("\nIs oplus: ")
         append(SystemProperties.get("ro.build.version.oplusrom").isNotBlank())
         append("\nIs Samsung: ")

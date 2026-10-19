@@ -96,9 +96,6 @@ extra["appVerName"] = appVerName
 val configVerCode = 93
 extra["configVerCode"] = configVerCode
 
-val serviceVerCode = 105
-extra["serviceVerCode"] = serviceVerCode
-
 val minBackupVerCode = 65
 extra["minBackupVerCode"] = minBackupVerCode
 
