@@ -266,27 +266,14 @@ class BulkHooker {
         val isConstructorHook = methodName == CONSTRUCTOR_METHOD_NAME
 
         return if (isConstructorHook) {
-            Reflection.getHiddenConstructors(clazz).let { constructors ->
-                if (argumentCount >= 0) {
-                    constructors.filter {
-                        argumentCount == it.parameterCount
-                    }.toTypedArray()
-                } else {
-                    constructors
-                }
-            }.firstOrNull()
+            Reflection.getHiddenConstructors(clazz).firstOrNull {
+                return@firstOrNull argumentCount < 0 || argumentCount == it.parameterCount
+            }
         } else {
-            Reflection.getHiddenExecutables(clazz).filter { executable ->
-                if (methodName == executable.name) {
-                    if (argumentCount >= 0) {
-                        return@filter argumentCount == executable.parameterCount
-                    }
-
-                    return@filter true
-                }
-
-                return@filter false
-            }.firstOrNull()
+            Reflection.getHiddenExecutables(clazz).firstOrNull {
+                return@firstOrNull methodName == it.name &&
+                        (argumentCount < 0 || argumentCount == it.parameterCount)
+            }
         }
     }
 }
