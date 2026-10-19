@@ -317,20 +317,20 @@ class BulkHooker {
                 continue
             }
 
-            var methods = listOf<Executable>()
             while (
-                methods.isEmpty() &&
                 curClazz != null &&
                 curClazz.javaClass.simpleName != "Object"
             ) {
-                methods = methodNames.mapNotNull {
+                val method = methodNames.firstNotNullOfOrNull {
                     resolveExecutable(curClazz, it, argumentCount)
                 }
+                if (method != null) return method
+
                 curClazz = curClazz.superclass
             }
-
-            return methods.firstOrNull() ?: continue
         }
+
+        logD(ZygoteEntry.TAG) { "Cannot find $clazzNames -> $methodNames($argumentCount)" }
 
         return null
     }
