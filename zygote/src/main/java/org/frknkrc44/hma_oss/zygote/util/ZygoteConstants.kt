@@ -32,6 +32,7 @@ object ZygoteConstants {
     const val BROADCAST_QUEUE_CLASS = "com.android.server.am.BroadcastQueue"
     const val BROADCAST_QUEUE_IMPL_CLASS = "com.android.server.am.BroadcastQueueImpl"
     const val BROADCAST_PROCESS_QUEUE_CLASS = "com.android.server.am.BroadcastProcessQueue"
+    const val USAGE_STATS_BINDER_SERVICE_CLASS = $$"com.android.server.usage.UsageStatsService$BinderService"
 
     const val CONSTRUCTOR_METHOD_NAME = "<init>"
 

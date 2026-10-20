@@ -48,6 +48,7 @@ import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget31
 import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget33
 import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget34
 import org.frknkrc44.hma_oss.zygote.hook.PmsPackageEventsHook
+import org.frknkrc44.hma_oss.zygote.hook.UsageStatsHook
 import org.frknkrc44.hma_oss.zygote.hook.ZygoteHook
 import org.frknkrc44.hma_oss.zygote.util.ActivityManagerUtils
 import org.frknkrc44.hma_oss.zygote.util.BrowserUtils.getDefaultBrowser
@@ -310,6 +311,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         frameworkHooks.add(ContentProviderHook())
         frameworkHooks.add(ImmHook())
         frameworkHooks.add(ZygoteHook())
+        frameworkHooks.add(UsageStatsHook())
 
         frameworkHooks.forEach(IFrameworkHook::load)
         logI(TAG) { "Hooks installed" }
