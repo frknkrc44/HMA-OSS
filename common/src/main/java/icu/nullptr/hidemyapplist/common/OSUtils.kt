@@ -40,6 +40,8 @@ object OSUtils {
         append(isSamsung())
         append("\nIs Pixel: ")
         append(pkgMgr.isPackageAvailable("com.google.android.apps.customization.pixel"))
+        append("\nIs LineageOS: ")
+        append(pkgMgr.getPackagesForUid(Constants.UID_SYSTEM)?.any { "lineage" in it })
 
         PACKAGES_TO_CHECK.forEach {
             append("\nIs $it available: ")
