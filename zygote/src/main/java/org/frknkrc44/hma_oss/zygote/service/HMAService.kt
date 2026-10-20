@@ -6,6 +6,7 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.IPackageManager
 import android.os.Build
 import android.os.Bundle
+import android.os.FileObserver
 import android.os.ParcelFileDescriptor
 import android.os.RemoteException
 import android.provider.Settings
@@ -91,6 +92,9 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     private lateinit var oldLogFile: File
     private lateinit var moduleStatusFile: File
 
+    private lateinit var configFileListener: FileObserver
+    private var writtenByManager = false
+
     private val configLock = Any()
     private val loggerLock = Any()
     val systemApps = mutableSetOf<String>()
@@ -113,7 +117,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         saveModuleStatus()
         UserService.service = this
         loadFilterCount()
-        loadConfig()
+        reloadConfigFromFile()
 
         appUid = findAndVerifyAppSignature(pms)
 
@@ -127,6 +131,18 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
                     logWithLevel(level, "AppPresets", msg = msg)
                 }
                 loadPresetCache()
+
+                configFileListener = object : FileObserver(configFile, CLOSE_WRITE or ATTRIB) {
+                    override fun onEvent(event: Int, path: String?) {
+                        if (writtenByManager) {
+                            writtenByManager = false
+                            return
+                        }
+
+                        reloadConfigFromFile()
+                    }
+                }
+                configFileListener.startWatching()
 
                 managerWorkMode = Constants.MANAGER_WORK_MODE_OK
             }
@@ -174,6 +190,15 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         oldLogFile = File(logDir, "old.log")
         moduleStatusFile = File(dataDir, "status.json")
 
+        // remove the old filter count
+        File("$dataDir/filter_count").also {
+            try {
+                if (it.exists()) it.delete()
+            } catch (cause: Throwable) {
+                logW(TAG, cause) { "Failed to delete filter count, skip it" }
+            }
+        }
+
         clearLogs()
 
         logcatAvailable = true
@@ -203,43 +228,6 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         } catch (cause: Throwable) {
             logE(TAG, cause) { "An error occurred while writing the status JSON" }
         }
-    }
-
-    private fun loadConfig() {
-        // remove the old filter count
-        File("$dataDir/filter_count").also {
-            try {
-                if (it.exists()) it.delete()
-            } catch (cause: Throwable) {
-                logW(TAG, cause) { "Failed to delete filter count, skip it" }
-            }
-        }
-
-        if (!configFile.exists()) {
-            logI(TAG) { "Config file not found" }
-            return
-        }
-
-        val loading = try {
-            val json = configFile.readText()
-            JsonConfig.parse(json)
-        } catch (cause: Throwable) {
-            logW(TAG, cause) { "Failed to parse config json, skip it" }
-
-            config
-        }
-
-        if (loading.configVersion != BuildConfig.CONFIG_VERSION) {
-            logW(TAG) { "Config version mismatch, need to reload" }
-            return
-        }
-
-        if (config != loading) {
-            loading.cleanRemnantsFromConfig()
-            config = loading
-        }
-
-        logI(TAG) { "Config loaded" }
     }
 
     private fun loadFilterCount() {
@@ -501,6 +489,8 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     fun writeConfig(json: String) {
         if (!ensureManagerWorkModeOK()) return
 
+        writtenByManager = true
+
         synchronized(configLock) {
             try {
                 val newConfig = JsonConfig.parse(json)
@@ -524,6 +514,8 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         }
 
         writeFilterCount(true)
+
+        writtenByManager = false
     }
 
     private fun writeFilterCount(force: Boolean = false) {
@@ -796,16 +788,33 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     }
 
     override fun reloadConfigFromFile() {
-        val loading = runCatching {
-            assert(configFile.exists())
-            val json = configFile.readText()
-            JsonConfig.parse(json)
-        }.getOrElse {
-            logE(TAG, it) { "Failed to parse config.json" }
+        if (!configFile.exists()) {
+            logI(TAG) { "Config file not found" }
             return
         }
 
-        config = loading
+        val loading = try {
+            ensureFileIsRW(configFile, true)
+            val json = configFile.readText()
+            JsonConfig.parse(json)
+        } catch (cause: Throwable) {
+            logW(TAG, cause) { "Failed to parse config json, skip it" }
+
+            config
+        }
+
+        if (loading.configVersion != BuildConfig.CONFIG_VERSION) {
+            logW(TAG) { "Config version mismatched, trying to change it" }
+
+            loading.configVersion = BuildConfig.CONFIG_VERSION
+        }
+
+        if (config != loading) {
+            loading.cleanRemnantsFromConfig()
+            config = loading
+        }
+
+        logI(TAG) { "Config loaded" }
     }
 
     override fun getUserProfiles() = binderLocalScope { UserManagerUtils.userIds }
