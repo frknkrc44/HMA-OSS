@@ -127,6 +127,11 @@ object ZLUtils {
         field.setBoolean(obj, value)
     }
 
+    fun setObjectField(obj: Any, name: String, value: Any?, clazz: Class<*>? = null) {
+        val field = getDeclaredField(clazz ?: obj.javaClass, name).apply { isAccessible = true }
+        field.set(obj, value)
+    }
+
     fun callMethodWithTypes(obj: Any, name: String, types: Array<Class<*>>, args: Array<Any>): Any? {
         return getDeclaredMethod(
             obj.javaClass,

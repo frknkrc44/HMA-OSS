@@ -6,11 +6,11 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
-import android.os.Binder
 import android.util.Log
 import androidx.core.content.res.ResourcesCompat
 import icu.nullptr.hidemyapplist.MyApp.Companion.hmaApp
 import icu.nullptr.hidemyapplist.common.Constants
+import icu.nullptr.hidemyapplist.common.Utils.getCallingUser
 import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.asDrawable
@@ -93,7 +93,7 @@ object PackageHelper {
             val cache = withContext(Dispatchers.IO) {
                 val pm = hmaApp.packageManager
                 val profiles = ServiceClient.userProfiles
-                    ?: intArrayOf(Binder.getCallingUserHandle().hashCode())
+                    ?: intArrayOf(getCallingUser())
 
                 mutableMapOf<String, PackageCache>().also { cacheMap ->
                     for (userProfile: Int in profiles) {
