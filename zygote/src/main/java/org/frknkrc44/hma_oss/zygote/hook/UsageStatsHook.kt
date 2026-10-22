@@ -36,6 +36,9 @@ class UsageStatsHook : IFrameworkHook {
 
                 val args = frame.args
                 val caller = args.lastOrNullWithType<String>() ?: return@hookAfter
+                val isHookEnabled = service.isHookEnabled(caller)
+                if (!isHookEnabled) return@hookAfter
+
                 val userId = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                     args.lastWithType<Int>()
                 } else {
@@ -154,8 +157,10 @@ class UsageStatsHook : IFrameworkHook {
         val eventsList = getObjectField(events, "mEventsToWrite") as? List<UsageEvents.Event> ?: return
 
         val caller = getCaller() ?: return
-        val userId = getUserId()
+        val isHookEnabled = service.isHookEnabled(caller)
+        if (!isHookEnabled) return
 
+        val userId = getUserId()
         val filtered = eventsList.filterTo(mutableListOf()) {
             !service.shouldHide(caller, it.packageName, userId)
         }
