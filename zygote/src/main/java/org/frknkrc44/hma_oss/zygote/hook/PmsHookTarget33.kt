@@ -3,9 +3,9 @@ package org.frknkrc44.hma_oss.zygote.hook
 import android.os.Binder
 import android.os.Build
 import androidx.annotation.RequiresApi
-import icu.nullptr.hidemyapplist.common.CollectionUtils.firstOrNullWithType
 import icu.nullptr.hidemyapplist.common.OSUtils
 import icu.nullptr.hidemyapplist.common.Utils
+import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.firstOrNullWithType
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackageNameFromPackageSettings
@@ -69,11 +69,13 @@ open class PmsHookTarget33 : PmsHookTargetBase() {
                 COMPUTER_ENGINE_CLASS,
                 "getPackageInfoInternal",
             ) { methodName, frame, returnValue ->
+                val args = frame.args
+
                 applyPackageHiding(
                     methodName,
                     returnValue,
-                    { frame.args.firstOrNullWithType() },
-                    { frame.args.firstOrNullWithType() },
+                    { args.firstOrNullWithType() },
+                    { args.firstOrNullWithType() },
                     ::getCallingApps,
                     null,
                 )
@@ -83,11 +85,13 @@ open class PmsHookTarget33 : PmsHookTargetBase() {
                 COMPUTER_ENGINE_CLASS,
                 "getApplicationInfoInternal",
             ) { methodName, frame, returnValue ->
+                val args = frame.args
+                
                 applyPackageHiding(
                     methodName,
                     returnValue,
-                    { frame.args.firstOrNullWithType() },
-                    { frame.args.firstOrNullWithType() },
+                    { args.firstOrNullWithType() },
+                    { args.firstOrNullWithType() },
                     ::getCallingApps,
                     null,
                 )
