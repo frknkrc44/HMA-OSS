@@ -52,7 +52,7 @@ class UsageStatsHook : IFrameworkHook {
                 }
 
                 val count = result.list.size - filtered.size
-                if (count >= 0) {
+                if (count > 0) {
                     val last = lastFilteredApp.getAndSet(caller)
                     if (last != caller) logI(TAG) { "@$methodName: query from $caller" }
                     logD(TAG) { "@$methodName: $count entries hidden from $caller" }
@@ -140,7 +140,7 @@ class UsageStatsHook : IFrameworkHook {
                 applyUsageEventsHiding(
                     methodName,
                     result,
-                    { args.firstOrNullWithType() },
+                    { args.lastOrNullWithType() },
                     { args.lastWithType() },
                 )
             }
@@ -166,7 +166,7 @@ class UsageStatsHook : IFrameworkHook {
         }
 
         val count = eventsList.size - filtered.size
-        if (count >= 0) {
+        if (count > 0) {
             val last = lastFilteredApp.getAndSet(caller)
             if (last != caller) logI(TAG) { "@$methodName: query from $caller" }
             logD(TAG) { "@$methodName: $count entries hidden from $caller" }
