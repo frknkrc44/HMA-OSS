@@ -10,6 +10,8 @@ object ZygoteConstants {
     const val PMS_COMPUTER_ENGINE_CLASS = $$"com.android.server.pm.PackageManagerService$ComputerEngine"
     const val APPS_FILTER_CLASS = "com.android.server.pm.AppsFilter"
     const val APPS_FILTER_IMPL_CLASS = "com.android.server.pm.AppsFilterImpl"
+    // The Binder boundary retains the original caller identity after the implementation returns.
+    const val PERMISSION_MANAGER_SERVICE_CLASS = "com.android.server.pm.permission.PermissionManagerService"
     const val STORAGE_MANAGER_SERVICE_CLASS = "com.android.server.StorageManagerService"
     const val STORAGE_MANAGER_SERVICE_LIFECYCLE_CLASS = $$"com.android.server.StorageManagerService$Lifecycle"
     const val ACCESSIBILITY_SERVICE_CLASS = "com.android.server.accessibility.AccessibilityManagerService"
