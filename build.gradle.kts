@@ -38,7 +38,8 @@ fun getUncommittedSuffix(): String {
     val shortRef = "git rev-parse --short HEAD".execute()
 
     if (ciBuild) {
-        val headRefVal = providers.environmentVariable("GITHUB_HEAD_REF").orElse("HEAD").get()
+        // Versions are also artifact filenames; branch namespaces must not become directory separators.
+        val headRefVal = providers.environmentVariable("GITHUB_HEAD_REF").orElse("HEAD").get().substringAfterLast('/')
         return "$headRefVal-$shortRef"
     }
 
