@@ -1,5 +1,6 @@
 package org.frknkrc44.hma_oss.zygote.hook
 
+import android.content.pm.PackageManager
 import android.os.Binder
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -14,6 +15,7 @@ import org.frknkrc44.hma_oss.zygote.util.ZLUtils.findMethod
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.APPS_FILTER_IMPL_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.COMPUTER_ENGINE_CLASS
+import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.PERMISSION_MANAGER_SERVICE_CLASS
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 open class PmsHookTarget33 : PmsHookTargetBase() {
@@ -86,7 +88,7 @@ open class PmsHookTarget33 : PmsHookTargetBase() {
                 "getApplicationInfoInternal",
             ) { methodName, frame, returnValue ->
                 val args = frame.args
-                
+
                 applyPackageHiding(
                     methodName,
                     returnValue,
@@ -112,6 +114,28 @@ open class PmsHookTarget33 : PmsHookTargetBase() {
                         }
                     },
                     true,
+                )
+            }
+
+            hookAfter(
+                PERMISSION_MANAGER_SERVICE_CLASS,
+                "checkUidPermission"
+            ) { methodName, frame, returnValue ->
+                if (returnValue.result == PackageManager.PERMISSION_DENIED) return@hookAfter
+
+                val uid = frame.getArgument(1) as? Int ?: return@hookAfter
+
+                applyPackageHiding(
+                    methodName,
+                    returnValue,
+                    { Binder.getCallingUid() },
+                    {
+                        Utils.binderLocalScope {
+                            getCallingApps(pms, uid).firstOrNull()
+                        }
+                    },
+                    ::getCallingApps,
+                    PackageManager.PERMISSION_DENIED
                 )
             }
         }
