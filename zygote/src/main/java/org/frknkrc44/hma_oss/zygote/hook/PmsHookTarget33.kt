@@ -1,5 +1,6 @@
 package org.frknkrc44.hma_oss.zygote.hook
 
+import android.content.pm.PackageManager
 import android.os.Binder
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -109,6 +110,40 @@ open class PmsHookTarget33 : PmsHookTargetBase() {
                     },
                     true,
                 )
+            }
+
+            // Keep permission visibility consistent with package hiding.
+            // Probes (e.g. Duck Detector) compare checkUidPermission() ("does
+            // this UID hold permission X?") with getPackagesForUid() ("which
+            // package owns this UID?"): the package lookup is filtered for a
+            // hidden app but the permission lookup is not, so the UID reads as
+            // "holds permission X yet owns no package" and is flagged. Deny the
+            // permission to callers the owning app is hidden from, so both views
+            // agree. applyPackageHiding() short-circuits UID_SYSTEM callers, so
+            // the hot in-system permission checks stay cheap; the package lookup
+            // only runs for a non-system caller that was granted the permission.
+            hookAfter(
+                COMPUTER_ENGINE_CLASS,
+                "checkUidPermission",
+            ) { methodName, frame, returnValue ->
+                if ((returnValue.result as? Int) == PackageManager.PERMISSION_GRANTED) {
+                    val uid = frame.getArgument(2) as? Int
+                    applyPackageHiding(
+                        methodName,
+                        returnValue,
+                        { Binder.getCallingUid() },
+                        {
+                            uid?.let {
+                                Utils.binderLocalScope {
+                                    (getPackagesForUidMethod.invoke(frame.getArgument(0), it) as? Array<String>)
+                                        ?.firstOrNull()
+                                }
+                            }
+                        },
+                        ::getCallingApps,
+                        PackageManager.PERMISSION_DENIED,
+                    )
+                }
             }
         }
     }
