@@ -11,7 +11,7 @@ import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.firstWithType
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
-import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackagesForUidLocal
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getIntField
@@ -72,7 +72,7 @@ class ActivityHook : IFrameworkHook {
                 if (callingUid == Constants.UID_SYSTEM) return@hookAfter
 
                 val callingUserId = getUserFromCallingUid(callingUid)
-                val callingApps = getCallingApps(pms, callingUid)
+                val callingApps = getPackagesForUidLocal(pms, callingUid)
                 val caller = callingApps.firstOrNull { service.isHookEnabled(it) }
                 if (caller != null) {
                     logV(TAG) { "@$methodName: $caller requested a resolve info" }

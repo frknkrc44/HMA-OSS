@@ -187,6 +187,6 @@ class ContentProviderHook : IFrameworkHook {
             arrayOf(args.firstWithType<String>())
         }
     } catch (_: Throwable) {
-        ServiceUtils.getCallingApps(pms)
+        ServiceUtils.getPackagesForUidLocal(pms)
     }
 }

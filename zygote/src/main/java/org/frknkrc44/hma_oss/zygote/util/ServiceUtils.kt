@@ -61,11 +61,7 @@ object ServiceUtils {
         }
     }
 
-    fun getCallingApps(pms: IPackageManager): Array<String> {
-        return getCallingApps(pms, Binder.getCallingUid())
-    }
-
-    fun getCallingApps(pms: IPackageManager, callingUid: Int): Array<String> {
+    fun getPackagesForUidLocal(pms: IPackageManager, callingUid: Int = Binder.getCallingUid()): Array<String> {
         if (callingUid == Constants.UID_SYSTEM) return arrayOf()
         return binderLocalScope {
             pms.getPackagesForUid(callingUid)

@@ -11,7 +11,7 @@ import org.frknkrc44.hma_oss.zygote.service.SystemServerHook
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
-import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackagesForUidLocal
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getBooleanField
@@ -195,7 +195,7 @@ class AppDataIsolationHook : IFrameworkHook {
                             getIntField(app, "uid", processRecordIntClass)
                         }
 
-                        val apps = getCallingApps(pms, uid)
+                        val apps = getPackagesForUidLocal(pms, uid)
 
                         if (config.detailLog) {
                             val processName = runCatching {

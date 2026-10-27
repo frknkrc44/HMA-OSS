@@ -3,7 +3,7 @@ package org.frknkrc44.hma_oss.zygote.hook
 import android.os.Binder
 import android.os.Build
 import androidx.annotation.RequiresApi
-import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackagesForUidLocal
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.PACKAGE_MANAGER_SERVICE_CLASS
 
@@ -28,7 +28,7 @@ class PmsHookTarget34 : PmsHookTarget33() {
                     returnValue,
                     { Binder.getCallingUid() },
                     { frame.getArgument(1) as? String },
-                    ::getCallingApps,
+                    ::getPackagesForUidLocal,
                     null,
                 )
             }

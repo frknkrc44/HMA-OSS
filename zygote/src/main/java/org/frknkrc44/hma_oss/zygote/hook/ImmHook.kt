@@ -22,7 +22,7 @@ import org.frknkrc44.hma_oss.zygote.util.ContextUtils.packageManager
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logW
-import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackagesForUidLocal
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.callStaticMethod
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
@@ -95,7 +95,7 @@ class ImmHook : IFrameworkHook {
                     listOf(IMM_SERVICE_CLASS, IMM_IMPL_CLASS),
                     listOf("getCurrentInputMethodInfoAsUser"),
                 ) { methodName, frame, returnValue ->
-                    val callingApps = getCallingApps(pms)
+                    val callingApps = getPackagesForUidLocal(pms)
 
                     val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
                     if (caller != null) {
@@ -156,7 +156,7 @@ class ImmHook : IFrameworkHook {
                 listOf(IMM_SERVICE_CLASS),
                 listOf("getEnabledInputMethodList", "getEnabledInputMethodListInternal"),
             ) { methodName, frame, returnValue ->
-                val callingApps = getCallingApps(pms)
+                val callingApps = getPackagesForUidLocal(pms)
 
                 val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
                 if (caller != null) {
@@ -211,7 +211,7 @@ class ImmHook : IFrameworkHook {
     }
 
     private fun subtypeHook(methodName: String, returnValue: ReturnValue) {
-        val callingApps = getCallingApps(pms)
+        val callingApps = getPackagesForUidLocal(pms)
 
         val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
         if (caller != null) {
@@ -228,7 +228,7 @@ class ImmHook : IFrameworkHook {
         frame: EmulatedStackFrame,
         returnValue: ReturnValue
     ) {
-        val callingApps = getCallingApps(pms)
+        val callingApps = getPackagesForUidLocal(pms)
 
         val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
         if (caller != null) {
@@ -257,7 +257,7 @@ class ImmHook : IFrameworkHook {
     ): List<InputMethodInfo> {
         logV(TAG) { "@getInputMethodList*calculator: $callingUid - Current: ${inList.map { it.component }}" }
 
-        val caller = getCallingApps(pms, callingUid)
+        val caller = getPackagesForUidLocal(pms, callingUid)
             .firstOrNull { callerIsSpoofed(it) } ?: return inList
 
         logD(TAG) { "@getInputMethodList: spoofed input method for $caller" }

@@ -8,7 +8,7 @@ import icu.nullptr.hidemyapplist.common.OSUtils
 import icu.nullptr.hidemyapplist.common.Utils
 import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.firstOrNullWithType
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
-import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackagesForUidLocal
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackageNameFromPackageSettings
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.findMethod
@@ -47,7 +47,7 @@ open class PmsHookTarget33 : PmsHookTargetBase() {
                         returnValue,
                         { Binder.getCallingUid() },
                         { getPackageNameFromPackageSettings(frame.getArgument(1)) },
-                        ::getCallingApps,
+                        ::getPackagesForUidLocal,
                         null,
                     )
                 }
@@ -61,7 +61,7 @@ open class PmsHookTarget33 : PmsHookTargetBase() {
                         returnValue,
                         { Binder.getCallingUid() },
                         { getPackageNameFromPackageSettings(frame.getArgument(2)) },
-                        ::getCallingApps,
+                        ::getPackagesForUidLocal,
                         null,
                     )
                 }
@@ -78,7 +78,7 @@ open class PmsHookTarget33 : PmsHookTargetBase() {
                     returnValue,
                     { args.firstOrNullWithType() },
                     { args.firstOrNullWithType() },
-                    ::getCallingApps,
+                    ::getPackagesForUidLocal,
                     null,
                 )
             }
@@ -94,7 +94,7 @@ open class PmsHookTarget33 : PmsHookTargetBase() {
                     returnValue,
                     { args.firstOrNullWithType() },
                     { args.firstOrNullWithType() },
-                    ::getCallingApps,
+                    ::getPackagesForUidLocal,
                     null,
                 )
             }
@@ -129,12 +129,8 @@ open class PmsHookTarget33 : PmsHookTargetBase() {
                     methodName,
                     returnValue,
                     { Binder.getCallingUid() },
-                    {
-                        Utils.binderLocalScope {
-                            getCallingApps(pms, uid).firstOrNull()
-                        }
-                    },
-                    ::getCallingApps,
+                    { getPackagesForUidLocal(pms, uid).firstOrNull() },
+                    ::getPackagesForUidLocal,
                     PackageManager.PERMISSION_DENIED
                 )
             }
