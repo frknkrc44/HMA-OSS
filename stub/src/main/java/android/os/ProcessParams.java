@@ -1,6 +1,7 @@
 package android.os;
 
 public final class ProcessParams {
+    public final int uid;
     public final int[] gids;
     public final boolean isTopApp;
     public final String packageName;

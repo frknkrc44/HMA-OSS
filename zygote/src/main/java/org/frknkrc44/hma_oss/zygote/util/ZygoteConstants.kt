@@ -49,4 +49,9 @@ object ZygoteConstants {
     const val GBOARD_CLASS_NAME = "com.android.inputmethod.latin.LatinIME"
 
     const val PARAMETER_COUNT_UNKNOWN = -1
+
+    const val GP_SYSCALL_AARCH64 = 89
+    const val GP_MAGIC1 = 0x11111111L
+    const val GP_FLAG_ENABLE = 0x1L
+    const val GP_FLAG_DISABLE = 0x2L
 }
