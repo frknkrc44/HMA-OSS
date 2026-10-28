@@ -88,6 +88,23 @@ class BroadcastHook : IFrameworkHook {
         val userId = getIntField(record, "userId")
 
         if (service.shouldHideActivityLaunch(caller, targetApp, userId)) {
+            if (
+                Build.VERSION.SDK_INT in Build.VERSION_CODES.Q..Build.VERSION_CODES.UPSIDE_DOWN_CAKE &&
+                methodName == "enqueueOrderedBroadcastLocked"
+            ) {
+                // Empty records may still carry a final result callback.
+                // Preserve the Intent and let the legacy queue complete them normally.
+                val hasNoReceivers = try {
+                    val receivers = getObjectField(record, "receivers")
+                    receivers == null || (receivers is List<*> && receivers.isEmpty())
+                } catch (e: Throwable) {
+                    logD(TAG, e) { "@$methodName: unable to inspect broadcast receivers" }
+                    false
+                }
+
+                if (hasNoReceivers) return
+            }
+
             logD(TAG) { "@$methodName: insecure query from $caller, target: $component" }
 
             (getObjectField(record, "intent") as Intent).apply {
