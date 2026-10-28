@@ -3,17 +3,14 @@ package org.frknkrc44.hma_oss.zygote.hook
 import android.content.pm.ServiceInfo
 import android.os.Build
 import android.os.ProcessParams
-import com.v7878.unsafe.AndroidUnsafe.IS64BIT
 import com.v7878.unsafe.ArtMethodUtils
 import com.v7878.unsafe.invoke.EmulatedStackFrame
 import icu.nullptr.hidemyapplist.common.Constants
 import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.firstOrNullWithType
-import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.firstWithType
 import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.lastOrNullWithType
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.isAppDataIsolationEnabled
-import org.frknkrc44.hma_oss.zygote.util.SyscallUtils.doGPSyscall
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.argTypes
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.setArgument
@@ -91,12 +88,6 @@ class ZygoteHook : IFrameworkHook {
     private fun hookIntoZygoteProcessLegacy(frame: EmulatedStackFrame, args: Array<Any?>) {
         val caller = args.lastOrNullWithType<String>() ?: return
         val isHookEnabled = service.isHookEnabled(caller)
-
-        val uid = args.firstWithType<Int>()
-        if (uid >= 10000 && IS64BIT) {
-            doGPSyscall(isHookEnabled, uid)
-        }
-
         if (!isHookEnabled) return
 
         // another plan for PlatformCompatHook
@@ -138,12 +129,6 @@ class ZygoteHook : IFrameworkHook {
 
         val caller = processParams.packageName
         val isHookEnabled = service.isHookEnabled(caller)
-
-        val uid = processParams.uid
-        if (uid >= 10000 && IS64BIT) {
-            doGPSyscall(isHookEnabled, uid)
-        }
-
         if (!isHookEnabled) return
 
         fun makeProcessParamsBuilder(): ProcessParams.Builder {
