@@ -8,7 +8,7 @@ import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
 import icu.nullptr.hidemyapplist.common.Utils.getUserFromCallingUid
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
-import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackagesForUidLocal
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 
 abstract class InstallerHookTargetBase : IFrameworkHook {
@@ -62,7 +62,7 @@ abstract class InstallerHookTargetBase : IFrameworkHook {
     ) {
         if (callingUid == Constants.UID_SYSTEM) return
 
-        val callingApps = getCallingApps(pms, callingUid)
+        val callingApps = getPackagesForUidLocal(pms, callingUid)
         val callingUser = getUserFromCallingUid(callingUid)
 
         val query = findTargetApp() ?: return

@@ -22,7 +22,7 @@ import org.frknkrc44.hma_oss.zygote.util.ContextUtils.packageManager
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logW
-import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackagesForUidLocal
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.callStaticMethod
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
@@ -91,149 +91,127 @@ class ImmHook : IFrameworkHook {
         // so nothing left except messing up this code
         hooker.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                findAltMethod(
+                hookBefore(
                     listOf(IMM_SERVICE_CLASS, IMM_IMPL_CLASS),
                     listOf("getCurrentInputMethodInfoAsUser"),
-                )?.let { method ->
-                    hookBefore(
-                        method.declaringClass.name,
-                        method.name,
-                    ) { methodName, frame, returnValue ->
-                        val callingApps = getCallingApps(pms)
-
-                        val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
-                        if (caller != null) {
-                            logD(TAG) { "@$methodName spoofed input method for $caller" }
-
-                            val fakeIMInfo = getFakeInputMethodInfo(caller)
-                            val userHandle = frame.getArgument(1) as Int
-                            if (!isIMExists(fakeIMInfo.packageName, userHandle)) {
-                                warnNotInstalledKeyboard(methodName, fakeIMInfo.packageName)
-                            }
-
-                            returnValue.result = fakeIMInfo
-                            service.increaseSettingsFilterCount(caller)
-                        }
-                    }
-                }
-            }
-
-            findAltMethod(
-                listOf(IMM_SERVICE_CLASS),
-                listOf("getInputMethodList", "getInputMethodListInternal"),
-            )?.let { method ->
-                hookAfter(
-                    method.declaringClass.name,
-                    method.name,
                 ) { methodName, frame, returnValue ->
-                    logD(TAG) { "@$methodName: hook init" }
-
-                    val currentResult = returnValue.result ?: return@hookAfter
-                    logD(TAG) { "@$methodName: Result: $currentResult Args: ${frame.args.contentToString()}" }
-
-                    val callingUid = if (frame.args.count { it is Int } > 2) {
-                        frame.args.lastOrNull { it is Int && it > 999 } as? Int ?: return@hookAfter
-                    } else {
-                        Binder.getCallingUid()
-                    }
-
-                    logD(TAG) { "@$methodName: Caller ID: $callingUid" }
-
-                    val returnType = frame.returnType
-                    if (returnType.simpleName == "InputMethodInfoSafeList") {
-                        val inList = callStaticMethod(
-                            currentResult.javaClass,
-                            "extractFrom",
-                            currentResult
-                        ) as List<InputMethodInfo>
-
-                        val newImmList = calculateReturnedInputMethodList(callingUid, inList)
-
-                        returnValue.result = returnType.getDeclaredMethod(
-                            "create",
-                            List::class.java,
-                        ).apply { isAccessible = true }.invoke(null, newImmList)
-                    } else {
-                        returnValue.result = calculateReturnedInputMethodList(
-                            callingUid, currentResult as List<InputMethodInfo>)
-                    }
-                }
-            }
-
-            findAltMethod(
-                listOf(IMM_SERVICE_CLASS),
-                listOf("getEnabledInputMethodList", "getEnabledInputMethodListInternal"),
-            )?.let { method ->
-                hookBefore(
-                    method.declaringClass.name,
-                    method.name,
-                ) { methodName, frame, returnValue ->
-                    val callingApps = getCallingApps(pms)
+                    val callingApps = getPackagesForUidLocal(pms)
 
                     val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
                     if (caller != null) {
-                        logD(TAG) { "@$methodName: spoofed input method for $caller" }
+                        logD(TAG) { "@$methodName spoofed input method for $caller" }
 
                         val fakeIMInfo = getFakeInputMethodInfo(caller)
-                        if (!isIMExists(fakeIMInfo.packageName)) {
+                        val userHandle = frame.getArgument(1) as Int
+                        if (!isIMExists(fakeIMInfo.packageName, userHandle)) {
                             warnNotInstalledKeyboard(methodName, fakeIMInfo.packageName)
                         }
 
-                        listOf(fakeIMInfo).let { list ->
-                            val returnType = frame.returnType
-                            returnValue.result = if (returnType.simpleName == "InputMethodInfoSafeList") {
-                                returnType.getDeclaredMethod(
-                                    "create",
-                                    List::class.java,
-                                ).apply { isAccessible = true }.invoke(null, list)
-                            } else { list }
-                        }
-
+                        returnValue.result = fakeIMInfo
                         service.increaseSettingsFilterCount(caller)
                     }
                 }
             }
 
-            findAltMethod(
+            hookAfter(
+                listOf(IMM_SERVICE_CLASS),
+                listOf("getInputMethodList", "getInputMethodListInternal"),
+            ) { methodName, frame, returnValue ->
+                logD(TAG) { "@$methodName: hook init" }
+
+                val args = frame.args
+                val currentResult = returnValue.result ?: return@hookAfter
+                logD(TAG) { "@$methodName: Result: $currentResult Args: ${args.contentToString()}" }
+
+                val callingUid = if (args.count { it is Int } > 2) {
+                    args.lastOrNull { it is Int && it > 999 } as? Int ?: return@hookAfter
+                } else {
+                    Binder.getCallingUid()
+                }
+
+                logD(TAG) { "@$methodName: Caller ID: $callingUid" }
+
+                val returnType = frame.returnType
+                if (returnType.simpleName == "InputMethodInfoSafeList") {
+                    val inList = callStaticMethod(
+                        currentResult.javaClass,
+                        "extractFrom",
+                        currentResult
+                    ) as List<InputMethodInfo>
+
+                    val newImmList = calculateReturnedInputMethodList(callingUid, inList)
+
+                    returnValue.result = returnType.getDeclaredMethod(
+                        "create",
+                        List::class.java,
+                    ).apply { isAccessible = true }.invoke(null, newImmList)
+                } else {
+                    returnValue.result = calculateReturnedInputMethodList(
+                        callingUid, currentResult as List<InputMethodInfo>
+                    )
+                }
+            }
+
+            hookBefore(
+                listOf(IMM_SERVICE_CLASS),
+                listOf("getEnabledInputMethodList", "getEnabledInputMethodListInternal"),
+            ) { methodName, frame, returnValue ->
+                val callingApps = getPackagesForUidLocal(pms)
+
+                val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
+                if (caller != null) {
+                    logD(TAG) { "@$methodName: spoofed input method for $caller" }
+
+                    val fakeIMInfo = getFakeInputMethodInfo(caller)
+                    if (!isIMExists(fakeIMInfo.packageName)) {
+                        warnNotInstalledKeyboard(methodName, fakeIMInfo.packageName)
+                    }
+
+                    listOf(fakeIMInfo).let { list ->
+                        val returnType = frame.returnType
+                        returnValue.result =
+                            if (returnType.simpleName == "InputMethodInfoSafeList") {
+                                returnType.getDeclaredMethod(
+                                    "create",
+                                    List::class.java,
+                                ).apply { isAccessible = true }.invoke(null, list)
+                            } else {
+                                list
+                            }
+                    }
+
+                    service.increaseSettingsFilterCount(caller)
+                }
+            }
+
+            hookBefore(
                 listOf(IMM_SERVICE_CLASS, IMM_IMPL_CLASS),
                 listOf("getCurrentInputMethodSubtype"),
-            )?.let {
-                hookBefore(
-                    it.declaringClass.name,
-                    it.name,
-                ) { methodName, _, returnValue ->
-                    subtypeHook(methodName, returnValue)
-                }
+            ) { methodName, _, returnValue ->
+                subtypeHook(methodName, returnValue)
             }
 
-            findAltMethod(
+            hookBefore(
                 listOf(IMM_SERVICE_CLASS, IMM_IMPL_CLASS),
                 listOf("getLastInputMethodSubtype"),
-            )?.let {
-                hookBefore(
-                    it.declaringClass.name,
-                    it.name,
-                ) { methodName, _, returnValue ->
-                    subtypeHook(methodName, returnValue)
-                }
+            ) { methodName, _, returnValue ->
+                subtypeHook(methodName, returnValue)
             }
 
-            findAltMethod(
+            hookBefore(
                 listOf(IMM_SERVICE_CLASS, IMM_IMPL_CLASS),
-                listOf("getEnabledInputMethodSubtypeListInternal", "getEnabledInputMethodSubtypeList")
-            )?.let {
-                hookBefore(
-                    it.declaringClass.name,
-                    it.name,
-                ) { methodName, frame, returnValue ->
-                    subtypeListHook(methodName, frame, returnValue)
-                }
+                listOf(
+                    "getEnabledInputMethodSubtypeListInternal",
+                    "getEnabledInputMethodSubtypeList"
+                )
+            ) { methodName, frame, returnValue ->
+                subtypeListHook(methodName, frame, returnValue)
             }
         }
     }
 
     private fun subtypeHook(methodName: String, returnValue: ReturnValue) {
-        val callingApps = getCallingApps(pms)
+        val callingApps = getPackagesForUidLocal(pms)
 
         val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
         if (caller != null) {
@@ -245,8 +223,12 @@ class ImmHook : IFrameworkHook {
         }
     }
 
-    private fun subtypeListHook(methodName: String, frame: EmulatedStackFrame, returnValue: ReturnValue) {
-        val callingApps = getCallingApps(pms)
+    private fun subtypeListHook(
+        methodName: String,
+        frame: EmulatedStackFrame,
+        returnValue: ReturnValue
+    ) {
+        val callingApps = getPackagesForUidLocal(pms)
 
         val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
         if (caller != null) {
@@ -260,17 +242,22 @@ class ImmHook : IFrameworkHook {
                         "create",
                         List::class.java,
                     ).apply { isAccessible = true }.invoke(null, list)
-                } else { list }
+                } else {
+                    list
+                }
             }
 
             service.increaseSettingsFilterCount(caller)
         }
     }
 
-    private fun calculateReturnedInputMethodList(callingUid: Int, inList: List<InputMethodInfo>): List<InputMethodInfo> {
+    private fun calculateReturnedInputMethodList(
+        callingUid: Int,
+        inList: List<InputMethodInfo>
+    ): List<InputMethodInfo> {
         logV(TAG) { "@getInputMethodList*calculator: $callingUid - Current: ${inList.map { it.component }}" }
 
-        val caller = getCallingApps(pms, callingUid)
+        val caller = getPackagesForUidLocal(pms, callingUid)
             .firstOrNull { callerIsSpoofed(it) } ?: return inList
 
         logD(TAG) { "@getInputMethodList: spoofed input method for $caller" }
@@ -314,7 +301,8 @@ class ImmHook : IFrameworkHook {
     }
 
     private fun resolveIMInfo(packageName: String): InputMethodInfo? = binderLocalScope {
-        val imManager = application.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        val imManager =
+            application.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
 
         imManager?.inputMethodList?.firstOrNull { it.packageName == packageName }.apply {
             if (this == null) {

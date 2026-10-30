@@ -32,6 +32,8 @@ object ZygoteConstants {
     const val BROADCAST_QUEUE_CLASS = "com.android.server.am.BroadcastQueue"
     const val BROADCAST_QUEUE_IMPL_CLASS = "com.android.server.am.BroadcastQueueImpl"
     const val BROADCAST_PROCESS_QUEUE_CLASS = "com.android.server.am.BroadcastProcessQueue"
+    const val USAGE_STATS_BINDER_SERVICE_CLASS = $$"com.android.server.usage.UsageStatsService$BinderService"
+    const val PERMISSION_MANAGER_SERVICE_CLASS = "com.android.server.pm.permission.PermissionManagerService"
 
     const val CONSTRUCTOR_METHOD_NAME = "<init>"
 
@@ -46,4 +48,6 @@ object ZygoteConstants {
 
     const val GBOARD_PACKAGE_NAME = "com.google.android.inputmethod.latin"
     const val GBOARD_CLASS_NAME = "com.android.inputmethod.latin.LatinIME"
+
+    const val PARAMETER_COUNT_UNKNOWN = -1
 }

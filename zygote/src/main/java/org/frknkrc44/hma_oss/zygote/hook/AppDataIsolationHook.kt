@@ -11,7 +11,7 @@ import org.frknkrc44.hma_oss.zygote.service.SystemServerHook
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
-import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackagesForUidLocal
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getBooleanField
@@ -66,15 +66,17 @@ class AppDataIsolationHook : IFrameworkHook {
                 }.getOrNull()
 
                 if (config.altAppDataIsolation) {
+                    val thisObject = frame.thisObject
+
                     val isEnabled = getBooleanField(
-                        frame.thisObject,
+                        thisObject,
                         APPDATA_ISOLATION_ENABLED,
                         processListClazz,
                     )
 
                     if (!isEnabled) {
                         setBooleanField(
-                            frame.thisObject,
+                            thisObject,
                             APPDATA_ISOLATION_ENABLED,
                             true,
                             processListClazz,
@@ -91,15 +93,17 @@ class AppDataIsolationHook : IFrameworkHook {
                         voldHookSkipped = true
                         logE(TAG) { "ProcessList - FUSE storage is not enabled, skip vold hook" }
                     } else {
+                        val thisObject = frame.thisObject
+
                         val isolationEnabled = getBooleanField(
-                            frame.thisObject,
+                            thisObject,
                             VOLD_APPDATA_ISOLATION_ENABLED,
                             processListClazz,
                         )
 
                         if (!isolationEnabled) {
                             setBooleanField(
-                                frame.thisObject,
+                                thisObject,
                                 VOLD_APPDATA_ISOLATION_ENABLED,
                                 true,
                                 processListClazz,
@@ -191,7 +195,7 @@ class AppDataIsolationHook : IFrameworkHook {
                             getIntField(app, "uid", processRecordIntClass)
                         }
 
-                        val apps = getCallingApps(pms, uid)
+                        val apps = getPackagesForUidLocal(pms, uid)
 
                         if (config.detailLog) {
                             val processName = runCatching {

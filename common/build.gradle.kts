@@ -1,16 +1,13 @@
 plugins {
     alias(libs.plugins.agp.lib)
-    alias(libs.plugins.refine)
-    alias(libs.plugins.kotlin)
     alias(libs.plugins.kotlin.serialization)
 }
 
-val configVerCode: Int by rootProject.extra
-val serviceVerCode: Int by rootProject.extra
-val minBackupVerCode: Int by rootProject.extra
-val appPackageName: String by rootProject.extra
-val appVerName: String by rootProject.extra
-val appVerCode: Int by rootProject.extra
+val configVerCode =  rootProject.extra["configVerCode"] as Int
+val minBackupVerCode = rootProject.extra["minBackupVerCode"] as Int
+val appPackageName = rootProject.extra["appPackageName"] as String
+val appVerName = rootProject.extra["appVerName"] as String
+val appVerCode = rootProject.extra["appVerCode"] as Int
 
 android {
     namespace = "$appPackageName.common"
@@ -22,7 +19,6 @@ android {
 
     defaultConfig {
         buildConfigField("int", "CONFIG_VERSION", configVerCode.toString())
-        buildConfigField("int", "SERVICE_VERSION", serviceVerCode.toString())
         buildConfigField("int", "MIN_BACKUP_VERSION", minBackupVerCode.toString())
         buildConfigField("String", "APP_PACKAGE_NAME", "\"$appPackageName\"")
         buildConfigField("String", "APP_VERSION_NAME", "\"$appVerName\"")

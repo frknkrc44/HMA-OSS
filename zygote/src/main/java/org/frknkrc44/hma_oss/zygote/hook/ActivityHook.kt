@@ -3,15 +3,15 @@ package org.frknkrc44.hma_oss.zygote.hook
 import android.content.Intent
 import android.content.pm.ResolveInfo
 import android.os.Build
-import icu.nullptr.hidemyapplist.common.CollectionUtils.firstOrNullWithType
-import icu.nullptr.hidemyapplist.common.CollectionUtils.firstWithType
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.Utils.getPackageName
 import icu.nullptr.hidemyapplist.common.Utils.getUserFromCallingUid
+import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.firstOrNullWithType
+import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.firstWithType
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
-import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getCallingApps
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackagesForUidLocal
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getIntField
@@ -41,19 +41,6 @@ class ActivityHook : IFrameworkHook {
         logI(TAG) { "Load hook" }
 
         hooker.apply {
-            hookBefore(
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                    ACTIVITY_TASK_SUPERVISOR_CLASS
-                } else {
-                    ACTIVITY_STACK_SUPERVISOR_CLASS
-                },
-                "checkStartAnyActivityPermission",
-            ) { methodName, frame, _ ->
-                logV(TAG) { "$methodName: ${frame.args.contentToString()}" }
-
-                // just an empty hook that does nothing
-            }
-
             val aPRFClazz = when(Build.VERSION.SDK_INT) {
                 Build.VERSION_CODES.Q, Build.VERSION_CODES.R -> PACKAGE_MANAGER_SERVICE_CLASS
                 Build.VERSION_CODES.S, Build.VERSION_CODES.S_V2 -> PMS_COMPUTER_ENGINE_CLASS
@@ -72,7 +59,7 @@ class ActivityHook : IFrameworkHook {
                 if (callingUid == Constants.UID_SYSTEM) return@hookAfter
 
                 val callingUserId = getUserFromCallingUid(callingUid)
-                val callingApps = getCallingApps(pms, callingUid)
+                val callingApps = getPackagesForUidLocal(pms, callingUid)
                 val caller = callingApps.firstOrNull { service.isHookEnabled(it) }
                 if (caller != null) {
                     logV(TAG) { "@$methodName: $caller requested a resolve info" }
@@ -116,7 +103,7 @@ class ActivityHook : IFrameworkHook {
                             ACTIVITY_STARTER_CLASS,
                             "executeRequest",
                         ) { _, frame, returnValue ->
-                            val request = frame.getArgument(1)
+                            val request = frame.getArgument(1) ?: return@hookBefore
                             val callingUserId = getUserFromCallingUid(getIntField(request, "callingUid"))
                             val caller = getObjectField(request, "callingPackage") as? String ?: return@hookBefore
                             val intent = getObjectField(request, "intent") as? Intent ?: return@hookBefore
@@ -134,9 +121,10 @@ class ActivityHook : IFrameworkHook {
                             "startActivity",
                         ) { _, frame, returnValue ->
                             // we have no way other than hardcoding, it is 13th argument in AOSP code
-                            val callingUserId = getUserFromCallingUid(frame.getArgument(13) as Int)
-                            val caller = frame.args.firstOrNullWithType<String>() ?: return@hookBefore
-                            val intent = frame.args.firstOrNullWithType<Intent>() ?: return@hookBefore
+                            val args = frame.args
+                            val callingUserId = getUserFromCallingUid(args[13] as Int)
+                            val caller = args.firstOrNullWithType<String>() ?: return@hookBefore
+                            val intent = args.firstOrNullWithType<Intent>() ?: return@hookBefore
                             val targetApp = intent.component?.packageName
 
                             if (service.shouldHideActivityLaunch(caller, targetApp, callingUserId)) {
