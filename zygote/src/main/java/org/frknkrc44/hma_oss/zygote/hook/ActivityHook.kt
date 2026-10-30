@@ -41,19 +41,6 @@ class ActivityHook : IFrameworkHook {
         logI(TAG) { "Load hook" }
 
         hooker.apply {
-            hookBefore(
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                    ACTIVITY_TASK_SUPERVISOR_CLASS
-                } else {
-                    ACTIVITY_STACK_SUPERVISOR_CLASS
-                },
-                "checkStartAnyActivityPermission",
-            ) { methodName, frame, _ ->
-                logV(TAG) { "$methodName: ${frame.args.contentToString()}" }
-
-                // just an empty hook that does nothing
-            }
-
             val aPRFClazz = when(Build.VERSION.SDK_INT) {
                 Build.VERSION_CODES.Q, Build.VERSION_CODES.R -> PACKAGE_MANAGER_SERVICE_CLASS
                 Build.VERSION_CODES.S, Build.VERSION_CODES.S_V2 -> PMS_COMPUTER_ENGINE_CLASS
