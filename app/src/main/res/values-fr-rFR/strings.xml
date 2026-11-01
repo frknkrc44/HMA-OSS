@@ -193,8 +193,6 @@
     <string name="settings_enable_internet_summary">Lorsque désactivé, cette application perd toute fonctionnalité nécessitant un accès à Internet</string>
     <string name="settings_default_config">Configuration d\'application pour les nouvelles applications</string>
     <string name="settings_default_config_summary">Cela permettra d\'appliquer la configuration définie à toutes les nouvelles applications, tout en conservant la configuration existante pour celles-ci si vous aviez déjà effectué des modifications auparavant.</string>
-    <string name="settings_webview_protection">WebView protection</string>
-    <string name="settings_webview_protection_summary">This will add extra protection for crashes caused by hiding/targeting WebView or browsers</string>
     <string name="settings_language">Langue</string>
     <string name="settings_translate">Participer à la traduction</string>
     <string name="settings_translate_summary">Nous aider à traduire %s dans votre langue</string>
