@@ -1,17 +1,14 @@
 package org.frknkrc44.hma_oss.zygote.hook
 
-import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackagesForUidLocal
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackageNameFromPackageSettings
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
-import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.PACKAGE_MANAGER_SERVICE_CLASS
 
-class PmsHookTarget29 : PmsHookTargetBase() {
+class PmsHookTarget29 : PmsHookTarget29N30() {
     override val TAG = "PmsHookTarget29"
 
-    @Suppress("UNCHECKED_CAST")
     override fun load() {
-        logI(TAG) { "Load hook" }
+        super.load()
 
         hooker.apply {
             hookBefore(
@@ -26,34 +23,6 @@ class PmsHookTarget29 : PmsHookTargetBase() {
                     { getPackageNameFromPackageSettings(frame.getArgument(1)) },
                     ::getPackagesForUidLocal,
                     true,
-                )
-            }
-
-            hookAfter(
-                PACKAGE_MANAGER_SERVICE_CLASS,
-                "getPackageInfoInternal",
-            ) { methodName, frame, returnValue ->
-                applyPackageHiding(
-                    methodName,
-                    returnValue,
-                    { frame.getArgument(4) as? Int },
-                    { frame.getArgument(1) as? String },
-                    ::getPackagesForUidLocal,
-                    null,
-                )
-            }
-
-            hookAfter(
-                PACKAGE_MANAGER_SERVICE_CLASS,
-                "getApplicationInfoInternal",
-            ) { methodName, frame, returnValue ->
-                applyPackageHiding(
-                    methodName,
-                    returnValue,
-                    { frame.getArgument(3) as? Int },
-                    { frame.getArgument(1) as? String },
-                    ::getPackagesForUidLocal,
-                    null,
                 )
             }
         }
