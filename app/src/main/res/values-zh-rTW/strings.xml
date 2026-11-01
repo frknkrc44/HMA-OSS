@@ -193,8 +193,8 @@
     <string name="settings_enable_internet_summary">如果您关闭了此选项，该应用将失去所有与互联网相关的功能</string>
     <string name="settings_default_config">新應用程式的應用程式配置</string>
     <string name="settings_default_config_summary">這將把已定義的配置套用到所有新應用程式，但如果您之前已套用過設定，將會保留新應用程式的現有配置。</string>
-    <string name="settings_webview_protection">WebView 保護</string>
-    <string name="settings_webview_protection_summary">這將為因隱藏/定位WebView或瀏覽器而導致的崩潰提供額外保護</string>
+    <string name="settings_webview_protection">WebView protection</string>
+    <string name="settings_webview_protection_summary">This will add extra protection for crashes caused by hiding/targeting WebView or browsers</string>
     <string name="settings_language">語言</string>
     <string name="settings_translate">參與翻譯</string>
     <string name="settings_translate_summary">幫助我們翻譯 %s 到您的語言</string>
