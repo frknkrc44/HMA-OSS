@@ -7,6 +7,7 @@ import androidx.annotation.RequiresApi
 import icu.nullptr.hidemyapplist.common.OSUtils
 import icu.nullptr.hidemyapplist.common.Utils
 import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.firstOrNullWithType
+import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.firstWithType
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackagesForUidLocal
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackageNameFromPackageSettings
@@ -117,13 +118,11 @@ open class PmsHookTarget33 : PmsHookTargetBase() {
                 )
             }
 
-            hookAfter(
-                PERMISSION_MANAGER_SERVICE_CLASS,
-                "checkUidPermission"
+            hookBefore(
+                listOf(COMPUTER_ENGINE_CLASS, PERMISSION_MANAGER_SERVICE_CLASS),
+                listOf("checkUidPermission"),
             ) { methodName, frame, returnValue ->
-                if (returnValue.result == PackageManager.PERMISSION_DENIED) return@hookAfter
-
-                val uid = frame.getArgument(1) as? Int ?: return@hookAfter
+                val uid = frame.args.firstWithType<Int>()
 
                 applyPackageHiding(
                     methodName,
