@@ -93,7 +93,7 @@ extra["appVerName"] = appVerName
  * DO NOT REMOVE THESE LINES
 */
 
-val configVerCode = 93
+val configVerCode = 94
 extra["configVerCode"] = configVerCode
 
 val minBackupVerCode = 65
