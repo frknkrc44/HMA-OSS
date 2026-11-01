@@ -88,6 +88,15 @@ class BroadcastHook : IFrameworkHook {
         val userId = getIntField(record, "userId")
 
         if (service.shouldHideActivityLaunch(caller, targetApp, userId)) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.VANILLA_ICE_CREAM &&
+                methodName == "enqueueOrderedBroadcastLocked") {
+                // ignore the broadcasts for replacement if they have no receivers
+                val receivers = runCatching {
+                    getObjectField(record, "receivers") as? List<*>
+                }.getOrNull()
+                if (receivers.isNullOrEmpty()) return
+            }
+
             logD(TAG) { "@$methodName: insecure query from $caller, target: $component" }
 
             (getObjectField(record, "intent") as Intent).apply {
