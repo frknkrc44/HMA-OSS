@@ -62,12 +62,6 @@ data class JsonConfig(
     var skipSystemAppDataIsolation: Boolean = true,
 
     /**
-     * Enable WebView protection to prevent some crashes caused by misconfigurations
-     * for WebView or Browser apps
-     */
-    var webViewProtection: Boolean = true,
-
-    /**
      * Enable ignorance of brand-level protections
      * It will be used in app data isolation for now
      */
