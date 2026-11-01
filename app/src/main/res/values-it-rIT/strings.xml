@@ -193,8 +193,6 @@
     <string name="settings_enable_internet_summary">Questa app perderà tutte le funzionalità relative a Internet quando hai disabilitato questa opzione.</string>
     <string name="settings_default_config">Configurazione app per nuove app</string>
     <string name="settings_default_config_summary">Questa opzione applicherà la configurazione definita a tutte le nuove app, ma manterrà la configurazione esistente per le nuove app se ne hai applicata una in precedenza.</string>
-    <string name="settings_webview_protection">WebView protection</string>
-    <string name="settings_webview_protection_summary">This will add extra protection for crashes caused by hiding/targeting WebView or browsers</string>
     <string name="settings_language">Lingua</string>
     <string name="settings_translate">Aiuta a tradurre</string>
     <string name="settings_translate_summary">Aiutaci a tradurre %s nella tua lingua</string>
