@@ -193,8 +193,6 @@
     <string name="settings_enable_internet_summary">Bu uygulama özelliği kapattığınızda Internet\'e bağımlı bütün özelliklerini kaybedecek.</string>
     <string name="settings_default_config">Yeni uygulamalar için varsayılan yapılandırma</string>
     <string name="settings_default_config_summary">Burada ayarlanan yapılandırma önceden yapılandırılmamış bütün yeni uygulamalara uygulanacak.</string>
-    <string name="settings_webview_protection">WebView protection</string>
-    <string name="settings_webview_protection_summary">This will add extra protection for crashes caused by hiding/targeting WebView or browsers</string>
     <string name="settings_language">Dil</string>
     <string name="settings_translate">Çeviriye katkıda bulun</string>
     <string name="settings_translate_summary">%s’i kendi dilinize çevirmemize yardımcı olun</string>
