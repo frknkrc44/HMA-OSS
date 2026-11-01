@@ -193,8 +193,8 @@
     <string name="settings_enable_internet_summary">Ứng dụng này sẽ mất tất cả chức năng liên quan đến Internet khi bạn tắt tùy chọn này.</string>
     <string name="settings_default_config">Cấu hình mặc định cho ứng dụng mới</string>
     <string name="settings_default_config_summary">Tùy chọn này sẽ áp dụng cấu hình tùy chỉnh cho tất cả các ứng dụng mới, nhưng sẽ giữ lại cấu hình hiện có cho các ứng dụng bạn đã từng thiết lập.</string>
-    <string name="settings_webview_protection">Bảo vệ WebView</string>
-    <string name="settings_webview_protection_summary">Tính năng này giúp tránh việc ứng dụng bị crash do ẩn / tương tác với WebView hoặc trình duyệt</string>
+    <string name="settings_webview_protection">WebView protection</string>
+    <string name="settings_webview_protection_summary">This will add extra protection for crashes caused by hiding/targeting WebView or browsers</string>
     <string name="settings_language">Ngôn ngữ</string>
     <string name="settings_translate">Giúp chúng tôi dịch</string>
     <string name="settings_translate_summary">Giúp chúng tôi dịch %s sang ngôn ngữ của bạn</string>
