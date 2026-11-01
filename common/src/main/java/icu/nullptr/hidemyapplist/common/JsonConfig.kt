@@ -62,12 +62,6 @@ data class JsonConfig(
     var skipSystemAppDataIsolation: Boolean = true,
 
     /**
-     * Enable ignorance of brand-level protections
-     * It will be used in app data isolation for now
-     */
-    var ignoreBrandProtections: Boolean = false,
-
-    /**
      * This config will be applied for ALL of new apps when enabled
      *
      * null means do not apply a default config
