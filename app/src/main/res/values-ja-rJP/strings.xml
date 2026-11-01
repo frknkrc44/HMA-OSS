@@ -193,8 +193,6 @@
     <string name="settings_enable_internet_summary">このオプションを無効にすると、このアプリはインターネット関連の機能をすべて失います。</string>
     <string name="settings_default_config">新規アプリへの設定</string>
     <string name="settings_default_config_summary">これにより、定義された設定がすべての新しいアプリに適用されますが、以前に何らかの設定を適用していた場合は、新しいアプリでも既存の設定が維持されます。</string>
-    <string name="settings_webview_protection">WebView protection</string>
-    <string name="settings_webview_protection_summary">This will add extra protection for crashes caused by hiding/targeting WebView or browsers</string>
     <string name="settings_language">言語</string>
     <string name="settings_translate">翻訳に参加</string>
     <string name="settings_translate_summary">%s をあなたの言語に翻訳するのにご協力ください</string>
