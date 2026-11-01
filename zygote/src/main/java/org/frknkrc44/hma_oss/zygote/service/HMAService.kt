@@ -51,8 +51,6 @@ import org.frknkrc44.hma_oss.zygote.hook.PmsPackageEventsHook
 import org.frknkrc44.hma_oss.zygote.hook.UsageStatsHook
 import org.frknkrc44.hma_oss.zygote.hook.ZygoteHook
 import org.frknkrc44.hma_oss.zygote.util.ActivityManagerUtils
-import org.frknkrc44.hma_oss.zygote.util.BrowserUtils.getDefaultBrowser
-import org.frknkrc44.hma_oss.zygote.util.BrowserUtils.getWebviewProvider
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
@@ -388,16 +386,6 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         if (caller in Constants.packagesShouldNotHide || query in Constants.packagesShouldNotHide) return false
         if (caller == query) return false
         val appConfig = config.scope[caller] ?: return false
-
-        if (config.webViewProtection) {
-            // check for current webview
-            val webviewProvider = getWebviewProvider()
-            if (webviewProvider == caller || webviewProvider == query) return false
-
-            // check for current browser
-            val currentBrowser = getDefaultBrowser(pmn, userId)
-            if (currentBrowser == caller || currentBrowser == query) return false
-        }
 
         if (query in appConfig.extraAppList) return !appConfig.useWhitelist
         if (query in appConfig.extraOppositeAppList) return appConfig.useWhitelist
