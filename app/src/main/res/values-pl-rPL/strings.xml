@@ -193,8 +193,6 @@
     <string name="settings_enable_internet_summary">Ta aplikacja straci wszystkie internetowe i powiązane z tym funkcje, kiedy wyłączysz tę opcję.</string>
     <string name="settings_default_config">Konfiguracja dla nowych aplikacji</string>
     <string name="settings_default_config_summary">Ta opcja zastosuje zdefiniowany config dla wszystkich nowych aplikacji, ale zachowa istniejącą konfiguracje dla nowych aplikacji, jeżeli coś zostało zaaplikowane na nich wcześniej.</string>
-    <string name="settings_webview_protection">WebView protection</string>
-    <string name="settings_webview_protection_summary">This will add extra protection for crashes caused by hiding/targeting WebView or browsers</string>
     <string name="settings_language">Język</string>
     <string name="settings_translate">Weź udział w tłumaczeniu</string>
     <string name="settings_translate_summary">Pomóż nam przetłumaczyć %s na Twój język</string>
