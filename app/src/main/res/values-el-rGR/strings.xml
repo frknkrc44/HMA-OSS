@@ -193,8 +193,6 @@
     <string name="settings_enable_internet_summary">Αυτή η εφαρμογή θα χάσει όλες τις λειτουργίες που σχετίζονται με το Διαδίκτυο όταν απενεργοποιήσετε αυτήν την επιλογή.</string>
     <string name="settings_default_config">Διαμόρφωση εφαρμογής για νέες εφαρμογές</string>
     <string name="settings_default_config_summary">Αυτό θα εφαρμόσει την καθορισμένη διαμόρφωση σε όλες τις νέες εφαρμογές, αλλά θα διατηρήσει την υπάρχουσα διαμόρφωση για τις νέες εφαρμογές, εάν έχετε εφαρμόσει κάτι πριν.</string>
-    <string name="settings_webview_protection">WebView protection</string>
-    <string name="settings_webview_protection_summary">This will add extra protection for crashes caused by hiding/targeting WebView or browsers</string>
     <string name="settings_language">Γλώσσα</string>
     <string name="settings_translate">Συμμετοχή στη μετάφραση</string>
     <string name="settings_translate_summary">Βοηθήστε μας να μεταφράσουμε το %s στη γλώσσα σας</string>
