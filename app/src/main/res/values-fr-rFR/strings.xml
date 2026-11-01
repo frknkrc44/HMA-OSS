@@ -97,7 +97,7 @@
     <!-- App settings -->
     <string name="app_enable_hide">Activer le masquage</string>
     <string name="app_template_config">Configuration des modèles</string>
-    <string name="app_choose_template">Choisir le(s) modèle(s)</string>
+    <string name="app_choose_template">Sélection des modèles</string>
     <string name="app_choose_preset">Sélection des préréglages</string>
     <string name="app_exclude_system_apps">Exclusion des applications système</string>
     <string name="app_exclude_system_apps_summary">Ne désactiver cette option qu\'en cas d\'absolue nécessité. Sa désactivation est susceptible de provoquer des plantages</string>
@@ -181,7 +181,7 @@
     <string name="settings_bypass_risky_package_warning_summary">Note : Les développeurs ne sont pas responsables des problèmes liés à l\'utilisation de packages d\'applications à risque avant ou après l\'activation de cette option</string>
     <string name="settings_disable_activity_launch_protection">Désactivation de la protection contre le lancement d\'activités</string>
     <string name="settings_disable_activity_launch_protection_summary">Cette option désactive toutes les protections startActivity. En cas de doute, ne pas l\'activer.</string>
-    <string name="settings_system_wallpaper">Utiliser l\'image de fond d\'écran du système</string>
+    <string name="settings_system_wallpaper">Utiliser l\'image d\'arrière-plan du système</string>
     <string name="settings_clear_uninstalled_app_configs">Suppression des configurations des applications désinstallées</string>
     <string name="settings_clear_uninstalled_app_configs_summary">Permet de créer des configurations sans persistance post-désinstallation, une reconfiguration des applications sera alors nécessaire en cas de réinstallation de ces applications</string>
     <string name="settings_no_undone_warning">Cette action ne peut pas être annulée.</string>
@@ -193,8 +193,8 @@
     <string name="settings_enable_internet_summary">Lorsque désactivé, cette application perd toute fonctionnalité nécessitant un accès à Internet</string>
     <string name="settings_default_config">Configuration d\'application pour les nouvelles applications</string>
     <string name="settings_default_config_summary">Cela permettra d\'appliquer la configuration définie à toutes les nouvelles applications, tout en conservant la configuration existante pour celles-ci si vous aviez déjà effectué des modifications auparavant.</string>
-    <string name="settings_webview_protection">Protection de WebView</string>
-    <string name="settings_webview_protection_summary">Ajoute une protection supplémentaire contre les plantages provoqués par le masquage/ciblage du composant système WebView ou des navigateurs Web</string>
+    <string name="settings_webview_protection">WebView protection</string>
+    <string name="settings_webview_protection_summary">This will add extra protection for crashes caused by hiding/targeting WebView or browsers</string>
     <string name="settings_language">Langue</string>
     <string name="settings_translate">Participer à la traduction</string>
     <string name="settings_translate_summary">Nous aider à traduire %s dans votre langue</string>
