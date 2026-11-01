@@ -193,8 +193,8 @@
     <string name="settings_enable_internet_summary">이 옵션을 비활성화하면 인터넷과 관련된 모든 기능을 사용할 수 없게 됩니다.</string>
     <string name="settings_default_config">새 앱의 기본 설정</string>
     <string name="settings_default_config_summary">정의된 설정을 모든 새 앱에 적용합니다. 다만 이전에 설정한 적이 있다면 기존 설정을 유지합니다.</string>
-    <string name="settings_webview_protection">WebView 보호</string>
-    <string name="settings_webview_protection_summary">WebView나 브라우저를 숨기거나 대상으로 지정할 때 발생하는 충돌에 대한 추가 보호를 제공합니다.</string>
+    <string name="settings_webview_protection">WebView protection</string>
+    <string name="settings_webview_protection_summary">This will add extra protection for crashes caused by hiding/targeting WebView or browsers</string>
     <string name="settings_language">언어</string>
     <string name="settings_translate">번역 참여하기</string>
     <string name="settings_translate_summary">%s을(를) 여러분의 언어로 번역하는 데 참여하세요.</string>
