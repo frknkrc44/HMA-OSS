@@ -193,8 +193,8 @@
     <string name="settings_enable_internet_summary">وقتی این گزینه را غیرفعال کنید، این برنامه تمام عملکردهای مرتبط با اینترنت را از دست خواهد داد.</string>
     <string name="settings_default_config">پیکربندی برنامه برای برنامه های جدید</string>
     <string name="settings_default_config_summary">این کار، تنظیمات تعریف‌شده را برای تمام برنامه‌های جدید اعمال می‌کند اما اگر قبلاً تنظیماتی را اعمال کرده‌اید تنظیمات قبلی برای برنامه‌های جدید حفظ می‌شود.</string>
-    <string name="settings_webview_protection">محافظت از WebView</string>
-    <string name="settings_webview_protection_summary">این کار محافظت بیشتری در برابر خرابی‌های ناشی از پنهان کردن/هدف قرار دادن WebView یا مرورگرها ایجاد می‌کند</string>
+    <string name="settings_webview_protection">WebView protection</string>
+    <string name="settings_webview_protection_summary">This will add extra protection for crashes caused by hiding/targeting WebView or browsers</string>
     <string name="settings_language">زبان</string>
     <string name="settings_translate">مشارکت در ترجمه</string>
     <string name="settings_translate_summary">به ما در ترجمه %s به زبان خودتان کمک کنید</string>
