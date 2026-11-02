@@ -112,47 +112,55 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
             Constants.MANAGER_WORK_MODE_LOADING
         }
 
-        searchDataDir()
-        saveModuleStatus()
         UserService.service = this
-        loadFilterCount()
-        reloadConfigFromFile()
 
-        appUid = findAndVerifyAppSignature(pms)
+        if (searchDataDir()) {
+            saveModuleStatus()
+            loadFilterCount()
+            reloadConfigFromFile()
 
-        if (managerWorkMode != Constants.MANAGER_WORK_MODE_NO_HOOKS) {
-            installHooks()
+            appUid = findAndVerifyAppSignature(pms)
 
-            if (hooker.hooksWasCrashed) {
-                managerWorkMode = Constants.MANAGER_WORK_MODE_CRASHED
-            } else {
-                AppPresets.instance.loggerFunction = { level, msg ->
-                    logWithLevel(level, "AppPresets", msg = msg)
-                }
-                loadPresetCache()
+            if (managerWorkMode != Constants.MANAGER_WORK_MODE_NO_HOOKS) {
+                installHooks()
 
-                configFileListener = object : FileObserver(configFile, CLOSE_WRITE or ATTRIB) {
-                    override fun onEvent(event: Int, path: String?) {
-                        if (writtenByManager) {
-                            writtenByManager = false
-                            return
-                        }
-
-                        reloadConfigFromFile()
+                if (hooker.hooksWasCrashed) {
+                    managerWorkMode = Constants.MANAGER_WORK_MODE_CRASHED
+                } else {
+                    AppPresets.instance.loggerFunction = { level, msg ->
+                        logWithLevel(level, "AppPresets", msg = msg)
                     }
-                }
-                configFileListener.startWatching()
+                    loadPresetCache()
 
-                managerWorkMode = Constants.MANAGER_WORK_MODE_OK
+                    configFileListener = object : FileObserver(configFile, CLOSE_WRITE or ATTRIB) {
+                        override fun onEvent(event: Int, path: String?) {
+                            if (writtenByManager) {
+                                writtenByManager = false
+                                return
+                            }
+
+                            reloadConfigFromFile()
+                        }
+                    }
+                    configFileListener.startWatching()
+
+                    managerWorkMode = Constants.MANAGER_WORK_MODE_OK
+                }
+
+                saveModuleStatus()
             }
 
-            saveModuleStatus()
-        }
+            logI(TAG) { "HMA service initialized in mode $managerWorkMode" }
+        } else {
+            logE(TAG) { "A fatal error occurred while loading the data directory" }
 
-        logI(TAG) { "HMA service initialized in mode $managerWorkMode" }
+            managerWorkMode = Constants.MANAGER_WORK_MODE_CRASHED
+
+            appUid = findAndVerifyAppSignature(pms)
+        }
     }
 
-    private fun searchDataDir() {
+    private fun searchDataDir() = try {
         File("/data/system").list()?.forEach {
             if (it.startsWith("hide_my_applist")) {
                 if (!this::dataDir.isInitialized) {
@@ -213,6 +221,12 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         } catch (cause: Throwable) {
             logE(TAG, cause) { "An error occurred while copying the map file" }
         }
+
+        true
+    } catch (cause: Throwable) {
+        logE(TAG, cause) { "An error occurred while initializing dirs and stopping to load!" }
+
+        false
     }
 
     fun saveModuleStatus() {
