@@ -807,15 +807,16 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
             config
         }
 
-        if (loading.configVersion != BuildConfig.CONFIG_VERSION) {
-            logW(TAG) { "Config version mismatched, trying to change it" }
-
-            loading.configVersion = BuildConfig.CONFIG_VERSION
-        }
-
         if (config != loading) {
             loading.cleanRemnantsFromConfig()
             config = loading
+        }
+
+        if (config.configVersion != BuildConfig.CONFIG_VERSION) {
+            logW(TAG) { "Config version mismatched, trying to change it" }
+
+            config.configVersion = BuildConfig.CONFIG_VERSION
+            writeConfig(config.toString())
         }
 
         logI(TAG) { "Config loaded" }
