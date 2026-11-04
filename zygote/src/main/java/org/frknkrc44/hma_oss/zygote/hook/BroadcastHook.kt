@@ -12,7 +12,6 @@ import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getIntField
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getObjectField
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.ACTION_USB_STATE
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.ACTIVITY_MANAGER_SERVICE_CLASS
@@ -85,9 +84,8 @@ class BroadcastHook : IFrameworkHook {
         val caller = getObjectField(record, "callerPackage") as? String ?: return
         val component = getObjectField(record, "targetComp") as? ComponentName ?: return
         val targetApp = component.packageName
-        val userId = getIntField(record, "userId")
 
-        if (service.shouldHideActivityLaunch(caller, targetApp, userId)) {
+        if (service.shouldHideActivityLaunch(caller, targetApp)) {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.VANILLA_ICE_CREAM &&
                 methodName == "enqueueOrderedBroadcastLocked") {
                 // ignore the broadcasts for replacement if they have no receivers

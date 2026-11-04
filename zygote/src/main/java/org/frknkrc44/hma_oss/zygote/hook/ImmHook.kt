@@ -14,7 +14,6 @@ import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.Utils.binderLocalScope
 import icu.nullptr.hidemyapplist.common.Utils.getCallingUser
 import icu.nullptr.hidemyapplist.common.Utils.getPackageUidCompat
-import icu.nullptr.hidemyapplist.common.Utils.getUserFromCallingUid
 import icu.nullptr.hidemyapplist.common.settings_presets.InputMethodPreset
 import org.frknkrc44.hma_oss.zygote.service.ReturnValue
 import org.frknkrc44.hma_oss.zygote.util.ContextUtils.application
@@ -262,10 +261,8 @@ class ImmHook : IFrameworkHook {
 
         logD(TAG) { "@getInputMethodList: spoofed input method for $caller" }
 
-        val callingUserId = getUserFromCallingUid(callingUid)
-
         val calculatedList = inList.filter { imInfo ->
-            service.shouldHide(caller, imInfo.packageName, callingUserId)
+            service.shouldHide(caller, imInfo.packageName)
         }
 
         logV(TAG) { "@getInputMethodList*calculator: $callingUid - Calculated: ${calculatedList.map { it.component }}" }
@@ -289,9 +286,7 @@ class ImmHook : IFrameworkHook {
     }
 
     private fun isIMExists(packageName: String, userId: Int = getCallingUser()): Boolean {
-        if (packageName in systemApps) return true
-
-        return binderLocalScope {
+        return packageName in systemApps || binderLocalScope {
             pms.getPackageUidCompat(packageName, PackageManager.MATCH_ALL.toLong(), userId) >= 0
         }
     }
