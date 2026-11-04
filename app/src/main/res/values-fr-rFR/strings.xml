@@ -32,7 +32,7 @@
     <string name="add">Ajouter</string>
     <string name="edit">Modifier</string>
     <string name="apply">Appliquer</string>
-    <string name="follow_system">Utilise les paramètres du système</string>
+    <string name="follow_system">Utilise les paramètres système</string>
     <!-- Home -->
     <string name="home_xposed_activated">Module activé [%s]</string>
     <string name="home_xposed_not_activated">Module désactivé</string>
@@ -43,7 +43,7 @@
     <string name="home_detection_test">Test de détection</string>
     <string name="home_download_test_app_title">Télécharger l\'application de test</string>
     <string name="home_download_test_app_message">Nous avons développé une application dédiée aux tests de détection individuels et y avons transféré les fonctionnalités de ceux-ci. La télécharger maintenant ?</string>
-    <string name="home_backup_and_restore">Sauvegarde et restauration</string>
+    <string name="home_backup_and_restore">Sauvegarde &amp; restauration</string>
     <string name="home_backup_config">Sauvegarde</string>
     <string name="home_restore_config">Restauration</string>
     <string name="home_import_successful">Importation réussie</string>
@@ -52,7 +52,7 @@
     <string name="home_import_backup_version_too_old">Version de la sauvegarde trop ancienne</string>
     <string name="home_import_file_damaged">Fichier de sauvegarde endommagé</string>
     <string name="home_export_failed">Échec de l\'exportation</string>
-    <string name="home_exported">Sauvegarde de la configuration</string>
+    <string name="home_exported">Configuration sauvegardée</string>
     <string name="home_new_update">Nouvelle version disponible : %s</string>
     <string name="home_update">Mise à jour : %s</string>
     <string name="home_migrate_data_fix_button">Corriger le problème</string>
