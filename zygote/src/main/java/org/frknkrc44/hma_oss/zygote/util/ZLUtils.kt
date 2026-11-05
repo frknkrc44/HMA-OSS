@@ -20,18 +20,6 @@ object ZLUtils {
      */
     val EmulatedStackFrame.thisObject get() = getArgument(0)!!
 
-    /**
-     * - `args[0]: thisObject`
-     * - `args[1:]: function args`
-     */
-    val EmulatedStackFrame.args get() = dumpArgs()
-
-    /**
-     * - `argTypes[0]: thisObject`
-     * - `argTypes[1:]: function args`
-     */
-    val EmulatedStackFrame.argTypes get() = dumpArgTypes()
-
     internal fun EmulatedStackFrame.dumpArgs(skipFirst: Boolean = false): Array<Any?> {
         return mutableListOf<Any?>().let {
             val begin = if (skipFirst) 1 else 0

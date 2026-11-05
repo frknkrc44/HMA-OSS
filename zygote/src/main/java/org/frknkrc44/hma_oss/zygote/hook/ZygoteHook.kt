@@ -11,8 +11,8 @@ import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.lastOrNullWithType
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.isAppDataIsolationEnabled
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.argTypes
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.dumpArgTypes
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.dumpArgs
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.setArgument
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.CONSTRUCTOR_METHOD_NAME
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.NATIVE_ZYGOTE_PROCESS_CLASS
@@ -45,7 +45,7 @@ class ZygoteHook : IFrameworkHook {
                     SERVICE_RECORD_CLASS,
                     CONSTRUCTOR_METHOD_NAME,
                 ) { _, frame, _ ->
-                    val args = frame.args
+                    val args = frame.dumpArgs()
 
                     val caller = args.firstOrNullWithType<String>() ?: return@hookBefore
                     val perms = service.getRestrictedZygotePermissions(caller) ?: return@hookBefore
@@ -73,7 +73,7 @@ class ZygoteHook : IFrameworkHook {
 
     private fun hookIntoZygoteProcess(frame: EmulatedStackFrame) {
         val isModern = frame.type().parameterCount() < 3
-        val args = frame.args
+        val args = frame.dumpArgs()
         logD(TAG) { "@startZygoteProcess: Starting ${args.contentToString()}, modern: $isModern" }
 
         if (isModern) {
@@ -90,7 +90,7 @@ class ZygoteHook : IFrameworkHook {
         if (!isHookEnabled) return
 
         // another plan for PlatformCompatHook
-        val argTypes = frame.argTypes
+        val argTypes = frame.dumpArgTypes()
         val pair = getForceMountArgs(args, argTypes, caller)
         if (pair.first) {
             val lastMapIndex = argTypes.indexOfLast {

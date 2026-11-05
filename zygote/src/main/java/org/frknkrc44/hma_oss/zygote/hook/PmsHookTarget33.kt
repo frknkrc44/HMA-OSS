@@ -11,7 +11,7 @@ import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.firstWithType
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackageNameFromPackageSettings
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackagesForUidLocal
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.dumpArgs
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.findMethod
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.APPS_FILTER_IMPL_CLASS
@@ -72,7 +72,7 @@ open class PmsHookTarget33 : PmsHookTargetBase() {
                 COMPUTER_ENGINE_CLASS,
                 "getPackageInfoInternal",
             ) { methodName, frame, returnValue ->
-                val args = frame.args
+                val args = frame.dumpArgs()
 
                 applyPackageHiding(
                     methodName,
@@ -88,7 +88,7 @@ open class PmsHookTarget33 : PmsHookTargetBase() {
                 COMPUTER_ENGINE_CLASS,
                 "getApplicationInfoInternal",
             ) { methodName, frame, returnValue ->
-                val args = frame.args
+                val args = frame.dumpArgs()
 
                 applyPackageHiding(
                     methodName,
@@ -122,7 +122,7 @@ open class PmsHookTarget33 : PmsHookTargetBase() {
                 listOf(COMPUTER_ENGINE_CLASS, PERMISSION_MANAGER_SERVICE_CLASS),
                 listOf("checkUidPermission"),
             ) { methodName, frame, returnValue ->
-                val uid = frame.args.firstWithType<Int>()
+                val uid = frame.dumpArgs().firstWithType<Int>()
 
                 applyPackageHiding(
                     methodName,

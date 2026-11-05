@@ -11,7 +11,7 @@ import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.firstWithType
 import org.frknkrc44.hma_oss.zygote.util.ContentProviderUtils.getOverriddenDatabaseName
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.dumpArgs
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.CONTENT_PROVIDER_TRANSPORT_CLASS
 
 class ContentProviderHook : IFrameworkHook {
@@ -28,7 +28,7 @@ class ContentProviderHook : IFrameworkHook {
                 CONTENT_PROVIDER_TRANSPORT_CLASS,
                 "query",
             ) { _, frame, returnValue ->
-                val args = frame.args
+                val args = frame.dumpArgs()
                 val callingApps = getCallingPackages(args)
 
                 val caller = callingApps.firstOrNull { service.isAnySettingsReplacementsEnabled(it) }
@@ -149,7 +149,7 @@ class ContentProviderHook : IFrameworkHook {
                 CONTENT_PROVIDER_TRANSPORT_CLASS,
                 "call",
             ) { _, frame, returnValue ->
-                val args = frame.args
+                val args = frame.dumpArgs()
                 val callingApps = getCallingPackages(args)
                 val caller = callingApps.firstOrNull { service.isAnySettingsReplacementsEnabled(it) }
                 if (caller == null) return@hookBefore

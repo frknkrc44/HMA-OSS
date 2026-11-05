@@ -22,8 +22,8 @@ import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logW
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackagesForUidLocal
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.callStaticMethod
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.dumpArgs
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.returnType
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.GBOARD_CLASS_NAME
@@ -118,7 +118,7 @@ class ImmHook : IFrameworkHook {
             ) { methodName, frame, returnValue ->
                 logD(TAG) { "@$methodName: hook init" }
 
-                val args = frame.args
+                val args = frame.dumpArgs()
                 val currentResult = returnValue.result ?: return@hookAfter
                 logD(TAG) { "@$methodName: Result: $currentResult Args: ${args.contentToString()}" }
 

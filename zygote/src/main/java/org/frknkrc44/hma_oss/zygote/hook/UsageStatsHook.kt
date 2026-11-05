@@ -8,7 +8,7 @@ import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.firstOrNullWithType
 import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.lastOrNullWithType
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.dumpArgs
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getObjectField
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.setObjectField
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.USAGE_STATS_BINDER_SERVICE_CLASS
@@ -31,7 +31,7 @@ class UsageStatsHook : IFrameworkHook {
                 @Suppress("UNCHECKED_CAST")
                 val result = returnValue.result as? ParceledListSlice<UsageStats> ?: return@hookAfter
 
-                val args = frame.args
+                val args = frame.dumpArgs()
                 val caller = args.lastOrNullWithType<String>() ?: return@hookAfter
                 val isHookEnabled = service.isHookEnabled(caller)
                 if (!isHookEnabled) return@hookAfter
@@ -61,7 +61,7 @@ class UsageStatsHook : IFrameworkHook {
                     helperMethod,
                 ) { methodName, frame, returnValue ->
                     val result = returnValue.result as? UsageEvents ?: return@hookAfter
-                    val args = frame.args
+                    val args = frame.dumpArgs()
 
                     applyUsageEventsHiding(
                         methodName,
@@ -76,7 +76,7 @@ class UsageStatsHook : IFrameworkHook {
                     "queryEvents",
                 ) { methodName, frame, returnValue ->
                     val result = returnValue.result as? UsageEvents ?: return@hookAfter
-                    val args = frame.args
+                    val args = frame.dumpArgs()
 
                     applyUsageEventsHiding(
                         methodName,
@@ -90,7 +90,7 @@ class UsageStatsHook : IFrameworkHook {
                         "queryEventsWithFilter",
                     ) { methodName, frame, returnValue ->
                         val result = returnValue.result as? UsageEvents ?: return@hookAfter
-                        val args = frame.args
+                        val args = frame.dumpArgs()
 
                         applyUsageEventsHiding(
                             methodName,
@@ -104,7 +104,7 @@ class UsageStatsHook : IFrameworkHook {
                     "queryEventsForUser",
                 ) { methodName, frame, returnValue ->
                     val result = returnValue.result as? UsageEvents ?: return@hookAfter
-                    val args = frame.args
+                    val args = frame.dumpArgs()
 
                     applyUsageEventsHiding(
                         methodName,
@@ -118,7 +118,7 @@ class UsageStatsHook : IFrameworkHook {
                 "queryEventsForPackageForUser",
             ) { methodName, frame, returnValue ->
                 val result = returnValue.result as? UsageEvents ?: return@hookAfter
-                val args = frame.args
+                val args = frame.dumpArgs()
 
                 applyUsageEventsHiding(
                     methodName,

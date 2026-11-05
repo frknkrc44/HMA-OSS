@@ -11,7 +11,7 @@ import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackagesForUidLocal
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.dumpArgs
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getObjectField
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getStaticIntField
@@ -51,7 +51,7 @@ class ActivityHook : IFrameworkHook {
                 val list = returnValue.result as? List<ResolveInfo>
                 if (list.isNullOrEmpty()) return@hookAfter
 
-                val callingUid = frame.args.firstWithType<Int>()
+                val callingUid = frame.dumpArgs().firstWithType<Int>()
                 if (callingUid == Constants.UID_SYSTEM) return@hookAfter
 
                 val callingApps = getPackagesForUidLocal(pms, callingUid)
@@ -115,7 +115,7 @@ class ActivityHook : IFrameworkHook {
                             "startActivity",
                         ) { _, frame, returnValue ->
                             // we have no way other than hardcoding, it is 13th argument in AOSP code
-                            val args = frame.args
+                            val args = frame.dumpArgs()
                             val caller = args.firstOrNullWithType<String>() ?: return@hookBefore
                             val intent = args.firstOrNullWithType<Intent>() ?: return@hookBefore
                             val targetApp = intent.component?.packageName

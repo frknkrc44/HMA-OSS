@@ -10,7 +10,7 @@ import org.frknkrc44.hma_oss.zygote.service.ReturnValue
 import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.firstOrNullWithType
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.dumpArgs
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getObjectField
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.ACTION_USB_STATE
@@ -69,7 +69,7 @@ class BroadcastHook : IFrameworkHook {
                 },
                 "broadcastIntentLocked",
             ) { _, frame, _ ->
-                val intent = frame.args.firstOrNullWithType<Intent>() ?: return@hookBefore
+                val intent = frame.dumpArgs().firstOrNullWithType<Intent>() ?: return@hookBefore
                 changeUsbStateBroadcast(intent)
             }
         }

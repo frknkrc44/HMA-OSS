@@ -9,8 +9,8 @@ import icu.nullptr.hidemyapplist.common.Constants.FAKE_INSTALLATION_SOURCE_USER
 import icu.nullptr.hidemyapplist.common.Constants.VENDING_PACKAGE_NAME
 import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.firstOrNullWithType
 import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.lastWithType
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.callMethod
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.dumpArgs
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.findConstructor
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.COMPUTER_ENGINE_CLASS
@@ -55,7 +55,7 @@ open class InstallerHookTarget33 : InstallerHookTargetBase() {
                 COMPUTER_ENGINE_CLASS,
                 "isCallerInstallerOfRecord",
             ) { methodName, frame, returnValue ->
-                val args = frame.args
+                val args = frame.dumpArgs()
                 val callingUid = args.lastWithType<Int>()
 
                 applyInstallerHiding(
@@ -104,7 +104,7 @@ open class InstallerHookTarget33 : InstallerHookTargetBase() {
                 applyInstallerHiding(
                     methodName,
                     Binder.getCallingUid(),
-                    { frame.args.firstOrNullWithType() },
+                    { frame.dumpArgs().firstOrNullWithType() },
                 ) {
                     when (it) {
                         FAKE_INSTALLATION_SOURCE_USER -> returnValue.result = VENDING_PACKAGE_NAME

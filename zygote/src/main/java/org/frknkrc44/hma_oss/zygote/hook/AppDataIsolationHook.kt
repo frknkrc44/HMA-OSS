@@ -12,7 +12,7 @@ import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackagesForUidLocal
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.args
+import org.frknkrc44.hma_oss.zygote.util.ZLUtils.dumpArgs
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getBooleanField
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getIntField
@@ -188,7 +188,7 @@ class AppDataIsolationHook : IFrameworkHook {
                     "needsStorageDataIsolation",
                 ) { _, frame, returnValue ->
                     if (config.altVoldAppDataIsolation) {
-                        val app = frame.args.find { it?.javaClass?.simpleName == "ProcessRecord" }!!
+                        val app = frame.dumpArgs().find { it?.javaClass?.simpleName == "ProcessRecord" }!!
                         val uid = runCatching {
                             getIntField(app, "uid")
                         }.getOrElse {
