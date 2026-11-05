@@ -47,19 +47,11 @@ object ZLUtils {
         return mutableListOf<Class<*>>().let {
             val begin = if (skipFirst) 1 else 0
             for (index in begin ..< type().parameterCount()) {
-                it.add(getArgumentType(index))
+                it.add(accessor().getArgumentType(index))
             }
 
             it.toTypedArray()
         }
-    }
-
-    /**
-     * - `index == 0: thisObject`
-     * - `index >= 1: function args`
-     */
-    fun EmulatedStackFrame.getArgumentType(index: Int): Class<*> {
-        return accessor().getArgumentType(index)
     }
 
     /**
