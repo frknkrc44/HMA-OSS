@@ -4,6 +4,7 @@ import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import icu.nullptr.hidemyapplist.common.CollectionUtils.sync
+import icu.nullptr.hidemyapplist.service.ConfigManager.hasAppConfig
 import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.ui.util.get
 import icu.nullptr.hidemyapplist.ui.view.AppItemView
@@ -26,8 +27,10 @@ abstract class AppSelectAdapter(
                 val constraintLowered = constraint.toString().trim().lowercase()
                 val filteredList = PackageHelper.appList.get().filter {
                     if (firstFilter?.invoke(it) == false) return@filter false
-                    if (!PrefManager.appFilter_showSystem && PackageHelper.isSystem(it)) return@filter false
                     if (it == BuildConfig.APPLICATION_ID && hideMyself) return@filter false
+                    if (!PrefManager.appFilter_showSystem &&
+                        PackageHelper.isSystem(it) &&
+                        !hasAppConfig(it)) return@filter false
                     val label = PackageHelper.loadAppLabel(it)
                     label.lowercase().contains(constraintLowered) || it.lowercase().contains(constraintLowered)
                 }

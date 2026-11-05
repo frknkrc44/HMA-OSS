@@ -168,7 +168,7 @@ object PackageHelper {
 
     fun loadAppIcon(packageName: String): Drawable = runBlocking {
         getCacheNoThrow()[packageName]?.icon ?:
-            android.R.drawable.sym_def_app_icon.asDrawable(hmaApp)
+            android.R.drawable.sym_def_app_icon.asDrawable()
     }
 
     fun loadUserIds(packageName: String): Set<Int> = runBlocking {
@@ -183,7 +183,7 @@ object PackageHelper {
         return if (appInfo.packageName == BuildConfig.APPLICATION_ID) {
             val activityName = findEnabledAppComponent(hmaApp)
             if (activityName == null) {
-                R.mipmap.ic_launcher.asDrawable(hmaApp)
+                R.mipmap.ic_launcher.asDrawable()
             } else {
                 hmaApp.packageManager.getActivityIcon(activityName)
             }

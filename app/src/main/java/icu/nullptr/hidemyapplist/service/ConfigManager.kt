@@ -249,6 +249,8 @@ object ConfigManager {
         return config.scope.containsKey(packageName)
     }
 
+    fun hasAppConfig(packageName: String) = getAppConfig(packageName) != null
+
     fun getAppConfig(packageName: String): JsonConfig.AppConfig? {
         return config.scope[packageName]
     }

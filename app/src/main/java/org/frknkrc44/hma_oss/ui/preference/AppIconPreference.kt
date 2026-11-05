@@ -18,6 +18,7 @@ import androidx.preference.PreferenceViewHolder
 import icu.nullptr.hidemyapplist.data.AppConstants.allAppIcons
 import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.asDrawable
+import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.asDrawableFixed
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.themeColor
 import icu.nullptr.hidemyapplist.util.PackageHelper.findEnabledAppComponent
 import org.frknkrc44.hma_oss.BuildConfig
@@ -53,7 +54,7 @@ class AppIconPreference(context: Context, attrs: AttributeSet?) : Preference(con
                         id = idx
                         gravity = Gravity.CENTER_VERTICAL
                         text = ""
-                        buttonDrawable = allAppIcons[idx].first.asDrawable(context, 64)
+                        buttonDrawable = allAppIcons[idx].first.asDrawableFixed(context, 64)
                         buttonTintList = null
                         buttonTintMode = PorterDuff.Mode.SRC_ATOP
                     }
