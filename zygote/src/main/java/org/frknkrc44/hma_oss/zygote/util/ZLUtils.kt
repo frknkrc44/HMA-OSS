@@ -42,6 +42,16 @@ object ZLUtils {
         }
     }
 
+    fun EmulatedStackFrame.firstArgWithSimpleName(simpleName: String): Any? {
+        for (index in 1 ..< type().parameterCount()) {
+            if (accessor().getArgumentType(index).simpleName == simpleName) {
+                return getArgument(index)
+            }
+        }
+
+        return null
+    }
+
     /**
      * - `index == 0: thisObject`
      * - `index >= 1: function args`
