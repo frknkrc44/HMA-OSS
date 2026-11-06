@@ -32,7 +32,7 @@
     <string name="add">Ajouter</string>
     <string name="edit">Modifier</string>
     <string name="apply">Appliquer</string>
-    <string name="follow_system">Utilise les paramètres du système</string>
+    <string name="follow_system">Utilise les paramètres système</string>
     <!-- Home -->
     <string name="home_xposed_activated">Module activé [%s]</string>
     <string name="home_xposed_not_activated">Module désactivé</string>
@@ -43,16 +43,16 @@
     <string name="home_detection_test">Test de détection</string>
     <string name="home_download_test_app_title">Télécharger l\'application de test</string>
     <string name="home_download_test_app_message">Nous avons développé une application dédiée aux tests de détection individuels et y avons transféré les fonctionnalités de ceux-ci. La télécharger maintenant ?</string>
-    <string name="home_backup_and_restore">Sauvegarde et restauration</string>
-    <string name="home_backup_config">Configuration de la sauvegarde</string>
-    <string name="home_restore_config">Restauration de la sauvegarde</string>
+    <string name="home_backup_and_restore">Sauvegarde &amp; restauration</string>
+    <string name="home_backup_config">Sauvegarde</string>
+    <string name="home_restore_config">Restauration</string>
     <string name="home_import_successful">Importation réussie</string>
     <string name="home_import_failed">Échec de l\'importation</string>
     <string name="home_import_app_version_too_old">Version du module antérieure à celle de la sauvegarde</string>
     <string name="home_import_backup_version_too_old">Version de la sauvegarde trop ancienne</string>
     <string name="home_import_file_damaged">Fichier de sauvegarde endommagé</string>
     <string name="home_export_failed">Échec de l\'exportation</string>
-    <string name="home_exported">Sauvegarde de la configuration</string>
+    <string name="home_exported">Configuration sauvegardée</string>
     <string name="home_new_update">Nouvelle version disponible : %s</string>
     <string name="home_update">Mise à jour : %s</string>
     <string name="home_migrate_data_fix_button">Corriger le problème</string>
@@ -97,7 +97,7 @@
     <!-- App settings -->
     <string name="app_enable_hide">Activer le masquage</string>
     <string name="app_template_config">Configuration des modèles</string>
-    <string name="app_choose_template">Choisir le(s) modèle(s)</string>
+    <string name="app_choose_template">Sélection des modèles</string>
     <string name="app_choose_preset">Sélection des préréglages</string>
     <string name="app_exclude_system_apps">Exclusion des applications système</string>
     <string name="app_exclude_system_apps_summary">Ne désactiver cette option qu\'en cas d\'absolue nécessité. Sa désactivation est susceptible de provoquer des plantages</string>
@@ -108,7 +108,7 @@
     <string name="app_extra_apps_visible_count">%d application(s) additionnelle(s) visible(s)</string>
     <string name="app_extra_apps_invisible_count">%d application(s) supplémentaire(s) invisible(s)</string>
     <string name="app_warning_risky_package_title">Contenu à risque</string>
-    <string name="app_warning_risky_package_desc">Le contenu de cette application est indiqué comme étant à risque et peut causer des problèmes aux applications masquées. Continuer ?</string>
+    <string name="app_warning_risky_package_desc">Ce package d\'application est indiqué comme étant à risque et peut causer des problèmes aux applications masquées. Continuer ?</string>
     <string name="app_spoof">Usurpation</string>
     <string name="app_hide_installation_source">Usurpation des sources d\'installation</string>
     <string name="app_hide_installation_source_desc">Toutes les applications utilisateur seront présentées comme ayant été installées depuis le Play Store pour cette application</string>
@@ -181,7 +181,7 @@
     <string name="settings_bypass_risky_package_warning_summary">Note : Les développeurs ne sont pas responsables des problèmes liés à l\'utilisation de packages d\'applications à risque avant ou après l\'activation de cette option</string>
     <string name="settings_disable_activity_launch_protection">Désactivation de la protection contre le lancement d\'activités</string>
     <string name="settings_disable_activity_launch_protection_summary">Cette option désactive toutes les protections startActivity. En cas de doute, ne pas l\'activer.</string>
-    <string name="settings_system_wallpaper">Utiliser l\'image de fond d\'écran du système</string>
+    <string name="settings_system_wallpaper">Utiliser l\'image d\'arrière-plan du système</string>
     <string name="settings_clear_uninstalled_app_configs">Suppression des configurations des applications désinstallées</string>
     <string name="settings_clear_uninstalled_app_configs_summary">Permet de créer des configurations sans persistance post-désinstallation, une reconfiguration des applications sera alors nécessaire en cas de réinstallation de ces applications</string>
     <string name="settings_no_undone_warning">Cette action ne peut pas être annulée.</string>
@@ -193,8 +193,6 @@
     <string name="settings_enable_internet_summary">Lorsque désactivé, cette application perd toute fonctionnalité nécessitant un accès à Internet</string>
     <string name="settings_default_config">Configuration d\'application pour les nouvelles applications</string>
     <string name="settings_default_config_summary">Cela permettra d\'appliquer la configuration définie à toutes les nouvelles applications, tout en conservant la configuration existante pour celles-ci si vous aviez déjà effectué des modifications auparavant.</string>
-    <string name="settings_webview_protection">Protection de WebView</string>
-    <string name="settings_webview_protection_summary">Ajoute une protection supplémentaire contre les plantages provoqués par le masquage/ciblage du composant système WebView ou des navigateurs Web</string>
     <string name="settings_language">Langue</string>
     <string name="settings_translate">Participer à la traduction</string>
     <string name="settings_translate_summary">Nous aider à traduire %s dans votre langue</string>

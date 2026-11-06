@@ -198,8 +198,6 @@ Vold ข้อมูลแอป: %s
     <string name="settings_enable_internet_summary">แอปนี้จะสูญเสียความสามารถทั้งหมดที่เกี่ยวข้องกับอินเทอร์เน็ต เมื่อคุณปิดใช้งานตัวเลือกนี้</string>
     <string name="settings_default_config">การตั้งค่าแอปสำหรับแอปใหม่</string>
     <string name="settings_default_config_summary">การตั้งค่านี้จะนำการตั้งค่าที่กำหนดไปใช้กับแอปใหม่ทั้งหมด แต่จะคงการตั้งค่าเดิมไว้สำหรับแอปใหม่ที่คุณเคยกำหนดการตั้งค่าไว้ก่อนหน้านี้</string>
-    <string name="settings_webview_protection">การป้องกัน WebView</string>
-    <string name="settings_webview_protection_summary">เพิ่มการป้องกันเพิ่มเติมจากข้อขัดข้องที่เกิดจากการซ่อนหรือกำหนดเป้าหมาย WebView หรือเบราว์เซอร์</string>
     <string name="settings_language">ภาษา</string>
     <string name="settings_translate">เข้าร่วมการแปลภาษา</string>
     <string name="settings_translate_summary">ช่วยเราแปล %s เป็นภาษาของคุณ</string>

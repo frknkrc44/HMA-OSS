@@ -193,8 +193,6 @@
     <string name="settings_enable_internet_summary">Această aplicație va pierde toate funcționalitățile.</string>
     <string name="settings_default_config">Configurație aplicație pentru aplicații noi</string>
     <string name="settings_default_config_summary">Acest lucru o să aplice configurarea definită pentru toate aplicațiile noi, dar va păstra configurația existentă pentru aplicații noi dacă ați aplicat ceva înainte.</string>
-    <string name="settings_webview_protection">Protecție WebView</string>
-    <string name="settings_webview_protection_summary">Acest lucru va adăuga protecție suplimentară pentru erorile cauzate de ascunderea/vizarea WebView-ului sau browserelor</string>
     <string name="settings_language">Limba</string>
     <string name="settings_translate">Participați la traducere</string>
     <string name="settings_translate_summary">Ajutați-ne să traducem %s în limba dumneavoastră</string>
