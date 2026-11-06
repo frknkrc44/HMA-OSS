@@ -1,6 +1,5 @@
 package org.frknkrc44.hma_oss.zygote.util
 
-@Suppress("SpellCheckingInspection")
 object ZygoteConstants {
     const val SYSTEM_SERVER_CLASS = "com.android.server.SystemServer"
     const val RUNTIME_INIT_CLASS = "com.android.internal.os.RuntimeInit"
@@ -18,8 +17,6 @@ object ZygoteConstants {
     const val IMM_SERVICE_CLASS = "com.android.server.inputmethod.InputMethodManagerService"
     const val IMM_IMPL_CLASS = "com.android.server.inputmethod.IInputMethodManagerImpl"
     const val ACTIVITY_STARTER_CLASS = "com.android.server.wm.ActivityStarter"
-    const val ACTIVITY_TASK_SUPERVISOR_CLASS = "com.android.server.wm.ActivityTaskSupervisor"
-    const val ACTIVITY_STACK_SUPERVISOR_CLASS = "com.android.server.wm.ActivityStackSupervisor"
     const val ZYGOTE_PROCESS_CLASS = "android.os.ZygoteProcess"
     const val NATIVE_ZYGOTE_PROCESS_CLASS = "android.os.NativeZygoteProcess"
     const val PROCESS_LIST_CLASS = "com.android.server.am.ProcessList"
@@ -32,18 +29,19 @@ object ZygoteConstants {
     const val BROADCAST_QUEUE_CLASS = "com.android.server.am.BroadcastQueue"
     const val BROADCAST_QUEUE_IMPL_CLASS = "com.android.server.am.BroadcastQueueImpl"
     const val BROADCAST_PROCESS_QUEUE_CLASS = "com.android.server.am.BroadcastProcessQueue"
+    const val USAGE_STATS_BINDER_SERVICE_CLASS = $$"com.android.server.usage.UsageStatsService$BinderService"
+    const val PERMISSION_MANAGER_SERVICE_CLASS = "com.android.server.pm.permission.PermissionManagerService"
 
     const val CONSTRUCTOR_METHOD_NAME = "<init>"
 
     const val PACKAGE_MANAGER_SERVICE = "package"
     const val PACKAGE_MANAGER_NATIVE_SERVICE = "package_native"
-    const val WEBVIEW_UPDATE_SERVICE = "webviewupdate"
-
-    const val WEBVIEW_PROVIDER_KEY = "webview_provider"
 
     const val ACTION_USB_STATE = "android.hardware.usb.action.USB_STATE"
     const val USB_FUNCTION_ADB = "adb"
 
     const val GBOARD_PACKAGE_NAME = "com.google.android.inputmethod.latin"
     const val GBOARD_CLASS_NAME = "com.android.inputmethod.latin.LatinIME"
+
+    const val PARAMETER_COUNT_UNKNOWN = -1
 }

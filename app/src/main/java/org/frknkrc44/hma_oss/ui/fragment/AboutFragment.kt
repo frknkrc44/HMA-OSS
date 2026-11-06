@@ -125,9 +125,9 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
 
         // HMA-OSS devs
         with(binding.listHmaOss) {
-            addDevItem(this, R.drawable.cont_fk, "frknkrc44", "HMA-OSS Developer", "https://github.com/frknkrc44")
+            addDevItem(this, R.drawable.cont_fk, "frknkrc44", "HMA-OSS Developer", "https://github.com/frknkrc44", "https://github.com/sponsors/frknkrc44")
             addDevItem(this, R.drawable.cont_oukaromf, "OukaroMF", "HMA-OSS Alt Icon Designer", "https://github.com/OukaroMF")
-            addDevItem(this, R.drawable.cont_chunqiu, "longze", "HMA-OSS Contributor", null)
+            addDevItem(this, R.drawable.cont_chunqiu, "longze", "HMA-OSS Contributor")
         }
 
         // Original HMA devs
@@ -156,13 +156,14 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
             clipToOutline = true
 
             addLibraryItem(this, "ZygoteLoader (fork)", "MIT License", "https://github.com/aerath-stuff/ZygoteLoader")
+            addLibraryItem(this, "AndroidVMTools (fork)", "MIT License", "https://github.com/aerath-stuff/AndroidVMTools")
+            addLibraryItem(this, "PanamaPort (fork)", "MIT License", "https://github.com/aerath-stuff/PanamaPort")
             addLibraryItem(this, "Coil", "Apache-2.0 License", "https://github.com/coil-kt/coil")
         }
     }
 
-    fun addDevItem(layout: LinearLayout, @DrawableRes avatarResId: Int, name: String, desc: String, url: String?) {
+    fun addDevItem(layout: LinearLayout, @DrawableRes avatarResId: Int, name: String, desc: String, url: String? = null, donateUrl: String? = null) {
         val newLayout = FragmentAboutListItemBinding.inflate(layoutInflater)
-        setOnClickUrl(newLayout.root, url)
 
         newLayout.aboutPersonIcon.setImageDrawable(RoundedBitmapDrawableFactory.create(
             resources,
@@ -170,6 +171,20 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
         ).apply {
             isCircular = true
         })
+
+        url?.let {
+            with(newLayout.aboutInfo) {
+                isVisible = true
+                setOnClickUrl(this, it)
+            }
+        }
+
+        donateUrl?.let {
+            with(newLayout.aboutDonate) {
+                isVisible = true
+                setOnClickUrl(this, it)
+            }
+        }
 
         newLayout.text1.text = name
         newLayout.text2.text = desc
@@ -207,9 +222,7 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
         layout.addView(newLayout.root)
     }
 
-    fun setOnClickUrl(view: View, url: String?) {
-        if (url == null) return
-
+    fun setOnClickUrl(view: View, url: String) {
         view.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data = url.toUri()

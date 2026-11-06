@@ -114,13 +114,6 @@ object ConfigManager {
             saveConfig()
         }
 
-    var webViewProtection: Boolean
-        get() = config.webViewProtection
-        set(value) {
-            config.webViewProtection = value
-            saveConfig()
-        }
-
     var defaultConfig: JsonConfig.AppConfig?
         get() = config.defaultConfig
         set(value) {
@@ -255,6 +248,8 @@ object ConfigManager {
     fun isHideEnabled(packageName: String): Boolean {
         return config.scope.containsKey(packageName)
     }
+
+    fun hasAppConfig(packageName: String) = getAppConfig(packageName) != null
 
     fun getAppConfig(packageName: String): JsonConfig.AppConfig? {
         return config.scope[packageName]

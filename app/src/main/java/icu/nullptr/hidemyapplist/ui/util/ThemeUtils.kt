@@ -11,6 +11,7 @@ import androidx.annotation.StyleRes
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.color.DynamicColors
+import icu.nullptr.hidemyapplist.MyApp.Companion.hmaApp
 import icu.nullptr.hidemyapplist.service.PrefManager
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.ui.util.FixedSizeDrawable
@@ -132,10 +133,8 @@ object ThemeUtils {
 
     fun Fragment.homeItemBackgroundColor(forceNoTrans: Boolean = false) = requireContext().homeItemBackgroundColor(forceNoTrans)
 
-    fun Int.asDrawable(context: Context) = ResourcesCompat.getDrawable(context.resources, this, context.theme)!!
+    fun Int.asDrawable(context: Context = hmaApp) = ResourcesCompat.getDrawable(context.resources, this, context.theme)!!
 
-    fun Int.asDrawable(context: Context, sizeDp: Int) =
+    fun Int.asDrawableFixed(context: Context = hmaApp, sizeDp: Int) =
         FixedSizeDrawable(asDrawable(context), sizeDp.dpToPx.toInt())
-
-    fun Int.asColor(context: Context) = ResourcesCompat.getColor(context.resources, this, context.theme)
 }

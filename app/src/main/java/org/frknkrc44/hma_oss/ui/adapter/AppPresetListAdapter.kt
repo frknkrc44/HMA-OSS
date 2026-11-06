@@ -8,8 +8,8 @@ import icu.nullptr.hidemyapplist.common.AppPresets
 import icu.nullptr.hidemyapplist.common.SettingsPresets
 import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.ui.view.ListItemView
-import org.frknkrc44.hma_oss.BuildConfig
 import org.frknkrc44.hma_oss.R
+import org.frknkrc44.hma_oss.ui.util.PresetUtils
 
 class AppPresetListAdapter(
     context: Context,
@@ -80,11 +80,7 @@ class AppPresetListAdapter(
         val appPresetNames = AppPresets.instance.presetNames
         val appPresetTranslations = appPresetNames.map { name ->
             try {
-                val id = context.resources.getIdentifier(
-                    "preset_${name}",
-                    "string",
-                    BuildConfig.APPLICATION_ID
-                )
+                val id = PresetUtils.presetMap[name] ?: 0
 
                 return@map if (id != 0) { context.resources.getString(id) } else { name }
             } catch (_: Throwable) {}
@@ -109,11 +105,7 @@ class AppPresetListAdapter(
         val settingsPresetNames = SettingsPresets.instance.presetNames
         val settingsPresetTranslations = settingsPresetNames.map { name ->
             try {
-                val id = context.resources.getIdentifier(
-                    "settings_preset_${name}",
-                    "string",
-                    BuildConfig.APPLICATION_ID
-                )
+                val id = PresetUtils.settingsPresetMap[name] ?: 0
 
                 return@map if (id != 0) { context.resources.getString(id) } else { name }
             } catch (_: Throwable) {}

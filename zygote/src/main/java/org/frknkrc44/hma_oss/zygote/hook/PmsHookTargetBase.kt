@@ -2,7 +2,6 @@ package org.frknkrc44.hma_oss.zygote.hook
 
 import android.content.pm.IPackageManager
 import icu.nullptr.hidemyapplist.common.Constants
-import icu.nullptr.hidemyapplist.common.Utils.getUserFromCallingUid
 import org.frknkrc44.hma_oss.zygote.service.ReturnValue
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
@@ -35,9 +34,8 @@ abstract class PmsHookTargetBase : IFrameworkHook {
             logD(TAG) { "@$methodName caller cache: $callingUid, target: $targetApp" }
             return
         }
-        val callingUserId = getUserFromCallingUid(callingUid)
         val callingApps = findCallingApps(pms, callingUid)
-        val caller = callingApps?.firstOrNull { service.shouldHide(it, targetApp, callingUserId) }
+        val caller = callingApps?.firstOrNull { service.shouldHide(it, targetApp) }
         if (caller != null) {
             logD(TAG) { "@$methodName caller: $callingUid $caller, target: $targetApp" }
             returnValue.result = valueForHiding

@@ -17,7 +17,7 @@ class AccessibilityHook : IFrameworkHook {
                 ACCESSIBILITY_SERVICE_CLASS,
                 "getEnabledAccessibilityServiceList",
             ) { methodName, frame, returnValue ->
-                val callingApps = ServiceUtils.getCallingApps(pms)
+                val callingApps = ServiceUtils.getPackagesForUidLocal(pms)
                 if (callingApps.isEmpty()) return@hookBefore
 
                 val caller = callingApps.firstOrNull { callerIsSpoofed(it) }
@@ -37,7 +37,7 @@ class AccessibilityHook : IFrameworkHook {
                 ACCESSIBILITY_SERVICE_CLASS,
                 "addClient",
             ) { _, _, returnValue ->
-                val callingApps = ServiceUtils.getCallingApps(pms)
+                val callingApps = ServiceUtils.getPackagesForUidLocal(pms)
                 if (callingApps.isEmpty()) return@hookBefore
 
                 val caller = callingApps.firstOrNull { callerIsSpoofed(it) }

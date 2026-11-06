@@ -14,30 +14,34 @@ object OSUtils {
         "com.google.android.ext.shared",
     )
 
-    fun collectOSInfo(context: Context, serviceVersion: String?) = buildString {
+    fun collectOSInfo(context: Context, serviceVersion: String?, workMode: Int) = buildString {
         val pkgMgr = context.packageManager
+        val isHOS = SystemProperties.get("ro.mi.os.version.incremental").isNotBlank()
+        val isMIUI = pkgMgr.isPackageAvailable("com.miui.system")
 
         append("HMA-OSS Log")
         append("\nApp version: ")
         append("${BuildConfig.APP_VERSION_NAME} (${BuildConfig.APP_VERSION_CODE})")
         append("\nService version: ")
         append(serviceVersion)
+        append("\nWork mode: ")
+        append(workMode)
         append("\nFingerprint: ")
         append(Build.FINGERPRINT)
         append("\nAndroid SDK: ")
         append("${Build.VERSION.SDK_INT} (P ${Build.VERSION.PREVIEW_SDK_INT})")
         append("\nKnown codenames: [")
         append(SystemProperties.get("ro.build.version.known_codenames"))
-        append("]\nIs HyperOS: ")
-        append(SystemProperties.get("ro.mi.os.version.incremental").isNotBlank())
-        append("\nIs MIUI: ")
-        append(pkgMgr.isPackageAvailable("com.miui.system"))
+        append("]\nIs MIUI/HyperOS: ")
+        append(isHOS || isMIUI)
         append("\nIs oplus: ")
         append(SystemProperties.get("ro.build.version.oplusrom").isNotBlank())
         append("\nIs Samsung: ")
         append(isSamsung())
         append("\nIs Pixel: ")
         append(pkgMgr.isPackageAvailable("com.google.android.apps.customization.pixel"))
+        append("\nIs LineageOS: ")
+        append(pkgMgr.getPackagesForUid(Constants.UID_SYSTEM)?.any { "lineage" in it })
 
         PACKAGES_TO_CHECK.forEach {
             append("\nIs $it available: ")
