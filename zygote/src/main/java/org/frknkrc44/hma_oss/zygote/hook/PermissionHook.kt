@@ -6,7 +6,6 @@ import android.content.pm.PermissionGroupInfo
 import android.content.pm.PermissionInfo
 import android.os.Binder
 import icu.nullptr.hidemyapplist.common.Constants
-import icu.nullptr.hidemyapplist.common.Utils.getUserFromCallingUid
 import org.frknkrc44.hma_oss.zygote.service.ReturnValue
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
@@ -46,19 +45,20 @@ class PermissionHook : IFrameworkHook {
     }
 
     // Caller context, or null for system / non-scoped callers so they pay only one getPackagesForUid call.
-    private fun resolveCaller(): Triple<Int, Array<String>, Int>? {
+    private fun resolveCaller(): Pair<Int, Array<String>>? {
         val callingUid = Binder.getCallingUid()
         if (callingUid == Constants.UID_SYSTEM) return null
 
-        val callingApps = ServiceUtils.getCallingApps(pms, callingUid)
+        // Matches the helper every other hook uses to map a calling uid to its package set.
+        val callingApps = ServiceUtils.getPackagesForUidLocal(pms, callingUid)
         if (callingApps.isEmpty()) return null
         if (callingApps.none { config.scope.containsKey(it) }) return null
 
-        return Triple(callingUid, callingApps, getUserFromCallingUid(callingUid))
+        return Pair(callingUid, callingApps)
     }
 
     // Reuses the same per-uid hide cache and decision logic as the package hooks for consistency.
-    private fun shouldHidePackage(uid: Int, apps: Array<String>, userId: Int, pkg: String?): Boolean {
+    private fun shouldHidePackage(uid: Int, apps: Array<String>, pkg: String?): Boolean {
         if (pkg == null) return false
 
         if (dataHolder.shouldHideFromUid(uid, pkg) == true) {
@@ -66,7 +66,7 @@ class PermissionHook : IFrameworkHook {
             return true
         }
 
-        val caller = apps.firstOrNull { service.shouldHide(it, pkg, userId) } ?: return false
+        val caller = apps.firstOrNull { service.shouldHide(it, pkg) } ?: return false
         dataHolder.putShouldHideUidCache(uid, caller, pkg)
         service.increasePMFilterCount(caller)
         return true
@@ -81,10 +81,10 @@ class PermissionHook : IFrameworkHook {
         val list = result.list
         if (list.isEmpty()) return
 
-        val (uid, apps, userId) = resolveCaller() ?: return
+        val (uid, apps) = resolveCaller() ?: return
 
         val kept = list.filterNot { item ->
-            shouldHidePackage(uid, apps, userId, item.packageName)
+            shouldHidePackage(uid, apps, item.packageName)
         }
         val removed = list.size - kept.size
         if (removed == 0) return
@@ -97,9 +97,9 @@ class PermissionHook : IFrameworkHook {
         if (returnValue.throwable != null) return
 
         val item = returnValue.result as? PackageItemInfo ?: return
-        val (uid, apps, userId) = resolveCaller() ?: return
+        val (uid, apps) = resolveCaller() ?: return
 
-        if (shouldHidePackage(uid, apps, userId, item.packageName)) {
+        if (shouldHidePackage(uid, apps, item.packageName)) {
             // Null makes PackageManager throw NameNotFoundException, i.e. "no such permission".
             returnValue.result = null
             logD(TAG) { "@$methodName: hid ${item.packageName} from uid $uid" }
