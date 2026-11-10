@@ -243,7 +243,7 @@ class BulkHooker {
         // do not apply next hooks when null object received or the previous hook was crashed
         if (executable == null || hooksWasCrashed) return false
 
-        logD(ZygoteEntry.TAG) { "Hooked constructor: $executable" }
+        logD(ZygoteEntry.TAG) { "Hooking on $executable" }
 
         val memoryAddresses = try {
             Hooks.hook(
@@ -313,7 +313,7 @@ class BulkHooker {
             var curClazz = try {
                 Class.forName(clazz, true, loader)
             } catch (ex: ClassNotFoundException) {
-                logE(ZygoteEntry.TAG, ex) { "Class $clazz not found" }
+                logD(ZygoteEntry.TAG, ex) { "Class $clazz not found" }
                 continue
             }
 
