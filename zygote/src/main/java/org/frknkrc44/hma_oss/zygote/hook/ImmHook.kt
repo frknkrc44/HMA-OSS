@@ -91,8 +91,8 @@ class ImmHook : IFrameworkHook {
         hooker.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
                 hookBefore(
-                    listOf(IMM_SERVICE_CLASS, IMM_IMPL_CLASS),
-                    listOf("getCurrentInputMethodInfoAsUser"),
+                    arrayOf(IMM_SERVICE_CLASS, IMM_IMPL_CLASS),
+                    arrayOf("getCurrentInputMethodInfoAsUser"),
                 ) { methodName, frame, returnValue ->
                     val callingApps = getPackagesForUidLocal(pms)
 
@@ -113,8 +113,8 @@ class ImmHook : IFrameworkHook {
             }
 
             hookAfter(
-                listOf(IMM_SERVICE_CLASS),
-                listOf("getInputMethodList", "getInputMethodListInternal"),
+                arrayOf(IMM_SERVICE_CLASS),
+                arrayOf("getInputMethodList", "getInputMethodListInternal"),
             ) { methodName, frame, returnValue ->
                 logD(TAG) { "@$methodName: hook init" }
 
@@ -152,8 +152,8 @@ class ImmHook : IFrameworkHook {
             }
 
             hookBefore(
-                listOf(IMM_SERVICE_CLASS),
-                listOf("getEnabledInputMethodList", "getEnabledInputMethodListInternal"),
+                arrayOf(IMM_SERVICE_CLASS),
+                arrayOf("getEnabledInputMethodList", "getEnabledInputMethodListInternal"),
             ) { methodName, frame, returnValue ->
                 val callingApps = getPackagesForUidLocal(pms)
 
@@ -184,22 +184,22 @@ class ImmHook : IFrameworkHook {
             }
 
             hookBefore(
-                listOf(IMM_SERVICE_CLASS, IMM_IMPL_CLASS),
-                listOf("getCurrentInputMethodSubtype"),
+                arrayOf(IMM_SERVICE_CLASS, IMM_IMPL_CLASS),
+                arrayOf("getCurrentInputMethodSubtype"),
             ) { methodName, _, returnValue ->
                 subtypeHook(methodName, returnValue)
             }
 
             hookBefore(
-                listOf(IMM_SERVICE_CLASS, IMM_IMPL_CLASS),
-                listOf("getLastInputMethodSubtype"),
+                arrayOf(IMM_SERVICE_CLASS, IMM_IMPL_CLASS),
+                arrayOf("getLastInputMethodSubtype"),
             ) { methodName, _, returnValue ->
                 subtypeHook(methodName, returnValue)
             }
 
             hookBefore(
-                listOf(IMM_SERVICE_CLASS, IMM_IMPL_CLASS),
-                listOf(
+                arrayOf(IMM_SERVICE_CLASS, IMM_IMPL_CLASS),
+                arrayOf(
                     "getEnabledInputMethodSubtypeListInternal",
                     "getEnabledInputMethodSubtypeList"
                 )

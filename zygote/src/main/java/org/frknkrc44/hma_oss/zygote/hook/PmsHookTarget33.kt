@@ -119,8 +119,8 @@ open class PmsHookTarget33 : PmsHookTargetBase() {
             }
 
             hookBefore(
-                listOf(COMPUTER_ENGINE_CLASS, PERMISSION_MANAGER_SERVICE_CLASS),
-                listOf("checkUidPermission"),
+                arrayOf(COMPUTER_ENGINE_CLASS, PERMISSION_MANAGER_SERVICE_CLASS),
+                arrayOf("checkUidPermission"),
             ) { methodName, frame, returnValue ->
                 val uid = frame.dumpArgs().firstWithType<Int>()
 

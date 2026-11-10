@@ -62,8 +62,8 @@ class BroadcastHook : IFrameworkHook {
 
             // replace USB state receiver
             hookBefore(
-                listOf(BROADCAST_CONTROLLER_CLASS, ACTIVITY_MANAGER_SERVICE_CLASS),
-                listOf("broadcastIntentLocked"),
+                arrayOf(BROADCAST_CONTROLLER_CLASS, ACTIVITY_MANAGER_SERVICE_CLASS),
+                arrayOf("broadcastIntentLocked"),
             ) { _, frame, _ ->
                 val intent = frame.dumpArgs().firstOrNullWithType<Intent>() ?: return@hookBefore
                 changeUsbStateBroadcast(intent)

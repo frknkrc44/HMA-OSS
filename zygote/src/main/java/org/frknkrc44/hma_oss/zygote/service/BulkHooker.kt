@@ -88,8 +88,8 @@ class BulkHooker {
     }
 
     inline fun hookBefore(
-        clazzNames: List<String>,
-        methodNames: List<String>,
+        clazzNames: Array<String>,
+        methodNames: Array<String>,
         argumentCount: Int = PARAMETER_COUNT_UNKNOWN,
         crossinline hook: (methodName: String, frame: EmulatedStackFrame, returnValue: ReturnValue) -> Unit,
     ) = findAltMethod(clazzNames, methodNames, argumentCount)?.let { executable ->
@@ -147,8 +147,8 @@ class BulkHooker {
     }
 
     inline fun hookAfter(
-        clazzNames: List<String>,
-        methodNames: List<String>,
+        clazzNames: Array<String>,
+        methodNames: Array<String>,
         argumentCount: Int = PARAMETER_COUNT_UNKNOWN,
         handleAfterThrows: Boolean = false,
         crossinline hook: (methodName: String, frame: EmulatedStackFrame, returnValue: ReturnValue) -> Unit,
@@ -304,8 +304,8 @@ class BulkHooker {
 
     @PublishedApi
     internal fun findAltMethod(
-        clazzNames: List<String>,
-        methodNames: List<String>,
+        clazzNames: Array<String>,
+        methodNames: Array<String>,
         argumentCount: Int = PARAMETER_COUNT_UNKNOWN,
         loader: ClassLoader? = SystemServerHook.classLoader,
     ): Executable? {
@@ -330,7 +330,9 @@ class BulkHooker {
             }
         }
 
-        logD(ZygoteEntry.TAG) { "Cannot find $clazzNames -> $methodNames($argumentCount)" }
+        logD(ZygoteEntry.TAG) {
+            "Cannot find ${clazzNames.contentToString()} -> ${methodNames.contentToString()}($argumentCount)"
+        }
 
         return null
     }
