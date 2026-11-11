@@ -27,9 +27,9 @@ import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.ui.util.AccessibilityUtils
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.attrDrawable
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.homeItemBackgroundColor
+import icu.nullptr.hidemyapplist.ui.util.applyPageWindowInsets
 import icu.nullptr.hidemyapplist.ui.util.dpToPx
 import icu.nullptr.hidemyapplist.ui.util.navController
-import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
 import icu.nullptr.hidemyapplist.util.PackageHelper.findEnabledAppComponent
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.common.BuildConfig
@@ -44,9 +44,7 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setEdge2EdgeFlags(binding.root, bottom = 0) { _, _, _, bottom ->
-            binding.bottomPadding.minimumHeight = bottom
-        }
+        binding.root.applyPageWindowInsets(binding.aboutScroll)
 
         val tint = ColorStateList.valueOf(homeItemBackgroundColor())
 

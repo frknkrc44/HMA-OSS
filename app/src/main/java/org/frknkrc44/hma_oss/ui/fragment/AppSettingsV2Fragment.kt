@@ -15,7 +15,6 @@ import androidx.navigation.fragment.navArgs
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceDataStore
-import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -27,15 +26,16 @@ import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.common.OSUtils
 import icu.nullptr.hidemyapplist.common.SettingsPresets
 import icu.nullptr.hidemyapplist.data.AppConstants
+import icu.nullptr.hidemyapplist.ui.fragment.EdgeToEdgePreferenceFragment
 import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.fragment.ScopeFragmentArgs
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.asDrawable
+import icu.nullptr.hidemyapplist.ui.util.applyPageWindowInsets
 import icu.nullptr.hidemyapplist.ui.util.enabledString
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.navigate
 import icu.nullptr.hidemyapplist.ui.util.registerOnBackCallback
-import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import icu.nullptr.hidemyapplist.ui.util.showToast
 import icu.nullptr.hidemyapplist.ui.util.withAnimations
@@ -149,7 +149,7 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
                 .commit()
         }
 
-        setEdge2EdgeFlags(binding.root)
+        binding.root.applyPageWindowInsets(bottomContent = null)
     }
 
     class AppPreferenceDataStore(private val pack: AppSettingsViewModel.Pack) : PreferenceDataStore() {
@@ -195,7 +195,7 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
         }
     }
 
-    abstract class BaseAppSettingsPreferenceFragment : PreferenceFragmentCompat() {
+    abstract class BaseAppSettingsPreferenceFragment : EdgeToEdgePreferenceFragment() {
         internal val parent get() = requireParentFragment() as AppSettingsV2Fragment
         internal val pack get() = parent.viewModel.pack
 
