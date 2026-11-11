@@ -12,7 +12,8 @@
         android:background="@android:color/transparent"
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:liftOnScrollTargetViewId="@id/list">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"

@@ -123,6 +123,7 @@ abstract class AppSelectFragment : Fragment(R.layout.fragment_app_select) {
         binding.list.adapter = adapter
 
         with(binding.swipeRefresh) {
+            setOnChildScrollUpCallback { _, _ -> binding.list.canScrollVertically(-1) }
             setProgressBackgroundColorSchemeColor(homeItemBackgroundColor(true))
             setColorSchemeColors(
                 themeColor(androidx.appcompat.R.attr.colorPrimary),
