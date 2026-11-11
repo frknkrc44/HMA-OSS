@@ -13,9 +13,9 @@ import icu.nullptr.hidemyapplist.MyApp.Companion.hmaApp
 import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.fragment.ScopeFragmentArgs
+import icu.nullptr.hidemyapplist.ui.util.applyBottomWindowInsets
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.navigate
-import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import kotlinx.coroutines.launch
 import org.frknkrc44.hma_oss.R
@@ -58,7 +58,7 @@ class PresetManageFragment : Fragment(R.layout.fragment_preset_manage) {
         binding.presetList.layoutManager = LinearLayoutManager(context)
         binding.presetList.adapter = adapter
 
-        setEdge2EdgeFlags(binding.root)
+        binding.root.applyBottomWindowInsets()
     }
 
     private fun navigateToPreset(presetInfo: ConfigManager.PresetInfo) {

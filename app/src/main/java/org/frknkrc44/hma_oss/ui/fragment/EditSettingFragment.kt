@@ -11,10 +11,10 @@ import com.google.android.material.textfield.TextInputLayout
 import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.service.ServiceClient
+import icu.nullptr.hidemyapplist.ui.util.applyBottomWindowInsets
 import icu.nullptr.hidemyapplist.ui.util.get
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.registerOnBackCallback
-import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import kotlinx.coroutines.flow.MutableSharedFlow
 import org.frknkrc44.hma_oss.R
@@ -119,7 +119,7 @@ class EditSettingFragment : Fragment(R.layout.fragment_edit_setting) {
             binding.settingValueNull.isChecked = args.value == null && args.database != null
         }
 
-        setEdge2EdgeFlags(binding.root)
+        binding.root.applyBottomWindowInsets()
     }
 
     fun fillSettingNames(databaseName: String) {
