@@ -11,7 +11,7 @@ import com.google.android.material.textfield.TextInputLayout
 import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.service.ServiceClient
-import icu.nullptr.hidemyapplist.ui.util.applyBottomWindowInsets
+import icu.nullptr.hidemyapplist.ui.util.applyPageWindowInsets
 import icu.nullptr.hidemyapplist.ui.util.get
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.registerOnBackCallback
@@ -119,7 +119,7 @@ class EditSettingFragment : Fragment(R.layout.fragment_edit_setting) {
             binding.settingValueNull.isChecked = args.value == null && args.database != null
         }
 
-        binding.root.applyBottomWindowInsets()
+        binding.root.applyPageWindowInsets()
     }
 
     fun fillSettingNames(databaseName: String) {

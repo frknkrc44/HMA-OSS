@@ -16,7 +16,7 @@ import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
 import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.ui.fragment.ScopeFragmentArgs
-import icu.nullptr.hidemyapplist.ui.util.applyBottomWindowInsets
+import icu.nullptr.hidemyapplist.ui.util.applyPageWindowInsets
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.navigate
 import icu.nullptr.hidemyapplist.ui.util.registerOnBackCallback
@@ -111,6 +111,6 @@ class SettingsTemplateConfFragment : Fragment(R.layout.fragment_template_setting
             }
         }
 
-        binding.root.applyBottomWindowInsets()
+        binding.root.applyPageWindowInsets()
     }
 }

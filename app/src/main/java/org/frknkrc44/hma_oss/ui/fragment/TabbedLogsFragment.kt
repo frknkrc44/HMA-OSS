@@ -9,7 +9,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.ui.fragment.LogsFragment
-import icu.nullptr.hidemyapplist.ui.util.applyBottomWindowInsets
+import icu.nullptr.hidemyapplist.ui.util.applyPageWindowInsets
 import icu.nullptr.hidemyapplist.ui.util.navController
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentTabbedLogsBinding
@@ -54,6 +54,6 @@ class TabbedLogsFragment : Fragment() {
             tab.text = tabsList[position]
         }.attach()
 
-        binding.root.applyBottomWindowInsets()
+        binding.root.applyPageWindowInsets()
     }
 }

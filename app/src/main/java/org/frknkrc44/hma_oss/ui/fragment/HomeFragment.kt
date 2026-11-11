@@ -38,7 +38,7 @@ import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.attrDrawable
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.getColor
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.homeItemBackgroundColor
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.themeColor
-import icu.nullptr.hidemyapplist.ui.util.applyBottomWindowInsets
+import icu.nullptr.hidemyapplist.ui.util.applyPageWindowInsets
 import icu.nullptr.hidemyapplist.ui.util.dpToPx
 import icu.nullptr.hidemyapplist.ui.util.isTestBuild
 import icu.nullptr.hidemyapplist.ui.util.navigate
@@ -100,7 +100,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
         }
 
-        binding.homeScroll.applyBottomWindowInsets()
+        binding.root.applyPageWindowInsets(binding.homeScroll)
     }
 
     override fun onStart() {

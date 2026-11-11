@@ -15,7 +15,7 @@ import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.ui.adapter.AppSelectAdapter
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.homeItemBackgroundColor
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.themeColor
-import icu.nullptr.hidemyapplist.ui.util.applyBottomWindowInsets
+import icu.nullptr.hidemyapplist.ui.util.applyPageWindowInsets
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.registerOnBackCallback
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
@@ -156,7 +156,7 @@ abstract class AppSelectFragment : Fragment(R.layout.fragment_app_select) {
 
         sortList()
 
-        binding.list.applyBottomWindowInsets()
+        binding.root.applyPageWindowInsets(binding.list)
     }
 
     // Credit: https://medium.com/nerd-for-tech/empty-dataset-in-recyclerview-ad86833dd5c6

@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
@@ -15,6 +16,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.MenuProvider
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.children
+import androidx.core.view.doOnAttach
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -98,17 +101,41 @@ fun FragmentTransaction.withAnimations() = setCustomAnimations(
         R.anim.activity_close_exit,
     )
 
-fun View.applyBottomWindowInsets() {
-    val initialPadding = paddingBottom
-    ViewCompat.setOnApplyWindowInsetsListener(this) { view, insets ->
-        val bottom = insets.getInsets(
-            WindowInsetsCompat.Type.systemBars() or
-                WindowInsetsCompat.Type.displayCutout() or WindowInsetsCompat.Type.ime()
-        ).bottom
-        view.updatePadding(bottom = initialPadding + bottom)
+private val safeDrawingInsets =
+    WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
+
+fun ViewGroup.applyPageWindowInsets(bottomContent: View? = this) {
+    // Inset the contents of the app bar so its background still reaches the window edges.
+    val childPadding = children.map { Triple(it, it.paddingLeft, it.paddingRight) }.toList()
+    val initialBottom = paddingBottom
+    if (bottomContent != null && bottomContent !== this) {
+        bottomContent.applyBottomWindowInsets()
+    }
+
+    ViewCompat.setOnApplyWindowInsetsListener(this) { page, insets ->
+        val sides = insets.getInsets(safeDrawingInsets)
+        for ((child, left, right) in childPadding) {
+            child.updatePadding(left = left + sides.left, right = right + sides.right)
+        }
+        if (bottomContent === this) {
+            page.updatePadding(bottom = initialBottom + insets.contentBottomInset())
+        }
         insets
     }
+    doOnAttach { ViewCompat.requestApplyInsets(it) }
 }
+
+fun View.applyBottomWindowInsets() {
+    val initialBottom = paddingBottom
+    ViewCompat.setOnApplyWindowInsetsListener(this) { view, insets ->
+        view.updatePadding(bottom = initialBottom + insets.contentBottomInset())
+        insets
+    }
+    doOnAttach { ViewCompat.requestApplyInsets(it) }
+}
+
+private fun WindowInsetsCompat.contentBottomInset() =
+    getInsets(safeDrawingInsets or WindowInsetsCompat.Type.ime()).bottom
 
 fun Fragment.registerOnBackCallback(back: () -> Unit) =
     requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) { back() }

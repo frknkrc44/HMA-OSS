@@ -13,7 +13,7 @@ import icu.nullptr.hidemyapplist.MyApp.Companion.hmaApp
 import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.fragment.ScopeFragmentArgs
-import icu.nullptr.hidemyapplist.ui.util.applyBottomWindowInsets
+import icu.nullptr.hidemyapplist.ui.util.applyPageWindowInsets
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.navigate
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
@@ -58,7 +58,7 @@ class PresetManageFragment : Fragment(R.layout.fragment_preset_manage) {
         binding.presetList.layoutManager = LinearLayoutManager(context)
         binding.presetList.adapter = adapter
 
-        binding.root.applyBottomWindowInsets()
+        binding.root.applyPageWindowInsets()
     }
 
     private fun navigateToPreset(presetInfo: ConfigManager.PresetInfo) {

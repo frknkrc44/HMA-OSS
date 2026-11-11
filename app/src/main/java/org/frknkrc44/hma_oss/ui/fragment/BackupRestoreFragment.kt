@@ -18,7 +18,7 @@ import icu.nullptr.hidemyapplist.common.Constants.CONFIG_VERSION_NO_SETTINGS
 import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.common.Utils.cleanRemnantsFromConfig
 import icu.nullptr.hidemyapplist.service.ConfigManager
-import icu.nullptr.hidemyapplist.ui.util.applyBottomWindowInsets
+import icu.nullptr.hidemyapplist.ui.util.applyPageWindowInsets
 import icu.nullptr.hidemyapplist.ui.util.contentResolver
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
@@ -120,7 +120,7 @@ class BackupRestoreFragment : Fragment(R.layout.fragment_backup_restore) {
             restoreSAFLauncher.launch("application/json")
         }
 
-        binding.root.applyBottomWindowInsets()
+        binding.root.applyPageWindowInsets()
     }
 
     @SuppressLint("DefaultLocale")

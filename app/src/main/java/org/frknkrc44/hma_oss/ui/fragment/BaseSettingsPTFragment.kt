@@ -6,7 +6,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.androidbroadcast.vbpd.viewBinding
-import icu.nullptr.hidemyapplist.ui.util.applyBottomWindowInsets
+import icu.nullptr.hidemyapplist.ui.util.applyPageWindowInsets
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.registerOnBackCallback
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
@@ -47,6 +47,6 @@ abstract class BaseSettingsPTFragment : Fragment(R.layout.fragment_settings_pt_b
         binding.list.layoutManager = LinearLayoutManager(context)
         binding.list.adapter = adapter
 
-        binding.root.applyBottomWindowInsets()
+        binding.root.applyPageWindowInsets()
     }
 }

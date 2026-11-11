@@ -11,7 +11,7 @@ import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.ui.adapter.TemplateAdapter
-import icu.nullptr.hidemyapplist.ui.util.applyBottomWindowInsets
+import icu.nullptr.hidemyapplist.ui.util.applyPageWindowInsets
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.navigate
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
@@ -57,7 +57,7 @@ class TemplateManageFragment : Fragment(R.layout.fragment_template_manage) {
         binding.templateList.layoutManager = LinearLayoutManager(context)
         binding.templateList.adapter = adapter
 
-        binding.root.applyBottomWindowInsets()
+        binding.root.applyPageWindowInsets()
     }
 
     private fun navigateToSettings(info: ConfigManager.TemplateInfo) {
