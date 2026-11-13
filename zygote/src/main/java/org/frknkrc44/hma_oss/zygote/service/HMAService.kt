@@ -21,7 +21,6 @@ import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.common.PresetCache
 import icu.nullptr.hidemyapplist.common.RiskyPackageUtils
 import icu.nullptr.hidemyapplist.common.SettingsPresets
-import icu.nullptr.hidemyapplist.common.Utils.binderLocalScope
 import icu.nullptr.hidemyapplist.common.Utils.cleanRemnantsFromConfig
 import icu.nullptr.hidemyapplist.common.Utils.conflictedModules
 import icu.nullptr.hidemyapplist.common.Utils.encoder
@@ -59,6 +58,7 @@ import org.frknkrc44.hma_oss.zygote.util.Logcat.logWithLevel
 import org.frknkrc44.hma_oss.zygote.util.PackageManagerUtils.findApp
 import org.frknkrc44.hma_oss.zygote.util.PackageManagerUtils.getLaunchIntentForPackageAsUser
 import org.frknkrc44.hma_oss.zygote.util.PackageManagerUtils.isConflictingModuleInstalled
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.binderLocalScope
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.ensureFileIsRW
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.findAndVerifyAppSignature
 import org.frknkrc44.hma_oss.zygote.util.UserManagerUtils
@@ -92,6 +92,8 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     private lateinit var moduleStatusFile: File
 
     private lateinit var configFileListener: FileObserver
+
+    @Volatile
     private var writtenByManager = false
 
     private val configLock = Any()
@@ -101,6 +103,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     internal var appUid = 0
         private set
 
+    @Volatile
     var config = JsonConfig().apply { detailLog = true }
         private set
 

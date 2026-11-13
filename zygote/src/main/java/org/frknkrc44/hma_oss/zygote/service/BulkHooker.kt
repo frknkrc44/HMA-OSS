@@ -228,7 +228,7 @@ class BulkHooker {
         while (
             !element.hookFinished &&
             curClazz != null &&
-            curClazz.javaClass.simpleName != "Object"
+            curClazz != Any::class.java
         ) {
             val executable = resolveExecutable(curClazz, element.methodName, element.argumentCount)
             if (hookExecutable(executable, element)) return true
@@ -319,7 +319,7 @@ class BulkHooker {
 
             while (
                 curClazz != null &&
-                curClazz.javaClass.simpleName != "Object"
+                curClazz != Any::class.java
             ) {
                 val method = methodNames.firstNotNullOfOrNull {
                     resolveExecutable(curClazz, it, argumentCount)

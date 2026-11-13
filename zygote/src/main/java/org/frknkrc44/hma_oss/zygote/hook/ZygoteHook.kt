@@ -141,7 +141,9 @@ class ZygoteHook : IFrameworkHook {
         }
 
         var builder: ProcessParams.Builder? = null
-        if (processParams.targetSdkVersion < Build.VERSION_CODES.R && processParams.isTopApp) {
+
+        if (forceMountData && !systemApps.contains(caller) &&
+            processParams.targetSdkVersion < Build.VERSION_CODES.R && processParams.isTopApp) {
             builder = makeProcessParamsBuilder()
             builder.setBindMountAppsData(true)
         }
