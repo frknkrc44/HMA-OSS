@@ -496,8 +496,6 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     fun writeConfig(json: String) {
         if (!ensureManagerWorkModeOK()) return
 
-        writtenByManager = true
-
         synchronized(configLock) {
             try {
                 val newConfig = JsonConfig.parse(json)
@@ -508,6 +506,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
                 }
                 config = newConfig
                 ensureFileIsRW(configFile, true)
+                writtenByManager = true
                 configFile.writeText(json)
                 dataHolder.clearUidCache()
 
