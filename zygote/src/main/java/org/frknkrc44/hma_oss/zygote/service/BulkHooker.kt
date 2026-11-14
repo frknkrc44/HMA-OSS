@@ -24,12 +24,11 @@ import java.lang.invoke.MethodHandle
 import java.lang.reflect.Executable
 import java.lang.reflect.Method
 import java.util.concurrent.ConcurrentHashMap
-import java.util.concurrent.CopyOnWriteArrayList
 
 class BulkHooker {
     var hooksWasCrashed = false
 
-    internal val hooks = ConcurrentHashMap<String, CopyOnWriteArrayList<HookElement>>()
+    internal val hooks = ConcurrentHashMap<String, MutableSet<HookElement>>()
 
     internal fun isHookAvailable(clazz: String, method: String) = findHookElement(clazz, method) != null
 
@@ -41,7 +40,7 @@ class BulkHooker {
         val element = preAddHook(clazz, methodName, argumentCount, impl)
 
         if (element != null && applyHook(clazz, element)) {
-            hooks.computeIfAbsent(clazz) { CopyOnWriteArrayList() }.add(element)
+            hooks.computeIfAbsent(clazz) { ConcurrentHashMap.newKeySet() }.add(element)
         } else if (!hooksWasCrashed) {
             logI(ZygoteEntry.TAG) { "Invalid hook removed: $clazz -> $methodName($argumentCount)" }
         }
@@ -56,7 +55,7 @@ class BulkHooker {
         val element = preAddHook(clazz, methodName, argumentCount, impl)
 
         if (element != null && hookExecutable(executable, element)) {
-            hooks.computeIfAbsent(clazz) { CopyOnWriteArrayList() }.add(element)
+            hooks.computeIfAbsent(clazz) { ConcurrentHashMap.newKeySet() }.add(element)
         } else if (!hooksWasCrashed) {
             logI(ZygoteEntry.TAG) { "Invalid hook removed: $clazz -> $methodName($argumentCount)" }
         }

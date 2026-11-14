@@ -713,14 +713,8 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         val hookList = mutableListOf<String>()
 
         for ((className, hookElements) in hooker.hooks) {
-            for ((_, methodName, _, _, _, argumentCount) in hookElements) {
-                hookList.add(
-                    JsonConfig.HookItem(
-                        className,
-                        methodName,
-                        argumentCount,
-                    ).toString()
-                )
+            for ((_, methodName, argumentCount) in hookElements) {
+                hookList.add(JsonConfig.HookItem(className, methodName, argumentCount).toString())
             }
         }
 
