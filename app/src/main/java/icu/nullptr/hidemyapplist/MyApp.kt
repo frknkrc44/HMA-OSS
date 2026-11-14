@@ -8,8 +8,10 @@ import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.util.ConfigUtils.getLocale
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import java.util.Locale
 
 class MyApp : Application() {
@@ -17,7 +19,11 @@ class MyApp : Application() {
         lateinit var hmaApp: MyApp
     }
 
-    val globalScope = CoroutineScope(Dispatchers.Default)
+    val globalScope = CoroutineScope(SupervisorJob() + Dispatchers.Default +
+            CoroutineExceptionHandler { _, e ->
+                ServiceClient.log(Log.ERROR, "MyApp", e.stackTraceToString())
+            }
+    )
     var updateDialogSkipped: Boolean = false
 
     fun loadConfiguration() {
