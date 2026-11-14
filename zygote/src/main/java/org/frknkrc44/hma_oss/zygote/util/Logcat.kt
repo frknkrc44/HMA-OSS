@@ -7,14 +7,21 @@ import org.frknkrc44.hma_oss.zygote.service.UserService.service
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import java.util.concurrent.ArrayBlockingQueue
 import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
+import java.util.concurrent.ThreadPoolExecutor
+import java.util.concurrent.TimeUnit
 
 @Suppress("SpellCheckingInspection")
 object Logcat {
     private val logdReady: Boolean by lazy { SystemProperties.get("init.svc.logd") == "running" }
 
-    private val executor: ExecutorService = Executors.newSingleThreadExecutor()
+    private val executor: ExecutorService = ThreadPoolExecutor(
+        1, 1, 0L, TimeUnit.MILLISECONDS,
+        ArrayBlockingQueue(1024), // an arbitrary capacity
+        { r -> Thread(r).apply { isDaemon = true } },
+        ThreadPoolExecutor.DiscardOldestPolicy()
+    )
 
     inline fun logV(tag: String, cause: Throwable? = null, msg: () -> String) = logWithLevel(Log.VERBOSE, tag, cause, msg)
 
@@ -60,16 +67,16 @@ object Logcat {
             }
         }
 
+        // add into logcat if available
+        if (logdReady) {
+            Log.i("HMA-OSS", parsedMsg)
+        }
+
         // add into our log
         service?.apply {
             executor.execute {
                 addLog(parsedMsg)
             }
-        }
-
-        // add into logcat if available
-        if (logdReady) {
-            Log.i("HMA-OSS", parsedMsg)
         }
     }
 }
