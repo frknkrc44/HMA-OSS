@@ -1,5 +1,6 @@
 package org.frknkrc44.hma_oss.zygote.service
 
+import icu.nullptr.hidemyapplist.common.CollectionUtils.removeIf
 import icu.nullptr.hidemyapplist.common.FilterHolder
 import icu.nullptr.hidemyapplist.common.PresetCache
 import icu.nullptr.hidemyapplist.common.RiskyPackageUtils
@@ -12,9 +13,11 @@ class HMAServiceDataHolder {
 
     private val uidHideCache = ConcurrentHashMap<Int, UidEntry>()
 
+    @Volatile
     var presetCache = PresetCache()
         internal set
 
+    @Volatile
     var filterHolder = FilterHolder()
         internal set
 
@@ -91,5 +94,19 @@ class HMAServiceDataHolder {
         }
 
         writeFilterCount()
+    }
+
+    val totalFilterCount get() = synchronized(filterCountLock) { filterHolder.totalCount }
+
+    fun removeFilterCountsNotIn(keys: Collection<String>) = synchronized(filterCountLock) {
+        filterHolder.filterCounts.removeIf { key, _ -> !keys.contains(key) }
+    }
+
+    fun clearFilterCounts() = synchronized(filterCountLock) {
+        filterHolder.filterCounts.clear()
+    }
+
+    fun getDetailedFilterStats() = synchronized(filterCountLock) {
+        filterHolder.toString()
     }
 }

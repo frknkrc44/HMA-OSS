@@ -40,8 +40,9 @@ object Logcat {
     fun logELegacy(tag: String, msg: String, cause: Throwable?) = logE(tag, cause) { msg }
 
     inline fun logWithLevel(level: Int, tag: String, cause: Throwable? = null, msg: () -> String) {
-        if (level != Log.ERROR && service?.config?.errorOnlyLog == true) return
-        if (level <= Log.DEBUG && service?.config?.detailLog == false) return
+        val config = service?.getConfig()
+        if (level != Log.ERROR && config?.errorOnlyLog == true) return
+        if (level <= Log.DEBUG && config?.detailLog == false) return
         if (level == Log.VERBOSE && !BuildConfig.DEBUG) return
 
         logWithLevelInternal(level, tag, cause, msg())

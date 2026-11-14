@@ -123,7 +123,7 @@ class ImmHook : IFrameworkHook {
                 logD(TAG) { "@$methodName: Result: $currentResult Args: ${args.contentToString()}" }
 
                 val callingUid = if (args.count { it is Int } > 2) {
-                    args.lastOrNull { it is Int && it > 999 } as? Int ?: return@hookAfter
+                    args.lastOrNull { it is Int && it > 9999 } as? Int ?: return@hookAfter
                 } else {
                     Binder.getCallingUid()
                 }

@@ -68,7 +68,8 @@ class BulkHooker {
             return null
         }
 
-        val inDisabledHooks = service?.config?.disabledHooks?.any {
+        val config = service?.getConfig()
+        val inDisabledHooks = config?.disabledHooks?.any {
             clazz == it.className &&
                     methodName == it.methodName &&
                     argumentCount == it.argumentCount

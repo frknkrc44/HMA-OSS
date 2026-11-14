@@ -78,9 +78,7 @@ object ConfigManager {
         }
 
     var forceMountData: Boolean
-        get() =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) config.forceMountData
-            else false
+        get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && config.forceMountData
         set(value) {
             config.forceMountData = value
             saveConfig()
@@ -307,20 +305,10 @@ object ConfigManager {
         }
     }
 
-    fun getRawConfig(deepCopy: Boolean): JsonConfig {
-        if (deepCopy) {
-            val scopeCopy = config.scope.toMutableMap()
-            val templateCopy = config.templates.toMutableMap()
-            val settingsTemplateCopy = config.settingsTemplates.toMutableMap()
-
-            return config.copy(
-                scope = scopeCopy,
-                templates = templateCopy,
-                settingsTemplates = settingsTemplateCopy,
-            )
-        }
-
-        return config
+    fun getRawConfig(deepCopy: Boolean) = if (deepCopy) {
+        JsonConfig.parse(config.toString())
+    } else {
+        config
     }
 
     fun resetConfig() {

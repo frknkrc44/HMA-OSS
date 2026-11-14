@@ -1,6 +1,6 @@
+import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import org.jose4j.json.internal.json_simple.JSONObject
-import java.io.DataInputStream
 import java.net.HttpURLConnection
 import java.net.URL
 
@@ -10,74 +10,108 @@ plugins {
     alias(libs.plugins.nav.safeargs.kotlin)
 }
 
-val appPackageName = rootProject.extra["appPackageName"] as String
-val crowdinProjectId = rootProject.extra["crowdinProjectId"] as String
-val crowdinApiKey = rootProject.extra["crowdinApiKey"] as String
-val localBuild = rootProject.extra["localBuild"] as Boolean
-val officialBuild = rootProject.extra["officialBuild"] as Boolean
+abstract class GenerateTranslatorsTask : DefaultTask() {
+    @get:OutputDirectory
+    abstract val outputDir: DirectoryProperty
 
-@Suppress("DEPRECATION")
-afterEvaluate {
-    val srcDir = file(android.sourceSets["main"].assets.directories.first())
-    logger.lifecycle("Asset dir: $srcDir")
-    if (!srcDir.exists()) srcDir.mkdirs()
+    @get:Internal
+    abstract val crowdinProjectId: Property<String>
 
-    val translatorsMap = mutableMapOf(
-        // I used GitHub to get translations before moving to Crowdin.
-        // Since nearly all of GitHub translators are listed in Crowdin
-        // too, I wanted to add one profile here.
+    @get:Internal
+    abstract val crowdinApiKey: Property<String>
 
-        "cvnertnc" to "https://avatars.githubusercontent.com/u/148134890?v=4",
-    )
+    @TaskAction
+    fun run() {
+        val translatorsMap = mutableMapOf(
+            // I used GitHub to get translations before moving to Crowdin.
+            // Since nearly all of GitHub translators are listed in Crowdin
+            // too, I wanted to add one profile here.
 
-    val urlConnection = if (crowdinApiKey.isNotBlank()) {
-        logger.lifecycle("Found Crowdin API key")
+            "cvnertnc" to "https://avatars.githubusercontent.com/u/148134890?v=4",
+        )
 
-        val url = URL("https://crowdin.com/api/v2/projects/$crowdinProjectId/members")
-        (url.openConnection() as HttpURLConnection).apply {
-            setRequestProperty("authorization", "Bearer $crowdinApiKey")
-        }
-    } else {
-        val url = URL("https://github.com/frknkrc44/HMA-OSS/releases/latest/download/translators.json")
-        url.openConnection() as HttpURLConnection
-    }
+        val apiKey = crowdinApiKey.get()
+        val projectId = crowdinProjectId.get()
+        @Suppress("DEPRECATION")
+        val urlConnection = if (apiKey.isNotBlank()) {
+            logger.lifecycle("Found Crowdin API key")
 
-    val inputStream = DataInputStream(urlConnection.getInputStream())
-    val str = String(inputStream.readAllBytes())
-    inputStream.close()
-    urlConnection.disconnect()
-
-    val json = JsonParser.parseString(str).asJsonObject
-
-    if (crowdinApiKey.isNotBlank()) {
-        val translators = json.getAsJsonArray("data")
-
-        for (item in translators) {
-            val translator = item.asJsonObject.getAsJsonObject("data")
-            val avatarUrl = translator.get("avatarUrl").asString
-            val username = translator.get("username").asString
-            val fullName = try {
-                translator.get("fullName").asString
-            } catch (_: Throwable) {
-                ""
+            val url = URL("https://crowdin.com/api/v2/projects/$projectId/members")
+            (url.openConnection() as HttpURLConnection).apply {
+                setRequestProperty("authorization", "Bearer $apiKey")
             }
-
-            if (fullName.isNotEmpty() && fullName != username) {
-                translatorsMap["$fullName ($username)"] = avatarUrl
-            } else {
-                translatorsMap[username] = avatarUrl
-            }
+        } else {
+            val url = URL("https://github.com/frknkrc44/HMA-OSS/releases/latest/download/translators.json")
+            url.openConnection() as HttpURLConnection
         }
-    } else {
-        json.keySet().forEach { translatorsMap[it] = json.get(it).asString }
-    }
 
-    val translatorJson = JSONObject(translatorsMap).toJSONString()
-    File(srcDir, "translators.json").writeText(translatorJson)
+        // add timeouts
+        urlConnection.readTimeout = 5_000
+        urlConnection.connectTimeout = 5_000
+
+        val str = runCatching {
+            urlConnection.getInputStream().bufferedReader(Charsets.UTF_8).use { it.readText() }
+        }.getOrElse { "{}" }
+        urlConnection.disconnect()
+
+        val json = runCatching {
+            JsonParser.parseString(str).asJsonObject
+        }.getOrElse {
+            JsonObject()
+        }
+
+        if (apiKey.isNotBlank()) {
+            val translators = json.getAsJsonArray("data")
+
+            if (translators != null) {
+                for (item in translators) {
+                    val translator = runCatching {
+                        item.asJsonObject.getAsJsonObject("data")
+                    }.getOrNull()
+                    if (translator == null) continue
+                    val avatarUrl = translator.get("avatarUrl").asString
+                    val username = translator.get("username").asString
+                    val fullName = try {
+                        translator.get("fullName").asString
+                    } catch (_: Throwable) {
+                        ""
+                    }
+
+                    if (fullName.isNotEmpty() && fullName != username) {
+                        translatorsMap["$fullName ($username)"] = avatarUrl
+                    } else {
+                        translatorsMap[username] = avatarUrl
+                    }
+                }
+            }
+        } else {
+            json.keySet().forEach { translatorsMap[it] = json.get(it).asString }
+        }
+
+        val translatorJson = JSONObject(translatorsMap).toJSONString()
+        val outFile = outputDir.get().file("translators.json").asFile
+        outFile.parentFile.mkdirs()
+        outFile.writeText(translatorJson)
+    }
+}
+
+val generateTranslators = tasks.register<GenerateTranslatorsTask>("generateTranslators") {
+    description = "Generate translators JSON"
+    crowdinProjectId.set(rootProject.extra["crowdinProjectId"] as String)
+    crowdinApiKey.set(rootProject.extra["crowdinApiKey"] as String)
+}
+
+androidComponents {
+    onVariants { variant ->
+        variant.sources.assets?.addGeneratedSourceDirectory(
+            generateTranslators,
+            GenerateTranslatorsTask::outputDir,
+        )
+    }
 }
 
 android {
-    namespace = appPackageName
+    namespace = rootProject.extra["appPackageName"] as String
 
     defaultConfig {
         buildConfigField("String[]", "SUPPORTED_LOCALES", generateSupportedLocales())

@@ -95,7 +95,7 @@ class EditSettingFragment : Fragment(R.layout.fragment_edit_setting) {
                 MaterialAlertDialogBuilder(requireContext())
                     .setTitle(R.string.settings_templates_name)
                     .setItems(settingsItems.get()) { _, which ->
-                        binding.settingName.editText?.setText(settingsItems.get()[which])
+                        binding.settingName.editText?.setText(settingsItems.get().orEmpty()[which])
                     }
                     .setNegativeButton(android.R.string.cancel, null)
                     .show()
@@ -128,7 +128,7 @@ class EditSettingFragment : Fragment(R.layout.fragment_edit_setting) {
 
             settingsItems.tryEmit(ServiceClient.listAllSettings(databaseName))
 
-            (editText as MaterialAutoCompleteTextView).setSimpleItems(settingsItems.get())
+            (editText as MaterialAutoCompleteTextView).setSimpleItems(settingsItems.get().orEmpty())
         }
     }
 }
