@@ -71,7 +71,7 @@ object PrefManager {
         set(value) = pref.edit { putString(PREF_THEME_COLOR, value) }
 
     var hideIcon: Boolean
-        get() = isLauncherIconInvisible.get()
+        get() = isLauncherIconInvisible.get() == true
         set(value) {
             val enabled = findEnabledAppComponent(hmaApp)
             if (value && enabled != null) {

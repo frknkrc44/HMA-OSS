@@ -164,14 +164,14 @@ object ZLUtils {
     }
 
     fun findField(clazz: Class<*>, name: String): Field? {
-        var currentClazz: Class<*> = clazz
-        var field: Field? = null
+        var currentClazz: Class<*>? = clazz
 
-        while (field == null && currentClazz.javaClass.simpleName != "Object") {
-            field = runCatching { currentClazz.getField(name) }.getOrNull()
-            currentClazz = clazz.superclass.javaClass
+        while (currentClazz != null) {
+            val field = runCatching { currentClazz.getField(name) }.getOrNull()
+            if (field != null) return field
+            currentClazz = currentClazz.superclass
         }
 
-        return field
+        return null
     }
 }

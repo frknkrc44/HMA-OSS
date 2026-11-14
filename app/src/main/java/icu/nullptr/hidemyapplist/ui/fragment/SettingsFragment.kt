@@ -29,11 +29,11 @@ import icu.nullptr.hidemyapplist.data.AppConstants
 import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.service.ServiceClient
+import icu.nullptr.hidemyapplist.ui.util.applyPageWindowInsets
 import icu.nullptr.hidemyapplist.ui.util.enabledString
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.navigate
 import icu.nullptr.hidemyapplist.ui.util.recreateMainActivity
-import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import icu.nullptr.hidemyapplist.ui.util.showNeedRebootToast
 import icu.nullptr.hidemyapplist.ui.util.showToast
@@ -81,7 +81,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                 .commit()
         }
 
-        setEdge2EdgeFlags(binding.root)
+        binding.root.applyPageWindowInsets(bottomContent = null)
     }
 
     override fun onPreferenceStartFragment(caller: PreferenceFragmentCompat, pref: Preference): Boolean {
@@ -184,7 +184,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
         }
     }
 
-    class DataIsolationPreferenceFragment(private val preferenceDataStore: PreferenceDataStore) : PreferenceFragmentCompat() {
+    class DataIsolationPreferenceFragment(private val preferenceDataStore: PreferenceDataStore) : EdgeToEdgePreferenceFragment() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             preferenceManager.preferenceDataStore = preferenceDataStore
             setPreferencesFromResource(R.xml.settings_data_isolation, rootKey)
@@ -248,7 +248,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
         }
     }
 
-    class SettingsPreferenceFragment : PreferenceFragmentCompat() {
+    class SettingsPreferenceFragment : EdgeToEdgePreferenceFragment() {
         private fun configureDataIsolation() {
             findPreference<Preference>("dataIsolation")?.let {
                 it.isEnabled = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R

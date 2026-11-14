@@ -14,7 +14,6 @@ import android.system.OsConstants
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.common.PropertyUtils
-import icu.nullptr.hidemyapplist.common.Utils.binderLocalScope
 import icu.nullptr.hidemyapplist.common.Utils.containsMultiple
 import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
 import org.frknkrc44.hma_oss.common.BuildConfig
@@ -147,5 +146,14 @@ object ServiceUtils {
         } catch (_: Throwable) {}
 
         throw RemoteException("${file.absolutePath} is not accessible by the current UID")
+    }
+
+    fun <T> binderLocalScope(block: () -> T): T {
+        val identity = Binder.clearCallingIdentity()
+        return try {
+            block()
+        } finally {
+            Binder.restoreCallingIdentity(identity)
+        }
     }
 }

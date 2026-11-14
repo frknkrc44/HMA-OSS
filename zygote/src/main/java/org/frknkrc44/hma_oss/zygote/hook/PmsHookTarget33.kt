@@ -5,10 +5,10 @@ import android.os.Binder
 import android.os.Build
 import androidx.annotation.RequiresApi
 import icu.nullptr.hidemyapplist.common.OSUtils
-import icu.nullptr.hidemyapplist.common.Utils
 import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.firstOrNullWithType
 import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.firstWithType
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.binderLocalScope
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackageNameFromPackageSettings
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackagesForUidLocal
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.dumpArgs
@@ -110,7 +110,7 @@ open class PmsHookTarget33 : PmsHookTargetBase() {
                     { frame.getArgument(2) as? Int },
                     { getPackageNameFromPackageSettings(frame.getArgument(4)) },
                     { _, it ->
-                        Utils.binderLocalScope {
+                        binderLocalScope {
                             getPackagesForUidMethod.invoke(frame.getArgument(1), it) as? Array<String>
                         }
                     },
@@ -119,8 +119,8 @@ open class PmsHookTarget33 : PmsHookTargetBase() {
             }
 
             hookBefore(
-                listOf(COMPUTER_ENGINE_CLASS, PERMISSION_MANAGER_SERVICE_CLASS),
-                listOf("checkUidPermission"),
+                arrayOf(COMPUTER_ENGINE_CLASS, PERMISSION_MANAGER_SERVICE_CLASS),
+                arrayOf("checkUidPermission"),
             ) { methodName, frame, returnValue ->
                 val uid = frame.dumpArgs().firstWithType<Int>()
 

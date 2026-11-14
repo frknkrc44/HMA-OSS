@@ -24,12 +24,11 @@ import java.lang.invoke.MethodHandle
 import java.lang.reflect.Executable
 import java.lang.reflect.Method
 import java.util.concurrent.ConcurrentHashMap
-import java.util.concurrent.CopyOnWriteArrayList
 
 class BulkHooker {
     var hooksWasCrashed = false
 
-    internal val hooks = ConcurrentHashMap<String, CopyOnWriteArrayList<HookElement>>()
+    internal val hooks = ConcurrentHashMap<String, MutableSet<HookElement>>()
 
     internal fun isHookAvailable(clazz: String, method: String) = findHookElement(clazz, method) != null
 
@@ -41,7 +40,7 @@ class BulkHooker {
         val element = preAddHook(clazz, methodName, argumentCount, impl)
 
         if (element != null && applyHook(clazz, element)) {
-            hooks.computeIfAbsent(clazz) { CopyOnWriteArrayList() }.add(element)
+            hooks.computeIfAbsent(clazz) { ConcurrentHashMap.newKeySet() }.add(element)
         } else if (!hooksWasCrashed) {
             logI(ZygoteEntry.TAG) { "Invalid hook removed: $clazz -> $methodName($argumentCount)" }
         }
@@ -56,7 +55,7 @@ class BulkHooker {
         val element = preAddHook(clazz, methodName, argumentCount, impl)
 
         if (element != null && hookExecutable(executable, element)) {
-            hooks.computeIfAbsent(clazz) { CopyOnWriteArrayList() }.add(element)
+            hooks.computeIfAbsent(clazz) { ConcurrentHashMap.newKeySet() }.add(element)
         } else if (!hooksWasCrashed) {
             logI(ZygoteEntry.TAG) { "Invalid hook removed: $clazz -> $methodName($argumentCount)" }
         }
@@ -69,7 +68,8 @@ class BulkHooker {
             return null
         }
 
-        val inDisabledHooks = service?.config?.disabledHooks?.any {
+        val config = service?.getConfig()
+        val inDisabledHooks = config?.disabledHooks?.any {
             clazz == it.className &&
                     methodName == it.methodName &&
                     argumentCount == it.argumentCount
@@ -88,8 +88,8 @@ class BulkHooker {
     }
 
     inline fun hookBefore(
-        clazzNames: List<String>,
-        methodNames: List<String>,
+        clazzNames: Array<String>,
+        methodNames: Array<String>,
         argumentCount: Int = PARAMETER_COUNT_UNKNOWN,
         crossinline hook: (methodName: String, frame: EmulatedStackFrame, returnValue: ReturnValue) -> Unit,
     ) = findAltMethod(clazzNames, methodNames, argumentCount)?.let { executable ->
@@ -147,8 +147,8 @@ class BulkHooker {
     }
 
     inline fun hookAfter(
-        clazzNames: List<String>,
-        methodNames: List<String>,
+        clazzNames: Array<String>,
+        methodNames: Array<String>,
         argumentCount: Int = PARAMETER_COUNT_UNKNOWN,
         handleAfterThrows: Boolean = false,
         crossinline hook: (methodName: String, frame: EmulatedStackFrame, returnValue: ReturnValue) -> Unit,
@@ -228,7 +228,7 @@ class BulkHooker {
         while (
             !element.hookFinished &&
             curClazz != null &&
-            curClazz.javaClass.simpleName != "Object"
+            curClazz != Any::class.java
         ) {
             val executable = resolveExecutable(curClazz, element.methodName, element.argumentCount)
             if (hookExecutable(executable, element)) return true
@@ -243,7 +243,7 @@ class BulkHooker {
         // do not apply next hooks when null object received or the previous hook was crashed
         if (executable == null || hooksWasCrashed) return false
 
-        logD(ZygoteEntry.TAG) { "Hooked constructor: $executable" }
+        logD(ZygoteEntry.TAG) { "Hooking on $executable" }
 
         val memoryAddresses = try {
             Hooks.hook(
@@ -304,8 +304,8 @@ class BulkHooker {
 
     @PublishedApi
     internal fun findAltMethod(
-        clazzNames: List<String>,
-        methodNames: List<String>,
+        clazzNames: Array<String>,
+        methodNames: Array<String>,
         argumentCount: Int = PARAMETER_COUNT_UNKNOWN,
         loader: ClassLoader? = SystemServerHook.classLoader,
     ): Executable? {
@@ -313,13 +313,13 @@ class BulkHooker {
             var curClazz = try {
                 Class.forName(clazz, true, loader)
             } catch (ex: ClassNotFoundException) {
-                logE(ZygoteEntry.TAG, ex) { "Class $clazz not found" }
+                logD(ZygoteEntry.TAG, ex) { "Class $clazz not found" }
                 continue
             }
 
             while (
                 curClazz != null &&
-                curClazz.javaClass.simpleName != "Object"
+                curClazz != Any::class.java
             ) {
                 val method = methodNames.firstNotNullOfOrNull {
                     resolveExecutable(curClazz, it, argumentCount)
@@ -330,7 +330,9 @@ class BulkHooker {
             }
         }
 
-        logD(ZygoteEntry.TAG) { "Cannot find $clazzNames -> $methodNames($argumentCount)" }
+        logD(ZygoteEntry.TAG) {
+            "Cannot find ${clazzNames.contentToString()} -> ${methodNames.contentToString()}($argumentCount)"
+        }
 
         return null
     }

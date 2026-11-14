@@ -1,5 +1,6 @@
 package android.content;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.IInterface;
 import android.os.RemoteException;
@@ -7,6 +8,7 @@ import android.os.RemoteException;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
+@SuppressLint("ObsoleteSdkInt")
 public interface IContentProvider extends IInterface {
 
     @RequiresApi(29)

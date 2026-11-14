@@ -14,13 +14,13 @@ import icu.nullptr.hidemyapplist.common.app_presets.RootAppsPreset
 import icu.nullptr.hidemyapplist.common.app_presets.SDhizukuAppsPreset
 import icu.nullptr.hidemyapplist.common.app_presets.SuspiciousAppsPreset
 import icu.nullptr.hidemyapplist.common.app_presets.XposedModulesPreset
+import java.util.concurrent.ConcurrentHashMap
 import java.util.zip.ZipFile
 
 class AppPresets private constructor() {
-    private val presetList = mutableMapOf<String, BasePreset>()
-    private val allAppsCache = mutableSetOf<String>()
-
-    private val manifestDataCache = mutableMapOf<String, String>()
+    private val presetList = ConcurrentHashMap<String, BasePreset>()
+    private val allAppsCache = ConcurrentHashMap.newKeySet<String>()
+    private val manifestDataCache = ConcurrentHashMap<String, String>()
 
     var loggerFunction: ((Int, () -> String) -> Unit)? = null
 

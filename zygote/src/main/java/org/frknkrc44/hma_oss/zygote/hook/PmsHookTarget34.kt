@@ -20,8 +20,8 @@ class PmsHookTarget34 : PmsHookTarget33() {
             // Only 14 QPR2+ has this method
             // UPDATE: Samsung adds getArchivedPackage instead of getArchivedPackageInternal
             hookAfter(
-                listOf(PACKAGE_MANAGER_SERVICE_CLASS),
-                listOf("getArchivedPackageInternal", "getArchivedPackage"),
+                arrayOf(PACKAGE_MANAGER_SERVICE_CLASS),
+                arrayOf("getArchivedPackageInternal", "getArchivedPackage"),
             ) { methodName, frame, returnValue ->
                 applyPackageHiding(
                     methodName,

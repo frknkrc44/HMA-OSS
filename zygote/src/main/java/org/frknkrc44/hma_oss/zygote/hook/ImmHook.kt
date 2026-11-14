@@ -11,7 +11,6 @@ import android.view.inputmethod.InputMethodManager
 import android.view.inputmethod.InputMethodSubtype
 import com.v7878.unsafe.invoke.EmulatedStackFrame
 import icu.nullptr.hidemyapplist.common.Constants
-import icu.nullptr.hidemyapplist.common.Utils.binderLocalScope
 import icu.nullptr.hidemyapplist.common.Utils.getCallingUser
 import icu.nullptr.hidemyapplist.common.Utils.getPackageUidCompat
 import icu.nullptr.hidemyapplist.common.settings_presets.InputMethodPreset
@@ -21,6 +20,7 @@ import org.frknkrc44.hma_oss.zygote.util.ContextUtils.packageManager
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logW
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.binderLocalScope
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackagesForUidLocal
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.callStaticMethod
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.dumpArgs
@@ -91,8 +91,8 @@ class ImmHook : IFrameworkHook {
         hooker.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
                 hookBefore(
-                    listOf(IMM_SERVICE_CLASS, IMM_IMPL_CLASS),
-                    listOf("getCurrentInputMethodInfoAsUser"),
+                    arrayOf(IMM_SERVICE_CLASS, IMM_IMPL_CLASS),
+                    arrayOf("getCurrentInputMethodInfoAsUser"),
                 ) { methodName, frame, returnValue ->
                     val callingApps = getPackagesForUidLocal(pms)
 
@@ -113,8 +113,8 @@ class ImmHook : IFrameworkHook {
             }
 
             hookAfter(
-                listOf(IMM_SERVICE_CLASS),
-                listOf("getInputMethodList", "getInputMethodListInternal"),
+                arrayOf(IMM_SERVICE_CLASS),
+                arrayOf("getInputMethodList", "getInputMethodListInternal"),
             ) { methodName, frame, returnValue ->
                 logD(TAG) { "@$methodName: hook init" }
 
@@ -123,7 +123,7 @@ class ImmHook : IFrameworkHook {
                 logD(TAG) { "@$methodName: Result: $currentResult Args: ${args.contentToString()}" }
 
                 val callingUid = if (args.count { it is Int } > 2) {
-                    args.lastOrNull { it is Int && it > 999 } as? Int ?: return@hookAfter
+                    args.lastOrNull { it is Int && it > 9999 } as? Int ?: return@hookAfter
                 } else {
                     Binder.getCallingUid()
                 }
@@ -152,8 +152,8 @@ class ImmHook : IFrameworkHook {
             }
 
             hookBefore(
-                listOf(IMM_SERVICE_CLASS),
-                listOf("getEnabledInputMethodList", "getEnabledInputMethodListInternal"),
+                arrayOf(IMM_SERVICE_CLASS),
+                arrayOf("getEnabledInputMethodList", "getEnabledInputMethodListInternal"),
             ) { methodName, frame, returnValue ->
                 val callingApps = getPackagesForUidLocal(pms)
 
@@ -184,22 +184,22 @@ class ImmHook : IFrameworkHook {
             }
 
             hookBefore(
-                listOf(IMM_SERVICE_CLASS, IMM_IMPL_CLASS),
-                listOf("getCurrentInputMethodSubtype"),
+                arrayOf(IMM_SERVICE_CLASS, IMM_IMPL_CLASS),
+                arrayOf("getCurrentInputMethodSubtype"),
             ) { methodName, _, returnValue ->
                 subtypeHook(methodName, returnValue)
             }
 
             hookBefore(
-                listOf(IMM_SERVICE_CLASS, IMM_IMPL_CLASS),
-                listOf("getLastInputMethodSubtype"),
+                arrayOf(IMM_SERVICE_CLASS, IMM_IMPL_CLASS),
+                arrayOf("getLastInputMethodSubtype"),
             ) { methodName, _, returnValue ->
                 subtypeHook(methodName, returnValue)
             }
 
             hookBefore(
-                listOf(IMM_SERVICE_CLASS, IMM_IMPL_CLASS),
-                listOf(
+                arrayOf(IMM_SERVICE_CLASS, IMM_IMPL_CLASS),
+                arrayOf(
                     "getEnabledInputMethodSubtypeListInternal",
                     "getEnabledInputMethodSubtypeList"
                 )
@@ -296,14 +296,15 @@ class ImmHook : IFrameworkHook {
     }
 
     private fun resolveIMInfo(packageName: String): InputMethodInfo? = binderLocalScope {
-        val imManager =
-            application.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-
         imManager?.inputMethodList?.firstOrNull { it.packageName == packageName }.apply {
             if (this == null) {
                 warnNotInstalledKeyboard("resolveIMInfo", packageName)
             }
         }
+    }
+
+    private val imManager by lazy {
+        application.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
     }
 
     private fun callerIsSpoofed(caller: String) =

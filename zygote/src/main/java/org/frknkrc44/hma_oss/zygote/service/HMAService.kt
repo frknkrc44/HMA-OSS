@@ -11,7 +11,6 @@ import android.os.ParcelFileDescriptor
 import android.os.RemoteException
 import android.provider.Settings
 import icu.nullptr.hidemyapplist.common.AppPresets
-import icu.nullptr.hidemyapplist.common.CollectionUtils.removeIf
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.Constants.PARCEL_TYPE_CONFIG
 import icu.nullptr.hidemyapplist.common.Constants.PARCEL_TYPE_LOG
@@ -21,7 +20,6 @@ import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.common.PresetCache
 import icu.nullptr.hidemyapplist.common.RiskyPackageUtils
 import icu.nullptr.hidemyapplist.common.SettingsPresets
-import icu.nullptr.hidemyapplist.common.Utils.binderLocalScope
 import icu.nullptr.hidemyapplist.common.Utils.cleanRemnantsFromConfig
 import icu.nullptr.hidemyapplist.common.Utils.conflictedModules
 import icu.nullptr.hidemyapplist.common.Utils.encoder
@@ -59,13 +57,16 @@ import org.frknkrc44.hma_oss.zygote.util.Logcat.logWithLevel
 import org.frknkrc44.hma_oss.zygote.util.PackageManagerUtils.findApp
 import org.frknkrc44.hma_oss.zygote.util.PackageManagerUtils.getLaunchIntentForPackageAsUser
 import org.frknkrc44.hma_oss.zygote.util.PackageManagerUtils.isConflictingModuleInstalled
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.binderLocalScope
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.ensureFileIsRW
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.findAndVerifyAppSignature
 import org.frknkrc44.hma_oss.zygote.util.UserManagerUtils
 import java.io.File
+import java.io.IOException
 import java.lang.reflect.Modifier
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
+import java.util.concurrent.atomic.AtomicReference
 import kotlin.io.path.Path
 
 class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
@@ -92,8 +93,11 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     private lateinit var moduleStatusFile: File
 
     private lateinit var configFileListener: FileObserver
+
+    @Volatile
     private var writtenByManager = false
 
+    private val presetCacheLock = Any()
     private val configLock = Any()
     private val loggerLock = Any()
     val systemApps = mutableSetOf<String>()
@@ -101,8 +105,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     internal var appUid = 0
         private set
 
-    var config = JsonConfig().apply { detailLog = true }
-        private set
+    private var config = AtomicReference(JsonConfig().apply { detailLog = true })
 
     init {
         managerWorkMode = if (pms.isConflictingModuleInstalled()) {
@@ -115,11 +118,11 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         UserService.service = this
 
         if (searchDataDir()) {
-            saveModuleStatus()
             loadFilterCount()
             reloadConfigFromFile()
 
             appUid = findAndVerifyAppSignature(pms)
+            saveModuleStatus()
 
             if (managerWorkMode != Constants.MANAGER_WORK_MODE_NO_HOOKS) {
                 installHooks()
@@ -165,7 +168,10 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
             if (it.startsWith("hide_my_applist")) {
                 if (!this::dataDir.isInitialized) {
                     val newDir = File("/data/misc/$it")
-                    File("/data/system/$it").renameTo(newDir)
+                    val oldDir = File("/data/system/$it")
+                    if(!oldDir.renameTo(newDir)) {
+                        throw IOException("Rename failed, from $oldDir to $newDir")
+                    }
                     dataDir = newDir.path
                 } else {
                     File("/data/system/$it").deleteRecursively()
@@ -353,20 +359,24 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         caller, amount, FilterHolder.FilterType.OTHERS, ::writeFilterCount
     )
 
-    fun isHookEnabled(packageName: String?) = config.scope.containsKey(packageName)
+    fun getConfig() = config.get()!!
 
-    fun isAnySettingsReplacementsEnabled(packageName: String?) = config.scope[packageName]?.let {
+    fun getScope(packageName: String?) = getConfig().scope[packageName]
+
+    fun isHookEnabled(packageName: String?) = getScope(packageName) != null
+
+    fun isAnySettingsReplacementsEnabled(packageName: String?) = getScope(packageName)?.let {
         it.applySettingsPresets.isNotEmpty() || it.applySettingTemplates.isNotEmpty()
     } ?: false
 
     fun isAppDataIsolationExcluded(packageName: String?) =
-        config.scope[packageName]?.excludeVoldIsolation ?: false
+        getScope(packageName)?.excludeVoldIsolation ?: false
 
     fun getSpoofedSetting(caller: String?, name: String?, database: String): ReplacementItem? {
         if (caller == null || name == null) return null
 
         val templates = getEnabledSettingsTemplates(caller)
-        val replacement = config.settingsTemplates.firstNotNullOfOrNull { (key, value) ->
+        val replacement = getConfig().settingsTemplates.firstNotNullOfOrNull { (key, value) ->
             if (key in templates) value.settingsList.firstOrNull {
                 it.name == name && it.database == database
             } else null
@@ -386,10 +396,10 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     }
 
     fun getEnabledSettingsTemplates(caller: String?) =
-        config.scope[caller]?.applySettingTemplates ?: setOf()
+        getScope(caller)?.applySettingTemplates ?: setOf()
 
     fun getEnabledSettingsPresets(caller: String?) =
-        config.scope[caller]?.applySettingsPresets ?: setOf()
+        getScope(caller)?.applySettingsPresets ?: setOf()
 
     fun isAppInGMSIgnoredPackages(caller: String, query: String) =
         (caller in Constants.gmsPackages) && RiskyPackageUtils.instance.appHasGMSConnection(query)
@@ -399,8 +409,19 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         if (caller == BuildConfig.APP_PACKAGE_NAME) return false
         if (caller in Constants.packagesShouldNotHide || query in Constants.packagesShouldNotHide) return false
         if (caller == query) return false
+
+        val config = getConfig()
         val appConfig = config.scope[caller] ?: return false
 
+        return shouldHideInt(caller, query, appConfig, config)
+    }
+
+    private fun shouldHideInt(
+        caller: String,
+        query: String,
+        appConfig: JsonConfig.AppConfig,
+        config: JsonConfig,
+    ): Boolean {
         if (query in appConfig.extraAppList) return !appConfig.useWhitelist
         if (query in appConfig.extraOppositeAppList) return appConfig.useWhitelist
 
@@ -432,11 +453,18 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     }
 
     fun getRestrictedZygotePermissions(caller: String?) =
-        config.scope[caller]?.restrictedZygotePermissions
+        getScope(caller)?.restrictedZygotePermissions
 
     fun shouldHideActivityLaunch(caller: String?, query: String?): Boolean {
+        if (caller == null || query == null) return false
+        if (caller == BuildConfig.APP_PACKAGE_NAME) return false
+        if (caller in Constants.packagesShouldNotHide || query in Constants.packagesShouldNotHide) return false
+        if (caller == query) return false
+
+        val config = getConfig()
         val appConfig = config.scope[caller]
-        return appConfig != null && shouldHide(caller, query) && if (appConfig.invertActivityLaunchProtection) {
+
+        return appConfig != null && shouldHideInt(caller, query, appConfig, config) && if (appConfig.invertActivityLaunchProtection) {
             config.disableActivityLaunchProtection
         } else {
             !config.disableActivityLaunchProtection
@@ -446,7 +474,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     fun shouldHideInstallationSource(caller: String?, query: String?, callingUser: Int): Int {
         if (caller == null || query == null) return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
         if (caller == BuildConfig.APP_PACKAGE_NAME) return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
-        val appConfig = config.scope[caller] ?: return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
+        val appConfig = getScope(caller) ?: return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
         if (!appConfig.hideInstallationSource) return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
         logD(TAG) { "@shouldHideInstallationSource $caller: $query" }
         if (caller == query && appConfig.excludeTargetInstallationSource) return Constants.FAKE_INSTALLATION_SOURCE_DISABLED
@@ -480,41 +508,25 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         return true
     }
 
-    fun addLog(parsedMsg: String) {
-        if (!ensureManagerWorkModeOK(true)) return
+    fun addLog(parsedMsg: String) = runCatching {
+        if (!ensureManagerWorkModeOK(true)) return@runCatching
 
         synchronized(loggerLock) {
-            if (!logcatAvailable) return
-            if (logFile.length() / 1024 > config.maxLogSize) clearLogs()
+            if (!logcatAvailable) return@runCatching
+            if (logFile.length() / 1024 > getConfig().maxLogSize) clearLogs()
             logFile.appendText(parsedMsg)
         }
     }
 
-    fun writeConfig(json: String) {
+    private fun writeConfig(json: String, lock: Boolean = true) {
         if (!ensureManagerWorkModeOK()) return
 
-        writtenByManager = true
-
-        synchronized(configLock) {
-            try {
-                val newConfig = JsonConfig.parse(json)
-                newConfig.cleanRemnantsFromConfig()
-                if (newConfig.configVersion != BuildConfig.CONFIG_VERSION) {
-                    logW(TAG) { "Sync config: version mismatch, need reboot" }
-                    return
-                }
-                config = newConfig
-                ensureFileIsRW(configFile, true)
-                configFile.writeText(json)
-                dataHolder.clearUidCache()
-
-                // remove filter counts for apps if they are not in config
-                dataHolder.filterHolder
-                    .filterCounts.removeIf { key, _ -> !config.scope.containsKey(key) }
-                logD(TAG) { "Config synced" }
-            } catch (cause: Throwable) {
-                logE(TAG, cause) { "An error occurred while writing config" }
+        if (lock) {
+            synchronized(configLock) {
+                writeConfigInt(json)
             }
+        } else {
+            writeConfigInt(json)
         }
 
         writeFilterCount(true)
@@ -522,14 +534,47 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         writtenByManager = false
     }
 
-    private fun writeFilterCount(force: Boolean = false) {
-        if (!ensureManagerWorkModeOK()) return
-
-        synchronized(configLock) {
-            if (!force && dataHolder.filterHolder.totalCount % 100 != 0) {
+    private fun writeConfigInt(json: String) {
+        try {
+            val newConfig = JsonConfig.parse(json)
+            newConfig.cleanRemnantsFromConfig()
+            if (newConfig.configVersion != BuildConfig.CONFIG_VERSION) {
+                logW(TAG) { "Sync config: version mismatch, need reboot" }
                 return
             }
 
+            ensureFileIsRW(configFile, true)
+            writtenByManager = true
+
+            val tempConfig = File("$configFile.tmp")
+            tempConfig.writeText(json)
+            if (!tempConfig.renameTo(configFile)) {
+                logE(TAG) { "Sync config failed due to I/O issues, the old config remained active" }
+                return
+            }
+
+            // clear uid cache
+            dataHolder.clearUidCache()
+
+            config.set(newConfig)
+
+            // remove filter counts for apps if they are not in config
+            dataHolder.removeFilterCountsNotIn(newConfig.scope.keys)
+
+            logD(TAG) { "Config synced" }
+        } catch (cause: Throwable) {
+            logE(TAG, cause) { "An error occurred while writing config" }
+        }
+    }
+
+    private fun writeFilterCount(force: Boolean = false) {
+        if (!ensureManagerWorkModeOK()) return
+
+        if (!force && dataHolder.totalFilterCount % 100 != 0) {
+            return
+        }
+
+        synchronized(configLock) {
             try {
                 ensureFileIsRW(filterCountFile, true)
                 filterCountFile.writeText(detailedFilterStats)
@@ -542,7 +587,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
     override fun getServiceVersion() = BuildConfig.APP_VERSION_CODE
 
-    override fun getFilterCount() = dataHolder.filterHolder.totalCount
+    override fun getFilterCount() = dataHolder.totalFilterCount
 
     override fun clearLogs() {
         if (!ensureManagerWorkModeOK()) return
@@ -570,19 +615,32 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
                      * - Ignore for the package updates
                      * - Ignore when the target app had a config
                      */
-                    val isDefConfigApplied = config.defaultConfig != null &&
+                    val isDefConfigApplied = synchronized(configLock) {
+                        val cache = getConfig()
+                        if (cache.defaultConfig != null &&
                             packageName != BuildConfig.APP_PACKAGE_NAME &&
                             extras?.getBoolean(Intent.EXTRA_REPLACING) != true &&
-                            config.scope.putIfAbsent(packageName, config.defaultConfig!!) == null
+                            !cache.scope.containsKey(packageName)) {
+                            config.set(cache.copy(scope = LinkedHashMap(cache.scope).apply {
+                                put(packageName, cache.defaultConfig!!)
+                            }))
+
+                            true
+                        } else {
+                            false
+                        }
+                    }
 
                     if (isDefConfigApplied) {
-                        writeConfig(config.toString())
+                        writeConfig(getConfig().toString())
                     }
 
                     // Handle app presets
                     handlePackageAdded(pms, packageName) { preset ->
-                        if (dataHolder.addIntoPresetCache(preset, packageName)) {
-                            writePresetCache()
+                        synchronized(presetCacheLock) {
+                            if (dataHolder.addIntoPresetCache(preset, packageName)) {
+                                writePresetCache()
+                            }
                         }
                     }
                 }
@@ -603,8 +661,10 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
                         var removedFromPresets = false
 
                         handlePackageRemoved(packageName) { preset ->
-                            if (dataHolder.removeFromPresetCache(preset, packageName)) {
-                                removedFromPresets = true
+                            synchronized(presetCacheLock) {
+                                if (dataHolder.removeFromPresetCache(preset, packageName)) {
+                                    removedFromPresets = true
+                                }
                             }
                         }
 
@@ -678,12 +738,14 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         AppPresets.instance.reloadPresets(apps, fromScratch)
         logI(TAG) { "All presets are loaded" }
 
-        dataHolder.presetCache = AppPresets.instance.exportCache()
+        synchronized(presetCacheLock) {
+            dataHolder.presetCache = AppPresets.instance.exportCache()
+        }
 
         writePresetCache()
     }
 
-    fun writePresetCache() {
+    fun writePresetCache() = synchronized(presetCacheLock) {
         try {
             ensureFileIsRW(presetCacheFileNew, true)
             presetCacheFileNew.writeText(dataHolder.presetCache.toString())
@@ -695,12 +757,10 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
     override fun reloadPresetsFromScratch() = reloadPresets(true)
 
-    override fun getDetailedFilterStats() = dataHolder.filterHolder.toString()
+    override fun getDetailedFilterStats() = dataHolder.getDetailedFilterStats()
 
     override fun clearFilterStats() {
-        synchronized(configLock) {
-            dataHolder.filterHolder.filterCounts.clear()
-        }
+        dataHolder.clearFilterCounts()
 
         writeFilterCount(true)
     }
@@ -711,14 +771,8 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         val hookList = mutableListOf<String>()
 
         for ((className, hookElements) in hooker.hooks) {
-            for ((_, methodName, _, _, _, argumentCount) in hookElements) {
-                hookList.add(
-                    JsonConfig.HookItem(
-                        className,
-                        methodName,
-                        argumentCount,
-                    ).toString()
-                )
+            for ((_, methodName, argumentCount) in hookElements) {
+                hookList.add(JsonConfig.HookItem(className, methodName, argumentCount).toString())
             }
         }
 
@@ -786,15 +840,15 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         val dataFile = getDataFile() ?: return false
 
         val bytes = dataFile.readBytes()
-        configFile.writeBytes(bytes)
+        synchronized(configLock) { configFile.writeBytes(bytes) }
 
         return true
     }
 
-    override fun reloadConfigFromFile() {
+    override fun reloadConfigFromFile() = synchronized(configLock) {
         if (!configFile.exists()) {
             logI(TAG) { "Config file not found" }
-            return
+            return@synchronized
         }
 
         val loading = try {
@@ -804,19 +858,21 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         } catch (cause: Throwable) {
             logW(TAG, cause) { "Failed to parse config json, skip it" }
 
-            config
+            getConfig()
         }
 
-        if (config != loading) {
+        var cache = getConfig()
+        if (cache != loading) {
             loading.cleanRemnantsFromConfig()
-            config = loading
+            config.set(loading)
+            cache = loading
         }
 
-        if (config.configVersion != BuildConfig.CONFIG_VERSION) {
+        if (cache.configVersion != BuildConfig.CONFIG_VERSION) {
             logW(TAG) { "Config version mismatched, trying to change it" }
 
-            config.configVersion = BuildConfig.CONFIG_VERSION
-            writeConfig(config.toString())
+            writeConfig(getConfig().copy(
+                configVersion = BuildConfig.CONFIG_VERSION).toString(), false)
         }
 
         logI(TAG) { "Config loaded" }

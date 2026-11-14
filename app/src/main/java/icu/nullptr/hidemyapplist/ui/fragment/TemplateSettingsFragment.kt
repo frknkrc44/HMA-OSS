@@ -13,10 +13,10 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.service.ConfigManager
+import icu.nullptr.hidemyapplist.ui.util.applyPageWindowInsets
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.navigate
 import icu.nullptr.hidemyapplist.ui.util.registerOnBackCallback
-import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import icu.nullptr.hidemyapplist.ui.viewmodel.TemplateSettingsViewModel
 import kotlinx.coroutines.launch
@@ -112,6 +112,6 @@ class TemplateSettingsFragment : Fragment(R.layout.fragment_template_settings) {
             }
         }
 
-        setEdge2EdgeFlags(binding.root)
+        binding.root.applyPageWindowInsets()
     }
 }

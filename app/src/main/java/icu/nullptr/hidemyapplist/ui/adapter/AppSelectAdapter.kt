@@ -25,7 +25,7 @@ abstract class AppSelectAdapter(
         override fun performFiltering(constraint: CharSequence): FilterResults {
             return runBlocking {
                 val constraintLowered = constraint.toString().trim().lowercase()
-                val filteredList = PackageHelper.appList.get().filter {
+                val filteredList = PackageHelper.appList.get().orEmpty().filter {
                     if (firstFilter?.invoke(it) == false) return@filter false
                     if (it == BuildConfig.APPLICATION_ID && hideMyself) return@filter false
                     if (!PrefManager.appFilter_showSystem &&
