@@ -1,7 +1,7 @@
 package icu.nullptr.hidemyapplist.common
 
 import android.content.pm.ApplicationInfo
-import icu.nullptr.hidemyapplist.common.Utils.checkSplitPackages
+import icu.nullptr.hidemyapplist.common.Utils.checkAPKFiles
 
 class RiskyPackageUtils private constructor() {
     companion object {
@@ -26,18 +26,18 @@ class RiskyPackageUtils private constructor() {
 
         if (appHasGMSConnection(packageName)) return false
 
-        return checkSplitPackages(appInfo) { key, zipFile ->
+        return checkAPKFiles(appInfo) { key, zipFile ->
             val manifestStr = AppPresets.instance.readManifest(key, zipFile)
 
             // Checking with binary because the Android system sucks
             if (manifestStr.contains(GMS_PROP) || manifestStr.contains(FIREBASE_PROP)) {
                 if (ignoredForRiskyPackagesList.add(packageName)) {
                     loggerFunction?.invoke("@appHasGMSConnection $packageName added in ignored packages list")
-                    return@checkSplitPackages true
+                    return@checkAPKFiles true
                 }
             }
 
-            return@checkSplitPackages false
+            return@checkAPKFiles false
         }
     }
 

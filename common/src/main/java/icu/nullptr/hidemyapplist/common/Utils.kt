@@ -67,19 +67,9 @@ object Utils {
             providerInfo!!.packageName
     }
 
-    fun checkSplitPackages(appInfo: ApplicationInfo, onZipFile: (String, ZipFile) -> Boolean): Boolean {
-        val allLocations = setOf(appInfo.sourceDir, appInfo.publicSourceDir) /*+
-                (appInfo.splitSourceDirs ?: arrayOf()) +
-                (appInfo.splitPublicSourceDirs ?: arrayOf())*/
-
-        return allLocations.any { filePath ->
-            ZipFile(filePath).use { zipFile ->
-                if (onZipFile(filePath, zipFile)) {
-                    return true
-                }
-            }
-
-            return false
+    fun checkAPKFiles(appInfo: ApplicationInfo, onZipFile: (String, ZipFile) -> Boolean): Boolean {
+        return setOf(appInfo.sourceDir, appInfo.publicSourceDir).any { filePath ->
+            ZipFile(filePath).use { zipFile -> onZipFile(filePath, zipFile) }
         }
     }
 
