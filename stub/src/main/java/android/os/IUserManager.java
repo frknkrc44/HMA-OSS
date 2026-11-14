@@ -16,11 +16,4 @@ public interface IUserManager extends IInterface {
 
     public List<UserInfo> getUsers(boolean excludePartial, boolean excludeDying, boolean excludePreCreated)
             throws RemoteException;
-
-    abstract class Stub extends Binder implements IUserManager {
-
-        public static IUserManager asInterface(IBinder obj) {
-            throw new RuntimeException("STUB");
-        }
-    }
 }

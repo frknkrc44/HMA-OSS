@@ -3,6 +3,7 @@ package android.app;
 import android.os.Binder;
 import android.os.RemoteException;
 
+@SuppressWarnings("unused")
 public interface IUidObserver {
 
     void onUidGone(int uid, boolean disabled) throws RemoteException;

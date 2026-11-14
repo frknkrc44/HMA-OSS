@@ -23,11 +23,4 @@ public interface IActivityManager extends IInterface {
                             int requestCode, int flags, ProfilerInfo profilerInfo,
                             Bundle options, int userId)
             throws RemoteException;
-
-    abstract class Stub extends Binder implements android.os.IUserManager {
-
-        public static IActivityManager asInterface(IBinder obj) {
-            throw new RuntimeException("STUB");
-        }
-    }
 }
