@@ -296,14 +296,15 @@ class ImmHook : IFrameworkHook {
     }
 
     private fun resolveIMInfo(packageName: String): InputMethodInfo? = binderLocalScope {
-        val imManager =
-            application.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-
         imManager?.inputMethodList?.firstOrNull { it.packageName == packageName }.apply {
             if (this == null) {
                 warnNotInstalledKeyboard("resolveIMInfo", packageName)
             }
         }
+    }
+
+    private val imManager by lazy {
+        application.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
     }
 
     private fun callerIsSpoofed(caller: String) =
