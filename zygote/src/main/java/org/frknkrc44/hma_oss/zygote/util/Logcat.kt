@@ -19,7 +19,7 @@ object Logcat {
     private val executor: ExecutorService = ThreadPoolExecutor(
         1, 1, 0L, TimeUnit.MILLISECONDS,
         ArrayBlockingQueue(1024), // an arbitrary capacity
-        { r -> Thread(r).apply { isDaemon = true } },
+        { r -> Thread(r) },
         ThreadPoolExecutor.DiscardOldestPolicy()
     )
 
