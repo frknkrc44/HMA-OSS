@@ -105,6 +105,7 @@
     <string name="app_preset_using">Verwendung von %d Vorlagen des Entwicklers</string>
     <string name="app_settings_preset_using">%d Einstellungsvorlagen werden genutzt</string>
     <string name="app_settings_template_using">%d eigene Einstellungsvorlagen werden genutzt</string>
+    <string name="app_extra_settings_count">%d additional settings applied</string>
     <string name="app_extra_apps_visible_count">%d weitere Apps sichtbar</string>
     <string name="app_extra_apps_invisible_count">%d weitere Anwendungen unsichtbar</string>
     <string name="app_warning_risky_package_title">Gefährliches Paket</string>
