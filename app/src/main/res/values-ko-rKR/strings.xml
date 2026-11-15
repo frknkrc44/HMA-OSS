@@ -105,6 +105,7 @@
     <string name="app_preset_using">프리셋 %d개 사용 중</string>
     <string name="app_settings_preset_using">설정 프리셋 %d개 사용 중</string>
     <string name="app_settings_template_using">설정 템플릿 %d개 사용 중</string>
+    <string name="app_extra_settings_count">%d additional settings applied</string>
     <string name="app_extra_apps_visible_count">%d개의 추가 앱 보임</string>
     <string name="app_extra_apps_invisible_count">%d개의 추가 앱 숨김</string>
     <string name="app_warning_risky_package_title">위험한 패키지</string>
