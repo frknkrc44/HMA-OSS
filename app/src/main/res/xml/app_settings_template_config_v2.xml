@@ -5,7 +5,7 @@
     <PreferenceCategory
         android:title="@string/app_template_config">
         <ListPreference
-            android:icon="@drawable/outline_settings_24"
+            android:icon="@drawable/assignment_globe_24"
             android:key="useWhiteList"
             app:summary="%s"
             android:title="@string/work_mode" />
@@ -16,7 +16,7 @@
             app:singleLineTitle="false"
             android:title="@string/app_exclude_system_apps" />
         <Preference
-            android:icon="@drawable/outline_assignment_24"
+            android:icon="@drawable/assignment_ind_24"
             android:key="applyTemplates"
             tools:title="@string/app_template_using" />
         <Preference
@@ -24,13 +24,17 @@
             android:key="applyPresets"
             tools:title="@string/app_preset_using" />
         <Preference
-            android:icon="@drawable/outline_settings_24"
+            android:icon="@drawable/settings_account_box_24"
             android:key="applySettingsTemplates"
             tools:title="@string/app_settings_template_using" />
         <Preference
             android:icon="@drawable/outline_settings_24"
             android:key="applySettingsPresets"
             tools:title="@string/app_settings_preset_using" />
+        <Preference
+            android:icon="@drawable/settings_b_add_24"
+            android:key="extraSettings"
+            android:title="@string/app_extra_settings_count" />
         <Preference
             android:icon="@drawable/baseline_apps_24"
             android:key="extraAppList"

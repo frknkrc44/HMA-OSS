@@ -366,7 +366,9 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     fun isHookEnabled(packageName: String?) = getScope(packageName) != null
 
     fun isAnySettingsReplacementsEnabled(packageName: String?) = getScope(packageName)?.let {
-        it.applySettingsPresets.isNotEmpty() || it.applySettingTemplates.isNotEmpty()
+        it.applySettingsPresets.isNotEmpty() ||
+                it.applySettingTemplates.isNotEmpty() ||
+                it.extraSettings.settingsList.isNotEmpty()
     } ?: false
 
     fun isAppDataIsolationExcluded(packageName: String?) =
@@ -375,7 +377,14 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     fun getSpoofedSetting(caller: String?, name: String?, database: String): ReplacementItem? {
         if (caller == null || name == null) return null
 
-        val templates = getEnabledSettingsTemplates(caller)
+        val appConfig = getScope(caller) ?: return null
+
+        val extraReplacement = appConfig.extraSettings.settingsList.firstOrNull {
+            it.name == name && it.database == database
+        }
+        if (extraReplacement != null) return extraReplacement
+
+        val templates = appConfig.applySettingTemplates
         val replacement = getConfig().settingsTemplates.firstNotNullOfOrNull { (key, value) ->
             if (key in templates) value.settingsList.firstOrNull {
                 it.name == name && it.database == database
@@ -383,7 +392,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         }
         if (replacement != null) return replacement
 
-        val presets = getEnabledSettingsPresets(caller)
+        val presets = appConfig.applySettingsPresets
         if (presets.isNotEmpty()) {
             for (presetName in presets) {
                 val preset = SettingsPresets.instance.getPresetByName(presetName)
@@ -394,12 +403,6 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
         return null
     }
-
-    fun getEnabledSettingsTemplates(caller: String?) =
-        getScope(caller)?.applySettingTemplates ?: setOf()
-
-    fun getEnabledSettingsPresets(caller: String?) =
-        getScope(caller)?.applySettingsPresets ?: setOf()
 
     fun isAppInGMSIgnoredPackages(caller: String, query: String) =
         (caller in Constants.gmsPackages) && RiskyPackageUtils.instance.appHasGMSConnection(query)

@@ -108,8 +108,10 @@ data class JsonConfig(
         /**
          * Setting replacements inside of this settings template
          */
-        val settingsList: Set<ReplacementItem>
+        val settingsList: MutableSet<ReplacementItem> = mutableSetOf(),
     ) {
+        val size get() = settingsList.size
+
         override fun toString() = encoder.encodeToString(this)
     }
 
@@ -185,6 +187,11 @@ data class JsonConfig(
          * from the global settings preset list
          */
         var applySettingsPresets: MutableSet<String> = mutableSetOf(),
+
+        /**
+         * A list of extra settings for per-app, added as a template
+         */
+        var extraSettings: SettingsTemplate = SettingsTemplate(),
 
         /**
          * Extra hidden/unhidden apps list, depends on `useWhitelist`

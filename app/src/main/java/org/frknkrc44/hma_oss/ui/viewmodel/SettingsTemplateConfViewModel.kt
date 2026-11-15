@@ -6,7 +6,7 @@ import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
 import icu.nullptr.hidemyapplist.service.ConfigManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.frknkrc44.hma_oss.ui.fragment.SettingsTemplateConfFragmentArgs
-import org.frknkrc44.hma_oss.ui.util.targetSettingListToBundle
+import org.frknkrc44.hma_oss.ui.util.JsonConfigUtils.targetSettingListToBundle
 
 class SettingsTemplateConfViewModel(
     @Suppress("unused")
@@ -33,4 +33,3 @@ class SettingsTemplateConfViewModel(
 
     fun targetSettingListToBundle() = targetSettingList.value.targetSettingListToBundle()
 }
-

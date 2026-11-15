@@ -18,7 +18,7 @@ import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentTemplateManageBinding
 import org.frknkrc44.hma_oss.ui.fragment.SettingsTemplateConfFragmentArgs
-import org.frknkrc44.hma_oss.ui.util.toTargetSettingList
+import org.frknkrc44.hma_oss.ui.util.JsonConfigUtils.toTargetSettingList
 
 class TemplateManageFragment : Fragment(R.layout.fragment_template_manage) {
 
@@ -108,7 +108,7 @@ class TemplateManageFragment : Fragment(R.layout.fragment_template_manage) {
                     if (name.isNullOrEmpty()) return
                     ConfigManager.updateSettingTemplate(
                         name,
-                        JsonConfig.SettingsTemplate(targetList.toSet())
+                        JsonConfig.SettingsTemplate(targetList.toMutableSet())
                     )
                     ConfigManager.updateSettingTemplateAppliedApps(name, appliedList)
                 } else {                 // Existing template
@@ -119,7 +119,7 @@ class TemplateManageFragment : Fragment(R.layout.fragment_template_manage) {
                         if (name != info.name) ConfigManager.renameSettingTemplate(info.name, name)
                         ConfigManager.updateSettingTemplate(
                             name,
-                            JsonConfig.SettingsTemplate(targetList.toSet())
+                            JsonConfig.SettingsTemplate(targetList.toMutableSet())
                         )
                         ConfigManager.updateSettingTemplateAppliedApps(name, appliedList)
                     }

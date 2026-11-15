@@ -2,8 +2,8 @@ package org.frknkrc44.hma_oss.ui.adapter
 
 import android.os.Bundle
 import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
-import org.frknkrc44.hma_oss.ui.util.targetSettingListToBundle
-import org.frknkrc44.hma_oss.ui.util.toTargetSettingList
+import org.frknkrc44.hma_oss.ui.util.JsonConfigUtils.targetSettingListToBundle
+import org.frknkrc44.hma_oss.ui.util.JsonConfigUtils.toTargetSettingList
 
 class SettingsTemplateListAdapter(
     items: Bundle,

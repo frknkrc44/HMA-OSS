@@ -24,7 +24,7 @@ import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import kotlinx.coroutines.launch
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentTemplateSettingsBinding
-import org.frknkrc44.hma_oss.ui.util.toTargetSettingList
+import org.frknkrc44.hma_oss.ui.util.JsonConfigUtils.toTargetSettingList
 import org.frknkrc44.hma_oss.ui.viewmodel.SettingsTemplateConfViewModel
 
 class SettingsTemplateConfFragment : Fragment(R.layout.fragment_template_settings) {

@@ -13,5 +13,8 @@ interface IFrameworkHook {
     val config get() = service.getConfig()
     val systemApps get() = service.systemApps
 
+    fun getEnabledSettingsPresets(caller: String) =
+        config.scope[caller]?.applySettingsPresets.orEmpty()
+
     fun load()
 }

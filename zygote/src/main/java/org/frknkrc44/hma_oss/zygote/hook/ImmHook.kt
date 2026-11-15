@@ -308,5 +308,5 @@ class ImmHook : IFrameworkHook {
     }
 
     private fun callerIsSpoofed(caller: String) =
-        service.getEnabledSettingsPresets(caller).contains(InputMethodPreset.NAME)
+        getEnabledSettingsPresets(caller).contains(InputMethodPreset.NAME)
 }

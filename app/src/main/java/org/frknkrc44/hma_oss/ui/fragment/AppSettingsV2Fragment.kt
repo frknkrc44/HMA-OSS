@@ -25,6 +25,7 @@ import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.common.OSUtils
 import icu.nullptr.hidemyapplist.common.SettingsPresets
+import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
 import icu.nullptr.hidemyapplist.data.AppConstants
 import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.service.ServiceClient
@@ -44,6 +45,8 @@ import icu.nullptr.hidemyapplist.util.PackageHelper
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentSettingsBinding
 import org.frknkrc44.hma_oss.databinding.LayoutListEmptyBinding
+import org.frknkrc44.hma_oss.ui.util.JsonConfigUtils.targetSettingListToBundle
+import org.frknkrc44.hma_oss.ui.util.JsonConfigUtils.toTargetSettingList
 import org.frknkrc44.hma_oss.ui.util.PresetUtils
 
 class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
@@ -377,6 +380,11 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
                 getString(R.string.app_settings_template_using, pack.config.applySettingTemplates.size)
         }
 
+        private fun updateExtraSettings() {
+            findPreference<Preference>("extraSettings")?.title =
+                getString(R.string.app_extra_settings_count, pack.config.extraSettings.size)
+        }
+
         private fun updateExtraAppList(useWhiteList: Boolean) {
             findPreference<Preference>("extraAppList")?.title =
                 if (useWhiteList) getString(R.string.app_extra_apps_visible_count, pack.config.extraAppList.size)
@@ -548,6 +556,19 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
                     .show()
                 true
             }
+            findPreference<Preference>("extraSettings")?.setOnPreferenceClickListener {
+                parent.setFragmentResultListener("setting_select") { _, bundle ->
+                    val targetSettings = bundle.toTargetSettingList()
+                    pack.config.extraSettings.settingsList.sync(
+                        targetSettings as ArrayList<ReplacementItem>)
+                    updateExtraSettings()
+                    parent.clearFragmentResultListener("setting_select")
+                }
+                val args = SettingsTemplateInnerFragmentArgs(
+                    pack.config.extraSettings.settingsList.targetSettingListToBundle())
+                navigate(R.id.nav_settings_template_inner_manage, args.toBundle())
+                true
+            }
             findPreference<Preference>("extraAppList")?.setOnPreferenceClickListener {
                 parent.setFragmentResultListener("app_select") { _, bundle ->
                     pack.config.extraAppList = bundle.getStringArrayList("checked")!!.toMutableSet()
@@ -583,6 +604,7 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
             updateApplyPresets()
             updateApplySettingsTemplates()
             updateApplySettingsPresets()
+            updateExtraSettings()
             updateExtraAppList(pack.config.useWhitelist)
             updateExtraOppositeAppList(pack.config.useWhitelist)
         }
