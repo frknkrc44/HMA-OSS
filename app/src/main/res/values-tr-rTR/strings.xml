@@ -105,6 +105,7 @@
     <string name="app_preset_using">%d ön ayar kullanılıyor</string>
     <string name="app_settings_preset_using">%d ayar ön ayarı kullanılıyor</string>
     <string name="app_settings_template_using">%d ayarlar şablonu kullanılıyor</string>
+    <string name="app_extra_settings_count">%d ek ayar uygulandı</string>
     <string name="app_extra_apps_visible_count">%d ek uygulama görünür</string>
     <string name="app_extra_apps_invisible_count">%d ek uygulama görünmez</string>
     <string name="app_warning_risky_package_title">Riskli paket</string>
