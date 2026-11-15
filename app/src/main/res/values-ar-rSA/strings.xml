@@ -105,6 +105,7 @@
     <string name="app_preset_using">يتم استخدام%d من الضبط المسبق</string>
     <string name="app_settings_preset_using">يتم استخدام%d من إعدادات ضبط المسبق</string>
     <string name="app_settings_template_using">يتم استخدام %d قالب (قوالب) إعدادات</string>
+    <string name="app_extra_settings_count">%d additional settings applied</string>
     <string name="app_extra_apps_visible_count">%d تطبيقات إضافية مرئية</string>
     <string name="app_extra_apps_invisible_count">%d تطبيقات إضافية غير مرئية</string>
     <string name="app_warning_risky_package_title">حِزْمَة خطيرة</string>
