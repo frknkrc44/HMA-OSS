@@ -105,6 +105,7 @@
     <string name="app_preset_using">درحال استفاده از %d پیش‌تنظیم</string>
     <string name="app_settings_preset_using">درحال استفاده از %d پیش‌تنظیم تنظیمات</string>
     <string name="app_settings_template_using">درحال استفاده از %d قالب تنظیمات</string>
+    <string name="app_extra_settings_count">%d additional settings applied</string>
     <string name="app_extra_apps_visible_count">%d برنامه اضافی قابل مشاهده است</string>
     <string name="app_extra_apps_invisible_count">%d برنامه اضافی مخفی شده</string>
     <string name="app_warning_risky_package_title">بسته‌ی خطرناک</string>
