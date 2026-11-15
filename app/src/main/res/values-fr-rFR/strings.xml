@@ -98,7 +98,7 @@
     <string name="app_preset_using">%d préréglage(s) utilisé(s)</string>
     <string name="app_settings_preset_using">%d préréglage(s) de paramètres utilisé(s)</string>
     <string name="app_settings_template_using">%d modèle(s) de paramètres utilisé(s)</string>
-    <string name="app_extra_settings_count">%d additional settings applied</string>
+    <string name="app_extra_settings_count">%d paramètre(s) supplémentaire(s) appliqué(s)</string>
     <string name="app_extra_apps_visible_count">%d application(s) additionnelle(s) visible(s)</string>
     <string name="app_extra_apps_invisible_count">%d application(s) supplémentaire(s) invisible(s)</string>
     <string name="app_warning_risky_package_title">Contenu à risque</string>
