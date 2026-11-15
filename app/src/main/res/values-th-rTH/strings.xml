@@ -108,6 +108,7 @@
     <string name="app_preset_using">กำลังใช้พรีเซ็ต %d รายการ</string>
     <string name="app_settings_preset_using">กำลังใช้พรีเซ็ตการตั้งค่า %d รายการ</string>
     <string name="app_settings_template_using">กำลังใช้เทมเพลตการตั้งค่า %d รายการ</string>
+    <string name="app_extra_settings_count">%d additional settings applied</string>
     <string name="app_extra_apps_visible_count">มีแอปเพิ่มเติม %d แอปที่แสดง</string>
     <string name="app_extra_apps_invisible_count">มีแอปเพิ่มเติม %d แอปที่ถูกซ่อน</string>
     <string name="app_warning_risky_package_title">แพ็กเกจที่มีความเสี่ยง</string>
