@@ -105,6 +105,7 @@
     <string name="app_preset_using">Usando %d presets</string>
     <string name="app_settings_preset_using">Usando %d presets de ajustes</string>
     <string name="app_settings_template_using">Usando %d plantillas de ajustes</string>
+    <string name="app_extra_settings_count">%d additional settings applied</string>
     <string name="app_extra_apps_visible_count">%d apps adicionales visibles</string>
     <string name="app_extra_apps_invisible_count">%d apps adicionales invisibles</string>
     <string name="app_warning_risky_package_title">Paquete riesgoso</string>
