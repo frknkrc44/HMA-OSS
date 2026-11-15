@@ -105,6 +105,7 @@
     <string name="app_preset_using">Χρήση %d προεπιλογών</string>
     <string name="app_settings_preset_using">Χρήση %d προεπιλογών ρυθμίσεων</string>
     <string name="app_settings_template_using">Χρήση %d προτύπων ρυθμίσεων</string>
+    <string name="app_extra_settings_count">%d additional settings applied</string>
     <string name="app_extra_apps_visible_count">%d πρόσθετες ορατές εφαρμογές</string>
     <string name="app_extra_apps_invisible_count">%d πρόσθετες αόρατες εφαρμογές</string>
     <string name="app_warning_risky_package_title">Επικίνδυνο πακέτο</string>
