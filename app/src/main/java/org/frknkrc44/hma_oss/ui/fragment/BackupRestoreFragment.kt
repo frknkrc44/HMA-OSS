@@ -306,7 +306,7 @@ class BackupRestoreFragment : Fragment(R.layout.fragment_backup_restore) {
                 ConfigManager.importConfig(importedConfig.toString())
             }
 
-            showToast(android.R.string.ok)
+            showToast(R.string.home_import_successful)
             navController.navigateUp()
         }
     } catch (cause: Throwable) {
