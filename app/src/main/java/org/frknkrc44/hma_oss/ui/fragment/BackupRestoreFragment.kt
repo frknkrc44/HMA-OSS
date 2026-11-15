@@ -92,6 +92,7 @@ class BackupRestoreFragment : Fragment(R.layout.fragment_backup_restore) {
                 importedConfig = JsonConfig.parse(backupContent)
                 loadScreenContents()
             } catch (cause: Throwable) {
+                showToast(R.string.home_import_file_damaged)
                 cause.printStackTrace()
                 navController.navigateUp()
                 onImportFailed(cause)
@@ -171,6 +172,10 @@ class BackupRestoreFragment : Fragment(R.layout.fragment_backup_restore) {
         with(binding.switchSettings) {
             isChecked = importedConfig.configVersion != CONFIG_VERSION_NO_SETTINGS
             isEnabled = isChecked
+            setText(
+                if (isBackupMode) R.string.backup_restore_backup_settings
+                else R.string.backup_restore_restore_settings
+            )
         }
 
         with(binding.switchOverwriteApps) {

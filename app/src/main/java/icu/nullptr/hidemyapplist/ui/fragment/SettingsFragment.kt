@@ -288,7 +288,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                 val userLocale = getLocale()
                 val entries = buildList {
                     for (lang in BuildConfig.SUPPORTED_LOCALES) {
-                        if (lang == "SYSTEM") add(getString(R.string.follow_system))
+                        if (lang == "SYSTEM") add(getString(R.string.system))
                         else {
                             val locale = Locale.forLanguageTag(lang)
                             add(locale.getDisplayName(locale))
@@ -298,7 +298,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                 it.entries = entries.toTypedArray()
                 it.entryValues = BuildConfig.SUPPORTED_LOCALES
                 if (it.value == "SYSTEM") {
-                    it.summary = getString(R.string.follow_system)
+                    it.summary = getString(R.string.system)
                 } else {
                     val locale = Locale.forLanguageTag(it.value)
                     it.summary = if (!TextUtils.isEmpty(locale.script)) locale.getDisplayScript(userLocale) else locale.getDisplayName(userLocale)

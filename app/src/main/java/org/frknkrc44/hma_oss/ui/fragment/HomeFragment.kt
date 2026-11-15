@@ -441,7 +441,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         .setCancelable(false)
                         .setTitle(getString(R.string.home_new_update, updateInfo.versionName))
                         .setMessage(updateInfo.content)
-                        .setPositiveButton("GitHub") { _, _ ->
+                        .setPositiveButton(getString(R.string.home_update, updateInfo.versionName)) { _, _ ->
                             startActivity(
                                 Intent(
                                     Intent.ACTION_VIEW,
