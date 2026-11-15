@@ -105,6 +105,7 @@
     <string name="app_preset_using">已使用 %d 個預設模板</string>
     <string name="app_settings_preset_using">已使用 %d 個預設設定模板</string>
     <string name="app_settings_template_using">已使用 %d 個設定模板</string>
+    <string name="app_extra_settings_count">%d additional settings applied</string>
     <string name="app_extra_apps_visible_count">可以查看額外 %d 個應用程式</string>
     <string name="app_extra_apps_invisible_count">額外攔截 %d 個應用程式</string>
     <string name="app_warning_risky_package_title">高風險應用程式</string>
