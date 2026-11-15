@@ -105,6 +105,7 @@
     <string name="app_preset_using">Використовується %d шаблон/ів</string>
     <string name="app_settings_preset_using">Використовується %d шаблон/ів налаштувань</string>
     <string name="app_settings_template_using">Використовується %d налаштування шаблонів</string>
+    <string name="app_extra_settings_count">%d additional settings applied</string>
     <string name="app_extra_apps_visible_count">%d видимі додаткові додатки</string>
     <string name="app_extra_apps_invisible_count">%d невидимі додаткові додатки</string>
     <string name="app_warning_risky_package_title">Ризикований пакет</string>
