@@ -105,6 +105,7 @@
     <string name="app_preset_using">Đang sử dụng %d thiết lập trước</string>
     <string name="app_settings_preset_using">Đang sử dụng %d cài đặt thiết lập trước</string>
     <string name="app_settings_template_using">Đang sử dụng %d mẫu cài đặt</string>
+    <string name="app_extra_settings_count">%d additional settings applied</string>
     <string name="app_extra_apps_visible_count">Cho phép thấy %d ứng dụng bổ sung</string>
     <string name="app_extra_apps_invisible_count">Ẩn %d ứng dụng bổ sung</string>
     <string name="app_warning_risky_package_title">Gói rủi ro</string>
