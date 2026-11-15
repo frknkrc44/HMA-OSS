@@ -105,6 +105,7 @@
     <string name="app_preset_using">%d 個のプリセットを使用しています</string>
     <string name="app_settings_preset_using">%d 個のプリセット設定を使用しています</string>
     <string name="app_settings_template_using">%d 個の設定テンプレートを使用しています</string>
+    <string name="app_extra_settings_count">%d additional settings applied</string>
     <string name="app_extra_apps_visible_count">%d 個の追加アプリが表示されます</string>
     <string name="app_extra_apps_invisible_count">%d 個の追加アプリが表示されません</string>
     <string name="app_warning_risky_package_title">危険なパッケージ</string>
