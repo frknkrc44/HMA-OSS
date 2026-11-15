@@ -105,6 +105,7 @@
     <string name="app_preset_using">Se folosesc %d presetări</string>
     <string name="app_settings_preset_using">Se folosesc %d presetări pentru setări</string>
     <string name="app_settings_template_using">Folosind șabloanele %d pentru setări</string>
+    <string name="app_extra_settings_count">%d additional settings applied</string>
     <string name="app_extra_apps_visible_count">%d extra aplicații vizibile</string>
     <string name="app_extra_apps_invisible_count">%d extra aplicații invizibile</string>
     <string name="app_warning_risky_package_title">Pachet cu risc</string>
