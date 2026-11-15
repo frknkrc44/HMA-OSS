@@ -105,6 +105,7 @@
     <string name="app_preset_using">A utilizar %d predefinições</string>
     <string name="app_settings_preset_using">A utilizar %d predefinições de definições</string>
     <string name="app_settings_template_using">A utilizar %d modelos de definições</string>
+    <string name="app_extra_settings_count">%d additional settings applied</string>
     <string name="app_extra_apps_visible_count">%d apps adicionais visíveis</string>
     <string name="app_extra_apps_invisible_count">%d apps adicionais invisíveis</string>
     <string name="app_warning_risky_package_title">Pacote de risco</string>
