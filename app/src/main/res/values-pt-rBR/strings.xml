@@ -105,6 +105,7 @@
     <string name="app_preset_using">Usando %d perfis</string>
     <string name="app_settings_preset_using">Usando %d perfis de configuração</string>
     <string name="app_settings_template_using">Usando %d modelos de configurações</string>
+    <string name="app_extra_settings_count">%d additional settings applied</string>
     <string name="app_extra_apps_visible_count">%d apps adicionais expostos</string>
     <string name="app_extra_apps_invisible_count">%d apps adicionais escondidos</string>
     <string name="app_warning_risky_package_title">App de risco</string>
