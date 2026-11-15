@@ -105,6 +105,7 @@
     <string name="app_preset_using">已启用 %d 个应用预设</string>
     <string name="app_settings_preset_using">已启用 %d 个设置预设</string>
     <string name="app_settings_template_using">已启用 %d 个设置模板</string>
+    <string name="app_extra_settings_count">%d additional settings applied</string>
     <string name="app_extra_apps_visible_count">%d 个额外可见的应用</string>
     <string name="app_extra_apps_invisible_count">%d 个额外不可见的应用</string>
     <string name="app_warning_risky_package_title">风险应用警告</string>
