@@ -105,6 +105,7 @@
     <string name="app_preset_using">Использует %d пресетов</string>
     <string name="app_settings_preset_using">Использует %d настроек пресетов</string>
     <string name="app_settings_template_using">Использование %d шаблонов настроек</string>
+    <string name="app_extra_settings_count">%d additional settings applied</string>
     <string name="app_extra_apps_visible_count">%d дополнительных приложений видимы</string>
     <string name="app_extra_apps_invisible_count">%d дополнительных приложений невидимы</string>
     <string name="app_warning_risky_package_title">Рискованный пакет</string>
