@@ -26,7 +26,6 @@ open class PmsHookTarget33 : PmsHookTargetBase() {
         findMethod(
             "com.android.server.pm.Computer",
             "getPackagesForUid",
-            isDeclared = false,
             systemClassLoader = true,
             Int::class.java,
         )

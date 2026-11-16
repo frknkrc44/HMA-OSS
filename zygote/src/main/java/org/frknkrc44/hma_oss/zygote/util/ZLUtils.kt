@@ -154,20 +154,22 @@ object ZLUtils {
         }
     }
 
-    fun findMethod(className: String, name: String, isDeclared: Boolean = false, systemClassLoader: Boolean = false, vararg args: Class<*>): Method {
-        val clazz = if (systemClassLoader) Class.forName(className, true, SystemServerHook.classLoader) else Class.forName(className)
-        return if (isDeclared) {
-            clazz.getDeclaredMethod(name, *args)
-        } else {
-            clazz.getMethod(name, *args)
-        }
+    private fun findClass(className: String, systemClassLoader: Boolean = false) = if (systemClassLoader) {
+        Class.forName(className, true, SystemServerHook.classLoader)
+    } else {
+        Class.forName(className)
+    }
+
+    fun findMethod(className: String, name: String, systemClassLoader: Boolean = false, vararg args: Class<*>): Method {
+        val clazz = findClass(className, systemClassLoader)
+        return getDeclaredMethod(clazz, name, *args)
     }
 
     fun findField(clazz: Class<*>, name: String): Field? {
         var currentClazz: Class<*>? = clazz
 
         while (currentClazz != null) {
-            val field = runCatching { currentClazz.getField(name) }.getOrNull()
+            val field = runCatching { getDeclaredField(clazz, name) }.getOrNull()
             if (field != null) return field
             currentClazz = currentClazz.superclass
         }

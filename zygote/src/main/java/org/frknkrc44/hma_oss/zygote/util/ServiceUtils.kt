@@ -21,6 +21,7 @@ import org.frknkrc44.hma_oss.zygote.Magic
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
+import org.frknkrc44.hma_oss.zygote.util.Logcat.logW
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.findField
 import java.io.File
 import java.util.concurrent.ConcurrentHashMap
@@ -59,20 +60,20 @@ object ServiceUtils {
     private fun resolvePackageNameAccessor(clazz: Class<*>): (Any) -> String? {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             val method = runCatching { clazz.getMethod("getPackageName") }.getOrNull()
-            if (method != null && method.parameterCount == 0) {
-                method.isAccessible = true
+            if (method != null) {
                 return { method.invoke(it) as? String }
             }
+
+            logW(TAG) { "@resolvePackageNameAccessor: Cannot find the accessor, trying alt method" }
         }
 
-        for (name in arrayOf("mName", "name")) {
-            val field = findField(clazz, name)?.takeIf { it.type == String::class.java }
-            if (field != null) {
-                field.isAccessible = true
-                return { field.get(it) as? String }
-            }
+        val name = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) "mName" else "name"
+        val field = findField(clazz, name)?.takeIf { it.type == String::class.java }
+        if (field != null) {
+            return { field.get(it) as? String }
         }
 
+        logE(TAG) { "@resolvePackageNameAccessor: Cannot find the accessor, all attempts failed" }
         return { null }
     }
 
