@@ -31,10 +31,10 @@ class TemplateAdapter(
                 setIcon(
                     when (info.type) {
                         ConfigManager.PTType.APP -> {
-                            if (info.isWhiteList) R.drawable.outline_assignment_24
-                            else R.drawable.baseline_assignment_24
+                            if (info.isWhiteList) R.drawable.assignment_ind_24
+                            else R.drawable.assignment_ind_filled_24
                         }
-                        ConfigManager.PTType.SETTINGS -> R.drawable.baseline_settings_24
+                        ConfigManager.PTType.SETTINGS -> R.drawable.settings_account_box_24
                         else -> R.drawable.unfold_more_24px
                     }
                 )

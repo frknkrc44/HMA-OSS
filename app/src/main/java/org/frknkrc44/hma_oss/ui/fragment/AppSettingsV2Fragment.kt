@@ -360,9 +360,18 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
     }
 
     class TemplateConfigPreferenceFragment(private val preferenceDataStore: PreferenceDataStore) : BaseAppSettingsPreferenceFragment() {
-        private fun updateApplyTemplates() {
-            findPreference<Preference>("applyTemplates")?.title =
-                getString(R.string.app_template_using, pack.config.applyTemplates.size)
+        private fun updateApplyTemplates(useWhitelist: Boolean = pack.config.useWhitelist) {
+            findPreference<Preference>("applyTemplates")?.apply {
+                title = getString(
+                    R.string.app_template_using, pack.config.applyTemplates.size)
+                setIcon(
+                    if (useWhitelist) {
+                        R.drawable.assignment_ind_24
+                    } else {
+                        R.drawable.assignment_ind_filled_24
+                    }
+                )
+            }
         }
 
         private fun updateApplyPresets() {
@@ -423,7 +432,7 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
                     pack.config.extraAppList.sync(pack.config.extraOppositeAppList)
                     pack.config.extraOppositeAppList.sync(extraAppList)
 
-                    updateApplyTemplates()
+                    updateApplyTemplates(useWhitelist)
                     updateExtraAppList(useWhitelist)
                     updateExtraOppositeAppList(useWhitelist)
 
