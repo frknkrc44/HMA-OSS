@@ -235,6 +235,7 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
                         it.isSingleLineTitle = true
                         it.summary = getString(R.string.title_bulk_config_wizard)
                     }
+                    it.widgetLayoutResource = 0
                 } else {
                     it.icon = PackageHelper.loadAppIcon(pack.app)
                     it.title = PackageHelper.loadAppLabel(pack.app)
