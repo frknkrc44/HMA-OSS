@@ -22,9 +22,9 @@ import org.frknkrc44.hma_oss.zygote.Magic
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.callMethod
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.findField
 import java.io.File
+import java.util.concurrent.ConcurrentHashMap
 
 object ServiceUtils {
     private const val TAG = "ServiceUtils"
@@ -46,19 +46,33 @@ object ServiceUtils {
         return service
     }
 
+    private val packageNameAccessors = ConcurrentHashMap<Class<*>, (Any) -> String?>()
+
     fun getPackageNameFromPackageSettings(packageSettings: Any?): String? {
         if (packageSettings == null) return null
 
-        return try {
-            callMethod(packageSettings, "getPackageName") as? String
-        } catch (_: Throwable) {
-            runCatching {
-                findField(
-                    packageSettings::class.java,
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) "mName" else "name"
-                )?.apply { isAccessible = true }?.get(packageSettings) as? String
-            }.getOrNull()
+        val accessor = packageNameAccessors.getOrPut(packageSettings.javaClass) {
+            resolvePackageNameAccessor(packageSettings.javaClass)
         }
+        return runCatching { accessor(packageSettings) }.getOrNull()
+    }
+
+    private fun resolvePackageNameAccessor(clazz: Class<*>): (Any) -> String? {
+        val method = runCatching { clazz.getMethod("getPackageName") }.getOrNull()
+        if (method != null && method.parameterCount == 0) {
+            method.isAccessible = true
+            return { method.invoke(it) as? String }
+        }
+
+        for (name in arrayOf("mName", "name")) {
+            val field = findField(clazz, name)?.takeIf { it.type == String::class.java }
+            if (field != null) {
+                field.isAccessible = true
+                return { field.get(it) as? String }
+            }
+        }
+
+        return { null }
     }
 
     fun getPackagesForUidLocal(pms: IPackageManager, callingUid: Int = Binder.getCallingUid()): Array<String> {
