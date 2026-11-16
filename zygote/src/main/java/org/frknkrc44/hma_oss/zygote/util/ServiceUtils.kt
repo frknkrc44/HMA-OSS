@@ -57,10 +57,12 @@ object ServiceUtils {
     }
 
     private fun resolvePackageNameAccessor(clazz: Class<*>): (Any) -> String? {
-        val method = runCatching { clazz.getMethod("getPackageName") }.getOrNull()
-        if (method != null && method.parameterCount == 0) {
-            method.isAccessible = true
-            return { method.invoke(it) as? String }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            val method = runCatching { clazz.getMethod("getPackageName") }.getOrNull()
+            if (method != null && method.parameterCount == 0) {
+                method.isAccessible = true
+                return { method.invoke(it) as? String }
+            }
         }
 
         for (name in arrayOf("mName", "name")) {
