@@ -11,9 +11,7 @@
     <string name="title_app_settings">Cấu hình ứng dụng</string>
     <string name="title_about">Giới thiệu</string>
     <string name="title_about_fork">Thông tin về dự án này</string>
-    <string name="do_not_dual">Không cài đặt HMA-OSS cho người dùng phụ</string>
     <string name="show_crash_log">Xem nhật ký lỗi</string>
-    <string name="config_damaged">Tệp cấu hình đã bị hỏng. Hãy xóa dữ liệu của ứng dụng</string>
     <string name="edit_list">Sửa danh sách</string>
     <string name="delete">Xóa</string>
     <string name="enabled">Đã bật</string>
@@ -40,16 +38,11 @@
     <string name="home_xposed_service_off">Dịch vụ hệ thống đang không chạy</string>
     <string name="home_xposed_filter_count">HMA-OSS đã lọc tổng cộng %d yêu cầu</string>
     <string name="home_manage">Quản lý</string>
-    <string name="home_detection_test">Thử phát hiện</string>
-    <string name="home_download_test_app_title">Tải ứng dụng kiểm tra</string>
-    <string name="home_download_test_app_message">Chúng tôi đã phát triển một ứng dụng kiểm tra phát hiện riêng và đã chuyển kiểm tra phát hiện sang ứng dụng đó. Bạn có muốn tải xuống bây giờ không?</string>
     <string name="home_backup_and_restore">Sao lưu &amp; Khôi phục</string>
     <string name="home_backup_config">Sao lưu cấu hình</string>
     <string name="home_restore_config">Khôi phục cấu hình</string>
     <string name="home_import_successful">Nhập thành công</string>
     <string name="home_import_failed">Nhập không thành công</string>
-    <string name="home_import_app_version_too_old">Phiên bản mô-đun thấp hơn bản sao lưu</string>
-    <string name="home_import_backup_version_too_old">Phiên bản của bản sao lưu quá cũ</string>
     <string name="home_import_file_damaged">Tệp sao lưu đã bị hỏng</string>
     <string name="home_export_failed">Xuất thất bại</string>
     <string name="home_exported">Cấu hình đã được sao lưu</string>
@@ -105,6 +98,7 @@
     <string name="app_preset_using">Đang sử dụng %d thiết lập trước</string>
     <string name="app_settings_preset_using">Đang sử dụng %d cài đặt thiết lập trước</string>
     <string name="app_settings_template_using">Đang sử dụng %d mẫu cài đặt</string>
+    <string name="app_extra_settings_count">Đã áp dụng %d cài đặt bổ sung</string>
     <string name="app_extra_apps_visible_count">Cho phép thấy %d ứng dụng bổ sung</string>
     <string name="app_extra_apps_invisible_count">Ẩn %d ứng dụng bổ sung</string>
     <string name="app_warning_risky_package_title">Gói rủi ro</string>
@@ -168,7 +162,6 @@
     <string name="settings_vold_app_data_isolation">Buộc cách ly dữ liệu ứng dụng</string>
     <string name="settings_warning">Cảnh báo</string>
     <string name="settings_vold_warning">Thao tác này sẽ kích hoạt tính năng AOSP giúp cô lập thư mục lưu trữ riêng tư bên ngoài của ứng dụng. Điều này có thể giúp cải thiện khả năng ẩn ứng dụng, nhưng có thể gây ra các vấn đề về độ ổn định. Tính năng này có thể ngừng hoạt động bất cứ lúc nào vì đã bị loại bỏ trong AOSP.</string>
-    <string name="settings_change_require_root">Thay đổi cần có quyền root</string>
     <string name="settings_need_reboot">Thay đổi cần phải khởi động lại</string>
     <string name="settings_permission_denied">Quyền bị từ chối</string>
     <string name="settings_force_mount_data">Thực thi cách ly dữ liệu cho tất cả các ứng dụng</string>
@@ -199,7 +192,6 @@
     <string name="settings_theme">Chủ đề</string>
     <string name="settings_system_theme_color">Màu hệ thống</string>
     <string name="settings_theme_color">Màu chủ đề</string>
-    <string name="settings_dark_theme">Chủ đề tối</string>
     <string name="settings_pure_black_dark_theme">Chủ đề đen thuần</string>
     <string name="settings_pure_black_dark_theme_summary">Sử dụng màu đen thuần nếu chủ đề tối được bật</string>
     <string name="settings_service">Dịch vụ</string>
@@ -212,8 +204,6 @@
     <string name="settings_force_clean_env_toast_successful">Môi trường thực thi đã được dọn dẹp</string>
     <string name="settings_update">Cập nhật</string>
     <string name="settings_disable_update">Tắt thông báo</string>
-    <string name="settings_receive_beta_update">Nhận bản beta</string>
-    <string name="settings_receive_beta_update_summary">Bản beta có thể không ổn định</string>
     <!-- Bulk config wizard -->
     <string name="title_bulk_config_wizard">Cấu hình hàng loạt</string>
     <!-- About -->

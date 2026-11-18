@@ -11,9 +11,7 @@
     <string name="title_app_settings">应用设置</string>
     <string name="title_about">关于</string>
     <string name="title_about_fork">关于HMA-OSS</string>
-    <string name="do_not_dual">请勿将HMA-OSS安装到分身或多用户空间</string>
     <string name="show_crash_log">显示崩溃日志</string>
-    <string name="config_damaged">配置文件已损坏，需要清除应用数据</string>
     <string name="edit_list">编辑列表</string>
     <string name="delete">删除</string>
     <string name="enabled">启用</string>
@@ -40,16 +38,11 @@
     <string name="home_xposed_service_off">系统服务未运行</string>
     <string name="home_xposed_filter_count">HMA-OSS 进行了 %d 次拦截</string>
     <string name="home_manage">管理</string>
-    <string name="home_detection_test">拦截测试</string>
-    <string name="home_download_test_app_title">下载应用列表检测器</string>
-    <string name="home_download_test_app_message">我们开发了一个应用列表检测器，以测试拦截效果，是否现在下载？</string>
     <string name="home_backup_and_restore">备份 &amp; 还原</string>
     <string name="home_backup_config">备份配置</string>
     <string name="home_restore_config">还原配置</string>
     <string name="home_import_successful">导入成功</string>
     <string name="home_import_failed">导入失败</string>
-    <string name="home_import_app_version_too_old">模块版本低于备份文件版本</string>
-    <string name="home_import_backup_version_too_old">备份文件版本过低</string>
     <string name="home_import_file_damaged">备份文件已损坏</string>
     <string name="home_export_failed">导出备份文件失败</string>
     <string name="home_exported">备份完成</string>
@@ -105,6 +98,7 @@
     <string name="app_preset_using">已启用 %d 个应用预设</string>
     <string name="app_settings_preset_using">已启用 %d 个设置预设</string>
     <string name="app_settings_template_using">已启用 %d 个设置模板</string>
+    <string name="app_extra_settings_count">%d 个附加设置已被应用</string>
     <string name="app_extra_apps_visible_count">%d 个额外可见的应用</string>
     <string name="app_extra_apps_invisible_count">%d 个额外不可见的应用</string>
     <string name="app_warning_risky_package_title">风险应用警告</string>
@@ -168,7 +162,6 @@
     <string name="settings_vold_app_data_isolation">Vold app data 隔离</string>
     <string name="settings_warning">警告</string>
     <string name="settings_vold_warning">启用 AOSP 隔离应用私有目录功能。这可以增强隐藏效果，但可能会导致稳定性问题。此功能在 AOSP 中已被废弃，可能无法正常工作。</string>
-    <string name="settings_change_require_root">此操作需要 Root 权限</string>
     <string name="settings_need_reboot">此更改需要重启手机后才能生效</string>
     <string name="settings_permission_denied">权限不足</string>
     <string name="settings_force_mount_data">强制隔离应用数据目录</string>
@@ -199,7 +192,6 @@
     <string name="settings_theme">主题</string>
     <string name="settings_system_theme_color">跟随系统主题色</string>
     <string name="settings_theme_color">主题颜色</string>
-    <string name="settings_dark_theme">深色主题</string>
     <string name="settings_pure_black_dark_theme">纯黑主题</string>
     <string name="settings_pure_black_dark_theme_summary">当深色主题启用时使用纯黑主题</string>
     <string name="settings_service">服务</string>
@@ -212,8 +204,6 @@
     <string name="settings_force_clean_env_toast_successful">运行环境清理完成！</string>
     <string name="settings_update">更新</string>
     <string name="settings_disable_update">禁用更新通知</string>
-    <string name="settings_receive_beta_update">接收测试版更新</string>
-    <string name="settings_receive_beta_update_summary">注意：测试版可能不稳定</string>
     <!-- Bulk config wizard -->
     <string name="title_bulk_config_wizard">批量配置向导</string>
     <!-- About -->

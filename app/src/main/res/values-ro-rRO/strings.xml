@@ -11,9 +11,7 @@
     <string name="title_app_settings">Setări aplicație</string>
     <string name="title_about">Despre</string>
     <string name="title_about_fork">Despre acest fork</string>
-    <string name="do_not_dual">Nu instalați HMA pe al doilea utilizator</string>
     <string name="show_crash_log">Arată jurnalul de erori</string>
-    <string name="config_damaged">Fișier de configurare corupt. Vă rugăm să curățați datele aplicației</string>
     <string name="edit_list">Lista de editare</string>
     <string name="delete">Șterge</string>
     <string name="enabled">Pornit</string>
@@ -40,16 +38,11 @@
     <string name="home_xposed_service_off">Serviciul de sistem nu funcționează</string>
     <string name="home_xposed_filter_count">HMA-SSS a filtrat in total %d cereri</string>
     <string name="home_manage">Gestionează</string>
-    <string name="home_detection_test">Test de detectare</string>
-    <string name="home_download_test_app_title">Descărcă aplicație de test</string>
-    <string name="home_download_test_app_message">Am dezvoltat o aplicație de testare a detecției individuală și am migrat testul de detectare în ea. Vrei să o descarci acum?</string>
     <string name="home_backup_and_restore">Copie de rezervă &amp; Restaurare</string>
     <string name="home_backup_config">Copie de rezervă configurație</string>
     <string name="home_restore_config">Restaurează configurație</string>
     <string name="home_import_successful">Importare finalizată cu succes</string>
     <string name="home_import_failed">Importarea a eșuat</string>
-    <string name="home_import_app_version_too_old">Versiunea modulului este mai mică decât copia de rezerva</string>
-    <string name="home_import_backup_version_too_old">Versiunea copiei de rezervă este prea veche</string>
     <string name="home_import_file_damaged">Copia de rezervă a fost deteriorată</string>
     <string name="home_export_failed">Exportarea a eșuat</string>
     <string name="home_exported">Configurația a fost salvată ca și copie de rezervă</string>
@@ -105,6 +98,7 @@
     <string name="app_preset_using">Se folosesc %d presetări</string>
     <string name="app_settings_preset_using">Se folosesc %d presetări pentru setări</string>
     <string name="app_settings_template_using">Folosind șabloanele %d pentru setări</string>
+    <string name="app_extra_settings_count">%d additional settings applied</string>
     <string name="app_extra_apps_visible_count">%d extra aplicații vizibile</string>
     <string name="app_extra_apps_invisible_count">%d extra aplicații invizibile</string>
     <string name="app_warning_risky_package_title">Pachet cu risc</string>
@@ -168,7 +162,6 @@
     <string name="settings_vold_app_data_isolation">Izolarea datelor Vold ale aplicației </string>
     <string name="settings_warning">Atenție</string>
     <string name="settings_vold_warning">Acest lucru va activa o caracteristică AOSP care face ca directorul extern de stocare privat al aplicației să fie izolat. Acest lucru poate ajuta la ascunderea aplicațiilor dar poate cauza probleme de stabilitate. Această caracteristică poate să se oprească oricând din a funcționa deoarece este abandonată în AOSP</string>
-    <string name="settings_change_require_root">Schimbarea necesită permisiuni de superutilizator</string>
     <string name="settings_need_reboot">Schimbarea necesită repornire</string>
     <string name="settings_permission_denied">Permisiune refuzată</string>
     <string name="settings_force_mount_data">Forțează izolarea datelor pentru toate aplicațiile</string>
@@ -199,7 +192,6 @@
     <string name="settings_theme">Temă</string>
     <string name="settings_system_theme_color">Culoarea temei sistemului</string>
     <string name="settings_theme_color">Culoarea temei</string>
-    <string name="settings_dark_theme">Tema întunecată</string>
     <string name="settings_pure_black_dark_theme">Temă Amoled</string>
     <string name="settings_pure_black_dark_theme_summary">Folosește tema Amoled dacă tema întunecată este pornită</string>
     <string name="settings_service">Serviciu</string>
@@ -212,8 +204,6 @@
     <string name="settings_force_clean_env_toast_successful">Mediu de execuție curățat</string>
     <string name="settings_update">Actualizare</string>
     <string name="settings_disable_update">Dezactivează notificările de actualizare</string>
-    <string name="settings_receive_beta_update">Primește actualizări beta</string>
-    <string name="settings_receive_beta_update_summary">Versiunea beta poate fi instabilă</string>
     <!-- Bulk config wizard -->
     <string name="title_bulk_config_wizard">Asistent configurare în masă</string>
     <!-- About -->

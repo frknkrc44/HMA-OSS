@@ -11,9 +11,7 @@
     <string name="title_app_settings">應用程式設定</string>
     <string name="title_about">關於</string>
     <string name="title_about_fork">關於HMA-OSS</string>
-    <string name="do_not_dual">請勿將HMA-OSS安裝到分身或多使用者空間</string>
     <string name="show_crash_log">顯示崩潰日誌</string>
-    <string name="config_damaged">配置檔損毀，請清理應用程式的資料</string>
     <string name="edit_list">編輯列表</string>
     <string name="delete">刪除</string>
     <string name="enabled">啟用</string>
@@ -40,16 +38,11 @@
     <string name="home_xposed_service_off">系統服務未執行</string>
     <string name="home_xposed_filter_count">隱藏應用列表已經執行了 %d 次的攔截</string>
     <string name="home_manage">管理</string>
-    <string name="home_detection_test">攔截測試</string>
-    <string name="home_download_test_app_title">下載攔截測試應用程式</string>
-    <string name="home_download_test_app_message">我們開發了一個獨立的攔截測試應用程式，是否立刻下載使用？</string>
     <string name="home_backup_and_restore">備份 &amp; 還原</string>
     <string name="home_backup_config">備份設定</string>
     <string name="home_restore_config">還原設定</string>
     <string name="home_import_successful">導入成功</string>
     <string name="home_import_failed">導入失敗</string>
-    <string name="home_import_app_version_too_old">模組版本低於備份版本</string>
-    <string name="home_import_backup_version_too_old">備份版本太舊</string>
     <string name="home_import_file_damaged">備份檔損壞</string>
     <string name="home_export_failed">導出失敗</string>
     <string name="home_exported">備份完成</string>
@@ -105,6 +98,7 @@
     <string name="app_preset_using">已使用 %d 個預設模板</string>
     <string name="app_settings_preset_using">已使用 %d 個預設設定模板</string>
     <string name="app_settings_template_using">已使用 %d 個設定模板</string>
+    <string name="app_extra_settings_count">已應用 %d 個附加設置</string>
     <string name="app_extra_apps_visible_count">可以查看額外 %d 個應用程式</string>
     <string name="app_extra_apps_invisible_count">額外攔截 %d 個應用程式</string>
     <string name="app_warning_risky_package_title">高風險應用程式</string>
@@ -168,7 +162,6 @@
     <string name="settings_vold_app_data_isolation">Vold app data 隔離</string>
     <string name="settings_warning">警告</string>
     <string name="settings_vold_warning">啟用此功能後，將開啟 AOSP 的一項特性，讓應用程式的外部私人儲存目錄被隔離。此功能可提升隱藏應用程式的效果，但可能導致系統不穩定。由於該功能已在 AOSP 中被棄用，可能隨時失效。</string>
-    <string name="settings_change_require_root">此更動需要 root 權限</string>
     <string name="settings_need_reboot">重新啟動以確認更改</string>
     <string name="settings_permission_denied">授權遭拒絕</string>
     <string name="settings_force_mount_data">為所有應用程式啟用資料隔離</string>
@@ -199,7 +192,6 @@
     <string name="settings_theme">主題</string>
     <string name="settings_system_theme_color">使用系統主題色</string>
     <string name="settings_theme_color">主題色</string>
-    <string name="settings_dark_theme">深色主題</string>
     <string name="settings_pure_black_dark_theme">純黑的深色主題</string>
     <string name="settings_pure_black_dark_theme_summary">如果啟用了深色主題，則使用純黑色的背景色</string>
     <string name="settings_service">服務</string>
@@ -212,8 +204,6 @@
     <string name="settings_force_clean_env_toast_successful">已清理執行環境</string>
     <string name="settings_update">更新</string>
     <string name="settings_disable_update">禁用更新通知</string>
-    <string name="settings_receive_beta_update">接收 Beta 版更新</string>
-    <string name="settings_receive_beta_update_summary">注意：Beta 版可能會相當不穩定</string>
     <!-- Bulk config wizard -->
     <string name="title_bulk_config_wizard">批量配置精靈</string>
     <!-- About -->

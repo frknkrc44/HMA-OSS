@@ -11,9 +11,7 @@
     <string name="title_app_settings">Настройки приложения</string>
     <string name="title_about">О модуле</string>
     <string name="title_about_fork">Об этом форке</string>
-    <string name="do_not_dual">Не устанавливать HMA для второго пользователя</string>
     <string name="show_crash_log">Показывать краш-лог</string>
-    <string name="config_damaged">Файл конфигурации поврежден. Пожалуйста, очистите данные приложения</string>
     <string name="edit_list">Редактировать список</string>
     <string name="delete">Удалить</string>
     <string name="enabled">Включена</string>
@@ -40,16 +38,11 @@
     <string name="home_xposed_service_off">Системная служба не работает</string>
     <string name="home_xposed_filter_count">HMA-OSS отфильтровал всего %d запросов</string>
     <string name="home_manage">Управление</string>
-    <string name="home_detection_test">Проверка обнаружения</string>
-    <string name="home_download_test_app_title">Скачать приложение для проверки</string>
-    <string name="home_download_test_app_message">Мы разработали индивидуальное приложение для проверки на обнаружение и перенесли тест в него. Хотите скачать его прямо сейчас?</string>
     <string name="home_backup_and_restore">Экспорт &amp; Импорт</string>
     <string name="home_backup_config">Экспорт</string>
     <string name="home_restore_config">Импорт</string>
     <string name="home_import_successful">Успешный импорт</string>
     <string name="home_import_failed">Ошибка импорта</string>
-    <string name="home_import_app_version_too_old">Версия модуля ниже, чем файл экспорта</string>
-    <string name="home_import_backup_version_too_old">Файл экспорта был создан в слишком старой версии модуля</string>
     <string name="home_import_file_damaged">Экспортированный файл был повреждён</string>
     <string name="home_export_failed">Ошибка экспорта</string>
     <string name="home_exported">Создан файл с настройками модуля</string>
@@ -105,6 +98,7 @@
     <string name="app_preset_using">Использует %d пресетов</string>
     <string name="app_settings_preset_using">Использует %d настроек пресетов</string>
     <string name="app_settings_template_using">Использование %d шаблонов настроек</string>
+    <string name="app_extra_settings_count">%d additional settings applied</string>
     <string name="app_extra_apps_visible_count">%d дополнительных приложений видимы</string>
     <string name="app_extra_apps_invisible_count">%d дополнительных приложений невидимы</string>
     <string name="app_warning_risky_package_title">Рискованный пакет</string>
@@ -168,7 +162,6 @@
     <string name="settings_vold_app_data_isolation">Изоляция Vold-данных приложений</string>
     <string name="settings_warning">Предупреждение</string>
     <string name="settings_vold_warning">При включении этой опции активируется функция AOSP, которая изолирует внешний приватный каталог хранения приложения. Это может улучшить скрытие приложений, но потенциально вызывает проблемы со стабильностью. Поскольку функция заброшена в AOSP, она может перестать работать в любой момент.</string>
-    <string name="settings_change_require_root">Изменение требует root-доступ</string>
     <string name="settings_need_reboot">Изменение требует перезагрузки</string>
     <string name="settings_permission_denied">Отказано в доступе</string>
     <string name="settings_force_mount_data">Принуд. изолировать данные для всех приложений</string>
@@ -199,7 +192,6 @@
     <string name="settings_theme">Тема</string>
     <string name="settings_system_theme_color">Цвет системной темы</string>
     <string name="settings_theme_color">Цвет темы</string>
-    <string name="settings_dark_theme">Тёмная тема</string>
     <string name="settings_pure_black_dark_theme">Чёрная тема</string>
     <string name="settings_pure_black_dark_theme_summary">Использовать чёрную тему если включена тёмная тема</string>
     <string name="settings_service">Служба</string>
@@ -212,8 +204,6 @@
     <string name="settings_force_clean_env_toast_successful">Среда выполнения очищена успешно</string>
     <string name="settings_update">Обновления</string>
     <string name="settings_disable_update">Отключить уведомления об обновлениях</string>
-    <string name="settings_receive_beta_update">Получать обновления до бета-версий</string>
-    <string name="settings_receive_beta_update_summary">Бета-версии могут быть нестабильными</string>
     <!-- Bulk config wizard -->
     <string name="title_bulk_config_wizard">Мастер массовой настройки</string>
     <!-- About -->

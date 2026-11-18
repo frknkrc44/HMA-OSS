@@ -11,9 +11,7 @@
     <string name="title_app_settings">Uygulama ayarları</string>
     <string name="title_about">Hakkında</string>
     <string name="title_about_fork">Bu çatal hakkında</string>
-    <string name="do_not_dual">HMA’yı ikincil kullanıcıya yüklemeyin</string>
     <string name="show_crash_log">Çökme kaydını göster</string>
-    <string name="config_damaged">Yapılandırma dosyası hasarlı. Lütfen uygulama verilerini temizleyin</string>
     <string name="edit_list">Listeyi düzenle</string>
     <string name="delete">Sil</string>
     <string name="enabled">Etkin</string>
@@ -40,16 +38,11 @@
     <string name="home_xposed_service_off">Sistem servisi çalışmıyor</string>
     <string name="home_xposed_filter_count">HMA-OSS toplam %d isteği filtreledi</string>
     <string name="home_manage">Yönet</string>
-    <string name="home_detection_test">Tespit testi</string>
-    <string name="home_download_test_app_title">Test uygulaması indir</string>
-    <string name="home_download_test_app_message">Bireysel bir tespit test uygulaması geliştirdik ve tespit testini bu uygulamaya taşıdık. Şimdi indirmek ister misiniz?</string>
     <string name="home_backup_and_restore">Yedekle &amp; Geri Yükle</string>
     <string name="home_backup_config">Yedekle</string>
     <string name="home_restore_config">Geri yükle</string>
     <string name="home_import_successful">İçe aktarma başarılı</string>
     <string name="home_import_failed">İçe aktarma başarısız</string>
-    <string name="home_import_app_version_too_old">Modül sürümü yedeğin sürümünden düşük</string>
-    <string name="home_import_backup_version_too_old">Yedek sürümü çok eski</string>
     <string name="home_import_file_damaged">Yedek dosyası hasarlı</string>
     <string name="home_export_failed">Dışa aktarma başarısız</string>
     <string name="home_exported">Yapılandırma yedeklendi</string>
@@ -105,6 +98,7 @@
     <string name="app_preset_using">%d ön ayar kullanılıyor</string>
     <string name="app_settings_preset_using">%d ayar ön ayarı kullanılıyor</string>
     <string name="app_settings_template_using">%d ayarlar şablonu kullanılıyor</string>
+    <string name="app_extra_settings_count">%d ek ayar uygulandı</string>
     <string name="app_extra_apps_visible_count">%d ek uygulama görünür</string>
     <string name="app_extra_apps_invisible_count">%d ek uygulama görünmez</string>
     <string name="app_warning_risky_package_title">Riskli paket</string>
@@ -168,7 +162,6 @@
     <string name="settings_vold_app_data_isolation">Vold uygulama verisi izolasyonu</string>
     <string name="settings_warning">Uyarı</string>
     <string name="settings_vold_warning">Bu, AOSP özelliğini etkinleştirerek uygulamanın harici özel depolama dizinini izole eder. Bu, uygulamaları gizlemeye yardımcı olabilir ancak kararlılık sorunlarına neden olabilir. Bu özellik herhangi bir zamanda çalışmayı durdurabilir, çünkü AOSP tarafından terk edilmiştir.</string>
-    <string name="settings_change_require_root">Değişiklik için root izni gerekiyor</string>
     <string name="settings_need_reboot">Değişiklik için yeniden başlatma gerekiyor</string>
     <string name="settings_permission_denied">İzin reddedildi</string>
     <string name="settings_force_mount_data">Tüm uygulamalar için veri izolasyonunu zorla</string>
@@ -199,7 +192,6 @@
     <string name="settings_theme">Tema</string>
     <string name="settings_system_theme_color">Sistem tema rengi</string>
     <string name="settings_theme_color">Tema rengi</string>
-    <string name="settings_dark_theme">Koyu tema</string>
     <string name="settings_pure_black_dark_theme">Saf siyah koyu tema</string>
     <string name="settings_pure_black_dark_theme_summary">Koyu tema etkinse saf siyah temayı kullan</string>
     <string name="settings_service">Servis</string>
@@ -212,8 +204,6 @@
     <string name="settings_force_clean_env_toast_successful">Çalışma zamanı ortamı temizlendi</string>
     <string name="settings_update">Güncelleme</string>
     <string name="settings_disable_update">Güncelleme bildirimini devre dışı bırak</string>
-    <string name="settings_receive_beta_update">Beta güncellemelerini al</string>
-    <string name="settings_receive_beta_update_summary">Beta sürümleri kararsız olabilir</string>
     <!-- Bulk config wizard -->
     <string name="title_bulk_config_wizard">Çoklu yapılandırma sihirbazı</string>
     <!-- About -->

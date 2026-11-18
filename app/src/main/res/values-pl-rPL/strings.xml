@@ -11,9 +11,7 @@
     <string name="title_app_settings">Ustawienia aplikacji</string>
     <string name="title_about">O</string>
     <string name="title_about_fork">O tym forku</string>
-    <string name="do_not_dual">Nie instaluj HMA na drugim użytkowniku</string>
     <string name="show_crash_log">Pokaż dziennik awarii</string>
-    <string name="config_damaged">Plik konfiguracyjny uszkodzony. Proszę wyczyścić dane aplikacji</string>
     <string name="edit_list">Edytuj listę</string>
     <string name="delete">Usuń</string>
     <string name="enabled">Włączony</string>
@@ -40,16 +38,11 @@
     <string name="home_xposed_service_off">Usługa systemowa nie jest uruchomiona</string>
     <string name="home_xposed_filter_count">HMA-OSS przefiltrowało %d zapytań</string>
     <string name="home_manage">Zarządzaj</string>
-    <string name="home_detection_test">Test wykrywalności</string>
-    <string name="home_download_test_app_title">Pobierz aplikację testową</string>
-    <string name="home_download_test_app_message">Stworzyliśmy osobną aplikację testową i wyemigrowaliśmy testy detekcji do niej. Czy chcesz ją pobrać teraz?</string>
     <string name="home_backup_and_restore">Backup i przywracanie</string>
     <string name="home_backup_config">Backup konfiguracji</string>
     <string name="home_restore_config">Przywróć konfigurację</string>
     <string name="home_import_successful">Import udany</string>
     <string name="home_import_failed">Import nieudany</string>
-    <string name="home_import_app_version_too_old">Wersja modułu niższa niż ta z backupu</string>
-    <string name="home_import_backup_version_too_old">Wersja backupu za stara</string>
     <string name="home_import_file_damaged">Plik backupu jest uszkodzony</string>
     <string name="home_export_failed">Export nieudany</string>
     <string name="home_exported">Backupowanie configu</string>
@@ -105,6 +98,7 @@
     <string name="app_preset_using">Używanie %d presetów</string>
     <string name="app_settings_preset_using">Używanie %d presetów ustawień</string>
     <string name="app_settings_template_using">Używanie %d szablonów ustawień</string>
+    <string name="app_extra_settings_count">%d dodatkowo zaaplikowanych ustawień</string>
     <string name="app_extra_apps_visible_count">%d dodatkowo widzialnych aplikacji</string>
     <string name="app_extra_apps_invisible_count">%d dodatkowo niewidzialnych aplikacji</string>
     <string name="app_warning_risky_package_title">Ryzykowne pakiety</string>
@@ -168,7 +162,6 @@
     <string name="settings_vold_app_data_isolation">Izolacja danych aplikacji usługi Vold</string>
     <string name="settings_warning">Ostrzeżenie</string>
     <string name="settings_vold_warning">To włączy opcje AOSP który odizoluje zewnętrzną przestrzeń prywatną aplikacji tak aby inne aplikacje nie miały do niej dostępu. To może pomóc poprawić ukrywanie aplikacji ale może spowodować też różne problemy ze stabilnością. Ta opcja może przestać działać w dowolnym momencie dlatego że została ona porzucona w AOSP.</string>
-    <string name="settings_change_require_root">Zmiana wymaga uprawnień root</string>
     <string name="settings_need_reboot">Zmiana wymaga reboota</string>
     <string name="settings_permission_denied">Odmowa dostępu</string>
     <string name="settings_force_mount_data">Wymuś izolacje danych dla wszystkich aplikacji</string>
@@ -199,7 +192,6 @@
     <string name="settings_theme">Motyw</string>
     <string name="settings_system_theme_color">Kolor motywu systemowego</string>
     <string name="settings_theme_color">Kolor motywu</string>
-    <string name="settings_dark_theme">Motyw ciemny</string>
     <string name="settings_pure_black_dark_theme">Czysta czerń ciemnego motywu</string>
     <string name="settings_pure_black_dark_theme_summary">Użyj motywu czystej czerni, gdy motyw ciemny jest włączony</string>
     <string name="settings_service">Usługa</string>
@@ -212,8 +204,6 @@
     <string name="settings_force_clean_env_toast_successful">Środowisko runtime wyczyszczone</string>
     <string name="settings_update">Aktualizacja</string>
     <string name="settings_disable_update">Wyłącz powiadomienia o aktualizacji</string>
-    <string name="settings_receive_beta_update">Otrzymuj aktualizacje beta</string>
-    <string name="settings_receive_beta_update_summary">Wersje beta mogą być niestabilne</string>
     <!-- Bulk config wizard -->
     <string name="title_bulk_config_wizard">Kreator konfiguracji zbiorowej</string>
     <!-- About -->

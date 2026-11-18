@@ -11,9 +11,7 @@
     <string name="title_app_settings">Ρυθμίσεις εφαρμογής</string>
     <string name="title_about">Σχετικά</string>
     <string name="title_about_fork">Σχετικά με αυτό το fork</string>
-    <string name="do_not_dual">Μην εγκαταστήσεις το HMA στον δευτερεύων χρήστη</string>
     <string name="show_crash_log">Εμφάνιση αρχείου καταγραφής σφαλμάτων</string>
-    <string name="config_damaged">Το αρχείο διαμόρφωσης είναι κατεστραμμένο. Παρακαλώ καθαρίστε τα δεδομένα της εφαρμογής</string>
     <string name="edit_list">Επεξεργασία λίστας</string>
     <string name="delete">Διαγραφή</string>
     <string name="enabled">Ενεργοποιημένο</string>
@@ -40,16 +38,11 @@
     <string name="home_xposed_service_off">Η υπηρεσία συστήματος δεν εκτελείται</string>
     <string name="home_xposed_filter_count">Το HMA-OSS έχει φιλτράρει συνολικά %d αιτήματα</string>
     <string name="home_manage">Διαχείριση</string>
-    <string name="home_detection_test">Δοκιμή εντοπισμού</string>
-    <string name="home_download_test_app_title">Λήψη δοκιμαστικής εφαρμογής</string>
-    <string name="home_download_test_app_message">Έχουμε αναπτύξει μια ξεχωριστή εφαρμογή δοκιμής ανίχνευσης και μεταφέραμε τη δοκιμή ανίχνευσης σε αυτήν. Θέλετε να την κατεβάσετε τώρα;</string>
     <string name="home_backup_and_restore">Αντίγραφο ασφαλείας &amp; Επαναφορά</string>
     <string name="home_backup_config">Αντίγραφο ασφαλείας διαμόρφωσης</string>
     <string name="home_restore_config">Επαναφορά διαμόρφωσης</string>
     <string name="home_import_successful">Επιτυχής εισαγωγή</string>
     <string name="home_import_failed">Αποτυχία εισαγωγής</string>
-    <string name="home_import_app_version_too_old">Η έκδοση ενότητας είναι χαμηλότερη από το αντίγραφο</string>
-    <string name="home_import_backup_version_too_old">Το αντίγραφο ασφαλείας είναι πολύ παλιό</string>
     <string name="home_import_file_damaged">Το αντίγραφο ασφαλείας είναι καταστραμμένο</string>
     <string name="home_export_failed">Αποτυχία εξαγωγής</string>
     <string name="home_exported">Το αντίγραφο διαμόρφωσης αποθηκεύτηκε</string>
@@ -105,6 +98,7 @@
     <string name="app_preset_using">Χρήση %d προεπιλογών</string>
     <string name="app_settings_preset_using">Χρήση %d προεπιλογών ρυθμίσεων</string>
     <string name="app_settings_template_using">Χρήση %d προτύπων ρυθμίσεων</string>
+    <string name="app_extra_settings_count">%d additional settings applied</string>
     <string name="app_extra_apps_visible_count">%d πρόσθετες ορατές εφαρμογές</string>
     <string name="app_extra_apps_invisible_count">%d πρόσθετες αόρατες εφαρμογές</string>
     <string name="app_warning_risky_package_title">Επικίνδυνο πακέτο</string>
@@ -168,7 +162,6 @@
     <string name="settings_vold_app_data_isolation">Απομόνωση δεδομένων εφαρμογής Vold</string>
     <string name="settings_warning">Προειδοποίηση</string>
     <string name="settings_vold_warning">Αυτό θα ενεργοποιήσει μια λειτουργία AOSP η οποία θα απομονώσει τον εξωτερικό ιδιωτικό κατάλογο αποθήκευσης της εφαρμογής. Αυτό μπορεί να βοηθήσει στη βελτίωση της απόκρυψης εφαρμογών, ενώ μπορεί να προκαλέσει προβλήματα σταθερότητας. Αυτή η λειτουργία ενδέχεται να σταματήσει να λειτουργεί ανά πάσα στιγμή, καθώς εγκαταλείπεται στο AOSP.</string>
-    <string name="settings_change_require_root">Η αλλαγή απαιτεί δικαιώματα root</string>
     <string name="settings_need_reboot">Η αλλαγή απαιτεί επανεκκίνηση</string>
     <string name="settings_permission_denied">Η άδεια απορρίφθηκε</string>
     <string name="settings_force_mount_data">Επιβολή απομόνωσης δεδομένων για όλες τις εφαρμογές</string>
@@ -199,7 +192,6 @@
     <string name="settings_theme">Θέμα</string>
     <string name="settings_system_theme_color">Χρώμα θέματος συστήματος</string>
     <string name="settings_theme_color">Χρώμα θέματος</string>
-    <string name="settings_dark_theme">Σκούρο θέμα</string>
     <string name="settings_pure_black_dark_theme">Καθαρό μαύρο σκούρο θέμα</string>
     <string name="settings_pure_black_dark_theme_summary">Χρήση καθαρού μαύρου θέματος εάν είναι ενεργοποιημένο το σκούρο θέμα</string>
     <string name="settings_service">Υπηρεσία</string>
@@ -212,8 +204,6 @@
     <string name="settings_force_clean_env_toast_successful">Το περιβάλλον εκτέλεσης εκκαθαρίστηκε</string>
     <string name="settings_update">Ενημέρωση</string>
     <string name="settings_disable_update">Απενεργοποίηση ειδοποίησης ενημέρωσης</string>
-    <string name="settings_receive_beta_update">Λήψη ενημέρωσης beta</string>
-    <string name="settings_receive_beta_update_summary">Η έκδοση beta μπορεί να είναι ασταθής</string>
     <!-- Bulk config wizard -->
     <string name="title_bulk_config_wizard">Οδηγός μαζικής διαμόρφωσης</string>
     <!-- About -->

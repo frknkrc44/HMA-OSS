@@ -11,9 +11,7 @@
     <string name="title_app_settings">Setelan aplikasi</string>
     <string name="title_about">Tentang</string>
     <string name="title_about_fork">Tentang cabang ini</string>
-    <string name="do_not_dual">Jangan pasang HMA ke pengguna sekunder</string>
     <string name="show_crash_log">Tampilkan log kerusakan</string>
-    <string name="config_damaged">Berkas konfig rusak. Harap bersihkan data aplikasi</string>
     <string name="edit_list">Sunting daftar</string>
     <string name="delete">Hapus</string>
     <string name="enabled">Aktif</string>
@@ -40,16 +38,11 @@
     <string name="home_xposed_service_off">Layanan sistem tidak berjalan</string>
     <string name="home_xposed_filter_count">HMA-OSS telah memfilter total %d permintaan</string>
     <string name="home_manage">Kelola</string>
-    <string name="home_detection_test">Tes deteksi</string>
-    <string name="home_download_test_app_title">Unduh aplikasi uji</string>
-    <string name="home_download_test_app_message">Kami telah mengembangkan aplikasi uji deteksi individual dan memigrasikan uji deteksi ke dalamnya. Apakah Anda ingin mengunduhnya sekarang?</string>
     <string name="home_backup_and_restore">Cadangkan &amp; Pulihkan</string>
     <string name="home_backup_config">Cadangkan konfig</string>
     <string name="home_restore_config">Pulihkan konfig</string>
     <string name="home_import_successful">Impor berhasil</string>
     <string name="home_import_failed">Impor gagal</string>
-    <string name="home_import_app_version_too_old">Versi modul lebih rendah dari cadangan</string>
-    <string name="home_import_backup_version_too_old">Versi cadangan terlalu lama</string>
     <string name="home_import_file_damaged">Berkas cadangan rusak</string>
     <string name="home_export_failed">Ekspor gagal</string>
     <string name="home_exported">Konfig dicadangkan</string>
@@ -105,6 +98,7 @@
     <string name="app_preset_using">Menggunakan %d preset</string>
     <string name="app_settings_preset_using">Menggunakan %d preset setelan</string>
     <string name="app_settings_template_using">Menggunakan %d templat setelan</string>
+    <string name="app_extra_settings_count">%d additional settings applied</string>
     <string name="app_extra_apps_visible_count">%d aplikasi tambahan terlihat</string>
     <string name="app_extra_apps_invisible_count">%d aplikasi tambahan tidak terlihat</string>
     <string name="app_warning_risky_package_title">Paket berisiko</string>
@@ -168,7 +162,6 @@
     <string name="settings_vold_app_data_isolation">Isolasi data aplikasi vold</string>
     <string name="settings_warning">Peringatan</string>
     <string name="settings_vold_warning">Ini akan mengaktifkan fitur AOSP yang membuat direktori penyimpanan eksternal pribadi aplikasi terisolasi. Ini dapat membantu meningkatkan penyembunyian aplikasi meskipun dapat menyebabkan masalah stabilitas. Fitur ini dapat berhenti berfungsi kapan saja karena ditinggalkan oleh AOSP.</string>
-    <string name="settings_change_require_root">Perubahan diperlukan izin root</string>
     <string name="settings_need_reboot">Perubahan diperlukan mulai ulang</string>
     <string name="settings_permission_denied">Izin ditolak</string>
     <string name="settings_force_mount_data">Paksa isolasi data untuk semua aplikasi</string>
@@ -199,7 +192,6 @@
     <string name="settings_theme">Tema</string>
     <string name="settings_system_theme_color">Warna tema sistem</string>
     <string name="settings_theme_color">Warna tema</string>
-    <string name="settings_dark_theme">Tema gelap</string>
     <string name="settings_pure_black_dark_theme">Tema gelap hitam pekat</string>
     <string name="settings_pure_black_dark_theme_summary">Gunakan tema hitam pekat jika tema gelap diaktifkan</string>
     <string name="settings_service">Layanan</string>
@@ -212,8 +204,6 @@
     <string name="settings_force_clean_env_toast_successful">Lingkungan runtime dibersihkan</string>
     <string name="settings_update">Pembaruan</string>
     <string name="settings_disable_update">Nonaktifkan notifikasi pembaruan</string>
-    <string name="settings_receive_beta_update">Terima pembaruan beta</string>
-    <string name="settings_receive_beta_update_summary">Versi beta mungkin tidak stabil</string>
     <!-- Bulk config wizard -->
     <string name="title_bulk_config_wizard">Asisten konfigurasi massal</string>
     <!-- About -->

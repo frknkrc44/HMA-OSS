@@ -11,9 +11,7 @@
     <string name="title_app_settings">App instellingen</string>
     <string name="title_about">Over</string>
     <string name="title_about_fork">Over deze Fork</string>
-    <string name="do_not_dual">Installeer HMA niet voor secundaire gebruiker</string>
     <string name="show_crash_log">Toon_Crash_log</string>
-    <string name="config_damaged">Configuratiebestand beschadigd Wis de App gegevens</string>
     <string name="edit_list">Bewerk lijst</string>
     <string name="delete">Verwijder</string>
     <string name="enabled">Ingeschakeld</string>
@@ -40,16 +38,11 @@
     <string name="home_xposed_service_off">Systeem Service Niet Actief</string>
     <string name="home_xposed_filter_count">HMA-OSS Heeft gefilterd Totaal %d verzoeken</string>
     <string name="home_manage">Beheren</string>
-    <string name="home_detection_test">Detectie Test</string>
-    <string name="home_download_test_app_title">Download Test app</string>
-    <string name="home_download_test_app_message">We Hebben Een individuele detectie test app ontwikkeld en de detectie ernaar gemigreerd. Wil je de test App downloaden?</string>
     <string name="home_backup_and_restore">Configuratie &amp;amp back-up herstellen</string>
     <string name="home_backup_config">Backup config</string>
     <string name="home_restore_config">Herstel Config</string>
     <string name="home_import_successful">Importeren geslaagd</string>
     <string name="home_import_failed">Importeren mislukt</string>
-    <string name="home_import_app_version_too_old">Module version lower than the backup</string>
-    <string name="home_import_backup_version_too_old">Back-up versie te oud</string>
     <string name="home_import_file_damaged">Back-up bestand was beschadigd</string>
     <string name="home_export_failed">Exporteren mislukt</string>
     <string name="home_exported">Backed-up config</string>
@@ -105,6 +98,7 @@
     <string name="app_preset_using">Gebruik %d presets</string>
     <string name="app_settings_preset_using">Geruikt huidige %d instellingen</string>
     <string name="app_settings_template_using">Using %d settings templates</string>
+    <string name="app_extra_settings_count">%d additional settings applied</string>
     <string name="app_extra_apps_visible_count">%d extra apps zichtbaar</string>
     <string name="app_extra_apps_invisible_count">%d extra apps onzichtbaar</string>
     <string name="app_warning_risky_package_title">Risicovol pakket</string>
@@ -168,7 +162,6 @@
     <string name="settings_vold_app_data_isolation">Vold app data isolation</string>
     <string name="settings_warning">Warning</string>
     <string name="settings_vold_warning">This will enable an AOSP feature which make app\'s external private storage directory isolated. This can help improve hiding apps while may cause stability issues. This feature may stop working at any time since it is abandoned in AOSP.</string>
-    <string name="settings_change_require_root">Changing requires root permission</string>
     <string name="settings_need_reboot">Changing requires reboot</string>
     <string name="settings_permission_denied">Permission denied</string>
     <string name="settings_force_mount_data">Enforce data isolation for all apps</string>
@@ -199,7 +192,6 @@
     <string name="settings_theme">Theme</string>
     <string name="settings_system_theme_color">System theme color</string>
     <string name="settings_theme_color">Theme color</string>
-    <string name="settings_dark_theme">Dark theme</string>
     <string name="settings_pure_black_dark_theme">Pure black dark theme</string>
     <string name="settings_pure_black_dark_theme_summary">Use the pure black theme if dark theme is enabled</string>
     <string name="settings_service">Service</string>
@@ -212,8 +204,6 @@
     <string name="settings_force_clean_env_toast_successful">Runtime environment cleaned</string>
     <string name="settings_update">Update</string>
     <string name="settings_disable_update">Disable update notification</string>
-    <string name="settings_receive_beta_update">Receive beta update</string>
-    <string name="settings_receive_beta_update_summary">Beta version may be unstable</string>
     <!-- Bulk config wizard -->
     <string name="title_bulk_config_wizard">Bulk config wizard</string>
     <!-- About -->

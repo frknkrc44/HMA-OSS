@@ -11,9 +11,7 @@
     <string name="title_app_settings">إعدادات التطبيـق</string>
     <string name="title_about">حول</string>
     <string name="title_about_fork">حول هذه النسخة</string>
-    <string name="do_not_dual">لا تقم بتثبيت HMA للمستخدم الثانوي</string>
     <string name="show_crash_log">إظهار سجل الأعطال</string>
-    <string name="config_damaged">مِلف التكوين تآلف. الرجاء القيام بحذف بيانات التطبيق</string>
     <string name="edit_list">تعديل القائمة</string>
     <string name="delete">حذف</string>
     <string name="enabled">مفعّل</string>
@@ -40,16 +38,11 @@
     <string name="home_xposed_service_off">خدمة النظام متوقفة</string>
     <string name="home_xposed_filter_count">HMA-OSS قام بتصفية إجمالي %d من الطلبات</string>
     <string name="home_manage">الإدارة</string>
-    <string name="home_detection_test">اختبار الاكتشاف</string>
-    <string name="home_download_test_app_title">تنزيل تطبيق الاختبار</string>
-    <string name="home_download_test_app_message">طورنا تطبيق اكتشاف أولي ودمجنا به اختبار الاكتشاف. هل تريد تحميله الآن؟</string>
     <string name="home_backup_and_restore">حفظ نسخة &amp; استعادة نسخة</string>
     <string name="home_backup_config">نسخ احتياطي للإعدادات</string>
     <string name="home_restore_config">استعادة إعداداتي</string>
     <string name="home_import_successful">تم الاستيراد بنجاح</string>
     <string name="home_import_failed">فَشِل الاستيراد</string>
-    <string name="home_import_app_version_too_old">إصدار الوحدة أقل من النسخة</string>
-    <string name="home_import_backup_version_too_old">النسخة الاحتياطية قديمة للغاية</string>
     <string name="home_import_file_damaged">مِلف النسخة الاحتياطية متضرر</string>
     <string name="home_export_failed">فشل التصدير</string>
     <string name="home_exported">تم النسخ الاحتياطي للإعدادات</string>
@@ -105,6 +98,7 @@
     <string name="app_preset_using">يتم استخدام%d من الضبط المسبق</string>
     <string name="app_settings_preset_using">يتم استخدام%d من إعدادات ضبط المسبق</string>
     <string name="app_settings_template_using">يتم استخدام %d قالب (قوالب) إعدادات</string>
+    <string name="app_extra_settings_count">%d additional settings applied</string>
     <string name="app_extra_apps_visible_count">%d تطبيقات إضافية مرئية</string>
     <string name="app_extra_apps_invisible_count">%d تطبيقات إضافية غير مرئية</string>
     <string name="app_warning_risky_package_title">حِزْمَة خطيرة</string>
@@ -169,7 +163,6 @@
     <string name="settings_vold_app_data_isolation">عزل بيانات قبة التطبيق</string>
     <string name="settings_warning">تحذير</string>
     <string name="settings_vold_warning">هذا الخِيار سيفعل لك مِيزة AOSP الذي يجعل مسار التخزين الخارجي الخاص بالتطبيق مفصولا. ويمكن أن يساعد على تحسين إخفاء التطبيقات خلال احتمالية حدوث مشكلات في الاستقرار. وهذه المِيزة قد تتوقف عمله عند أي وقت لكونه بلا تحديثات او تغييرات في AOSP.</string>
-    <string name="settings_change_require_root">يتطلب التغيير إذن روت</string>
     <string name="settings_need_reboot">التغيير يتطلب إعادة التشغيل</string>
     <string name="settings_permission_denied">تم رفض الإذن</string>
     <string name="settings_force_mount_data">فرض عزل البيانات لكافة التطبيقات</string>
@@ -200,7 +193,6 @@
     <string name="settings_theme">الثيم</string>
     <string name="settings_system_theme_color">لون ثيم النظام</string>
     <string name="settings_theme_color">لون الثيم</string>
-    <string name="settings_dark_theme">المظهر الداكن</string>
     <string name="settings_pure_black_dark_theme">الثيم الأسود الخالص</string>
     <string name="settings_pure_black_dark_theme_summary">استخدم السمة السوداء الخالصة إذا كان المظهر الداكن مُفعل</string>
     <string name="settings_service">الخدمة</string>
@@ -213,8 +205,6 @@
     <string name="settings_force_clean_env_toast_successful">تم تنظيف بيئة التشغيل</string>
     <string name="settings_update">تحديث</string>
     <string name="settings_disable_update">إيقاف إشعارات التحديث</string>
-    <string name="settings_receive_beta_update">استقبال التحديثات المسبقة</string>
-    <string name="settings_receive_beta_update_summary">الإصدارات المسبقة من الممكن أن تكون غير مستقرة</string>
     <!-- Bulk config wizard -->
     <string name="title_bulk_config_wizard">معالج الإعدادات الجماعية</string>
     <!-- About -->

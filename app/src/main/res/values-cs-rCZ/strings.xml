@@ -11,9 +11,7 @@
     <string name="title_app_settings">Nastavení aplikace</string>
     <string name="title_about">O aplikaci</string>
     <string name="title_about_fork">About this fork</string>
-    <string name="do_not_dual">Neinstalujte HMA na jiném uživateli</string>
     <string name="show_crash_log">Zobrazit protokol o selhání</string>
-    <string name="config_damaged">Poškozený konfigurační soubor. Vyčistěte prosím data aplikace</string>
     <string name="edit_list">Upravit seznam</string>
     <string name="delete">Smazat</string>
     <string name="enabled">Povoleno</string>
@@ -40,16 +38,11 @@
     <string name="home_xposed_service_off">Systémová služba neběží</string>
     <string name="home_xposed_filter_count">HMA-OSS odfiltroval celkem %d požadavků</string>
     <string name="home_manage">Spravovat</string>
-    <string name="home_detection_test">Detekční test</string>
-    <string name="home_download_test_app_title">Stáhněte si testovací aplikaci</string>
-    <string name="home_download_test_app_message">Vyvinuli jsme aplikaci pro individuální test detekce a do ní jsme migrovali test detekce. Chcete si jej nyní stáhnout?</string>
     <string name="home_backup_and_restore">Záloha &amp; Obnovení</string>
     <string name="home_backup_config">Konfigurace zálohování</string>
     <string name="home_restore_config">Konfigurace obnovení</string>
     <string name="home_import_successful">Import dokončen</string>
     <string name="home_import_failed">Import selhal</string>
-    <string name="home_import_app_version_too_old">Verze modulu je nižší než záloha</string>
-    <string name="home_import_backup_version_too_old">Verze zálohy je příliš stará</string>
     <string name="home_import_file_damaged">Záložní soubor byl poškozen</string>
     <string name="home_export_failed">Export selhal</string>
     <string name="home_exported">Zálohovaná konfigurace</string>
@@ -105,6 +98,7 @@
     <string name="app_preset_using">Using %d presets</string>
     <string name="app_settings_preset_using">Using %d settings presets</string>
     <string name="app_settings_template_using">Using %d settings templates</string>
+    <string name="app_extra_settings_count">%d additional settings applied</string>
     <string name="app_extra_apps_visible_count">%d dalších aplikací je viditelných</string>
     <string name="app_extra_apps_invisible_count">%d dalších aplikaci je skryto</string>
     <string name="app_warning_risky_package_title">Rizikový balíček</string>
@@ -168,7 +162,6 @@
     <string name="settings_vold_app_data_isolation">Vold app data isolation</string>
     <string name="settings_warning">Warning</string>
     <string name="settings_vold_warning">This will enable an AOSP feature which make app\'s external private storage directory isolated. This can help improve hiding apps while may cause stability issues. This feature may stop working at any time since it is abandoned in AOSP.</string>
-    <string name="settings_change_require_root">Changing requires root permission</string>
     <string name="settings_need_reboot">Changing requires reboot</string>
     <string name="settings_permission_denied">Permission denied</string>
     <string name="settings_force_mount_data">Enforce data isolation for all apps</string>
@@ -199,7 +192,6 @@
     <string name="settings_theme">Motiv</string>
     <string name="settings_system_theme_color">Barva motivu systému</string>
     <string name="settings_theme_color">Barva motivu</string>
-    <string name="settings_dark_theme">Tmavé téma</string>
     <string name="settings_pure_black_dark_theme">Čistý černý tmavý motiv</string>
     <string name="settings_pure_black_dark_theme_summary">Pokud je povolen tmavý motiv, použijte čistě černý motiv</string>
     <string name="settings_service">Služba</string>
@@ -212,8 +204,6 @@
     <string name="settings_force_clean_env_toast_successful">Runtime environment cleaned</string>
     <string name="settings_update">Update</string>
     <string name="settings_disable_update">Disable update notification</string>
-    <string name="settings_receive_beta_update">Receive beta update</string>
-    <string name="settings_receive_beta_update_summary">Beta version may be unstable</string>
     <!-- Bulk config wizard -->
     <string name="title_bulk_config_wizard">Bulk config wizard</string>
     <!-- About -->

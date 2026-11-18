@@ -11,9 +11,7 @@
     <string name="title_app_settings">Налаштування додатка</string>
     <string name="title_about">Про додаток</string>
     <string name="title_about_fork">Про цей клон</string>
-    <string name="do_not_dual">Не встановлюйте HMA для додаткового користувача</string>
     <string name="show_crash_log">Показати журнал збоїв</string>
-    <string name="config_damaged">Файл конфігурації пошкоджено. Очистіть дані додатку</string>
     <string name="edit_list">Редагувати список</string>
     <string name="delete">Видалити</string>
     <string name="enabled">Увімкнено</string>
@@ -40,16 +38,11 @@
     <string name="home_xposed_service_off">Системна служба не працює</string>
     <string name="home_xposed_filter_count">HMA-OSS відфільтрував %d запитів</string>
     <string name="home_manage">Керувати</string>
-    <string name="home_detection_test">Перевірка на виявлення</string>
-    <string name="home_download_test_app_title">Завантажити додаток для перевірки</string>
-    <string name="home_download_test_app_message">Ми розробили індивідуальний додаток для перевірки виявлення та перенесли перевірку виявлення в нього. Хочете завантажити його зараз?</string>
     <string name="home_backup_and_restore">Резервне копіювання &amp; Відновлення</string>
     <string name="home_backup_config">Налаштування резервного копіювання</string>
     <string name="home_restore_config">Відновити налаштування</string>
     <string name="home_import_successful">Успішно імпортовано</string>
     <string name="home_import_failed">Не вдалося імпортувати</string>
-    <string name="home_import_app_version_too_old">Версія модуля нижча за резервну</string>
-    <string name="home_import_backup_version_too_old">Резервна версія занадто стара</string>
     <string name="home_import_file_damaged">Файл резервної копії пошкоджено</string>
     <string name="home_export_failed">Не вдалося експортувати</string>
     <string name="home_exported">Створено файл із налаштуваннями модуля</string>
@@ -105,6 +98,7 @@
     <string name="app_preset_using">Використовується %d шаблон/ів</string>
     <string name="app_settings_preset_using">Використовується %d шаблон/ів налаштувань</string>
     <string name="app_settings_template_using">Використовується %d налаштування шаблонів</string>
+    <string name="app_extra_settings_count">%d additional settings applied</string>
     <string name="app_extra_apps_visible_count">%d видимі додаткові додатки</string>
     <string name="app_extra_apps_invisible_count">%d невидимі додаткові додатки</string>
     <string name="app_warning_risky_package_title">Ризикований пакет</string>
@@ -168,7 +162,6 @@
     <string name="settings_vold_app_data_isolation">Ізоляція даних додатку Vold</string>
     <string name="settings_warning">Попередження</string>
     <string name="settings_vold_warning">Це ввімкне функцію в AOSP, яка ізолює зовнішній приватний каталог сховища програм. Це може допомогти покращити приховування програм, хоча може спричинити проблеми зі стабільністю. Ця функція може перестати працювати будь-коли, оскільки її більше не підтримують в AOSP.</string>
-    <string name="settings_change_require_root">Для зміни потрібен дозвіл root</string>
     <string name="settings_need_reboot">Для зміни потрібно перезавантаження</string>
     <string name="settings_permission_denied">У дозволі відмовлено</string>
     <string name="settings_force_mount_data">Застосувати ізоляцію даних для всіх додатків</string>
@@ -199,7 +192,6 @@
     <string name="settings_theme">Тема</string>
     <string name="settings_system_theme_color">Колір теми системи</string>
     <string name="settings_theme_color">Колір теми</string>
-    <string name="settings_dark_theme">Темна тема</string>
     <string name="settings_pure_black_dark_theme">Чорна тема</string>
     <string name="settings_pure_black_dark_theme_summary">Використовуйте чорну тему, якщо темну тему ввімкнено</string>
     <string name="settings_service">Служба</string>
@@ -212,8 +204,6 @@
     <string name="settings_force_clean_env_toast_successful">Середовище виконання очищено</string>
     <string name="settings_update">Оновлення</string>
     <string name="settings_disable_update">Вимкнути сповіщення про оновлення</string>
-    <string name="settings_receive_beta_update">Отримувати бета-оновлення</string>
-    <string name="settings_receive_beta_update_summary">Бета-версія може бути нестабільною</string>
     <!-- Bulk config wizard -->
     <string name="title_bulk_config_wizard">Майстер групового налаштування</string>
     <!-- About -->

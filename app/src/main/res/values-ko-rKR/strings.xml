@@ -11,9 +11,7 @@
     <string name="title_app_settings">앱 설정</string>
     <string name="title_about">정보</string>
     <string name="title_about_fork">이 포크 버전에 대하여</string>
-    <string name="do_not_dual">보조 사용자에게 HMA 설치하지 않음</string>
     <string name="show_crash_log">충돌 로그 표시</string>
-    <string name="config_damaged">설정 파일이 손상되었습니다. 앱 데이터를 삭제하세요.</string>
     <string name="edit_list">목록 편집</string>
     <string name="delete">삭제</string>
     <string name="enabled">사용</string>
@@ -40,16 +38,11 @@
     <string name="home_xposed_service_off">시스템 서비스 실행 중지</string>
     <string name="home_xposed_filter_count">HMA-OSS가 총 %d개의 요청을 필터링했습니다.</string>
     <string name="home_manage">관리</string>
-    <string name="home_detection_test">탐지 테스트</string>
-    <string name="home_download_test_app_title">테스트 앱 다운로드</string>
-    <string name="home_download_test_app_message">개별 탐지 테스트 앱을 개발하여 탐지 테스트 기능을 해당 앱으로 이전했습니다. 지금 다운로드할까요?</string>
     <string name="home_backup_and_restore">백업 &amp; 복원</string>
     <string name="home_backup_config">설정 백업</string>
     <string name="home_restore_config">설정 복원</string>
     <string name="home_import_successful">가져오기 성공</string>
     <string name="home_import_failed">가져오기 실패</string>
-    <string name="home_import_app_version_too_old">모듈 버전이 백업 버전보다 낮습니다.</string>
-    <string name="home_import_backup_version_too_old">백업 버전이 너무 오래되었습니다.</string>
     <string name="home_import_file_damaged">백업 파일이 손상되었습니다.</string>
     <string name="home_export_failed">내보내기 실패</string>
     <string name="home_exported">설정 백업 완료</string>
@@ -105,6 +98,7 @@
     <string name="app_preset_using">프리셋 %d개 사용 중</string>
     <string name="app_settings_preset_using">설정 프리셋 %d개 사용 중</string>
     <string name="app_settings_template_using">설정 템플릿 %d개 사용 중</string>
+    <string name="app_extra_settings_count">%d additional settings applied</string>
     <string name="app_extra_apps_visible_count">%d개의 추가 앱 보임</string>
     <string name="app_extra_apps_invisible_count">%d개의 추가 앱 숨김</string>
     <string name="app_warning_risky_package_title">위험한 패키지</string>
@@ -168,7 +162,6 @@
     <string name="settings_vold_app_data_isolation">Vold 앱 데이터 격리</string>
     <string name="settings_warning">경고</string>
     <string name="settings_vold_warning">이 옵션은 앱의 외부 개인 저장소 디렉토리를 격리하는 AOSP 기능을 활성화합니다. 이는 앱 숨기기 기능을 향상시킬 수 있지만 안정성 문제를 일으킬 수 있습니다. AOSP에서 중단된 기능이므로 언제든지 작동이 중지될 수 있습니다.</string>
-    <string name="settings_change_require_root">변경하려면 ROOT 권한이 필요합니다.</string>
     <string name="settings_need_reboot">변경하려면 재부팅이 필요합니다.</string>
     <string name="settings_permission_denied">권한 거부됨</string>
     <string name="settings_force_mount_data">모든 앱에 대해 데이터 격리 강제 적용</string>
@@ -199,7 +192,6 @@
     <string name="settings_theme">테마</string>
     <string name="settings_system_theme_color">시스템 테마 색상</string>
     <string name="settings_theme_color">테마 색상</string>
-    <string name="settings_dark_theme">다크 테마</string>
     <string name="settings_pure_black_dark_theme">완전 검정 다크 테마</string>
     <string name="settings_pure_black_dark_theme_summary">다크 테마가 활성화된 경우 완전 검정 배경을 사용합니다.</string>
     <string name="settings_service">서비스</string>
@@ -212,8 +204,6 @@
     <string name="settings_force_clean_env_toast_successful">런타임 환경 정리됨</string>
     <string name="settings_update">업데이트</string>
     <string name="settings_disable_update">업데이트 알림 비활성화</string>
-    <string name="settings_receive_beta_update">베타 업데이트 받기</string>
-    <string name="settings_receive_beta_update_summary">베타 버전은 불안정할 수 있습니다.</string>
     <!-- Bulk config wizard -->
     <string name="title_bulk_config_wizard">일괄 설정 마법사</string>
     <!-- About -->

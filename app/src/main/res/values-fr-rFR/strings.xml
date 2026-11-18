@@ -3,7 +3,7 @@
     <string name="title_home">Page d’accueil</string>
     <string name="title_logs">Journaux</string>
     <string name="title_settings">Paramètres</string>
-    <string name="title_template_manage">Gérer les modèles</string>
+    <string name="title_template_manage">Gestion des modèles</string>
     <string name="title_template_settings">Paramètres du modèle</string>
     <string name="title_settings_template_conf">Configuration du modèle de paramètres</string>
     <string name="title_app_manage">Gestion des applications</string>
@@ -11,9 +11,7 @@
     <string name="title_app_settings">Paramètres de l\'application</string>
     <string name="title_about">À propos</string>
     <string name="title_about_fork">À propos de ce fork</string>
-    <string name="do_not_dual">Ne pas installer HMA dans le deuxième espace utilisateur</string>
     <string name="show_crash_log">Afficher le journal d\'erreurs</string>
-    <string name="config_damaged">Fichier de configuration endommagé. Effacer les données de l\'application et relancer</string>
     <string name="edit_list">Éditer la liste</string>
     <string name="delete">Supprimer</string>
     <string name="enabled">Activé</string>
@@ -40,16 +38,11 @@
     <string name="home_xposed_service_off">Service système arrêté</string>
     <string name="home_xposed_filter_count">HMA-OSS a filtré un total de %d requêtes</string>
     <string name="home_manage">Gérer</string>
-    <string name="home_detection_test">Test de détection</string>
-    <string name="home_download_test_app_title">Télécharger l\'application de test</string>
-    <string name="home_download_test_app_message">Nous avons développé une application dédiée aux tests de détection individuels et y avons transféré les fonctionnalités de ceux-ci. La télécharger maintenant ?</string>
     <string name="home_backup_and_restore">Sauvegarde &amp; restauration</string>
     <string name="home_backup_config">Sauvegarde</string>
     <string name="home_restore_config">Restauration</string>
     <string name="home_import_successful">Importation réussie</string>
     <string name="home_import_failed">Échec de l\'importation</string>
-    <string name="home_import_app_version_too_old">Version du module antérieure à celle de la sauvegarde</string>
-    <string name="home_import_backup_version_too_old">Version de la sauvegarde trop ancienne</string>
     <string name="home_import_file_damaged">Fichier de sauvegarde endommagé</string>
     <string name="home_export_failed">Échec de l\'exportation</string>
     <string name="home_exported">Configuration sauvegardée</string>
@@ -105,6 +98,7 @@
     <string name="app_preset_using">%d préréglage(s) utilisé(s)</string>
     <string name="app_settings_preset_using">%d préréglage(s) de paramètres utilisé(s)</string>
     <string name="app_settings_template_using">%d modèle(s) de paramètres utilisé(s)</string>
+    <string name="app_extra_settings_count">%d paramètre(s) supplémentaire(s) appliqué(s)</string>
     <string name="app_extra_apps_visible_count">%d application(s) additionnelle(s) visible(s)</string>
     <string name="app_extra_apps_invisible_count">%d application(s) supplémentaire(s) invisible(s)</string>
     <string name="app_warning_risky_package_title">Contenu à risque</string>
@@ -168,7 +162,6 @@
     <string name="settings_vold_app_data_isolation">Isolation des données d\'application vold</string>
     <string name="settings_warning">Avertissement</string>
     <string name="settings_vold_warning">Cette option activera une fonctionnalité d\'AOSP qui isole le répertoire de stockage privé externe de l\'application. Cela peut améliorer le masquage des applications, mais est susceptible de provoquer des problèmes de stabilité. Cette fonctionnalité peut cesser de fonctionner à tout moment, car elle a été abandonnée dans AOSP.</string>
-    <string name="settings_change_require_root">Modification nécessitant des privilèges root</string>
     <string name="settings_need_reboot">Modification nécessitant un redémarrage</string>
     <string name="settings_permission_denied">Permission refusée</string>
     <string name="settings_force_mount_data">Isolation des données pour toutes les applications</string>
@@ -199,7 +192,6 @@
     <string name="settings_theme">Thème</string>
     <string name="settings_system_theme_color">Couleur du thème système</string>
     <string name="settings_theme_color">Couleur du thème</string>
-    <string name="settings_dark_theme">Thème sombre</string>
     <string name="settings_pure_black_dark_theme">Thème sombre avec noir profond</string>
     <string name="settings_pure_black_dark_theme_summary">Utilise un noir profond lorsque le thème sombre est activé</string>
     <string name="settings_service">Maintenance</string>
@@ -212,8 +204,6 @@
     <string name="settings_force_clean_env_toast_successful">Environnement d\'exécution nettoyé</string>
     <string name="settings_update">Mises à jour</string>
     <string name="settings_disable_update">Désactivation des notifications de mise à jour</string>
-    <string name="settings_receive_beta_update">Recevoir les mises à jour bêta</string>
-    <string name="settings_receive_beta_update_summary">Les versions bêta de l\'application peuvent être instables</string>
     <!-- Bulk config wizard -->
     <string name="title_bulk_config_wizard">Configuration en masse</string>
     <!-- About -->

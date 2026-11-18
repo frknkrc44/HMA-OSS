@@ -11,9 +11,7 @@
     <string name="title_app_settings">تنظیمات برنامه</string>
     <string name="title_about">درباره</string>
     <string name="title_about_fork">درباره این پروژه</string>
-    <string name="do_not_dual">از نصب HMA برای کاربر ثانویه خودداری کنید</string>
     <string name="show_crash_log">نمایش گزارش خرابی</string>
-    <string name="config_damaged">فایل پیکربندی آسیب دیده است. لطفاً داده برنامه را پاکسازی کنید</string>
     <string name="edit_list">ویرایش لیست</string>
     <string name="delete">حذف</string>
     <string name="enabled">فعال شده</string>
@@ -40,16 +38,11 @@
     <string name="home_xposed_service_off">سرویس سیستم درحال اجرا نیست</string>
     <string name="home_xposed_filter_count">HMA-OSS در مجموع %d درخواست را فیلتر کرده است</string>
     <string name="home_manage">مدیریت</string>
-    <string name="home_detection_test">تست تشخیص پذیری</string>
-    <string name="home_download_test_app_title">دانلود برنامه تست</string>
-    <string name="home_download_test_app_message">ما یک برنامه تست تشخیص مجزایی ساختیم و تست تشخیص را به آن منتقل کردیم. آیا می‌خواهید آن را دانلود کنید؟</string>
     <string name="home_backup_and_restore">پشتیبان گیری &amp; بازیابی</string>
     <string name="home_backup_config">پشتیبان گیری پیکربندی</string>
     <string name="home_restore_config">بازیابی پیکربندی</string>
     <string name="home_import_successful">با موفقیت جای‌گذاری شد</string>
     <string name="home_import_failed">جای‌گذاری نشد</string>
-    <string name="home_import_app_version_too_old">نسخه ماژول پایین‌تر از نسخه پشتیبان است</string>
-    <string name="home_import_backup_version_too_old">نسخه پشتیبان بسیار قدیمی است</string>
     <string name="home_import_file_damaged">فایل پشتیبان آسیب دیده است</string>
     <string name="home_export_failed">خروجی‌گیری ناموفق بود</string>
     <string name="home_exported">پیکربندی پشتیبان گیری شده</string>
@@ -105,6 +98,7 @@
     <string name="app_preset_using">درحال استفاده از %d پیش‌تنظیم</string>
     <string name="app_settings_preset_using">درحال استفاده از %d پیش‌تنظیم تنظیمات</string>
     <string name="app_settings_template_using">درحال استفاده از %d قالب تنظیمات</string>
+    <string name="app_extra_settings_count">%d additional settings applied</string>
     <string name="app_extra_apps_visible_count">%d برنامه اضافی قابل مشاهده است</string>
     <string name="app_extra_apps_invisible_count">%d برنامه اضافی مخفی شده</string>
     <string name="app_warning_risky_package_title">بسته‌ی خطرناک</string>
@@ -168,7 +162,6 @@
     <string name="settings_vold_app_data_isolation">ایزوله‌سازی داده‌های برنامه Vold</string>
     <string name="settings_warning">هشدار</string>
     <string name="settings_vold_warning">این‌گزینه یک ویژگی AOSP را فعال می‌کند که دایرکتوری ذخیره‌سازی خصوصی خارجی برنامه را ایزوله می‌کند. این می‌تواند به بهبود پنهان‌سازی برنامه‌ها کمک کند، در حالی که ممکن است باعث ایجاد مشکلات پایداری شود. این ویژگی ممکن است در هر زمانی از کار بیفتد زیرا در AOSP کنار گذاشته شده است.</string>
-    <string name="settings_change_require_root">تغییرات نیاز به دسترسی روت دارد</string>
     <string name="settings_need_reboot">تغییرات نیاز به ریبوت دارد</string>
     <string name="settings_permission_denied">مجوز رد شد</string>
     <string name="settings_force_mount_data">اعمال کردن ایزوله ساری داده ها برای تمامی برنامه ها</string>
@@ -199,7 +192,6 @@
     <string name="settings_theme">تم</string>
     <string name="settings_system_theme_color">رنگ تم سیستم</string>
     <string name="settings_theme_color">رنگ تم</string>
-    <string name="settings_dark_theme">تم سیاه</string>
     <string name="settings_pure_black_dark_theme">تم مشکی مطلق</string>
     <string name="settings_pure_black_dark_theme_summary">اگر تم تیره فعال است، از تم مشکی مطلق استفاده کنید</string>
     <string name="settings_service">سرویس</string>
@@ -212,8 +204,6 @@
     <string name="settings_force_clean_env_toast_successful">محیط اجرایی پاکسازی شد</string>
     <string name="settings_update">به روزرسانی</string>
     <string name="settings_disable_update">غیرفعال کردن اعلان به‌روزرسانی</string>
-    <string name="settings_receive_beta_update">دریافت به‌روزرسانی بتا</string>
-    <string name="settings_receive_beta_update_summary">نسخه بتا ممکن است ناپایدار باشد</string>
     <!-- Bulk config wizard -->
     <string name="title_bulk_config_wizard">ابزار تنظیمات چندگانه</string>
     <!-- About -->
