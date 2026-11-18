@@ -157,7 +157,7 @@ object ZLUtils {
         var currentClazz: Class<*>? = clazz
 
         while (currentClazz != null) {
-            val field = runCatching { clazz.getField(name) }.getOrNull()
+            val field = runCatching { currentClazz.getField(name) }.getOrNull()
             if (field != null) return field.apply { isAccessible = true }
             currentClazz = currentClazz.superclass
         }
