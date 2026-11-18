@@ -38,12 +38,13 @@ import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.attrDrawable
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.getColor
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.homeItemBackgroundColor
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.themeColor
+import icu.nullptr.hidemyapplist.ui.util.applyPageWindowInsets
 import icu.nullptr.hidemyapplist.ui.util.dpToPx
 import icu.nullptr.hidemyapplist.ui.util.isTestBuild
 import icu.nullptr.hidemyapplist.ui.util.navigate
-import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import icu.nullptr.hidemyapplist.ui.util.showToast
+import icu.nullptr.hidemyapplist.util.WikiUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -100,7 +101,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
         }
 
-        setEdge2EdgeFlags(binding.root)
+        binding.root.applyPageWindowInsets(binding.homeScroll)
     }
 
     override fun onStart() {
@@ -441,7 +442,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         .setCancelable(false)
                         .setTitle(getString(R.string.home_new_update, updateInfo.versionName))
                         .setMessage(updateInfo.content)
-                        .setPositiveButton("GitHub") { _, _ ->
+                        .setPositiveButton(getString(R.string.home_update, updateInfo.versionName)) { _, _ ->
                             startActivity(
                                 Intent(
                                     Intent.ACTION_VIEW,
@@ -463,7 +464,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         when (item.itemId) {
             R.id.menu_info -> {
                 startActivity(Intent(Intent.ACTION_VIEW).apply {
-                    data = "https://github.com/frknkrc44/HMA-OSS/wiki/About-HMA%E2%80%90OSS".toUri()
+                    data = WikiUtils.mainPageURL
                 })
             }
         }

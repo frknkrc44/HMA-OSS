@@ -17,7 +17,7 @@ fun Boolean.enabledString(resources: Resources, lower: Boolean = false): String 
 
 fun ActivityInfo.asComponentName() = ComponentName(packageName, name)
 
-fun <T> MutableSharedFlow<T>.get() = replayCache.first()
+fun <T> MutableSharedFlow<T>.get(default: T? = null) = replayCache.firstOrNull() ?: default
 
 inline val Int.dpToPx: Float
     get() = TypedValue.applyDimension(

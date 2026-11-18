@@ -2,7 +2,7 @@ package icu.nullptr.hidemyapplist.common.app_presets
 
 import android.content.pm.ApplicationInfo
 import icu.nullptr.hidemyapplist.common.AppPresets
-import icu.nullptr.hidemyapplist.common.Utils.checkSplitPackages
+import icu.nullptr.hidemyapplist.common.Utils.checkAPKFiles
 
 class AccessibilityAppsPreset(private val appPresets: AppPresets) : BasePreset(NAME) {
     companion object {
@@ -18,10 +18,10 @@ class AccessibilityAppsPreset(private val appPresets: AppPresets) : BasePreset(N
             return false
         }
 
-        return checkSplitPackages(appInfo) { key, zipFile ->
+        return checkAPKFiles(appInfo) { key, zipFile ->
             val manifestStr = appPresets.readManifest(key, zipFile)
 
-            return@checkSplitPackages manifestStr.contains(PERM_ACCESSIBILITY)
+            return@checkAPKFiles manifestStr.contains(PERM_ACCESSIBILITY)
         }
     }
 }

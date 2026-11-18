@@ -14,9 +14,7 @@
     <string name="title_about">About</string>
     <string name="title_about_fork">About this fork</string>
 
-    <string name="do_not_dual">Do not install HMA to secondary user</string>
     <string name="show_crash_log">Show crash log</string>
-    <string name="config_damaged">Config file damaged. Please clean the app data</string>
     <string name="edit_list">Edit list</string>
     <string name="delete">Delete</string>
     <string name="enabled">Enabled</string>
@@ -44,16 +42,11 @@
     <string name="home_xposed_service_off">System service not running</string>
     <string name="home_xposed_filter_count">HMA-OSS has filtered total %d requests</string>
     <string name="home_manage">Manage</string>
-    <string name="home_detection_test">Detection test</string>
-    <string name="home_download_test_app_title">Download test app</string>
-    <string name="home_download_test_app_message">We have developed an individual detection test app and migrated detection test to it. Do you want to download it now?</string>
     <string name="home_backup_and_restore">Backup &amp; Restore</string>
     <string name="home_backup_config">Backup config</string>
     <string name="home_restore_config">Restore config</string>
     <string name="home_import_successful">Import successful</string>
     <string name="home_import_failed">Import failed</string>
-    <string name="home_import_app_version_too_old">Module version lower than the backup</string>
-    <string name="home_import_backup_version_too_old">Backup version too old</string>
     <string name="home_import_file_damaged">Backup file was damaged</string>
     <string name="home_export_failed">Export failed</string>
     <string name="home_exported">Backed up config</string>
@@ -113,6 +106,7 @@
     <string name="app_preset_using">Using %d presets</string>
     <string name="app_settings_preset_using">Using %d settings presets</string>
     <string name="app_settings_template_using">Using %d settings templates</string>
+    <string name="app_extra_settings_count">%d additional settings applied</string>
     <string name="app_extra_apps_visible_count">%d additional apps visible</string>
     <string name="app_extra_apps_invisible_count">%d additional apps invisible</string>
     <string name="app_warning_risky_package_title">Risky package</string>
@@ -184,7 +178,6 @@
     <string name="settings_vold_app_data_isolation">Vold app data isolation</string>
     <string name="settings_warning">Warning</string>
     <string name="settings_vold_warning">This will enable an AOSP feature which make app\'s external private storage directory isolated. This can help improve hiding apps while may cause stability issues. This feature may stop working at any time since it is abandoned in AOSP.</string>
-    <string name="settings_change_require_root">Changing requires root permission</string>
     <string name="settings_need_reboot">Changing requires reboot</string>
     <string name="settings_permission_denied">Permission denied</string>
     <string name="settings_force_mount_data">Enforce data isolation for all apps</string>
@@ -217,7 +210,6 @@
     <string name="settings_theme">Theme</string>
     <string name="settings_system_theme_color">System theme color</string>
     <string name="settings_theme_color">Theme color</string>
-    <string name="settings_dark_theme">Dark theme</string>
     <string name="settings_pure_black_dark_theme">Pure black dark theme</string>
     <string name="settings_pure_black_dark_theme_summary">Use the pure black theme if dark theme is enabled</string>
 
@@ -232,8 +224,6 @@
 
     <string name="settings_update">Update</string>
     <string name="settings_disable_update">Disable update notification</string>
-    <string name="settings_receive_beta_update">Receive beta update</string>
-    <string name="settings_receive_beta_update_summary">Beta version may be unstable</string>
 
     <!-- Bulk config wizard -->
     <string name="title_bulk_config_wizard">Bulk config wizard</string>

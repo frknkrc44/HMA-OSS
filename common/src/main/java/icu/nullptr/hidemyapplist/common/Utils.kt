@@ -21,15 +21,8 @@ object Utils {
 
     fun generateRandomHex(length: Int) = generateRandomString(
         length,
-        ('a' .. 'f') + ('0' .. '9'),
+        ('a' .. 'f') + ('0' .. '9').toList(),
     )
-
-    fun <T> binderLocalScope(block: () -> T): T {
-        val identity = Binder.clearCallingIdentity()
-        val result = block()
-        Binder.restoreCallingIdentity(identity)
-        return result
-    }
 
     fun IPackageManager.getInstalledApplicationsCompat(flags: Long, userId: Int): List<ApplicationInfo> {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -56,21 +49,15 @@ object Utils {
     }
 
     fun String?.startsWithMultiple(vararg targets: String): Boolean {
-        if (isNullOrEmpty() || targets.isEmpty()) return false
-
-        return targets.any { startsWith(it) }
+        return !(isNullOrEmpty() || targets.isEmpty()) && targets.any { startsWith(it) }
     }
 
     fun String?.endsWithMultiple(vararg targets: String): Boolean {
-        if (isNullOrEmpty() || targets.isEmpty()) return false
-
-        return targets.any { endsWith(it) }
+        return !(isNullOrEmpty() || targets.isEmpty()) && targets.any { endsWith(it) }
     }
 
     fun String?.containsMultiple(vararg targets: String): Boolean {
-        if (isNullOrEmpty() || targets.isEmpty()) return false
-
-        return targets.any { contains(it) }
+        return !(isNullOrEmpty() || targets.isEmpty()) && targets.any { contains(it) }
     }
 
     fun ResolveInfo.getPackageName(): String {
@@ -80,22 +67,13 @@ object Utils {
             providerInfo!!.packageName
     }
 
-    fun checkSplitPackages(appInfo: ApplicationInfo, onZipFile: (String, ZipFile) -> Boolean): Boolean {
-        val allLocations = setOf(appInfo.sourceDir, appInfo.publicSourceDir) /*+
-                (appInfo.splitSourceDirs ?: arrayOf()) +
-                (appInfo.splitPublicSourceDirs ?: arrayOf())*/
-
-        return allLocations.any { filePath ->
-            ZipFile(filePath).use { zipFile ->
-                if (onZipFile(filePath, zipFile)) {
-                    return true
-                }
-            }
-
-            return false
+    fun checkAPKFiles(appInfo: ApplicationInfo, onZipFile: (String, ZipFile) -> Boolean): Boolean {
+        return setOf(appInfo.sourceDir, appInfo.publicSourceDir).any { filePath ->
+            ZipFile(filePath).use { zipFile -> onZipFile(filePath, zipFile) }
         }
     }
 
+    @Suppress("DestructuringDeclaration")
     fun JsonConfig.cleanRemnantsFromConfig() {
         // STEP 1: Remove empty app and settings templates
         templates.removeIf { _, template -> template.appList.isEmpty() }

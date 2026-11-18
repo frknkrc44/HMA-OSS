@@ -15,9 +15,9 @@ import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.ui.adapter.AppSelectAdapter
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.homeItemBackgroundColor
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.themeColor
+import icu.nullptr.hidemyapplist.ui.util.applyPageWindowInsets
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.registerOnBackCallback
-import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import icu.nullptr.hidemyapplist.util.PackageHelper
 import kotlinx.coroutines.launch
@@ -123,6 +123,7 @@ abstract class AppSelectFragment : Fragment(R.layout.fragment_app_select) {
         binding.list.adapter = adapter
 
         with(binding.swipeRefresh) {
+            setOnChildScrollUpCallback { _, _ -> binding.list.canScrollVertically(-1) }
             setProgressBackgroundColorSchemeColor(homeItemBackgroundColor(true))
             setColorSchemeColors(
                 themeColor(androidx.appcompat.R.attr.colorPrimary),
@@ -156,7 +157,7 @@ abstract class AppSelectFragment : Fragment(R.layout.fragment_app_select) {
 
         sortList()
 
-        setEdge2EdgeFlags(binding.root)
+        binding.root.applyPageWindowInsets(binding.list)
     }
 
     // Credit: https://medium.com/nerd-for-tech/empty-dataset-in-recyclerview-ad86833dd5c6

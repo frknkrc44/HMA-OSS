@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.common.Utils.conflictedModules
 import icu.nullptr.hidemyapplist.service.ServiceClient
+import icu.nullptr.hidemyapplist.ui.util.applyPageWindowInsets
 import icu.nullptr.hidemyapplist.ui.util.navController
-import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentFixIssueBinding
@@ -35,7 +35,7 @@ class FixIssueFragment : Fragment(R.layout.fragment_fix_issue) {
            })
        }
 
-        setEdge2EdgeFlags(binding.root)
+        binding.root.applyPageWindowInsets()
     }
 
     @Suppress("unused")

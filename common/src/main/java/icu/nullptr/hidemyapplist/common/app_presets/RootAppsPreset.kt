@@ -2,7 +2,7 @@ package icu.nullptr.hidemyapplist.common.app_presets
 
 import android.content.pm.ApplicationInfo
 import icu.nullptr.hidemyapplist.common.AppPresets
-import icu.nullptr.hidemyapplist.common.Utils.checkSplitPackages
+import icu.nullptr.hidemyapplist.common.Utils.checkAPKFiles
 import icu.nullptr.hidemyapplist.common.Utils.containsMultiple
 import icu.nullptr.hidemyapplist.common.Utils.endsWithMultiple
 import icu.nullptr.hidemyapplist.common.Utils.startsWithMultiple
@@ -187,26 +187,26 @@ class RootAppsPreset(private val appPresets: AppPresets) : BasePreset(NAME) {
             return true
         }
 
-        return checkSplitPackages(appInfo) { key, zipFile ->
+        return checkAPKFiles(appInfo) { key, zipFile ->
             if (findAppsFromLibs(zipFile, libNames) || findAppsFromAssets(zipFile, assetNames)) {
-                return@checkSplitPackages true
+                return@checkAPKFiles true
             }
 
             val manifestStr = appPresets.readManifest(key, zipFile)
 
             // Check for whitelists
             if (manifestStr.containsMultiple(*WHITELISTS)) {
-                return@checkSplitPackages false
+                return@checkAPKFiles false
             }
 
             // Many older rooted apps had this permission for an old Superuser implementation
             // It is not used anymore, but can be good to use it as rooted app indicator
             // Thanks to @F640 for giving this idea
             if (manifestStr.contains(ACCESS_SUPERUSER_PERM)) {
-                return@checkSplitPackages true
+                return@checkAPKFiles true
             }
 
-            return@checkSplitPackages false
+            return@checkAPKFiles false
         }
     }
 }

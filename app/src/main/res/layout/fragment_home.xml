@@ -8,6 +8,7 @@
     tools:context=".ui.fragment.HomeFragment">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:fitsSystemWindows="true"
         android:background="@android:color/transparent"
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
@@ -22,8 +23,10 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView
+        android:id="@+id/home_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="false"
         android:scrollbars="none"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 

@@ -1,7 +1,8 @@
 package icu.nullptr.hidemyapplist.common
 
 import android.content.pm.ApplicationInfo
-import icu.nullptr.hidemyapplist.common.Utils.checkSplitPackages
+import icu.nullptr.hidemyapplist.common.Utils.checkAPKFiles
+import java.util.concurrent.ConcurrentHashMap
 
 class RiskyPackageUtils private constructor() {
     companion object {
@@ -11,7 +12,7 @@ class RiskyPackageUtils private constructor() {
         private const val FIREBASE_PROP = "\u0000c\u0000o\u0000m\u0000.\u0000g\u0000o\u0000o\u0000g\u0000l\u0000e\u0000.\u0000f\u0000i\u0000r\u0000e\u0000b\u0000a\u0000s\u0000e\u0000."
     }
 
-    private val ignoredForRiskyPackagesList = mutableSetOf<String>()
+    private val ignoredForRiskyPackagesList = ConcurrentHashMap.newKeySet<String>()
 
     // Add apps in that list when they have connections but not specified in the manifest file
     private val explicitlyIgnoredPackages = arrayOf(
@@ -24,20 +25,18 @@ class RiskyPackageUtils private constructor() {
     internal fun tryToAddIntoGMSConnectionList(appInfo: ApplicationInfo, loggerFunction: ((String) -> Unit)?): Boolean {
         val packageName = appInfo.packageName
 
-        if (appHasGMSConnection(packageName)) return false
-
-        return checkSplitPackages(appInfo) { key, zipFile ->
+        return !appHasGMSConnection(packageName) && checkAPKFiles(appInfo) { key, zipFile ->
             val manifestStr = AppPresets.instance.readManifest(key, zipFile)
 
             // Checking with binary because the Android system sucks
             if (manifestStr.contains(GMS_PROP) || manifestStr.contains(FIREBASE_PROP)) {
                 if (ignoredForRiskyPackagesList.add(packageName)) {
                     loggerFunction?.invoke("@appHasGMSConnection $packageName added in ignored packages list")
-                    return@checkSplitPackages true
+                    return@checkAPKFiles true
                 }
             }
 
-            return@checkSplitPackages false
+            return@checkAPKFiles false
         }
     }
 

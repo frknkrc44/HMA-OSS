@@ -11,10 +11,10 @@ import com.google.android.material.textfield.TextInputLayout
 import dev.androidbroadcast.vbpd.viewBinding
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.service.ServiceClient
+import icu.nullptr.hidemyapplist.ui.util.applyPageWindowInsets
 import icu.nullptr.hidemyapplist.ui.util.get
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.registerOnBackCallback
-import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import kotlinx.coroutines.flow.MutableSharedFlow
 import org.frknkrc44.hma_oss.R
@@ -95,7 +95,7 @@ class EditSettingFragment : Fragment(R.layout.fragment_edit_setting) {
                 MaterialAlertDialogBuilder(requireContext())
                     .setTitle(R.string.settings_templates_name)
                     .setItems(settingsItems.get()) { _, which ->
-                        binding.settingName.editText?.setText(settingsItems.get()[which])
+                        binding.settingName.editText?.setText(settingsItems.get().orEmpty()[which])
                     }
                     .setNegativeButton(android.R.string.cancel, null)
                     .show()
@@ -119,7 +119,7 @@ class EditSettingFragment : Fragment(R.layout.fragment_edit_setting) {
             binding.settingValueNull.isChecked = args.value == null && args.database != null
         }
 
-        setEdge2EdgeFlags(binding.root)
+        binding.root.applyPageWindowInsets()
     }
 
     fun fillSettingNames(databaseName: String) {
@@ -128,7 +128,7 @@ class EditSettingFragment : Fragment(R.layout.fragment_edit_setting) {
 
             settingsItems.tryEmit(ServiceClient.listAllSettings(databaseName))
 
-            (editText as MaterialAutoCompleteTextView).setSimpleItems(settingsItems.get())
+            (editText as MaterialAutoCompleteTextView).setSimpleItems(settingsItems.get().orEmpty())
         }
     }
 }

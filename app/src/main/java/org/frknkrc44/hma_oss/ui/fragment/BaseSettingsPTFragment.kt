@@ -6,9 +6,9 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.androidbroadcast.vbpd.viewBinding
+import icu.nullptr.hidemyapplist.ui.util.applyPageWindowInsets
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.registerOnBackCallback
-import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentSettingsPtBaseBinding
@@ -47,6 +47,6 @@ abstract class BaseSettingsPTFragment : Fragment(R.layout.fragment_settings_pt_b
         binding.list.layoutManager = LinearLayoutManager(context)
         binding.list.adapter = adapter
 
-        setEdge2EdgeFlags(binding.root)
+        binding.root.applyPageWindowInsets()
     }
 }

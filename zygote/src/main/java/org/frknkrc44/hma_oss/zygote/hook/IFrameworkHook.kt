@@ -10,8 +10,11 @@ interface IFrameworkHook {
     val hooker get() = service.hooker
     val dataHolder get() = service.dataHolder
     val pms get() = service.pms
-    val config get() = service.config
+    val config get() = service.getConfig()
     val systemApps get() = service.systemApps
+
+    fun getEnabledSettingsPresets(caller: String) =
+        config.scope[caller]?.applySettingsPresets.orEmpty()
 
     fun load()
 }

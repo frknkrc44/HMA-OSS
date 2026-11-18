@@ -1,7 +1,7 @@
 package icu.nullptr.hidemyapplist.common.app_presets
 
 import android.content.pm.ApplicationInfo
-import icu.nullptr.hidemyapplist.common.Utils.checkSplitPackages
+import icu.nullptr.hidemyapplist.common.Utils.checkAPKFiles
 import org.frknkrc44.hma_oss.common.BuildConfig
 
 class XposedModulesPreset : BasePreset(NAME) {
@@ -14,18 +14,18 @@ class XposedModulesPreset : BasePreset(NAME) {
     )
 
     override fun canBeAddedIntoPreset(appInfo: ApplicationInfo): Boolean {
-        return checkSplitPackages(appInfo) { _, zipFile ->
+        return checkAPKFiles(appInfo) { _, zipFile ->
             // Legacy Xposed method
             if (zipFile.getEntry("assets/xposed_init") != null) {
-                return@checkSplitPackages true
+                return@checkAPKFiles true
             }
 
             // New LSPosed method
             if (zipFile.getEntry("META-INF/xposed/module.prop") != null) {
-                return@checkSplitPackages true
+                return@checkAPKFiles true
             }
 
-            return@checkSplitPackages false
+            return@checkAPKFiles false
         }
     }
 }

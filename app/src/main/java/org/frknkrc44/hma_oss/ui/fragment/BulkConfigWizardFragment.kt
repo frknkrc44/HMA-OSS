@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.clearFragmentResultListener
 import androidx.fragment.app.setFragmentResultListener
@@ -16,11 +15,12 @@ import icu.nullptr.hidemyapplist.data.AppConstants
 import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.service.PrefManager
 import icu.nullptr.hidemyapplist.ui.fragment.ScopeFragmentArgs
+import icu.nullptr.hidemyapplist.ui.util.applyPageWindowInsets
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.navigate
-import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import icu.nullptr.hidemyapplist.ui.util.showToast
+import icu.nullptr.hidemyapplist.util.WikiUtils
 import kotlinx.coroutines.launch
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentBulkConfigWizardBinding
@@ -100,14 +100,14 @@ class BulkConfigWizardFragment : Fragment(R.layout.fragment_bulk_config_wizard) 
             }
         }
 
-        setEdge2EdgeFlags(binding.root)
+        binding.root.applyPageWindowInsets()
     }
 
     private fun onMenuOptionSelected(item: MenuItem) {
         when (item.itemId) {
             R.id.menu_info -> {
                 startActivity(Intent(Intent.ACTION_VIEW).apply {
-                    data = "https://github.com/frknkrc44/HMA-OSS/wiki/About-HMA%E2%80%90OSS#bulk-config-wizard".toUri()
+                    data = WikiUtils.bulkConfigWizardURL
                 })
             }
         }
