@@ -79,7 +79,7 @@ object PackageHelper {
 
     val isRefreshing = MutableSharedFlow<Boolean>(replay = 1)
 
-    val refreshing get() = isRefreshing.replayCache.isEmpty() || isRefreshing.get()
+    val refreshing get() = isRefreshing.get() != false
 
     init {
         invalidateCache()
@@ -204,9 +204,19 @@ object PackageHelper {
 
     fun findEnabledAppComponent(context: Context): ComponentName? {
         with (context.packageManager) {
-            val pkgInfo =  getPackageInfo(BuildConfig.APPLICATION_ID, PackageManager.GET_ACTIVITIES)!!
+            val activities = getPackageInfo(BuildConfig.APPLICATION_ID, PackageManager.GET_ACTIVITIES)
+                ?.activities
+                ?.filter { it.targetActivity != null }
+                ?.associate { it.asComponentName() to it.enabled }
+                .orEmpty()
 
-            return pkgInfo.activities?.firstOrNull { it.targetActivity != null }?.asComponentName()
+            return activities.firstNotNullOfOrNull { entry ->
+                when(getComponentEnabledSetting(entry.key)) {
+                    PackageManager.COMPONENT_ENABLED_STATE_ENABLED -> entry.key
+                    PackageManager.COMPONENT_ENABLED_STATE_DEFAULT -> if (entry.value) entry.key else null
+                    else -> null
+                }
+            }
         }
     }
 }

@@ -15,7 +15,6 @@ import androidx.navigation.fragment.navArgs
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceDataStore
-import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -26,16 +25,18 @@ import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.common.JsonConfig
 import icu.nullptr.hidemyapplist.common.OSUtils
 import icu.nullptr.hidemyapplist.common.SettingsPresets
+import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
 import icu.nullptr.hidemyapplist.data.AppConstants
 import icu.nullptr.hidemyapplist.service.ConfigManager
 import icu.nullptr.hidemyapplist.service.ServiceClient
+import icu.nullptr.hidemyapplist.ui.fragment.EdgeToEdgePreferenceFragment
 import icu.nullptr.hidemyapplist.ui.fragment.ScopeFragmentArgs
 import icu.nullptr.hidemyapplist.ui.util.ThemeUtils.asDrawable
+import icu.nullptr.hidemyapplist.ui.util.applyPageWindowInsets
 import icu.nullptr.hidemyapplist.ui.util.enabledString
 import icu.nullptr.hidemyapplist.ui.util.navController
 import icu.nullptr.hidemyapplist.ui.util.navigate
 import icu.nullptr.hidemyapplist.ui.util.registerOnBackCallback
-import icu.nullptr.hidemyapplist.ui.util.setEdge2EdgeFlags
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import icu.nullptr.hidemyapplist.ui.util.showToast
 import icu.nullptr.hidemyapplist.ui.util.withAnimations
@@ -44,6 +45,8 @@ import icu.nullptr.hidemyapplist.util.PackageHelper
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentSettingsBinding
 import org.frknkrc44.hma_oss.databinding.LayoutListEmptyBinding
+import org.frknkrc44.hma_oss.ui.util.JsonConfigUtils.targetSettingListToBundle
+import org.frknkrc44.hma_oss.ui.util.JsonConfigUtils.toTargetSettingList
 import org.frknkrc44.hma_oss.ui.util.PresetUtils
 
 class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
@@ -149,7 +152,7 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
                 .commit()
         }
 
-        setEdge2EdgeFlags(binding.root)
+        binding.root.applyPageWindowInsets(bottomContent = null)
     }
 
     class AppPreferenceDataStore(private val pack: AppSettingsViewModel.Pack) : PreferenceDataStore() {
@@ -195,7 +198,7 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
         }
     }
 
-    abstract class BaseAppSettingsPreferenceFragment : PreferenceFragmentCompat() {
+    abstract class BaseAppSettingsPreferenceFragment : EdgeToEdgePreferenceFragment() {
         internal val parent get() = requireParentFragment() as AppSettingsV2Fragment
         internal val pack get() = parent.viewModel.pack
 
@@ -232,6 +235,7 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
                         it.isSingleLineTitle = true
                         it.summary = getString(R.string.title_bulk_config_wizard)
                     }
+                    it.widgetLayoutResource = 0
                 } else {
                     it.icon = PackageHelper.loadAppIcon(pack.app)
                     it.title = PackageHelper.loadAppLabel(pack.app)
@@ -357,9 +361,18 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
     }
 
     class TemplateConfigPreferenceFragment(private val preferenceDataStore: PreferenceDataStore) : BaseAppSettingsPreferenceFragment() {
-        private fun updateApplyTemplates() {
-            findPreference<Preference>("applyTemplates")?.title =
-                getString(R.string.app_template_using, pack.config.applyTemplates.size)
+        private fun updateApplyTemplates(useWhitelist: Boolean = pack.config.useWhitelist) {
+            findPreference<Preference>("applyTemplates")?.apply {
+                title = getString(
+                    R.string.app_template_using, pack.config.applyTemplates.size)
+                setIcon(
+                    if (useWhitelist) {
+                        R.drawable.assignment_ind_24
+                    } else {
+                        R.drawable.assignment_ind_filled_24
+                    }
+                )
+            }
         }
 
         private fun updateApplyPresets() {
@@ -375,6 +388,11 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
         private fun updateApplySettingsTemplates() {
             findPreference<Preference>("applySettingsTemplates")?.title =
                 getString(R.string.app_settings_template_using, pack.config.applySettingTemplates.size)
+        }
+
+        private fun updateExtraSettings() {
+            findPreference<Preference>("extraSettings")?.title =
+                getString(R.string.app_extra_settings_count, pack.config.extraSettings.size)
         }
 
         private fun updateExtraAppList(useWhiteList: Boolean) {
@@ -415,7 +433,7 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
                     pack.config.extraAppList.sync(pack.config.extraOppositeAppList)
                     pack.config.extraOppositeAppList.sync(extraAppList)
 
-                    updateApplyTemplates()
+                    updateApplyTemplates(useWhitelist)
                     updateExtraAppList(useWhitelist)
                     updateExtraOppositeAppList(useWhitelist)
 
@@ -548,6 +566,19 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
                     .show()
                 true
             }
+            findPreference<Preference>("extraSettings")?.setOnPreferenceClickListener {
+                parent.setFragmentResultListener("setting_select") { _, bundle ->
+                    val targetSettings = bundle.toTargetSettingList()
+                    pack.config.extraSettings.settingsList.sync(
+                        targetSettings as ArrayList<ReplacementItem>)
+                    updateExtraSettings()
+                    parent.clearFragmentResultListener("setting_select")
+                }
+                val args = SettingsTemplateInnerFragmentArgs(
+                    pack.config.extraSettings.settingsList.targetSettingListToBundle())
+                navigate(R.id.nav_settings_template_inner_manage, args.toBundle())
+                true
+            }
             findPreference<Preference>("extraAppList")?.setOnPreferenceClickListener {
                 parent.setFragmentResultListener("app_select") { _, bundle ->
                     pack.config.extraAppList = bundle.getStringArrayList("checked")!!.toMutableSet()
@@ -583,6 +614,7 @@ class AppSettingsV2Fragment : Fragment(R.layout.fragment_settings) {
             updateApplyPresets()
             updateApplySettingsTemplates()
             updateApplySettingsPresets()
+            updateExtraSettings()
             updateExtraAppList(pack.config.useWhitelist)
             updateExtraOppositeAppList(pack.config.useWhitelist)
         }

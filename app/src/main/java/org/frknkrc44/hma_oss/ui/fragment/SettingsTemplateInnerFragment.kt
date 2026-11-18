@@ -16,8 +16,7 @@ import icu.nullptr.hidemyapplist.common.settings_presets.ReplacementItem
 import icu.nullptr.hidemyapplist.ui.util.navigate
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.ui.adapter.SettingsTemplateListAdapter
-import org.frknkrc44.hma_oss.ui.util.toEditSettingFragmentArgs
-import org.frknkrc44.hma_oss.ui.util.toTargetSettingList
+import org.frknkrc44.hma_oss.ui.util.JsonConfigUtils.toTargetSettingList
 
 class SettingsTemplateInnerFragment : BaseSettingsPTFragment() {
     private val args by lazy { navArgs<SettingsTemplateInnerFragmentArgs>() }
@@ -140,5 +139,11 @@ class SettingsTemplateInnerFragment : BaseSettingsPTFragment() {
     override val menu = Pair(
         R.menu.menu_settings_template,
         this::onMenuOptionSelected,
+    )
+
+    private fun ReplacementItem.toEditSettingFragmentArgs() = EditSettingFragmentArgs(
+        database = database,
+        name = name,
+        value = value,
     )
 }

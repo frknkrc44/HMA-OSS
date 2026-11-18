@@ -1,17 +1,23 @@
 package org.frknkrc44.hma_oss.zygote.service
 
+import icu.nullptr.hidemyapplist.common.CollectionUtils.removeIf
 import icu.nullptr.hidemyapplist.common.FilterHolder
 import icu.nullptr.hidemyapplist.common.PresetCache
 import icu.nullptr.hidemyapplist.common.RiskyPackageUtils
+import java.util.concurrent.ConcurrentHashMap
 
 class HMAServiceDataHolder {
     private val filterCountLock = Any()
 
-    private val uidHideCache = mutableListOf<Triple<Int, String, MutableList<String>>>()
+    private data class UidEntry(val caller: String, val queries: MutableSet<String>)
 
+    private val uidHideCache = ConcurrentHashMap<Int, UidEntry>()
+
+    @Volatile
     var presetCache = PresetCache()
         internal set
 
+    @Volatile
     var filterHolder = FilterHolder()
         internal set
 
@@ -35,21 +41,18 @@ class HMAServiceDataHolder {
         return returnedValue
     }
 
-    fun findCallerByUid(uid: Int) = uidHideCache.firstOrNull { it.first == uid }?.second
+    fun findCallerByUid(uid: Int) = uidHideCache[uid]?.caller
 
     fun shouldHideFromUid(uid: Int, query: String?): Boolean? {
         if (query == null) return null
 
-        return uidHideCache.firstOrNull { it.first == uid && it.third.contains(query) } != null
+        return uidHideCache[uid]?.queries?.contains(query) == true
     }
 
     fun putShouldHideUidCache(uid: Int, caller: String, query: String) {
-        val findList = uidHideCache.firstOrNull { it.first == uid }
-        if (findList != null) {
-            findList.third.add(query)
-        } else {
-            uidHideCache.add(Triple(uid, caller, mutableListOf(query)))
-        }
+        uidHideCache.computeIfAbsent(uid) {
+            UidEntry(caller, ConcurrentHashMap.newKeySet())
+        }.queries.add(query)
     }
 
     fun clearUidCache() = uidHideCache.clear()
@@ -91,5 +94,19 @@ class HMAServiceDataHolder {
         }
 
         writeFilterCount()
+    }
+
+    val totalFilterCount get() = synchronized(filterCountLock) { filterHolder.totalCount }
+
+    fun removeFilterCountsNotIn(keys: Collection<String>) = synchronized(filterCountLock) {
+        filterHolder.filterCounts.removeIf { key, _ -> !keys.contains(key) }
+    }
+
+    fun clearFilterCounts() = synchronized(filterCountLock) {
+        filterHolder.filterCounts.clear()
+    }
+
+    fun getDetailedFilterStats() = synchronized(filterCountLock) {
+        filterHolder.toString()
     }
 }

@@ -67,8 +67,10 @@ jobs:
           ./gradlew prebuild
 
       - name: Build APK
+        id: buildAPK
         run: |
           ./gradlew :app:assemble
+          echo "translatorsJson=$(find app/build/generated -name translators.json -print -quit)" >> $GITHUB_OUTPUT
 
       - name: Upload APK mappings
         uses: actions/upload-artifact@v7
@@ -109,13 +111,14 @@ jobs:
       - name: Upload to GitHub release
         uses: softprops/action-gh-release@v3
         with:
+          fail_on_unmatched_files: true
           token: ${{ secrets.GITHUB_TOKEN }}
           name: oss-${{ steps.buildModule.outputs.ossNum }}
           body: ${{ github.event.head_commit.message }}
           files: |
             ${{ steps.buildModule.outputs.releaseFile }}
             ${{ steps.buildModule.outputs.debugFile }}
-            app/src/main/assets/translators.json
+            ${{ steps.buildAPK.outputs.translatorsJson }}
           tag_name: oss-${{ steps.buildModule.outputs.ossNum }}
 
       - name: Post to channel

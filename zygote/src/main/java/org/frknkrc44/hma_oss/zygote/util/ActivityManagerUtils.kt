@@ -37,11 +37,11 @@ object ActivityManagerUtils {
     }
 
     @Throws(RemoteException::class)
-    fun registerUidObserver(observer: IUidObserver?, which: Int, cutpoint: Int, callingPackage: String?) {
+    fun registerUidObserver(observer: IUidObserver?, which: Int, cutpoint: Int, callingPackage: String? = null) {
         activityService?.registerUidObserver(observer, which, cutpoint, callingPackage)
     }
 
-    fun getContentProviderExternal(name: String?, userId: Int, token: IBinder?, tag: String?): IContentProvider? {
+    fun getContentProviderExternal(name: String?, userId: Int, token: IBinder? = null, tag: String? = null): IContentProvider? {
         return activityService?.getContentProviderExternal(name, userId, token, tag)?.provider
     }
 }

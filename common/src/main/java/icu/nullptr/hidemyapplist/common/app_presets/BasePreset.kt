@@ -2,11 +2,12 @@ package icu.nullptr.hidemyapplist.common.app_presets
 
 import android.content.pm.ApplicationInfo
 import icu.nullptr.hidemyapplist.common.Constants
+import java.util.concurrent.ConcurrentHashMap
 import java.util.zip.ZipFile
 
 abstract class BasePreset(val name: String) {
     protected abstract val exactPackageNames: Set<String>
-    internal val packageNames = mutableSetOf<String>()
+    internal val packageNames = ConcurrentHashMap.newKeySet<String>()
 
     protected abstract fun canBeAddedIntoPreset(appInfo: ApplicationInfo): Boolean
 
@@ -31,8 +32,7 @@ abstract class BasePreset(val name: String) {
     }
 
     fun removePackageFromPreset(packageName: String): Boolean {
-        if (exactPackageNames.contains(packageName)) return false
-        return packageNames.remove(packageName)
+        return !exactPackageNames.contains(packageName) && packageNames.remove(packageName)
     }
 
     protected fun findAppsFromLibs(zipFile: ZipFile, libNames: Array<String>): Boolean {

@@ -35,6 +35,7 @@ class ContentProviderHook : IFrameworkHook {
                 if (caller == null) return@hookAfter
 
                 val uriIdx = args.indexOfFirst { it is Uri }
+                if (uriIdx < 0) return@hookAfter
                 val uri = args[uriIdx] as Uri
 
                 if (uri.authority != "settings") return@hookAfter
@@ -155,6 +156,7 @@ class ContentProviderHook : IFrameworkHook {
                 if (caller == null) return@hookBefore
 
                 val nameIdx = args.indexOfLast { it is String }
+                if (nameIdx < 1) return@hookBefore
                 val name = args[nameIdx] as? String
                 val method = args[nameIdx - 1] as? String
 

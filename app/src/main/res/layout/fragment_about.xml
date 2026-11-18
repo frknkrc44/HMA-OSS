@@ -7,15 +7,24 @@
     android:orientation="vertical"
     tools:context=".ui.fragment.AboutFragment">
 
-    <include
-        android:id="@+id/about_header"
-        layout="@layout/fragment_about_header" />
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:fitsSystemWindows="true">
+
+        <include
+            android:id="@+id/about_header"
+            layout="@layout/fragment_about_header" />
+    </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView
         android:id="@+id/about_scroll"
         android:layout_marginTop="@dimen/item_padding_vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/item_padding_vertical">
 
         <LinearLayout
             android:paddingHorizontal="@dimen/item_padding_vertical"
@@ -111,13 +120,6 @@
                 android:id="@+id/list_open_source"
                 android:orientation="vertical"
                 android:background="@drawable/about_content_bg"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <Space
-                android:id="@+id/bottom_padding"
-                android:layout_marginBottom="@dimen/item_padding_vertical"
-                android:minHeight="@dimen/item_padding_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

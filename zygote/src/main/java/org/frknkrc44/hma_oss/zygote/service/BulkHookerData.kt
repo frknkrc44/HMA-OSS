@@ -20,8 +20,9 @@ class ReturnValue(initialValue: Any? = null) {
 data class HookElement(
     val impl: HookTransformer,
     val methodName: String,
-    var method: Executable? = null,
-    var memoryAddresses: Pair<Long, Long>? = null,
-    var hookFinished: Boolean = false,
     val argumentCount: Int = -1,
-)
+) {
+    var method: Executable? = null
+    var memoryAddresses: Pair<Long, Long>? = null
+    var hookFinished: Boolean = false
+}

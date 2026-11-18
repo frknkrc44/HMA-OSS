@@ -1,7 +1,7 @@
 package icu.nullptr.hidemyapplist.common.app_presets
 
 import android.content.pm.ApplicationInfo
-import icu.nullptr.hidemyapplist.common.Utils.checkSplitPackages
+import icu.nullptr.hidemyapplist.common.Utils.checkAPKFiles
 
 class SuspiciousAppsPreset : BasePreset(NAME) {
     companion object {
@@ -114,8 +114,8 @@ class SuspiciousAppsPreset : BasePreset(NAME) {
             return true
         }
 
-        return checkSplitPackages(appInfo) { _, zipFile ->
-            return@checkSplitPackages /*findAppsFromLibs(zipFile, libNames) ||*/ findAppsFromAssets(zipFile, assetNames)
+        return checkAPKFiles(appInfo) { _, zipFile ->
+            return@checkAPKFiles /*findAppsFromLibs(zipFile, libNames) ||*/ findAppsFromAssets(zipFile, assetNames)
 
             // TODO: Add more suspicious apps
         }

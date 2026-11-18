@@ -2,19 +2,23 @@ package icu.nullptr.hidemyapplist.ui.util
 
 import android.content.ContentResolver
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.WindowInsets
+import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import androidx.annotation.MenuRes
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.MenuProvider
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.children
+import androidx.core.view.doOnAttach
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.NavOptions
@@ -97,50 +101,41 @@ fun FragmentTransaction.withAnimations() = setCustomAnimations(
         R.anim.activity_close_exit,
     )
 
-@Suppress("DEPRECATION")
-fun setEdge2EdgeFlags(
-    root: View,
-    left: Int? = null,
-    top: Int? = null,
-    right: Int? = null,
-    bottom: Int? = null,
-    getInsets: ((left: Int, top: Int, right: Int, bottom: Int) -> Unit)? = null,
-) {
-    root.setOnApplyWindowInsetsListener { v, insets ->
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            val barInsets = insets.getInsets(WindowInsets.Type.systemBars())
-            v.setPadding(
-                left ?: barInsets.left,
-                top ?: barInsets.top,
-                right ?: barInsets.right,
-                bottom ?: barInsets.bottom,
-            )
+private val safeDrawingInsets =
+    WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
 
-            getInsets?.invoke(
-                barInsets.left,
-                barInsets.top,
-                barInsets.right,
-                barInsets.bottom
-            )
-        } else {
-            v.setPadding(
-                left ?: insets.systemWindowInsetLeft,
-                top ?: insets.systemWindowInsetTop,
-                right ?: insets.systemWindowInsetRight,
-                bottom ?: insets.systemWindowInsetBottom,
-            )
+fun ViewGroup.applyPageWindowInsets(bottomContent: View? = this) {
+    // Inset the contents of the app bar so its background still reaches the window edges.
+    val childPadding = children.map { Triple(it, it.paddingLeft, it.paddingRight) }.toList()
+    val initialBottom = paddingBottom
+    if (bottomContent != null && bottomContent !== this) {
+        bottomContent.applyBottomWindowInsets()
+    }
 
-            getInsets?.invoke(
-                insets.systemWindowInsetLeft,
-                insets.systemWindowInsetTop,
-                insets.systemWindowInsetRight,
-                insets.systemWindowInsetBottom
-            )
+    ViewCompat.setOnApplyWindowInsetsListener(this) { page, insets ->
+        val sides = insets.getInsets(safeDrawingInsets)
+        for ((child, left, right) in childPadding) {
+            child.updatePadding(left = left + sides.left, right = right + sides.right)
         }
-
+        if (bottomContent === this) {
+            page.updatePadding(bottom = initialBottom + insets.contentBottomInset())
+        }
         insets
     }
+    doOnAttach { ViewCompat.requestApplyInsets(it) }
 }
+
+fun View.applyBottomWindowInsets() {
+    val initialBottom = paddingBottom
+    ViewCompat.setOnApplyWindowInsetsListener(this) { view, insets ->
+        view.updatePadding(bottom = initialBottom + insets.contentBottomInset())
+        insets
+    }
+    doOnAttach { ViewCompat.requestApplyInsets(it) }
+}
+
+private fun WindowInsetsCompat.contentBottomInset() =
+    getInsets(safeDrawingInsets or WindowInsetsCompat.Type.ime()).bottom
 
 fun Fragment.registerOnBackCallback(back: () -> Unit) =
     requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) { back() }

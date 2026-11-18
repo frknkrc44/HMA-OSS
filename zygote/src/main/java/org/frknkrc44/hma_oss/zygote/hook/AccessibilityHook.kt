@@ -49,5 +49,5 @@ class AccessibilityHook : IFrameworkHook {
     }
 
     private fun callerIsSpoofed(caller: String) =
-        service.getEnabledSettingsPresets(caller).contains(AccessibilityPreset.NAME)
+        getEnabledSettingsPresets(caller).contains(AccessibilityPreset.NAME)
 }

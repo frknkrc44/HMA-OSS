@@ -8,10 +8,11 @@ then
     mv /data/misc/hide_my_applist /data/misc/hide_my_applist_$(tr -dc 'a-z0-9' < /dev/urandom | dd bs=1 count=16 2>/dev/null)
 fi
 
-if find /data/misc/ -maxdepth 1 -type d -name hide_my_applist\* >/dev/null 2>&1
-then
-    ui_print "- Applying filesystem permissions"
-    chown system:system -R /data/misc/hide_my_applist*
-    find /data/misc/hide_my_applist* -type d -exec chmod 700 {} \;
-    find /data/misc/hide_my_applist* -type f -exec chmod 600 {} \;
-fi
+for dir in /data/misc/hide_my_applist*
+do
+    [ -d "$dir" ] || continue
+    ui_print "- Applying filesystem permissions for $dir"
+    chown -R system:system "$dir"
+    find "$dir" -type d -exec chmod 700 {} \;
+    find "$dir" -type f -exec chmod 600 {} \;
+done

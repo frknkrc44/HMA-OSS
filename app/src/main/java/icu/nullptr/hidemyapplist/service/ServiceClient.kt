@@ -18,7 +18,7 @@ object ServiceClient : IHMAService, IBinder.DeathRecipient {
 
     private class ServiceProxy(private val obj: IHMAService) : InvocationHandler {
         override fun invoke(proxy: Any?, method: Method, args: Array<out Any?>?): Any? {
-            val result = method.invoke(obj, *args.orEmpty())
+            val result = runCatching { method.invoke(obj, *args.orEmpty()) }.getOrNull()
             if (result == null) Log.d(TAG, "Call service method ${method.name}")
             else Log.d(TAG, "Call service method ${method.name} with result " + result.toString().take(20))
             return result

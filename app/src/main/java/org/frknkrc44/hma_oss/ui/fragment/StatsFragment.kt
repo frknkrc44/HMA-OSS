@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar
-import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.flowWithLifecycle
@@ -18,6 +17,7 @@ import icu.nullptr.hidemyapplist.service.ServiceClient
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import icu.nullptr.hidemyapplist.ui.util.showToast
 import icu.nullptr.hidemyapplist.util.PackageHelper
+import icu.nullptr.hidemyapplist.util.WikiUtils
 import kotlinx.coroutines.launch
 import org.frknkrc44.hma_oss.R
 import org.frknkrc44.hma_oss.databinding.FragmentLogsBinding
@@ -84,7 +84,7 @@ class StatsFragment(
             }
             R.id.menu_info -> {
                 startActivity(Intent(Intent.ACTION_VIEW).apply {
-                    data = "https://github.com/frknkrc44/HMA-OSS/wiki/About-HMA%E2%80%90OSS#filter-logs-categories".toUri()
+                    data = WikiUtils.filterCategoriesURL
                 })
             }
             // TODO: Add other options when required
