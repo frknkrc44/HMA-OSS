@@ -105,7 +105,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
     internal var appUid = 0
         private set
 
-    private var config = AtomicReference(JsonConfig().apply { detailLog = true })
+    private var config = AtomicReference(JsonConfig())
 
     init {
         managerWorkMode = if (pms.isConflictingModuleInstalled()) {
