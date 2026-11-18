@@ -27,7 +27,8 @@ fi
 for folder in /data/adb/modules/* /data/adb/modules_update/*
 do
     ([ -f "$folder/disable" ] || [ -f "$folder/remove" ]) && continue
-    [ ! -f "$folder/bin/zygiskd" ] && [ ! -f "$folder/bin/zygiskd64" ] && continue
+
+    [ -z "$(find "$folder" -type f -name 'zygiskd*' -print -quit 2>/dev/null)" ] && continue
 
     NAME=$(grep "^name=" "$folder/module.prop" | cut -f2 -d"=")
     [ -n "$ZYGISK_NAME" ] && [ "$NAME" != "$ZYGISK_NAME" ] && abort "$ZYGISK_MULTI_ERR"
