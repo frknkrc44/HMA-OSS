@@ -44,6 +44,7 @@ import icu.nullptr.hidemyapplist.ui.util.isTestBuild
 import icu.nullptr.hidemyapplist.ui.util.navigate
 import icu.nullptr.hidemyapplist.ui.util.setupToolbar
 import icu.nullptr.hidemyapplist.ui.util.showToast
+import icu.nullptr.hidemyapplist.util.WikiUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -463,7 +464,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         when (item.itemId) {
             R.id.menu_info -> {
                 startActivity(Intent(Intent.ACTION_VIEW).apply {
-                    data = "https://github.com/frknkrc44/HMA-OSS/wiki/About-HMA%E2%80%90OSS".toUri()
+                    data = WikiUtils.mainPageURL
                 })
             }
         }
