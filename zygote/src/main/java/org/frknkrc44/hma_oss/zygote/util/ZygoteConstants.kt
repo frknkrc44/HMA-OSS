@@ -4,6 +4,7 @@ object ZygoteConstants {
     const val SYSTEM_SERVER_CLASS = "com.android.server.SystemServer"
     const val RUNTIME_INIT_CLASS = "com.android.internal.os.RuntimeInit"
     const val ZYGOTE_INIT_CLASS = "com.android.internal.os.ZygoteInit"
+    const val COMPUTER_CLASS = "com.android.server.pm.Computer"
     const val COMPUTER_ENGINE_CLASS = "com.android.server.pm.ComputerEngine"
     const val PACKAGE_MANAGER_SERVICE_CLASS = "com.android.server.pm.PackageManagerService"
     const val PMS_COMPUTER_TRACKER_CLASS = $$"com.android.server.pm.PackageManagerService$ComputerTracker"

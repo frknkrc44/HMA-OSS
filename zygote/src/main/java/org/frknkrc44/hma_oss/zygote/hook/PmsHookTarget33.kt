@@ -1,10 +1,13 @@
 package org.frknkrc44.hma_oss.zygote.hook
 
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Binder
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.v7878.unsafe.Reflection.getDeclaredMethod
 import icu.nullptr.hidemyapplist.common.OSUtils
+import org.frknkrc44.hma_oss.zygote.service.SystemServerHook
 import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.firstOrNullWithType
 import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.firstWithType
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
@@ -12,21 +15,22 @@ import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.binderLocalScope
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackageNameFromPackageSettings
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackagesForUidLocal
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.dumpArgs
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.findMethod
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.APPS_FILTER_IMPL_CLASS
+import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.COMPUTER_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.COMPUTER_ENGINE_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.PERMISSION_MANAGER_SERVICE_CLASS
+import java.lang.reflect.Method
 
+@SuppressLint("PrivateApi")
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 open class PmsHookTarget33 : PmsHookTargetBase() {
     override val TAG = "PmsHookTarget33"
 
-    protected open val getPackagesForUidMethod by lazy {
-        findMethod(
-            "com.android.server.pm.Computer",
+    protected open val getPackagesForUidMethod: Method by lazy {
+        getDeclaredMethod(
+            SystemServerHook.classLoader!!.loadClass(COMPUTER_CLASS),
             "getPackagesForUid",
-            systemClassLoader = true,
             Int::class.java,
         )
     }

@@ -7,7 +7,6 @@ import com.v7878.unsafe.invoke.EmulatedStackFrame.RETURN_VALUE_IDX
 import org.frknkrc44.hma_oss.zygote.service.SystemServerHook
 import java.lang.reflect.Constructor
 import java.lang.reflect.Field
-import java.lang.reflect.Method
 
 object ZLUtils {
     /**
@@ -152,17 +151,6 @@ object ZLUtils {
         return clazz.constructors.firstOrNull {
             argumentCount == -1 || it.parameterCount == argumentCount
         }
-    }
-
-    private fun findClass(className: String, systemClassLoader: Boolean = false) = if (systemClassLoader) {
-        Class.forName(className, true, SystemServerHook.classLoader)
-    } else {
-        Class.forName(className)
-    }
-
-    fun findMethod(className: String, name: String, systemClassLoader: Boolean = false, vararg args: Class<*>): Method {
-        val clazz = findClass(className, systemClassLoader)
-        return getDeclaredMethod(clazz, name, *args)
     }
 
     fun findField(clazz: Class<*>, name: String): Field? {
