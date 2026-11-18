@@ -4,10 +4,11 @@ import android.content.AttributionSource
 import android.content.pm.IPackageManager
 import android.os.Build
 import android.os.Bundle
-import icu.nullptr.hidemyapplist.common.Constants
+import icu.nullptr.hidemyapplist.common.Constants.PROVIDER_AUTHORITY
 import icu.nullptr.hidemyapplist.common.Utils.getUserFromCallingUid
 import org.frknkrc44.hma_oss.common.BuildConfig
-import org.frknkrc44.hma_oss.zygote.util.ActivityManagerUtils
+import org.frknkrc44.hma_oss.zygote.util.ActivityManagerUtils.getContentProviderExternal
+import org.frknkrc44.hma_oss.zygote.util.ActivityManagerUtils.registerUidObserver
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
@@ -34,8 +35,7 @@ object UserService {
 
                 logD(TAG) { "Calculated user id: $userId" }
 
-                val provider = ActivityManagerUtils.getContentProviderExternal(
-                    Constants.PROVIDER_AUTHORITY, userId, null, null)
+                val provider = getContentProviderExternal(PROVIDER_AUTHORITY, userId)
                 assert (provider != null) {
                     "Failed to get provider"
                 }
@@ -43,11 +43,11 @@ object UserService {
                 extras.putBinder("binder", service)
                 val reply = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                     val attr = AttributionSource.Builder(1000).setPackageName("android").build()
-                    provider?.call(attr, Constants.PROVIDER_AUTHORITY, "", null, extras)
+                    provider?.call(attr, PROVIDER_AUTHORITY, "", null, extras)
                 } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.R) {
-                    provider?.call("android", null, Constants.PROVIDER_AUTHORITY, "", null, extras)
+                    provider?.call("android", null, PROVIDER_AUTHORITY, "", null, extras)
                 } else {
-                    provider?.call("android", Constants.PROVIDER_AUTHORITY, "", null, extras)
+                    provider?.call("android", PROVIDER_AUTHORITY, "", null, extras)
                 }
                 if (reply == null) {
                     logE(TAG) { "Failed to send binder to app" }
@@ -66,11 +66,10 @@ object UserService {
         logI(TAG) { "Initialize HMAService - Version ${BuildConfig.APP_VERSION_NAME}" }
 
         waitForService("activity")
-        ActivityManagerUtils.registerUidObserver(
+        registerUidObserver(
             uidObserver,
             getActMgrField("UID_OBSERVER_ACTIVE"),
             getActMgrField("PROCESS_STATE_TOP"),
-            null
         )
 
         logI(TAG) { "Registered observer" }
