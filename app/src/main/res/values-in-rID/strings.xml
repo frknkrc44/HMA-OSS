@@ -112,7 +112,7 @@
     <string name="app_exclude_target_installation_source_desc">Anda dapat mengaktifkannya jika aplikasi ini tidak tersedia di Play Store</string>
     <string name="app_force_stop_warning">Jangan lupa untuk paksa berhenti aplikasi target setelah menyimpan konfigurasi</string>
     <string name="app_invert_activity_launch_protection">Ubah proteksi peluncuran aktivitas</string>
-    <string name="app_invert_activity_launch_protection_desc">Opsi ini akan mengubah pilihan \"Nonaktifkan proteksi peluncuran aktivitas\" di setelan.</string>
+    <string name="app_invert_activity_launch_protection_desc">Opsi ini akan mengubah pilihan \"Nonaktifkan proteksi peluncuran aktivitas\" di pengaturan.</string>
     <string name="app_global_activity_launch_protection_state">Proteksi %s secara global</string>
     <string name="app_force_stop_launch">Paksa berhenti dan luncurkan</string>
     <string name="app_launch">Luncurkan</string>
@@ -121,7 +121,7 @@
     <string name="app_restrict_zygote_permissions_desc">Opsi ini dapat menyebabkan kerusakan atau deteksi palsu. Gunakan dengan bijak.</string>
     <!-- Presets -->
     <string name="title_preset">Preset</string>
-    <string name="title_settings_preset">Preset setelan</string>
+    <string name="title_settings_preset">Preset pengaturan</string>
     <string name="title_preset_manage">Tampilkan preset</string>
     <string name="title_ignored_apps_for_presets">Aplikasi yang diabaikan</string>
     <string name="preset_xposed">Modul LSPosed/Xposed</string>
@@ -136,11 +136,11 @@
     <string name="settings_preset_dev_options">Opsi pengembang</string>
     <string name="settings_preset_input_method">Alat input</string>
     <!-- Settings templates -->
-    <string name="settings_templates_database">Basis data setelan</string>
-    <string name="settings_templates_name">Nama setelan</string>
-    <string name="settings_templates_value">Nilai setelan</string>
+    <string name="settings_templates_database">Basis data pengaturan</string>
+    <string name="settings_templates_name">Nama pengaturan</string>
+    <string name="settings_templates_value">Nilai pengaturan</string>
     <!-- Settings templates - basic configuration types -->
-    <string name="settings_templates_custom">Kustom setelan</string>
+    <string name="settings_templates_custom">Pengaturan khusus</string>
     <string name="settings_templates_random_ssaid">SSAID acak</string>
     <!-- Logs -->
     <string name="logs_save">Simpan log</string>
