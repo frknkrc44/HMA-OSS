@@ -93,7 +93,7 @@
     <string name="app_choose_template">Pilih templat</string>
     <string name="app_choose_preset">Pilih preset</string>
     <string name="app_exclude_system_apps">Kecualikan aplikasi sistem</string>
-    <string name="app_exclude_system_apps_summary">Matikan opsi ini hanya jika benar-benar diperlukan. Kemungkinan akan menyebabkan crash dengan menonaktifkannya</string>
+    <string name="app_exclude_system_apps_summary">Matikan opsi ini hanya jika benar-benar diperlukan. Kemungkinan akan menyebabkan kerusakan dengan menonaktifkannya</string>
     <string name="app_template_using">Menggunakan %d templat</string>
     <string name="app_preset_using">Menggunakan %d preset</string>
     <string name="app_settings_preset_using">Menggunakan %d preset pengaturan</string>
@@ -129,7 +129,7 @@
     <string name="preset_custom_rom">Aplikasi ROM kustom</string>
     <string name="preset_sus_apps">Aplikasi mencurigakan</string>
     <string name="preset_detector_apps">Aplikasi Detektor/Checker</string>
-    <string name="preset_shizuku_dhizuku">Shizuku</string>
+    <string name="preset_shizuku_dhizuku">Aplikasi Shizuku/Dhizuku</string>
     <string name="preset_accessibility_apps">Aplikasi aksesibilitas</string>
     <!-- Settings preset names -->
     <string name="settings_preset_accessibility">Aksesibilitas</string>
@@ -188,7 +188,7 @@
     <string name="settings_default_config_summary">Ini akan menerapkan konfigurasi yang telah ditentukan ke semua aplikasi baru, tetapi akan mempertahankan konfigurasi yang ada untuk aplikasi baru jika Anda telah menerapkan sesuatu sebelumnya.</string>
     <string name="settings_language">Bahasa</string>
     <string name="settings_translate">Berpartisipasi dalam terjemahan</string>
-    <string name="settings_translate_summary">Bantu kami menerjemahkan %s ke bahasa Anda</string>
+    <string name="settings_translate_summary">Bantu kami menerjemahkan %s ke dalam bahasa Anda</string>
     <string name="settings_theme">Tema</string>
     <string name="settings_system_theme_color">Warna tema sistem</string>
     <string name="settings_theme_color">Warna tema</string>
