@@ -166,7 +166,6 @@
     <string name="settings_permission_denied">Odmowa dostępu</string>
     <string name="settings_force_mount_data">Wymuś izolacje danych dla wszystkich aplikacji</string>
     <string name="settings_force_mount_data_summary">Izolacja danych jest wyłączona dla aplikacji celujących w API niższe niż 30 domyślnie</string>
-    <string name="settings_detail_log">Szczegółowy log do debugowania</string>
     <string name="settings_max_log_size">Rozmiar bufora loggera </string>
     <string name="settings_hide_icon">Ukryj ikonę modułu w launcherze</string>
     <string name="settings_hide_icon_summary">Możesz nadal otworzyć tę aplikację przez menedżer Xposed</string>
@@ -179,7 +178,6 @@
     <string name="settings_clear_uninstalled_app_configs_summary">Ta opcja pozwala na utworzenie konfiguracji bez pozostałości, ale będziesz musiał ponownie skonfigurować aplikacje po ich ponownym zainstalowaniu.</string>
     <string name="settings_no_undone_warning">Tej akcji nie da się cofnąć.</string>
     <string name="settings_launcher_icon">Ikona w launcherze</string>
-    <string name="settings_error_only_log">Tylko logi typu error</string>
     <string name="settings_disable_hooks">Wyłącz hooki modułu</string>
     <string name="settings_disable_hooks_summary">Możesz wyłączyć niektóre hooki modułu, jeżeli one konfliktują z innymi modułami</string>
     <string name="settings_enable_internet">Włącz połączenie z Internetem</string>

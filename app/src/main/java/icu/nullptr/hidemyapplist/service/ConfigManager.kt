@@ -60,14 +60,12 @@ object ConfigManager {
         get() = config.detailLog
         set(value) {
             config.detailLog = value
-            saveConfig()
         }
 
     var errorOnlyLog: Boolean
         get() = config.errorOnlyLog
         set(value) {
             config.errorOnlyLog = value
-            saveConfig()
         }
 
     var maxLogSize: Int

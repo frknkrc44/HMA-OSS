@@ -166,7 +166,6 @@
     <string name="settings_permission_denied">Permiso denegado</string>
     <string name="settings_force_mount_data">Aplicar el aislamiento de datos para todas las aplicaciones</string>
     <string name="settings_force_mount_data_summary">El aislamiento de datos está deshabilitado para aplicaciones con API de destino inferior a 30 por defecto</string>
-    <string name="settings_detail_log">Logs detallados para depuración</string>
     <string name="settings_max_log_size">Tamaño de búfer de los logs</string>
     <string name="settings_hide_icon">Ocultar icono del módulo en el launcher</string>
     <string name="settings_hide_icon_summary">Todavía puedes abrir la aplicación en el gestor de root</string>
@@ -179,7 +178,6 @@
     <string name="settings_clear_uninstalled_app_configs_summary">Esta opción le permite crear una configuración sin restos pero tendrá que reconfigurar las aplicaciones cuando las haya instalado de nuevo.</string>
     <string name="settings_no_undone_warning">Esta acción no se puede deshacer.</string>
     <string name="settings_launcher_icon">Icono de la app</string>
-    <string name="settings_error_only_log">Registro de error</string>
     <string name="settings_disable_hooks">Desactivar funciones</string>
     <string name="settings_disable_hooks_summary">Puede desactivar algunas de las funciones cuando entran en conflicto con otros módulos</string>
     <string name="settings_enable_internet">Habilitar conexión a Internet</string>

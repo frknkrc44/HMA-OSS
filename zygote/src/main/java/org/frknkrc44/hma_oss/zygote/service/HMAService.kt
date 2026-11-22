@@ -516,8 +516,16 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
         synchronized(loggerLock) {
             if (!logcatAvailable) return@runCatching
-            if (logFile.length() / 1024 > getConfig().maxLogSize) clearLogs()
+            if (logFile.length() / 1024 > maxLogSize) clearLogs()
             logFile.appendText(parsedMsg)
+        }
+    }
+
+    private val maxLogSize get() = getConfig().let {
+        if (it.detailLog) {
+            8192 // use another log size on debug logging
+        } else {
+            it.maxLogSize
         }
     }
 

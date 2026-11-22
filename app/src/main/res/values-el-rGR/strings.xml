@@ -166,7 +166,6 @@
     <string name="settings_permission_denied">Η άδεια απορρίφθηκε</string>
     <string name="settings_force_mount_data">Επιβολή απομόνωσης δεδομένων για όλες τις εφαρμογές</string>
     <string name="settings_force_mount_data_summary">Η απομόνωση δεδομένων είναι απενεργοποιημένη από προεπιλογή για εφαρμογές που στοχεύουν API χαμηλότερο από το 30</string>
-    <string name="settings_detail_log">Λεπτομερές αρχείο καταγραφής εντοπισμού σφαλμάτων</string>
     <string name="settings_max_log_size">Μέγεθος καταγραφέα buffer</string>
     <string name="settings_hide_icon">Απόκρυψη εικονιδίου ενότητας από το πρόγραμμα εκκίνησης</string>
     <string name="settings_hide_icon_summary">Μπορείτε ακόμα να ανοίξετε την εφαρμογή στον διαχειριστή root</string>
@@ -179,7 +178,6 @@
     <string name="settings_clear_uninstalled_app_configs_summary">Αυτή η επιλογή σάς επιτρέπει να δημιουργήσετε μια διαμόρφωση χωρίς υπολείμματα, αλλά θα πρέπει να επαναρυθμίσετε τις εφαρμογές όταν τις εγκαταστήσετε ξανά.</string>
     <string name="settings_no_undone_warning">Αυτή η ενέργεια δεν μπορεί να αναιρεθεί.</string>
     <string name="settings_launcher_icon">Εικονίδιο εκκίνησης</string>
-    <string name="settings_error_only_log">Αρχείο καταγραφής μόνο για σφάλματα</string>
     <string name="settings_disable_hooks">Απενεργοποίηση λειτουργιών</string>
     <string name="settings_disable_hooks_summary">Μπορείτε να απενεργοποιήσετε ορισμένες από τις λειτουργίες όταν έρχονται σε διένεξη με άλλες ενότητες</string>
     <string name="settings_enable_internet">Ενεργοποίηση σύνδεσης στο Διαδίκτυο</string>

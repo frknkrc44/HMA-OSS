@@ -166,7 +166,6 @@
     <string name="settings_permission_denied">Permissão negada</string>
     <string name="settings_force_mount_data">Impor isolamento de dados em todos os apps</string>
     <string name="settings_force_mount_data_summary">Por padrão, o isolamento de dados fica desativado para apps que usam API alvo inferior a 30</string>
-    <string name="settings_detail_log">Registros detalhados para depuração</string>
     <string name="settings_max_log_size">Tamanhos do buffer de registro</string>
     <string name="settings_hide_icon">Esconder ícone do módulo na tela inicial</string>
     <string name="settings_hide_icon_summary">Você ainda poderá abrir o app pelo gerenciador de root</string>
@@ -179,7 +178,6 @@
     <string name="settings_clear_uninstalled_app_configs_summary">Esta opção permite criar uma configuração sem remanescentes, mas terá que reconfigurar os apps quando os instalar novamente.</string>
     <string name="settings_no_undone_warning">Esta ação não pode ser desfeita.</string>
     <string name="settings_launcher_icon">Ícone do launcher</string>
-    <string name="settings_error_only_log">Registro somente de erros</string>
     <string name="settings_disable_hooks">Desativar funções</string>
     <string name="settings_disable_hooks_summary">Você pode desativar algumas funções quando elas entrarem em conflito com outros módulos</string>
     <string name="settings_enable_internet">Ativar conexão à internet</string>

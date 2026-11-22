@@ -166,7 +166,6 @@
     <string name="settings_permission_denied">Izin ditolak</string>
     <string name="settings_force_mount_data">Paksa isolasi data untuk semua aplikasi</string>
     <string name="settings_force_mount_data_summary">Isolasi data dinonaktifkan secara bawaan untuk aplikasi target API di bawah 30</string>
-    <string name="settings_detail_log">Log detail untuk debugging</string>
     <string name="settings_max_log_size">Ukuran buffer log</string>
     <string name="settings_hide_icon">Sembunyikan ikon modul di layar utama</string>
     <string name="settings_hide_icon_summary">Anda masih dapat membuka aplikasi di manajer root</string>
@@ -179,7 +178,6 @@
     <string name="settings_clear_uninstalled_app_configs_summary">Opsi ini memungkinkan Anda membuat konfigurasi tanpa sisa tetapi Anda harus mengonfigurasi ulang aplikasi saat Anda memasangnya lagi.</string>
     <string name="settings_no_undone_warning">Tindakan ini tidak dapat dibatalkan.</string>
     <string name="settings_launcher_icon">Ikon aplikasi</string>
-    <string name="settings_error_only_log">Log khusus error</string>
     <string name="settings_disable_hooks">Nonaktifkan fungsi</string>
     <string name="settings_disable_hooks_summary">Anda dapat menonaktifkan beberapa fungsi jika fungsi tersebut bertentangan dengan modul lain</string>
     <string name="settings_enable_internet">Aktifkan koneksi internet</string>
