@@ -20,13 +20,8 @@ object SystemServerHook {
 
     var classLoader: ClassLoader? = null
 
-    @Throws(Throwable::class)
-    fun onSystemServer(loader: ClassLoader?) {
-        assert(loader != null) { "Class loader is null, aborting!" }
-
-        logV(TAG) { "Class loader found: $loader" }
-
-        classLoader = loader
+    private fun onSystemServer() {
+        logV(TAG) { "Class loader found: $classLoader" }
 
         val pms = waitForService(PACKAGE_MANAGER_SERVICE) as IPackageManager
         val pmn = waitForService(PACKAGE_MANAGER_NATIVE_SERVICE)
@@ -41,23 +36,24 @@ object SystemServerHook {
     }
 
     @DoNotShrink
-    @Throws(Throwable::class)
     @JvmStatic
     fun init() {
         logI(TAG) { "Trying to invoke universal mode" }
 
         thread {
-            while (true) {
+            while (classLoader == null) {
                 try {
                     Looper.getMainLooper()?.thread?.contextClassLoader?.apply {
                         loadClass(SYSTEM_SERVER_CLASS)
-                        onSystemServer(this)
+                        classLoader = this
                         break
                     }
 
                     Thread.sleep(100)
                 } catch (_: Throwable) {}
             }
+
+            onSystemServer()
         }
     }
 }
