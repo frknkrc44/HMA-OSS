@@ -2,22 +2,16 @@ package org.frknkrc44.hma_oss.zygote.service
 
 import android.annotation.SuppressLint
 import android.content.pm.IPackageManager
-import android.os.Build
+import android.os.Looper
 import com.v7878.r8.annotations.DoNotShrink
-import com.v7878.unsafe.Reflection.getDeclaredMethod
-import com.v7878.unsafe.invoke.Transformers
-import com.v7878.vmtools.Hooks
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.waitForService
-import org.frknkrc44.hma_oss.zygote.util.ZLUtils.callStaticMethod
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.PACKAGE_MANAGER_NATIVE_SERVICE
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.PACKAGE_MANAGER_SERVICE
-import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.RUNTIME_INIT_CLASS
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.SYSTEM_SERVER_CLASS
-import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.ZYGOTE_INIT_CLASS
 import kotlin.concurrent.thread
 
 @SuppressLint("PrivateApi")
@@ -34,17 +28,15 @@ object SystemServerHook {
 
         classLoader = loader
 
-        thread {
-            val pms = waitForService(PACKAGE_MANAGER_SERVICE) as IPackageManager
-            val pmn = waitForService(PACKAGE_MANAGER_NATIVE_SERVICE)
-            logD(TAG) { "Got pms: $pms, $pmn" }
+        val pms = waitForService(PACKAGE_MANAGER_SERVICE) as IPackageManager
+        val pmn = waitForService(PACKAGE_MANAGER_NATIVE_SERVICE)
+        logD(TAG) { "Got pms: $pms, $pmn" }
 
-            try {
-                UserService.register(pms, pmn)
-                logI(TAG) { "User service started" }
-            } catch (cause: Throwable) {
-                logE(TAG, cause) { "System service crashed" }
-            }
+        try {
+            UserService.register(pms, pmn)
+            logI(TAG) { "User service started" }
+        } catch (cause: Throwable) {
+            logE(TAG, cause) { "System service crashed" }
         }
     }
 
@@ -52,42 +44,20 @@ object SystemServerHook {
     @Throws(Throwable::class)
     @JvmStatic
     fun init() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            logI(TAG) { "Trying to invoke 12+ mode" }
+        logI(TAG) { "Trying to invoke universal mode" }
 
-            try {
-                val loader = callStaticMethod(
-                    Class.forName(ZYGOTE_INIT_CLASS),
-                    "getOrCreateSystemServerClassLoader"
-                )
+        thread {
+            while (true) {
+                try {
+                    Looper.getMainLooper()?.thread?.contextClassLoader?.apply {
+                        loadClass(SYSTEM_SERVER_CLASS)
+                        onSystemServer(this)
+                        break
+                    }
 
-                onSystemServer(loader as? ClassLoader)
-
-                return
-            } catch (cause: Throwable) {
-                logE(TAG, cause) { "An exception occurred while trying 12+ mode" }
-                // falls back to 11- mode
+                    Thread.sleep(100)
+                } catch (_: Throwable) {}
             }
         }
-
-        logI(TAG) { "Trying to invoke 11- mode" }
-
-        val method = getDeclaredMethod(
-            Class.forName(RUNTIME_INIT_CLASS), "findStaticMain",
-            String::class.java, Array<String>::class.java, ClassLoader::class.java
-        )
-
-        Hooks.hook(method, Hooks.EntryPointType.CURRENT, { original, frame ->
-            try {
-                val accessor = frame.accessor()
-                if (SYSTEM_SERVER_CLASS == accessor.getReference(0)) {
-                    val loader: ClassLoader? = accessor.getReference(2)
-                    onSystemServer(loader)
-                }
-            } catch (th: Throwable) {
-                logE(TAG, th) { "An exception occurred while checkSystemServer" }
-            }
-            Transformers.invokeExact(original, frame)
-        }, Hooks.EntryPointType.DIRECT)
     }
 }
