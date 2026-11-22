@@ -23,7 +23,7 @@ if [ "$KSU" ]; then
     fi
 
     # kernel and manager version mismatch
-    if [ "$KSU_VER_CODE" != "$KSU_KERNEL_VER_CODE" ]; then
+    if [ "${KSU_UAPI_VER:=0}" -lt 2 ] && [ "$KSU_VER_CODE" != "$KSU_KERNEL_VER_CODE" ]; then
         ui_print "$KSU_VERSION_MISMATCH_WARN"
         ui_print "$(INSTALLER_CONTINUE_MSG 5)"
         sleep 5
