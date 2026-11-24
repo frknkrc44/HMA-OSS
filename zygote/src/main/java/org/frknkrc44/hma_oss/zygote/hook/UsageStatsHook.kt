@@ -21,8 +21,6 @@ class UsageStatsHook : IFrameworkHook {
     internal val lastFilteredApp: AtomicReference<String?> = AtomicReference(null)
 
     override fun load() {
-        logI(TAG) { "Load hook" }
-
         hooker.apply {
             hookAfter(
                 USAGE_STATS_BINDER_SERVICE_CLASS,

@@ -34,8 +34,6 @@ class ActivityHook : IFrameworkHook {
     }
 
     override fun load() {
-        logI(TAG) { "Load hook" }
-
         hooker.apply {
             val aPRFClazz = when(Build.VERSION.SDK_INT) {
                 Build.VERSION_CODES.Q, Build.VERSION_CODES.R -> PACKAGE_MANAGER_SERVICE_CLASS

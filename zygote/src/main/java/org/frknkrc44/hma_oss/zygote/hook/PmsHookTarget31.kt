@@ -15,8 +15,6 @@ class PmsHookTarget31 : PmsHookTargetBase() {
     override val TAG = "PmsHookTarget31"
 
     override fun load() {
-        logI(TAG) { "Load hook" }
-
         hooker.apply {
             hookBefore(
                 PMS_COMPUTER_TRACKER_CLASS,

@@ -30,8 +30,6 @@ abstract class InstallerHookTargetBase : IFrameworkHook {
     }
 
     override fun load() {
-        logI(TAG) { "Load hook" }
-
         hooker.apply {
             if (service.pmn != null) {
                 hookBefore(
@@ -52,7 +50,6 @@ abstract class InstallerHookTargetBase : IFrameworkHook {
             }
         }
     }
-
 
     inline fun applyInstallerHiding(
         methodName: String,

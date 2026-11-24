@@ -54,7 +54,6 @@ class AppDataIsolationHook : IFrameworkHook {
     @SuppressLint("PrivateApi")
     override fun load() {
         if (!isAltIsolationEnabled) return
-        logI(TAG) { "Load hook" }
 
         hooker.apply {
             hookBefore(

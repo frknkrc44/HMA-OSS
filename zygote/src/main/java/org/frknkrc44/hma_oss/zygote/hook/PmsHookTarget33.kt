@@ -37,8 +37,6 @@ open class PmsHookTarget33 : PmsHookTargetBase() {
 
     @Suppress("UNCHECKED_CAST")
     override fun load() {
-        logI(TAG) { "Load hook" }
-
         hooker.apply {
             // Samsung related fix
             if (OSUtils.isSamsung()) {

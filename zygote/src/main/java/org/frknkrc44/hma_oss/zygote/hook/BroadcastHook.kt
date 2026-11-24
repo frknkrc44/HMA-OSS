@@ -25,8 +25,6 @@ class BroadcastHook : IFrameworkHook {
     override val TAG = "BroadcastHook"
 
     override fun load() {
-        logI(TAG) { "Load hook" }
-
         hooker.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
                 hookBefore(

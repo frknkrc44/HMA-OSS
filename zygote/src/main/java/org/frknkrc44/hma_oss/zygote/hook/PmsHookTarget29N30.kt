@@ -8,8 +8,6 @@ import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.PACKAGE_MANAGER_SERVICE
 abstract class PmsHookTarget29N30 : PmsHookTargetBase() {
 
     override fun load() {
-        logI(TAG) { "Load hook" }
-
         hooker.apply {
             hookAfter(
                 PACKAGE_MANAGER_SERVICE_CLASS,

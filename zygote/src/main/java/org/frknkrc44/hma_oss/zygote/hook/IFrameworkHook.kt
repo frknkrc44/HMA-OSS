@@ -1,6 +1,7 @@
 package org.frknkrc44.hma_oss.zygote.hook
 
 import org.frknkrc44.hma_oss.zygote.service.UserService
+import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 
 interface IFrameworkHook {
     @Suppress("PropertyName")
@@ -17,4 +18,10 @@ interface IFrameworkHook {
         config.scope[caller]?.applySettingsPresets.orEmpty()
 
     fun load()
+
+    fun loadWithMessage() {
+        logI(TAG) { "Load hook" }
+
+        load()
+    }
 }

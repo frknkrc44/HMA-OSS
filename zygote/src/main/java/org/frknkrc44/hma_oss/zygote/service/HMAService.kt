@@ -331,7 +331,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         frameworkHooks.add(ZygoteHook())
         frameworkHooks.add(UsageStatsHook())
 
-        frameworkHooks.forEach(IFrameworkHook::load)
+        frameworkHooks.forEach(IFrameworkHook::loadWithMessage)
         logI(TAG) { "Hooks installed" }
     }
 
