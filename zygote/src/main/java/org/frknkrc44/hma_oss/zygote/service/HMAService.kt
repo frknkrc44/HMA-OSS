@@ -34,6 +34,7 @@ import org.frknkrc44.hma_oss.zygote.hook.ActivityHook
 import org.frknkrc44.hma_oss.zygote.hook.AppDataIsolationHook
 import org.frknkrc44.hma_oss.zygote.hook.BroadcastHook
 import org.frknkrc44.hma_oss.zygote.hook.ContentProviderHook
+import org.frknkrc44.hma_oss.zygote.hook.DpmHook
 import org.frknkrc44.hma_oss.zygote.hook.IFrameworkHook
 import org.frknkrc44.hma_oss.zygote.hook.ImmHook
 import org.frknkrc44.hma_oss.zygote.hook.InstallerHookTarget29
@@ -330,6 +331,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         frameworkHooks.add(ImmHook())
         frameworkHooks.add(ZygoteHook())
         frameworkHooks.add(UsageStatsHook())
+        frameworkHooks.add(DpmHook())
 
         frameworkHooks.forEach(IFrameworkHook::loadWithMessage)
         logI(TAG) { "Hooks installed" }
@@ -875,6 +877,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         var cache = getConfig()
         if (cache != loading) {
             loading.cleanRemnantsFromConfig()
+            dataHolder.clearUidCache()
             config.set(loading)
             cache = loading
         }

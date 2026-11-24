@@ -30,6 +30,8 @@ object ZygoteConstants {
     const val BROADCAST_PROCESS_QUEUE_CLASS = "com.android.server.am.BroadcastProcessQueue"
     const val USAGE_STATS_BINDER_SERVICE_CLASS = $$"com.android.server.usage.UsageStatsService$BinderService"
     const val PERMISSION_MANAGER_SERVICE_CLASS = "com.android.server.pm.permission.PermissionManagerService"
+    const val DEVICE_POLICY_MANAGER_CLASS = "com.android.server.devicepolicy.DevicePolicyManagerService"
+    const val DP_OWNERS_CLASS = "com.android.server.devicepolicy.Owners"
 
     const val CONSTRUCTOR_METHOD_NAME = "<init>"
 
