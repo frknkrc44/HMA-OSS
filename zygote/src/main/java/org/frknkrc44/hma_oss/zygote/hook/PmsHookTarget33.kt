@@ -113,9 +113,7 @@ open class PmsHookTarget33 : PmsHookTargetBase() {
                     { frame.getArgument(2) as? Int },
                     { getPackageNameFromPackageSettings(frame.getArgument(4)) },
                     { _, it ->
-                        binderLocalScope {
-                            getPackagesForUidMethod.invoke(frame.getArgument(1), it) as? Array<String>
-                        }
+                        getPackagesForUidCE(frame.getArgument(1) /* CE */, it)
                     },
                     true,
                 )
@@ -137,5 +135,10 @@ open class PmsHookTarget33 : PmsHookTargetBase() {
                 )
             }
         }
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    protected fun getPackagesForUidCE(ce: Any?, uid: Int) = binderLocalScope {
+        getPackagesForUidMethod.invoke(ce, uid) as? Array<String>
     }
 }
