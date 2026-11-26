@@ -10,7 +10,6 @@ import icu.nullptr.hidemyapplist.common.OSUtils
 import org.frknkrc44.hma_oss.zygote.service.SystemServerHook
 import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.firstOrNullWithType
 import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.firstWithType
-import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.binderLocalScope
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackageNameFromPackageSettings
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackagesForUidLocal

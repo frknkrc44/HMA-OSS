@@ -42,7 +42,7 @@ class InstallerHookTarget30 : InstallerHookTarget29() {
 
         hooker.apply {
             hookBefore(
-                service.pms.javaClass.name,
+                pms.javaClass.name,
                 "getInstallSourceInfo",
             ) { methodName, frame, returnValue ->
                 applyInstallerHiding(

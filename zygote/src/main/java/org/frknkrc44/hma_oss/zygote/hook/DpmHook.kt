@@ -32,7 +32,7 @@ class DpmHook : IFrameworkHook {
                 val result = returnValue.result as? List<ComponentName> ?: return@hookAfter
 
                 val caller = dataHolder.findCallerByUid(callingUid)
-                    ?: getPackagesForUidLocal(service.pms, callingUid).firstOrNull {
+                    ?: getPackagesForUidLocal(pms, callingUid).firstOrNull {
                     service.isHookEnabled(it)
                 } ?: return@hookAfter
 
@@ -114,7 +114,7 @@ class DpmHook : IFrameworkHook {
             return
         }
 
-        val caller = getPackagesForUidLocal(service.pms, callingUid).firstOrNull {
+        val caller = getPackagesForUidLocal(pms, callingUid).firstOrNull {
             service.shouldHide(it, targetApp)
         }
 
