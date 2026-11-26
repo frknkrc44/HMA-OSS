@@ -18,6 +18,7 @@ import icu.nullptr.hidemyapplist.common.Utils.containsMultiple
 import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
 import org.frknkrc44.hma_oss.common.BuildConfig
 import org.frknkrc44.hma_oss.zygote.Magic
+import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
@@ -32,6 +33,8 @@ object ServiceUtils {
 
     @Throws(InterruptedException::class)
     fun waitForService(name: String?): IBinder? {
+        logD(TAG) { "Waiting for $name service" }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             return ServiceManager.waitForService(name)
         }

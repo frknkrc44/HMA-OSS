@@ -12,7 +12,6 @@ import org.frknkrc44.hma_oss.zygote.util.ActivityManagerUtils.registerUidObserve
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logE
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
-import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.waitForService
 import org.frknkrc44.hma_oss.zygote.util.UidObserverAdapter
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getStaticIntField
 
@@ -65,7 +64,6 @@ object UserService {
 
         logI(TAG) { "Initialize HMAService - Version ${BuildConfig.APP_VERSION_NAME}" }
 
-        waitForService("activity")
         registerUidObserver(
             uidObserver,
             getActMgrField("UID_OBSERVER_ACTIVE"),

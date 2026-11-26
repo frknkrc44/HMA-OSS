@@ -38,7 +38,6 @@ public class ZygoteEntry {
     public static void main() throws Throwable {
         try {
             SystemServerHook.init();
-            logILegacy(TAG, "Done");
         } catch (Throwable th) {
             logELegacy(TAG, "An exception occurred while SystemServerHook init", th);
         }
