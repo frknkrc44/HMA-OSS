@@ -251,9 +251,8 @@ class AppDataIsolationHook : IFrameworkHook {
                         val pidPkgMap = frame.getArgument(1) as Map<*, *>
                         val keysToRemove = mutableSetOf<Any>()
 
-                        for (entry in pidPkgMap.entrySet()) {
-                            val pid = entry.key
-                            val packageName = entry.value as String
+                        for ((pid, value) in pidPkgMap.entrySet()) {
+                            val packageName = value as String
 
                             if (packageName in systemApps || packageName == BuildConfig.APP_PACKAGE_NAME) {
                                 logD(TAG) { "@remountAppStorageDirs SYSTEM $pid - $packageName is marked to remove" }

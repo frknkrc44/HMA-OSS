@@ -111,7 +111,6 @@ class ActivityHook : IFrameworkHook {
                             ACTIVITY_STARTER_CLASS,
                             "startActivity",
                         ) { _, frame, returnValue ->
-                            // we have no way other than hardcoding, it is 13th argument in AOSP code
                             val args = frame.dumpArgs()
                             val caller = args.firstOrNullWithType<String>() ?: return@hookBefore
                             val intent = args.firstOrNullWithType<Intent>() ?: return@hookBefore
