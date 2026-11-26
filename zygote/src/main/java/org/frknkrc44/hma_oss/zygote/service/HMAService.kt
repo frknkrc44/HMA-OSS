@@ -69,6 +69,7 @@ import java.nio.file.Files
 import java.nio.file.StandardCopyOption
 import java.util.concurrent.atomic.AtomicReference
 import kotlin.io.path.Path
+import kotlin.random.Random
 
 class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
@@ -189,9 +190,12 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
             }
         }
         if (!this::dataDir.isInitialized) {
+            // add some fun for future
+            // suffix length is not hardcoded to 16,
+            // and we include numbers to dir name now
             dataDir = "/data/misc/hide_my_applist_" + generateRandomString(
-                16,
-                ('a'..'z').toList()
+                Random.nextInt(16, 32),
+                ('a'..'z') + ('0' .. '9').toList()
             )
         }
 
