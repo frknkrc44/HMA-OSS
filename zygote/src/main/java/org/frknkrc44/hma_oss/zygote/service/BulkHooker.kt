@@ -348,11 +348,11 @@ class BulkHooker {
         val isConstructorHook = methodName == CONSTRUCTOR_METHOD_NAME
 
         return if (isConstructorHook) {
-            Reflection.getHiddenConstructors(clazz).firstOrNull {
+            Reflection.getDeclaredConstructors(clazz).firstOrNull {
                 return@firstOrNull argumentCount < 0 || argumentCount == it.parameterCount
             }
         } else {
-            Reflection.getHiddenExecutables(clazz).firstOrNull {
+            Reflection.getDeclaredMethods(clazz).firstOrNull {
                 return@firstOrNull methodName == it.name &&
                         (argumentCount < 0 || argumentCount == it.parameterCount)
             }
