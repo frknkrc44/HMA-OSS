@@ -115,22 +115,6 @@ open class PmsHookTarget33 : PmsHookTargetBase() {
                     true,
                 )
             }
-
-            hookBefore(
-                arrayOf(COMPUTER_ENGINE_CLASS, PERMISSION_MANAGER_SERVICE_CLASS),
-                arrayOf("checkUidPermission"),
-            ) { methodName, frame, returnValue ->
-                val uid = frame.dumpArgs().firstWithType<Int>()
-
-                applyPackageHiding(
-                    methodName,
-                    returnValue,
-                    { Binder.getCallingUid() },
-                    { getPackagesForUidLocal(pms, uid).firstOrNull() },
-                    ::getPackagesForUidLocal,
-                    PackageManager.PERMISSION_DENIED
-                )
-            }
         }
     }
 

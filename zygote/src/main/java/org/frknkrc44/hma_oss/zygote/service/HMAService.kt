@@ -41,6 +41,7 @@ import org.frknkrc44.hma_oss.zygote.hook.InstallerHookTarget29
 import org.frknkrc44.hma_oss.zygote.hook.InstallerHookTarget30
 import org.frknkrc44.hma_oss.zygote.hook.InstallerHookTarget33
 import org.frknkrc44.hma_oss.zygote.hook.InstallerHookTarget34
+import org.frknkrc44.hma_oss.zygote.hook.PermissionManagerHook
 import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget29
 import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget30
 import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget31
@@ -336,6 +337,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         frameworkHooks.add(ZygoteHook())
         frameworkHooks.add(UsageStatsHook())
         frameworkHooks.add(DpmHook())
+        frameworkHooks.add(PermissionManagerHook())
 
         frameworkHooks.forEach(IFrameworkHook::loadWithMessage)
         logI(TAG) { "Hooks installed" }
