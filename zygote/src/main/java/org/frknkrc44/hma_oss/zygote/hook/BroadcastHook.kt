@@ -9,7 +9,6 @@ import org.frknkrc44.hma_oss.common.BuildConfig
 import org.frknkrc44.hma_oss.zygote.service.ReturnValue
 import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.firstOrNullWithType
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
-import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.dumpArgs
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getObjectField
@@ -25,8 +24,6 @@ class BroadcastHook : IFrameworkHook {
     override val TAG = "BroadcastHook"
 
     override fun load() {
-        logI(TAG) { "Load hook" }
-
         hooker.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
                 hookBefore(

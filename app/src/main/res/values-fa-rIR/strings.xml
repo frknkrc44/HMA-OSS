@@ -166,7 +166,6 @@
     <string name="settings_permission_denied">مجوز رد شد</string>
     <string name="settings_force_mount_data">اعمال کردن ایزوله ساری داده ها برای تمامی برنامه ها</string>
     <string name="settings_force_mount_data_summary">ایزوله‌سازی داده برای برنامه‌های با API کمتر از ۳۰ به صورت پیش‌فرض غیرفعال است</string>
-    <string name="settings_detail_log">گزارش دقیق برای اشکال‌زدایی</string>
     <string name="settings_max_log_size">اندازه بافر گزارش گیرنده</string>
     <string name="settings_hide_icon">مخفی سازی آیکون ماژول در راه انداز</string>
     <string name="settings_hide_icon_summary">هنوز هم می توانید برنامه را در منیجر روت باز کنید</string>
@@ -179,7 +178,6 @@
     <string name="settings_clear_uninstalled_app_configs_summary">این گزینه به شما امکان می‌دهد پیکربندی را بدون ردپا ایجاد کنید، اما هنگام نصب مجدد برنامه‌ها، باید آنها را دوباره پیکربندی کنید.</string>
     <string name="settings_no_undone_warning">این اقدام قابل لغو نیست.</string>
     <string name="settings_launcher_icon">آیکون راه انداز</string>
-    <string name="settings_error_only_log">گزارش گیری خطاها</string>
     <string name="settings_disable_hooks">غیرفعال سازی عملکرد ها</string>
     <string name="settings_disable_hooks_summary">می‌توانید برخی از عملکرد ها را در صورت تداخل با سایر ماژول‌ها غیرفعال کنید</string>
     <string name="settings_enable_internet">فعال سازی اتصال اینترنت</string>

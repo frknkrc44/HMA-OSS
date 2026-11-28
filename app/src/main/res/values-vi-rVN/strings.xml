@@ -166,7 +166,6 @@
     <string name="settings_permission_denied">Quyền bị từ chối</string>
     <string name="settings_force_mount_data">Thực thi cách ly dữ liệu cho tất cả các ứng dụng</string>
     <string name="settings_force_mount_data_summary">Tính năng cô lập dữ liệu bị vô hiệu hóa đối với các ứng dụng mục tiêu có API thấp hơn 30 theo mặc định</string>
-    <string name="settings_detail_log">Nhật ký chi tiết cho gỡ lỗi</string>
     <string name="settings_max_log_size">Kích cỡ bộ đệm nhật ký</string>
     <string name="settings_hide_icon">Ẩn hình biểu tượng mô-đun trong trình khởi chạy</string>
     <string name="settings_hide_icon_summary">Bạn vẫn có thể mở ứng dụng trong trình quản lý root</string>
@@ -179,7 +178,6 @@
     <string name="settings_clear_uninstalled_app_configs_summary">Tùy chọn này cho phép bạn tạo một cấu hình mà không để lại dư lượng, nhưng bạn sẽ phải cấu hình lại các ứng dụng khi bạn cài đặt chúng lần nữa.</string>
     <string name="settings_no_undone_warning">Thao tác không thể hoàn tác.</string>
     <string name="settings_launcher_icon">Biểu tượng ứng dụng</string>
-    <string name="settings_error_only_log">Chỉ ghi lỗi vào nhật ký</string>
     <string name="settings_disable_hooks">Tắt các tính năng</string>
     <string name="settings_disable_hooks_summary">Bạn có thể tắt bớt các tính năng khi bị xung đột với các mô-đun khác</string>
     <string name="settings_enable_internet">Cho phép truy cập Internet</string>

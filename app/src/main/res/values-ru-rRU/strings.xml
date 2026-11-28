@@ -166,7 +166,6 @@
     <string name="settings_permission_denied">Отказано в доступе</string>
     <string name="settings_force_mount_data">Принуд. изолировать данные для всех приложений</string>
     <string name="settings_force_mount_data_summary">Изоляция данных для приложений с targetAPI ниже 30 отключена по умолчанию</string>
-    <string name="settings_detail_log">Подробные логи для отладки</string>
     <string name="settings_max_log_size">Размер буфера логов</string>
     <string name="settings_hide_icon">Скрыть иконку в лаунчере</string>
     <string name="settings_hide_icon_summary">Вы всё ещё сможете открывать приложение в менеджере Xposed</string>
@@ -179,7 +178,6 @@
     <string name="settings_clear_uninstalled_app_configs_summary">Эта опция позволяет создавать конфиг без остатков, но вам придется перенастроить приложения при их повторной установке.</string>
     <string name="settings_no_undone_warning">Это действие не может быть отменено.</string>
     <string name="settings_launcher_icon">Значок запуска</string>
-    <string name="settings_error_only_log">Журнал только ошибок</string>
     <string name="settings_disable_hooks">Disable functions</string>
     <string name="settings_disable_hooks_summary">You can disable some of the functions when they conflict with other modules</string>
     <string name="settings_enable_internet">Активировать интернет соединения</string>

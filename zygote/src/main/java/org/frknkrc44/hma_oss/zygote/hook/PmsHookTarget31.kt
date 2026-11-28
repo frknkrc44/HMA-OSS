@@ -3,7 +3,6 @@ package org.frknkrc44.hma_oss.zygote.hook
 import android.os.Binder
 import android.os.Build
 import androidx.annotation.RequiresApi
-import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackageNameFromPackageSettings
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackagesForUidLocal
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
@@ -15,8 +14,6 @@ class PmsHookTarget31 : PmsHookTargetBase() {
     override val TAG = "PmsHookTarget31"
 
     override fun load() {
-        logI(TAG) { "Load hook" }
-
         hooker.apply {
             hookBefore(
                 PMS_COMPUTER_TRACKER_CLASS,

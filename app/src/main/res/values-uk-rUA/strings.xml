@@ -166,7 +166,6 @@
     <string name="settings_permission_denied">У дозволі відмовлено</string>
     <string name="settings_force_mount_data">Застосувати ізоляцію даних для всіх додатків</string>
     <string name="settings_force_mount_data_summary">За замовчуванням ізоляція даних вимкнена для цільових API додатків нижче 30</string>
-    <string name="settings_detail_log">Детальний журнал для налагодження</string>
     <string name="settings_max_log_size">Розміри буфера реєстратора</string>
     <string name="settings_hide_icon">Сховати значок модуля в панелі запуску</string>
     <string name="settings_hide_icon_summary">Ви все ще можете відкрити додаток у менеджері Xposed</string>
@@ -179,7 +178,6 @@
     <string name="settings_clear_uninstalled_app_configs_summary">Ця опція дозволяє створити конфігурацію без залишків, але вам доведеться переналаштувати програми після їх повторного встановлення.</string>
     <string name="settings_no_undone_warning">Цю дію не можна буде скасувати.</string>
     <string name="settings_launcher_icon">Іконка лаунчера</string>
-    <string name="settings_error_only_log">Лишень помилки</string>
     <string name="settings_disable_hooks">Disable functions</string>
     <string name="settings_disable_hooks_summary">You can disable some of the functions when they conflict with other modules</string>
     <string name="settings_enable_internet">Увімкнути підключення до Інтернету</string>

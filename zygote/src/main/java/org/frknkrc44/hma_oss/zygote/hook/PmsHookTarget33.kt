@@ -10,7 +10,6 @@ import icu.nullptr.hidemyapplist.common.OSUtils
 import org.frknkrc44.hma_oss.zygote.service.SystemServerHook
 import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.firstOrNullWithType
 import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.firstWithType
-import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.binderLocalScope
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackageNameFromPackageSettings
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackagesForUidLocal
@@ -37,8 +36,6 @@ open class PmsHookTarget33 : PmsHookTargetBase() {
 
     @Suppress("UNCHECKED_CAST")
     override fun load() {
-        logI(TAG) { "Load hook" }
-
         hooker.apply {
             // Samsung related fix
             if (OSUtils.isSamsung()) {
@@ -113,29 +110,16 @@ open class PmsHookTarget33 : PmsHookTargetBase() {
                     { frame.getArgument(2) as? Int },
                     { getPackageNameFromPackageSettings(frame.getArgument(4)) },
                     { _, it ->
-                        binderLocalScope {
-                            getPackagesForUidMethod.invoke(frame.getArgument(1), it) as? Array<String>
-                        }
+                        getPackagesForUidCE(frame.getArgument(1) /* CE */, it)
                     },
                     true,
                 )
             }
-
-            hookBefore(
-                arrayOf(COMPUTER_ENGINE_CLASS, PERMISSION_MANAGER_SERVICE_CLASS),
-                arrayOf("checkUidPermission"),
-            ) { methodName, frame, returnValue ->
-                val uid = frame.dumpArgs().firstWithType<Int>()
-
-                applyPackageHiding(
-                    methodName,
-                    returnValue,
-                    { Binder.getCallingUid() },
-                    { getPackagesForUidLocal(pms, uid).firstOrNull() },
-                    ::getPackagesForUidLocal,
-                    PackageManager.PERMISSION_DENIED
-                )
-            }
         }
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    protected fun getPackagesForUidCE(ce: Any?, uid: Int) = binderLocalScope {
+        getPackagesForUidMethod.invoke(ce, uid) as? Array<String>
     }
 }

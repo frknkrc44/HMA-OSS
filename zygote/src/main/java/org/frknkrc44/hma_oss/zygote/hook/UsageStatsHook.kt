@@ -1,5 +1,6 @@
 package org.frknkrc44.hma_oss.zygote.hook
 
+import android.app.usage.AppStandbyInfo
 import android.app.usage.UsageEvents
 import android.app.usage.UsageStats
 import android.content.pm.ParceledListSlice
@@ -8,6 +9,7 @@ import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.firstOrNullWithType
 import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.lastOrNullWithType
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
+import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackagesForUidLocal
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.dumpArgs
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getObjectField
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.setObjectField
@@ -21,8 +23,6 @@ class UsageStatsHook : IFrameworkHook {
     internal val lastFilteredApp: AtomicReference<String?> = AtomicReference(null)
 
     override fun load() {
-        logI(TAG) { "Load hook" }
-
         hooker.apply {
             hookAfter(
                 USAGE_STATS_BINDER_SERVICE_CLASS,
@@ -124,6 +124,33 @@ class UsageStatsHook : IFrameworkHook {
                     methodName,
                     result,
                 ) { args.lastOrNullWithType() }
+            }
+
+            hookAfter(
+                USAGE_STATS_BINDER_SERVICE_CLASS,
+                "getAppStandbyBuckets",
+            ) { methodName, _, returnValue ->
+                @Suppress("UNCHECKED_CAST") // I know what I do
+                val result = returnValue.result as? ParceledListSlice<AppStandbyInfo> ?: return@hookAfter
+                val list = result.list
+                if (list.isEmpty()) return@hookAfter
+
+                val caller = getPackagesForUidLocal(pms).firstOrNull {
+                    service.isHookEnabled(it)
+                } ?: return@hookAfter
+
+                val filtered = list.filterTo(mutableListOf()) {
+                    !service.shouldHide(caller, it.mPackageName)
+                }
+
+                val count = list.size - filtered.size
+                if (count > 0) {
+                    val last = lastFilteredApp.getAndSet(caller)
+                    if (last != caller) logI(TAG) { "@$methodName: query from $caller" }
+                    logD(TAG) { "@$methodName: $count entries hidden from $caller" }
+                    service.increasePMFilterCount(caller, count)
+                    returnValue.result = ParceledListSlice(filtered)
+                }
             }
         }
     }

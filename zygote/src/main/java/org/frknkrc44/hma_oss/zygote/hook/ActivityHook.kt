@@ -8,7 +8,6 @@ import icu.nullptr.hidemyapplist.common.Utils.getPackageName
 import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.firstOrNullWithType
 import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.firstWithType
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
-import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logV
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackagesForUidLocal
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.dumpArgs
@@ -34,8 +33,6 @@ class ActivityHook : IFrameworkHook {
     }
 
     override fun load() {
-        logI(TAG) { "Load hook" }
-
         hooker.apply {
             val aPRFClazz = when(Build.VERSION.SDK_INT) {
                 Build.VERSION_CODES.Q, Build.VERSION_CODES.R -> PACKAGE_MANAGER_SERVICE_CLASS
@@ -114,7 +111,6 @@ class ActivityHook : IFrameworkHook {
                             ACTIVITY_STARTER_CLASS,
                             "startActivity",
                         ) { _, frame, returnValue ->
-                            // we have no way other than hardcoding, it is 13th argument in AOSP code
                             val args = frame.dumpArgs()
                             val caller = args.firstOrNullWithType<String>() ?: return@hookBefore
                             val intent = args.firstOrNullWithType<Intent>() ?: return@hookBefore

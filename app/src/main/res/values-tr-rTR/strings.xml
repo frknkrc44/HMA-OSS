@@ -166,7 +166,6 @@
     <string name="settings_permission_denied">İzin reddedildi</string>
     <string name="settings_force_mount_data">Tüm uygulamalar için veri izolasyonunu zorla</string>
     <string name="settings_force_mount_data_summary">API seviyesi 30’un altında olan uygulamalar için veri izolasyonu varsayılan olarak devre dışıdır</string>
-    <string name="settings_detail_log">Hata ayıklama için detaylı kayıt</string>
     <string name="settings_max_log_size">Kayıt arabelleği boyutları</string>
     <string name="settings_hide_icon">Başlatıcıda modül simgesini gizle</string>
     <string name="settings_hide_icon_summary">Uygulamayı Xposed yöneticisinden açabilirsiniz</string>
@@ -179,7 +178,6 @@
     <string name="settings_clear_uninstalled_app_configs_summary">Bu seçenek kalıntılar olmadan bir yapılandırma oluşturmanıza izin verir ancak uygulamaları tekrar kurduğunuzda bir daha yapılandırmalısınız.</string>
     <string name="settings_no_undone_warning">Bu işlem geri alınamaz.</string>
     <string name="settings_launcher_icon">Başlatıcı simgesi</string>
-    <string name="settings_error_only_log">Sadece hataları kaydet</string>
     <string name="settings_disable_hooks">Özellikleri devre dışı bırak</string>
     <string name="settings_disable_hooks_summary">Diğer modüllerle çakışan bir fonksiyon varsa bunları devre dışı bırakabilirsiniz</string>
     <string name="settings_enable_internet">Internet bağlantısını etkinleştir</string>

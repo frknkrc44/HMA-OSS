@@ -121,6 +121,13 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                 "themeColor" -> PrefManager.themeColor
                 "darkTheme" -> PrefManager.darkTheme.toString()
                 "maxLogSize" -> ConfigManager.maxLogSize.toString()
+                "loggingLevel" -> {
+                    when {
+                        ConfigManager.detailLog -> "0"
+                        ConfigManager.errorOnlyLog -> "2"
+                        else -> "1"
+                    }
+                }
                 else -> throw IllegalArgumentException("Invalid key: $key")
             }
         }
@@ -165,6 +172,11 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                 "themeColor" -> PrefManager.themeColor = value!!
                 "darkTheme" -> PrefManager.darkTheme = value!!.toInt()
                 "maxLogSize" -> ConfigManager.maxLogSize = value!!.toInt()
+                "loggingLevel" -> {
+                    ConfigManager.detailLog = value == "0"
+                    ConfigManager.errorOnlyLog = value == "2"
+                    ConfigManager.saveConfig()
+                }
                 else -> throw IllegalArgumentException("Invalid key: $key")
             }
         }
@@ -245,6 +257,13 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
             findPreference<Preference>("categoryVoldAppDataIsolation")?.let {
                 it.isVisible = !OSUtils.isSamsung()
             }
+        }
+    }
+
+    class LoggingPreferenceFragment(private val preferenceDataStore: PreferenceDataStore) : EdgeToEdgePreferenceFragment() {
+        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+            preferenceManager.preferenceDataStore = preferenceDataStore
+            setPreferencesFromResource(R.xml.settings_logging, rootKey)
         }
     }
 
@@ -361,24 +380,18 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), PreferenceFragmen
                     true
                 }
             }
-
-            val detailLog = findPreference<SwitchPreferenceCompat>("detailLog")
-            val errorOnlyLog = findPreference<SwitchPreferenceCompat>("errorOnlyLog")
-
-            detailLog?.apply {
-                isEnabled = !(errorOnlyLog?.isChecked ?: false)
-
-                setOnPreferenceChangeListener { _, value ->
-                    errorOnlyLog?.isEnabled = !(value as Boolean)
-
-                    true
-                }
-            }
-            errorOnlyLog?.apply {
-                isEnabled = !(detailLog?.isChecked ?: false)
-
-                setOnPreferenceChangeListener { _, value ->
-                    detailLog?.isEnabled = !(value as Boolean)
+            findPreference<Preference>("logging")?.let {
+                it.setOnPreferenceClickListener { _ ->
+                    parentFragmentManager.beginTransaction()
+                        .withAnimations()
+                        .replace(
+                            R.id.settings_container,
+                            LoggingPreferenceFragment(
+                                preferenceManager.preferenceDataStore!!
+                            )
+                        )
+                        .addToBackStack(null)
+                        .commit()
 
                     true
                 }

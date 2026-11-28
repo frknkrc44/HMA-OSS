@@ -34,12 +34,14 @@ import org.frknkrc44.hma_oss.zygote.hook.ActivityHook
 import org.frknkrc44.hma_oss.zygote.hook.AppDataIsolationHook
 import org.frknkrc44.hma_oss.zygote.hook.BroadcastHook
 import org.frknkrc44.hma_oss.zygote.hook.ContentProviderHook
+import org.frknkrc44.hma_oss.zygote.hook.DpmHook
 import org.frknkrc44.hma_oss.zygote.hook.IFrameworkHook
 import org.frknkrc44.hma_oss.zygote.hook.ImmHook
 import org.frknkrc44.hma_oss.zygote.hook.InstallerHookTarget29
 import org.frknkrc44.hma_oss.zygote.hook.InstallerHookTarget30
 import org.frknkrc44.hma_oss.zygote.hook.InstallerHookTarget33
 import org.frknkrc44.hma_oss.zygote.hook.InstallerHookTarget34
+import org.frknkrc44.hma_oss.zygote.hook.PermissionManagerHook
 import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget29
 import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget30
 import org.frknkrc44.hma_oss.zygote.hook.PmsHookTarget31
@@ -68,6 +70,7 @@ import java.nio.file.Files
 import java.nio.file.StandardCopyOption
 import java.util.concurrent.atomic.AtomicReference
 import kotlin.io.path.Path
+import kotlin.random.Random
 
 class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
@@ -188,9 +191,12 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
             }
         }
         if (!this::dataDir.isInitialized) {
+            // add some fun for future
+            // suffix length is not hardcoded to 16,
+            // and we include numbers to dir name now
             dataDir = "/data/misc/hide_my_applist_" + generateRandomString(
-                16,
-                ('a'..'z').toList()
+                Random.nextInt(16, 32),
+                ('a'..'z') + ('0' .. '9').toList()
             )
         }
 
@@ -330,8 +336,10 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         frameworkHooks.add(ImmHook())
         frameworkHooks.add(ZygoteHook())
         frameworkHooks.add(UsageStatsHook())
+        frameworkHooks.add(DpmHook())
+        frameworkHooks.add(PermissionManagerHook())
 
-        frameworkHooks.forEach(IFrameworkHook::load)
+        frameworkHooks.forEach(IFrameworkHook::loadWithMessage)
         logI(TAG) { "Hooks installed" }
     }
 
@@ -516,8 +524,16 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
 
         synchronized(loggerLock) {
             if (!logcatAvailable) return@runCatching
-            if (logFile.length() / 1024 > getConfig().maxLogSize) clearLogs()
+            if (logFile.length() / 1024 > maxLogSize) clearLogs()
             logFile.appendText(parsedMsg)
+        }
+    }
+
+    private val maxLogSize get() = getConfig().let {
+        if (it.detailLog) {
+            8192 // use another log size on debug logging
+        } else {
+            it.maxLogSize
         }
     }
 
@@ -867,6 +883,7 @@ class HMAService(val pms: IPackageManager, val pmn: Any?) : IHMAService.Stub() {
         var cache = getConfig()
         if (cache != loading) {
             loading.cleanRemnantsFromConfig()
+            dataHolder.clearUidCache()
             config.set(loading)
             cache = loading
         }

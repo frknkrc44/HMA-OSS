@@ -171,7 +171,6 @@ Vold ข้อมูลแอป: %s
     <string name="settings_permission_denied">การอนุญาตถูกปฏิเสธ</string>
     <string name="settings_force_mount_data">บังคับแยกข้อมูลสำหรับทุกแอป</string>
     <string name="settings_force_mount_data_summary">ค่าเริ่มต้นจะปิดการแยกข้อมูลสำหรับแอปที่ target API ต่ำกว่า 30</string>
-    <string name="settings_detail_log">บันทึกรายละเอียดสำหรับการดีบัก</string>
     <string name="settings_max_log_size">ขนาดบัฟเฟอร์ของบันทึก</string>
     <string name="settings_hide_icon">ซ่อนไอคอนโมดูลในตัวเรียกใช้งาน</string>
     <string name="settings_hide_icon_summary">คุณยังสามารถเปิดแอปได้จาก Xposed manager</string>
@@ -184,7 +183,6 @@ Vold ข้อมูลแอป: %s
     <string name="settings_clear_uninstalled_app_configs_summary">ตัวเลือกนี้ช่วยให้คุณสร้างการตั้งค่าใหม่โดยไม่มีข้อมูลตกค้าง แต่คุณจะต้องตั้งค่าแอปใหม่เมื่อทำการติดตั้งอีกครั้ง</string>
     <string name="settings_no_undone_warning">การกระทำนี้ไม่สามารถย้อนกลับได้</string>
     <string name="settings_launcher_icon">ไอคอนตัวเรียกใช้งาน</string>
-    <string name="settings_error_only_log">บันทึกเฉพาะข้อผิดพลาด</string>
     <string name="settings_disable_hooks">ปิดใช้งานฟังก์ชัน</string>
     <string name="settings_disable_hooks_summary">คุณสามารถปิดใช้งานฟังก์ชันบางอย่างได้เมื่อฟังก์ชันเหล่านั้นขัดแย้งกับโมดูลอื่น</string>
     <string name="settings_enable_internet">เปิดการเชื่อมต่ออินเทอร์เน็ต</string>

@@ -22,3 +22,4 @@
 
 -keep class org.frknkrc44.hma_oss.zygote.ZygoteEntry { premain(); main(); }
 -dontwarn com.v7878.r8.annotations.KeepCodeAttribute
+-keep class com.v7878.unsafe.invoke.Transformers { *; }

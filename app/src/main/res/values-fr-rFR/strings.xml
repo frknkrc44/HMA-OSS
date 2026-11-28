@@ -166,7 +166,6 @@
     <string name="settings_permission_denied">Permission refusée</string>
     <string name="settings_force_mount_data">Isolation des données pour toutes les applications</string>
     <string name="settings_force_mount_data_summary">Isolation des données désactivée par défaut pour les applications dont l\'API est en version inférieure à 30</string>
-    <string name="settings_detail_log">Journal détaillé pour débogage</string>
     <string name="settings_max_log_size">Taille du tampon d\'écriture des journaux</string>
     <string name="settings_hide_icon">Masquage de l\'icône du module dans le lanceur</string>
     <string name="settings_hide_icon_summary">L\'ouverture de l\'application est toujours possible depuis le gestionnaire de root</string>
@@ -179,7 +178,6 @@
     <string name="settings_clear_uninstalled_app_configs_summary">Permet de créer des configurations sans persistance post-désinstallation, une reconfiguration des applications sera alors nécessaire en cas de réinstallation de ces applications</string>
     <string name="settings_no_undone_warning">Cette action ne peut pas être annulée.</string>
     <string name="settings_launcher_icon">Icône du lanceur</string>
-    <string name="settings_error_only_log">Journal d\'erreurs uniquement</string>
     <string name="settings_disable_hooks">Désactivation de fonctionnalités</string>
     <string name="settings_disable_hooks_summary">Permet de désactiver certaines fonctionnalités lorsqu\'elles entrent en conflit avec d\'autres modules</string>
     <string name="settings_enable_internet">Activation de la connexion Internet</string>

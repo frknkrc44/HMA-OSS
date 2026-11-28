@@ -166,7 +166,6 @@
     <string name="settings_permission_denied">권한 거부됨</string>
     <string name="settings_force_mount_data">모든 앱에 대해 데이터 격리 강제 적용</string>
     <string name="settings_force_mount_data_summary">기본적으로 대상 API가 30 미만인 앱에 대해서는 데이터 격리가 비활성화되어 있습니다.</string>
-    <string name="settings_detail_log">디버깅용 상세 로그</string>
     <string name="settings_max_log_size">로거 버퍼 크기</string>
     <string name="settings_hide_icon">런처에서 모듈 아이콘 숨기기</string>
     <string name="settings_hide_icon_summary">ROOT 매니저에서 여전히 앱을 열 수 있습니다.</string>
@@ -179,7 +178,6 @@
     <string name="settings_clear_uninstalled_app_configs_summary">이 옵션을 사용하면 찌꺼기 없이 설정을 생성할 수 있지만, 앱을 다시 설치할 경우 재구성해야 합니다.</string>
     <string name="settings_no_undone_warning">이 작업은 되돌릴 수 없습니다.</string>
     <string name="settings_launcher_icon">런처 아이콘</string>
-    <string name="settings_error_only_log">오류 로그만 기록</string>
     <string name="settings_disable_hooks">기능 비활성화</string>
     <string name="settings_disable_hooks_summary">다른 모듈과 충돌하는 경우 일부 기능을 비활성화할 수 있습니다.</string>
     <string name="settings_enable_internet">인터넷 연결 활성화</string>

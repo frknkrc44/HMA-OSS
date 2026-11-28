@@ -101,25 +101,11 @@
             android:icon="@drawable/outline_storage_24"
             android:key="dataIsolation"
             android:title="@string/settings_data_isolation" />
-        <SwitchPreferenceCompat
-            android:icon="@drawable/outline_bug_report_24"
-            android:key="detailLog"
-            app:singleLineTitle="false"
-            android:title="@string/settings_detail_log" />
-        <SwitchPreferenceCompat
-            android:icon="@drawable/outline_bug_report_24"
-            android:key="errorOnlyLog"
-            app:singleLineTitle="false"
-            android:title="@string/settings_error_only_log" />
-        <ListPreference
-            android:defaultValue="512"
-            android:entries="@array/max_log_size_entries"
-            android:entryValues="@array/max_log_size_values"
-            android:icon="@drawable/outline_sd_storage_24"
-            android:key="maxLogSize"
-            android:summary="%s"
-            app:singleLineTitle="false"
-            android:title="@string/settings_max_log_size" />
+        <Preference
+            app:widgetLayout="@layout/preference_sub_menu_indicator"
+            android:icon="@drawable/inbox_text_24"
+            android:key="logging"
+            android:title="@string/settings_logging" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/settings_service">

@@ -166,7 +166,6 @@
     <string name="settings_permission_denied">Permesso negato</string>
     <string name="settings_force_mount_data">Forza l\'isolamento dei dati per tutte le app</string>
     <string name="settings_force_mount_data_summary">L\'isolamento dei dati è disabilitato per impostazione predefinita per le app con API di destinazione inferiore a 30</string>
-    <string name="settings_detail_log">Log dettagliato per debugging</string>
     <string name="settings_max_log_size">Dimensione buffer log</string>
     <string name="settings_hide_icon">Nascondi icona modulo nel launcher</string>
     <string name="settings_hide_icon_summary">Puoi sempre aprire l\'app in Xposed manager</string>
@@ -179,7 +178,6 @@
     <string name="settings_clear_uninstalled_app_configs_summary">Questa opzione consente di creare una configurazione senza residui, ma sarà necessario riconfigurare le app quando le installerai di nuovo.</string>
     <string name="settings_no_undone_warning">Questa azione non può essere annullata.</string>
     <string name="settings_launcher_icon">Icona launcher</string>
-    <string name="settings_error_only_log">Registro solo errori</string>
     <string name="settings_disable_hooks">Disabilita funzioni</string>
     <string name="settings_disable_hooks_summary">È possibile disabilitare alcune funzioni quando sono in conflitto con altri moduli</string>
     <string name="settings_enable_internet">Abilita connessione Internet</string>

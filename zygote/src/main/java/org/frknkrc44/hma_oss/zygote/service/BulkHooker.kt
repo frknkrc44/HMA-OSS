@@ -281,22 +281,25 @@ class BulkHooker {
     ) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
             val element = findHookElement(clazz, methodName)!!
+            val memoryAddresses = element.memoryAddresses!!
 
             ArtMethodUtils.setExecutableEntryPoint(
                 element.method!!,
-                element.memoryAddresses?.second!!
+                memoryAddresses.second!!
             )
 
-            val thisObject = frame.getArgument(0)
-            val args = frame.dumpArgs(true)
+            try {
+                val thisObject = frame.getArgument(0)
+                val args = frame.dumpArgs(true)
 
-            // TODO: DO NOT USE ... as Constructor<*>, IT BREAKS TANGO!!!
-            value.result = (element.method as Method).invoke(thisObject, *args)
-
-            ArtMethodUtils.setExecutableEntryPoint(
-                element.method!!,
-                element.memoryAddresses?.first!!
-            )
+                // TODO: DO NOT USE ... as Constructor<*>, IT BREAKS TANGO!!!
+                value.result = (element.method as Method).invoke(thisObject, *args)
+            } finally {
+                ArtMethodUtils.setExecutableEntryPoint(
+                    element.method!!,
+                    memoryAddresses.first!!
+                )
+            }
         } else {
             Transformers.invokeExactNoChecks(original, frame)
         }
@@ -345,11 +348,11 @@ class BulkHooker {
         val isConstructorHook = methodName == CONSTRUCTOR_METHOD_NAME
 
         return if (isConstructorHook) {
-            Reflection.getHiddenConstructors(clazz).firstOrNull {
+            Reflection.getDeclaredConstructors(clazz).firstOrNull {
                 return@firstOrNull argumentCount < 0 || argumentCount == it.parameterCount
             }
         } else {
-            Reflection.getHiddenExecutables(clazz).firstOrNull {
+            Reflection.getDeclaredMethods(clazz).firstOrNull {
                 return@firstOrNull methodName == it.name &&
                         (argumentCount < 0 || argumentCount == it.parameterCount)
             }

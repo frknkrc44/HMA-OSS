@@ -167,7 +167,6 @@
     <string name="settings_permission_denied">تم رفض الإذن</string>
     <string name="settings_force_mount_data">فرض عزل البيانات لكافة التطبيقات</string>
     <string name="settings_force_mount_data_summary">تم تعطيل عزل البيانات للتطبيقات التي تستهدف واجهة برمجة تطبيقات أقل من 30 بشكل افتراضي</string>
-    <string name="settings_detail_log">سجل مُفصل للتصحيح</string>
     <string name="settings_max_log_size">أحجام التخزين المؤقت للمسجل</string>
     <string name="settings_hide_icon">إخفاء أيقونة الوحدة من قائمة التطبيقات</string>
     <string name="settings_hide_icon_summary">لا يزال بإمكانك فتح التطبيق في مدير Xposed</string>
@@ -180,7 +179,6 @@
     <string name="settings_clear_uninstalled_app_configs_summary">هذا الخِيار يسمح لك بإنشاء ملف اعداد بدون تلك الإعدادات لكن سيتعين عليك إعادة ضبطهم حينما تقوم بتثبيت تلك التطبيقات مرة أخرى.</string>
     <string name="settings_no_undone_warning">هذا الخيار لا يمكن التراجع فيه.</string>
     <string name="settings_launcher_icon">أيقونة التطبيق</string>
-    <string name="settings_error_only_log">تسجيل الأخطاء فقط</string>
     <string name="settings_disable_hooks">تعطيل الوظائف</string>
     <string name="settings_disable_hooks_summary">يمكنك تعطيل بعض الوظائف عندما تتعارض مع وحدات أخرى</string>
     <string name="settings_enable_internet">تفعيل الوصول إلى الإنترنت</string>

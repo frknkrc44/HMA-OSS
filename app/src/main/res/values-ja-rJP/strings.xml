@@ -166,7 +166,6 @@
     <string name="settings_permission_denied">権限が拒否されました</string>
     <string name="settings_force_mount_data">すべてのアプリでデータ分離を強制</string>
     <string name="settings_force_mount_data_summary">ターゲット API が 30 未満のアプリに対してはデフォルトでデータ分離が無効になっています</string>
-    <string name="settings_detail_log">デバッグ用詳細ログ</string>
     <string name="settings_max_log_size">ロガーのバッファサイズ</string>
     <string name="settings_hide_icon">ランチャー上のアイコンを非表示</string>
     <string name="settings_hide_icon_summary">Root マネージャーからアプリを開くこともできます</string>
@@ -179,7 +178,6 @@
     <string name="settings_clear_uninstalled_app_configs_summary">このオプションを使用すると、残骸を残さずに設定ファイルを作成できますが、アプリを再インストールした際には再設定が必要になります。</string>
     <string name="settings_no_undone_warning">この操作は取り消せません。</string>
     <string name="settings_launcher_icon">ランチャーアイコン</string>
-    <string name="settings_error_only_log">エラーのみのログ</string>
     <string name="settings_disable_hooks">機能を無効化</string>
     <string name="settings_disable_hooks_summary">他のモジュールと競合する場合、一部の機能を無効にすることができます</string>
     <string name="settings_enable_internet">インターネット接続を有効化</string>

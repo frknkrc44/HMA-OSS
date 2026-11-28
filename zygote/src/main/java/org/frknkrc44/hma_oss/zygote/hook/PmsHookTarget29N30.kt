@@ -1,6 +1,5 @@
 package org.frknkrc44.hma_oss.zygote.hook
 
-import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackagesForUidLocal
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.PACKAGE_MANAGER_SERVICE_CLASS
@@ -8,8 +7,6 @@ import org.frknkrc44.hma_oss.zygote.util.ZygoteConstants.PACKAGE_MANAGER_SERVICE
 abstract class PmsHookTarget29N30 : PmsHookTargetBase() {
 
     override fun load() {
-        logI(TAG) { "Load hook" }
-
         hooker.apply {
             hookAfter(
                 PACKAGE_MANAGER_SERVICE_CLASS,

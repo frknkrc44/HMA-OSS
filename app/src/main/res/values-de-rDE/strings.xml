@@ -166,7 +166,6 @@
     <string name="settings_permission_denied">Zugriff verweigert</string>
     <string name="settings_force_mount_data">Erzwinge Datenisolation für alle Apps</string>
     <string name="settings_force_mount_data_summary">Datenisolation ist für Apps, die als Standard eine API von niedriger als 30 anvisieren, deaktiviert</string>
-    <string name="settings_detail_log">Detailliertes Protokoll für das Fehlerbeheben</string>
     <string name="settings_max_log_size">Protokollpuffergrößen</string>
     <string name="settings_hide_icon">Modulsymbol im Launcher ausblenden</string>
     <string name="settings_hide_icon_summary">Sie können die App immer noch im Xposed-Manager öffnen</string>
@@ -179,7 +178,6 @@
     <string name="settings_clear_uninstalled_app_configs_summary">Mit dieser Option können Sie eine Konfiguration ohne Reste erstellen, aber Sie müssen Apps neu konfigurieren, wenn Sie sie erneut installiert haben.</string>
     <string name="settings_no_undone_warning">Diese Aktion kann nicht rückgängig gemacht werden.</string>
     <string name="settings_launcher_icon">Startbildschirm Symbol</string>
-    <string name="settings_error_only_log">Nur Fehlerprotokoll</string>
     <string name="settings_disable_hooks">Funktionen deaktivieren</string>
     <string name="settings_disable_hooks_summary">Sie können einige Funktionen deaktivieren, wenn sie mit anderen Modulen kollidieren</string>
     <string name="settings_enable_internet">Internetverbindung aktivieren</string>

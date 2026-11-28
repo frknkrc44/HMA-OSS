@@ -21,8 +21,6 @@ abstract class PmsHookTargetBase : IFrameworkHook {
         findCallingApps: (IPackageManager, Int) -> Array<String>?,
         valueForHiding: Any?,
     ) {
-        if (returnValue.throwable != null) return
-
         val callingUid = findCallingUid()
         if (callingUid == null || callingUid == Constants.UID_SYSTEM) return
 

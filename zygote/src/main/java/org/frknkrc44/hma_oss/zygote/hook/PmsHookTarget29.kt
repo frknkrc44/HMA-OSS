@@ -12,7 +12,7 @@ class PmsHookTarget29 : PmsHookTarget29N30() {
 
         hooker.apply {
             hookBefore(
-                service.pms::class.java.name,
+                pms::class.java.name,
                 "filterAppAccessLPr",
                 argumentCount = 5,
             ) { methodName, frame, returnValue ->

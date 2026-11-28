@@ -36,7 +36,7 @@ abstract class BasePreset(val name: String) {
     }
 
     protected fun findAppsFromLibs(zipFile: ZipFile, libNames: Array<String>): Boolean {
-        val architectures = arrayOf("arm64-v8a", "armeabi-v7a")
+        val architectures = arrayOf("arm64-v8a", "armeabi-v7a", "x86", "x86_64", "riscv64")
 
         for (entry in libNames) {
             for (arch in architectures) {

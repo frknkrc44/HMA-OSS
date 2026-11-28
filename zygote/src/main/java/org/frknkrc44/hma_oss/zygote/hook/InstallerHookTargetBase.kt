@@ -7,7 +7,6 @@ import icu.nullptr.hidemyapplist.common.Constants.VENDING_PACKAGE_NAME
 import icu.nullptr.hidemyapplist.common.Utils.getPackageInfoCompat
 import icu.nullptr.hidemyapplist.common.Utils.getUserFromCallingUid
 import org.frknkrc44.hma_oss.zygote.util.Logcat.logD
-import org.frknkrc44.hma_oss.zygote.util.Logcat.logI
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackagesForUidLocal
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.getArgument
 
@@ -30,8 +29,6 @@ abstract class InstallerHookTargetBase : IFrameworkHook {
     }
 
     override fun load() {
-        logI(TAG) { "Load hook" }
-
         hooker.apply {
             if (service.pmn != null) {
                 hookBefore(
@@ -52,7 +49,6 @@ abstract class InstallerHookTargetBase : IFrameworkHook {
             }
         }
     }
-
 
     inline fun applyInstallerHiding(
         methodName: String,
