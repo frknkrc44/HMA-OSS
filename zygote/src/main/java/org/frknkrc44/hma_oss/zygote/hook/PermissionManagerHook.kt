@@ -2,6 +2,7 @@ package org.frknkrc44.hma_oss.zygote.hook
 
 import android.content.pm.PackageManager
 import android.os.Binder
+import android.os.Build
 import org.frknkrc44.hma_oss.zygote.util.CollectionUtils.firstWithType
 import org.frknkrc44.hma_oss.zygote.util.ServiceUtils.getPackagesForUidLocal
 import org.frknkrc44.hma_oss.zygote.util.ZLUtils.dumpArgs
@@ -21,8 +22,21 @@ class PermissionManagerHook : PmsHookTargetBase() {
                 applyPackageHiding(
                     methodName,
                     returnValue,
-                    { Binder.getCallingUid() },
-                    { frame.getArgument(1) as? String },
+                    {
+                        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
+                            frame.getArgument(3) as? Int
+                        } else {
+                            Binder.getCallingUid()
+                        }
+                    },
+                    {
+                        val packageNameIndex = when (Build.VERSION.SDK_INT) {
+                            Build.VERSION_CODES.Q, Build.VERSION_CODES.R -> 2
+                            else -> 1
+                        }
+
+                        frame.getArgument(packageNameIndex) as? String
+                    },
                     ::getPackagesForUidLocal,
                     PackageManager.PERMISSION_DENIED
                 )
@@ -32,12 +46,20 @@ class PermissionManagerHook : PmsHookTargetBase() {
                 arrayOf(COMPUTER_ENGINE_CLASS, PERMISSION_MANAGER_SERVICE_CLASS),
                 arrayOf("checkUidPermission"),
             ) { methodName, frame, returnValue ->
+                val args = frame.dumpArgs()
+
                 applyPackageHiding(
                     methodName,
                     returnValue,
-                    { Binder.getCallingUid() },
                     {
-                        val uid = frame.dumpArgs().firstWithType<Int>()
+                        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
+                            args[4] as? Int
+                        } else {
+                            Binder.getCallingUid()
+                        }
+                    },
+                    {
+                        val uid = args.firstWithType<Int>()
                         getPackagesForUidLocal(pms, uid).firstOrNull()
                     },
                     ::getPackagesForUidLocal,
